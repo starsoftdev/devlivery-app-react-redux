@@ -1,6 +1,6 @@
 import React from 'react'
 import {generateUrl} from '../router'
-import {getUser, logout} from '../reducers/user'
+import {logout} from '../reducers/user'
 
 export const HOME_ROUTE = 'home'
 export const LOGIN_ROUTE = 'login'
@@ -70,8 +70,7 @@ const routes = {
     },
   ],
 
-  async action({next, store}) {
-    await store.dispatch(getUser())
+  async action({next}) {
     // Execute each child route until one of them return the result
     const route = await next()
 
