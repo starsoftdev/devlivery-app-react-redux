@@ -1,6 +1,6 @@
 import createReducer, {RESET_STORE} from '../createReducer'
-import {getUser} from './user'
-import {PREV_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE, TOKEN_COOKIE, WEEK} from '../constants'
+import {setUser} from './user'
+import {TOKEN_COOKIE} from '../constants'
 
 // ------------------------------------
 // Constants
@@ -23,17 +23,15 @@ export const login = (values, redirectUrl) => (dispatch, getState, {fetch}) => {
       username: values.email,
       password: values.password,
     },
-    success: ({data}) => dispatch(loginSuccess(data.user, redirectUrl)),
-    failure: () => dispatch({type: LOGIN_FAILURE, error: ''})
+    success: ({data}) => dispatch(loginSuccess(data, redirectUrl)),
+    failure: () => dispatch({type: LOGIN_FAILURE, error: 'Something went wrong. Please try again.'})
   })
 }
 
 export const loginSuccess = (auth, redirectUrl = '/') => (dispatch, getState, {history, cookies}) => {
   dispatch({type: LOGIN_SUCCESS})
-  cookies.set(TOKEN_COOKIE, auth.access_token, {maxAge: auth.expires_in})
-  cookies.set(REFRESH_TOKEN_COOKIE, auth.refresh_token, {maxAge: WEEK})
-  cookies.set(PREV_TOKEN_COOKIE, auth.access_token, {maxAge: WEEK})
-  dispatch(getUser())
+  cookies.set(TOKEN_COOKIE, auth.accessToken)
+  dispatch(setUser(auth.user))
   if (process.env.BROWSER) {
     history.push(redirectUrl)
   }
