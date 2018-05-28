@@ -16,7 +16,7 @@ export const CLEAR = 'SetPassword.CLEAR'
 // ------------------------------------
 export const setPassword = (values) => (dispatch, getState, {fetch, history}) => {
   dispatch({type: SET_PASSWORD_REQUEST})
-  return fetch(`/user/set-password/`, {
+  return fetch(`/password/reset`, {
     method: 'POST',
     body: values,
     success: () => {
