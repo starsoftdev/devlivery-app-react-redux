@@ -9,7 +9,7 @@ module.exports = {
   port: process.env.PORT || 3000,
 
   api: {
-    url: process.env.API_URL || '',
+    url: process.env.API_URL || 'http://13f689f4.ngrok.io/api/v1',
   },
 
   // Web analytics
