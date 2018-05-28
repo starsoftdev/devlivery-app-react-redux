@@ -1,14 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from '../../components'
-import {clear, login} from '../../reducers/login'
-import {Alert, Button, Form, Input} from 'antd'
+import {clear, setPassword} from '../../reducers/setPassword'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import s from './Login.css'
+import {Alert, Button, Form, Input} from 'antd'
+import s from './SetPassword.css'
 import formMessages from '../../formMessages'
-import {RESET_PASSWORD_ROUTE} from '../'
 
-class Login extends React.Component {
+class SetPassword extends React.Component {
   componentWillUnmount() {
     this.props.clear()
   }
@@ -17,7 +15,7 @@ class Login extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.login(values, this.props.redirectUrl)
+        this.props.setPassword({...values, ...this.props.params})
       }
     })
   }
@@ -25,10 +23,11 @@ class Login extends React.Component {
   render() {
     const {getFieldDecorator} = this.props.form
     const {loading, error} = this.props
+
     return (
       <main className={s.container}>
         <div className={s.formWrapper}>
-          <h1 className={s.header}>Login In To Your Account</h1>
+          <h1 className={s.header}>{'Set Password'}</h1>
           {error && (
             <Alert
               className={s.alert}
@@ -38,19 +37,7 @@ class Login extends React.Component {
               closable
             />
           )}
-          <Form onSubmit={this.handleSubmit} className={s.form}>
-            <Form.Item>
-              {getFieldDecorator('email', {
-                rules: [
-                  {required: true, message: formMessages.required},
-                  {type: 'email', message: formMessages.emailInvalid},
-                ],
-              })(
-                <Input
-                  placeholder={'Email'}
-                />
-              )}
-            </Form.Item>
+          <Form onSubmit={this.handleSubmit}>
             <Form.Item>
               {getFieldDecorator('password', {
                 rules: [
@@ -63,14 +50,14 @@ class Login extends React.Component {
                 />
               )}
             </Form.Item>
-            <Form.Item className={s.forgotPassword}>
-              <Link to={RESET_PASSWORD_ROUTE}>
-                Forgot Password?
-              </Link>
-            </Form.Item>
-            <Form.Item className={s.actions}>
-              <Button type='primary' htmlType='submit' className={s.loginBtn} loading={loading}>
-                Login
+            <Form.Item className={s.btnWrapper}>
+              <Button
+                type='primary'
+                htmlType='submit'
+                className={s.btn}
+                loading={loading}
+              >
+                {'Submit'}
               </Button>
             </Form.Item>
           </Form>
@@ -81,12 +68,12 @@ class Login extends React.Component {
 }
 
 const mapState = state => ({
-  ...state.login,
+  ...state.setPassword,
 })
 
 const mapDispatch = {
-  login,
+  setPassword,
   clear,
 }
 
-export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Login)))
+export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(SetPassword)))

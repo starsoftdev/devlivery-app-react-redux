@@ -5,7 +5,7 @@ import {logout} from '../reducers/user'
 export const HOME_ROUTE = 'home'
 export const LOGIN_ROUTE = 'login'
 export const REGISTER_ROUTE = 'register'
-export const FORGOT_PASSWORD_ROUTE = 'forgot-password'
+export const RESET_PASSWORD_ROUTE = 'reset-password'
 export const SET_PASSWORD_ROUTE = 'set-password'
 export const LOGOUT_ROUTE = 'logout'
 
@@ -52,16 +52,16 @@ const routes = {
     //   name: REGISTER_ROUTE,
     //   load: () => import(/* webpackChunkName: 'register' */ './register'),
     // },
-    // {
-    //   path: '/reset-password',
-    //   name: FORGOT_PASSWORD_ROUTE,
-    //   load: () => import(/* webpackChunkName: 'forgotPassword' */ './forgotPassword'),
-    // },
-    // {
-    //   path: '/set-password',
-    //   name: SET_PASSWORD_ROUTE,
-    //   load: () => import(/* webpackChunkName: 'setPassword' */ './setPassword'),
-    // },
+    {
+      path: '/reset-password',
+      name: RESET_PASSWORD_ROUTE,
+      load: () => import(/* webpackChunkName: 'resetPassword' */ './resetPassword'),
+    },
+    {
+      path: '/set-password',
+      name: SET_PASSWORD_ROUTE,
+      load: () => import(/* webpackChunkName: 'setPassword' */ './setPassword'),
+    },
     authRoutes,
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
     {
