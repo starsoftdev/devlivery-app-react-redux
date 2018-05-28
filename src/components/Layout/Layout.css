@@ -1,0 +1,8 @@
+@import '../../variables.css';
+
+.container {
+  min-height: 100vh;
+}
+
+.content {
+}

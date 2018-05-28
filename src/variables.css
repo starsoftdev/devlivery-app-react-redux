@@ -1,0 +1,60 @@
+:root {
+  /*
+   * Typography
+   * ======================================================================== */
+  --border-radius: 4px;
+
+  /*
+   * Layout
+   * ======================================================================== */
+
+  --max-content-width: 1200px;
+  --header-height: 50px;
+
+  /*
+   * Media queries breakpoints
+   * ======================================================================== */
+  @custom-media --xs-down (width < 480px);
+  @custom-media --xs-up (width >= 480px);
+  @custom-media --sm-down (width < 768px);
+  @custom-media --sm-up (width >= 768px);
+  @custom-media --md-down (width < 992px);
+  @custom-media --md-up (width >= 992px);
+  @custom-media --lg-down (width < 1200px);
+  @custom-media --lg-up (width >= 1200px);
+  @custom-media --xl-down (width < 1600px);
+  @custom-media --xl-up (width >= 1600px);
+
+  --screen-xs-min: 480px; /* Extra small screen / phone */
+  --screen-sm-min: 768px; /* Small screen / tablet */
+  --screen-md-min: 992px; /* Medium screen / desktop */
+  --screen-lg-min: 1200px; /* Large screen / wide desktop */
+  --screen-xl-min: 1600px; /* Extra Large screen / extra wide desktop */
+
+  /*
+   * Colors
+   * ======================================================================== */
+  --primary-color: #1890ff;
+  --icon-color: #666;
+  --border-color: #666;
+  --muted-white: #ebebeb;
+  --white: #fff;
+  --black: #000;
+  --text-color: rgba(0, 0, 0, 0.65);
+  --background: #EBEBEB;
+  /*
+   * Margins
+   * ======================================================================== */
+  --gap: 1rem;
+
+  --margin-xs: calc(var(--gap) * .25);
+  --margin-sm: calc(var(--gap) * .5);
+  --margin-md: calc(var(--gap));
+  --margin-lg: calc(var(--gap) * 1.5);
+  --margin-xl: calc(var(--gap) * 2);
+
+  /*
+   * Custom selectors
+   * ======================================================================== */
+  @custom-selector :--hover :hover, :focus;
+}
