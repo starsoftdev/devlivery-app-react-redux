@@ -6,6 +6,7 @@ async function action({store, route}) {
   store.dispatch(setCurrentRouteName(route.name))
 
   return {
+    chunks: ['home'],
     title: 'ByZumi',
     component: <Home/>,
   }

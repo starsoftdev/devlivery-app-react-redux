@@ -1,0 +1,39 @@
+@import '../../variables.css';
+
+.container {
+  margin: 0 auto;
+  max-width: var(--max-content-width);
+
+  @media (--sm-up) {
+    padding: var(--margin-xl);
+  }
+}
+
+.header {
+  margin-bottom: var(--margin-md);
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.formWrapper {
+}
+
+.form {
+}
+
+.actions {
+  margin-bottom: var(--margin-sm);
+}
+
+.alert {
+  margin-bottom: var(--margin-md);
+}
+
+.loginBtn {
+  width: 100%;
+}
+
+.forgotPassword {
+  margin-bottom: 0;
+  text-align: center;
+}
