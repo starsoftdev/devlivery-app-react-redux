@@ -1,6 +1,6 @@
 ## Requirements
 1. [Node.js](https://nodejs.org/en/download/)
-2. [Yarn](https://yarnpkg.com/lang/en/docs/install/#mac-stable)
+2. [Yarn](https://yarnpkg.com/lang/en/docs/install/)
 
 
 ## Run frontend app for development
