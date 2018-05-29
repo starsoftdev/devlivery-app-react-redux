@@ -11,7 +11,7 @@ This will start the app at http://localhost:3000 and launch a browser.
 
 ## Run frontend app for production:
 1. Install all packages `yarn install`
-2. Run `yarn build`
+2. Run `yarn build --release`
 3. Go to build directory `cd build`
 4. Install production packages `yarn install`
 5. Run `yarn start`
