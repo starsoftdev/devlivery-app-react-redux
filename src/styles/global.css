@@ -2,3 +2,9 @@
 @import './layout.css';
 @import './button.css';
 @import './input.css';
+
+:global {
+  .ant-form {
+    font-family: var(--font-family);
+  }
+}
