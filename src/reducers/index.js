@@ -4,6 +4,7 @@ import user from './user'
 import login from './login'
 import resetPassword from './resetPassword'
 import setPassword from './setPassword'
+import register from './register'
 
 export default combineReducers({
   global,
@@ -11,4 +12,5 @@ export default combineReducers({
   login,
   resetPassword,
   setPassword,
+  register,
 })
