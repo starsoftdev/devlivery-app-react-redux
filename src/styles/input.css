@@ -1,0 +1,91 @@
+@import './variables.css';
+
+/*TODO add supporting icons, add lg/sm sizes*/
+:global {
+  .ant-input {
+    /*reset component*/
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    color: var(--text-color);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /*input*/
+    position: relative;
+    display: inline-block;
+    padding: var(--input-padding-vertical-base) var(--input-padding-horizontal-base);
+    width: 100%;
+    height: var(--input-height-base);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    color:  var(--input-color);
+    background-color: var(--input-bg);
+    background-image: none;
+    border: none;
+    border-bottom: 1px solid var(--input-border-color);
+    border-radius: 0;
+    transition: all .3s;
+
+    /*Reset placeholder*/
+  /* Firefox*/
+    &::-moz-placeholder {
+      color: var(--input-placeholder-color);
+      opacity: 1; /*Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526*/
+    }
+  /* Internet Explorer 10+*/
+    &:-ms-input-placeholder {
+      color: var(--input-placeholder-color);
+    }
+  /* Safari and Chrome*/
+    &::-webkit-input-placeholder {
+      color: var(--input-placeholder-color);
+    }
+
+    &:hover {
+      border-color: color-mod(var(--dark-color) a(20%));
+      border-right-width: 1px !important;
+    }
+
+    &:focus {
+      border-color: color-mod(var(--dark-color) a(20%));
+      outline: 0;
+      border-right-width: 1px !important;
+    }
+
+    &-disabled {
+      /*background-color: @input-disabled-bg;*/
+      opacity: 1;
+      cursor: not-allowed;
+      /*color: @disabled-color;*/
+
+      &:hover {
+        border-color: color-mod(var(--dark-color) a(20%));
+        border-right-width: 1px !important;
+      }
+    }
+
+  /*// Reset height for `textarea`s
+    textarea& {
+      max-width: 100%; // prevent textearea resize from coming out of its container
+      height: auto;
+      vertical-align: bottom;
+      transition: all .3s, height 0s;
+      min-height: @input-height-base;
+    }
+
+  // Size
+    &-lg {
+      .input-lg();
+    }
+
+    &-sm {
+      .input-sm();
+    }*/
+  }
+
+  .has-error .ant-input:focus {
+    box-shadow: none;
+  }
+}
