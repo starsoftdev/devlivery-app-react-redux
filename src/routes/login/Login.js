@@ -2,11 +2,12 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from '../../components'
 import {clear, login} from '../../reducers/login'
-import {Alert, Button, Form, Input} from 'antd'
+import {Alert, Button, Col, Form, Input, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Login.css'
 import formMessages from '../../formMessages'
 import {RESET_PASSWORD_ROUTE} from '../'
+import {REGISTER1_ROUTE} from '../index'
 
 class Login extends React.Component {
   componentWillUnmount() {
@@ -26,19 +27,19 @@ class Login extends React.Component {
     const {getFieldDecorator} = this.props.form
     const {loading, error} = this.props
     return (
-      <main className={s.container}>
-        <div className={s.formWrapper}>
-          <h1 className={s.header}>Login In To Your Account</h1>
-          {error && (
-            <Alert
-              className={s.alert}
-              message={error}
-              type='error'
-              showIcon
-              closable
-            />
-          )}
-          <Form onSubmit={this.handleSubmit} className={s.form}>
+      <React.Fragment>
+        <h1 className={s.header}>Login In To Your Account</h1>
+        {error && (
+          <Alert
+            className={s.alert}
+            message={error}
+            type='error'
+            showIcon
+            closable
+          />
+        )}
+        <Form onSubmit={this.handleSubmit} className={s.form}>
+          <div className={s.formContent}>
             <Form.Item>
               {getFieldDecorator('email', {
                 rules: [
@@ -46,9 +47,7 @@ class Login extends React.Component {
                   {type: 'email', message: formMessages.emailInvalid},
                 ],
               })(
-                <Input
-                  placeholder={'Email'}
-                />
+                <Input placeholder={'Email'}/>
               )}
             </Form.Item>
             <Form.Item>
@@ -57,25 +56,30 @@ class Login extends React.Component {
                   {required: true, message: formMessages.required},
                 ],
               })(
-                <Input
-                  type='password'
-                  placeholder={'Password'}
-                />
+                <Input type='password' placeholder={'Password'}/>
               )}
             </Form.Item>
-            <Form.Item className={s.forgotPassword}>
-              <Link to={RESET_PASSWORD_ROUTE}>
-                Forgot Password?
-              </Link>
-            </Form.Item>
-            <Form.Item className={s.actions}>
-              <Button type='primary' htmlType='submit' className={s.loginBtn} loading={loading}>
-                Login
-              </Button>
-            </Form.Item>
-          </Form>
-        </div>
-      </main>
+            <Row gutter={16} type='flex' justify='space-between'>
+              <Col>
+                New here?
+                <Link to={REGISTER1_ROUTE} className={s.registerBtn}>
+                  Create Account
+                </Link>
+              </Col>
+              <Col>
+                <Link to={RESET_PASSWORD_ROUTE}>
+                  Forgot Password?
+                </Link>
+              </Col>
+            </Row>
+          </div>
+          <div className={s.actions}>
+            <Button type='primary' htmlType='submit' className={s.loginBtn} loading={loading}>
+              Login
+            </Button>
+          </div>
+        </Form>
+      </React.Fragment>
     )
   }
 }
