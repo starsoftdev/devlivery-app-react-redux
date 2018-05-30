@@ -6,8 +6,6 @@ import {Alert, Button, Form, Input} from 'antd'
 import s from './ResetPassword.css'
 import formMessages from '../../formMessages'
 
-const FormItem = Form.Item
-
 class ResetPassword extends React.Component {
   componentWillUnmount() {
     this.props.clear()
@@ -47,7 +45,7 @@ class ResetPassword extends React.Component {
                 closable
               />
             )}
-            <FormItem>
+            <Form.Item>
               {getFieldDecorator('email', {
                 rules: [
                   {required: true, message: formMessages.required},
@@ -56,7 +54,7 @@ class ResetPassword extends React.Component {
               })(
                 <Input placeholder={'Email'}/>
               )}
-            </FormItem>
+            </Form.Item>
           </div>
           <div className={s.actions}>
             <Button type='primary' htmlType='submit' className={s.submitBtn} loading={loading}>
