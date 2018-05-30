@@ -4,7 +4,10 @@ import {logout} from '../reducers/user'
 
 export const HOME_ROUTE = 'home'
 export const LOGIN_ROUTE = 'login'
-export const REGISTER_ROUTE = 'register'
+export const REGISTER1_ROUTE = 'register1'
+export const REGISTER2_ROUTE = 'register2'
+export const REGISTER3_ROUTE = 'register3'
+export const REGISTER4_ROUTE = 'register4'
 export const RESET_PASSWORD_ROUTE = 'reset-password'
 export const SET_PASSWORD_ROUTE = 'set-password'
 export const LOGOUT_ROUTE = 'logout'
@@ -47,11 +50,26 @@ const routes = {
       name: LOGIN_ROUTE,
       load: () => import(/* webpackChunkName: 'login' */ './login'),
     },
-    // {
-    //   path: '/register',
-    //   name: REGISTER_ROUTE,
-    //   load: () => import(/* webpackChunkName: 'register' */ './register'),
-    // },
+    {
+      path: '/register',
+      name: REGISTER1_ROUTE,
+      load: () => import(/* webpackChunkName: 'register' */ './register1'),
+    },
+    {
+      path: '/register/individual-details',
+      name: REGISTER2_ROUTE,
+      load: () => import(/* webpackChunkName: 'register' */ './register2'),
+    },
+    {
+      path: '/register/team-details',
+      name: REGISTER3_ROUTE,
+      load: () => import(/* webpackChunkName: 'register' */ './register3'),
+    },
+    {
+      path: '/register/invite-people',
+      name: REGISTER4_ROUTE,
+      load: () => import(/* webpackChunkName: 'register' */ './register4'),
+    },
     {
       path: '/reset-password',
       name: RESET_PASSWORD_ROUTE,
