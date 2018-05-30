@@ -21,6 +21,7 @@ export const resetPassword = (values) => (dispatch, getState, {fetch}) => {
       email: values.email,
     },
     // TODO add notifications
+    // TODO reset form values
     success: () => dispatch({type: RESET_PASSWORD_SUCCESS, success: ''}),
     failure: () => dispatch({type: RESET_PASSWORD_FAILURE, error: ''}),
   })
