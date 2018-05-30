@@ -5,12 +5,8 @@
   .ant-input {
     /*reset component*/
     font-family: var(--font-family-secondary);
-    font-size: var(--font-size-base);
-    line-height: var(--line-height-base);
-    color: var(--text-color);
     box-sizing: border-box;
     margin: 0;
-    padding: 0;
     list-style: none;
     /*input*/
     position: relative;

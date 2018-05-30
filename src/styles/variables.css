@@ -19,6 +19,8 @@
   --input-padding-horizontal-base: 0;
   --input-padding-vertical-base : 4px;
 
+  --zindex-dropdown: 1050;
+
   /*
    * Layout
    * ======================================================================== */
@@ -66,7 +68,9 @@
   --input-bg: transparent;
   --input-color: rgba(64,77,95,0.7);
   --input-border-color: color-mod(var(--dark-color) a(30%));
-
+  --item-active-bg: #F8F8F8;
+  --item-hover-bg: #F8F8F8;
+  --background-color-light : #F8F8F8;
   /*
    * Margins
    * ======================================================================== */

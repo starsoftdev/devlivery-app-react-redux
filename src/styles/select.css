@@ -1,0 +1,269 @@
+@import './variables.css';
+
+:global {
+  .ant-select {
+    /*reset component*/
+    font-family: var(--font-family-secondary);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    display: inline-block;
+    position: relative;
+
+    ul,
+    ol {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    > ul > li > a {
+      padding: 0;
+      background-color: var(--white-color);
+    }
+
+    &-arrow {
+      position: absolute;
+      top: 50%;
+      width: 15px;
+      height: 8px;
+      right: 0;
+      background: url('./svgs/selector_arrow.svg') no-repeat top left;
+      //transform: translateY(-50%);
+      margin-top: -4px;
+      transition: transform .3s;
+    }
+
+    &-selection {
+      outline: none;
+      user-select: none;
+
+      box-sizing: border-box;
+      display: block;
+
+      background-color: transparent;
+      border-bottom: 1px solid var(--input-border-color);
+
+      /*strange align fix for chrome but works
+      https://gw.alipayobjects.com/zos/rmsportal/VFTfKXJuogBAXcvfAUWJ.gif*/
+      border-top-width: 1.02px;
+      transition: all .3s ease-in-out;
+
+      &:hover {
+        /*.hover;*/
+      }
+
+      .ant-select-focused &,
+      &:focus,
+      &:active {
+        /*.active;*/
+      }
+
+      &:hover &__clear {
+        opacity: 1;
+      }
+
+      &-selected-value {
+        float: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 100%;
+        padding-right: 20px;
+      }
+    }
+
+    &-selection--single {
+      height: var(--input-height-base);
+      position: relative;
+      cursor: pointer;
+    }
+
+    &-selection__rendered {
+      display: block;
+      margin-left: -1px;
+      margin-right: -1px;
+      position: relative;
+      line-height: calc(var(--input-height-base) - 2px);
+      /*https://github.com/ant-design/ant-design/issues/3481#issuecomment-254721026*/
+      &:after {
+        content: '.';
+        visibility: hidden;
+        pointer-events: none;
+        display: inline-block;
+        width: 0;
+      }
+    }
+
+    &-selection__placeholder,
+    &-search__field__placeholder {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 9px;
+      color: var(--input-placeholder-color);
+      line-height: 20px;
+      height: 20px;
+      max-width: 100%;
+      margin-top: -10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: left;
+    }
+
+    &-open {
+      .ant-select-arrow {
+        transform: rotate(180deg);
+      }
+      .ant-select-selection {
+        /*.active();*/
+      }
+    }
+  }
+
+  .ant-select-dropdown {
+    /*reset component*/
+    font-family: var(--font-family-secondary);
+    line-height: var(--line-height-base);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &.slide-up-enter.slide-up-enter-active.ant-select-dropdown-placement-bottomLeft,
+    &.slide-up-appear.slide-up-appear-active.ant-select-dropdown-placement-bottomLeft {
+      animation-name: antSlideUpIn;
+    }
+
+    &.slide-up-enter.slide-up-enter-active.ant-select-dropdown-placement-topLeft,
+    &.slide-up-appear.slide-up-appear-active.ant-select-dropdown-placement-topLeft {
+      animation-name: antSlideDownIn;
+    }
+
+    &.slide-up-leave.slide-up-leave-active.ant-select-dropdown-placement-bottomLeft {
+      animation-name: antSlideUpOut;
+    }
+
+    &.slide-up-leave.slide-up-leave-active.ant-select-dropdown-placement-topLeft {
+      animation-name: antSlideDownOut;
+    }
+
+    &-hidden {
+      display: none;
+    }
+
+    background-color: var(--white-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    box-sizing: border-box;
+    z-index: var(--zindex-dropdown);
+    left: -9999px;
+    top: -9999px;
+    position: absolute;
+    outline: none;
+    font-size: var(--font-size-base);
+
+    &-menu {
+      outline: none;
+      margin-bottom: 0;
+      padding-left: 0;
+      /*Override default ul/ol list-style: none;*/
+      max-height: 250px;
+      overflow: auto;
+
+      &-item {
+        position: relative;
+        display: block;
+        padding: 5px var(--margin-md);
+        line-height: 22px;
+        font-weight: normal;
+        color: var(--text-color);
+        white-space: nowrap;
+        cursor: pointer;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: background 0.3s ease;
+
+        &:hover {
+          background-color: var(--item-hover-bg);
+        }
+
+        &-selected {
+          &,
+          &:hover {
+            background-color: var(--background-color-light);
+            font-weight: 600;
+            color: var(--text-color);
+          }
+        }
+
+        &-active {
+          background-color: var(--item-active-bg);
+        }
+      }
+    }
+
+    &-container-open,
+    &-open {
+      .ant-select-dropdown {
+        display: block;
+      }
+    }
+  }
+}
+
+@keyframes :global(antSlideUpIn) {
+  0% {
+    opacity: 0;
+    transform-origin: 0% 0%;
+    transform: scaleY(.8);
+  }
+  100% {
+    opacity: 1;
+    transform-origin: 0% 0%;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes :global(antSlideUpOut) {
+  0% {
+    opacity: 1;
+    transform-origin: 0% 0%;
+    transform: scaleY(1);
+  }
+  100% {
+    opacity: 0;
+    transform-origin: 0% 0%;
+    transform: scaleY(.8);
+  }
+}
+
+@keyframes :global(antSlideDownIn) {
+  0% {
+    opacity: 0;
+    transform-origin: 100% 100%;
+    transform: scaleY(.8);
+  }
+  100% {
+    opacity: 1;
+    transform-origin: 100% 100%;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes :global(antSlideDownOut) {
+  0% {
+    opacity: 1;
+    transform-origin: 100% 100%;
+    transform: scaleY(1);
+  }
+  100% {
+    opacity: 0;
+    transform-origin: 100% 100%;
+    transform: scaleY(.8);
+  }
+}

@@ -12,6 +12,7 @@ const ROOT_DIR = path.resolve(__dirname, '..')
 const resolvePath = (...args) => path.resolve(ROOT_DIR, ...args)
 const SRC_DIR = resolvePath('src')
 const BUILD_DIR = resolvePath('build')
+const STYLES_DIR = resolvePath('src/styles')
 
 const isDebug = !process.argv.includes('--release')
 const isVerbose = process.argv.includes('--verbose')
@@ -181,10 +182,20 @@ const config = {
         ],
       },
 
-      // TODO exclude svg fonts
       {
         test: /\.svg$/,
+        exclude: STYLES_DIR,
         loader: 'svgr/webpack',
+      },
+
+      {
+        test: /\.svg$/,
+        include: STYLES_DIR,
+        loader: 'svg-url-loader',
+        options: {
+          name: staticAssetName,
+          limit: 4096, // 4kb
+        },
       },
 
       // Rules for images

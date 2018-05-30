@@ -1,12 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button, Col, Form, Input, Row} from 'antd'
+import {Button, Col, Form, Input, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Register2.css'
 import ArrowIcon from '../../static/decor_arrow.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
 import {setIndividualDetails} from '../../reducers/register'
+import moment from 'moment'
 
 class Register2 extends React.Component {
   handleSubmit = (e) => {
@@ -41,9 +42,7 @@ class Register2 extends React.Component {
                       {required: true, message: formMessages.required, whitespace: true},
                     ],
                   })(
-                    <Input
-                      placeholder={'First Name'}
-                    />
+                    <Input placeholder={'First Name'}/>
                   )}
                 </Form.Item>
               </Col>
@@ -99,12 +98,16 @@ class Register2 extends React.Component {
               <Col xs={24} sm={12}>
                 <Form.Item>
                   {getFieldDecorator('month', {
-                    initialValue: individualDetails && individualDetails.month,
+                    initialValue: individualDetails ? individualDetails.month : undefined,
                     rules: [
                       {required: true, message: formMessages.required},
                     ],
                   })(
-                    <Input placeholder={'Month'}/>
+                    <Select placeholder={'Month'}>
+                      {moment.months().map((month, i) =>
+                        <Select.Option key={month} value={i + 1}>{month}</Select.Option>
+                      )}
+                    </Select>
                   )}
                 </Form.Item>
               </Col>

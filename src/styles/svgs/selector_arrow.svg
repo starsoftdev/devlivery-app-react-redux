@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="8px" viewBox="0 0 15 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>selector_arrow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="d_Gift-Flow_V2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-1136.000000, -182.000000)">
+        <g id="price" transform="translate(826.000000, 178.000000)" fill="#404D5F" fill-rule="nonzero">
+            <g id="selector_arrow" transform="translate(317.357143, 8.000000) rotate(-270.000000) translate(-317.357143, -8.000000) translate(313.357143, 0.500000)">
+                <path d="M0.93968254,14.6412698 C0.838095238,14.7428571 0.711111111,14.7936508 0.571428571,14.7936508 C0.431746032,14.7936508 0.304761905,14.7428571 0.203174603,14.6412698 C-1.94289029e-16,14.4380952 -1.94289029e-16,14.1079365 0.203174603,13.9047619 L6.67936508,7.42857143 L0.203174603,0.952380952 C-1.09634524e-15,0.749206349 -1.09634524e-15,0.419047619 0.203174603,0.215873016 C0.406349206,0.0126984127 0.736507937,0.0126984127 0.93968254,0.215873016 L7.78412698,7.06031746 C7.98730159,7.26349206 7.98730159,7.59365079 7.78412698,7.7968254 L0.93968254,14.6412698 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>
