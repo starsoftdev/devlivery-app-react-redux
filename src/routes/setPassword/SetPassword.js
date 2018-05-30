@@ -15,7 +15,7 @@ class SetPassword extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.setPassword({...values, ...this.props.params})
+        this.props.setPassword({...values, token: this.props.query.token})
       }
     })
   }
@@ -25,19 +25,18 @@ class SetPassword extends React.Component {
     const {loading, error} = this.props
 
     return (
-      <main className={s.container}>
-        <div className={s.formWrapper}>
-          <h1 className={s.header}>{'Set Password'}</h1>
-          {error && (
-            <Alert
-              className={s.alert}
-              message={error}
-              type='error'
-              showIcon
-              closable
-            />
-          )}
-          <Form onSubmit={this.handleSubmit}>
+      <React.Fragment>
+        <h1 className={s.header}>Set Password</h1>
+        <Form onSubmit={this.handleSubmit} className={s.form}>
+          <div className={s.formContent}>
+            {error && (
+              <Alert
+                className={s.alert}
+                message={error}
+                type='error'
+                closable
+              />
+            )}
             <Form.Item>
               {getFieldDecorator('password', {
                 rules: [
@@ -50,19 +49,14 @@ class SetPassword extends React.Component {
                 />
               )}
             </Form.Item>
-            <Form.Item className={s.btnWrapper}>
-              <Button
-                type='primary'
-                htmlType='submit'
-                className={s.btn}
-                loading={loading}
-              >
-                {'Submit'}
-              </Button>
-            </Form.Item>
-          </Form>
-        </div>
-      </main>
+          </div>
+          <div className={s.actions}>
+            <Button type='primary' htmlType='submit' className={s.submitBtn} loading={loading}>
+              Submit
+            </Button>
+          </div>
+        </Form>
+      </React.Fragment>
     )
   }
 }
