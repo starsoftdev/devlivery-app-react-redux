@@ -25,38 +25,36 @@ class SetPassword extends React.Component {
     const {loading, error} = this.props
 
     return (
-      <React.Fragment>
+      <Form onSubmit={this.handleSubmit} className={s.container}>
         <h1 className={s.header}>Set Password</h1>
-        <Form onSubmit={this.handleSubmit} className={s.form}>
-          <div className={s.formContent}>
-            {error && (
-              <Alert
-                className={s.alert}
-                message={error}
-                type='error'
-                closable
+        <div className={s.content}>
+          {error && (
+            <Alert
+              className={s.alert}
+              message={error}
+              type='error'
+              closable
+            />
+          )}
+          <Form.Item>
+            {getFieldDecorator('password', {
+              rules: [
+                {required: true, message: formMessages.required},
+              ],
+            })(
+              <Input
+                type='password'
+                placeholder={'Password'}
               />
             )}
-            <Form.Item>
-              {getFieldDecorator('password', {
-                rules: [
-                  {required: true, message: formMessages.required},
-                ],
-              })(
-                <Input
-                  type='password'
-                  placeholder={'Password'}
-                />
-              )}
-            </Form.Item>
-          </div>
-          <div className={s.actions}>
-            <Button type='primary' htmlType='submit' className={s.submitBtn} loading={loading}>
-              Submit
-            </Button>
-          </div>
-        </Form>
-      </React.Fragment>
+          </Form.Item>
+        </div>
+        <div className={s.actions}>
+          <Button type='primary' htmlType='submit' className={s.submitBtn} loading={loading}>
+            Submit
+          </Button>
+        </div>
+      </Form>
     )
   }
 }
