@@ -1,37 +1,84 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {clear, register} from '../../reducers/register'
-import {Button, Form, Input} from 'antd'
+import {Button, Col, Form, Input, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Register2.css'
+import ArrowIcon from '../../static/decor_arrow.svg'
+import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
+import {setIndividualDetails} from '../../reducers/register'
 
 class Register2 extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        // this.props.register(values)
+        this.props.setIndividualDetails(values)
       }
     })
   }
 
   render() {
+    const {individualDetails} = this.props
     const {getFieldDecorator} = this.props.form
     return (
-      <main className={s.container}>
-        <div className={s.formWrapper}>
-          <h1 className={s.header}>{'Individual Details'}</h1>
-          <Form onSubmit={this.handleSubmit} className={s.form}>
+      <Form onSubmit={this.handleSubmit} className={s.container}>
+        <div className={s.content}>
+          <section>
+            <h1 className={s.header}>
+            <span className={s.headerPrefix}>
+              2
+              <ArrowIcon className={s.arrowIcon}/>
+            </span>
+              Individual Details
+            </h1>
+            <Row gutter={20}>
+              <Col xs={24} sm={12}>
+                <Form.Item>
+                  {getFieldDecorator('first_name', {
+                    initialValue: individualDetails && individualDetails.first_name,
+                    rules: [
+                      {required: true, message: formMessages.required, whitespace: true},
+                    ],
+                  })(
+                    <Input
+                      placeholder={'First Name'}
+                    />
+                  )}
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={12}>
+                <Form.Item>
+                  {getFieldDecorator('last_name', {
+                    initialValue: individualDetails && individualDetails.last_name,
+                    rules: [
+                      {required: true, message: formMessages.required, whitespace: true},
+                    ],
+                  })(
+                    <Input placeholder={'Last Name'}/>
+                  )}
+                </Form.Item>
+              </Col>
+            </Row>
             <Form.Item>
-              {getFieldDecorator('first_name', {
+              {getFieldDecorator('email', {
+                initialValue: individualDetails && individualDetails.email,
                 rules: [
-                  {required: true, message: formMessages.required, whitespace: true},
+                  {required: true, message: formMessages.required},
+                  {type: 'email', message: formMessages.emailInvalid},
                 ],
               })(
-                <Input
-                  placeholder={'First Name'}
-                />
+                <Input placeholder={'Email'}/>
+              )}
+            </Form.Item>
+            <Form.Item>
+              {getFieldDecorator('phone', {
+                initialValue: individualDetails && individualDetails.phone,
+                rules: [
+                  {required: true, message: formMessages.required},
+                ],
+              })(
+                <Input placeholder={'Phone'}/>
               )}
             </Form.Item>
             <Form.Item>
@@ -40,31 +87,75 @@ class Register2 extends React.Component {
                   {required: true, message: formMessages.required},
                 ],
               })(
-                <Input
-                  type='password'
-                  placeholder={'Password'}
-                />
+                <Input type='password' placeholder={'Password'}/>
               )}
             </Form.Item>
-            <Form.Item className={s.actions}>
-              <Button type='primary' htmlType='submit' className={s.submitBtn}>
-                {'Submit'}
-              </Button>
-            </Form.Item>
-          </Form>
+          </section>
+          <section>
+            <h1 className={s.header}>
+              Birthday
+            </h1>
+            <Row gutter={20}>
+              <Col xs={24} sm={12}>
+                <Form.Item>
+                  {getFieldDecorator('month', {
+                    initialValue: individualDetails && individualDetails.month,
+                    rules: [
+                      {required: true, message: formMessages.required},
+                    ],
+                  })(
+                    <Input placeholder={'Month'}/>
+                  )}
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={6}>
+                <Form.Item>
+                  {getFieldDecorator('date', {
+                    initialValue: individualDetails && individualDetails.date,
+                    rules: [
+                      {required: true, message: formMessages.required},
+                    ],
+                  })(
+                    <Input placeholder={'Date'}/>
+                  )}
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={6}>
+                <Form.Item>
+                  {getFieldDecorator('year', {
+                    initialValue: individualDetails && individualDetails.year,
+                    rules: [
+                      {required: true, message: formMessages.required},
+                    ],
+                  })(
+                    <Input placeholder={'Year'}/>
+                  )}
+                </Form.Item>
+              </Col>
+            </Row>
+          </section>
         </div>
-      </main>
+        <div className={s.actions}>
+          <KeyHandler
+            keyEventName={KEYPRESS}
+            keyCode={13}
+            onKeyHandle={this.handleSubmit}
+          />
+          <Button htmlType='submit' type='primary' className={s.submitBtn}>
+            Submit
+          </Button>
+        </div>
+      </Form>
     )
   }
 }
 
 const mapState = state => ({
-  ...state.register,
+  individualDetails: state.register.individualDetails,
 })
 
 const mapDispatch = {
-  register,
-  clear,
+  setIndividualDetails,
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Register2)))
