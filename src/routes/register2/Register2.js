@@ -27,10 +27,10 @@ class Register2 extends React.Component {
         <div className={s.content}>
           <section>
             <h1 className={s.header}>
-            <span className={s.headerPrefix}>
-              2
-              <ArrowIcon className={s.arrowIcon}/>
-            </span>
+              <span className={s.headerPrefix}>
+                2
+                <ArrowIcon className={s.arrowIcon}/>
+              </span>
               Individual Details
             </h1>
             <Row gutter={20}>

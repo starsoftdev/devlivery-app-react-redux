@@ -18,6 +18,8 @@
 }
 
 .content {
+  margin-bottom: var(--margin-md);
+
   @media (--xs-up) {
     margin-right: auto;
     margin-left: auto;

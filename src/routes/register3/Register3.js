@@ -25,10 +25,10 @@ class Register3 extends React.Component {
       <Form onSubmit={this.handleSubmit} className={s.container}>
         <div className={s.content}>
           <h1 className={s.header}>
-          <span className={s.headerPrefix}>
-            3
-            <ArrowIcon className={s.arrowIcon}/>
-          </span>
+            <span className={s.headerPrefix}>
+              3
+              <ArrowIcon className={s.arrowIcon}/>
+            </span>
             Team Details
           </h1>
           <Row gutter={20}>

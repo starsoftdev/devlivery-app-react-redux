@@ -1,34 +1,82 @@
 @import '../../styles/variables.css';
 
 .container {
-  margin: 0 auto;
-  max-width: var(--max-content-width);
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+}
 
-  @media (--sm-up) {
-    padding: var(--margin-xl);
+.content {
+  margin-bottom: var(--margin-md);
+
+  @media (min-width: 565px) {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 425px;
+    width: 100%;
+  }
+  @media (max-width: 565px) {
+    margin-right: var(--margin-md);
+    margin-left: var(--margin-md);
+  }
+  @media (--md-up) {
+    margin-top: var(--margin-xl);
   }
 }
 
 .header {
-  margin-bottom: var(--margin-md);
-  font-size: 1.2rem;
-  text-align: center;
+  position: relative;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
 }
 
-.formWrapper {
+.headerPrefix {
+  display: flex;
+  align-items: center;
+  font-size: 40px;
+  color: var(--primary-color);
+  margin-right: var(--margin-xs);
+
+  @media (min-width: 565px) {
+    position: absolute;
+    left: -60px;
+  }
 }
 
-.form {
-}
-
-.actions {
-  margin-bottom: var(--margin-sm);
+.arrowIcon {
+  margin-left: var(--margin-xs);
 }
 
 .alert {
   margin-bottom: var(--margin-md);
 }
 
+.actions {
+  border-top: 2px solid color-mod(var(--dark-color) a(10%));
+  margin-top: auto;
+  text-align: center;
+}
+
 .submitBtn {
-  width: 100%;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.addPersonBtnWrapper {
+  @media (--xs-down) {
+    text-align: center;
+  }
+}
+
+.addPersonBtn {
+  display: flex;
+}
+
+.plusIcon {
+  margin-right: var(--margin-xs);
+}
+
+.person {
+  margin-bottom: 50px;
 }
