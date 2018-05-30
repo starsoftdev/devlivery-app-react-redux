@@ -1,70 +1,85 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {clear, register} from '../../reducers/register'
-import {Button, Form, Input} from 'antd'
+import {INDIVIDUAL_ACCOUNT, setAccountType, TEAM_ACCOUNT} from '../../reducers/register'
+import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Register1.css'
-import formMessages from '../../formMessages'
+import {Link} from '../../components'
+import {REGISTER2_ROUTE} from '../'
+import ArrowIcon from '../../static/decor_arrow.svg'
+import IndividualIcon from '../../static/individual.svg'
+import TeamIcon from '../../static/team.svg'
+import CheckIcon from '../../static/card_checkmark.svg'
+import cn from 'classnames'
+
+const Card = ({title, children, active, onClick}) =>
+  <div className={cn(s.card, active && s.active)} onClick={onClick}>
+    {active && <CheckIcon className={s.cardCheckIcon}/>}
+    {children}
+    <h3 className={s.cardHeader}>{title}</h3>
+  </div>
 
 class Register1 extends React.Component {
-  handleSubmit = (e) => {
-    e.preventDefault()
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        // this.props.register(values)
-      }
-    })
-  }
-
   render() {
-    const {getFieldDecorator} = this.props.form
+    const {setAccountType, accountType} = this.props
     return (
-      <main className={s.container}>
-        <div className={s.formWrapper}>
-          <h1 className={s.header}>{'Type of Account'}</h1>
-          <Form onSubmit={this.handleSubmit} className={s.form}>
-            <Form.Item>
-              {getFieldDecorator('first_name', {
-                rules: [
-                  {required: true, message: formMessages.required, whitespace: true},
-                ],
-              })(
-                <Input
-                  placeholder={'First Name'}
-                />
-              )}
-            </Form.Item>
-            <Form.Item>
-              {getFieldDecorator('password', {
-                rules: [
-                  {required: true, message: formMessages.required},
-                ],
-              })(
-                <Input
-                  type='password'
-                  placeholder={'Password'}
-                />
-              )}
-            </Form.Item>
-            <Form.Item className={s.actions}>
-              <Button type='primary' htmlType='submit' className={s.submitBtn}>
-                {'Submit'}
-              </Button>
-            </Form.Item>
-          </Form>
+      <React.Fragment>
+        <div className={s.content}>
+          <h1 className={s.header}>
+            <span className={s.headerPrefix}>
+              1
+              <ArrowIcon className={s.arrowIcon}/>
+            </span>
+            Type of Account
+          </h1>
+          <Row gutter={20}>
+            <Col xs={24} sm={12}>
+              <Card
+                title={'Individual'}
+                onClick={() => setAccountType(INDIVIDUAL_ACCOUNT)}
+                active={accountType === INDIVIDUAL_ACCOUNT}
+              >
+                <IndividualIcon className={s.icon}/>
+              </Card>
+              <p className={s.description}>
+                * Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an took a type specimen book. It has survived
+                not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+              </p>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Card
+                title={'Team'}
+                onClick={() => setAccountType(TEAM_ACCOUNT)}
+                active={accountType === TEAM_ACCOUNT}
+              >
+                <TeamIcon className={s.icon}/>
+              </Card>
+              <p className={s.description}>
+                * Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only
+                five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+              </p>
+            </Col>
+          </Row>
         </div>
-      </main>
+        <div className={s.actions}>
+          <Link to={REGISTER2_ROUTE} disabled={!accountType}>
+            <Button type='primary' className={s.submitBtn}>
+              Submit
+            </Button>
+          </Link>
+        </div>
+      </React.Fragment>
     )
   }
 }
 
 const mapState = state => ({
-  ...state.register,
+  accountType: state.register.accountType,
 })
 
 const mapDispatch = {
-  register,
-  clear,
+  setAccountType,
 }
 
-export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Register1)))
+export default connect(mapState, mapDispatch)(withStyles(s)(Register1))
