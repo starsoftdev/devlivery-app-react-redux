@@ -1,8 +1,11 @@
-@import '../../variables.css';
+@import '../../styles/variables.css';
 
 .container {
   min-height: 100vh;
 }
 
 .content {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
 }

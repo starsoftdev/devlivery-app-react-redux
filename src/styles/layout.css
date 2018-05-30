@@ -1,0 +1,18 @@
+@import './variables.css';
+
+:global {
+  .ant-layout {
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+
+    &,
+    * {
+      box-sizing: border-box;
+    }
+
+    &-content {
+      flex: auto;
+    }
+  }
+}

@@ -3,6 +3,20 @@
    * Typography
    * ======================================================================== */
   --border-radius: 4px;
+  --code-family: Consolas, Menlo, Courier, monospace;
+  --link-decoration: none;
+  --link-hover-decoration: none;
+  --font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-size-base: 15px;
+  --font-size-lg: 17px;
+  --font-size-sm: 12px;
+  --line-height-base: 1.5;
+  --btn-font-weight: bold;
+  --btn-height-base: 50px;
+  --btn-padding-base: 0 16px;
+  --input-height-base: 50px;
+  --input-padding-horizontal-base: 0;
+  --input-padding-vertical-base : 4px;
 
   /*
    * Layout
@@ -34,24 +48,32 @@
   /*
    * Colors
    * ======================================================================== */
-  --primary-color: #1890ff;
-  --icon-color: #666;
-  --border-color: #666;
-  --muted-white: #ebebeb;
-  --white: #fff;
-  --black: #000;
-  --text-color: rgba(0, 0, 0, 0.65);
-  --background: #EBEBEB;
+  --primary-color: #4A979B;
+  --white-color: #fff;
+  --black-color: #000;
+  --dark-color: #404D5F;
+  --heading-color: var(--dark-color);
+  --text-color: rgba(64,77,95,0.7);
+  --text-color-secondary: rgba(64,77,95,0.5);
+  --link-color: #ADA39B;
+  --link-hover-color: color-mod(var(--link-color) shade(15%));
+  --link-active-color: color-mod(var(--link-color) shade(20%));
+  /*TODO disabled color*/
+  --disabled-color: fade(#000, 25%);
+  --body-background: #F8F8F8;
+  --input-placeholder-color: color-mod(var(--dark-color) a(50%));
+  --input-bg: transparent;
+  --input-color: rgba(64,77,95,0.7);
+  --input-border-color: color-mod(var(--dark-color) a(30%));
+
   /*
    * Margins
    * ======================================================================== */
-  --gap: 1rem;
-
-  --margin-xs: calc(var(--gap) * .25);
-  --margin-sm: calc(var(--gap) * .5);
-  --margin-md: calc(var(--gap));
-  --margin-lg: calc(var(--gap) * 1.5);
-  --margin-xl: calc(var(--gap) * 2);
+  --margin-xs: 8px;
+  --margin-sm: 12px;
+  --margin-md: 16px;
+  --margin-lg: 24px;
+  --margin-xl: 32px;
 
   /*
    * Custom selectors
