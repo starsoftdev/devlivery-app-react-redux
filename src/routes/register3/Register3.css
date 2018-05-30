@@ -7,6 +7,8 @@
 }
 
 .content {
+  margin-bottom: var(--margin-md);
+
   @media (min-width: 565px) {
     margin-right: auto;
     margin-left: auto;

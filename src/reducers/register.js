@@ -1,4 +1,5 @@
 import createReducer, {RESET_STORE} from '../createReducer'
+import {loginSuccess} from './login'
 
 // ------------------------------------
 // Constants
@@ -19,14 +20,21 @@ export const CLEAR = 'Register.CLEAR'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const register = (values) => (dispatch, getState, {fetch, history}) => {
+export const register = (people) => (dispatch, getState, {fetch}) => {
+  const {accountType, individualDetails, teamDetails} = getState().register
   dispatch({type: REGISTER_REQUEST})
-  return fetch(`/user/activate/`, {
+  return fetch(`/signup`, {
     method: 'POST',
-    body: values,
-    success: () => {
+    body: {
+      // TODO send right data to backend
+      accountType,
+      individualDetails,
+      teamDetails,
+      people,
+    },
+    success: (res) => {
       dispatch({type: REGISTER_SUCCESS})
-      history.replace('/login')
+      dispatch(loginSuccess(res))
     },
     failure: () => {
       dispatch({type: REGISTER_FAILURE, error: 'Something went wrong. Please try again.'})
@@ -64,9 +72,7 @@ export default createReducer(initialState, {
     loading: true,
     error: null,
   }),
-  [REGISTER_SUCCESS]: (state, action) => ({
-    loading: false,
-  }),
+  [REGISTER_SUCCESS]: (state, action) => RESET_STORE,
   [REGISTER_FAILURE]: (state, {error}) => ({
     loading: false,
     error,

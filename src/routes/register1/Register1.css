@@ -1,6 +1,8 @@
 @import '../../styles/variables.css';
 
 .content {
+  margin-bottom: var(--margin-md);
+
   @media (min-width: 820px) {
     margin-right: auto;
     margin-left: auto;
