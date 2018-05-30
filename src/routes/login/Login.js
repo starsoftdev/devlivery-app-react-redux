@@ -27,58 +27,56 @@ class Login extends React.Component {
     const {getFieldDecorator} = this.props.form
     const {loading, error} = this.props
     return (
-      <React.Fragment>
+      <Form onSubmit={this.handleSubmit} className={s.container}>
         <h1 className={s.header}>Login In To Your Account</h1>
-        <Form onSubmit={this.handleSubmit} className={s.form}>
-          <div className={s.formContent}>
-            {error && (
-              <Alert
-                className={s.alert}
-                message={error}
-                type='error'
-                closable
-              />
+        <div className={s.content}>
+          {error && (
+            <Alert
+              className={s.alert}
+              message={error}
+              type='error'
+              closable
+            />
+          )}
+          <Form.Item>
+            {getFieldDecorator('email', {
+              rules: [
+                {required: true, message: formMessages.required},
+                {type: 'email', message: formMessages.emailInvalid},
+              ],
+            })(
+              <Input placeholder={'Email'}/>
             )}
-            <Form.Item>
-              {getFieldDecorator('email', {
-                rules: [
-                  {required: true, message: formMessages.required},
-                  {type: 'email', message: formMessages.emailInvalid},
-                ],
-              })(
-                <Input placeholder={'Email'}/>
-              )}
-            </Form.Item>
-            <Form.Item>
-              {getFieldDecorator('password', {
-                rules: [
-                  {required: true, message: formMessages.required},
-                ],
-              })(
-                <Input type='password' placeholder={'Password'}/>
-              )}
-            </Form.Item>
-            <Row gutter={16} type='flex' justify='space-between'>
-              <Col>
-                New here?
-                <Link to={REGISTER1_ROUTE} className={s.registerBtn}>
-                  Create Account
-                </Link>
-              </Col>
-              <Col>
-                <Link to={RESET_PASSWORD_ROUTE}>
-                  Forgot Password?
-                </Link>
-              </Col>
-            </Row>
-          </div>
-          <div className={s.actions}>
-            <Button type='primary' htmlType='submit' className={s.loginBtn} loading={loading}>
-              Login
-            </Button>
-          </div>
-        </Form>
-      </React.Fragment>
+          </Form.Item>
+          <Form.Item>
+            {getFieldDecorator('password', {
+              rules: [
+                {required: true, message: formMessages.required},
+              ],
+            })(
+              <Input type='password' placeholder={'Password'}/>
+            )}
+          </Form.Item>
+          <Row gutter={16} type='flex' justify='space-between'>
+            <Col>
+              New here?
+              <Link to={REGISTER1_ROUTE} className={s.registerBtn}>
+                Create Account
+              </Link>
+            </Col>
+            <Col>
+              <Link to={RESET_PASSWORD_ROUTE}>
+                Forgot Password?
+              </Link>
+            </Col>
+          </Row>
+        </div>
+        <div className={s.actions}>
+          <Button type='primary' htmlType='submit' className={s.loginBtn} loading={loading}>
+            Login
+          </Button>
+        </div>
+      </Form>
     )
   }
 }
