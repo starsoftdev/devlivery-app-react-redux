@@ -238,6 +238,7 @@ const config = {
           /\.json$/,
           /\.txt$/,
           /\.md$/,
+          /\.svg$/,
         ],
         loader: 'file-loader',
         options: {
