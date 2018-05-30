@@ -29,9 +29,9 @@ module.exports = () => ({
     // Unwraps nested rules like how Sass does it
     // https://github.com/postcss/postcss-nested
     require('postcss-nested')(),
-    // W3C color() function, e.g. div { background: color(red alpha(90%)); }
-    // https://github.com/postcss/postcss-color-function
-    require('postcss-color-function')(),
+    // W3C color() function, e.g. div { background: color-mod(red alpha(90%)); }
+    // https://github.com/jonathantneal/postcss-color-mod-function
+    require('postcss-color-mod-function')(),
     // Convert CSS shorthand filters to SVG equivalent, e.g. .blur { filter: blur(4px); }
     // https://github.com/iamvdo/pleeease-filters
     require('pleeease-filters')(),

@@ -1,1 +1,6 @@
-@import '../../variables.css';
+@import '../../styles/variables.css';
+
+.header {
+  text-align: center;
+  padding: var(--margin-sm);
+}
