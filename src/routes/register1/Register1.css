@@ -1,34 +1,96 @@
 @import '../../styles/variables.css';
 
-.container {
-  margin: 0 auto;
-  max-width: var(--max-content-width);
-
-  @media (--sm-up) {
-    padding: var(--margin-xl);
+.content {
+  @media (min-width: 820px) {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 680px;
+    width: 100%;
+  }
+  @media (max-width: 820px) {
+    margin-right: var(--margin-md);
+    margin-left: var(--margin-md);
+  }
+  @media (--md-up) {
+    margin-top: var(--margin-xl);
   }
 }
 
 .header {
-  margin-bottom: var(--margin-md);
-  font-size: 1.2rem;
-  text-align: center;
+  position: relative;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
 }
 
-.formWrapper {
+.headerPrefix {
+  display: flex;
+  align-items: center;
+  font-size: 40px;
+  color: var(--primary-color);
+  margin-right: var(--margin-xs);
+
+  @media (min-width: 820px) {
+    position: absolute;
+    left: -60px;
+  }
 }
 
-.form {
-}
-
-.actions {
-  margin-bottom: var(--margin-sm);
+.arrowIcon {
+  margin-left: var(--margin-xs);
 }
 
 .alert {
   margin-bottom: var(--margin-md);
 }
 
+.actions {
+  border-top: 2px solid color-mod(var(--dark-color) a(10%));
+  margin-top: auto;
+  text-align: center;
+}
+
 .submitBtn {
-  width: 100%;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.card {
+  cursor: pointer;
+  background-color: rgba(173,163,155,0.1);
+  height: 200px;
+  border: 1px solid #ADA39B;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  &.active {
+    background-color: rgba(173,163,155,0.3);
+  }
+}
+
+.icon {
+  margin-bottom: var(--margin-md);
+}
+
+.cardHeader {
+  position: absolute;
+  bottom: var(--margin-sm);
+  font-family: var(--font-family-secondary);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: var(--font-size-sm);
+}
+
+.cardCheckIcon {
+  position: absolute;
+  /*because of borders*/
+  top: -1px;
+  right: -1px;
+}
+
+.description {
+  margin-top: var(--margin-md);
 }

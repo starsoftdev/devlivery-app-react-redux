@@ -1,12 +1,16 @@
 import createReducer, {RESET_STORE} from '../createReducer'
-import {message} from 'antd'
 
 // ------------------------------------
 // Constants
 // ------------------------------------
+export const INDIVIDUAL_ACCOUNT = 'individual'
+export const TEAM_ACCOUNT = 'team'
+
 export const REGISTER_REQUEST = 'Register.REGISTER_REQUEST'
 export const REGISTER_SUCCESS = 'Register.REGISTER_SUCCESS'
 export const REGISTER_FAILURE = 'Register.REGISTER_FAILURE'
+
+export const SET_ACCOUNT_TYPE = 'Register.SET_ACCOUNT_TYPE'
 
 export const CLEAR = 'Register.CLEAR'
 
@@ -30,6 +34,8 @@ export const register = (values) => (dispatch, getState, {fetch, history}) => {
   })
 }
 
+export const setAccountType = (accountType) => ({type: SET_ACCOUNT_TYPE, accountType})
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -38,6 +44,7 @@ export const clear = () => ({type: CLEAR})
 const initialState = {
   loading: false,
   error: null,
+  accountType: null,
 }
 
 export default createReducer(initialState, {
@@ -51,6 +58,9 @@ export default createReducer(initialState, {
   [REGISTER_FAILURE]: (state, {error}) => ({
     loading: false,
     error,
+  }),
+  [SET_ACCOUNT_TYPE]: (state, {accountType}) => ({
+    accountType,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
