@@ -6,6 +6,7 @@ import {Header} from '../../components'
 import {Layout} from 'antd'
 import gridStyles from 'antd/lib/grid/style/index.css'
 import formStyles from 'antd/lib/form/style/index.css'
+import alertStyles from 'antd/lib/alert/style/index.css'
 import globalStyles from '../../styles/global.css'
 
 class AppLayout extends React.Component {
@@ -28,6 +29,7 @@ const mapDispatch = {}
 export default connect(mapState, mapDispatch)(withStyles(
   gridStyles,
   formStyles,
+  alertStyles,
   globalStyles,
   s,
 )(AppLayout))

@@ -17,6 +17,7 @@
     padding: var(--btn-padding-base);
     font-size: var(--font-size-sm);
     font-weight: var(--btn-font-weight);
+    font-family: var(--font-family-secondary);
     line-height: var(--line-height-base);
 
     min-width: 170px;

@@ -3,6 +3,8 @@
 .header {
   font-size: 40px;
   text-align: center;
+  padding-right: var(--margin-md);
+  padding-left: var(--margin-md);
 
   @media (--md-up) {
     margin-top: var(--margin-xl);
@@ -16,9 +18,16 @@
 }
 
 .formContent {
-  max-width: 425px;
-  margin-right: auto;
-  margin-left: auto;
+  @media (--xs-up) {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 400px;
+    width: 100%;
+  }
+  @media (--xs-down) {
+    margin-right: var(--margin-md);
+    margin-left: var(--margin-md);
+  }
 }
 
 .registerBtn {

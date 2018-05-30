@@ -29,17 +29,16 @@ class Login extends React.Component {
     return (
       <React.Fragment>
         <h1 className={s.header}>Login In To Your Account</h1>
-        {error && (
-          <Alert
-            className={s.alert}
-            message={error}
-            type='error'
-            showIcon
-            closable
-          />
-        )}
         <Form onSubmit={this.handleSubmit} className={s.form}>
           <div className={s.formContent}>
+            {error && (
+              <Alert
+                className={s.alert}
+                message={error}
+                type='error'
+                closable
+              />
+            )}
             <Form.Item>
               {getFieldDecorator('email', {
                 rules: [
