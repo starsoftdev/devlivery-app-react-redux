@@ -27,28 +27,26 @@ class ResetPassword extends React.Component {
     const {loading, success, error} = this.props
 
     return (
-      <main className={s.container}>
-        <div className={s.formWrapper}>
-          <h1 className={s.header}>{'Reset Password'}</h1>
-          {success && (
-            <Alert
-              className={s.alert}
-              message={success}
-              type='success'
-              showIcon
-              closable
-            />
-          )}
-          {error && (
-            <Alert
-              className={s.alert}
-              message={error}
-              type='error'
-              showIcon
-              closable
-            />
-          )}
-          <Form onSubmit={this.handleSubmit}>
+      <React.Fragment>
+        <h1 className={s.header}>Reset Password</h1>
+        <Form onSubmit={this.handleSubmit} className={s.form}>
+          <div className={s.formContent}>
+            {success && (
+              <Alert
+                className={s.alert}
+                message={success}
+                type='success'
+                closable
+              />
+            )}
+            {error && (
+              <Alert
+                className={s.alert}
+                message={error}
+                type='error'
+                closable
+              />
+            )}
             <FormItem>
               {getFieldDecorator('email', {
                 rules: [
@@ -59,19 +57,14 @@ class ResetPassword extends React.Component {
                 <Input placeholder={'Email'}/>
               )}
             </FormItem>
-            <FormItem className={s.btnWrapper}>
-              <Button
-                type='primary'
-                htmlType='submit'
-                className={s.btn}
-                loading={loading}
-              >
-                {'Submit'}
-              </Button>
-            </FormItem>
-          </Form>
-        </div>
-      </main>
+          </div>
+          <div className={s.actions}>
+            <Button type='primary' htmlType='submit' className={s.submitBtn} loading={loading}>
+              Submit
+            </Button>
+          </div>
+        </Form>
+      </React.Fragment>
     )
   }
 }
