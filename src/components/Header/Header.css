@@ -3,4 +3,5 @@
 .header {
   text-align: center;
   padding: var(--margin-sm);
+  background-color: var(--white-color);
 }
