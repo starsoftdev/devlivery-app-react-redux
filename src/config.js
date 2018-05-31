@@ -6,10 +6,10 @@ if (process.env.BROWSER) {
 
 module.exports = {
   // Node.js app
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || 80,
 
   api: {
-    url: process.env.API_URL || 'http://13f689f4.ngrok.io/api/v1',
+    url: process.env.API_URL || 'http://139.59.175.153:8081/api/v1',
   },
 
   // Web analytics
