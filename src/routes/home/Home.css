@@ -209,3 +209,57 @@
   border-bottom: 1px solid color-mod(var(--link-color) a(50%));
 }
 
+.giftingHeader {
+  font-size: 40px;
+}
+
+.giftingSection {
+  background-color: var(--white-color);
+  min-height: 440px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.giftingImage {
+  max-width: 100%;
+  height: auto;
+}
+
+.giftingBackground {
+  max-width: var(--max-content-width);
+  background: url('../../static/wall_bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+
+  @media (--md-up) {
+    margin: 50px auto;
+    padding: 45px 0;
+  }
+
+  @media (--md-down) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.giftingContent {
+  background-color: var(--white-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @media (--md-up) {
+    width: 445px;
+    padding: 45px;
+  }
+
+  @media (--md-down) {
+    order: 1;
+    padding: var(--margin-md);
+  }
+}
