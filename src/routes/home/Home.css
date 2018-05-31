@@ -263,3 +263,68 @@
     padding: var(--margin-md);
   }
 }
+
+.feedbackSection {
+  background: url('../../static/testemonials_bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 425px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.feedbackImage {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin: 0 auto var(--margin-lg);
+}
+
+.feedbackHeader {
+  font-size: 18px;
+  font-weight: 300;
+  font-family: var(--font-family-secondary);
+  text-align: center;
+}
+
+.feedbackDescription {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: var(--margin-xl);
+  max-width: 780px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.feedback {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--margin-md);
+}
+
+.dotWrapper {
+  padding: 8px;
+  box-sizing: content-box;
+  cursor: pointer;
+  margin: 0 5px;
+  border: 1px solid transparent;
+}
+
+:global(.slick-active) .dotWrapper {
+  border-color: var(--primary-color);
+  border-radius: 50%;
+}
+
+.dot {
+  background-color: var(--primary-color);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin: 0;
+}

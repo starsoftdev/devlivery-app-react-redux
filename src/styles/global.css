@@ -3,6 +3,7 @@
 @import './button.css';
 @import './input.css';
 @import './select.css';
+@import './carousel.css';
 
 :global {
   .ant-form {
