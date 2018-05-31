@@ -4,7 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Home.css'
 import DecorTopElement from '../../static/decor_element_top.svg'
 import PlusCircleIcon from '../../static/plus-circle.svg'
-import {Button, Col, Row} from 'antd'
+import {Button, Carousel, Col, Row} from 'antd'
 import DownArrow from '../../static/down_arrow.svg'
 import ChooseItImage from '../../static/choose_it.svg'
 import PersonalizeItImage from '../../static/personalize_it.svg'
@@ -113,6 +113,40 @@ class Home extends React.Component {
               />
             </div>
           </div>
+        </section>
+        <section className={s.feedbackSection}>
+          <Carousel
+            loop
+            customPaging={() => <div className={s.dotWrapper}><div className={s.dot}/></div>}
+          >
+            <div className={s.feedback}>
+              <img style={{background: `url(${'http://via.placeholder.com/90x90'})`}} className={s.feedbackImage}/>
+              <h3 className={s.feedbackHeader}>ROGER FEDERER</h3>
+              <p className={s.feedbackDescription}>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make
+                a type specimen book.
+              </p>
+            </div>
+            <div>
+              <img style={{background: `url(${'http://via.placeholder.com/90x90'})`}} className={s.feedbackImage}/>
+              <h3 className={s.feedbackHeader}>ROGER FEDERER</h3>
+              <p className={s.feedbackDescription}>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make
+                a type specimen book.
+              </p>
+            </div>
+            <div>
+              <div style={{background: `url(${'http://via.placeholder.com/90x90'})`}} className={s.feedbackImage}/>
+              <h3 className={s.feedbackHeader}>ROGER FEDERER</h3>
+              <p className={s.feedbackDescription}>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make
+                a type specimen book.
+              </p>
+            </div>
+          </Carousel>
         </section>
       </React.Fragment>
     )
