@@ -24,6 +24,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: var(--margin-md) var(--margin-md) 82px;
 }
 
 .scroll {
@@ -64,17 +65,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: var(--margin-md);
 }
 
 .card {
   position: relative;
   background-color: var(--white-color);
-  width: 280px;
   height: 280px;
   padding: var(--margin-md);
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: var(--margin-xl);
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 280px;
 }
 
 .cardTopElement {
@@ -123,3 +128,84 @@
   text-align: center;
   margin-bottom: 0;
 }
+
+.cardsForEverythingHeader {
+  font-size: 40px;
+}
+
+.cardsForEverythingSection {
+  background-color: var(--white-color);
+  min-height: 440px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cardsForEverythingImage {
+  max-width: 100%;
+  height: auto;
+}
+
+.cardsForEverythingBackground {
+  max-width: var(--max-content-width);
+  background: url('../../static/marble_bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+  @media (--md-up) {
+    margin: 50px auto;
+    padding: 45px 0;
+  }
+
+  @media (--md-down) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.cardsForEverythingContent {
+  background-color: var(--white-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @media (--md-up) {
+    width: 445px;
+    padding: 45px;
+  }
+
+  @media (--md-down) {
+    padding: var(--margin-md);
+  }
+}
+
+/*TODO check if it should be a button component*/
+/*TODO change color on hover*/
+.sectionBtn {
+  display: flex;
+  align-items: center;
+  margin-top: var(--margin-md);
+
+  @media (--md-down) {
+    justify-content: center;
+  }
+}
+
+.sectionBtnIcon {
+  margin-right: var(--margin-sm);
+}
+
+.sectionBtnLabel {
+  color: var(--link-color);
+  font-family: var(--font-family-secondary);
+  letter-spacing: 2.1px;
+  font-size: var(--font-size-sm);
+  font-style: normal;
+  text-transform: uppercase;
+  border-bottom: 1px solid color-mod(var(--link-color) a(50%));
+}
+

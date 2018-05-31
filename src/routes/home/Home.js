@@ -2,9 +2,10 @@ import React from 'react'
 import {connect} from 'react-redux'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Home.css'
+import DecorTopElement from '../../static/decor_element_top.svg'
+import PlusCircleIcon from '../../static/plus-circle.svg'
 import {Button, Col, Row} from 'antd'
 import DownArrow from '../../static/down_arrow.svg'
-import DecorTopElement from '../../static/decor_element_top.svg'
 import ChooseItImage from '../../static/choose_it.svg'
 import PersonalizeItImage from '../../static/personalize_it.svg'
 import SendItImage from '../../static/send_it.svg'
@@ -37,8 +38,8 @@ class Home extends React.Component {
         </section>
         <section className={s.howItWorksSection}>
           <h3 className={s.howItWorksHeader}>How It Works</h3>
-          <Row gutter={45} type='flex' justify='center'>
-            <Col>
+          <Row gutter={{ md: 16, lg: 45 }} type='flex' justify='center'>
+            <Col xs={24} md={8}>
               <Card
                 number={1}
                 title='Choose it'
@@ -46,7 +47,7 @@ class Home extends React.Component {
                 image={ChooseItImage}
               />
             </Col>
-            <Col>
+            <Col xs={24} md={8}>
               <Card
                 number={2}
                 title='Personalize it'
@@ -54,7 +55,7 @@ class Home extends React.Component {
                 image={PersonalizeItImage}
               />
             </Col>
-            <Col>
+            <Col xs={24} md={8}>
               <Card
                 number={3}
                 title='Send it'
@@ -64,15 +65,39 @@ class Home extends React.Component {
             </Col>
           </Row>
         </section>
+        <section className={s.cardsForEverythingSection}>
+          <div className={s.cardsForEverythingBackground}>
+            <div>
+              <img
+                className={s.cardsForEverythingImage}
+                src={require('../../static/hands-diy-wrapping.jpg')}
+                alt='hands DIY wrapping'
+              />
+            </div>
+            <div className={s.cardsForEverythingContent}>
+              <h3 className={s.cardsForEverythingHeader}>Cards for Everything</h3>
+              <p>
+                Access our ever-growing card catalog with ease on your desktop. Gifts connect people, make memories and
+                transform relationship. That's why we create gifts of purpose for the moments that matter delivered with
+                simplicity & ease.
+                <br/>
+                <br/>
+                Send meaningful cards effortlessly for any occasion.
+                <a className={s.sectionBtn}>
+                  <PlusCircleIcon className={s.sectionBtnIcon}/>
+                  <span className={s.sectionBtnLabel}>All our cards</span>
+                </a>
+              </p>
+            </div>
+          </div>
+        </section>
       </React.Fragment>
     )
   }
 }
 
-const mapState = state => ({
-})
+const mapState = state => ({})
 
-const mapDispatch = {
-}
+const mapDispatch = {}
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Home))
