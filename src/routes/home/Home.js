@@ -38,7 +38,7 @@ class Home extends React.Component {
         </section>
         <section className={s.howItWorksSection}>
           <h3 className={s.howItWorksHeader}>How It Works</h3>
-          <Row gutter={{ md: 16, lg: 45 }} type='flex' justify='center'>
+          <Row gutter={{md: 16, lg: 45}} type='flex' justify='center'>
             <Col xs={24} md={8}>
               <Card
                 number={1}
@@ -88,6 +88,29 @@ class Home extends React.Component {
                   <span className={s.sectionBtnLabel}>All our cards</span>
                 </a>
               </p>
+            </div>
+          </div>
+        </section>
+        <section className={s.giftingSection}>
+          <div className={s.giftingBackground}>
+            <div className={s.giftingContent}>
+              <h3 className={s.giftingHeader}>Organizational Gifting</h3>
+              <p>
+                Whether you know exactly what you want or need some brilliant ideas; whether you need one gift or thirty
+                - we'll take care of it - every last detail. Express your gratitude to customers, staff and everyone in
+                between who keep your company thriving.
+                <a className={s.sectionBtn}>
+                  <PlusCircleIcon className={s.sectionBtnIcon}/>
+                  <span className={s.sectionBtnLabel}>Check it out</span>
+                </a>
+              </p>
+            </div>
+            <div>
+              <img
+                className={s.giftingImage}
+                src={require('../../static/woman-order-gift.jpg')}
+                alt='woman order gift'
+              />
             </div>
           </div>
         </section>
