@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="54px" height="46px" viewBox="0 0 54 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>decor_about</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="d_Homepage_V2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-693.000000, -3020.000000)">
+        <g id="aboutus" transform="translate(0.000000, 2822.000000)">
+            <g id="decor_about" transform="translate(693.000000, 198.000000)">
+                <path d="M5.07968978,24 L27,45.9203102 L48.9203102,24 L27,2.07968978 L5.07968978,24 Z M34.3345238,40 L19.6654762,40 L3.66547622,24 L27,0.665476221 L50.3345238,24 L34.3345238,40 Z" id="Combined-Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+                <rect id="Rectangle-12" stroke="#FFFFFF" transform="translate(27.000000, 21.000000) rotate(-315.000000) translate(-27.000000, -21.000000) " x="22" y="16" width="10" height="10"></rect>
+                <path d="M0.372583002,40 L7.1862915,33.1862915 L11.6862915,37.6862915 L27,22.372583 L42.5,37.872583 L47.1862915,33.1862915 L54,40 L0.372583002,40 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

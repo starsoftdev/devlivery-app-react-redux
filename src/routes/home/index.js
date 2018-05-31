@@ -1,4 +1,5 @@
 import React from 'react'
+import {AppLayout} from '../../components'
 import Home from './Home'
 import {setCurrentRouteName} from '../../reducers/global'
 
@@ -8,7 +9,7 @@ async function action({store, route}) {
   return {
     chunks: ['home'],
     title: 'ByZumi',
-    component: <Home/>,
+    component: <AppLayout><Home/></AppLayout>,
   }
 }
 

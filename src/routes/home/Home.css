@@ -1,0 +1,125 @@
+@import '../../styles/variables.css';
+
+.header {
+  color: var(--white-color);
+  font-size: 54px;
+}
+
+.subHeader {
+  color: var(--white-color);
+  font-size: 18px;
+  letter-spacing: 3.5px;
+  font-family: var(--font-family-secondary);
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+.heroSection {
+  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+  url('../../static/hero_img.jpg') center center no-repeat;
+  background-size: cover;
+  min-height: 485px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-family: var(--font-family-tertiary);
+  font-size: 10px;
+  color: color-mod(var(--white-color) a(80%));
+  font-style: italic;
+  padding: var(--margin-lg);
+
+  svg > g {
+    transition: stroke .3s;
+    stroke: color-mod(var(--white-color) a(80%));
+  }
+
+  &:--hover {
+    color: var(--white-color);
+
+    svg > g {
+      stroke: var(--white-color);
+    }
+  }
+}
+
+.howItWorksHeader {
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: var(--margin-xl);
+}
+
+.howItWorksSection {
+  min-height: 485px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  position: relative;
+  background-color: var(--white-color);
+  width: 280px;
+  height: 280px;
+  padding: var(--margin-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cardTopElement {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cardNumber {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-family-secondary);
+  font-size: 18px;
+  color: var(--primary-color);
+}
+
+.cardImageWrapper {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: var(--margin-lg);
+}
+
+.cardImageCircle {
+  height: 125px;
+  width: 125px;
+  background: linear-gradient(180deg, rgba(219, 240, 235, 0), #DBF0EB);
+  border-radius: 50%;
+}
+
+.cardImage {
+}
+
+.cardTitle {
+  font-family: var(--font-family-secondary);
+  font-weight: 300;
+  font-size: 18px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.cardDescription {
+  text-align: center;
+  margin-bottom: 0;
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="92px" height="5px" viewBox="0 0 92 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>marker</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="50%" x2="0%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#404D5F" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#404D5F" offset="50.6152706%"></stop>
+            <stop stop-color="#404D5F" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="top_menu" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-555.000000, -155.000000)">
+        <g id="marker">
+            <g transform="translate(555.000000, 155.000000)">
+                <path d="M0.5,4.5 L91.5,4.5" id="Line" stroke="url(#linearGradient-1)" opacity="0.5" stroke-linecap="square"></path>
+                <polygon id="Triangle" fill="#404D5F" points="45.5 0 50 5 41 5"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
