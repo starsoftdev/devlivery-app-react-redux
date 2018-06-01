@@ -10,6 +10,7 @@ import ChooseItImage from '../../static/choose_it.svg'
 import personalizeItImage from '../../static/personalize_it.png'
 import SendItImage from '../../static/send_it.svg'
 import AboutUsIcon from '../../static/decor_about.svg'
+import { animateScroll } from 'react-scroll'
 
 const Card = ({number, image, title, description, svg}) =>
   <div className={s.card}>
@@ -29,6 +30,10 @@ const Card = ({number, image, title, description, svg}) =>
   </div>
 
 class Home extends React.Component {
+  scrollToFirstSection = () => {
+    animateScroll.scrollTo(this.firstSection.offsetTop)
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -36,12 +41,12 @@ class Home extends React.Component {
           <h2 className={s.subHeader}>We make it easy and seamless to</h2>
           <h1 className={s.header}>Keep in Touch with Your Contacts</h1>
           <Button type='primary'>Get Started</Button>
-          <a className={s.scroll}>
+          <a className={s.scroll} onClick={this.scrollToFirstSection}>
             Scroll
             <DownArrow/>
           </a>
         </section>
-        <section className={s.howItWorksSection}>
+        <section ref={ref => this.firstSection = ref} className={s.howItWorksSection}>
           <h3 className={s.howItWorksHeader}>How It Works</h3>
           <Row gutter={{md: 16, lg: 45}} type='flex' justify='center'>
             <Col xs={24} md={8}>
