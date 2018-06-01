@@ -7,18 +7,22 @@ import PlusCircleIcon from '../../static/plus-circle.svg'
 import {Button, Carousel, Col, Row, Input} from 'antd'
 import DownArrow from '../../static/down_arrow.svg'
 import ChooseItImage from '../../static/choose_it.svg'
-import PersonalizeItImage from '../../static/personalize_it.svg'
+import personalizeItImage from '../../static/personalize_it.png'
 import SendItImage from '../../static/send_it.svg'
 import AboutUsIcon from '../../static/decor_about.svg'
 
-const Card = ({number, image, title, description}) =>
+const Card = ({number, image, title, description, svg}) =>
   <div className={s.card}>
     <DecorTopElement className={s.cardTopElement}/>
     <span className={s.cardNumber}>{number}</span>
     <div className={s.cardImageWrapper}>
-      <div className={s.cardImageCircle}>
-        {React.createElement(image, {className: s.cardImage})}
-      </div>
+      {svg ? (
+        <div className={s.cardImageCircle}>
+          {React.createElement(svg)}
+        </div>
+      ) : (
+        <img src={image} className={s.cardImage}/>
+      )}
     </div>
     <h6 className={s.cardTitle}>{title}</h6>
     <p className={s.cardDescription}>{description}</p>
@@ -45,7 +49,7 @@ class Home extends React.Component {
                 number={1}
                 title='Choose it'
                 description={`Select a card from out exclusive online catalog`}
-                image={ChooseItImage}
+                svg={ChooseItImage}
               />
             </Col>
             <Col xs={24} md={8}>
@@ -53,7 +57,7 @@ class Home extends React.Component {
                 number={2}
                 title='Personalize it'
                 description={`Write a personal message, add pictures and even attach a gift`}
-                image={PersonalizeItImage}
+                image={personalizeItImage}
               />
             </Col>
             <Col xs={24} md={8}>
@@ -61,7 +65,7 @@ class Home extends React.Component {
                 number={3}
                 title='Send it'
                 description={`We'll print, stuff, stamp and mail everything for you.`}
-                image={SendItImage}
+                svg={SendItImage}
               />
             </Col>
           </Row>
