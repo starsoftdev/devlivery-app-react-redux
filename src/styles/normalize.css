@@ -279,8 +279,6 @@ a {
   cursor: pointer;
   transition: color .3s;
   -webkit-text-decoration-skip: objects; /* remove gaps in links underline in iOS 8+ and Safari 8+.*/
-  /*TODO check if it's on all designs*/
-  font-style: italic;
 
   &:focus {
     text-decoration: underline;

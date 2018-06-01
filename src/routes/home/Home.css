@@ -227,7 +227,6 @@
   font-family: var(--font-family-secondary);
   letter-spacing: 2.1px;
   font-size: var(--font-size-sm);
-  font-style: normal;
   text-transform: uppercase;
   border-bottom: 1px solid color-mod(var(--link-color) a(50%));
 }

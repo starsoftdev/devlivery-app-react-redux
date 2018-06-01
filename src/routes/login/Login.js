@@ -65,7 +65,7 @@ class Login extends React.Component {
               </Link>
             </Col>
             <Col>
-              <Link to={RESET_PASSWORD_ROUTE}>
+              <Link to={RESET_PASSWORD_ROUTE} className={s.forgotPasswordBtn}>
                 Forgot Password?
               </Link>
             </Col>
