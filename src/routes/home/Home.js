@@ -4,7 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Home.css'
 import DecorTopElement from '../../static/decor_element_top.svg'
 import PlusCircleIcon from '../../static/plus-circle.svg'
-import {Button, Carousel, Col, Row} from 'antd'
+import {Button, Carousel, Col, Row, Input} from 'antd'
 import DownArrow from '../../static/down_arrow.svg'
 import ChooseItImage from '../../static/choose_it.svg'
 import PersonalizeItImage from '../../static/personalize_it.svg'
@@ -160,6 +160,15 @@ class Home extends React.Component {
               looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution
               of letters, as opposed to using 'Content here, content here', making it look like readable English.
             </p>
+          </div>
+        </section>
+        <section className={s.signUpSection}>
+          <h3 className={s.signUpHeader}>
+            Sign up to get first access, curated notes about new styles, sales and events.
+          </h3>
+          <div className={s.signUpInputWrapper}>
+            <Input type='text' placeholder='Enter your email address' className={s.signUpInput}/>
+            <Button type='primary' className={s.signUpBtn}>Submit</Button>
           </div>
         </section>
       </React.Fragment>
