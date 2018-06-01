@@ -5,12 +5,13 @@ import s from './Header.css'
 import Logo from '../../static/logo.svg'
 import {HOME_ROUTE} from '../../routes'
 import {Link} from '../../components'
+import cn from 'classnames'
 
 class Header extends React.Component {
   render() {
     const {currentRouteName} = this.props
     return (
-      <div className={s.header}>
+      <div className={cn(s.header, [HOME_ROUTE].includes(currentRouteName) && s.light)}>
         <Link to={HOME_ROUTE}>
           <Logo/>
         </Link>
