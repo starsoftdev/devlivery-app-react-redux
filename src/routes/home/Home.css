@@ -2,16 +2,30 @@
 
 .header {
   color: var(--white-color);
-  font-size: 54px;
+  text-align: center;
+
+  @media (--md-up) {
+    font-size: 54px;
+  } @media (--md-down) {
+  font-size: 32px;
+} @media (--sm-down) {
+  font-size: 28px;
+}
 }
 
 .subHeader {
   color: var(--white-color);
-  font-size: 18px;
   letter-spacing: 3.5px;
   font-family: var(--font-family-secondary);
   text-transform: uppercase;
   font-weight: 300;
+  text-align: center;
+
+  @media (--sm-up) {
+    font-size: 18px;
+  } @media (--sm-down) {
+  font-size: 16px;
+}
 }
 
 .heroSection {
@@ -19,12 +33,15 @@
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
   url('../../static/hero_img.jpg') center center no-repeat;
   background-size: cover;
-  min-height: 485px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--margin-md) var(--margin-md) 82px;
+  padding: var(--margin-xl) var(--margin-md) 82px var(--margin-md);
+
+  @media (--md-up) {
+    min-height: 485px;
+  }
 }
 
 .scroll {
@@ -54,9 +71,14 @@
 }
 
 .howItWorksHeader {
-  font-size: 40px;
   text-align: center;
   margin-bottom: var(--margin-xl);
+
+  @media (--md-up) {
+    font-size: 40px;
+  } @media (--md-down) {
+  font-size: 32px;
+}
 }
 
 .howItWorksSection {
@@ -114,7 +136,7 @@
 }
 
 .cardImage {
- height: 125px;
+  height: 125px;
 }
 
 .cardTitle {
@@ -131,7 +153,11 @@
 }
 
 .cardsForEverythingHeader {
-  font-size: 40px;
+  @media (--md-up) {
+    font-size: 40px;
+  } @media (--md-down) {
+  font-size: 32px;
+}
 }
 
 .cardsForEverythingSection {
@@ -160,12 +186,10 @@
   @media (--md-up) {
     margin: 50px auto;
     padding: 45px 0;
-  }
-
-  @media (--md-down) {
-    flex-direction: column;
-    text-align: center;
-  }
+  } @media (--md-down) {
+  flex-direction: column;
+  text-align: center;
+}
 }
 
 .cardsForEverythingContent {
@@ -177,11 +201,9 @@
   @media (--md-up) {
     width: 445px;
     padding: 45px;
-  }
-
-  @media (--md-down) {
-    padding: var(--margin-md);
-  }
+  } @media (--md-down) {
+  padding: var(--margin-md);
+}
 }
 
 /*TODO check if it should be a button component*/
@@ -211,7 +233,11 @@
 }
 
 .giftingHeader {
-  font-size: 40px;
+  @media (--md-up) {
+    font-size: 40px;
+  } @media (--md-down) {
+  font-size: 32px;
+}
 }
 
 .giftingSection {
@@ -240,12 +266,10 @@
   @media (--md-up) {
     margin: 50px auto;
     padding: 45px 0;
-  }
-
-  @media (--md-down) {
-    flex-direction: column;
-    text-align: center;
-  }
+  } @media (--md-down) {
+  flex-direction: column;
+  text-align: center;
+}
 }
 
 .giftingContent {
@@ -257,12 +281,10 @@
   @media (--md-up) {
     width: 445px;
     padding: 45px;
-  }
-
-  @media (--md-down) {
-    order: 1;
-    padding: var(--margin-md);
-  }
+  } @media (--md-down) {
+  order: 1;
+  padding: var(--margin-md);
+}
 }
 
 .feedbackSection {
@@ -331,8 +353,11 @@
 }
 
 .aboutUsHeader {
-  font-size: 40px;
-  text-align: center;
+  @media (--md-up) {
+    font-size: 40px;
+  } @media (--md-down) {
+  font-size: 32px;
+} text-align: center;
 }
 
 .aboutUsSection {
@@ -357,11 +382,9 @@
   @media (--md-up) {
     width: 445px;
     padding: 45px;
-  }
-
-  @media (--md-down) {
-    padding: var(--margin-md);
-  }
+  } @media (--md-down) {
+  padding: var(--margin-md);
+}
 }
 
 .aboutUsIcon {
@@ -377,11 +400,16 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-right: var(--margin-md);
+  padding-left: var(--margin-md);
 }
 
 .signUpHeader {
-  font-size: 40px;
-  text-align: center;
+  @media (--md-up) {
+    font-size: 40px;
+  } @media (--md-down) {
+  font-size: 32px;
+} text-align: center;
   max-width: 700px;
   margin-right: auto;
   margin-left: auto;
@@ -397,11 +425,6 @@
 }
 
 .signUpInput {
-  width: 510px;
-  height: 80px;
-  padding-right: 30px;
-  padding-left: 30px;
-  font-size: 18px;
   border: 1px solid var(--dark-color);
   border-right-width: 0 !important;
 
@@ -409,9 +432,25 @@
     border-color: var(--dark-color);
     border-right-width: 0 !important;
   }
+
+  @media (--md-up) {
+    width: 510px;
+    height: 80px;
+    padding-right: 30px;
+    padding-left: 30px;
+    font-size: 18px;
+  } @media (--md-down) {
+  padding-right: 16px;
+  padding-left: 16px;
+  width: 195px;
+}
 }
 
 .signUpBtn {
-  width: 190px;
-  height: 80px;
+  @media (--md-up) {
+    width: 190px;
+    height: 80px;
+  } @media (--md-down) {
+  min-width: 100px;
+}
 }
