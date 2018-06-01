@@ -9,6 +9,7 @@ import DownArrow from '../../static/down_arrow.svg'
 import ChooseItImage from '../../static/choose_it.svg'
 import PersonalizeItImage from '../../static/personalize_it.svg'
 import SendItImage from '../../static/send_it.svg'
+import AboutUsIcon from '../../static/decor_about.svg'
 
 const Card = ({number, image, title, description}) =>
   <div className={s.card}>
@@ -117,7 +118,9 @@ class Home extends React.Component {
         <section className={s.feedbackSection}>
           <Carousel
             loop
-            customPaging={() => <div className={s.dotWrapper}><div className={s.dot}/></div>}
+            customPaging={() => <div className={s.dotWrapper}>
+              <div className={s.dot}/>
+            </div>}
           >
             <div className={s.feedback}>
               <img style={{background: `url(${'http://via.placeholder.com/90x90'})`}} className={s.feedbackImage}/>
@@ -147,6 +150,17 @@ class Home extends React.Component {
               </p>
             </div>
           </Carousel>
+        </section>
+        <section className={s.aboutUsSection}>
+          <div className={s.aboutUsContent}>
+            <AboutUsIcon className={s.aboutUsIcon}/>
+            <h3 className={s.aboutUsHeader}>About Us</h3>
+            <p>
+              It is a long established fact that a reader will be distracted by the readable content of a page when
+              looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution
+              of letters, as opposed to using 'Content here, content here', making it look like readable English.
+            </p>
+          </div>
         </section>
       </React.Fragment>
     )

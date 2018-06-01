@@ -328,3 +328,44 @@
   border-radius: 50%;
   margin: 0;
 }
+
+.aboutUsHeader {
+  font-size: 40px;
+  text-align: center;
+}
+
+.aboutUsSection {
+  min-height: 490px;
+  background: url('../../static/creative-floral.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.aboutUsContent {
+  background-color: var(--white-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+
+  @media (--md-up) {
+    width: 445px;
+    padding: 45px;
+  }
+
+  @media (--md-down) {
+    padding: var(--margin-md);
+  }
+}
+
+.aboutUsIcon {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
