@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Layout.css'
-import {Header} from '../../components'
+import {Header, Footer} from '../../components'
 import {Layout} from 'antd'
 import gridStyles from 'antd/lib/grid/style/index.css'
 import formStyles from 'antd/lib/form/style/index.css'
@@ -17,6 +17,7 @@ class AppLayout extends React.Component {
         <main className={s.content}>
           {this.props.children}
         </main>
+        <Footer/>
       </Layout>
     )
   }
