@@ -3,5 +3,8 @@
 .header {
   text-align: center;
   padding: var(--margin-sm);
+}
+
+.light {
   background-color: var(--white-color);
 }
