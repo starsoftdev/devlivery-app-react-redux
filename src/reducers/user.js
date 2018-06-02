@@ -79,8 +79,7 @@ export const updatePassword = (values) => (dispatch, getState, {fetch}) => {
       dispatch({type: UPDATE_PASSWORD_SUCCESS})
       // TODO add notification
     },
-    failure: (errors) => {
-      const {error} = getFormErrors({errors, values})
+    failure: (error) => {
       dispatch({type: UPDATE_PASSWORD_FAILURE, error})
     }
   })

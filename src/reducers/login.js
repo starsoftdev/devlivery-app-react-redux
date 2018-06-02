@@ -1,6 +1,7 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {setUser} from './user'
 import {TOKEN_COOKIE} from '../constants'
+import {getErrorMessage} from '../utils'
 
 // ------------------------------------
 // Constants
@@ -24,7 +25,7 @@ export const login = (values, redirectUrl) => (dispatch, getState, {fetch}) => {
       password: values.password,
     },
     success: ({data}) => dispatch(loginSuccess(data, redirectUrl)),
-    failure: () => dispatch({type: LOGIN_FAILURE, error: 'Something went wrong. Please try again.'})
+    failure: (res) => dispatch({type: LOGIN_FAILURE, error: getErrorMessage(res)})
   })
 }
 

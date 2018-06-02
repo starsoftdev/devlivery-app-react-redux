@@ -9,4 +9,15 @@
   .ant-form {
     font-family: var(--font-family);
   }
+
+  /*TODO add custom icons for notifications*/
+  /*.anticon-check-circle:before {
+    content: '';
+    background: url('./svgs/check-circle.svg') no-repeat top left;
+  }
+
+  .anticon-cross-circle:before {
+    content: '';
+    background: url('./svgs/cross-circle.svg') no-repeat top left;
+  }*/
 }

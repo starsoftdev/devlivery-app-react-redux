@@ -1,5 +1,6 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {loginSuccess} from './login'
+import {message} from 'antd'
 
 // ------------------------------------
 // Constants
@@ -21,23 +22,25 @@ export const CLEAR = 'Register.CLEAR'
 // Actions
 // ------------------------------------
 export const register = (people) => (dispatch, getState, {fetch}) => {
-  const {accountType, individualDetails, teamDetails} = getState().register
+  const {accountType, individualDetails: {year, month, date, ...otherDetails}, teamDetails} = getState().register
   dispatch({type: REGISTER_REQUEST})
   return fetch(`/signup`, {
     method: 'POST',
     body: {
-      // TODO send right data to backend
-      accountType,
-      individualDetails,
-      teamDetails,
-      people,
+      ...otherDetails,
+      account_type: accountType,
+      dob: `${date}-${month}-${year}`
+      // TODO send this data to backend when it's done
+      // teamDetails,
+      // people,
     },
     success: (res) => {
       dispatch({type: REGISTER_SUCCESS})
       dispatch(loginSuccess(res))
     },
     failure: () => {
-      dispatch({type: REGISTER_FAILURE, error: 'Something went wrong. Please try again.'})
+      dispatch({type: REGISTER_FAILURE})
+      message.error('Something went wrong. Please try again.')
     },
   })
 }
@@ -61,7 +64,6 @@ export const clear = () => ({type: CLEAR})
 // ------------------------------------
 const initialState = {
   loading: false,
-  error: null,
   accountType: null,
   individualDetails: null,
   teamDetails: null,
@@ -70,12 +72,10 @@ const initialState = {
 export default createReducer(initialState, {
   [REGISTER_REQUEST]: (state, action) => ({
     loading: true,
-    error: null,
   }),
   [REGISTER_SUCCESS]: (state, action) => RESET_STORE,
-  [REGISTER_FAILURE]: (state, {error}) => ({
+  [REGISTER_FAILURE]: (state, action) => ({
     loading: false,
-    error,
   }),
   [SET_ACCOUNT_TYPE]: (state, {accountType}) => ({
     accountType,
