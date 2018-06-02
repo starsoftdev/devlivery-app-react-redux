@@ -7,6 +7,7 @@ import {Layout} from 'antd'
 import gridStyles from 'antd/lib/grid/style/index.css'
 import formStyles from 'antd/lib/form/style/index.css'
 import alertStyles from 'antd/lib/alert/style/index.css'
+import messageStyles from 'antd/lib/message/style/index.css'
 import globalStyles from '../../styles/global.css'
 import {HOME_ROUTE} from '../../routes'
 
@@ -35,6 +36,7 @@ export default connect(mapState, mapDispatch)(withStyles(
   gridStyles,
   formStyles,
   alertStyles,
+  messageStyles,
   globalStyles,
   s,
 )(AppLayout))

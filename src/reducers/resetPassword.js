@@ -1,4 +1,5 @@
 import createReducer, {RESET_STORE} from '../createReducer'
+import {getErrorMessage, getSuccessMessage} from '../utils'
 
 // ------------------------------------
 // Constants
@@ -12,7 +13,7 @@ export const CLEAR = 'ResetPassword.CLEAR'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const resetPassword = (values) => (dispatch, getState, {fetch}) => {
+export const resetPassword = (values, form) => (dispatch, getState, {fetch}) => {
   dispatch({type: RESET_PASSWORD_REQUEST})
   return fetch(`/password/email`, {
     method: 'POST',
@@ -20,10 +21,11 @@ export const resetPassword = (values) => (dispatch, getState, {fetch}) => {
     body: {
       email: values.email,
     },
-    // TODO add notifications
-    // TODO reset form values
-    success: () => dispatch({type: RESET_PASSWORD_SUCCESS, success: ''}),
-    failure: () => dispatch({type: RESET_PASSWORD_FAILURE, error: ''}),
+    success: (res) => {
+      dispatch({type: RESET_PASSWORD_SUCCESS, success: getSuccessMessage(res)})
+      form.resetFields()
+    },
+    failure: (res) => dispatch({type: RESET_PASSWORD_FAILURE, error: getErrorMessage(res)}),
   })
 }
 

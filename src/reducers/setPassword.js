@@ -1,6 +1,8 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {generateUrl} from '../router'
 import {LOGIN_ROUTE} from '../routes'
+import {message} from 'antd'
+import {getErrorMessage, getSuccessMessage} from '../utils'
 
 // ------------------------------------
 // Constants
@@ -19,13 +21,13 @@ export const setPassword = (values) => (dispatch, getState, {fetch, history}) =>
   return fetch(`/password/reset`, {
     method: 'POST',
     body: values,
-    success: () => {
+    success: (res) => {
       dispatch({type: SET_PASSWORD_SUCCESS})
       history.push(generateUrl(LOGIN_ROUTE))
-      // TODO add notifications
-      // message.success('')
+      const successMessage = getSuccessMessage(res)
+      if (successMessage) message.success(successMessage)
     },
-    failure: () => dispatch({type: SET_PASSWORD_FAILURE, error: ''}),
+    failure: (res) => dispatch({type: SET_PASSWORD_FAILURE, error: getErrorMessage(res)}),
   })
 }
 
