@@ -26,6 +26,7 @@ export const register = (people) => (dispatch, getState, {fetch}) => {
   dispatch({type: REGISTER_REQUEST})
   return fetch(`/signup`, {
     method: 'POST',
+    contentType: 'application/x-www-form-urlencoded',
     body: {
       ...otherDetails,
       account_type: accountType,
