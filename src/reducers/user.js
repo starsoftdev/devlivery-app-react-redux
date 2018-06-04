@@ -5,9 +5,7 @@ import {getFormErrors} from '../utils'
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const LOGOUT_REQUEST = 'User.LOGOUT_REQUEST'
 export const LOGOUT_SUCCESS = 'User.LOGOUT_SUCCESS'
-export const LOGOUT_FAILURE = 'User.LOGOUT_FAILURE'
 
 export const GET_USER_SUCCESS = 'User.GET_USER_SUCCESS'
 
@@ -26,26 +24,14 @@ export const expireToken = () => (dispatch, getState, {cookies}) => {
   cookies.remove(TOKEN_COOKIE, {path: ''})
 }
 
-export const logoutSuccess = () => (dispatch) => {
-  dispatch(expireToken())
-  dispatch({type: LOGOUT_SUCCESS})
-}
-
 export const getToken = () => (dispatch, getState, {cookies}) => {
   const token = cookies.get(TOKEN_COOKIE)
   return {token}
 }
 
-export const logout = (redirectUrl) => (dispatch, getState, {fetch}) => {
-  const {token} = dispatch(getToken())
-  dispatch({type: LOGOUT_REQUEST})
-  return fetch(`/logout`, {
-    method: 'GET',
-    contentType: 'application/x-www-form-urlencoded',
-    token,
-    success: (res) => dispatch(logoutSuccess(res)),
-    failure: () => dispatch({type: LOGOUT_FAILURE})
-  })
+export const logout = () => (dispatch, getState) => {
+  dispatch(expireToken())
+  dispatch({type: LOGOUT_SUCCESS})
 }
 
 export const setUser = (user) => ({type: GET_USER_SUCCESS, user})

@@ -11,27 +11,46 @@ class Header extends React.Component {
   render() {
     const {currentRouteName, user} = this.props
     return (
-      <div className={cn(s.header, [HOME_ROUTE].includes(currentRouteName) && s.light)}>
-        <Link to={HOME_ROUTE}>
-          <Logo/>
-        </Link>
-        <div className={s.rightSideMenu}>
-          {!user ? (
-            <React.Fragment>
-              <Link to={LOGIN_ROUTE}>
-                Login
+      <header className={cn(s.headerWrapper, [HOME_ROUTE].includes(currentRouteName) && s.light)}>
+        <div className={s.header}>
+          <Link to={HOME_ROUTE}>
+            <Logo/>
+          </Link>
+          <div className={s.rightSideMenu}>
+            {!user ? (
+              <React.Fragment>
+                <Link to={LOGIN_ROUTE}>
+                  Login
+                </Link>
+                <Link to={REGISTER1_ROUTE}>
+                  Sign up
+                </Link>
+              </React.Fragment>
+            ) : (
+              <Link to={LOGOUT_ROUTE}>
+                Sign Out
               </Link>
-              <Link to={REGISTER1_ROUTE}>
-                Sign up
-              </Link>
-            </React.Fragment>
-          ) : (
-            <Link to={LOGOUT_ROUTE}>
-              Sign Out
-            </Link>
-          )}
+            )}
+          </div>
         </div>
-      </div>
+        <ul className={s.bottomMenu}>
+          <li>
+            <a>New Arrivals</a>
+          </li>
+          <li>
+            <a>Card Store</a>
+          </li>
+          <li>
+            <a>Gift Store</a>
+          </li>
+          <li>
+            <a>About</a>
+          </li>
+          <li>
+            <a>Contact Us</a>
+          </li>
+        </ul>
+      </header>
     )
   }
 }
