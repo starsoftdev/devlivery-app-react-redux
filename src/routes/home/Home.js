@@ -8,11 +8,12 @@ import {Button, Carousel, Col, Row, Input} from 'antd'
 import DownArrow from '../../static/down_arrow.svg'
 import ChooseItImage from '../../static/choose_it.svg'
 import personalizeItImage from '../../static/personalize_it.png'
-import SendItImage from '../../static/send_it.svg'
+import sendItImage from '../../static/send_it.png'
 import AboutUsIcon from '../../static/decor_about.svg'
 import { animateScroll } from 'react-scroll'
 
-const Card = ({number, image, title, description, svg}) =>
+// imageHeight is needed as wrapper circle should have the same size
+const Card = ({number, image, imageHeight, title, description, svg}) =>
   <div className={s.card}>
     <DecorTopElement className={s.cardTopElement}/>
     <span className={s.cardNumber}>{number}</span>
@@ -22,7 +23,7 @@ const Card = ({number, image, title, description, svg}) =>
           {React.createElement(svg)}
         </div>
       ) : (
-        <img src={image} className={s.cardImage}/>
+        <img src={image} style={{height: imageHeight}} className={s.cardImage}/>
       )}
     </div>
     <h6 className={s.cardTitle}>{title}</h6>
@@ -63,6 +64,7 @@ class Home extends React.Component {
                 title='Personalize it'
                 description={`Write a personal message, add pictures and even attach a gift`}
                 image={personalizeItImage}
+                imageHeight={125}
               />
             </Col>
             <Col xs={24} md={8}>
@@ -70,7 +72,8 @@ class Home extends React.Component {
                 number={3}
                 title='Send it'
                 description={`We'll print, stuff, stamp and mail everything for you.`}
-                svg={SendItImage}
+                image={sendItImage}
+                imageHeight={140}
               />
             </Col>
           </Row>
