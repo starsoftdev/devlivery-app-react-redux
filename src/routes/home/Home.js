@@ -73,7 +73,7 @@ class Home extends React.Component {
                 title='Send it'
                 description={`We'll print, stuff, stamp and mail everything for you.`}
                 image={sendItImage}
-                imageHeight={140}
+                imageHeight={138}
               />
             </Col>
           </Row>
