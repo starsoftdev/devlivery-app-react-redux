@@ -1,10 +1,28 @@
 @import '../../styles/variables.css';
 
 .header {
-  text-align: center;
-  padding: var(--margin-sm);
+  padding: var(--margin-sm) var(--margin-md);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .light {
   background-color: var(--white-color);
+}
+
+.rightSideMenu {
+  position: absolute;
+  right: var(--margin-md);
+  font-style: italic;
+
+  & > * {
+    padding-right: var(--margin-sm);
+    padding-left: var(--margin-sm);
+
+    &:not(:last-child) {
+      border-right: 1px solid var(--link-color);
+    }
+  }
 }
