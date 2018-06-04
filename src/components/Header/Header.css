@@ -1,7 +1,6 @@
 @import '../../styles/variables.css';
 
 .headerWrapper {
-
 }
 
 .header {
@@ -10,6 +9,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  max-width: var(--max-content-width);
 
   @media (--md-down) {
     flex-direction: column;
@@ -21,7 +21,6 @@
 }
 
 .rightSideMenu {
-
   font-style: italic;
 
   & > * {
