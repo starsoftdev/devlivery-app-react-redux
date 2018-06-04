@@ -6,8 +6,7 @@ import {Alert, Button, Col, Form, Input, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Login.css'
 import formMessages from '../../formMessages'
-import {RESET_PASSWORD_ROUTE} from '../'
-import {REGISTER1_ROUTE} from '../index'
+import {RESET_PASSWORD_ROUTE, REGISTER1_ROUTE} from '../'
 
 class Login extends React.Component {
   componentWillUnmount() {

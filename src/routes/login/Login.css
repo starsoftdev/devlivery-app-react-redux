@@ -7,13 +7,16 @@
 }
 
 .header {
-  font-size: 40px;
   text-align: center;
   padding-right: var(--margin-md);
   padding-left: var(--margin-md);
 
   @media (--md-up) {
     margin-top: var(--margin-xl);
+    font-size: 40px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
   }
 }
 
