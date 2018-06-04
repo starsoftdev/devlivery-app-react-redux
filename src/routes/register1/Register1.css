@@ -20,9 +20,15 @@
 
 .header {
   position: relative;
-  font-size: 40px;
   display: flex;
   align-items: center;
+
+  @media (--md-up) {
+    font-size: 40px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
 }
 
 .headerPrefix {

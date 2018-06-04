@@ -96,6 +96,7 @@ class Register2 extends React.Component {
             </h1>
             <Row gutter={20}>
               <Col xs={24} sm={12}>
+                {/* TODO add 0 prefix */}
                 <Form.Item>
                   {getFieldDecorator('month', {
                     initialValue: individualDetails ? individualDetails.month : undefined,
@@ -111,6 +112,7 @@ class Register2 extends React.Component {
                   )}
                 </Form.Item>
               </Col>
+              {/* TODO add mask for date */}
               <Col xs={24} sm={6}>
                 <Form.Item>
                   {getFieldDecorator('date', {
