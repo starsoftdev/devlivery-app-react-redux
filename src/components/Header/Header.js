@@ -33,23 +33,25 @@ class Header extends React.Component {
             )}
           </div>
         </div>
-        <ul className={s.bottomMenu}>
-          <li>
-            <a>New Arrivals</a>
-          </li>
-          <li>
-            <a>Card Store</a>
-          </li>
-          <li>
-            <a>Gift Store</a>
-          </li>
-          <li>
-            <a>About</a>
-          </li>
-          <li>
-            <a>Contact Us</a>
-          </li>
-        </ul>
+        {[HOME_ROUTE].includes(currentRouteName) && (
+          <ul className={s.bottomMenu}>
+            <li>
+              <a>New Arrivals</a>
+            </li>
+            <li>
+              <a>Card Store</a>
+            </li>
+            <li>
+              <a>Gift Store</a>
+            </li>
+            <li>
+              <a>About</a>
+            </li>
+            <li>
+              <a>Contact Us</a>
+            </li>
+          </ul>
+        )}
       </header>
     )
   }
