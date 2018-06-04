@@ -21,7 +21,7 @@ export const login = (values, redirectUrl) => (dispatch, getState, {fetch}) => {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
     body: {
-      username: values.email,
+      email: values.email,
       password: values.password,
     },
     success: ({data}) => dispatch(loginSuccess(data, redirectUrl)),
