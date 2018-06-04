@@ -10,6 +10,8 @@
   justify-content: center;
   align-items: center;
   max-width: var(--max-content-width);
+  margin-right: auto;
+  margin-left: auto;
 
   @media (--md-down) {
     flex-direction: column;
