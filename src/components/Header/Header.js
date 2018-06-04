@@ -16,22 +16,24 @@ class Header extends React.Component {
           <Link to={HOME_ROUTE}>
             <Logo/>
           </Link>
-          <div className={s.rightSideMenu}>
-            {!user ? (
-              <React.Fragment>
-                <Link to={LOGIN_ROUTE}>
-                  Login
+          {[HOME_ROUTE].includes(currentRouteName) && (
+            <div className={s.rightSideMenu}>
+              {!user ? (
+                <React.Fragment>
+                  <Link to={LOGIN_ROUTE}>
+                    Login
+                  </Link>
+                  <Link to={REGISTER1_ROUTE}>
+                    Sign up
+                  </Link>
+                </React.Fragment>
+              ) : (
+                <Link to={LOGOUT_ROUTE}>
+                  Sign Out
                 </Link>
-                <Link to={REGISTER1_ROUTE}>
-                  Sign up
-                </Link>
-              </React.Fragment>
-            ) : (
-              <Link to={LOGOUT_ROUTE}>
-                Sign Out
-              </Link>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
         {[HOME_ROUTE].includes(currentRouteName) && (
           <ul className={s.bottomMenu}>

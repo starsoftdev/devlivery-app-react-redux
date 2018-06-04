@@ -10,6 +10,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (--md-down) {
+    flex-direction: column;
+  }
 }
 
 .light {
@@ -17,8 +21,7 @@
 }
 
 .rightSideMenu {
-  position: absolute;
-  right: var(--margin-md);
+
   font-style: italic;
 
   & > * {
@@ -28,6 +31,11 @@
     &:not(:last-child) {
       border-right: 1px solid var(--link-color);
     }
+  }
+
+  @media (--md-up) {
+    position: absolute;
+    right: var(--margin-md);
   }
 }
 
