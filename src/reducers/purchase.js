@@ -3,6 +3,9 @@ import createReducer, {RESET_STORE} from '../createReducer'
 // ------------------------------------
 // Constants
 // ------------------------------------
+export const HANDWRITTEN = 'handwritten'
+export const PRINTED = 'printed'
+
 export const SET_OCCASION = 'Purchase.SET_OCCASION'
 
 export const GET_OCCASIONS_REQUEST = 'Purchase.GET_OCCASIONS_REQUEST'
@@ -12,6 +15,12 @@ export const GET_OCCASIONS_FAILURE = 'Purchase.GET_OCCASIONS_FAILURE'
 export const SUBMIT_OCCASION_REQUEST = 'Purchase.SUBMIT_OCCASION_REQUEST'
 export const SUBMIT_OCCASION_SUCCESS = 'Purchase.SUBMIT_OCCASION_SUCCESS'
 export const SUBMIT_OCCASION_FAILURE = 'Purchase.SUBMIT_OCCASION_FAILURE'
+
+export const SET_LETTERING_TECHNIQUE = 'Purchase.LETTERING_TECHNIQUE'
+
+export const SUBMIT_LETTERING_TECHNIQUE_REQUEST = 'Purchase.LETTERING_TECHNIQUE_REQUEST'
+export const SUBMIT_LETTERING_TECHNIQUE_SUCCESS = 'Purchase.LETTERING_TECHNIQUE_SUCCESS'
+export const SUBMIT_LETTERING_TECHNIQUE_FAILURE = 'Purchase.LETTERING_TECHNIQUE_FAILURE'
 
 export const CLEAR = 'Purchase.CLEAR'
 
@@ -43,13 +52,25 @@ export const submitOccasion = () => (dispatch, getState, {fetch, history}) => {
     body: {
       occasion_id: occasion,
     },
-    success: (res) => {
-      console.log(res)
-      dispatch({type: SUBMIT_OCCASION_SUCCESS})
+    success: () => dispatch({type: SUBMIT_OCCASION_SUCCESS}),
+    failure: () => dispatch({type: SUBMIT_OCCASION_FAILURE})
+  })
+}
+
+export const setLetteringTechnique = (letteringTechnique) => ({type: SET_LETTERING_TECHNIQUE, letteringTechnique})
+
+export const submitLetteringTechnique = () => (dispatch, getState, {fetch, history}) => {
+  const {letteringTechnique} = getState().purchase
+  if (!letteringTechnique) return
+  dispatch({type: SUBMIT_LETTERING_TECHNIQUE_REQUEST})
+  history.push('/purchase/card-style')
+  return fetch(`/guest/set-lettering-technique`, {
+    method: 'POST',
+    body: {
+      lettering_technique: letteringTechnique,
     },
-    failure: () => {
-      dispatch({type: SUBMIT_OCCASION_FAILURE})
-    }
+    success: () => dispatch({type: SUBMIT_LETTERING_TECHNIQUE_SUCCESS}),
+    failure: () => dispatch({type: SUBMIT_LETTERING_TECHNIQUE_FAILURE})
   })
 }
 
@@ -64,6 +85,7 @@ const initialState = {
   },
   occasion: null,
   occasions: [],
+  letteringTechnique: null,
 }
 
 export default createReducer(initialState, {
@@ -88,6 +110,9 @@ export default createReducer(initialState, {
       ...state.loading,
       occasions: false,
     }
+  }),
+  [SET_LETTERING_TECHNIQUE]: (state, {letteringTechnique}) => ({
+    letteringTechnique,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

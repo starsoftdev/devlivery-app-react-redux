@@ -1,0 +1,68 @@
+@import '../../styles/variables.css';
+
+.content {
+  margin-bottom: var(--margin-md);
+
+  @media (min-width: 820px) {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 680px;
+    width: 100%;
+  }
+  @media (max-width: 820px) {
+    margin-right: var(--margin-md);
+    margin-left: var(--margin-md);
+  }
+  @media (--md-up) {
+    margin-top: var(--margin-xl);
+  }
+}
+
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  @media (--md-up) {
+    font-size: 40px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
+}
+
+.headerPrefix {
+  display: flex;
+  align-items: center;
+  font-size: 40px;
+  color: var(--primary-color);
+  margin-right: var(--margin-xs);
+
+  @media (min-width: 820px) {
+    position: absolute;
+    left: -60px;
+  }
+}
+
+.arrowIcon {
+  margin-left: var(--margin-xs);
+}
+
+.alert {
+  margin-bottom: var(--margin-md);
+}
+
+.actions {
+  border-top: 2px solid color-mod(var(--dark-color) a(10%));
+  margin-top: auto;
+  text-align: center;
+}
+
+.submitBtn {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.description {
+  margin-top: var(--margin-md);
+}
