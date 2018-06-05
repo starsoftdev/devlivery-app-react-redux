@@ -28,6 +28,12 @@ export const SUBMIT_CARD_STYLE_REQUEST = 'Purchase.SUBMIT_CARD_STYLE_REQUEST'
 export const SUBMIT_CARD_STYLE_SUCCESS = 'Purchase.SUBMIT_CARD_STYLE_SUCCESS'
 export const SUBMIT_CARD_STYLE_FAILURE = 'Purchase.SUBMIT_CARD_STYLE_FAILURE'
 
+export const SET_CARD_SIZE = 'Purchase.SET_CARD_SIZE'
+
+export const SUBMIT_CARD_SIZE_REQUEST = 'Purchase.SUBMIT_CARD_SIZE_REQUEST'
+export const SUBMIT_CARD_SIZE_SUCCESS = 'Purchase.SUBMIT_CARD_SIZE_SUCCESS'
+export const SUBMIT_CARD_SIZE_FAILURE = 'Purchase.SUBMIT_CARD_SIZE_FAILURE'
+
 export const CLEAR = 'Purchase.CLEAR'
 
 // ------------------------------------
@@ -97,6 +103,23 @@ export const submitCardStyle = () => (dispatch, getState, {fetch, history}) => {
   })
 }
 
+export const setCardSize = (cardSize) => ({type: SET_CARD_SIZE, cardSize})
+
+export const submitCardSize = () => (dispatch, getState, {fetch, history}) => {
+  const {cardSize} = getState().purchase
+  if (!cardSize) return
+  dispatch({type: SUBMIT_CARD_SIZE_REQUEST})
+  history.push('/purchase/personalize-card')
+  return fetch(`/guest/set-card-size`, {
+    method: 'POST',
+    body: {
+      card_size: cardSize,
+    },
+    success: () => dispatch({type: SUBMIT_CARD_SIZE_SUCCESS}),
+    failure: () => dispatch({type: SUBMIT_CARD_SIZE_FAILURE})
+  })
+}
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -110,6 +133,7 @@ const initialState = {
   occasion: null,
   letteringTechnique: null,
   cardStyle: null,
+  cardSize: null,
 }
 
 export default createReducer(initialState, {
@@ -140,6 +164,9 @@ export default createReducer(initialState, {
   }),
   [SET_CARD_STYLE]: (state, {cardStyle}) => ({
     cardStyle,
+  }),
+  [SET_CARD_SIZE]: (state, {cardSize}) => ({
+    cardSize,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

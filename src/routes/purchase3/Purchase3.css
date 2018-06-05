@@ -76,6 +76,12 @@
   flex-wrap: wrap;
 }
 
+.itemWrapper {
+  @media (--xs-down) {
+    width: 100%;
+  }
+}
+
 .item {
   margin-bottom: 20px;
   justify-content: flex-start;

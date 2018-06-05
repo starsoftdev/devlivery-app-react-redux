@@ -8,7 +8,7 @@ function action({store, route}) {
 
   return {
     chunks: ['purchase'],
-    title: 'Purchase 2',
+    title: 'Purchase',
     component: <AppLayout><Purchase2/></AppLayout>
   }
 }

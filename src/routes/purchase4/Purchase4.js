@@ -1,36 +1,37 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {setCardStyle, submitCardStyle} from '../../reducers/purchase'
+import {setCardSize, submitCardSize} from '../../reducers/purchase'
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import s from './Purchase3.css'
+import s from './Purchase4.css'
 import {Card} from '../../components'
 import {ALPHABET} from '../../constants'
 import ArrowIcon from '../../static/decor_arrow.svg'
-import ModernCardImage from '../../static/modern_card_style.png'
-import FloralCardImage from '../../static/floral_card_style.jpg'
-import VintageCardImage from '../../static/vintage_card_style.png'
+import BigCardImage from '../../static/big_card.svg'
+import PanelCardImage from '../../static/panel_card.svg'
+import GreetingCardImage from '../../static/greeting_card.svg'
+import PostcardImage from '../../static/postcard.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 
 const CARD_STYLES = [
-  {key: 'modern', title: 'Modern', image: ModernCardImage},
-  {key: 'floral', title: 'Floral', image: FloralCardImage},
-  {key: 'vintage', title: 'Vintage', image: VintageCardImage},
-  {key: 'modern2', title: 'Modern', image: ModernCardImage},
+  {key: 'folded_card', title: 'Folded Card', svg: BigCardImage, extra: '4" x 5"'},
+  {key: 'postcard', title: 'Postcard', svg: PostcardImage, extra: '5" x 7"'},
+  {key: 'folder_card_without_panel', title: 'Folded Card without Panel', svg: PanelCardImage, extra: '6" x 6"'},
+  {key: 'folder_card2', title: 'Folded Card', svg: GreetingCardImage, extra: '4" x 9"'},
 ]
 
-class Purchase3 extends React.Component {
+class Purchase4 extends React.Component {
   render() {
-    const {cardStyle, setCardStyle, submitCardStyle} = this.props
+    const {cardSize, setCardSize, submitCardSize} = this.props
     return (
       <React.Fragment>
         <div className={s.content}>
           <h1 className={s.header}>
             <span className={s.headerPrefix}>
-              3
+              4
               <ArrowIcon className={s.arrowIcon}/>
             </span>
-            Select Style
+            Choose the Format
           </h1>
           <Row className={s.items} gutter={20} type='flex' align='center'>
             {CARD_STYLES.map((item, i) =>
@@ -38,10 +39,11 @@ class Purchase3 extends React.Component {
                 <Card
                   className={s.item}
                   title={item.title}
-                  image={item.image}
-                  onClick={() => setCardStyle(item.key)}
-                  active={item.key === cardStyle}
+                  svg={item.svg}
+                  onClick={() => setCardSize(item.key)}
+                  active={item.key === cardSize}
                   keyValue={ALPHABET[i]}
+                  extra={item.extra}
                 />
               </Col>
             )}
@@ -51,13 +53,13 @@ class Purchase3 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={submitCardStyle}
+            onKeyHandle={submitCardSize}
           />
           <Button
             type='primary'
             className={s.submitBtn}
-            disabled={!cardStyle}
-            onClick={submitCardStyle}
+            disabled={!cardSize}
+            onClick={submitCardSize}
           >
             Submit
           </Button>
@@ -68,14 +70,14 @@ class Purchase3 extends React.Component {
 }
 
 const mapState = state => ({
-  cardStyles: state.purchase.cardStyles,
-  cardStyle: state.purchase.cardStyle,
+  cardSizes: state.purchase.cardSizes,
+  cardSize: state.purchase.cardSize,
   loading: state.purchase.loading,
 })
 
 const mapDispatch = {
-  setCardStyle,
-  submitCardStyle,
+  setCardSize,
+  submitCardSize,
 }
 
-export default connect(mapState, mapDispatch)(withStyles(s)(Purchase3))
+export default connect(mapState, mapDispatch)(withStyles(s)(Purchase4))

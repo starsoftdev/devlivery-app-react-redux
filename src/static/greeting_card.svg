@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="93px" height="84px" viewBox="0 0 93 84" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>greeting_card</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="04_Choose_the_Format" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-536.000000, -296.000000)">
+        <g id="card" transform="translate(443.000000, 250.000000)">
+            <g id="greeting_card" transform="translate(92.000000, 46.000000)">
+                <path d="M24.7462998,11.0890087 C14.5077015,9.87766838 9.23898178,9.87766838 8.94014064,11.0890087 C8.49187893,12.9060193 14.4954847,52.5469442 14.4954847,62.2951567 C14.4954847,68.793965 20.2046408,75.1396804 31.622953,81.3323029 L2.58023117,78.7813309 L1.11952431,68.4284483 L1.11952431,11.0890087" id="Path-5" fill="#E0DFE6"></path>
+                <path d="M2.07368642,80.1615919 C60.9318781,82.8874987 90.7812259,82.8874987 91.6217298,80.1615919 C92.4622336,77.4356852 92.8824855,54.7974783 92.8824855,12.2469713 L2.07368642,12.2469713 L2.07368642,80.1615919 Z" id="Path-6" stroke="#404D5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M2.72295056,11.9716931 C19.1651595,5.23744292 39.6830854,1.62121251 64.2767284,1.12300184 C64.2767284,5.76328229 64.2767284,9.3795127 64.2767284,11.9716931 L2.72295056,11.9716931 Z" id="Path-7" stroke="#404D5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>
