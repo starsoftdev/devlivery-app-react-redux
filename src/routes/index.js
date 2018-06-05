@@ -91,6 +91,11 @@ const routes = {
       name: PURCHASE1_ROUTE,
       load: () => import(/* webpackChunkName: 'purchase' */ './purchase1'),
     },
+    {
+      path: '/purchase/lettering-technique',
+      name: PURCHASE2_ROUTE,
+      load: () => import(/* webpackChunkName: 'purchase' */ './purchase2'),
+    },
 
     authRoutes,
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
