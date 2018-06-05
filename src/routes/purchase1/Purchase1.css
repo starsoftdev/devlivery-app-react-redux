@@ -34,10 +34,15 @@
 .headerPrefix {
   display: flex;
   align-items: center;
-  font-size: 40px;
   color: var(--primary-color);
   margin-right: var(--margin-xs);
 
+  @media (--md-up) {
+    font-size: 40px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
   @media (min-width: 990px) {
     position: absolute;
     left: -60px;
