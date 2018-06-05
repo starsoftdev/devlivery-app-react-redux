@@ -63,57 +63,6 @@
   margin-bottom: 40px;
 }
 
-.card {
-  cursor: pointer;
-  background-color: rgba(173,163,155,0.1);
-  height: 200px;
-  border: 1px solid #ADA39B;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-
-  &.active {
-    background-color: rgba(173,163,155,0.3);
-  }
-}
-
-.icon {
-  margin-bottom: var(--margin-xl);
-}
-
-.cardHeader {
-  position: absolute;
-  bottom: var(--margin-sm);
-  font-family: var(--font-family-secondary);
-  text-transform: uppercase;
-  font-size: var(--font-size-sm);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.cardTitle {
-  letter-spacing: 2.1px;
-}
-
-.cardCheckIcon {
-  position: absolute;
-  /*because of borders*/
-  top: -1px;
-  right: -1px;
-}
-
-.cardKey {
-  margin-bottom: 5px;
-  width: 16px;
-  height: 16px;
-  line-height: 16px;
-  border: 1px solid var(--dark-color);
-}
-
 .description {
   margin-top: var(--margin-md);
 }
