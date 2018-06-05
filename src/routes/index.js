@@ -10,7 +10,11 @@ export const REGISTER3_ROUTE = 'register3'
 export const REGISTER4_ROUTE = 'register4'
 export const RESET_PASSWORD_ROUTE = 'reset-password'
 export const SET_PASSWORD_ROUTE = 'set-password'
+
 export const LOGOUT_ROUTE = 'logout'
+
+export const PURCHASE1_ROUTE = 'purchase1'
+export const PURCHASE2_ROUTE = 'purchase2'
 
 const authRoutes = {
   path: '',
@@ -80,6 +84,14 @@ const routes = {
       name: SET_PASSWORD_ROUTE,
       load: () => import(/* webpackChunkName: 'setPassword' */ './setPassword'),
     },
+
+    // Guest Purchase Flow
+    {
+      path: '/purchase',
+      name: PURCHASE1_ROUTE,
+      load: () => import(/* webpackChunkName: 'purchase' */ './purchase1'),
+    },
+
     authRoutes,
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
     {
