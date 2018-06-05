@@ -2,7 +2,7 @@
 
 .card {
   cursor: pointer;
-  background-color: rgba(173,163,155,0.1);
+  background-color: rgba(173, 163, 155, 0.1);
   min-height: 200px;
   border: 1px solid #ADA39B;
   display: flex;
@@ -12,7 +12,12 @@
   padding-bottom: 70px;
 
   &.active {
-    background-color: rgba(173,163,155,0.3);
+    background-color: rgba(173, 163, 155, 0.3);
+  }
+
+  &.withExtra {
+    padding-top: var(--margin-xl);
+    min-height: 220px;
   }
 }
 
@@ -59,4 +64,11 @@
 
 .icon {
   margin-bottom: var(--margin-xs);
+}
+
+.extra {
+  position: absolute;
+  top: var(--margin-xs);
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-sm);
 }

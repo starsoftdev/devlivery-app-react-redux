@@ -24,9 +24,8 @@ class Purchase1 extends React.Component {
           </h1>
           <Row className={s.items} gutter={20} type='flex' align='center'>
             {occasions.map((item, i) =>
-              <Col key={item.id}>
+              <Col key={item.id} className={s.itemWrapper}>
                 <Card
-                  imageClassName={s.itemImage}
                   className={s.item}
                   title={item.title}
                   image={item.image.url}

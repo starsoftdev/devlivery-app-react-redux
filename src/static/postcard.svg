@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="124px" height="70px" viewBox="0 0 124 70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>postcard</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="04_Choose_the_Format" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-221.000000, -305.000000)">
+        <g id="card" transform="translate(143.000000, 250.000000)">
+            <g id="postcard" transform="translate(79.000000, 55.000000)">
+                <path d="M25.7585958,2.26001774 C15.1011675,0.999125124 9.6169205,0.999125124 9.30585467,2.26001774 C8.83925593,4.15135666 4.41830622,48.6645831 15.088451,55.5608538 C22.2018809,60.1583676 29.2800958,64.6957225 36.3230956,69.1729184 L4.2627733,66.2852884 L1.16532065,61.9450398 L1.16532065,2.26001774" id="Path-5" fill="#E0DFE6"></path>
+                <path d="M2.19080274,1.88902997 C0.0961606013,39.2101169 0.0961606013,60.2859277 2.19080274,65.1164622 C5.33276595,72.3622639 121.336391,65.1164622 121.788033,65.1164622 C122.239675,65.1164622 121.336391,3.19029386 121.336391,1.88902997 C121.336391,1.02152071 81.6211952,1.02152071 2.19080274,1.88902997 Z" id="Path-2" stroke="#404D5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M96.3764599,10.0625287 C96.3764599,19.9856313 96.3764599,24.9968226 96.3764599,25.0961025 C96.3764599,25.2450222 108.847926,24.4926221 108.97352,23.5980057 C109.099114,22.7033893 108.722332,11.224459 108.847926,10.0625287 C108.931656,9.28790847 104.7745,9.28790847 96.3764599,10.0625287 Z" id="Path-3" stroke="#404D5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M74.7278751,33.0185289 L108.00548,33.0185289" id="Path-4" stroke="#404D5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M58.2145034,57.0219271 L58.2145034,9.74929191" id="Path-4" stroke="#404D5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M74.7278751,43.6272246 L108.00548,43.6272246" id="Path-4" stroke="#404D5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M74.7278751,55.5620072 L108.00548,55.5620072" id="Path-4" stroke="#404D5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>
