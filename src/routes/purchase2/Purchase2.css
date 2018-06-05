@@ -66,3 +66,7 @@
 .description {
   margin-top: var(--margin-md);
 }
+
+.item {
+  justify-content: flex-end;
+}

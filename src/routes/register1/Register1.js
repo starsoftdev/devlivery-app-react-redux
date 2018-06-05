@@ -29,6 +29,7 @@ class Register1 extends React.Component {
           <Row gutter={20}>
             <Col xs={24} sm={12}>
               <Card
+                className={s.item}
                 title={'Individual'}
                 onClick={() => setAccountType(INDIVIDUAL_ACCOUNT)}
                 active={accountType === INDIVIDUAL_ACCOUNT}
@@ -43,6 +44,7 @@ class Register1 extends React.Component {
             </Col>
             <Col xs={24} sm={12}>
               <Card
+                className={s.item}
                 title={'Team'}
                 onClick={() => setAccountType(TEAM_ACCOUNT)}
                 active={accountType === TEAM_ACCOUNT}

@@ -26,6 +26,7 @@ class Purchase2 extends React.Component {
           <Row gutter={20}>
             <Col xs={24} sm={12}>
               <Card
+                className={s.item}
                 title={'Handwritten'}
                 onClick={() => setLetteringTechnique(HANDWRITTEN)}
                 active={letteringTechnique === HANDWRITTEN}
@@ -40,6 +41,7 @@ class Purchase2 extends React.Component {
             </Col>
             <Col xs={24} sm={12}>
               <Card
+                className={s.item}
                 title={'Printed'}
                 onClick={() => setLetteringTechnique(PRINTED)}
                 active={letteringTechnique === PRINTED}

@@ -6,10 +6,10 @@
   @media (min-width: 820px) {
     margin-right: auto;
     margin-left: auto;
-    max-width: 850px;
+    max-width: var(--max-content-width);
     width: 100%;
   }
-  @media (max-width: 990px) {
+  @media (max-width: 1340px) {
     margin-right: var(--margin-md);
     margin-left: var(--margin-md);
   }
@@ -38,7 +38,7 @@
   color: var(--primary-color);
   margin-right: var(--margin-xs);
 
-  @media (min-width: 990px) {
+  @media (min-width: 1340px) {
     position: absolute;
     left: -60px;
   }
@@ -73,13 +73,10 @@
 
 .item {
   margin-bottom: 20px;
-  justify-content: flex-end;
-  padding-top: var(--margin-sm);
-  padding-right: var(--margin-sm);
-  padding-left: var(--margin-sm);
+  justify-content: flex-start;
 
   @media (--xs-up) {
-    /*to split by 5*/
-    width: 154px;
+    /*to split by 4*/
+    width: 284px;
   }
 }

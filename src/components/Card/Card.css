@@ -8,9 +8,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   position: relative;
-  padding: var(--margin-md) var(--margin-sm) 70px var(--margin-sm);
+  padding-bottom: 70px;
 
   &.active {
     background-color: rgba(173,163,155,0.3);
@@ -19,7 +18,7 @@
 
 .header {
   position: absolute;
-  bottom: var(--margin-sm);
+  bottom: var(--margin-md);
   font-family: var(--font-family-secondary);
   text-transform: uppercase;
   font-size: var(--font-size-sm);
@@ -27,6 +26,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin-bottom: 0;
 }
 
 .title {
@@ -58,4 +58,5 @@
 }
 
 .icon {
+  margin-bottom: var(--margin-xs);
 }
