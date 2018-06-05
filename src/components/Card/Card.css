@@ -1,0 +1,61 @@
+@import '../../styles/variables.css';
+
+.card {
+  cursor: pointer;
+  background-color: rgba(173,163,155,0.1);
+  min-height: 200px;
+  border: 1px solid #ADA39B;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: var(--margin-md) var(--margin-sm) 70px var(--margin-sm);
+
+  &.active {
+    background-color: rgba(173,163,155,0.3);
+  }
+}
+
+.header {
+  position: absolute;
+  bottom: var(--margin-sm);
+  font-family: var(--font-family-secondary);
+  text-transform: uppercase;
+  font-size: var(--font-size-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  letter-spacing: 2.1px;
+}
+
+.checkIcon {
+  position: absolute;
+  /*because of borders*/
+  top: -1px;
+  right: -1px;
+}
+
+.key {
+  margin-bottom: 5px;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  border: 1px solid var(--dark-color);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+
+  @media (--xs-down) {
+    max-width: 100%;
+  }
+}
+
+.icon {
+}
