@@ -16,11 +16,17 @@ export const SUBMIT_OCCASION_REQUEST = 'Purchase.SUBMIT_OCCASION_REQUEST'
 export const SUBMIT_OCCASION_SUCCESS = 'Purchase.SUBMIT_OCCASION_SUCCESS'
 export const SUBMIT_OCCASION_FAILURE = 'Purchase.SUBMIT_OCCASION_FAILURE'
 
-export const SET_LETTERING_TECHNIQUE = 'Purchase.LETTERING_TECHNIQUE'
+export const SET_LETTERING_TECHNIQUE = 'Purchase.SET_LETTERING_TECHNIQUE'
 
-export const SUBMIT_LETTERING_TECHNIQUE_REQUEST = 'Purchase.LETTERING_TECHNIQUE_REQUEST'
-export const SUBMIT_LETTERING_TECHNIQUE_SUCCESS = 'Purchase.LETTERING_TECHNIQUE_SUCCESS'
-export const SUBMIT_LETTERING_TECHNIQUE_FAILURE = 'Purchase.LETTERING_TECHNIQUE_FAILURE'
+export const SUBMIT_LETTERING_TECHNIQUE_REQUEST = 'Purchase.SUBMIT_LETTERING_TECHNIQUE_REQUEST'
+export const SUBMIT_LETTERING_TECHNIQUE_SUCCESS = 'Purchase.SUBMIT_LETTERING_TECHNIQUE_SUCCESS'
+export const SUBMIT_LETTERING_TECHNIQUE_FAILURE = 'Purchase.SUBMIT_LETTERING_TECHNIQUE_FAILURE'
+
+export const SET_CARD_STYLE = 'Purchase.SET_CARD_STYLE'
+
+export const SUBMIT_CARD_STYLE_REQUEST = 'Purchase.SUBMIT_CARD_STYLE_REQUEST'
+export const SUBMIT_CARD_STYLE_SUCCESS = 'Purchase.SUBMIT_CARD_STYLE_SUCCESS'
+export const SUBMIT_CARD_STYLE_FAILURE = 'Purchase.SUBMIT_CARD_STYLE_FAILURE'
 
 export const CLEAR = 'Purchase.CLEAR'
 
@@ -74,6 +80,23 @@ export const submitLetteringTechnique = () => (dispatch, getState, {fetch, histo
   })
 }
 
+export const setCardStyle = (cardStyle) => ({type: SET_CARD_STYLE, cardStyle})
+
+export const submitCardStyle = () => (dispatch, getState, {fetch, history}) => {
+  const {cardStyle} = getState().purchase
+  if (!cardStyle) return
+  dispatch({type: SUBMIT_CARD_STYLE_REQUEST})
+  history.push('/purchase/card-size')
+  return fetch(`/guest/set-card-style`, {
+    method: 'POST',
+    body: {
+      card_style: cardStyle,
+    },
+    success: () => dispatch({type: SUBMIT_CARD_STYLE_SUCCESS}),
+    failure: () => dispatch({type: SUBMIT_CARD_STYLE_FAILURE})
+  })
+}
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -83,9 +106,10 @@ const initialState = {
   loading: {
     occasions: false,
   },
-  occasion: null,
   occasions: [],
+  occasion: null,
   letteringTechnique: null,
+  cardStyle: null,
 }
 
 export default createReducer(initialState, {
@@ -113,6 +137,9 @@ export default createReducer(initialState, {
   }),
   [SET_LETTERING_TECHNIQUE]: (state, {letteringTechnique}) => ({
     letteringTechnique,
+  }),
+  [SET_CARD_STYLE]: (state, {cardStyle}) => ({
+    cardStyle,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

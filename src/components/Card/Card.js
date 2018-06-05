@@ -7,11 +7,11 @@ import KeyHandler, {KEYPRESS} from 'react-key-handler'
 
 class Card extends React.Component {
   render() {
-    const {title, image, active, onClick, keyValue, className, svg, imageClassName} = this.props
+    const {title, image, active, onClick, keyValue, className, svg} = this.props
     return (
       <div className={cn(s.card, active && s.active, className)} onClick={onClick}>
         {active && <CheckIcon className={s.checkIcon}/>}
-        {image && <img src={image} className={cn(s.image, imageClassName)}/>}
+        {image && <img src={image} className={s.image}/>}
         {svg && React.createElement(svg, {className: s.icon})}
         <h3 className={s.header}>
           {keyValue && (
