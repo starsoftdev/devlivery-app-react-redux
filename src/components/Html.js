@@ -34,7 +34,7 @@ class Html extends React.Component {
         <meta name="description" content={description}/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         {scripts.map(script => <link key={script} rel="preload" href={script} as="script"/>)}
-        <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+        <link rel="icon" href="/favicon.ico?v1" type="image/x-icon"/>
         {styles.map(style =>
           <style
             key={style.id}
