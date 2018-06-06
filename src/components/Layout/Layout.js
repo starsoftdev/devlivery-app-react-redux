@@ -12,11 +12,15 @@ import globalStyles from '../../styles/global.css'
 import {HOME_ROUTE} from '../../routes'
 
 class AppLayout extends React.Component {
+  static defaultProps = {
+    header: true,
+  }
+
   render() {
-    const {currentRouteName} = this.props
+    const {currentRouteName, header} = this.props
     return (
       <Layout className={s.container}>
-        <Header/>
+        {header && <Header/>}
         <main className={s.content}>
           {this.props.children}
         </main>

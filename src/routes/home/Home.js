@@ -130,12 +130,14 @@ class Home extends React.Component {
         <section className={s.feedbackSection}>
           <Carousel
             loop
-            customPaging={() => <div className={s.dotWrapper}>
-              <div className={s.dot}/>
-            </div>}
+            customPaging={() => (
+              <div className={s.dotWrapper}>
+                <div className={s.dot}/>
+              </div>
+            )}
           >
             <div className={s.feedback}>
-              <img style={{background: `url(${'http://via.placeholder.com/90x90'})`}} className={s.feedbackImage}/>
+              <div style={{background: `url(${'http://via.placeholder.com/90x90'})`}} className={s.feedbackImage}/>
               <h3 className={s.feedbackHeader}>ROGER FEDERER</h3>
               <p className={s.feedbackDescription}>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
@@ -143,8 +145,8 @@ class Home extends React.Component {
                 a type specimen book.
               </p>
             </div>
-            <div>
-              <img style={{background: `url(${'http://via.placeholder.com/90x90'})`}} className={s.feedbackImage}/>
+            <div className={s.feedback}>
+              <div style={{background: `url(${'http://via.placeholder.com/90x90'})`}} className={s.feedbackImage}/>
               <h3 className={s.feedbackHeader}>ROGER FEDERER</h3>
               <p className={s.feedbackDescription}>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
@@ -152,7 +154,7 @@ class Home extends React.Component {
                 a type specimen book.
               </p>
             </div>
-            <div>
+            <div className={s.feedback}>
               <div style={{background: `url(${'http://via.placeholder.com/90x90'})`}} className={s.feedbackImage}/>
               <h3 className={s.feedbackHeader}>ROGER FEDERER</h3>
               <p className={s.feedbackDescription}>
