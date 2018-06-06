@@ -45,6 +45,7 @@ export const SUBMIT_CARD_DETAILS_SUCCESS = 'Purchase.SUBMIT_CARD_DETAILS_SUCCESS
 export const SUBMIT_CARD_DETAILS_FAILURE = 'Purchase.SUBMIT_CARD_DETAILS_FAILURE'
 
 export const SET_GIFT_TYPE = 'Purchase.SET_GIFT_TYPE'
+export const CONTINUE_WITHOUT_GIFT = 'Purchase.CONTINUE_WITHOUT_GIFT'
 
 export const SUBMIT_GIFT_TYPE_REQUEST = 'Purchase.SUBMIT_GIFT_TYPE_REQUEST'
 export const SUBMIT_GIFT_TYPE_SUCCESS = 'Purchase.SUBMIT_GIFT_TYPE_SUCCESS'
@@ -182,6 +183,11 @@ export const submitGiftType = () => (dispatch, getState, {fetch, history}) => {
   })
 }
 
+export const continueWithoutGift = () => (dispatch, getState, {history}) => {
+  history.push('/purchase/gift')
+  dispatch({type: CONTINUE_WITHOUT_GIFT})
+}
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -240,6 +246,9 @@ export default createReducer(initialState, {
   }),
   [SET_GIFT_TYPE]: (state, {giftType}) => ({
     giftType,
+  }),
+  [CONTINUE_WITHOUT_GIFT]: (state, action) => ({
+    giftType: null,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

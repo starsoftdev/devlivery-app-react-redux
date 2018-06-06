@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {setGiftType, submitGiftType} from '../../reducers/purchase'
+import {continueWithoutGift, setGiftType, submitGiftType} from '../../reducers/purchase'
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase7.css'
@@ -22,7 +22,7 @@ const GIFT_TYPES = [
 
 class Purchase7 extends React.Component {
   render() {
-    const {giftType, setGiftType, submitGiftType} = this.props
+    const {giftType, setGiftType, submitGiftType, continueWithoutGift} = this.props
     return (
       <React.Fragment>
         <div className={s.content}>
@@ -57,7 +57,13 @@ class Purchase7 extends React.Component {
           />
           <Button
             type='primary'
-            className={s.submitBtn}
+            ghost
+            onClick={continueWithoutGift}
+          >
+            Continue without Gift
+          </Button>
+          <Button
+            type='primary'
             disabled={!giftType}
             onClick={submitGiftType}
           >
@@ -77,6 +83,7 @@ const mapState = state => ({
 const mapDispatch = {
   setGiftType,
   submitGiftType,
+  continueWithoutGift,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase7))
