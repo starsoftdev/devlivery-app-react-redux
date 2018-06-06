@@ -4,8 +4,7 @@ import {setCard, submitCard} from '../../reducers/purchase'
 import {Button, Col, Layout, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase5.css'
-import {Card, Link} from '../../components'
-import ArrowIcon from '../../static/decor_arrow.svg'
+import {Actions, Card, Link, SectionHeader} from '../../components'
 import Card1Image from '../../static/modern_card_style.png'
 import Card2Image from '../../static/vintage_card_style.png'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
@@ -55,13 +54,11 @@ class Purchase5 extends React.Component {
               </Link>
             </div>
             <div className={s.content}>
-              <h1 className={s.header}>
-                <span className={s.headerPrefix}>
-                  5
-                  <ArrowIcon className={s.arrowIcon}/>
-                </span>
-                Choose Card
-              </h1>
+              <SectionHeader
+                header={'Choose Card'}
+                number={5}
+                prefixClassName={s.headerPrefix}
+              />
               <Row className={s.items} gutter={20} type='flex' align='center'>
                 {CARD_STYLES.map((item) =>
                   <Col key={item.key} className={s.itemWrapper}>
@@ -78,7 +75,7 @@ class Purchase5 extends React.Component {
           </Layout.Content>
           <Preview onCollapse={this.onPreviewCollapse} collapsed={previewCollapsed}/>
         </div>
-        <div className={s.actions}>
+        <Actions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -86,13 +83,12 @@ class Purchase5 extends React.Component {
           />
           <Button
             type='primary'
-            className={s.submitBtn}
             disabled={!card}
             onClick={submitCard}
           >
             Submit
           </Button>
-        </div>
+        </Actions>
       </React.Fragment>
     )
   }

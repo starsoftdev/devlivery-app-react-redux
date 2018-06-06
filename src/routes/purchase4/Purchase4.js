@@ -4,9 +4,8 @@ import {setCardSize, submitCardSize} from '../../reducers/purchase'
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase4.css'
-import {Card} from '../../components'
+import {Actions, Card, SectionHeader} from '../../components'
 import {ALPHABET} from '../../constants'
-import ArrowIcon from '../../static/decor_arrow.svg'
 import BigCardImage from '../../static/big_card.svg'
 import PanelCardImage from '../../static/panel_card.svg'
 import GreetingCardImage from '../../static/greeting_card.svg'
@@ -26,13 +25,11 @@ class Purchase4 extends React.Component {
     return (
       <React.Fragment>
         <div className={s.content}>
-          <h1 className={s.header}>
-            <span className={s.headerPrefix}>
-              4
-              <ArrowIcon className={s.arrowIcon}/>
-            </span>
-            Choose the Format
-          </h1>
+          <SectionHeader
+            header={'Choose the Format'}
+            number={4}
+            prefixClassName={s.headerPrefix}
+          />
           <Row className={s.items} gutter={20} type='flex' align='center'>
             {CARD_STYLES.map((item, i) =>
               <Col key={item.key} className={s.itemWrapper}>
@@ -49,7 +46,7 @@ class Purchase4 extends React.Component {
             )}
           </Row>
         </div>
-        <div className={s.actions}>
+        <Actions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -57,13 +54,12 @@ class Purchase4 extends React.Component {
           />
           <Button
             type='primary'
-            className={s.submitBtn}
             disabled={!cardSize}
             onClick={submitCardSize}
           >
             Submit
           </Button>
-        </div>
+        </Actions>
       </React.Fragment>
     )
   }

@@ -4,14 +4,12 @@ import {submitCardDetails} from '../../reducers/purchase'
 import {Button, Col, Form, Input, Layout, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase6.css'
-import {Link} from '../../components'
-import ArrowIcon from '../../static/decor_arrow.svg'
+import {Actions, Link, SectionHeader} from '../../components'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import {HOME_ROUTE} from '../'
 import Logo from '../../static/logo.svg'
 import cn from 'classnames'
 import Preview from './Preview'
-import formMessages from '../../formMessages'
 
 const TextArea = Input.TextArea
 
@@ -58,13 +56,11 @@ class Purchase6 extends React.Component {
               </Link>
             </div>
             <div className={s.content}>
-              <h1 className={s.header}>
-                <span className={s.headerPrefix}>
-                  6
-                  <ArrowIcon className={s.arrowIcon}/>
-                </span>
-                Personalize Card
-              </h1>
+              <SectionHeader
+                header={'Personalize Card'}
+                number={6}
+                prefixClassName={s.headerPrefix}
+              />
               <Row gutter={20}>
                 <Col xs={24} sm={12}>
                   <Form.Item>
@@ -154,7 +150,7 @@ class Purchase6 extends React.Component {
           </Layout.Content>
           <Preview onCollapse={this.onPreviewCollapse} collapsed={previewCollapsed}/>
         </div>
-        <div className={s.actions}>
+        <Actions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -162,12 +158,11 @@ class Purchase6 extends React.Component {
           />
           <Button
             type='primary'
-            className={s.submitBtn}
             htmlType='submit'
           >
             Submit
           </Button>
-        </div>
+        </Actions>
       </Form>
     )
   }

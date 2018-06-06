@@ -1,0 +1,32 @@
+@import '../../styles/variables.css';
+
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  @media (--md-up) {
+    font-size: 40px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
+}
+
+.prefix {
+  display: flex;
+  align-items: center;
+  color: var(--primary-color);
+  margin-right: var(--margin-xs);
+
+  @media (--md-up) {
+    font-size: 40px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
+}
+
+.arrowIcon {
+  margin-left: var(--margin-xs);
+}

@@ -4,8 +4,7 @@ import {HANDWRITTEN, PRINTED, setLetteringTechnique, submitLetteringTechnique} f
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase2.css'
-import {Card} from '../../components'
-import ArrowIcon from '../../static/decor_arrow.svg'
+import {Actions, Card, SectionHeader} from '../../components'
 import HandwrittenIcon from '../../static/handwritten.svg'
 import PrintedIcon from '../../static/printed.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
@@ -16,13 +15,11 @@ class Purchase2 extends React.Component {
     return (
       <React.Fragment>
         <div className={s.content}>
-          <h1 className={s.header}>
-            <span className={s.headerPrefix}>
-              2
-              <ArrowIcon className={s.arrowIcon}/>
-            </span>
-            Lettering Technique
-          </h1>
+          <SectionHeader
+            header={'Lettering Technique'}
+            number={2}
+            prefixClassName={s.headerPrefix}
+          />
           <Row gutter={20}>
             <Col xs={24} sm={12}>
               <Card
@@ -55,7 +52,7 @@ class Purchase2 extends React.Component {
             </Col>
           </Row>
         </div>
-        <div className={s.actions}>
+        <Actions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -64,12 +61,11 @@ class Purchase2 extends React.Component {
           <Button
             onClick={submitLetteringTechnique}
             type='primary'
-            className={s.submitBtn}
             disabled={!letteringTechnique}
           >
             Submit
           </Button>
-        </div>
+        </Actions>
       </React.Fragment>
     )
   }
