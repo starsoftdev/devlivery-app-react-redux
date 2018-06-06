@@ -137,23 +137,6 @@ export const submitCardSize = () => (dispatch, getState, {fetch, history}) => {
   })
 }
 
-export const setCard = (card) => ({type: SET_CARD, card})
-
-export const submitCard = () => (dispatch, getState, {fetch, history}) => {
-  const {card} = getState().purchase
-  if (!card) return
-  dispatch({type: SUBMIT_CARD_REQUEST})
-  history.push('/purchase/personalize-card')
-  return fetch(`/guest/set-card`, {
-    method: 'POST',
-    body: {
-      card,
-    },
-    success: () => dispatch({type: SUBMIT_CARD_SUCCESS}),
-    failure: () => dispatch({type: SUBMIT_CARD_FAILURE})
-  })
-}
-
 export const submitCardDetails = (cardDetails) => (dispatch, getState, {fetch, history}) => {
   dispatch({type: SUBMIT_CARD_DETAILS_REQUEST, cardDetails})
   history.push('/purchase/gift-type')
@@ -186,6 +169,23 @@ export const submitGiftType = () => (dispatch, getState, {fetch, history}) => {
 export const continueWithoutGift = () => (dispatch, getState, {history}) => {
   history.push('/purchase/gift')
   dispatch({type: CONTINUE_WITHOUT_GIFT})
+}
+
+export const setCard = (card) => ({type: SET_CARD, card})
+
+export const submitCard = () => (dispatch, getState, {fetch, history}) => {
+  const {card} = getState().purchase
+  if (!card) return
+  dispatch({type: SUBMIT_CARD_REQUEST})
+  history.push('/purchase/create-account')
+  return fetch(`/guest/set-card`, {
+    method: 'POST',
+    body: {
+      card,
+    },
+    success: () => dispatch({type: SUBMIT_CARD_SUCCESS}),
+    failure: () => dispatch({type: SUBMIT_CARD_FAILURE})
+  })
 }
 
 export const clear = () => ({type: CLEAR})
