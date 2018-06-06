@@ -44,6 +44,12 @@ export const SUBMIT_CARD_DETAILS_REQUEST = 'Purchase.SUBMIT_CARD_DETAILS_REQUEST
 export const SUBMIT_CARD_DETAILS_SUCCESS = 'Purchase.SUBMIT_CARD_DETAILS_SUCCESS'
 export const SUBMIT_CARD_DETAILS_FAILURE = 'Purchase.SUBMIT_CARD_DETAILS_FAILURE'
 
+export const SET_GIFT_TYPE = 'Purchase.SET_GIFT_TYPE'
+
+export const SUBMIT_GIFT_TYPE_REQUEST = 'Purchase.SUBMIT_GIFT_TYPE_REQUEST'
+export const SUBMIT_GIFT_TYPE_SUCCESS = 'Purchase.SUBMIT_GIFT_TYPE_SUCCESS'
+export const SUBMIT_GIFT_TYPE_FAILURE = 'Purchase.SUBMIT_GIFT_TYPE_FAILURE'
+
 export const CLEAR = 'Purchase.CLEAR'
 
 // ------------------------------------
@@ -160,6 +166,22 @@ export const submitCardDetails = (cardDetails) => (dispatch, getState, {fetch, h
   })
 }
 
+export const setGiftType = (giftType) => ({type: SET_GIFT_TYPE, giftType})
+
+export const submitGiftType = () => (dispatch, getState, {fetch, history}) => {
+  const {giftType} = getState().purchase
+  dispatch({type: SUBMIT_GIFT_TYPE_REQUEST})
+  history.push('/purchase/gift')
+  return fetch(`/guest/set-gift-type`, {
+    method: 'POST',
+    body: {
+      type: giftType,
+    },
+    success: () => dispatch({type: SUBMIT_GIFT_TYPE_SUCCESS}),
+    failure: () => dispatch({type: SUBMIT_GIFT_TYPE_FAILURE})
+  })
+}
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -175,6 +197,7 @@ const initialState = {
   cardStyle: null,
   cardSize: null,
   cardDetails: {},
+  giftType: null,
 }
 
 export default createReducer(initialState, {
@@ -214,6 +237,9 @@ export default createReducer(initialState, {
   }),
   [SUBMIT_CARD_DETAILS_REQUEST]: (state, {cardDetails}) => ({
     cardDetails,
+  }),
+  [SET_GIFT_TYPE]: (state, {giftType}) => ({
+    giftType,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

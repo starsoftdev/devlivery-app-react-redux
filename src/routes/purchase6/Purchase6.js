@@ -70,9 +70,6 @@ class Purchase6 extends React.Component {
                   <Form.Item>
                     {getFieldDecorator('recipient', {
                       initialValue: cardDetails ? cardDetails.recipient : undefined,
-                      rules: [
-                        {required: true, message: formMessages.required},
-                      ],
                     })(
                       <Select placeholder={'Recipient name'}>
                         {[].map((item) =>
@@ -86,9 +83,6 @@ class Purchase6 extends React.Component {
                   <Form.Item>
                     {getFieldDecorator('font_weight', {
                       initialValue: cardDetails ? cardDetails.font_weight : undefined,
-                      rules: [
-                        {required: true, message: formMessages.required},
-                      ],
                     })(
                       <Select placeholder={'Font Weight'}>
                         {[].map((item) =>
@@ -102,9 +96,6 @@ class Purchase6 extends React.Component {
                   <Form.Item>
                     {getFieldDecorator('color', {
                       initialValue: cardDetails ? cardDetails.color : undefined,
-                      rules: [
-                        {required: true, message: formMessages.required},
-                      ],
                     })(
                       <Select placeholder={'Color'}>
                         {[].map((item) =>
@@ -120,9 +111,6 @@ class Purchase6 extends React.Component {
                   <Form.Item>
                     {getFieldDecorator('recipient_2', {
                       initialValue: cardDetails ? cardDetails.recipient_2 : undefined,
-                      rules: [
-                        {required: true, message: formMessages.required},
-                      ],
                     })(
                       <Input placeholder={''}/>
                     )}
@@ -132,9 +120,6 @@ class Purchase6 extends React.Component {
                   <Form.Item>
                     {getFieldDecorator('font_family', {
                       initialValue: cardDetails ? cardDetails.font_family : undefined,
-                      rules: [
-                        {required: true, message: formMessages.required},
-                      ],
                     })(
                       <Select placeholder={'Font Family'}>
                         {[].map((item) =>
@@ -148,9 +133,6 @@ class Purchase6 extends React.Component {
                   <Form.Item>
                     {getFieldDecorator('size', {
                       initialValue: cardDetails ? cardDetails.size : undefined,
-                      rules: [
-                        {required: true, message: formMessages.required},
-                      ],
                     })(
                       <Select placeholder={'Size'}>
                         {[].map((item) =>
@@ -164,9 +146,6 @@ class Purchase6 extends React.Component {
               <Form.Item>
                 {getFieldDecorator('body', {
                   initialValue: cardDetails ? cardDetails.body : undefined,
-                  rules: [
-                    {required: true, message: formMessages.required},
-                  ],
                 })(
                   <TextArea placeholder={'Body'} className={s.body} rows={7}/>
                 )}
