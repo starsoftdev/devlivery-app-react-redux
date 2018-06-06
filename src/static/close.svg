@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>menu</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="top_bar_mob_close_menu" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-332.000000, -34.000000)">
+        <g id="top_bar_mob" fill="#ADA39B">
+            <g id="menu" transform="translate(332.000000, 34.000000)">
+                <path d="M-2,9.125 L22,9.125 C22.5522847,9.125 23,9.57271525 23,10.125 L23,10.375 C23,10.9272847 22.5522847,11.375 22,11.375 L-2,11.375 C-2.55228475,11.375 -3,10.9272847 -3,10.375 L-3,10.125 C-3,9.57271525 -2.55228475,9.125 -2,9.125 Z" id="Rectangle-4" transform="translate(10.000000, 10.250000) rotate(-45.000000) translate(-10.000000, -10.250000) "></path>
+                <path d="M-2,9.125 L22,9.125 C22.5522847,9.125 23,9.57271525 23,10.125 L23,10.375 C23,10.9272847 22.5522847,11.375 22,11.375 L-2,11.375 C-2.55228475,11.375 -3,10.9272847 -3,10.375 L-3,10.125 C-3,9.57271525 -2.55228475,9.125 -2,9.125 Z" id="Rectangle-4" transform="translate(10.000000, 10.250000) scale(-1, 1) rotate(-45.000000) translate(-10.000000, -10.250000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>
