@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {setCardSize, submitCardSize} from '../../reducers/purchase'
-import {Button, Carousel, Col, Layout, Row} from 'antd'
+import {setCard, submitCard} from '../../reducers/purchase'
+import {Button, Col, Layout, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase5.css'
 import {Card, Link} from '../../components'
@@ -34,7 +34,7 @@ class Purchase5 extends React.Component {
 
   render() {
     const {previewCollapsed} = this.state
-    const {cardSize, setCardSize, submitCardSize} = this.props
+    const {card, setCard, submitCard} = this.props
 
     return (
       <React.Fragment>
@@ -68,8 +68,8 @@ class Purchase5 extends React.Component {
                     <Card
                       className={s.item}
                       image={item.image}
-                      onClick={() => setCardSize(item.key)}
-                      active={item.key === cardSize}
+                      onClick={() => setCard(item.key)}
+                      active={item.key === card}
                     />
                   </Col>
                 )}
@@ -82,13 +82,13 @@ class Purchase5 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={submitCardSize}
+            onKeyHandle={submitCard}
           />
           <Button
             type='primary'
             className={s.submitBtn}
-            disabled={!cardSize}
-            onClick={submitCardSize}
+            disabled={!card}
+            onClick={submitCard}
           >
             Submit
           </Button>
@@ -99,14 +99,13 @@ class Purchase5 extends React.Component {
 }
 
 const mapState = state => ({
-  cardSizes: state.purchase.cardSizes,
-  cardSize: state.purchase.cardSize,
+  card: state.purchase.card,
   loading: state.purchase.loading,
 })
 
 const mapDispatch = {
-  setCardSize,
-  submitCardSize,
+  setCard,
+  submitCard,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase5))

@@ -18,6 +18,7 @@ export const PURCHASE2_ROUTE = 'purchase2'
 export const PURCHASE3_ROUTE = 'purchase3'
 export const PURCHASE4_ROUTE = 'purchase4'
 export const PURCHASE5_ROUTE = 'purchase5'
+export const PURCHASE6_ROUTE = 'purchase6'
 
 const authRoutes = {
   path: '',
@@ -110,9 +111,14 @@ const routes = {
       load: () => import(/* webpackChunkName: 'purchase' */ './purchase4'),
     },
     {
-      path: '/purchase/personalize-card',
+      path: '/purchase/card',
       name: PURCHASE5_ROUTE,
       load: () => import(/* webpackChunkName: 'purchase' */ './purchase5'),
+    },
+    {
+      path: '/purchase/personalize-card',
+      name: PURCHASE6_ROUTE,
+      load: () => import(/* webpackChunkName: 'purchase' */ './purchase6'),
     },
 
     authRoutes,

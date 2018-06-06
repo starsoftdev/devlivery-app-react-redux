@@ -68,7 +68,6 @@ class Purchase3 extends React.Component {
 }
 
 const mapState = state => ({
-  cardStyles: state.purchase.cardStyles,
   cardStyle: state.purchase.cardStyle,
   loading: state.purchase.loading,
 })
