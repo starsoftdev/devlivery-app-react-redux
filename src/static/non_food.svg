@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="142px" height="106px" viewBox="0 0 142 106" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>non_food</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="07_Add_Gift_?" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-404.000000, -275.000000)">
+        <g id="card" transform="translate(355.000000, 250.000000)">
+            <g id="non_food" transform="translate(49.000000, 26.000000)">
+                <polygon id="Path-17" fill="#E0DFE6" points="66.895533 102.883556 91.3212728 49.7727008 97.4063021 29.3668826 106.073079 29.3668826 120.938081 49.7727008"></polygon>
+                <polygon id="Path-13" stroke="#404D5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="67.1898024 103.919048 120.883513 49.0682694 105.712529 28.5470402 35.4349693 31.3369138 18.2008662 49.0682694"></polygon>
+                <path d="M19.3364188,49.7328666 L120.510573,49.7328666" id="Path-14" stroke="#404D5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <polyline id="Path-15" stroke="#404D5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="35.9824252 30.8229268 51.4713632 49.3360208 66.9961608 103.43853 91.404566 49.3360208 106.049609 30.8229268"></polyline>
+                <polyline id="Path-16" stroke="#404D5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="51.6148015 49.0993477 71.1180939 30.2245547 90.6213863 49.856343"></polyline>
+                <path d="M44.3157644,12.056549 L46.4868123,19.8990241" id="Path-18" stroke="#404D5F" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M69.3513387,0.886391583 L68.5563775,10.0903284" id="Path-18" stroke="#404D5F" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M95.3469993,12.3424423 L93.0781166,19.8990241" id="Path-18" stroke="#404D5F" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M140.097288,51.6772549 L131.086812,55.4555458" id="Path-18" stroke="#404D5F" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M130.295646,64.601183 L118.825943,66.4903284" id="Path-18" stroke="#404D5F" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M115.575549,76.1989941 L107.862452,76.1989941" id="Path-18" stroke="#404D5F" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M10.1320708,51.6772549 L1.12159489,55.4555458" id="Path-18" stroke="#404D5F" stroke-width="2" stroke-linecap="round" transform="translate(5.626833, 53.566400) scale(-1, 1) translate(-5.626833, -53.566400) "></path>
+                <path d="M19.9478195,64.601183 L8.47811663,66.4903284" id="Path-18" stroke="#404D5F" stroke-width="2" stroke-linecap="round" transform="translate(14.212968, 65.545756) scale(-1, 1) translate(-14.212968, -65.545756) "></path>
+                <path d="M29.7494622,78.651168 L22.0363648,78.651168" id="Path-18" stroke="#404D5F" stroke-width="2" stroke-linecap="round" transform="translate(25.892913, 78.651168) scale(-1, 1) translate(-25.892913, -78.651168) "></path>
+            </g>
+        </g>
+    </g>
+</svg>
