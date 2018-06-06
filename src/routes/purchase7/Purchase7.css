@@ -1,5 +1,11 @@
 @import '../../styles/variables.css';
 
+.headerPrefix {
+  @media (min-width: 1340px) {
+    margin-left: -60px;
+  }
+}
+
 .content {
   margin-bottom: var(--margin-md);
 
@@ -7,7 +13,6 @@
     margin-right: auto;
     margin-left: auto;
     max-width: var(--max-content-width);
-    width: 100%;
   }
   @media (max-width: 1340px) {
     margin-right: var(--margin-md);
@@ -16,57 +21,6 @@
   @media (--md-up) {
     margin-top: var(--margin-xl);
   }
-}
-
-.header {
-  position: relative;
-  display: flex;
-  align-items: center;
-
-  @media (--md-up) {
-    font-size: 40px;
-  }
-  @media (--md-down) {
-    font-size: 32px;
-  }
-}
-
-.headerPrefix {
-  display: flex;
-  align-items: center;
-  color: var(--primary-color);
-  margin-right: var(--margin-xs);
-
-  @media (--md-up) {
-    font-size: 40px;
-  }
-  @media (--md-down) {
-    font-size: 32px;
-  }
-  @media (min-width: 1340px) {
-    position: absolute;
-    left: -60px;
-  }
-}
-
-.arrowIcon {
-  margin-left: var(--margin-xs);
-}
-
-.actions {
-  border-top: 2px solid color-mod(var(--dark-color) a(10%));
-  margin-top: auto;
-  text-align: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
-
-  & > *:not(:last-child) {
-    margin-right: 20px;
-  }
-}
-
-.description {
-  margin-top: var(--margin-md);
 }
 
 .items {

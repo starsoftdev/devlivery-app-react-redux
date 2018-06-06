@@ -4,9 +4,8 @@ import {setCardStyle, submitCardStyle} from '../../reducers/purchase'
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase3.css'
-import {Card} from '../../components'
+import {Actions, Card, SectionHeader} from '../../components'
 import {ALPHABET} from '../../constants'
-import ArrowIcon from '../../static/decor_arrow.svg'
 import ModernCardImage from '../../static/modern_card_style.png'
 import FloralCardImage from '../../static/floral_card_style.jpg'
 import VintageCardImage from '../../static/vintage_card_style.png'
@@ -25,13 +24,11 @@ class Purchase3 extends React.Component {
     return (
       <React.Fragment>
         <div className={s.content}>
-          <h1 className={s.header}>
-            <span className={s.headerPrefix}>
-              3
-              <ArrowIcon className={s.arrowIcon}/>
-            </span>
-            Select Style
-          </h1>
+          <SectionHeader
+            header={'Select Style'}
+            number={3}
+            prefixClassName={s.headerPrefix}
+          />
           <Row className={s.items} gutter={20} type='flex' align='center'>
             {CARD_STYLES.map((item, i) =>
               <Col key={item.key} className={s.itemWrapper}>
@@ -47,7 +44,7 @@ class Purchase3 extends React.Component {
             )}
           </Row>
         </div>
-        <div className={s.actions}>
+        <Actions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -55,13 +52,12 @@ class Purchase3 extends React.Component {
           />
           <Button
             type='primary'
-            className={s.submitBtn}
             disabled={!cardStyle}
             onClick={submitCardStyle}
           >
             Submit
           </Button>
-        </div>
+        </Actions>
       </React.Fragment>
     )
   }

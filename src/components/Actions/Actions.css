@@ -1,0 +1,13 @@
+@import '../../styles/variables.css';
+
+.actions {
+  border-top: 2px solid color-mod(var(--dark-color) a(10%));
+  margin-top: auto;
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  & > *:not(:last-child) {
+    margin-right: 20px;
+  }
+}

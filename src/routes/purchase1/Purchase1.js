@@ -4,9 +4,8 @@ import {setOccasion, submitOccasion} from '../../reducers/purchase'
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase1.css'
-import {Card} from '../../components'
+import {Actions, Card, SectionHeader} from '../../components'
 import {ALPHABET} from '../../constants'
-import ArrowIcon from '../../static/decor_arrow.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 
 class Purchase1 extends React.Component {
@@ -15,13 +14,11 @@ class Purchase1 extends React.Component {
     return (
       <React.Fragment>
         <div className={s.content}>
-          <h1 className={s.header}>
-            <span className={s.headerPrefix}>
-              1
-              <ArrowIcon className={s.arrowIcon}/>
-            </span>
-            Select Occasion
-          </h1>
+          <SectionHeader
+            header={'Select Occasion'}
+            number={1}
+            prefixClassName={s.headerPrefix}
+          />
           <Row className={s.items} gutter={20} type='flex' align='center'>
             {occasions.map((item, i) =>
               <Col key={item.id} className={s.itemWrapper}>
@@ -37,7 +34,7 @@ class Purchase1 extends React.Component {
             )}
           </Row>
         </div>
-        <div className={s.actions}>
+        <Actions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -51,7 +48,7 @@ class Purchase1 extends React.Component {
           >
             Submit
           </Button>
-        </div>
+        </Actions>
       </React.Fragment>
     )
   }
