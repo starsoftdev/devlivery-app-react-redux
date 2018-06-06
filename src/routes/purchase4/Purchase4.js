@@ -70,7 +70,6 @@ class Purchase4 extends React.Component {
 }
 
 const mapState = state => ({
-  cardSizes: state.purchase.cardSizes,
   cardSize: state.purchase.cardSize,
   loading: state.purchase.loading,
 })

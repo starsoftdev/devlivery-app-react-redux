@@ -34,6 +34,16 @@ export const SUBMIT_CARD_SIZE_REQUEST = 'Purchase.SUBMIT_CARD_SIZE_REQUEST'
 export const SUBMIT_CARD_SIZE_SUCCESS = 'Purchase.SUBMIT_CARD_SIZE_SUCCESS'
 export const SUBMIT_CARD_SIZE_FAILURE = 'Purchase.SUBMIT_CARD_SIZE_FAILURE'
 
+export const SET_CARD = 'Purchase.SET_CARD'
+
+export const SUBMIT_CARD_REQUEST = 'Purchase.SUBMIT_CARD_REQUEST'
+export const SUBMIT_CARD_SUCCESS = 'Purchase.SUBMIT_CARD_SUCCESS'
+export const SUBMIT_CARD_FAILURE = 'Purchase.SUBMIT_CARD_FAILURE'
+
+export const SUBMIT_CARD_DETAILS_REQUEST = 'Purchase.SUBMIT_CARD_DETAILS_REQUEST'
+export const SUBMIT_CARD_DETAILS_SUCCESS = 'Purchase.SUBMIT_CARD_DETAILS_SUCCESS'
+export const SUBMIT_CARD_DETAILS_FAILURE = 'Purchase.SUBMIT_CARD_DETAILS_FAILURE'
+
 export const CLEAR = 'Purchase.CLEAR'
 
 // ------------------------------------
@@ -109,7 +119,7 @@ export const submitCardSize = () => (dispatch, getState, {fetch, history}) => {
   const {cardSize} = getState().purchase
   if (!cardSize) return
   dispatch({type: SUBMIT_CARD_SIZE_REQUEST})
-  history.push('/purchase/personalize-card')
+  history.push('/purchase/card')
   return fetch(`/guest/set-card-size`, {
     method: 'POST',
     body: {
@@ -117,6 +127,36 @@ export const submitCardSize = () => (dispatch, getState, {fetch, history}) => {
     },
     success: () => dispatch({type: SUBMIT_CARD_SIZE_SUCCESS}),
     failure: () => dispatch({type: SUBMIT_CARD_SIZE_FAILURE})
+  })
+}
+
+export const setCard = (card) => ({type: SET_CARD, card})
+
+export const submitCard = () => (dispatch, getState, {fetch, history}) => {
+  const {card} = getState().purchase
+  if (!card) return
+  dispatch({type: SUBMIT_CARD_REQUEST})
+  history.push('/purchase/personalize-card')
+  return fetch(`/guest/set-card`, {
+    method: 'POST',
+    body: {
+      card,
+    },
+    success: () => dispatch({type: SUBMIT_CARD_SUCCESS}),
+    failure: () => dispatch({type: SUBMIT_CARD_FAILURE})
+  })
+}
+
+export const submitCardDetails = (cardDetails) => (dispatch, getState, {fetch, history}) => {
+  dispatch({type: SUBMIT_CARD_DETAILS_REQUEST, cardDetails})
+  history.push('/purchase/gift-type')
+  return fetch(`/guest/personalize-card`, {
+    method: 'POST',
+    body: {
+      ...cardDetails,
+    },
+    success: () => dispatch({type: SUBMIT_CARD_DETAILS_SUCCESS}),
+    failure: () => dispatch({type: SUBMIT_CARD_DETAILS_FAILURE})
   })
 }
 
@@ -134,6 +174,7 @@ const initialState = {
   letteringTechnique: null,
   cardStyle: null,
   cardSize: null,
+  cardDetails: {},
 }
 
 export default createReducer(initialState, {
@@ -167,6 +208,12 @@ export default createReducer(initialState, {
   }),
   [SET_CARD_SIZE]: (state, {cardSize}) => ({
     cardSize,
+  }),
+  [SET_CARD]: (state, {card}) => ({
+    card,
+  }),
+  [SUBMIT_CARD_DETAILS_REQUEST]: (state, {cardDetails}) => ({
+    cardDetails,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

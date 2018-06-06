@@ -1,5 +1,11 @@
 @import '../../styles/variables.css';
 
+.form {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+}
+
 .container {
   display: flex;
   flex: auto;
@@ -73,10 +79,6 @@
   margin-left: var(--margin-xs);
 }
 
-.alert {
-  margin-bottom: var(--margin-md);
-}
-
 .actions {
   border-top: 2px solid color-mod(var(--dark-color) a(10%));
   margin-top: auto;
@@ -86,35 +88,6 @@
 .submitBtn {
   margin-top: 40px;
   margin-bottom: 40px;
-}
-
-.description {
-  margin-top: var(--margin-md);
-}
-
-.itemsWrapper {
-  display: flex;
-  flex: 1;
-}
-
-.items {
-  flex-wrap: wrap;
-}
-
-.itemWrapper {
-  @media (--xs-down) {
-    width: 100%;
-  }
-}
-
-.item {
-  margin-bottom: 20px;
-  padding-bottom: 0 !important;
-
-  @media (--xs-up) {
-    /*to split by 3*/
-    width: 280px;
-  }
 }
 
 .previewBtn {
@@ -128,4 +101,9 @@
     z-index: 11;
     transform: rotate(90deg);
   }
+}
+
+.body {
+  padding: 18.5px 21.5px;
+  border: 1px solid color-mod(var(--dark-color) a(30%));
 }
