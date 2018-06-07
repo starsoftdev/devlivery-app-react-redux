@@ -14,6 +14,7 @@ import AddContactManuallyIcon from '../../static/add_contacts_manually.svg'
 import ImportContactsIcon from '../../static/import_contacts.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import ImportContacts from './ImportContacts'
+import AddContacts from './AddContacts'
 
 class Purchase10 extends React.Component {
   render() {
@@ -27,7 +28,7 @@ class Purchase10 extends React.Component {
               number={10}
               prefixClassName={s.addContactsHeaderPrefix}
             />
-            <div/>
+            <AddContacts/>
           </div>
         ) : addingContactsMode === IMPORT_CONTACTS ? (
           <div className={s.importContactsContent}>
