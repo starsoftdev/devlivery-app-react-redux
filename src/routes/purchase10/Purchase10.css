@@ -23,15 +23,6 @@
   }
 }
 
-.description {
-  margin-top: var(--margin-md);
-
-  @media (--xs-up) {
-    /*to split by 2*/
-    width: 330px;
-  }
-}
-
 .items {
   flex-wrap: wrap;
 }

@@ -20,8 +20,8 @@ class Purchase2 extends React.Component {
             number={2}
             prefixClassName={s.headerPrefix}
           />
-          <Row gutter={20}>
-            <Col xs={24} sm={12}>
+          <Row className={s.items} gutter={20} type='flex' align='center'>
+            <Col className={s.itemWrapper}>
               <Card
                 className={s.item}
                 title={'Handwritten'}
@@ -36,7 +36,7 @@ class Purchase2 extends React.Component {
                 not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
               </p>
             </Col>
-            <Col xs={24} sm={12}>
+            <Col className={s.itemWrapper}>
               <Card
                 className={s.item}
                 title={'Printed'}

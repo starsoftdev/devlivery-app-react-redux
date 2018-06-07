@@ -43,11 +43,6 @@
   text-align: center;
 }
 
-.itemsWrapper {
-  display: flex;
-  flex: 1;
-}
-
 .items {
   flex-wrap: wrap;
 }
