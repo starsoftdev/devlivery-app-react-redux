@@ -1,0 +1,21 @@
+@import '../../styles/variables.css';
+
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+
+  @media (--md-up) {
+    font-size: 40px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
+}
+
+.section {
+  &:not(:last-child) {
+    margin-bottom: var(--margin-xl);
+  }
+}
