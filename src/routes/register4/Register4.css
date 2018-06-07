@@ -80,14 +80,6 @@
   }
 }
 
-.addPersonBtn {
-  display: flex;
-}
-
-.plusIcon {
-  margin-right: var(--margin-xs);
-}
-
 .person {
   margin-bottom: 50px;
 }

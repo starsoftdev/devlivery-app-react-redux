@@ -18,10 +18,10 @@
   min-width: auto !important;
   width: 100% !important;
 
-  @media (--lg-up) {
+  @media (--xl-up) {
     position: absolute;
   }
-  @media (--lg-down) {
+  @media (--xl-down) {
     position: fixed;
   }
 
@@ -96,10 +96,10 @@
 }
 
 .closeBtn {
-  @media (--lg-up) {
+  @media (--xl-up) {
     display: none;
   }
-  @media (--lg-down) {
+  @media (--xl-down) {
     position: absolute;
     padding: var(--margin-xl) var(--margin-lg);
     top: 0;

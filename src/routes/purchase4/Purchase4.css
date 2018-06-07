@@ -1,24 +1,26 @@
 @import '../../styles/variables.css';
 
 .content {
-  margin-bottom: var(--margin-md);
+  padding-bottom: var(--margin-md);
+  padding-right: var(--margin-md);
+  padding-left: var(--margin-md);
 
-  @media (min-width: 820px) {
+  @media (--md-down) {
+    padding-top: var(--margin-md);
+  }
+  @media (--md-up) {
+    padding-top: var(--margin-xl);
+  }
+  @media (min-width: 1341px) {
     margin-right: auto;
     margin-left: auto;
     max-width: var(--max-content-width);
-  }
-  @media (max-width: 1340px) {
-    margin-right: var(--margin-md);
-    margin-left: var(--margin-md);
-  }
-  @media (--md-up) {
-    margin-top: var(--margin-xl);
+    width: 100%;
   }
 }
 
 .headerPrefix {
-  @media (min-width: 1340px) {
+  @media (min-width: 1341px) {
     margin-left: -60px;
   }
 }
@@ -39,6 +41,6 @@
 
   @media (--xs-up) {
     /*to split by 4*/
-    width: 284px;
+    width: 277px;
   }
 }

@@ -54,6 +54,12 @@ export const SUBMIT_GIFT_TYPE_REQUEST = 'Purchase.SUBMIT_GIFT_TYPE_REQUEST'
 export const SUBMIT_GIFT_TYPE_SUCCESS = 'Purchase.SUBMIT_GIFT_TYPE_SUCCESS'
 export const SUBMIT_GIFT_TYPE_FAILURE = 'Purchase.SUBMIT_GIFT_TYPE_FAILURE'
 
+export const SET_GIFT = 'Purchase.SET_GIFT'
+
+export const SUBMIT_GIFT_REQUEST = 'Purchase.SUBMIT_GIFT_REQUEST'
+export const SUBMIT_GIFT_SUCCESS = 'Purchase.SUBMIT_GIFT_SUCCESS'
+export const SUBMIT_GIFT_FAILURE = 'Purchase.SUBMIT_GIFT_FAILURE'
+
 export const SET_ADDING_CONTACTS_MODE = 'Purchase.SET_ADDING_CONTACTS_MODE'
 
 export const CLEAR = 'Purchase.CLEAR'
@@ -182,14 +188,31 @@ export const submitCard = () => (dispatch, getState, {fetch, history}) => {
   const {card} = getState().purchase
   if (!card) return
   dispatch({type: SUBMIT_CARD_REQUEST})
-  history.push('/purchase/create-account')
+  history.push('/purchase/personalize-card')
   return fetch(`/guest/set-card`, {
     method: 'POST',
     body: {
-      card,
+      card_id: card,
     },
     success: () => dispatch({type: SUBMIT_CARD_SUCCESS}),
     failure: () => dispatch({type: SUBMIT_CARD_FAILURE})
+  })
+}
+
+export const setGift = (gift) => ({type: SET_GIFT, gift})
+
+export const submitGift = () => (dispatch, getState, {fetch, history}) => {
+  const {gift} = getState().purchase
+  if (!gift) return
+  dispatch({type: SUBMIT_GIFT_REQUEST})
+  history.push('/purchase/create-account')
+  return fetch(`/guest/set-gift`, {
+    method: 'POST',
+    body: {
+      gift_id: gift,
+    },
+    success: () => dispatch({type: SUBMIT_GIFT_SUCCESS}),
+    failure: () => dispatch({type: SUBMIT_GIFT_FAILURE})
   })
 }
 
@@ -214,6 +237,7 @@ const initialState = {
   cardSize: null,
   cardDetails: {},
   giftType: null,
+  gift: null,
   addingContactsMode: null,
 }
 
@@ -260,6 +284,9 @@ export default createReducer(initialState, {
   }),
   [CONTINUE_WITHOUT_GIFT]: (state, action) => ({
     giftType: null,
+  }),
+  [SET_GIFT]: (state, {gift}) => ({
+    gift,
   }),
   [SET_ADDING_CONTACTS_MODE]: (state, {addingContactsMode}) => ({
     addingContactsMode,

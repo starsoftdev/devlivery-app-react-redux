@@ -17,7 +17,7 @@
   display: flex;
   align-items: center;
   color: var(--primary-color);
-  margin-right: var(--margin-xs);
+  margin-right: var(--margin-sm);
 
   @media (--md-up) {
     font-size: 40px;

@@ -38,20 +38,23 @@
    * ======================================================================== */
   @custom-media --xs-down (width < 480px);
   @custom-media --xs-up (width >= 480px);
-  @custom-media --sm-down (width < 768px);
-  @custom-media --sm-up (width >= 768px);
-  @custom-media --md-down (width < 992px);
-  @custom-media --md-up (width >= 992px);
-  @custom-media --lg-down (width < 1200px);
-  @custom-media --lg-up (width >= 1200px);
-  @custom-media --xl-down (width < 1600px);
-  @custom-media --xl-up (width >= 1600px);
+  @custom-media --sm-down (width <= 576px);
+  @custom-media --sm-up (width > 576px);
+  @custom-media --md-down (width <= 768px);
+  @custom-media --md-up (width > 768px);
+  @custom-media --lg-down (width <= 992px);
+  @custom-media --lg-up (width > 992px);
+  @custom-media --xl-down (width <= 1200px);
+  @custom-media --xl-up (width > 1200px);
+  @custom-media --xxl-down (width <= 1600px);
+  @custom-media --xxl-up (width > 1600px);
 
   --screen-xs-min: 480px; /* Extra small screen / phone */
-  --screen-sm-min: 768px; /* Small screen / tablet */
-  --screen-md-min: 992px; /* Medium screen / desktop */
-  --screen-lg-min: 1200px; /* Large screen / wide desktop */
-  --screen-xl-min: 1600px; /* Extra Large screen / extra wide desktop */
+  --screen-sm-min: 576px; /* Small screen / tablet */
+  --screen-md-min: 768px; /* Medium screen / desktop */
+  --screen-lg-min: 992px; /* Large screen / wide desktop */
+  --screen-xl-min: 1200px; /* Extra Large screen / extra wide desktop */
+  --screen-xxl-min: 1600px; /* Extra extra large screen / large desktop */
 
   /*
    * Colors

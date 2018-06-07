@@ -3,8 +3,8 @@
 /*TODO add supporting icons, add lg/sm sizes*/
 :global {
   .ant-btn {
-    display: inline-block;
-    text-align: center;
+    display: inline-flex;
+    justify-content: center;
     touch-action: manipulation;
     cursor: pointer;
     background-image: none;
@@ -105,6 +105,10 @@
       transition: opacity .2s;
       pointer-events: none;
       display: none;
+    }
+
+    & > svg {
+      margin-right: var(--margin-xs);
     }
 
     /*&&-loading:before {
