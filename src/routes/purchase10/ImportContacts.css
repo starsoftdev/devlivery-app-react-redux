@@ -1,0 +1,33 @@
+@import '../../styles/variables.css';
+
+.container {
+  @media (--md-up) {
+    & > *:nth-child(even) {
+      padding-left: 100px !important;
+    }
+  }
+}
+
+.importBtn {
+  display: flex;
+  min-width: 140px;
+  margin-bottom: var(--margin-md);
+}
+
+.section {
+  margin-bottom: var(--margin-xl);
+}
+
+.instructions {
+  padding-left: var(--margin-md);
+  margin-bottom: 0;
+
+  & > li {
+    margin-bottom: var(--margin-md);
+  }
+}
+
+.link {
+  font-weight: bold;
+  color: var(--primary-color)
+}
