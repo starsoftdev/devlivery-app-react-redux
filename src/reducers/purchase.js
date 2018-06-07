@@ -6,6 +6,9 @@ import createReducer, {RESET_STORE} from '../createReducer'
 export const HANDWRITTEN = 'handwritten'
 export const PRINTED = 'printed'
 
+export const ADD_CONTACTS_MANUALLY = 'add-contacts-manually'
+export const IMPORT_CONTACTS = 'import-contacts'
+
 export const SET_OCCASION = 'Purchase.SET_OCCASION'
 
 export const GET_OCCASIONS_REQUEST = 'Purchase.GET_OCCASIONS_REQUEST'
@@ -50,6 +53,8 @@ export const CONTINUE_WITHOUT_GIFT = 'Purchase.CONTINUE_WITHOUT_GIFT'
 export const SUBMIT_GIFT_TYPE_REQUEST = 'Purchase.SUBMIT_GIFT_TYPE_REQUEST'
 export const SUBMIT_GIFT_TYPE_SUCCESS = 'Purchase.SUBMIT_GIFT_TYPE_SUCCESS'
 export const SUBMIT_GIFT_TYPE_FAILURE = 'Purchase.SUBMIT_GIFT_TYPE_FAILURE'
+
+export const SET_ADDING_CONTACTS_MODE = 'Purchase.SET_ADDING_CONTACTS_MODE'
 
 export const CLEAR = 'Purchase.CLEAR'
 
@@ -188,6 +193,11 @@ export const submitCard = () => (dispatch, getState, {fetch, history}) => {
   })
 }
 
+export const setAddingContactsMode = (addingContactsMode) => ({type: SET_ADDING_CONTACTS_MODE, addingContactsMode})
+
+export const submitAddingContacts = () => (dispatch, getState, {fetch, history}) => {
+}
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -204,6 +214,7 @@ const initialState = {
   cardSize: null,
   cardDetails: {},
   giftType: null,
+  addingContactsMode: null,
 }
 
 export default createReducer(initialState, {
@@ -249,6 +260,9 @@ export default createReducer(initialState, {
   }),
   [CONTINUE_WITHOUT_GIFT]: (state, action) => ({
     giftType: null,
+  }),
+  [SET_ADDING_CONTACTS_MODE]: (state, {addingContactsMode}) => ({
+    addingContactsMode,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
