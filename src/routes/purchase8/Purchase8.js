@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {setCard, submitCard} from '../../reducers/purchase'
+import {setGift, submitGift} from '../../reducers/purchase'
 import {Button, Col, Layout, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase8.css'
@@ -31,7 +31,7 @@ class Purchase8 extends React.Component {
 
   render() {
     const {previewCollapsed} = this.state
-    const {card, setCard, submitCard} = this.props
+    const {gift, setGift, submitGift} = this.props
 
     return (
       <React.Fragment>
@@ -73,8 +73,8 @@ class Purchase8 extends React.Component {
                           </span>
                         </React.Fragment>
                       }
-                      onClick={() => setCard(item.key)}
-                      active={item.key === card}
+                      onClick={() => setGift(item.key)}
+                      active={item.key === gift}
                     />
                   </Col>
                 )}
@@ -87,12 +87,12 @@ class Purchase8 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={submitCard}
+            onKeyHandle={submitGift}
           />
           <Button
             type='primary'
-            disabled={!card}
-            onClick={submitCard}
+            disabled={!gift}
+            onClick={submitGift}
           >
             Submit
           </Button>
@@ -103,13 +103,13 @@ class Purchase8 extends React.Component {
 }
 
 const mapState = state => ({
-  card: state.purchase.card,
+  gift: state.purchase.gift,
   loading: state.purchase.loading,
 })
 
 const mapDispatch = {
-  setCard,
-  submitCard,
+  setGift,
+  submitGift,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase8))

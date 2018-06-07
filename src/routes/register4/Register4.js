@@ -88,8 +88,8 @@ class Register4 extends React.Component {
             </section>
           )}
           <div className={s.addPersonBtnWrapper}>
-            <Button type='primary' ghost onClick={this.addItem} className={s.addPersonBtn}>
-              <PlusIcon className={s.plusIcon}/>
+            <Button type='primary' ghost onClick={this.addItem}>
+              <PlusIcon/>
               Invite one more
             </Button>
           </div>
