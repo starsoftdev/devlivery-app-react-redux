@@ -218,7 +218,8 @@ export const submitGift = () => (dispatch, getState, {fetch, history}) => {
 
 export const setAddingContactsMode = (addingContactsMode) => ({type: SET_ADDING_CONTACTS_MODE, addingContactsMode})
 
-export const submitAddingContacts = () => (dispatch, getState, {fetch, history}) => {
+export const submitAddingContacts = () => (dispatch, getState, {history}) => {
+  history.push('/purchase/confirmation')
 }
 
 export const clear = () => ({type: CLEAR})

@@ -23,6 +23,7 @@ export const PURCHASE7_ROUTE = 'purchase7'
 export const PURCHASE8_ROUTE = 'purchase8'
 export const PURCHASE9_ROUTE = 'purchase9'
 export const PURCHASE10_ROUTE = 'purchase10'
+export const PURCHASE11_ROUTE = 'purchase11'
 
 const authRoutes = {
   path: '',
@@ -143,6 +144,11 @@ const routes = {
       path: '/purchase/add-contacts',
       name: PURCHASE10_ROUTE,
       load: () => import(/* webpackChunkName: 'purchase' */ './purchase10'),
+    },
+    {
+      path: '/purchase/confirmation',
+      name: PURCHASE11_ROUTE,
+      load: () => import(/* webpackChunkName: 'purchase' */ './purchase11'),
     },
 
     authRoutes,

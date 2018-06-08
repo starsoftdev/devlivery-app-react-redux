@@ -1,9 +1,6 @@
 @import '../../styles/variables.css';
 
 .header {
-  position: relative;
-  display: flex;
-  align-items: center;
   margin-bottom: 0;
 
   @media (--md-up) {
