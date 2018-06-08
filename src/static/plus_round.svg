@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="68px" height="68px" viewBox="0 0 68 68" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>plus_round</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="11_Order_Confirmation" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-717.000000, -330.000000)">
+        <g id="plus_round" transform="translate(717.000000, 330.000000)">
+            <circle id="Oval" fill="#FFFFFF" cx="34" cy="34" r="34"></circle>
+            <rect id="Rectangle" fill="#404D5F" x="31" y="22" width="4" height="27"></rect>
+            <rect id="Rectangle" fill="#404D5F" transform="translate(33.000000, 35.500000) rotate(-270.000000) translate(-33.000000, -35.500000) " x="31" y="22" width="4" height="27"></rect>
+        </g>
+    </g>
+</svg>

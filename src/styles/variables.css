@@ -78,7 +78,8 @@
   --input-border-color: color-mod(var(--dark-color) a(30%));
   --item-active-bg: #F8F8F8;
   --item-hover-bg: #F8F8F8;
-  --background-color-light : #F8F8F8;
+  --background-color-light: #F8F8F8;
+  --muted-color: #9BA2AB;
   /*
    * Margins
    * ======================================================================== */

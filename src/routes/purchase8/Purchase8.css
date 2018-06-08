@@ -73,7 +73,7 @@
 }
 
 .currency {
-  color: #9BA2AB;
+  color: var(--muted-color);
   margin-left: 4px;
 }
 
