@@ -62,6 +62,11 @@ export const SUBMIT_GIFT_FAILURE = 'Purchase.SUBMIT_GIFT_FAILURE'
 
 export const SET_ADDING_CONTACTS_MODE = 'Purchase.SET_ADDING_CONTACTS_MODE'
 
+export const PAYPAL = 'Purchase.PAYPAL'
+export const CREDIT_CARD = 'Purchase.CREDIT_CARD'
+
+export const SET_PAYMENT_METHOD = 'Purchase.SET_PAYMENT_METHOD'
+
 export const CLEAR = 'Purchase.CLEAR'
 
 // ------------------------------------
@@ -222,6 +227,18 @@ export const submitAddingContacts = () => (dispatch, getState, {history}) => {
   history.push('/purchase/confirmation')
 }
 
+export const submitShipping = () => (dispatch, getState, {history}) => {
+  history.push('/purchase/payment-method')
+}
+
+export const setPaymentMethod = (paymentMethod) => ({type: SET_PAYMENT_METHOD, paymentMethod})
+
+export const submitPaymentMethod = () => (dispatch, getState, {history}) => {
+  const {paymentMethod} = getState().purchase
+  if (!paymentMethod) return
+  history.push('/purchase/create-account')
+}
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -240,6 +257,7 @@ const initialState = {
   giftType: null,
   gift: null,
   addingContactsMode: null,
+  paymentMethod: null,
 }
 
 export default createReducer(initialState, {
@@ -291,6 +309,9 @@ export default createReducer(initialState, {
   }),
   [SET_ADDING_CONTACTS_MODE]: (state, {addingContactsMode}) => ({
     addingContactsMode,
+  }),
+  [SET_PAYMENT_METHOD]: (state, {paymentMethod}) => ({
+    paymentMethod,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

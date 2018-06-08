@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {continueWithoutGift, setGiftType, submitGiftType} from '../../reducers/purchase'
+import {submitShipping} from '../../reducers/purchase'
 import {Button, Col, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase11.css'
@@ -13,11 +13,20 @@ import cardImage from '../../static/modern_card_style.png'
 import giftImage from '../../static/gift1.png'
 
 class Purchase11 extends React.Component {
+  handleSubmit = (e) => {
+    e.preventDefault()
+    // TODO
+    // this.props.form.validateFields((err, values) => {
+    //   if (!err) {
+    this.props.submitShipping()
+    // }
+    // })
+  }
+
   render() {
     const {getFieldDecorator} = this.props.form
-    const {submitGiftType} = this.props
     return (
-      <React.Fragment>
+      <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
           <SectionHeader
             header={'Order Confirmation'}
@@ -118,29 +127,26 @@ class Purchase11 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={submitGiftType}
+            onKeyHandle={this.handleSubmit}
           />
           <Button
             type='primary'
-            onClick={submitGiftType}
+            htmlType='submit'
           >
             Proceed to checkout
           </Button>
         </Actions>
-      </React.Fragment>
+      </Form>
     )
   }
 }
 
 const mapState = state => ({
-  giftType: state.purchase.giftType,
   loading: state.purchase.loading,
 })
 
 const mapDispatch = {
-  setGiftType,
-  submitGiftType,
-  continueWithoutGift,
+  submitShipping,
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Purchase11)))
