@@ -1,4 +1,6 @@
 import createReducer, {RESET_STORE} from '../createReducer'
+import {loginSuccess} from './login'
+import {message} from 'antd'
 
 // ------------------------------------
 // Constants
@@ -66,6 +68,10 @@ export const PAYPAL = 'Purchase.PAYPAL'
 export const CREDIT_CARD = 'Purchase.CREDIT_CARD'
 
 export const SET_PAYMENT_METHOD = 'Purchase.SET_PAYMENT_METHOD'
+
+export const REGISTER_REQUEST = 'Purchase.REGISTER_REQUEST'
+export const REGISTER_SUCCESS = 'Purchase.REGISTER_SUCCESS'
+export const REGISTER_FAILURE = 'Purchase.REGISTER_FAILURE'
 
 export const CLEAR = 'Purchase.CLEAR'
 
@@ -241,6 +247,24 @@ export const submitPaymentMethod = () => (dispatch, getState, {history}) => {
 
 export const submitPayment = () => (dispatch, getState, {history}) => {
   history.push('/purchase/completed')
+}
+
+export const register = (values) => (dispatch, getState, {fetch, history}) => {
+  dispatch({type: REGISTER_REQUEST})
+  return fetch(`/signup`, {
+    method: 'POST',
+    contentType: 'application/x-www-form-urlencoded',
+    body: values,
+    success: (res) => {
+      dispatch({type: REGISTER_SUCCESS})
+      dispatch(loginSuccess(res.data))
+      history.push('/purchase/add-contacts')
+    },
+    failure: () => {
+      dispatch({type: REGISTER_FAILURE})
+      message.error('Something went wrong. Please try again.')
+    },
+  })
 }
 
 export const clear = () => ({type: CLEAR})

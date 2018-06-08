@@ -6,6 +6,8 @@ import s from './Purchase9.css'
 import {Actions, SectionHeader} from '../../components'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
+import {INDIVIDUAL_ACCOUNT, TEAM_ACCOUNT} from '../../reducers/register'
+import {register} from '../../reducers/purchase'
 
 class Purchase9 extends React.Component {
   state = {
@@ -16,7 +18,7 @@ class Purchase9 extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        // this.props.register(values)
+        this.props.register(values)
       }
     })
   }
@@ -44,7 +46,6 @@ class Purchase9 extends React.Component {
   }
 
   render() {
-    const {account} = this.props
     const {getFieldDecorator} = this.props.form
     return (
       <Form onSubmit={this.handleSubmit} className={s.form}>
@@ -55,22 +56,23 @@ class Purchase9 extends React.Component {
             prefixClassName={s.headerPrefix}
           />
           <Form.Item>
-            {getFieldDecorator('type', {
-              initialValue: account ? account.type : undefined,
+            {getFieldDecorator('account_type', {
               rules: [
                 {required: true, message: formMessages.required},
               ],
             })(
               <Select placeholder={'Type'}>
-                {[].map((item) =>
-                  <Select.Option key={item} value={item}>{item}</Select.Option>
+                {[
+                  {label: 'Individual', value: INDIVIDUAL_ACCOUNT},
+                  {label: 'Team', value: TEAM_ACCOUNT},
+                ].map((item) =>
+                  <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>
                 )}
               </Select>
             )}
           </Form.Item>
           <Form.Item>
             {getFieldDecorator('email', {
-              initialValue: account && account.email,
               rules: [
                 {required: true, message: formMessages.required},
                 {type: 'email', message: formMessages.emailInvalid},
@@ -81,7 +83,6 @@ class Purchase9 extends React.Component {
           </Form.Item>
           <Form.Item>
             {getFieldDecorator('phone', {
-              initialValue: account && account.phone,
               rules: [
                 {required: true, message: formMessages.required},
               ],
@@ -119,7 +120,6 @@ class Purchase9 extends React.Component {
             <Col xs={24} sm={12}>
               <Form.Item>
                 {getFieldDecorator('first_name', {
-                  initialValue: account && account.first_name,
                   rules: [
                     {required: true, message: formMessages.required, whitespace: true},
                   ],
@@ -131,7 +131,6 @@ class Purchase9 extends React.Component {
             <Col xs={24} sm={12}>
               <Form.Item>
                 {getFieldDecorator('last_name', {
-                  initialValue: account && account.last_name,
                   rules: [
                     {required: true, message: formMessages.required, whitespace: true},
                   ],
@@ -143,7 +142,6 @@ class Purchase9 extends React.Component {
           </Row>
           <Form.Item>
             {getFieldDecorator('role', {
-              initialValue: account && account.role,
               rules: [
                 {required: true, message: formMessages.required},
               ],
@@ -174,6 +172,8 @@ const mapState = state => ({
   loading: state.purchase.loading,
 })
 
-const mapDispatch = {}
+const mapDispatch = {
+  register,
+}
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Purchase9)))

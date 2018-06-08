@@ -37,7 +37,7 @@ export const register = (people) => (dispatch, getState, {fetch}) => {
     },
     success: (res) => {
       dispatch({type: REGISTER_SUCCESS})
-      dispatch(loginSuccess(res))
+      dispatch(loginSuccess(res.data, '/'))
     },
     failure: () => {
       dispatch({type: REGISTER_FAILURE})
