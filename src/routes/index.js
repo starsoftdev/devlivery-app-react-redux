@@ -24,6 +24,7 @@ export const PURCHASE8_ROUTE = 'purchase8'
 export const PURCHASE9_ROUTE = 'purchase9'
 export const PURCHASE10_ROUTE = 'purchase10'
 export const PURCHASE11_ROUTE = 'purchase11'
+export const PURCHASE12_ROUTE = 'purchase12'
 
 const authRoutes = {
   path: '',
@@ -149,6 +150,11 @@ const routes = {
       path: '/purchase/confirmation',
       name: PURCHASE11_ROUTE,
       load: () => import(/* webpackChunkName: 'purchase' */ './purchase11'),
+    },
+    {
+      path: '/purchase/payment-method',
+      name: PURCHASE12_ROUTE,
+      load: () => import(/* webpackChunkName: 'purchase' */ './purchase12'),
     },
 
     authRoutes,

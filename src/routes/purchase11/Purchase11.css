@@ -1,5 +1,11 @@
 @import '../../styles/variables.css';
 
+.form {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+}
+
 .content {
   padding-bottom: var(--margin-md);
   padding-right: var(--margin-md);
@@ -21,7 +27,7 @@
 
 .headerPrefix {
   @media (min-width: 821px) {
-    margin-left: -60px;
+    margin-left: -80px;
   }
 }
 
