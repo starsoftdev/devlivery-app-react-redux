@@ -4,13 +4,15 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Home.css'
 import DecorTopElement from '../../static/decor_element_top.svg'
 import PlusCircleIcon from '../../static/plus-circle.svg'
-import {Button, Carousel, Col, Row, Input} from 'antd'
+import {Button, Carousel, Col, Input, Row} from 'antd'
 import DownArrow from '../../static/down_arrow.svg'
 import ChooseItImage from '../../static/choose_it.svg'
 import personalizeItImage from '../../static/personalize_it.png'
 import sendItImage from '../../static/send_it.png'
 import AboutUsIcon from '../../static/decor_about.svg'
-import { animateScroll } from 'react-scroll'
+import {animateScroll} from 'react-scroll'
+import {PURCHASE1_ROUTE} from '../'
+import {Link} from '../../components'
 
 // imageHeight is needed as wrapper circle should have the same size
 const Card = ({number, image, imageHeight, title, description, svg}) =>
@@ -41,7 +43,9 @@ class Home extends React.Component {
         <section className={s.heroSection}>
           <h2 className={s.subHeader}>We make it easy and seamless to</h2>
           <h1 className={s.header}>Keep in Touch with Your Contacts</h1>
-          <Button type='primary'>Get Started</Button>
+          <Link to={PURCHASE1_ROUTE}>
+            <Button type='primary'>Get Started</Button>
+          </Link>
           <a className={s.scroll} onClick={this.scrollToFirstSection}>
             Scroll
             <DownArrow/>

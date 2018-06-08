@@ -1,0 +1,51 @@
+@import '../../styles/variables.css';
+
+.container {
+  padding: var(--margin-md);
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 500px;
+  width: 100%;
+  border: 10px solid #E0DFE6;
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+
+  @media (--md-down) {
+    margin-top: var(--margin-md);
+  }
+  @media (--md-up) {
+    margin-top: var(--margin-xl);
+  }
+}
+
+.dashboardBtn {
+  position: absolute;
+  bottom: -30px;
+}
+
+.header {
+  margin-bottom: var(--margin-md);
+
+  @media (--md-up) {
+    font-size: 40px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
+}
+
+.completedIcon {
+  margin-bottom: var(--margin-md);
+}
+
+.description {
+  @media (--sm-up) {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
