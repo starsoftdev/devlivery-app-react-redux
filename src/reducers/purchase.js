@@ -236,7 +236,11 @@ export const setPaymentMethod = (paymentMethod) => ({type: SET_PAYMENT_METHOD, p
 export const submitPaymentMethod = () => (dispatch, getState, {history}) => {
   const {paymentMethod} = getState().purchase
   if (!paymentMethod) return
-  history.push('/purchase/create-account')
+  history.push('/purchase/payment')
+}
+
+export const submitPayment = () => (dispatch, getState, {history}) => {
+  history.push('/purchase/completed')
 }
 
 export const clear = () => ({type: CLEAR})
