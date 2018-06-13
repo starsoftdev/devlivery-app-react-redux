@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>remove</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="15" height="15"></rect>
+    </defs>
+    <g id="card_mark" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-199.000000, -10.000000)">
+        <g id="card">
+            <g id="remove" transform="translate(199.000000, 10.000000)">
+                <g id="Rectangle">
+                    <use fill-opacity="0.100000001" fill="#4A979B" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <rect stroke="#4A979B" stroke-width="1" x="0.5" y="0.5" width="14" height="14"></rect>
+                </g>
+                <path d="M5.5,7.5 L9.5,7.5" id="Line-2" stroke="#4A979B" stroke-linecap="square"></path>
+            </g>
+        </g>
+    </g>
+</svg>
