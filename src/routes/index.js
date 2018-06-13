@@ -13,6 +13,7 @@ export const SET_PASSWORD_ROUTE = 'set-password'
 
 export const ORDERS_ROUTE = 'orders'
 export const MANAGE_TEAM_ROUTE = 'manage-team'
+export const REPORTS_ROUTE = 'reports'
 export const LOGOUT_ROUTE = 'logout'
 
 export const PURCHASE1_ROUTE = 'purchase1'
@@ -42,6 +43,11 @@ const authRoutes = {
       path: '/manage-team',
       name: MANAGE_TEAM_ROUTE,
       load: () => import(/* webpackChunkName: 'dashboard' */ './manageTeam'),
+    },
+    {
+      path: '/reports',
+      name: REPORTS_ROUTE,
+      load: () => import(/* webpackChunkName: 'dashboard' */ './reports'),
     },
     {
       path: '/logout',
