@@ -1,10 +1,29 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from '../../components'
-import {Alert, Button, Col, Form, Input, Row, Table} from 'antd'
+import {Calendar, Input, Table} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Orders.css'
-import {getOrders, clear} from '../../reducers/orders'
+import {clear, getOrders} from '../../reducers/orders'
+import ArrowIcon from '../../static/right-arrow.svg'
+
+const Event = ({day, weekday, type, name}) =>
+  <a className={s.event}>
+    <div className={s.eventDate}>
+      <div className={s.eventDay}>{day}</div>
+      <div className={s.eventWeekDay}>{weekday}</div>
+    </div>
+    <div className={s.eventDetails}>
+      <div className={s.eventType}>{type}</div>
+      <div className={s.eventName}>{name}</div>
+      <ArrowIcon className={s.eventArrowIcon}/>
+    </div>
+  </a>
+
+// TODO get events
+const events = [
+  {day: 20, weekday: 'Saturday', type: 'Birthday of', name: 'Verena Diener'},
+  {day: 25, weekday: 'Thursday', type: 'Birthday of', name: 'MARCO PEREZ'},
+]
 
 class Orders extends React.Component {
   render() {
@@ -55,12 +74,25 @@ class Orders extends React.Component {
           <Input className={s.search} placeholder={'Search'}/>
         </div>
         <Table
+          className={s.orders}
           columns={columns}
           dataSource={orders}
           rowKey={record => record.id}
           onChange={(pagination, filters, sorter) => getOrders({pagination, filters, sorter})}
           pagination={false}
         />
+        <div className={s.calendarSection}>
+          <section className={s.calendarWrapper}>
+            <h2 className={s.calendarHeader}>Calendar</h2>
+            {/*TODO add date switcher*/}
+            <Calendar fullscreen={false}/>
+          </section>
+          <section className={s.events}>
+            {events.map((event, i) =>
+              <Event key={i} {...event}/>
+            )}
+          </section>
+        </div>
       </div>
     )
   }
