@@ -1,0 +1,189 @@
+@import './variables.css';
+
+:global {
+  .ant-fullcalendar {
+    outline: none;
+    box-shadow: 0 1px 2px 0 rgba(0,39,36,0.1);
+    background-color: var(--white-color);
+
+    &-month-select {
+      margin-left: 5px;
+    }
+
+    &-header {
+      /*TODO add custom header*/
+      display: none;
+
+      padding: 11px 16px 11px 0;
+      text-align: right;
+
+      .ant-select-dropdown {
+        text-align: left;
+      }
+
+      .ant-radio-group {
+        margin-left: 8px;
+        text-align: left;
+      }
+
+      label.ant-radio-button {
+        height: 22px;
+        line-height: 20px;
+        padding: 0 10px;
+      }
+    }
+
+    &-date-panel {
+      position: relative;
+      outline: none;
+    }
+
+    table {
+      border-collapse: collapse;
+      max-width: 100%;
+      background-color: transparent;
+      width: 100%;
+      height: 256px;
+    }
+
+    table,
+    th,
+    td {
+      border: 0;
+    }
+
+    td {
+      position: relative;
+    }
+
+    &-calendar-table {
+      border-spacing: 0;
+      margin-bottom: 0;
+    }
+
+    &-column-header {
+      line-height: 18px;
+      text-align: center;
+      background-color: #FCFCFC;
+      padding-top: 10px;
+      padding-bottom: 10px;
+
+      .ant-fullcalendar-column-header-inner {
+        display: block;
+        font-weight: normal;
+      }
+    }
+
+    &-week-number-header {
+      .ant-fullcalendar-column-header-inner {
+        display: none;
+      }
+    }
+
+    &-month,
+    &-date {
+      text-align: center;
+      transition: all .3s;
+    }
+
+    &-value {
+      display: block;
+      margin: 0 auto;
+      padding: 0;
+      background: transparent;
+      line-height: 50px;
+      transition: all .3s;
+
+      font-family: var(--font-family-secondary);
+      font-size: 18px;
+      color: var(--dark-color);
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:active {
+      }
+    }
+
+    &-today &-value {
+      color: var(--white-color);
+      background-color: var(--primary-color);
+    }
+
+    &-last-month-cell &-value,
+    &-next-month-btn-day &-value {
+      color: var(--disabled-color);
+    }
+
+    &-month-panel-table {
+      table-layout: fixed;
+      width: 100%;
+      border-collapse: separate;
+    }
+
+    &-content {
+      position: absolute;
+      width: 100%;
+      left: 0;
+      bottom: -9px;
+    }
+
+    &-fullscreen {
+      border-top: 0;
+    }
+
+    &-fullscreen &-table {
+      table-layout: fixed;
+    }
+
+    &-fullscreen &-header {
+      .ant-radio-group {
+        margin-left: 16px;
+      }
+    }
+
+    &-fullscreen &-month,
+    &-fullscreen &-date {
+      text-align: left;
+      margin: 0 4px;
+      display: block;
+      height: 116px;
+      padding: 4px 8px;
+      transition: background .3s;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:active {
+      }
+    }
+
+    &-fullscreen &-column-header {
+      text-align: right;
+      padding-right: 12px;
+      padding-bottom: 5px;
+    }
+
+    &-fullscreen &-value {
+      text-align: right;
+      background: transparent;
+      width: auto;
+    }
+
+    &-fullscreen &-last-month-cell &-date,
+    &-fullscreen &-next-month-btn-day &-date {
+      color: var(--disabled-color);
+    }
+
+    &-fullscreen &-content {
+      height: 90px;
+      overflow-y: auto;
+      position: static;
+      width: auto;
+      left: auto;
+      bottom: auto;
+    }
+  }
+}

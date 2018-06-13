@@ -69,8 +69,6 @@
   --link-color: #ADA39B;
   --link-hover-color: color-mod(var(--link-color) shade(15%));
   --link-active-color: color-mod(var(--link-color) shade(20%));
-  /*TODO disabled color*/
-  --disabled-color: fade(#000, 25%);
   --body-background: #F8F8F8;
   --input-placeholder-color: color-mod(var(--dark-color) a(50%));
   --input-bg: transparent;
@@ -80,6 +78,8 @@
   --item-hover-bg: #F8F8F8;
   --background-color-light: #F8F8F8;
   --muted-color: #9BA2AB;
+  --disabled-color: rgba(64,77,95,0.3);
+  --light-grey-color: rgba(64,77,95,0.3);
   /*
    * Margins
    * ======================================================================== */
