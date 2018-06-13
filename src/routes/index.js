@@ -11,6 +11,7 @@ export const REGISTER4_ROUTE = 'register4'
 export const RESET_PASSWORD_ROUTE = 'reset-password'
 export const SET_PASSWORD_ROUTE = 'set-password'
 
+export const ORDERS_ROUTE = 'orders'
 export const LOGOUT_ROUTE = 'logout'
 
 export const PURCHASE1_ROUTE = 'purchase1'
@@ -32,6 +33,11 @@ const authRoutes = {
   path: '',
   children: [
     {
+      path: '/orders',
+      name: ORDERS_ROUTE,
+      load: () => import(/* webpackChunkName: 'dashboard' */ './orders'),
+    },
+    {
       path: '/logout',
       name: LOGOUT_ROUTE,
       async action({store, query}) {
@@ -42,9 +48,9 @@ const authRoutes = {
   ],
   async action({store, next, pathname}) {
     const {loggedIn} = store.getState().user
-    if (!loggedIn) {
-      return {redirect: `/login?next=${pathname}`}
-    }
+    // if (!loggedIn) {
+    //   return {redirect: `/login?next=${pathname}`}
+    // }
     return await next()
   },
 }
@@ -58,7 +64,7 @@ const routes = {
   children: [
     {
       path: '/',
-      name: `${HOME_ROUTE}`,
+      name: HOME_ROUTE,
       load: () => import(/* webpackChunkName: 'home' */ './home'),
     },
     {

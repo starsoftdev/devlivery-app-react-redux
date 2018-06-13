@@ -4,6 +4,10 @@
   font-family: var(--font-family-secondary);
 }
 
+.light {
+  background-color: var(--white-color);
+}
+
 .topFooter {
   display: flex;
   justify-content: space-between;

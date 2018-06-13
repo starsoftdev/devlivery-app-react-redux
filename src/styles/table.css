@@ -1,0 +1,108 @@
+@import './variables.css';
+
+:global {
+  .ant-table {
+    /*reset component*/
+    line-height: var(--line-height-base);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    position: relative;
+    clear: both;
+
+    box-shadow: 0 1px 2px 0 rgba(0,39,36,0.1);
+
+    &-body {
+      transition: opacity .3s;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      text-align: left;
+      border-radius: 0;
+    }
+
+    &-thead > tr > th {
+      background: #FCFCFC;
+      transition: background .3s ease;
+      text-align: left;
+      font-weight: 500;
+      border-bottom: 2px solid color-mod(var(--dark-color) a(10%));
+      font-family: var(--font-family);
+      font-size: var(--font-size-base);
+
+      &[colspan] {
+        text-align: center;
+      }
+    }
+
+    &-thead > tr:not(:last-child) > th {
+      &[colspan] {
+        border-bottom: 0;
+      }
+    }
+
+    &-tbody > tr > td {
+      transition: all .3s;
+      font-family: var(--font-family-secondary);
+      font-size: var(--font-size-sm);
+      color: var(--dark-color);
+      background: var(--white-color);
+    }
+
+    &-tbody> tr:not(:last-child) > td {
+      border-bottom: 2px solid color-mod(var(--dark-color) a(10%));
+    }
+
+    &-thead > tr,
+    &-tbody > tr {
+      transition: all .3s;
+      &.ant-table-row-hover,
+      &:hover {
+        & > td {
+          background: var(--white-color);
+        }
+      }
+    }
+
+    &-thead > tr:hover {
+      background: none;
+    }
+
+    &-thead > tr > th,
+    &-tbody > tr > td {
+      padding: 12px;
+      word-break: normal;
+    }
+
+    &-thead > tr > th.ant-table-selection-column-custom {
+      padding-left: 16px;
+      padding-right: 0;
+    }
+
+    &-thead > tr > th.ant-table-selection-column,
+    &-tbody > tr > td.ant-table-selection-column {
+      text-align: center;
+      min-width: 62px;
+      width: 62px;
+      .ant-table-radio-wrapper {
+        margin-right: 0;
+      }
+    }
+
+    &-placeholder {
+      position: relative;
+      padding: 12px;
+      background: var(--white-color);
+      text-align: center;
+      font-family: var(--font-family-secondary);
+      font-size: var(--font-size-sm);
+      color: var(--dark-color);
+      z-index: 1;
+    }
+  }
+}
