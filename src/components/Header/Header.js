@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Header.css'
 import Logo from '../../static/logo.svg'
-import {HOME_ROUTE, LOGIN_ROUTE, REGISTER1_ROUTE, LOGOUT_ROUTE} from '../../routes'
+import {HOME_ROUTE, LOGIN_ROUTE, LOGOUT_ROUTE, ORDERS_ROUTE, REGISTER1_ROUTE} from '../../routes'
 import {Link} from '../../components'
 import cn from 'classnames'
 
@@ -11,7 +11,7 @@ class Header extends React.Component {
   render() {
     const {currentRouteName, user} = this.props
     return (
-      <header className={cn(s.headerWrapper, [HOME_ROUTE].includes(currentRouteName) && s.light)}>
+      <header className={cn(s.headerWrapper, [HOME_ROUTE, ORDERS_ROUTE].includes(currentRouteName) && s.light)}>
         <div className={s.header}>
           <Link to={HOME_ROUTE}>
             <Logo/>
@@ -35,7 +35,7 @@ class Header extends React.Component {
             </div>
           )}
         </div>
-        {[HOME_ROUTE].includes(currentRouteName) && (
+        {[HOME_ROUTE, ORDERS_ROUTE].includes(currentRouteName) && (
           <ul className={s.bottomMenu}>
             <li>
               <a>New Arrivals</a>

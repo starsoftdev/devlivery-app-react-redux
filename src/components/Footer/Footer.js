@@ -6,11 +6,14 @@ import Instagram from '../../static/instagram.svg'
 import Facebook from '../../static/facebook.svg'
 import Linkedin from '../../static/linkedin.svg'
 import Logo from '../../static/logo.svg'
+import {ORDERS_ROUTE} from '../../routes'
+import cn from 'classnames'
 
 class Footer extends React.Component {
   render() {
+    const {currentRouteName} = this.props
     return (
-      <footer className={s.footer}>
+      <footer className={cn(s.footer, [ORDERS_ROUTE].includes(currentRouteName) && s.light)}>
         <div className={s.topFooter}>
           <div className={s.logoWrapper}>
             <Logo/>
@@ -53,6 +56,7 @@ class Footer extends React.Component {
 }
 
 const mapState = state => ({
+  currentRouteName: state.global.currentRouteName,
 })
 
 const mapDispatch = {
