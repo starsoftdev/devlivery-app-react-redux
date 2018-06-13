@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>edit</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="15" height="15"></rect>
+    </defs>
+    <g id="card_mark" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-10.000000, -10.000000)">
+        <g id="card">
+            <g id="edit" transform="translate(10.000000, 10.000000)">
+                <g id="Rectangle">
+                    <use fill-opacity="0.100000001" fill="#4A979B" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <rect stroke="#4A979B" stroke-width="1" x="0.5" y="0.5" width="14" height="14"></rect>
+                </g>
+                <g id="pencil-edit-button" transform="translate(5.000000, 5.000000)" fill="#4A979B" fill-rule="nonzero">
+                    <path d="M3.10912349,0.830369002 L4.1262366,1.84747265 L1.55164246,4.42206679 L0.535106027,3.40496314 L3.10912349,0.830369002 Z M4.89802872,0.585066922 L4.44443541,0.131473615 C4.26913726,-0.0438245383 3.98448928,-0.0438245383 3.80859555,0.131473615 L3.37409852,0.565970645 L4.39121163,1.58308375 L4.89802872,1.07626666 C5.03399043,0.940295494 5.03399043,0.721028635 4.89802872,0.585066922 Z M0.00283038578,4.83458419 C-0.0156797681,4.91788934 0.0595330943,4.99253499 0.142847694,4.97227592 L1.27624956,4.69746914 L0.25971313,3.68036549 L0.00283038578,4.83458419 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

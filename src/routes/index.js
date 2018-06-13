@@ -12,6 +12,7 @@ export const RESET_PASSWORD_ROUTE = 'reset-password'
 export const SET_PASSWORD_ROUTE = 'set-password'
 
 export const ORDERS_ROUTE = 'orders'
+export const MANAGE_TEAM_ROUTE = 'manage-team'
 export const LOGOUT_ROUTE = 'logout'
 
 export const PURCHASE1_ROUTE = 'purchase1'
@@ -38,6 +39,11 @@ const authRoutes = {
       load: () => import(/* webpackChunkName: 'dashboard' */ './orders'),
     },
     {
+      path: '/manage-team',
+      name: MANAGE_TEAM_ROUTE,
+      load: () => import(/* webpackChunkName: 'dashboard' */ './manageTeam'),
+    },
+    {
       path: '/logout',
       name: LOGOUT_ROUTE,
       async action({store, query}) {
@@ -48,6 +54,7 @@ const authRoutes = {
   ],
   async action({store, next, pathname}) {
     const {loggedIn} = store.getState().user
+    // TODO
     // if (!loggedIn) {
     //   return {redirect: `/login?next=${pathname}`}
     // }
