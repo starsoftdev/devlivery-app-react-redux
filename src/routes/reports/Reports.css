@@ -17,8 +17,9 @@
 
 .actions {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 
   @media (--sm-down) {
     flex-direction: column;
@@ -40,4 +41,31 @@
   @media (--md-down) {
     font-size: 32px;
   }
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--margin-md);
+}
+
+.month {
+  width: 100px;
+}
+
+.date {
+  width: 100px;
+}
+
+.label {
+  font-size: 24px;
+}
+
+.occasion {
+  margin-left: auto;
+  width: 300px;
+}
+
+.filterWrapper {
+  padding-right: 40px;
 }
