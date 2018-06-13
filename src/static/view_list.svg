@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="16px" viewBox="0 0 21 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>view_list</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="06_view_contacts" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-1174.000000, -255.000000)" opacity="0.5" stroke-linecap="round">
+        <g id="select" transform="translate(862.000000, 253.000000)" stroke="#404D5F">
+            <g id="view_list" transform="translate(312.000000, 1.000000)">
+                <path d="M4.34782609,1.5 L19.6521739,1.5" id="Line-3"></path>
+                <path d="M4.34782609,11.5 L19.6521739,11.5" id="Line-3"></path>
+                <path d="M4.34782609,6.5 L19.6521739,6.5" id="Line-3"></path>
+                <path d="M4.34782609,16.5 L19.6521739,16.5" id="Line-3"></path>
+                <path d="M1.34782609,1.5 L1.61677674,1.5" id="Line-3"></path>
+                <path d="M1.34782609,11.5 L1.6107218,11.5" id="Line-3"></path>
+                <path d="M1.34782609,6.5 L1.59782609,6.5" id="Line-3"></path>
+                <path d="M1.34782609,16.5 L1.62467893,16.5" id="Line-3"></path>
+            </g>
+        </g>
+    </g>
+</svg>
