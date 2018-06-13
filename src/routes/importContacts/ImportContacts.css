@@ -1,0 +1,48 @@
+@import '../../styles/variables.css';
+
+.container {
+  max-width: 960px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  padding-right: var(--margin-md);
+  padding-left: var(--margin-md);
+  padding-bottom: var(--margin-xl);
+
+  @media (--md-down) {
+    padding-top: var(--margin-md);
+  }
+  @media (--md-up) {
+    padding-top: var(--margin-xl);
+  }
+}
+
+.header {
+  @media (--md-up) {
+    font-size: 40px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
+}
+
+.instructions {
+  padding-left: var(--margin-md);
+  margin-bottom: 40px;
+
+  & > li {
+    margin-bottom: var(--margin-md);
+  }
+}
+
+.link {
+  font-weight: bold;
+  color: var(--primary-color)
+}
+
+.connectBtn,
+.importBtn {
+  display: flex;
+  min-width: 140px;
+  margin-bottom: var(--margin-md);
+}
