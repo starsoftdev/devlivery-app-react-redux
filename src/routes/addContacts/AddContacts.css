@@ -1,0 +1,56 @@
+@import '../../styles/variables.css';
+
+.container {
+  @media (--md-down) {
+    padding-top: var(--margin-md);
+  }
+  @media (--md-up) {
+    padding-top: var(--margin-xl);
+  }
+}
+
+.form {
+  max-width: 960px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  padding-right: var(--margin-md);
+  padding-left: var(--margin-md);
+}
+
+.actionsWrapper {
+  border-top: 2px solid color-mod(var(--dark-color) a(10%));
+  margin-top: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.actions {
+  max-width: 960px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  padding-right: var(--margin-md);
+  padding-left: var(--margin-md);
+}
+
+.header {
+  margin-bottom: 0;
+
+  @media (--md-up) {
+    font-size: 40px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
+}
+
+.section {
+  margin-bottom: var(--margin-xl);
+}
+
+.rightColumn {
+  @media (--lg-up) {
+    padding-left: 120px !important;
+  }
+}
