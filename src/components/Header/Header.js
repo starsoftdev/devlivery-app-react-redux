@@ -40,7 +40,15 @@ class Header extends React.Component {
           <Link to={HOME_ROUTE}>
             <Logo/>
           </Link>
-          {[HOME_ROUTE].includes(currentRouteName) && (
+          {[
+            HOME_ROUTE,
+            ORDERS_ROUTE,
+            CONTACTS_ROUTE,
+            ADD_CONTACTS_ROUTE,
+            IMPORT_CONTACTS_ROUTE,
+            REPORTS_ROUTE,
+            MANAGE_TEAM_ROUTE,
+          ].includes(currentRouteName) && (
             <div className={s.rightSideMenu}>
               {!user ? (
                 <React.Fragment>
