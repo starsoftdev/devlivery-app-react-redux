@@ -9,7 +9,15 @@ import formStyles from 'antd/lib/form/style/index.css'
 import alertStyles from 'antd/lib/alert/style/index.css'
 import messageStyles from 'antd/lib/message/style/index.css'
 import globalStyles from '../../styles/global.css'
-import {HOME_ROUTE, ORDERS_ROUTE} from '../../routes'
+import {
+  ADD_CONTACTS_ROUTE,
+  CONTACTS_ROUTE,
+  HOME_ROUTE,
+  IMPORT_CONTACTS_ROUTE,
+  MANAGE_TEAM_ROUTE,
+  ORDERS_ROUTE,
+  REPORTS_ROUTE
+} from '../../routes'
 
 class AppLayout extends React.Component {
   static defaultProps = {
@@ -24,7 +32,15 @@ class AppLayout extends React.Component {
         <main className={s.content}>
           {this.props.children}
         </main>
-        {[HOME_ROUTE, ORDERS_ROUTE].includes(currentRouteName) && <Footer/>}
+        {[
+          HOME_ROUTE,
+          ORDERS_ROUTE,
+          CONTACTS_ROUTE,
+          ADD_CONTACTS_ROUTE,
+          IMPORT_CONTACTS_ROUTE,
+          REPORTS_ROUTE,
+          MANAGE_TEAM_ROUTE,
+        ].includes(currentRouteName) && <Footer/>}
       </Layout>
     )
   }

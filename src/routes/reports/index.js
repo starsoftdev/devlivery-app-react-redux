@@ -1,5 +1,4 @@
 import React from 'react'
-import {AppLayout} from '../../components'
 import Reports from './Reports'
 import {setCurrentRouteName} from '../../reducers/global'
 
@@ -9,7 +8,7 @@ function action({query, store, route}) {
   return {
     chunks: ['dashboard'],
     title: 'Reports',
-    component: <AppLayout><Reports/></AppLayout>,
+    component: <Reports/>,
   }
 }
 

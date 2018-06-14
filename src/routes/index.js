@@ -11,12 +11,14 @@ export const REGISTER4_ROUTE = 'register4'
 export const RESET_PASSWORD_ROUTE = 'reset-password'
 export const SET_PASSWORD_ROUTE = 'set-password'
 
+export const DASHBOARD_ROUTE = 'dashboard'
 export const ORDERS_ROUTE = 'orders'
 export const MANAGE_TEAM_ROUTE = 'manage-team'
 export const REPORTS_ROUTE = 'reports'
 export const CONTACTS_ROUTE = 'contacts'
 export const IMPORT_CONTACTS_ROUTE = 'import-contacts'
 export const ADD_CONTACTS_ROUTE = 'new-contacts'
+
 export const LOGOUT_ROUTE = 'logout'
 
 export const PURCHASE1_ROUTE = 'purchase1'
@@ -38,34 +40,41 @@ const authRoutes = {
   path: '',
   children: [
     {
-      path: '/orders',
-      name: ORDERS_ROUTE,
-      load: () => import(/* webpackChunkName: 'dashboard' */ './orders'),
-    },
-    {
-      path: '/manage-team',
-      name: MANAGE_TEAM_ROUTE,
-      load: () => import(/* webpackChunkName: 'dashboard' */ './manageTeam'),
-    },
-    {
-      path: '/reports',
-      name: REPORTS_ROUTE,
-      load: () => import(/* webpackChunkName: 'dashboard' */ './reports'),
-    },
-    {
-      path: '/contacts',
-      name: CONTACTS_ROUTE,
-      load: () => import(/* webpackChunkName: 'contacts' */ './contacts'),
-    },
-    {
-      path: '/contacts/import',
-      name: IMPORT_CONTACTS_ROUTE,
-      load: () => import(/* webpackChunkName: 'contacts' */ './importContacts'),
-    },
-    {
-      path: '/contacts/new',
-      name: ADD_CONTACTS_ROUTE,
-      load: () => import(/* webpackChunkName: 'contacts' */ './addContacts'),
+      path: '/dashboard',
+      name: DASHBOARD_ROUTE,
+      load: () => import(/* webpackChunkName: 'dashboard' */ './dashboard'),
+      children: [
+        {
+          path: '/orders',
+          name: ORDERS_ROUTE,
+          load: () => import(/* webpackChunkName: 'dashboard' */ './orders'),
+        },
+        {
+          path: '/manage-team',
+          name: MANAGE_TEAM_ROUTE,
+          load: () => import(/* webpackChunkName: 'dashboard' */ './manageTeam'),
+        },
+        {
+          path: '/reports',
+          name: REPORTS_ROUTE,
+          load: () => import(/* webpackChunkName: 'dashboard' */ './reports'),
+        },
+        {
+          path: '/contacts',
+          name: CONTACTS_ROUTE,
+          load: () => import(/* webpackChunkName: 'contacts' */ './contacts'),
+        },
+        {
+          path: '/contacts/import',
+          name: IMPORT_CONTACTS_ROUTE,
+          load: () => import(/* webpackChunkName: 'contacts' */ './importContacts'),
+        },
+        {
+          path: '/contacts/new',
+          name: ADD_CONTACTS_ROUTE,
+          load: () => import(/* webpackChunkName: 'contacts' */ './addContacts'),
+        },
+      ],
     },
     {
       path: '/logout',
