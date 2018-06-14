@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="45px" height="38px" viewBox="0 0 45 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>manage_team</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="01_Orders" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-39.000000, -712.000000)">
+        <g id="side_bar" transform="translate(0.000000, 170.000000)" stroke="#79828F" stroke-width="2">
+            <g id="manage_team" transform="translate(39.000000, 542.726562)">
+                <path d="M14,36.2734375 L31,36.2734375 L31,21.2734375 C31,19.0642985 29.209139,17.2734375 27,17.2734375 L18,17.2734375 C15.790861,17.2734375 14,19.0642985 14,21.2734375 L14,36.2734375 Z" id="Rectangle-2"></path>
+                <circle id="Oval" cx="22.5" cy="7.5" r="6.5"></circle>
+                <circle id="Oval" cx="9" cy="13" r="5"></circle>
+                <circle id="Oval" cx="36" cy="13" r="5"></circle>
+                <path d="M14,36.2734375 L14,21 L7,21 C3.6862915,21 1,23.6862915 1,27 L1,33.2734375 C1,34.9302917 2.34314575,36.2734375 4,36.2734375 L14,36.2734375 Z" id="Rectangle-2"></path>
+                <path d="M44,36.2734375 L44,21 L37,21 C33.6862915,21 31,23.6862915 31,27 L31,33.2734375 C31,34.9302917 32.3431458,36.2734375 34,36.2734375 L44,36.2734375 Z" id="Rectangle-2" transform="translate(37.500000, 28.636719) scale(-1, 1) translate(-37.500000, -28.636719) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

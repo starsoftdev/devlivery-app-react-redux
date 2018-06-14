@@ -6,14 +6,33 @@ import Instagram from '../../static/instagram.svg'
 import Facebook from '../../static/facebook.svg'
 import Linkedin from '../../static/linkedin.svg'
 import Logo from '../../static/logo.svg'
-import {ORDERS_ROUTE} from '../../routes'
+import {
+  ADD_CONTACTS_ROUTE,
+  CONTACTS_ROUTE,
+  IMPORT_CONTACTS_ROUTE,
+  MANAGE_TEAM_ROUTE,
+  ORDERS_ROUTE,
+  REPORTS_ROUTE
+} from '../../routes'
 import cn from 'classnames'
 
 class Footer extends React.Component {
   render() {
     const {currentRouteName} = this.props
     return (
-      <footer className={cn(s.footer, [ORDERS_ROUTE].includes(currentRouteName) && s.light)}>
+      <footer
+        className={
+          cn(s.footer,
+            [
+              ORDERS_ROUTE,
+              CONTACTS_ROUTE,
+              ADD_CONTACTS_ROUTE,
+              IMPORT_CONTACTS_ROUTE,
+              REPORTS_ROUTE,
+              MANAGE_TEAM_ROUTE,
+            ].includes(currentRouteName) && s.light
+          )}
+      >
         <div className={s.topFooter}>
           <div className={s.logoWrapper}>
             <Logo/>
@@ -59,8 +78,7 @@ const mapState = state => ({
   currentRouteName: state.global.currentRouteName,
 })
 
-const mapDispatch = {
-}
+const mapDispatch = {}
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Footer))
 
