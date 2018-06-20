@@ -39,12 +39,12 @@ class Bundles extends React.Component {
                 </div>
                 <div>
                   <div className={s.bundleActions}>
-                    <p className={s.cardInfo}>
+                    <div className={s.cardInfo}>
                       <span className={s.cardTitle}>{bundle.bundle_card.card.title}</span>
                       <br/>
                       <span className={s.cardPrice}>{bundle.bundle_card.card.price}</span>
                       <span className={s.cardPriceCurrency}>{bundle.bundle_card.card.currency}</span>
-                    </p>
+                    </div>
                     <Button type='primary' ghost>
                       <PlusIcon/>
                       Make an order
