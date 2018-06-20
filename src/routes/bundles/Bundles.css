@@ -15,7 +15,7 @@
   }
 }
 
-.headerWrapper {
+.actions {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
@@ -138,7 +138,7 @@
   border-top: 2px solid var(--border-color-base);
 }
 
-.actions {
+.footer {
   display: flex;
   justify-content: flex-end;
 }
