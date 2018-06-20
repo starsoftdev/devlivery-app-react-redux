@@ -12,7 +12,7 @@ import GreetingCardImage from '../../static/greeting_card.svg'
 import PostcardImage from '../../static/postcard.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 
-const CARD_STYLES = [
+const CARD_SIZES = [
   {key: 'folded_card', title: 'Folded Card', svg: BigCardImage, extra: '4" x 5"'},
   {key: 'postcard', title: 'Postcard', svg: PostcardImage, extra: '5" x 7"'},
   {key: 'folder_card_without_panel', title: 'Folded Card without Panel', svg: PanelCardImage, extra: '6" x 6"'},
@@ -31,7 +31,7 @@ class Purchase4 extends React.Component {
             prefixClassName={s.headerPrefix}
           />
           <Row className={s.items} gutter={20} type='flex' align='center'>
-            {CARD_STYLES.map((item, i) =>
+            {CARD_SIZES.map((item, i) =>
               <Col key={item.key} className={s.itemWrapper}>
                 <Card
                   className={s.item}
