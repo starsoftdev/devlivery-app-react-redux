@@ -5,35 +5,18 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Reports.css'
 import PlusIcon from '../../static/plus.svg'
 import moment from 'moment'
-
-// TODO get team contacts
-const contacts = [
-  {
-    name: 'Fritz Bucco',
-    scheduled_at: '01/29/2018',
-    items: 'CHRISTMAS CARD+FINE FOODIE',
-    occasion: 'BIRTHDAY',
-    sent: '1',
-    total: '98.00 CHF'
-  },
-  {
-    name: 'Massimo Ceccaroni',
-    scheduled_at: '01/15/2018',
-    items: 'WELCOME CARD',
-    occasion: 'WELCOMING',
-    sent: '2',
-    total: '15.00 CHF'
-  },
-]
+import {getReports} from '../../reducers/reports'
+import {PaginationItem} from '../../components'
 
 class Reports extends React.Component {
   render() {
-    const {contactsCount, page, pageSize, loading} = this.props
+    // TODO add loading
+    const {reports, reportsCount, page, pageSize, loading, getReports} = this.props
     const columns = [
       {
-        title: 'Contact',
-        dataIndex: 'name',
-        key: 'name',
+        title: 'Contacts',
+        dataIndex: 'contacts',
+        key: 'contacts',
       },
       {
         title: 'Scheduled At',
@@ -42,8 +25,9 @@ class Reports extends React.Component {
       },
       {
         title: 'Item(s)',
-        dataIndex: 'items',
-        key: 'items',
+        dataIndex: '',
+        key: 'card',
+        render: ({card, gifts}) => `${card}${gifts ? ` + ${gifts}` : ''}`
       },
       {
         title: 'Occasion',
@@ -55,22 +39,13 @@ class Reports extends React.Component {
         dataIndex: 'sent',
         key: 'sent',
       },
+      // TODO add Total on backend
       {
         title: 'Total Price',
         dataIndex: 'total',
         key: 'total',
       },
     ]
-
-    // TODO add pagination styles
-    // !loading.contacts && contactsCount > pageSize ? {
-    //         current: page,
-    //         defaultCurrent: page,
-    //         total: contactsCount,
-    //         showTotal: (total, range) => 'total items',
-    //         pageSize,
-    //         defaultPageSize: pageSize,
-    //       } : false
 
     return (
       <div className={s.container}>
@@ -121,18 +96,30 @@ class Reports extends React.Component {
         </div>
         <Table
           columns={columns}
-          dataSource={contacts}
+          dataSource={reports}
           rowKey={record => record.id}
-          onChange={(pagination, filters, sorter) => console.log({pagination, filters, sorter})}
-          pagination={false}
+          onChange={(pagination, filters, sorter) => getReports({pagination, filters, sorter})}
+          pagination={{
+            current: page,
+            total: reportsCount,
+            showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+            pageSize,
+            showSizeChanger: true,
+            hideOnSinglePage: true,
+            itemRender: (current, type, el) => <PaginationItem type={type} el={el}/>
+          }}
         />
       </div>
     )
   }
 }
 
-const mapState = state => ({})
+const mapState = state => ({
+  ...state.reports,
+})
 
-const mapDispatch = {}
+const mapDispatch = {
+  getReports,
+}
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Reports))

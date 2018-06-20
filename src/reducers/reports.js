@@ -1,6 +1,7 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import qs from 'query-string'
 import {getToken} from './user'
+import {DEFAULT_PAGE_SIZE} from '../constants'
 
 // ------------------------------------
 // Constants
@@ -17,12 +18,11 @@ export const CLEAR = 'Reports.CLEAR'
 export const getReports = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_REPORTS_REQUEST, params})
   const {token} = dispatch(getToken())
-  const {search, ordering, page, pageSize} = getState().reports
+  const {ordering, page, pageSize} = getState().reports
   return fetch(`/reports/scheduled-orders?${qs.stringify({
-    search,
     ordering,
     page,
-    page_size: pageSize,
+    per_page: pageSize,
   })}`, {
     method: 'GET',
     token,
@@ -43,18 +43,19 @@ const initialState = {
   reports: [],
   reportsCount: 0,
   page: 1,
-  pageSize: 20,
+  pageSize: DEFAULT_PAGE_SIZE,
 }
 
 export default createReducer(initialState, {
   [GET_REPORTS_REQUEST]: (state, {params}) => ({
-    // TODO add params
+    page: params.pagination ? params.pagination.current : 1,
+    pageSize: params.pagination ? params.pagination.pageSize : DEFAULT_PAGE_SIZE,
     loading: {
       ...state.loading,
       reports: true,
     },
   }),
-  [GET_REPORTS_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
+  [GET_REPORTS_SUCCESS]: (state, {res: {data: {data, total}}}) => ({
     reports: data,
     reportsCount: total,
     loading: {
