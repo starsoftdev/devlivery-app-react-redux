@@ -3,11 +3,9 @@ import {connect} from 'react-redux'
 import {Calendar, Input, Table} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Orders.css'
-import {CalendarHeader} from '../../components'
+import {CalendarHeader, PaginationItem} from '../../components'
 import {clear, getEvents, getOrders} from '../../reducers/orders'
 import LongArrowIcon from '../../static/long-right-arrow.svg'
-import RightArrowIcon from '../../static/right-arrow.svg'
-import LeftArrowIcon from '../../static/left-arrow.svg'
 import debounce from 'lodash/debounce'
 import moment from 'moment'
 import cn from 'classnames'
@@ -103,21 +101,12 @@ class Orders extends React.Component {
           onChange={(pagination, filters, sorter) => getOrders({pagination, filters, sorter})}
           pagination={{
             current: page,
-            defaultCurrent: page,
             total: ordersCount,
             showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
             pageSize,
-            defaultPageSize: pageSize,
             showSizeChanger: true,
             hideOnSinglePage: true,
-            itemRender: (current, type, originalElement) => {
-              if (type === 'prev') {
-                return <a className='ant-pagination-item-link'><LeftArrowIcon/></a>
-              } else if (type === 'next') {
-                return <a className='ant-pagination-item-link'><RightArrowIcon/></a>
-              }
-              return originalElement
-            }
+            itemRender: (current, type, el) => <PaginationItem type={type} el={el}/>
           }}
         />
         <div className={s.calendarSection}>
