@@ -1,21 +1,21 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button, Col, Input, Row} from 'antd'
+import {Button, Col, Input, Row, Pagination} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Bundles.css'
 import {clear, getBundles} from '../../reducers/bundles'
 import PlusGiftIcon from '../../static/plus_round.svg'
 import PlusIcon from '../../static/plus.svg'
+import {PaginationItem} from '../../components'
 
 class Bundles extends React.Component {
   render() {
-    const {bundlesCount, bundles, page, pageSize, loading} = this.props
-
-    // TODO add pagination
+    // TODO add loading
+    const {bundlesCount, bundles, page, pageSize, loading, getBundles} = this.props
 
     return (
       <div className={s.container}>
-        <div className={s.actions}>
+        <div className={s.headerWrapper}>
           <h1 className={s.header}>Created Bundles</h1>
           {/*TODO add search icon*/}
           <Input className={s.search} placeholder={'Search'}/>
@@ -55,6 +55,18 @@ class Bundles extends React.Component {
             </Col>
           )}
         </Row>
+        <div className={s.actions}>
+          <Pagination
+            current={page}
+            total={bundlesCount}
+            showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
+            pageSize={pageSize}
+            showSizeChanger
+            onChange={(page, pageSize) => getBundles({page, pageSize})}
+            onShowSizeChange={(page, pageSize) => getBundles({page, pageSize})}
+            itemRender={(current, type, el) => <PaginationItem type={type} el={el}/>}
+          />
+        </div>
       </div>
     )
   }

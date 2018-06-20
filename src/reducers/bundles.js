@@ -1,6 +1,7 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import qs from 'query-string'
 import {getToken} from './user'
+import {DEFAULT_PAGE_SIZE} from '../constants'
 
 // ------------------------------------
 // Constants
@@ -17,12 +18,11 @@ export const CLEAR = 'Bundles.CLEAR'
 export const getBundles = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_BUNDLES_REQUEST, params})
   const {token} = dispatch(getToken())
-  const {search, ordering, page, pageSize} = getState().bundles
+  const {search, page, pageSize} = getState().bundles
   return fetch(`/bundles?${qs.stringify({
     search,
-    ordering,
     page,
-    page_size: pageSize,
+    per_page: pageSize,
   })}`, {
     method: 'GET',
     token,
@@ -43,12 +43,15 @@ const initialState = {
   bundles: [],
   bundlesCount: 0,
   page: 1,
-  pageSize: 20,
+  pageSize: DEFAULT_PAGE_SIZE,
 }
 
 export default createReducer(initialState, {
   [GET_BUNDLES_REQUEST]: (state, {params}) => ({
-    // TODO add params
+    // do not send search param if string is empty
+    search: params.search !== undefined ? (params.search || undefined) : state.search,
+    page: params.page || 1,
+    pageSize: params.pageSize || state.pageSize,
     loading: {
       ...state.loading,
       bundles: true,
