@@ -10,7 +10,7 @@ import alertStyles from 'antd/lib/alert/style/index.css'
 import messageStyles from 'antd/lib/message/style/index.css'
 import globalStyles from '../../styles/global.css'
 import {
-  ADD_CONTACTS_ROUTE,
+  ADD_CONTACTS_ROUTE, CONTACT_GROUPS_ROUTE,
   CONTACTS_ROUTE,
   HOME_ROUTE,
   IMPORT_CONTACTS_ROUTE,
@@ -40,6 +40,7 @@ class AppLayout extends React.Component {
           IMPORT_CONTACTS_ROUTE,
           REPORTS_ROUTE,
           MANAGE_TEAM_ROUTE,
+          CONTACT_GROUPS_ROUTE,
         ].includes(currentRouteName) && <Footer/>}
       </Layout>
     )

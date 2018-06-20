@@ -4,8 +4,15 @@ import {Menu} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Dashboard.css'
 import {Link} from '../../components'
-import {ADD_CONTACTS_ROUTE, CONTACTS_ROUTE, MANAGE_TEAM_ROUTE, ORDERS_ROUTE, REPORTS_ROUTE} from '../'
-import {IMPORT_CONTACTS} from '../../reducers/purchase'
+import {
+  ADD_CONTACTS_ROUTE,
+  CONTACT_GROUPS_ROUTE,
+  CONTACTS_ROUTE,
+  IMPORT_CONTACTS_ROUTE,
+  MANAGE_TEAM_ROUTE,
+  ORDERS_ROUTE,
+  REPORTS_ROUTE
+} from '../'
 import OrdersIcon from '../../static/orders.svg'
 import ContactsIcon from '../../static/book.svg'
 import ReportsIcon from '../../static/reports.svg'
@@ -45,14 +52,19 @@ class Dashboard extends React.Component {
                 Find Contacts
               </Link>
             </Menu.Item>
-            <Menu.Item key={IMPORT_CONTACTS}>
-              <Link to={IMPORT_CONTACTS}>
+            <Menu.Item key={IMPORT_CONTACTS_ROUTE}>
+              <Link to={IMPORT_CONTACTS_ROUTE}>
                 Import Contacts
               </Link>
             </Menu.Item>
             <Menu.Item key={ADD_CONTACTS_ROUTE}>
               <Link to={ADD_CONTACTS_ROUTE}>
                 New Contact
+              </Link>
+            </Menu.Item>
+            <Menu.Item key={CONTACT_GROUPS_ROUTE}>
+              <Link to={CONTACT_GROUPS_ROUTE}>
+                Groups
               </Link>
             </Menu.Item>
           </Menu.SubMenu>

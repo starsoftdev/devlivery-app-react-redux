@@ -7,7 +7,7 @@ import Facebook from '../../static/facebook.svg'
 import Linkedin from '../../static/linkedin.svg'
 import Logo from '../../static/logo.svg'
 import {
-  ADD_CONTACTS_ROUTE,
+  ADD_CONTACTS_ROUTE, CONTACT_GROUPS_ROUTE,
   CONTACTS_ROUTE,
   IMPORT_CONTACTS_ROUTE,
   MANAGE_TEAM_ROUTE,
@@ -30,6 +30,7 @@ class Footer extends React.Component {
               IMPORT_CONTACTS_ROUTE,
               REPORTS_ROUTE,
               MANAGE_TEAM_ROUTE,
+              CONTACT_GROUPS_ROUTE,
             ].includes(currentRouteName) && s.light
           )}
       >
