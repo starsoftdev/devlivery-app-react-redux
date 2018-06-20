@@ -28,6 +28,7 @@
 /*TODO add active/focus menu items*/
 .menu {
   width: 125px;
+  flex-shrink: 0;
   list-style: none;
   padding-left: 0;
   margin-bottom: 0;
