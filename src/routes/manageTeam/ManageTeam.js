@@ -1,25 +1,27 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Calendar, Input, Table} from 'antd'
+import {Table} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './ManageTeam.css'
 import EditIcon from '../../static/edit.svg'
-
-// TODO get team members
-const teamMembers = [
-  {name: 'Fritz Bucco', invoice: 'ADMIN', group: 'ASSISTANT', account_management: 'READ ONLY', card_management: 'READ ONLY'},
-  {name: 'Massimo Ceccaroni', invoice: 'ADMIN', group: 'SECRETARY', account_management: 'READ AND WRITE', card_management: 'READ AND WRITE'},
-]
+import {clear, getTeam} from '../../reducers/team'
+import {PaginationItem} from '../../components'
 
 class ManageTeam extends React.Component {
+  componentWillUnmount() {
+    this.props.clear()
+  }
+
   render() {
-    const {membersCount, members, page, pageSize, loading} = this.props
+    // TODO add table loading
+    const {teamCount, team, page, pageSize, loading, getTeam} = this.props
     const columns = [
       {
         title: 'Team Member',
         dataIndex: 'name',
         key: 'name',
       },
+      // TODO add all fields on backend
       {
         title: 'Invoice',
         dataIndex: 'invoice',
@@ -52,16 +54,6 @@ class ManageTeam extends React.Component {
       },
     ]
 
-    // TODO add pagination styles
-    // !loading.members && membersCount > pageSize ? {
-    //         current: page,
-    //         defaultCurrent: page,
-    //         total: membersCount,
-    //         showTotal: (total, range) => 'total items',
-    //         pageSize,
-    //         defaultPageSize: pageSize,
-    //       } : false
-
     return (
       <div className={s.container}>
         <div className={s.actions}>
@@ -69,10 +61,17 @@ class ManageTeam extends React.Component {
         </div>
         <Table
           columns={columns}
-          dataSource={teamMembers}
+          dataSource={team}
           rowKey={record => record.id}
-          onChange={(pagination, filters, sorter) => console.log({pagination, filters, sorter})}
-          pagination={false}
+          onChange={(pagination, filters, sorter) => getTeam({pagination, filters, sorter})}
+          pagination={{
+            current: page,
+            total: teamCount,
+            showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+            pageSize,
+            showSizeChanger: true,
+            itemRender: (current, type, el) => <PaginationItem type={type} el={el}/>
+          }}
         />
       </div>
     )
@@ -80,9 +79,12 @@ class ManageTeam extends React.Component {
 }
 
 const mapState = state => ({
+  ...state.team,
 })
 
 const mapDispatch = {
+  getTeam,
+  clear,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(ManageTeam))
