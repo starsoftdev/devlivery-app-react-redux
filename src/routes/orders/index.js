@@ -3,6 +3,7 @@ import Orders from './Orders'
 import {setCurrentRouteName} from '../../reducers/global'
 import {getEvents, getOrders} from '../../reducers/orders'
 import moment from 'moment'
+import {BASE_DASHBOARD_BREADCRUMBS} from '../'
 
 function action({query, store, route}) {
   store.dispatch(setCurrentRouteName(route.name))
@@ -12,6 +13,10 @@ function action({query, store, route}) {
   return {
     chunks: ['dashboard'],
     title: 'Orders',
+    breadcrumbs: [
+      ...BASE_DASHBOARD_BREADCRUMBS,
+      {name: 'Orders'},
+    ],
     component: <Orders/>,
   }
 }

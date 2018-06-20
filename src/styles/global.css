@@ -8,6 +8,7 @@
 @import './calendar.css';
 @import './pagination.css';
 @import './spin.css';
+@import './breadcrumbs.css';
 
 :global {
   .ant-form {

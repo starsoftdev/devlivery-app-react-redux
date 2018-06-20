@@ -1,0 +1,31 @@
+@import './variables.css';
+
+:global {
+  .ant-breadcrumb {
+    font-family: var(--font-family-secondary);
+    font-size: 10px;
+    color: color-mod(var(--dark-color) a(70%));
+
+    a {
+      color: color-mod(var(--dark-color) a(70%));
+      transition: color .3s;
+      &:hover {
+        color: var(--dark-color);
+      }
+    }
+
+    & > span:last-child {
+      font-weight: bold;
+    }
+
+    & > span:last-child &-separator {
+      display: none;
+    }
+
+    &-separator {
+      margin: var(--margin-md);
+      color: color-mod(var(--dark-color) a(70%));
+      font-size: 8px;
+    }
+  }
+}

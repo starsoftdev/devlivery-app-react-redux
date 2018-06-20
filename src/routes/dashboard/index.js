@@ -8,7 +8,7 @@ async function action({next}) {
   return {
     chunks: ['dashboard'],
     title: child.title,
-    component: <AppLayout><Dashboard>{child.component}</Dashboard></AppLayout>,
+    component: <AppLayout><Dashboard breadcrumbs={child.breadcrumbs}>{child.component}</Dashboard></AppLayout>,
   }
 }
 

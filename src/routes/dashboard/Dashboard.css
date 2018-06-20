@@ -5,7 +5,8 @@
   flex: auto;
 }
 
-.breadcrumbsWrapper {
+.actions {
+  position: relative;
   border-bottom: 2px solid color-mod(var(--dark-color) a(10%));
 }
 
@@ -16,7 +17,17 @@
   margin-right: auto;
   margin-left: auto;
   width: 100%;
-  height: 50px;
+  /*border is 2px*/
+  height: 48px;
+  padding-right: var(--margin-md);
+  padding-left: var(--margin-md);
+}
+
+.getStartedBtn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
 .content {
