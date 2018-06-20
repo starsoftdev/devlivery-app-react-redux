@@ -6,6 +6,7 @@ import s from './Dashboard.css'
 import {Link} from '../../components'
 import {
   ADD_CONTACTS_ROUTE,
+  BUNDLES_ROUTE,
   CONTACT_GROUPS_ROUTE,
   CONTACTS_ROUTE,
   IMPORT_CONTACTS_ROUTE,
@@ -32,8 +33,8 @@ class Dashboard extends React.Component {
               Orders
             </Link>
           </Menu.Item>
-          <Menu.Item key={'bundles'}>
-            <Link to={ORDERS_ROUTE}>
+          <Menu.Item key={BUNDLES_ROUTE}>
+            <Link to={BUNDLES_ROUTE}>
               <BundlesIcon/>
               Bundles
             </Link>
