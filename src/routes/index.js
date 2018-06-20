@@ -52,6 +52,11 @@ export const PURCHASE12_ROUTE = 'purchase12'
 export const PURCHASE13_ROUTE = 'purchase13'
 export const PURCHASE_COMPLETED_ROUTE = 'purchase-completed'
 
+export const BASE_DASHBOARD_BREADCRUMBS = [
+  {routeName: HOME_ROUTE, name: 'Home'},
+  {name: 'Dashboard'}
+]
+
 const authRoutes = {
   path: '',
   children: [

@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Menu} from 'antd'
+import {Button, Menu} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Dashboard.css'
-import {Link} from '../../components'
+import {Link, Breadcrumbs} from '../../components'
 import {
   ADD_CONTACTS_ROUTE,
   BUNDLES_ROUTE,
@@ -11,7 +11,7 @@ import {
   CONTACTS_ROUTE,
   IMPORT_CONTACTS_ROUTE,
   MANAGE_TEAM_ROUTE,
-  ORDERS_ROUTE,
+  ORDERS_ROUTE, PURCHASE1_ROUTE,
   REPORTS_ROUTE,
   USER_ROUTE
 } from '../'
@@ -24,7 +24,7 @@ import SettingsIcon from '../../static/settings.svg'
 
 class Dashboard extends React.Component {
   render() {
-    const {children} = this.props
+    const {children, breadcrumbs} = this.props
     return (
       <div className={s.container}>
         <Menu className={s.menu} mode='inline'>
@@ -90,8 +90,11 @@ class Dashboard extends React.Component {
           </Menu.Item>
         </Menu>
         <div className={s.content}>
-          <div className={s.breadcrumbsWrapper}>
-            <div className={s.breadcrumbs}>Breadcrumbs</div>
+          <div className={s.actions}>
+            <Breadcrumbs className={s.breadcrumbs} breadcrumbs={breadcrumbs}/>
+            <Link to={PURCHASE1_ROUTE} className={s.getStartedBtn}>
+              <Button type='primary'>Get Started</Button>
+            </Link>
           </div>
           {children}
         </div>
