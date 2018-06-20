@@ -10,7 +10,7 @@
 }
 
 .form {
-  max-width: 960px;
+  max-width: var(--max-dashboard-width);
   margin-right: auto;
   margin-left: auto;
   width: 100%;
@@ -26,7 +26,7 @@
 }
 
 .actions {
-  max-width: 960px;
+  max-width: var(--max-dashboard-width);
   margin-right: auto;
   margin-left: auto;
   width: 100%;
@@ -51,6 +51,12 @@
 
 .rightColumn {
   @media (--lg-up) {
-    padding-left: 120px !important;
+    padding-left: 60px !important;
+  }
+}
+
+.leftColumn {
+  @media (--lg-up) {
+    padding-right: 60px !important;
   }
 }

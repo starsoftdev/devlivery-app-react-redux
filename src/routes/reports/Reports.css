@@ -1,10 +1,12 @@
 @import '../../styles/variables.css';
 
 .container {
-  max-width: 1020px;
+  max-width: var(--max-dashboard-width);
   margin-right: auto;
   margin-left: auto;
   width: 100%;
+  padding-right: var(--margin-md);
+  padding-left: var(--margin-md);
   padding-bottom: var(--margin-xl);
 
   @media (--md-down) {
@@ -23,12 +25,6 @@
 
   @media (--sm-down) {
     flex-direction: column;
-    padding-right: var(--margin-md);
-    padding-left: var(--margin-md);
-  }
-  @media (max-width: 1020px) {
-    padding-right: var(--margin-md);
-    padding-left: var(--margin-md);
   }
 }
 
