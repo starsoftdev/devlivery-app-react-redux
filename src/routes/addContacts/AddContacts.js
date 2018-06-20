@@ -24,7 +24,7 @@ class AddContacts extends React.Component {
       <div className={s.container}>
         <Form onSubmit={this.handleSubmit} className={s.form}>
           <Row type='flex' gutter={20}>
-            <Col xs={24} md={12}>
+            <Col xs={24} md={12} className={s.leftColumn}>
               <section className={s.section}>
                 <h1 className={s.header}>Add Contact</h1>
                 <Form.Item>
