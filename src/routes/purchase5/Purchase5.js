@@ -5,22 +5,11 @@ import {Button, Col, Layout, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase5.css'
 import {Actions, Card, Link, SectionHeader} from '../../components'
-import Card1Image from '../../static/modern_card_style.png'
-import Card2Image from '../../static/vintage_card_style.png'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import {HOME_ROUTE} from '../'
 import Logo from '../../static/logo.svg'
 import cn from 'classnames'
 import Preview from './Preview'
-
-const CARD_STYLES = [
-  {key: 'card1', image: Card1Image},
-  {key: 'card2', image: Card2Image},
-  {key: 'card3', image: Card1Image},
-  {key: 'card4', image: Card2Image},
-  {key: 'card5', image: Card1Image},
-  {key: 'card6', image: Card2Image},
-]
 
 class Purchase5 extends React.Component {
   state = {
@@ -33,7 +22,7 @@ class Purchase5 extends React.Component {
 
   render() {
     const {previewCollapsed} = this.state
-    const {card, setCard, submitCard} = this.props
+    const {cards, card, setCard, submitCard} = this.props
 
     return (
       <React.Fragment>
@@ -60,13 +49,13 @@ class Purchase5 extends React.Component {
                 prefixClassName={s.headerPrefix}
               />
               <Row className={s.items} gutter={20} type='flex' align='center'>
-                {CARD_STYLES.map((item) =>
-                  <Col key={item.key} className={s.itemWrapper}>
+                {cards.map((item) =>
+                  <Col key={item.id} className={s.itemWrapper}>
                     <Card
                       className={s.item}
-                      image={item.image}
-                      onClick={() => setCard(item.key)}
-                      active={item.key === card}
+                      image={item.images[0].url}
+                      onClick={() => setCard(item.id)}
+                      active={item.id === card}
                     />
                   </Col>
                 )}
@@ -95,6 +84,7 @@ class Purchase5 extends React.Component {
 }
 
 const mapState = state => ({
+  cards: state.purchase.cards,
   card: state.purchase.card,
   loading: state.purchase.loading,
 })

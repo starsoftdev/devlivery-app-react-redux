@@ -17,27 +17,19 @@ export const GET_OCCASIONS_REQUEST = 'Purchase.GET_OCCASIONS_REQUEST'
 export const GET_OCCASIONS_SUCCESS = 'Purchase.GET_OCCASIONS_SUCCESS'
 export const GET_OCCASIONS_FAILURE = 'Purchase.GET_OCCASIONS_FAILURE'
 
-export const SUBMIT_OCCASION_REQUEST = 'Purchase.SUBMIT_OCCASION_REQUEST'
-export const SUBMIT_OCCASION_SUCCESS = 'Purchase.SUBMIT_OCCASION_SUCCESS'
-export const SUBMIT_OCCASION_FAILURE = 'Purchase.SUBMIT_OCCASION_FAILURE'
-
 export const SET_LETTERING_TECHNIQUE = 'Purchase.SET_LETTERING_TECHNIQUE'
-
-export const SUBMIT_LETTERING_TECHNIQUE_REQUEST = 'Purchase.SUBMIT_LETTERING_TECHNIQUE_REQUEST'
-export const SUBMIT_LETTERING_TECHNIQUE_SUCCESS = 'Purchase.SUBMIT_LETTERING_TECHNIQUE_SUCCESS'
-export const SUBMIT_LETTERING_TECHNIQUE_FAILURE = 'Purchase.SUBMIT_LETTERING_TECHNIQUE_FAILURE'
 
 export const SET_CARD_STYLE = 'Purchase.SET_CARD_STYLE'
 
-export const SUBMIT_CARD_STYLE_REQUEST = 'Purchase.SUBMIT_CARD_STYLE_REQUEST'
-export const SUBMIT_CARD_STYLE_SUCCESS = 'Purchase.SUBMIT_CARD_STYLE_SUCCESS'
-export const SUBMIT_CARD_STYLE_FAILURE = 'Purchase.SUBMIT_CARD_STYLE_FAILURE'
+export const GET_CARD_STYLES_REQUEST = 'Purchase.GET_CARD_STYLES_REQUEST'
+export const GET_CARD_STYLES_SUCCESS = 'Purchase.GET_CARD_STYLES_SUCCESS'
+export const GET_CARD_STYLES_FAILURE = 'Purchase.GET_CARD_STYLES_FAILURE'
 
 export const SET_CARD_SIZE = 'Purchase.SET_CARD_SIZE'
 
-export const SUBMIT_CARD_SIZE_REQUEST = 'Purchase.SUBMIT_CARD_SIZE_REQUEST'
-export const SUBMIT_CARD_SIZE_SUCCESS = 'Purchase.SUBMIT_CARD_SIZE_SUCCESS'
-export const SUBMIT_CARD_SIZE_FAILURE = 'Purchase.SUBMIT_CARD_SIZE_FAILURE'
+export const GET_CARDS_REQUEST = 'Purchase.GET_CARDS_REQUEST'
+export const GET_CARDS_SUCCESS = 'Purchase.GET_CARDS_SUCCESS'
+export const GET_CARDS_FAILURE = 'Purchase.GET_CARDS_FAILURE'
 
 export const SET_CARD = 'Purchase.SET_CARD'
 
@@ -93,138 +85,82 @@ export const getOccasions = () => (dispatch, getState, {fetch}) => {
   })
 }
 
-export const submitOccasion = () => (dispatch, getState, {fetch, history}) => {
+export const submitOccasion = () => (dispatch, getState, {history}) => {
   const {occasion} = getState().purchase
   if (!occasion) return
-  dispatch({type: SUBMIT_OCCASION_REQUEST})
   history.push('/purchase/lettering-technique')
-  return fetch(`/guest/set-occasion`, {
-    method: 'POST',
-    body: {
-      occasion_id: occasion,
-    },
-    success: () => dispatch({type: SUBMIT_OCCASION_SUCCESS}),
-    failure: () => dispatch({type: SUBMIT_OCCASION_FAILURE})
-  })
 }
 
 export const setLetteringTechnique = (letteringTechnique) => ({type: SET_LETTERING_TECHNIQUE, letteringTechnique})
 
-export const submitLetteringTechnique = () => (dispatch, getState, {fetch, history}) => {
+export const submitLetteringTechnique = () => (dispatch, getState, {history}) => {
   const {letteringTechnique} = getState().purchase
   if (!letteringTechnique) return
-  dispatch({type: SUBMIT_LETTERING_TECHNIQUE_REQUEST})
   history.push('/purchase/card-style')
-  return fetch(`/guest/set-lettering-technique`, {
-    method: 'POST',
-    body: {
-      lettering_technique: letteringTechnique,
-    },
-    success: () => dispatch({type: SUBMIT_LETTERING_TECHNIQUE_SUCCESS}),
-    failure: () => dispatch({type: SUBMIT_LETTERING_TECHNIQUE_FAILURE})
+}
+
+export const getCardStyles = () => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_CARD_STYLES_REQUEST})
+  return fetch(`/card-styles`, {
+    method: 'GET',
+    success: (res) => dispatch({type: GET_CARD_STYLES_SUCCESS, cardStyles: res.data}),
+    failure: () => dispatch({type: GET_CARD_STYLES_FAILURE})
   })
 }
 
 export const setCardStyle = (cardStyle) => ({type: SET_CARD_STYLE, cardStyle})
 
-export const submitCardStyle = () => (dispatch, getState, {fetch, history}) => {
+export const submitCardStyle = () => (dispatch, getState, {history}) => {
   const {cardStyle} = getState().purchase
   if (!cardStyle) return
-  dispatch({type: SUBMIT_CARD_STYLE_REQUEST})
   history.push('/purchase/card-size')
-  return fetch(`/guest/set-card-style`, {
-    method: 'POST',
-    body: {
-      card_style: cardStyle,
-    },
-    success: () => dispatch({type: SUBMIT_CARD_STYLE_SUCCESS}),
-    failure: () => dispatch({type: SUBMIT_CARD_STYLE_FAILURE})
+}
+
+export const getCards = () => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_CARDS_REQUEST})
+  return fetch(`/cards`, {
+    method: 'GET',
+    success: (res) => dispatch({type: GET_CARDS_SUCCESS, cards: res.data}),
+    failure: () => dispatch({type: GET_CARDS_FAILURE})
   })
 }
 
 export const setCardSize = (cardSize) => ({type: SET_CARD_SIZE, cardSize})
 
-export const submitCardSize = () => (dispatch, getState, {fetch, history}) => {
+export const submitCardSize = () => (dispatch, getState, {history}) => {
   const {cardSize} = getState().purchase
   if (!cardSize) return
-  dispatch({type: SUBMIT_CARD_SIZE_REQUEST})
   history.push('/purchase/card')
-  return fetch(`/guest/set-card-size`, {
-    method: 'POST',
-    body: {
-      card_size: cardSize,
-    },
-    success: () => dispatch({type: SUBMIT_CARD_SIZE_SUCCESS}),
-    failure: () => dispatch({type: SUBMIT_CARD_SIZE_FAILURE})
-  })
 }
 
-export const submitCardDetails = (cardDetails) => (dispatch, getState, {fetch, history}) => {
-  dispatch({type: SUBMIT_CARD_DETAILS_REQUEST, cardDetails})
+export const submitCardDetails = () => (dispatch, getState, {history}) => {
   history.push('/purchase/gift-type')
-  return fetch(`/guest/personalize-card`, {
-    method: 'POST',
-    body: {
-      ...cardDetails,
-    },
-    success: () => dispatch({type: SUBMIT_CARD_DETAILS_SUCCESS}),
-    failure: () => dispatch({type: SUBMIT_CARD_DETAILS_FAILURE})
-  })
 }
 
 export const setGiftType = (giftType) => ({type: SET_GIFT_TYPE, giftType})
 
-export const submitGiftType = () => (dispatch, getState, {fetch, history}) => {
-  const {giftType} = getState().purchase
-  dispatch({type: SUBMIT_GIFT_TYPE_REQUEST})
+export const submitGiftType = () => (dispatch, getState, {history}) => {
   history.push('/purchase/gift')
-  return fetch(`/guest/set-gift-type`, {
-    method: 'POST',
-    body: {
-      type: giftType,
-    },
-    success: () => dispatch({type: SUBMIT_GIFT_TYPE_SUCCESS}),
-    failure: () => dispatch({type: SUBMIT_GIFT_TYPE_FAILURE})
-  })
 }
 
 export const continueWithoutGift = () => (dispatch, getState, {history}) => {
   history.push('/purchase/gift')
-  dispatch({type: CONTINUE_WITHOUT_GIFT})
 }
 
 export const setCard = (card) => ({type: SET_CARD, card})
 
-export const submitCard = () => (dispatch, getState, {fetch, history}) => {
+export const submitCard = () => (dispatch, getState, {history}) => {
   const {card} = getState().purchase
   if (!card) return
-  dispatch({type: SUBMIT_CARD_REQUEST})
   history.push('/purchase/personalize-card')
-  return fetch(`/guest/set-card`, {
-    method: 'POST',
-    body: {
-      card_id: card,
-    },
-    success: () => dispatch({type: SUBMIT_CARD_SUCCESS}),
-    failure: () => dispatch({type: SUBMIT_CARD_FAILURE})
-  })
 }
 
 export const setGift = (gift) => ({type: SET_GIFT, gift})
 
-export const submitGift = () => (dispatch, getState, {fetch, history}) => {
+export const submitGift = () => (dispatch, getState, {history}) => {
   const {gift} = getState().purchase
   if (!gift) return
-  dispatch({type: SUBMIT_GIFT_REQUEST})
   history.push('/purchase/create-account')
-  return fetch(`/guest/set-gift`, {
-    method: 'POST',
-    body: {
-      gift_id: gift,
-    },
-    success: () => dispatch({type: SUBMIT_GIFT_SUCCESS}),
-    failure: () => dispatch({type: SUBMIT_GIFT_FAILURE})
-  })
 }
 
 export const setAddingContactsMode = (addingContactsMode) => ({type: SET_ADDING_CONTACTS_MODE, addingContactsMode})
@@ -286,6 +222,8 @@ const initialState = {
   gift: null,
   addingContactsMode: null,
   paymentMethod: null,
+  cardStyles: [],
+  cards: [],
 }
 
 export default createReducer(initialState, {
@@ -314,8 +252,14 @@ export default createReducer(initialState, {
   [SET_LETTERING_TECHNIQUE]: (state, {letteringTechnique}) => ({
     letteringTechnique,
   }),
+  [GET_CARD_STYLES_SUCCESS]: (state, {cardStyles}) => ({
+    cardStyles,
+  }),
   [SET_CARD_STYLE]: (state, {cardStyle}) => ({
     cardStyle,
+  }),
+  [GET_CARDS_SUCCESS]: (state, {cards}) => ({
+    cards,
   }),
   [SET_CARD_SIZE]: (state, {cardSize}) => ({
     cardSize,

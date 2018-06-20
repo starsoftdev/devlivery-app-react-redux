@@ -6,21 +6,11 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase3.css'
 import {Actions, Card, SectionHeader} from '../../components'
 import {ALPHABET} from '../../constants'
-import ModernCardImage from '../../static/modern_card_style.png'
-import FloralCardImage from '../../static/floral_card_style.jpg'
-import VintageCardImage from '../../static/vintage_card_style.png'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
-
-const CARD_STYLES = [
-  {key: 'modern', title: 'Modern', image: ModernCardImage},
-  {key: 'floral', title: 'Floral', image: FloralCardImage},
-  {key: 'vintage', title: 'Vintage', image: VintageCardImage},
-  {key: 'modern2', title: 'Modern', image: ModernCardImage},
-]
 
 class Purchase3 extends React.Component {
   render() {
-    const {cardStyle, setCardStyle, submitCardStyle} = this.props
+    const {cardStyle, setCardStyle, submitCardStyle, cardStyles} = this.props
     return (
       <React.Fragment>
         <div className={s.content}>
@@ -30,13 +20,13 @@ class Purchase3 extends React.Component {
             prefixClassName={s.headerPrefix}
           />
           <Row className={s.items} gutter={20} type='flex' align='center'>
-            {CARD_STYLES.map((item, i) =>
+            {cardStyles.map((item, i) =>
               <Col key={item.key} className={s.itemWrapper}>
                 <Card
                   className={s.item}
                   title={item.title}
-                  image={item.image}
-                  onClick={() => setCardStyle(item.key)}
+                  image={item.image.url}
+                  onClick={() => setCardStyle(item.title)}
                   active={item.key === cardStyle}
                   keyValue={ALPHABET[i]}
                 />
@@ -64,6 +54,7 @@ class Purchase3 extends React.Component {
 }
 
 const mapState = state => ({
+  cardStyles: state.purchase.cardStyles,
   cardStyle: state.purchase.cardStyle,
   loading: state.purchase.loading,
 })
