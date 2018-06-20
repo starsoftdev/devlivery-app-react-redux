@@ -1,11 +1,13 @@
 import React from 'react'
 import Orders from './Orders'
 import {setCurrentRouteName} from '../../reducers/global'
-import {getOrders} from '../../reducers/orders'
+import {getEvents, getOrders} from '../../reducers/orders'
+import moment from 'moment'
 
 function action({query, store, route}) {
   store.dispatch(setCurrentRouteName(route.name))
   store.dispatch(getOrders())
+  store.dispatch(getEvents(moment()))
 
   return {
     chunks: ['dashboard'],

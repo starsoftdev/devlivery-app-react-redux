@@ -1,0 +1,37 @@
+@import '../../styles/variables.css';
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 180px;
+  user-select: none;
+}
+
+.nextBtn,
+.prevBtn {
+  display: flex;
+  /*make button area bigger to click easy*/
+  padding-top: var(--margin-xs);
+  padding-bottom: var(--margin-xs);
+}
+
+.nextBtn {
+  padding-left: var(--margin-xs);
+}
+
+.prevBtn {
+  padding-right: var(--margin-xs);
+}
+
+.icon {
+  width: 12px;
+  height: 12px;
+}
+
+.date {
+  font-family: var(--font-family-secondary);
+  color: var(--dark-color);
+  font-size: var(--font-size-sm);
+  letter-spacing: 2.1px;
+}

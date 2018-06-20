@@ -3,32 +3,37 @@ import {connect} from 'react-redux'
 import {Calendar, Input, Table} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Orders.css'
-import {clear, getOrders} from '../../reducers/orders'
+import {CalendarHeader} from '../../components'
+import {clear, getEvents, getOrders} from '../../reducers/orders'
 import LongArrowIcon from '../../static/long-right-arrow.svg'
 import RightArrowIcon from '../../static/right-arrow.svg'
 import LeftArrowIcon from '../../static/left-arrow.svg'
 import debounce from 'lodash/debounce'
+import moment from 'moment'
+import cn from 'classnames'
 
-const Event = ({day, weekday, type, name}) =>
+const EVENT_DATE_FORMAT = 'YYYY-MM-DD'
+
+const Event = ({first_name, last_name, occasion, occasion_date, occasion_type}) =>
   <a className={s.event}>
     <div className={s.eventDate}>
-      <div className={s.eventDay}>{day}</div>
-      <div className={s.eventWeekDay}>{weekday}</div>
+      <div className={s.eventDay}>{moment(occasion_date, EVENT_DATE_FORMAT).format('D')}</div>
+      <div className={s.eventWeekDay}>{moment(occasion_date, EVENT_DATE_FORMAT).format('dddd')}</div>
     </div>
     <div className={s.eventDetails}>
-      <div className={s.eventType}>{type}</div>
-      <div className={s.eventName}>{name}</div>
+      <div className={s.eventType}>{occasion} ({occasion_type})</div>
+      <div className={s.eventName}>{first_name} {last_name}</div>
       <LongArrowIcon className={s.eventArrowIcon}/>
     </div>
   </a>
 
-// TODO get events
-const events = [
-  {day: 20, weekday: 'Saturday', type: 'Birthday of', name: 'Verena Diener'},
-  {day: 25, weekday: 'Thursday', type: 'Birthday of', name: 'MARCO PEREZ'},
-]
-
 class Orders extends React.Component {
+  changeSearch = (e) => {
+    const search = e.target.value
+    this.setState({search})
+    this.getOrders({search})
+  }
+
   constructor(props) {
     super(props)
 
@@ -39,16 +44,14 @@ class Orders extends React.Component {
     this.getOrders = debounce(this.props.getOrders, 800)
   }
 
-  changeSearch = (e) => {
-    const search = e.target.value
-    this.setState({search})
-    this.getOrders({search})
+  componentWillUnmount() {
+    this.props.clear()
   }
 
   render() {
     const {search} = this.state
     // TODO add table loading
-    const {ordersCount, orders, page, pageSize, loading, getOrders} = this.props
+    const {ordersCount, orders, page, pageSize, loading, getOrders, events, date, getEvents} = this.props
     const columns = [
       {
         title: 'Order Number',
@@ -75,8 +78,10 @@ class Orders extends React.Component {
         title: 'Total Price',
         dataIndex: 'total',
         key: 'total',
+        render: (total) => <React.Fragment>{total} <span className={s.currency}>CHF</span></React.Fragment>
       },
     ]
+    const today = moment()
 
     return (
       <div className={s.container}>
@@ -116,10 +121,19 @@ class Orders extends React.Component {
           }}
         />
         <div className={s.calendarSection}>
-          <section className={s.calendarWrapper}>
-            <h2 className={s.calendarHeader}>Calendar</h2>
-            {/*TODO add date switcher*/}
-            <Calendar fullscreen={false}/>
+          <section className={s.calendar}>
+            <div className={s.calendarHeaderWrapper}>
+              <h2 className={s.calendarHeader}>Calendar</h2>
+              <CalendarHeader value={moment(date)} onValueChange={getEvents}/>
+            </div>
+            <Calendar
+              fullscreen={false}
+              value={moment(date)}
+              dateCellRender={(current) => {
+                const hasEvents = events.find(event => moment(event.occasion_date, EVENT_DATE_FORMAT).isSame(current, 'y'))
+                return hasEvents ? <div className={cn(s.hasEvents, today.isSame(current, 'd') && s.inverted)}/> : null
+              }}
+            />
           </section>
           <section className={s.events}>
             {events.map((event, i) =>
@@ -137,6 +151,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = {
+  getEvents,
   getOrders,
   clear,
 }
