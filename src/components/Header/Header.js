@@ -4,7 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Header.css'
 import Logo from '../../static/logo.svg'
 import {
-  ADD_CONTACTS_ROUTE,
+  ADD_CONTACTS_ROUTE, CONTACT_GROUPS_ROUTE,
   CONTACTS_ROUTE,
   HOME_ROUTE,
   IMPORT_CONTACTS_ROUTE,
@@ -33,6 +33,7 @@ class Header extends React.Component {
             IMPORT_CONTACTS_ROUTE,
             REPORTS_ROUTE,
             MANAGE_TEAM_ROUTE,
+            CONTACT_GROUPS_ROUTE,
           ].includes(currentRouteName) && s.light
         )}
       >
@@ -48,6 +49,7 @@ class Header extends React.Component {
             IMPORT_CONTACTS_ROUTE,
             REPORTS_ROUTE,
             MANAGE_TEAM_ROUTE,
+            CONTACT_GROUPS_ROUTE,
           ].includes(currentRouteName) && (
             <div className={s.rightSideMenu}>
               {!user ? (
@@ -75,6 +77,7 @@ class Header extends React.Component {
           IMPORT_CONTACTS_ROUTE,
           REPORTS_ROUTE,
           MANAGE_TEAM_ROUTE,
+          CONTACT_GROUPS_ROUTE,
         ].includes(currentRouteName) && (
           <ul className={s.bottomMenu}>
             <li>

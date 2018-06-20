@@ -7,6 +7,7 @@ import setPassword from './setPassword'
 import register from './register'
 import purchase from './purchase'
 import orders from './orders'
+import contacts from './contacts'
 
 export default combineReducers({
   global,
@@ -17,4 +18,5 @@ export default combineReducers({
   register,
   purchase,
   orders,
+  contacts,
 })
