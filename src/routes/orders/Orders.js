@@ -105,7 +105,6 @@ class Orders extends React.Component {
             showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
             pageSize,
             showSizeChanger: true,
-            hideOnSinglePage: true,
             itemRender: (current, type, el) => <PaginationItem type={type} el={el}/>
           }}
         />
