@@ -1,6 +1,7 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import qs from 'query-string'
 import {getToken} from './user'
+import {DEFAULT_PAGE_SIZE} from '../constants'
 
 // ------------------------------------
 // Constants
@@ -18,11 +19,12 @@ export const getOrders = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_ORDERS_REQUEST, params})
   const {token} = dispatch(getToken())
   const {search, ordering, page, pageSize} = getState().orders
-  return fetch(`/orders?${qs.stringify({
+  return fetch(`/orders-history?${qs.stringify({
+    // TODO add search on backend
     search,
     ordering,
     page,
-    page_size: pageSize,
+    per_page: pageSize,
   })}`, {
     method: 'GET',
     token,
@@ -43,14 +45,16 @@ const initialState = {
   orders: [],
   ordersCount: 0,
   page: 1,
-  pageSize: 20,
+  pageSize: DEFAULT_PAGE_SIZE,
+  search: undefined,
 }
 
 export default createReducer(initialState, {
   [GET_ORDERS_REQUEST]: (state, {params}) => ({
-    search: params.search !== undefined ? params.search : state.search,
-    ordering: params.sorter ? `${params.sorter.order === 'descend' ? '-' : ''}${params.sorter.field}` : state.ordering,
+    // do not send search param if string is empty
+    search: params.search !== undefined ? (params.search || undefined) : state.search,
     page: params.pagination ? params.pagination.current : 1,
+    pageSize: params.pagination ? params.pagination.pageSize : DEFAULT_PAGE_SIZE,
     loading: {
       ...state.loading,
       orders: true,
