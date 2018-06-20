@@ -7,7 +7,9 @@ import {getFormErrors} from '../utils'
 // ------------------------------------
 export const LOGOUT_SUCCESS = 'User.LOGOUT_SUCCESS'
 
+export const GET_USER_REQUEST = 'User.GET_USER_REQUEST'
 export const GET_USER_SUCCESS = 'User.GET_USER_SUCCESS'
+export const GET_USER_FAILURE = 'User.GET_USER_FAILURE'
 
 export const UPDATE_USER_REQUEST = 'User.UPDATE_USER_REQUEST'
 export const UPDATE_USER_SUCCESS = 'User.UPDATE_USER_SUCCESS'
@@ -34,7 +36,23 @@ export const logout = () => (dispatch, getState) => {
   dispatch({type: LOGOUT_SUCCESS})
 }
 
-export const setUser = (user) => ({type: GET_USER_SUCCESS, user})
+export const getUserSuccess = (user) => ({type: GET_USER_SUCCESS, user})
+
+export const getUser = () => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  const {user} = getState().user
+  if (!user && token) {
+    dispatch({type: GET_USER_REQUEST})
+    return fetch(`/current-user`, {
+      method: 'GET',
+      token,
+      success: (user) => dispatch(getUserSuccess(user)),
+      failure: () => dispatch({type: GET_USER_FAILURE})
+    })
+  } else {
+    return user
+  }
+}
 
 export const updateUser = (values) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
