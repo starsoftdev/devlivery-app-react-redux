@@ -1,6 +1,5 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {TOKEN_COOKIE} from '../constants'
-import {getFormErrors} from '../utils'
 
 // ------------------------------------
 // Constants

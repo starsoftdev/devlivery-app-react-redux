@@ -15,7 +15,7 @@ class Bundles extends React.Component {
 
     return (
       <div className={s.container}>
-        <div className={s.headerWrapper}>
+        <div className={s.actions}>
           <h1 className={s.header}>Created Bundles</h1>
           {/*TODO add search icon*/}
           <Input className={s.search} placeholder={'Search'}/>
@@ -59,7 +59,7 @@ class Bundles extends React.Component {
             </Col>
           )}
         </Row>
-        <div className={s.actions}>
+        <div className={s.footer}>
           <Pagination
             current={page}
             total={bundlesCount}
