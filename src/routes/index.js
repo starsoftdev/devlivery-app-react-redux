@@ -1,6 +1,6 @@
 import React from 'react'
 import {generateUrl} from '../router'
-import {logout} from '../reducers/user'
+import {getUser, logout} from '../reducers/user'
 
 export const HOME_ROUTE = 'home'
 export const LOGIN_ROUTE = 'login'
@@ -93,10 +93,9 @@ const authRoutes = {
   ],
   async action({store, next, pathname}) {
     const {loggedIn} = store.getState().user
-    // TODO
-    // if (!loggedIn) {
-    //   return {redirect: `/login?next=${pathname}`}
-    // }
+    if (!loggedIn) {
+      return {redirect: `/login?next=${pathname}`}
+    }
     return await next()
   },
 }
@@ -229,7 +228,8 @@ const routes = {
     },
   ],
 
-  async action({next}) {
+  async action({next, store}) {
+    await store.dispatch(getUser())
     // Execute each child route until one of them return the result
     const route = await next()
 

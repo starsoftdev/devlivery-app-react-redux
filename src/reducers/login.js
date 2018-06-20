@@ -1,5 +1,5 @@
 import createReducer, {RESET_STORE} from '../createReducer'
-import {setUser} from './user'
+import {getUserSuccess} from './user'
 import {TOKEN_COOKIE} from '../constants'
 import {getErrorMessage} from '../utils'
 
@@ -32,7 +32,7 @@ export const login = (values, redirectUrl = '/') => (dispatch, getState, {fetch}
 export const loginSuccess = (auth, redirectUrl) => (dispatch, getState, {history, cookies}) => {
   dispatch({type: LOGIN_SUCCESS})
   cookies.set(TOKEN_COOKIE, auth.accessToken)
-  dispatch(setUser(auth.user))
+  dispatch(getUserSuccess(auth.user))
   if (process.env.BROWSER && redirectUrl) {
     history.push(redirectUrl)
   }
