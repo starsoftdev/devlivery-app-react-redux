@@ -3,18 +3,7 @@ import {connect} from 'react-redux'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Header.css'
 import Logo from '../../static/logo.svg'
-import {
-  ADD_CONTACTS_ROUTE, CONTACT_GROUPS_ROUTE,
-  CONTACTS_ROUTE,
-  HOME_ROUTE,
-  IMPORT_CONTACTS_ROUTE,
-  LOGIN_ROUTE,
-  LOGOUT_ROUTE,
-  MANAGE_TEAM_ROUTE,
-  ORDERS_ROUTE,
-  REGISTER1_ROUTE,
-  REPORTS_ROUTE,
-} from '../../routes'
+import {DASHBOARD_ROUTES, HOME_ROUTE, LOGIN_ROUTE, LOGOUT_ROUTE, ORDERS_ROUTE, REGISTER1_ROUTE,} from '../../routes'
 import {Link} from '../../components'
 import cn from 'classnames'
 
@@ -27,13 +16,7 @@ class Header extends React.Component {
           s.headerWrapper,
           [
             HOME_ROUTE,
-            ORDERS_ROUTE,
-            CONTACTS_ROUTE,
-            ADD_CONTACTS_ROUTE,
-            IMPORT_CONTACTS_ROUTE,
-            REPORTS_ROUTE,
-            MANAGE_TEAM_ROUTE,
-            CONTACT_GROUPS_ROUTE,
+            ...DASHBOARD_ROUTES,
           ].includes(currentRouteName) && s.light
         )}
       >
@@ -43,13 +26,7 @@ class Header extends React.Component {
           </Link>
           {[
             HOME_ROUTE,
-            ORDERS_ROUTE,
-            CONTACTS_ROUTE,
-            ADD_CONTACTS_ROUTE,
-            IMPORT_CONTACTS_ROUTE,
-            REPORTS_ROUTE,
-            MANAGE_TEAM_ROUTE,
-            CONTACT_GROUPS_ROUTE,
+            ...DASHBOARD_ROUTES,
           ].includes(currentRouteName) && (
             <div className={s.rightSideMenu}>
               {!user ? (
@@ -71,13 +48,7 @@ class Header extends React.Component {
         </div>
         {[
           HOME_ROUTE,
-          ORDERS_ROUTE,
-          CONTACTS_ROUTE,
-          ADD_CONTACTS_ROUTE,
-          IMPORT_CONTACTS_ROUTE,
-          REPORTS_ROUTE,
-          MANAGE_TEAM_ROUTE,
-          CONTACT_GROUPS_ROUTE,
+          ...DASHBOARD_ROUTES,
         ].includes(currentRouteName) && (
           <ul className={s.bottomMenu}>
             <li>
