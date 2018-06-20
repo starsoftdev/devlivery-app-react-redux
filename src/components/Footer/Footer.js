@@ -6,14 +6,7 @@ import Instagram from '../../static/instagram.svg'
 import Facebook from '../../static/facebook.svg'
 import Linkedin from '../../static/linkedin.svg'
 import Logo from '../../static/logo.svg'
-import {
-  ADD_CONTACTS_ROUTE, CONTACT_GROUPS_ROUTE,
-  CONTACTS_ROUTE,
-  IMPORT_CONTACTS_ROUTE,
-  MANAGE_TEAM_ROUTE,
-  ORDERS_ROUTE,
-  REPORTS_ROUTE
-} from '../../routes'
+import {DASHBOARD_ROUTES} from '../../routes'
 import cn from 'classnames'
 
 class Footer extends React.Component {
@@ -24,13 +17,7 @@ class Footer extends React.Component {
         className={
           cn(s.footer,
             [
-              ORDERS_ROUTE,
-              CONTACTS_ROUTE,
-              ADD_CONTACTS_ROUTE,
-              IMPORT_CONTACTS_ROUTE,
-              REPORTS_ROUTE,
-              MANAGE_TEAM_ROUTE,
-              CONTACT_GROUPS_ROUTE,
+              ...DASHBOARD_ROUTES,
             ].includes(currentRouteName) && s.light
           )}
       >
