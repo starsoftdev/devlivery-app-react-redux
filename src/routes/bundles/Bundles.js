@@ -1,12 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Calendar, Col, Input, Row, Table} from 'antd'
+import {Button, Col, Input, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Bundles.css'
 import {clear, getBundles} from '../../reducers/bundles'
-import cardImage from '../../static/modern_card_style.png'
-import giftImage from '../../static/gift1.png'
-import PlusIcon from '../../static/plus_round.svg'
+import PlusGiftIcon from '../../static/plus_round.svg'
+import PlusIcon from '../../static/plus.svg'
 
 class Bundles extends React.Component {
   render() {
@@ -23,30 +22,34 @@ class Bundles extends React.Component {
         </div>
         <Row type='flex' gutter={20}>
           {bundles.map((bundle) =>
-            <Col key={bundle.id} xs={24} sm={12}>
-              <div className={s.orderInfo}>
-                <div className={s.cardWrapper}>
-                  <div>
-                    <img src={cardImage} className={s.cardImage}/>
+            <Col key={bundle.id} xs={24} md={12}>
+              <div className={s.bundle}>
+                <div className={s.bundleContent}>
+                  <div className={s.cardWrapper}>
+                    <div>
+                      <img src={bundle.bundle_card.card.images[0].url} className={s.cardImage}/>
+                    </div>
+                    <PlusGiftIcon className={s.plusIcon}/>
                   </div>
-                  <PlusIcon className={s.plusIcon}/>
-                  <p className={s.cardInfo}>
-                    <span className={s.cardType}>Christmas Card</span>
-                    <br/>
-                    <span className={s.cardPrice}>20.00</span>
-                    <span className={s.cardPriceCurrency}>CHF</span>
-                  </p>
+                  <div className={s.giftWrapper}>
+                    <div>
+                      <img src={bundle.bundle_gifts[0].gift.image[0].url} className={s.giftImage}/>
+                    </div>
+                  </div>
                 </div>
-                <div className={s.giftWrapper}>
-                  <div>
-                    <img src={giftImage} className={s.giftImage}/>
+                <div>
+                  <div className={s.bundleActions}>
+                    <p className={s.cardInfo}>
+                      <span className={s.cardTitle}>{bundle.bundle_card.card.title}</span>
+                      <br/>
+                      <span className={s.cardPrice}>{bundle.bundle_card.card.price}</span>
+                      <span className={s.cardPriceCurrency}>{bundle.bundle_card.card.currency}</span>
+                    </p>
+                    <Button type='primary' ghost>
+                      <PlusIcon/>
+                      Make an order
+                    </Button>
                   </div>
-                  <p className={s.cardInfo}>
-                    <span className={s.cardType}>Fine Foodie</span>
-                    <br/>
-                    <span className={s.cardPrice}>78.00</span>
-                    <span className={s.cardPriceCurrency}>CHF</span>
-                  </p>
                 </div>
               </div>
             </Col>
