@@ -15,7 +15,7 @@
   }
 }
 
-.actions {
+.headerWrapper {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
@@ -137,3 +137,7 @@
   border-top: 2px solid var(--border-color-base);
 }
 
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
