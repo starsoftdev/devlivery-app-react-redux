@@ -4,7 +4,10 @@ import {Calendar, Input, Table} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Orders.css'
 import {clear, getOrders} from '../../reducers/orders'
-import ArrowIcon from '../../static/right-arrow.svg'
+import LongArrowIcon from '../../static/long-right-arrow.svg'
+import RightArrowIcon from '../../static/right-arrow.svg'
+import LeftArrowIcon from '../../static/left-arrow.svg'
+import debounce from 'lodash/debounce'
 
 const Event = ({day, weekday, type, name}) =>
   <a className={s.event}>
@@ -15,7 +18,7 @@ const Event = ({day, weekday, type, name}) =>
     <div className={s.eventDetails}>
       <div className={s.eventType}>{type}</div>
       <div className={s.eventName}>{name}</div>
-      <ArrowIcon className={s.eventArrowIcon}/>
+      <LongArrowIcon className={s.eventArrowIcon}/>
     </div>
   </a>
 
@@ -26,8 +29,26 @@ const events = [
 ]
 
 class Orders extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      search: undefined,
+    }
+
+    this.getOrders = debounce(this.props.getOrders, 800)
+  }
+
+  changeSearch = (e) => {
+    const search = e.target.value
+    this.setState({search})
+    this.getOrders({search})
+  }
+
   render() {
-    const {ordersCount, orders, page, pageSize, loading} = this.props
+    const {search} = this.state
+    // TODO add table loading
+    const {ordersCount, orders, page, pageSize, loading, getOrders} = this.props
     const columns = [
       {
         title: 'Order Number',
@@ -36,13 +57,14 @@ class Orders extends React.Component {
       },
       {
         title: 'Order Date',
-        dataIndex: 'completed_at',
-        key: 'completed_at',
+        dataIndex: 'date',
+        key: 'date',
       },
       {
         title: 'Item(s)',
-        dataIndex: 'item',
-        key: 'item',
+        dataIndex: 'items',
+        key: 'items',
+        render: (items) => `${items.card}${items.gifts ? ` + ${items.gifts.join(', ')}` : ''}`
       },
       {
         title: 'Status',
@@ -56,22 +78,17 @@ class Orders extends React.Component {
       },
     ]
 
-    // TODO add pagination styles
-    // !loading.orders && ordersCount > pageSize ? {
-    //         current: page,
-    //         defaultCurrent: page,
-    //         total: ordersCount,
-    //         showTotal: (total, range) => 'total items',
-    //         pageSize,
-    //         defaultPageSize: pageSize,
-    //       } : false
-
     return (
       <div className={s.container}>
         <div className={s.actions}>
           <h1 className={s.header}>Orders History</h1>
           {/*TODO add search icon*/}
-          <Input className={s.search} placeholder={'Search'}/>
+          <Input
+            className={s.search}
+            placeholder={'Search'}
+            value={search}
+            onChange={this.changeSearch}
+          />
         </div>
         <Table
           className={s.orders}
@@ -79,7 +96,24 @@ class Orders extends React.Component {
           dataSource={orders}
           rowKey={record => record.id}
           onChange={(pagination, filters, sorter) => getOrders({pagination, filters, sorter})}
-          pagination={false}
+          pagination={{
+            current: page,
+            defaultCurrent: page,
+            total: ordersCount,
+            showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+            pageSize,
+            defaultPageSize: pageSize,
+            showSizeChanger: true,
+            hideOnSinglePage: true,
+            itemRender: (current, type, originalElement) => {
+              if (type === 'prev') {
+                return <a className='ant-pagination-item-link'><LeftArrowIcon/></a>
+              } else if (type === 'next') {
+                return <a className='ant-pagination-item-link'><RightArrowIcon/></a>
+              }
+              return originalElement
+            }
+          }}
         />
         <div className={s.calendarSection}>
           <section className={s.calendarWrapper}>

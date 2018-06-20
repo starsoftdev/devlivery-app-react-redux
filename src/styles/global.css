@@ -6,6 +6,8 @@
 @import './carousel.css';
 @import './table.css';
 @import './calendar.css';
+@import './pagination.css';
+@import './spin.css';
 
 :global {
   .ant-form {
