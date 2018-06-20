@@ -8,6 +8,7 @@ import register from './register'
 import purchase from './purchase'
 import orders from './orders'
 import contacts from './contacts'
+import contactGroups from './contactGroups'
 import reports from './reports'
 import bundles from './bundles'
 
@@ -21,6 +22,7 @@ export default combineReducers({
   purchase,
   orders,
   contacts,
+  contactGroups,
   reports,
   bundles,
 })

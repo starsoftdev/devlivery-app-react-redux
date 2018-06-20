@@ -97,3 +97,8 @@
 .description {
   padding-top: calc(50px + var(--margin-md));
 }
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}
