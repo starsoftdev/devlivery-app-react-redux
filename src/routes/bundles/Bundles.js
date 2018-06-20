@@ -19,6 +19,10 @@ class Bundles extends React.Component {
           <h1 className={s.header}>Created Bundles</h1>
           {/*TODO add search icon*/}
           <Input className={s.search} placeholder={'Search'}/>
+          <Button type='primary' ghost>
+            <PlusIcon/>
+            Create Bundle
+          </Button>
         </div>
         <Row type='flex' gutter={20}>
           {bundles.map((bundle) =>
@@ -47,7 +51,7 @@ class Bundles extends React.Component {
                     </div>
                     <Button type='primary' ghost>
                       <PlusIcon/>
-                      Make an order
+                      Make an Order
                     </Button>
                   </div>
                 </div>
