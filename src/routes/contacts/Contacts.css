@@ -42,6 +42,7 @@
   box-shadow: 0 1px 2px 0 rgba(0,39,36,0.1);
   padding: var(--margin-sm);
   position: relative;
+  margin-bottom: 20px;
 
   &:--hover {
     border: 2px solid #D0CCC9;
@@ -109,4 +110,9 @@
 
 .viewBtn + .viewBtn {
   margin-left: 10px;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
 }

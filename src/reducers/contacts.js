@@ -1,81 +1,35 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import qs from 'query-string'
 import {getToken} from './user'
+import {DEFAULT_PAGE_SIZE} from '../constants'
 
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const GET_CONTACT_GROUPS_REQUEST = 'Contacts.GET_CONTACT_GROUPS_REQUEST'
-export const GET_CONTACT_GROUPS_SUCCESS = 'Contacts.GET_CONTACT_GROUPS_SUCCESS'
-export const GET_CONTACT_GROUPS_FAILURE = 'Contacts.GET_CONTACT_GROUPS_FAILURE'
+export const GET_CONTACTS_REQUEST = 'Contacts.GET_CONTACTS_REQUEST'
+export const GET_CONTACTS_SUCCESS = 'Contacts.GET_CONTACTS_SUCCESS'
+export const GET_CONTACTS_FAILURE = 'Contacts.GET_CONTACTS_FAILURE'
 
-export const ADD_CONTACT_GROUP_REQUEST = 'Contacts.ADD_CONTACT_GROUP_REQUEST'
-export const ADD_CONTACT_GROUP_SUCCESS = 'Contacts.ADD_CONTACT_GROUP_SUCCESS'
-export const ADD_CONTACT_GROUP_FAILURE = 'Contacts.ADD_CONTACT_GROUP_FAILURE'
-
-export const REMOVE_CONTACT_GROUP_REQUEST = 'Contacts.REMOVE_CONTACT_GROUP_REQUEST'
-export const REMOVE_CONTACT_GROUP_SUCCESS = 'Contacts.REMOVE_CONTACT_GROUP_SUCCESS'
-export const REMOVE_CONTACT_GROUP_FAILURE = 'Contacts.REMOVE_CONTACT_GROUP_FAILURE'
-
-export const CHANGE_NEW_CONTACT_GROUP = 'Contacts.CHANGE_NEW_CONTACT_GROUP'
-
-export const CLEAR = 'Orders.CLEAR'
+export const CLEAR = 'Contacts.CLEAR'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const getContactGroups = (params = {}) => (dispatch, getState, {fetch}) => {
-  dispatch({type: GET_CONTACT_GROUPS_REQUEST, params})
+export const getContacts = (params = {}) => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_CONTACTS_REQUEST, params})
   const {token} = dispatch(getToken())
-  const {search, ordering, page, pageSize} = getState().contacts
-  return fetch(`/contact-groups?${qs.stringify({
+  const {search, page, pageSize} = getState().contacts
+  return fetch(`/view-contacts?${qs.stringify({
     search,
-    ordering,
     page,
-    page_size: pageSize,
+    per_page: pageSize,
   })}`, {
     method: 'GET',
     token,
-    success: (res) => dispatch({type: GET_CONTACT_GROUPS_SUCCESS, res}),
-    failure: () => dispatch({type: GET_CONTACT_GROUPS_FAILURE}),
+    success: (res) => dispatch({type: GET_CONTACTS_SUCCESS, res}),
+    failure: () => dispatch({type: GET_CONTACTS_FAILURE}),
   })
 }
-
-export const addContactGroup = () => (dispatch, getState, {fetch}) => {
-  dispatch({type: ADD_CONTACT_GROUP_REQUEST})
-  const {token} = dispatch(getToken())
-  const {newContactGroup} = getState().contacts
-  const {user} = getState().user
-  return fetch(`/contact-groups`, {
-    method: 'POST',
-    token,
-    body: {
-      title: newContactGroup,
-      user_id: user.id,
-    },
-    success: () => {
-      dispatch({type: ADD_CONTACT_GROUP_SUCCESS})
-      dispatch(getContactGroups())
-    },
-    failure: () => dispatch({type: ADD_CONTACT_GROUP_FAILURE}),
-  })
-}
-
-export const removeContactGroup = (group) => (dispatch, getState, {fetch}) => {
-  dispatch({type: REMOVE_CONTACT_GROUP_REQUEST})
-  const {token} = dispatch(getToken())
-  return fetch(`/contact-groups/${group.id}`, {
-    method: 'DELETE',
-    token,
-    success: () => {
-      dispatch({type: REMOVE_CONTACT_GROUP_SUCCESS})
-      dispatch(getContactGroups())
-    },
-    failure: () => dispatch({type: REMOVE_CONTACT_GROUP_FAILURE}),
-  })
-}
-
-export const changeNewContactGroup = (newContactGroup) => ({type: CHANGE_NEW_CONTACT_GROUP, newContactGroup})
 
 export const clear = () => ({type: CLEAR})
 
@@ -84,39 +38,39 @@ export const clear = () => ({type: CLEAR})
 // ------------------------------------
 const initialState = {
   loading: {
-    contactGroups: false,
+    contacts: false,
   },
-  contactGroups: [],
-  contactGroupsCount: 0,
+  contacts: [],
+  contactsCount: 0,
   page: 1,
-  pageSize: 20,
-  newContactGroup: '',
+  pageSize: DEFAULT_PAGE_SIZE,
 }
 
 export default createReducer(initialState, {
-  [GET_CONTACT_GROUPS_REQUEST]: (state, {params}) => ({
-    // TODO add params
+  [GET_CONTACTS_REQUEST]: (state, {params}) => ({
+    // do not send search param if string is empty
+    search: params.search !== undefined ? (params.search || undefined) : state.search,
+    page: params.page || 1,
+    pageSize: params.pageSize || state.pageSize,
     loading: {
       ...state.loading,
-      contactGroups: true,
+      contacts: true,
     },
   }),
-  [GET_CONTACT_GROUPS_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
-    contactGroups: data,
-    contactGroupsCount: total,
+  // TODO add pagination on backend side
+  [GET_CONTACTS_SUCCESS]: (state, {res: {data}}) => ({
+    contacts: data,
+    contactsCount: data.length,
     loading: {
       ...state.loading,
-      contactGroups: false,
+      contacts: false,
     },
   }),
-  [GET_CONTACT_GROUPS_FAILURE]: (state, action) => ({
+  [GET_CONTACTS_FAILURE]: (state, action) => ({
     loading: {
       ...state.loading,
-      contactGroups: false,
+      contacts: false,
     },
-  }),
-  [CHANGE_NEW_CONTACT_GROUP]: (state, {newContactGroup}) => ({
-    newContactGroup,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
