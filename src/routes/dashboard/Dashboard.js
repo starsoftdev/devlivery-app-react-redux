@@ -12,7 +12,8 @@ import {
   IMPORT_CONTACTS_ROUTE,
   MANAGE_TEAM_ROUTE,
   ORDERS_ROUTE,
-  REPORTS_ROUTE
+  REPORTS_ROUTE,
+  USER_ROUTE
 } from '../'
 import OrdersIcon from '../../static/orders.svg'
 import ContactsIcon from '../../static/book.svg'
@@ -81,8 +82,8 @@ class Dashboard extends React.Component {
               Manage Team
             </Link>
           </Menu.Item>
-          <Menu.Item key={'settings'}>
-            <Link to={MANAGE_TEAM_ROUTE}>
+          <Menu.Item key={USER_ROUTE}>
+            <Link to={USER_ROUTE}>
               <SettingsIcon/>
               Settings
             </Link>

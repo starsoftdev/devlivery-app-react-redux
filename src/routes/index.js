@@ -20,6 +20,7 @@ export const IMPORT_CONTACTS_ROUTE = 'import-contacts'
 export const ADD_CONTACTS_ROUTE = 'new-contacts'
 export const CONTACT_GROUPS_ROUTE = 'contact-groups'
 export const BUNDLES_ROUTE = 'bundles'
+export const USER_ROUTE = 'user'
 
 export const DASHBOARD_ROUTES = [
   DASHBOARD_ROUTE,
@@ -31,6 +32,7 @@ export const DASHBOARD_ROUTES = [
   ADD_CONTACTS_ROUTE,
   CONTACT_GROUPS_ROUTE,
   BUNDLES_ROUTE,
+  USER_ROUTE,
 ]
 
 export const LOGOUT_ROUTE = 'logout'
@@ -97,6 +99,11 @@ const authRoutes = {
           path: '/bundles',
           name: BUNDLES_ROUTE,
           load: () => import(/* webpackChunkName: 'dashboard' */ './bundles'),
+        },
+        {
+          path: '/settings',
+          name: USER_ROUTE,
+          load: () => import(/* webpackChunkName: 'dashboard' */ './user'),
         },
       ],
     },
