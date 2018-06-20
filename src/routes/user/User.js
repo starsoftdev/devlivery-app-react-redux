@@ -83,15 +83,6 @@ class User extends React.Component {
                   )}
                 </Form.Item>
               </section>
-              <Form.Item>
-                {getFieldDecorator('card_number', {
-                  rules: [
-                    {required: true, message: formMessages.required},
-                  ],
-                })(
-                  <Input placeholder={'Card Number'}/>
-                )}
-              </Form.Item>
               <section className={s.section}>
                 <h1 className={s.header}>Birthday</h1>
                 <Row gutter={20}>
