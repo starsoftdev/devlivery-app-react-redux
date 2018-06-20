@@ -1,6 +1,20 @@
 @import './variables.css';
 
 :global {
+  .ant-table-wrapper {
+    zoom: 1;
+    &:before,
+
+    /*clearfix*/
+    &:after {
+      content: "";
+      display: table;
+    }
+    &:after {
+      clear: both;
+    }
+  }
+
   .ant-table {
     /*reset component*/
     line-height: var(--line-height-base);
@@ -12,7 +26,7 @@
     position: relative;
     clear: both;
 
-    box-shadow: 0 1px 2px 0 rgba(0,39,36,0.1);
+    box-shadow: 0 1px 2px 0 rgba(0, 39, 36, 0.1);
 
     &-body {
       transition: opacity .3s;
@@ -54,7 +68,7 @@
       background: var(--white-color);
     }
 
-    &-tbody> tr:not(:last-child) > td {
+    &-tbody > tr:not(:last-child) > td {
       border-bottom: 2px solid color-mod(var(--dark-color) a(10%));
     }
 
@@ -103,6 +117,11 @@
       font-size: var(--font-size-sm);
       color: var(--dark-color);
       z-index: 1;
+    }
+
+    &-pagination.ant-pagination {
+      margin: 16px 0;
+      float: right;
     }
   }
 }
