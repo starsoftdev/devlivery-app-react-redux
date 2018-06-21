@@ -10,6 +10,10 @@ export const GET_REPORTS_REQUEST = 'Reports.GET_REPORTS_REQUEST'
 export const GET_REPORTS_SUCCESS = 'Reports.GET_REPORTS_SUCCESS'
 export const GET_REPORTS_FAILURE = 'Reports.GET_REPORTS_FAILURE'
 
+export const GET_OCCASIONS_REQUEST = 'Reports.GET_OCCASIONS_REQUEST'
+export const GET_OCCASIONS_SUCCESS = 'Reports.GET_OCCASIONS_SUCCESS'
+export const GET_OCCASIONS_FAILURE = 'Reports.GET_OCCASIONS_FAILURE'
+
 export const CLEAR = 'Reports.CLEAR'
 
 // ------------------------------------
@@ -18,9 +22,9 @@ export const CLEAR = 'Reports.CLEAR'
 export const getReports = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_REPORTS_REQUEST, params})
   const {token} = dispatch(getToken())
-  const {ordering, page, pageSize} = getState().reports
+  const {occasion, page, pageSize} = getState().reports
   return fetch(`/reports/scheduled-orders?${qs.stringify({
-    ordering,
+    occasion,
     page,
     per_page: pageSize,
   })}`, {
@@ -31,33 +35,81 @@ export const getReports = (params = {}) => (dispatch, getState, {fetch}) => {
   })
 }
 
+export const getOccasions = ({search} = {}) => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_OCCASIONS_REQUEST})
+  return fetch(`/occasions?${qs.stringify({
+    take: 10,
+    ...search ? {
+      filter_key: 'title',
+      filter_value: search,
+    } : {},
+  })}`, {
+    method: 'GET',
+    success: (res) => dispatch({type: GET_OCCASIONS_SUCCESS, occasions: res.data}),
+    failure: () => dispatch({type: GET_OCCASIONS_FAILURE})
+  })
+}
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
 const initialState = {
-  loading: false,
+  loading: {
+    reports: false,
+    occasions: false,
+  },
   reports: [],
   reportsCount: 0,
   page: 1,
   pageSize: DEFAULT_PAGE_SIZE,
+  occasions: [],
+  occasion: undefined,
 }
 
 export default createReducer(initialState, {
   [GET_REPORTS_REQUEST]: (state, {params}) => ({
     page: params.pagination ? params.pagination.current : 1,
     pageSize: params.pagination ? params.pagination.pageSize : DEFAULT_PAGE_SIZE,
-    loading: true,
+    occasion: params.occasion || state.occasion,
+    loading: {
+      ...state.loading,
+      reports: true,
+    },
   }),
   [GET_REPORTS_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
     reports: data,
     reportsCount: total,
-    loading: false,
-
+    loading: {
+      ...state.loading,
+      reports: false,
+    },
   }),
   [GET_REPORTS_FAILURE]: (state, action) => ({
-    loading: false,
+    loading: {
+      ...state.loading,
+      reports: false,
+    },
+  }),
+  [GET_OCCASIONS_REQUEST]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      occasions: true,
+    },
+  }),
+  [GET_OCCASIONS_SUCCESS]: (state, {occasions}) => ({
+    occasions,
+    loading: {
+      ...state.loading,
+      occasions: false,
+    },
+  }),
+  [GET_OCCASIONS_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      occasions: false,
+    },
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

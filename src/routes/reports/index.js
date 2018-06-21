@@ -1,12 +1,13 @@
 import React from 'react'
 import Reports from './Reports'
 import {setCurrentRouteName} from '../../reducers/global'
-import {getReports} from '../../reducers/reports'
+import {getOccasions, getReports} from '../../reducers/reports'
 import {BASE_DASHBOARD_BREADCRUMBS} from '../'
 
 function action({query, store, route}) {
   store.dispatch(setCurrentRouteName(route.name))
   store.dispatch(getReports())
+  store.dispatch(getOccasions())
 
   return {
     chunks: ['dashboard'],
