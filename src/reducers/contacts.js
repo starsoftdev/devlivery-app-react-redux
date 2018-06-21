@@ -20,7 +20,9 @@ export const getContacts = (params = {}) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   const {search, page, pageSize} = getState().contacts
   return fetch(`/view-contacts?${qs.stringify({
-    search,
+    ...search ? {
+      name: search
+    } : {},
     page,
     per_page: pageSize,
   })}`, {
@@ -37,9 +39,7 @@ export const clear = () => ({type: CLEAR})
 // Reducer
 // ------------------------------------
 const initialState = {
-  loading: {
-    contacts: false,
-  },
+  loading: false,
   contacts: [],
   contactsCount: 0,
   page: 1,
@@ -52,25 +52,16 @@ export default createReducer(initialState, {
     search: params.search !== undefined ? (params.search || undefined) : state.search,
     page: params.page || 1,
     pageSize: params.pageSize || state.pageSize,
-    loading: {
-      ...state.loading,
-      contacts: true,
-    },
+    loading: true,
   }),
   // TODO add pagination on backend side
-  [GET_CONTACTS_SUCCESS]: (state, {res: {data}}) => ({
+  [GET_CONTACTS_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
     contacts: data,
-    contactsCount: data.length,
-    loading: {
-      ...state.loading,
-      contacts: false,
-    },
+    contactsCount: total,
+    loading: false,
   }),
   [GET_CONTACTS_FAILURE]: (state, action) => ({
-    loading: {
-      ...state.loading,
-      contacts: false,
-    },
+    loading: false,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
