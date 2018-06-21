@@ -42,7 +42,8 @@ export const getEvents = (date) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_EVENTS_REQUEST, date: date.format()})
   const {token} = dispatch(getToken())
   return fetch(`/contact-reminders?${qs.stringify({
-    month: date.format('MM')
+    month: date.format('MM'),
+    year: date.format('YYYY'),
   })}`, {
     method: 'GET',
     token,
