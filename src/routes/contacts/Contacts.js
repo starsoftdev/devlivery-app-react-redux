@@ -8,18 +8,32 @@ import RemoveIcon from '../../static/remove.svg'
 import GridIcon from '../../static/view_card.svg'
 import ListIcon from '../../static/view_list.svg'
 import {PaginationItem} from '../../components'
-import {getContacts, clear} from '../../reducers/contacts'
+import {clear, getContacts} from '../../reducers/contacts'
+import debounce from 'lodash/debounce'
 
 const GRID_VIEW = 'grid'
 const LIST_VIEW = 'list'
 
 class Contacts extends React.Component {
-  state = {
-    view: GRID_VIEW,
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      view: GRID_VIEW,
+      search: undefined,
+    }
+
+    this.getContacts = debounce(this.props.getContacts, 800)
   }
 
   componentWillUnmount() {
     this.props.clear()
+  }
+
+  changeSearch = (e) => {
+    const search = e.target.value
+    this.setState({search})
+    this.getContacts({search})
   }
 
   changeView = (view) => {
@@ -27,15 +41,21 @@ class Contacts extends React.Component {
   }
 
   render() {
-    const {view} = this.state
+    const {view, search} = this.state
     // TODO add loading
+    // TODO add sort_by
     const {contactsCount, contacts, page, pageSize, loading, getContacts} = this.props
 
     return (
       <div className={s.container}>
         <div className={s.actions}>
           {/*TODO add search icon*/}
-          <Input className={s.search} placeholder={'Search'}/>
+          <Input
+            className={s.search}
+            placeholder={'Search'}
+            value={search}
+            onChange={this.changeSearch}
+          />
           <Select className={s.sortBy} placeholder={'Sort by'}>
           </Select>
           <div className={s.views}>
@@ -51,13 +71,13 @@ class Contacts extends React.Component {
           {contacts.map((contact) =>
             <Col
               key={contact.id}
-              {...(view === GRID_VIEW ? {
+              {...view === GRID_VIEW ? {
                 xs: 24,
                 sm: 12,
                 md: 6
               } : {
                 xs: 24
-              })}
+              }}
             >
               <div className={s.contact}>
                 <a className={s.editBtn}>
