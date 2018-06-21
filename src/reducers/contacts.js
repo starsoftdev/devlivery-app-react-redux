@@ -1,7 +1,7 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import qs from 'query-string'
 import {getToken} from './user'
-import {DEFAULT_PAGE_SIZE} from '../constants'
+import {DATE_FORMAT, DEFAULT_PAGE_SIZE} from '../constants'
 
 // ------------------------------------
 // Constants
@@ -9,6 +9,14 @@ import {DEFAULT_PAGE_SIZE} from '../constants'
 export const GET_CONTACTS_REQUEST = 'Contacts.GET_CONTACTS_REQUEST'
 export const GET_CONTACTS_SUCCESS = 'Contacts.GET_CONTACTS_SUCCESS'
 export const GET_CONTACTS_FAILURE = 'Contacts.GET_CONTACTS_FAILURE'
+
+export const ADD_CONTACT_REQUEST = 'Contacts.ADD_CONTACT_REQUEST'
+export const ADD_CONTACT_SUCCESS = 'Contacts.ADD_CONTACT_SUCCESS'
+export const ADD_CONTACT_FAILURE = 'Contacts.ADD_CONTACT_FAILURE'
+
+export const REMOVE_CONTACT_REQUEST = 'Contacts.REMOVE_CONTACT_REQUEST'
+export const REMOVE_CONTACT_SUCCESS = 'Contacts.REMOVE_CONTACT_SUCCESS'
+export const REMOVE_CONTACT_FAILURE = 'Contacts.REMOVE_CONTACT_FAILURE'
 
 export const CLEAR = 'Contacts.CLEAR'
 
@@ -33,13 +41,49 @@ export const getContacts = (params = {}) => (dispatch, getState, {fetch}) => {
   })
 }
 
+export const addContact = ({birthday, ...values}, form) => (dispatch, getState, {fetch}) => {
+  dispatch({type: ADD_CONTACT_REQUEST})
+  const {token} = dispatch(getToken())
+  return fetch(`/contacts`, {
+    method: 'POST',
+    body: {
+      dob: birthday.format(DATE_FORMAT),
+      ...values,
+    },
+    token,
+    success: (res) => {
+      dispatch({type: ADD_CONTACT_SUCCESS, res})
+      form.resetFields()
+    },
+    failure: () => dispatch({type: ADD_CONTACT_FAILURE}),
+  })
+}
+
+export const removeContact = (contact) => (dispatch, getState, {fetch}) => {
+  dispatch({type: REMOVE_CONTACT_REQUEST})
+  const {token} = dispatch(getToken())
+  return fetch(`/contacts/${contact.id}`, {
+    method: 'DELETE',
+    token,
+    success: (res) => {
+      dispatch({type: REMOVE_CONTACT_SUCCESS, res})
+      dispatch(getContacts())
+    },
+    failure: () => dispatch({type: REMOVE_CONTACT_FAILURE}),
+  })
+}
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
 const initialState = {
-  loading: false,
+  loading: {
+    contacts: false,
+    addingContact: false,
+    removingContact: false,
+  },
   contacts: [],
   contactsCount: 0,
   page: 1,
@@ -52,15 +96,60 @@ export default createReducer(initialState, {
     search: params.search !== undefined ? (params.search || undefined) : state.search,
     page: params.page || 1,
     pageSize: params.pageSize || state.pageSize,
-    loading: true,
+    loading: {
+      ...state.loading,
+      contacts: true,
+    },
   }),
   [GET_CONTACTS_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
     contacts: data,
     contactsCount: total,
-    loading: false,
+    loading: {
+      ...state.loading,
+      contacts: false,
+    },
   }),
   [GET_CONTACTS_FAILURE]: (state, action) => ({
-    loading: false,
+    loading: {
+      ...state.loading,
+      contacts: false,
+    },
+  }),
+  [ADD_CONTACT_REQUEST]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      addingContact: true,
+    },
+  }),
+  [ADD_CONTACT_SUCCESS]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      addingContact: false,
+    },
+  }),
+  [ADD_CONTACT_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      addingContact: false,
+    },
+  }),
+  [REMOVE_CONTACT_REQUEST]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      removingContact: true,
+    },
+  }),
+  [REMOVE_CONTACT_SUCCESS]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      removingContact: false,
+    },
+  }),
+  [REMOVE_CONTACT_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      removingContact: false,
+    },
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

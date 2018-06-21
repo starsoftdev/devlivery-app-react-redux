@@ -9,6 +9,7 @@
 @import './pagination.css';
 @import './spin.css';
 @import './breadcrumbs.css';
+@import './date-picker.css';
 
 :global {
   .ant-form {
