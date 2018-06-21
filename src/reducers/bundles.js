@@ -20,7 +20,10 @@ export const getBundles = (params = {}) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   const {search, page, pageSize} = getState().bundles
   return fetch(`/bundles?${qs.stringify({
-    search,
+    ...search ? {
+      filter_key: 'title',
+      filter_value: search,
+    } : {},
     page,
     per_page: pageSize,
   })}`, {
@@ -37,9 +40,7 @@ export const clear = () => ({type: CLEAR})
 // Reducer
 // ------------------------------------
 const initialState = {
-  loading: {
-    bundles: false,
-  },
+  loading: false,
   bundles: [],
   bundlesCount: 0,
   page: 1,
@@ -52,24 +53,15 @@ export default createReducer(initialState, {
     search: params.search !== undefined ? (params.search || undefined) : state.search,
     page: params.page || 1,
     pageSize: params.pageSize || state.pageSize,
-    loading: {
-      ...state.loading,
-      bundles: true,
-    },
+    loading: true,
   }),
   [GET_BUNDLES_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
     bundles: data,
     bundlesCount: total,
-    loading: {
-      ...state.loading,
-      bundles: false,
-    },
+    loading: false,
   }),
   [GET_BUNDLES_FAILURE]: (state, action) => ({
-    loading: {
-      ...state.loading,
-      bundles: false,
-    },
+    loading: false,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

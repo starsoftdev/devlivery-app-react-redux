@@ -1,15 +1,39 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button, Col, Input, Row, Pagination} from 'antd'
+import {Button, Col, Input, Pagination, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Bundles.css'
 import {clear, getBundles} from '../../reducers/bundles'
 import PlusGiftIcon from '../../static/plus_round.svg'
 import PlusIcon from '../../static/plus.svg'
 import {PaginationItem} from '../../components'
+import debounce from 'lodash/debounce'
 
+// TODO add Create Bundle
+// TODO add Make an Order
 class Bundles extends React.Component {
+  changeSearch = (e) => {
+    const search = e.target.value
+    this.setState({search})
+    this.getBundles({search})
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      search: undefined,
+    }
+
+    this.getBundles = debounce(this.props.getBundles, 800)
+  }
+
+  componentWillUnmount() {
+    this.props.clear()
+  }
+
   render() {
+    const {search} = this.state
     // TODO add loading
     const {bundlesCount, bundles, page, pageSize, loading, getBundles} = this.props
 
@@ -18,7 +42,12 @@ class Bundles extends React.Component {
         <div className={s.actions}>
           <h1 className={s.header}>Created Bundles</h1>
           {/*TODO add search icon*/}
-          <Input className={s.search} placeholder={'Search'}/>
+          <Input
+            className={s.search}
+            placeholder={'Search'}
+            value={search}
+            onChange={this.changeSearch}
+          />
           <Button type='primary' ghost>
             <PlusIcon/>
             Create Bundle
@@ -44,10 +73,10 @@ class Bundles extends React.Component {
                 <div>
                   <div className={s.bundleActions}>
                     <div className={s.cardInfo}>
-                      <span className={s.cardTitle}>{bundle.bundle_card.card.title}</span>
+                      <span className={s.cardTitle}>{bundle.title}</span>
                       <br/>
-                      <span className={s.cardPrice}>{bundle.bundle_card.card.price}</span>
-                      <span className={s.cardPriceCurrency}>{bundle.bundle_card.card.currency}</span>
+                      <span className={s.cardPrice}>{bundle.total}</span>
+                      <span className={s.cardPriceCurrency}>CHF</span>
                     </div>
                     <Button type='primary' ghost>
                       <PlusIcon/>
