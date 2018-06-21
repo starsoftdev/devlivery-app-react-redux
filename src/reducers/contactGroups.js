@@ -28,10 +28,8 @@ export const CLEAR = 'ContactGroups.CLEAR'
 export const getContactGroups = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_CONTACT_GROUPS_REQUEST, params})
   const {token} = dispatch(getToken())
-  const {search, ordering, page, pageSize} = getState().contacts
+  const {page, pageSize} = getState().contactGroups
   return fetch(`/contact-groups?${qs.stringify({
-    search,
-    ordering,
     page,
     per_page: pageSize,
   })}`, {
@@ -45,7 +43,7 @@ export const getContactGroups = (params = {}) => (dispatch, getState, {fetch}) =
 export const addContactGroup = () => (dispatch, getState, {fetch}) => {
   dispatch({type: ADD_CONTACT_GROUP_REQUEST})
   const {token} = dispatch(getToken())
-  const {newContactGroup} = getState().contacts
+  const {newContactGroup} = getState().contactGroups
   const {user} = getState().user
   return fetch(`/contact-groups`, {
     method: 'POST',
@@ -84,9 +82,7 @@ export const clear = () => ({type: CLEAR})
 // Reducer
 // ------------------------------------
 const initialState = {
-  loading: {
-    contactGroups: false,
-  },
+  loading: false,
   contactGroups: [],
   contactGroupsCount: 0,
   page: 1,
@@ -98,24 +94,15 @@ export default createReducer(initialState, {
   [GET_CONTACT_GROUPS_REQUEST]: (state, {params}) => ({
     page: params.page || 1,
     pageSize: params.pageSize || state.pageSize,
-    loading: {
-      ...state.loading,
-      contactGroups: true,
-    },
+    loading: true,
   }),
   [GET_CONTACT_GROUPS_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
     contactGroups: data,
     contactGroupsCount: total,
-    loading: {
-      ...state.loading,
-      contactGroups: false,
-    },
+    loading: false,
   }),
   [GET_CONTACT_GROUPS_FAILURE]: (state, action) => ({
-    loading: {
-      ...state.loading,
-      contactGroups: false,
-    },
+    loading: false,
   }),
   [CHANGE_NEW_CONTACT_GROUP]: (state, {newContactGroup}) => ({
     newContactGroup,
