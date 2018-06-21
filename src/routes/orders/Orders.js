@@ -26,12 +26,6 @@ const Event = ({first_name, last_name, occasion, occasion_date, occasion_type}) 
   </a>
 
 class Orders extends React.Component {
-  changeSearch = (e) => {
-    const search = e.target.value
-    this.setState({search})
-    this.getOrders({search})
-  }
-
   constructor(props) {
     super(props)
 
@@ -44,6 +38,12 @@ class Orders extends React.Component {
 
   componentWillUnmount() {
     this.props.clear()
+  }
+
+  changeSearch = (e) => {
+    const search = e.target.value
+    this.setState({search})
+    this.getOrders({search})
   }
 
   render() {
