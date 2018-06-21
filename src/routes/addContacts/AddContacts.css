@@ -9,7 +9,7 @@
   }
 }
 
-.form {
+.content {
   max-width: var(--max-dashboard-width);
   margin-right: auto;
   margin-left: auto;
@@ -59,4 +59,8 @@
   @media (--lg-up) {
     padding-right: 60px !important;
   }
+}
+
+.birthday {
+  width: 100%;
 }

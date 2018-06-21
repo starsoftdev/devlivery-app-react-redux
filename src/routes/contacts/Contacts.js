@@ -8,7 +8,7 @@ import RemoveIcon from '../../static/remove.svg'
 import GridIcon from '../../static/view_card.svg'
 import ListIcon from '../../static/view_list.svg'
 import {PaginationItem} from '../../components'
-import {clear, getContacts} from '../../reducers/contacts'
+import {clear, getContacts, removeContact} from '../../reducers/contacts'
 import debounce from 'lodash/debounce'
 
 const GRID_VIEW = 'grid'
@@ -44,7 +44,7 @@ class Contacts extends React.Component {
     const {view, search} = this.state
     // TODO add loading
     // TODO add sort_by
-    const {contactsCount, contacts, page, pageSize, loading, getContacts} = this.props
+    const {contactsCount, contacts, page, pageSize, loading, getContacts, removeContact} = this.props
 
     return (
       <div className={s.container}>
@@ -83,7 +83,7 @@ class Contacts extends React.Component {
                 <a className={s.editBtn}>
                   <EditIcon/>
                 </a>
-                <a className={s.removeBtn}>
+                <a className={s.removeBtn} onClick={() => removeContact(contact)}>
                   <RemoveIcon/>
                 </a>
                 <p className={s.contactName}>{contact.first_name} {contact.last_name}</p>
@@ -117,6 +117,7 @@ const mapState = state => ({
 
 const mapDispatch = {
   getContacts,
+  removeContact,
   clear,
 }
 
