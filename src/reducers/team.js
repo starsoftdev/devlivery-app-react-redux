@@ -18,10 +18,8 @@ export const CLEAR = 'Team.CLEAR'
 export const getTeam = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_TEAM_REQUEST, params})
   const {token} = dispatch(getToken())
-  const {search, page, pageSize} = getState().team
+  const {page, pageSize} = getState().team
   return fetch(`/teams?${qs.stringify({
-    // TODO add search on backend
-    search,
     page,
     per_page: pageSize,
   })}`, {
@@ -51,10 +49,9 @@ export default createReducer(initialState, {
     pageSize: params.pagination ? params.pagination.pageSize : DEFAULT_PAGE_SIZE,
     loading: true,
   }),
-  // TODO add pagination on backend
-  [GET_TEAM_SUCCESS]: (state, {res: {data}}) => ({
+  [GET_TEAM_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
     team: data,
-    teamCount: data.length,
+    teamCount: total,
     loading: false,
   }),
   [GET_TEAM_FAILURE]: (state, action) => ({
