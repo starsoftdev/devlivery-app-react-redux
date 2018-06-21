@@ -5,10 +5,14 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Reports.css'
 import PlusIcon from '../../static/plus.svg'
 import moment from 'moment'
-import {getReports} from '../../reducers/reports'
+import {getReports, clear} from '../../reducers/reports'
 import {PaginationItem} from '../../components'
 
 class Reports extends React.Component {
+  componentWillUnmount() {
+    this.props.clear()
+  }
+
   render() {
     // TODO add loading
     const {reports, reportsCount, page, pageSize, loading, getReports} = this.props
@@ -39,7 +43,6 @@ class Reports extends React.Component {
         dataIndex: 'sent',
         key: 'sent',
       },
-      // TODO add Total on backend
       {
         title: 'Total Price',
         dataIndex: 'total',
@@ -119,6 +122,7 @@ const mapState = state => ({
 
 const mapDispatch = {
   getReports,
+  clear,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Reports))
