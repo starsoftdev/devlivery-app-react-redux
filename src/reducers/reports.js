@@ -37,9 +37,7 @@ export const clear = () => ({type: CLEAR})
 // Reducer
 // ------------------------------------
 const initialState = {
-  loading: {
-    reports: false,
-  },
+  loading: false,
   reports: [],
   reportsCount: 0,
   page: 1,
@@ -50,24 +48,16 @@ export default createReducer(initialState, {
   [GET_REPORTS_REQUEST]: (state, {params}) => ({
     page: params.pagination ? params.pagination.current : 1,
     pageSize: params.pagination ? params.pagination.pageSize : DEFAULT_PAGE_SIZE,
-    loading: {
-      ...state.loading,
-      reports: true,
-    },
+    loading: true,
   }),
   [GET_REPORTS_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
     reports: data,
     reportsCount: total,
-    loading: {
-      ...state.loading,
-      reports: false,
-    },
+    loading: false,
+
   }),
   [GET_REPORTS_FAILURE]: (state, action) => ({
-    loading: {
-      ...state.loading,
-      reports: false,
-    },
+    loading: false,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
