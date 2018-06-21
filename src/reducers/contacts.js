@@ -54,7 +54,6 @@ export default createReducer(initialState, {
     pageSize: params.pageSize || state.pageSize,
     loading: true,
   }),
-  // TODO add pagination on backend side
   [GET_CONTACTS_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
     contacts: data,
     contactsCount: total,
