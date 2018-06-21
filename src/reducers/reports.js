@@ -55,7 +55,7 @@ export default createReducer(initialState, {
       reports: true,
     },
   }),
-  [GET_REPORTS_SUCCESS]: (state, {res: {data: {data, total}}}) => ({
+  [GET_REPORTS_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
     reports: data,
     reportsCount: total,
     loading: {
