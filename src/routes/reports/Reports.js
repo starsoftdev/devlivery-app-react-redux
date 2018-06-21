@@ -5,17 +5,25 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Reports.css'
 import PlusIcon from '../../static/plus.svg'
 import moment from 'moment'
-import {getReports, clear} from '../../reducers/reports'
+import {clear, getOccasions, getReports} from '../../reducers/reports'
 import {PaginationItem} from '../../components'
+import debounce from 'lodash/debounce'
+import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
 
 class Reports extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.getOccasions = debounce(props.getOccasions, DEFAULT_DEBOUNCE_TIME)
+  }
+
   componentWillUnmount() {
     this.props.clear()
   }
 
   render() {
     // TODO add loading
-    const {reports, reportsCount, page, pageSize, loading, getReports} = this.props
+    const {reports, reportsCount, page, pageSize, loading, getReports, occasions, occasion} = this.props
     const columns = [
       {
         title: 'Contacts',
@@ -94,7 +102,20 @@ class Reports extends React.Component {
               <Input placeholder={'Date'}/>
             </Col>
           </Row>
-          <Select placeholder={'Occasion'} className={s.occasion}>
+          <Select
+            className={s.occasion}
+            allowClear
+            showSearch
+            placeholder={'Occasion'}
+            notFoundContent={loading.occasions ? 'Loading...' : null}
+            filterOption={false}
+            onSearch={(search) => this.getOccasions({search})}
+            value={occasion}
+            onChange={(occasion) => getReports({occasion})}
+          >
+            {occasions.map(item =>
+              <Select.Option key={item.title} value={item.title}>{item.title}</Select.Option>
+            )}
           </Select>
         </div>
         <Table
@@ -122,6 +143,7 @@ const mapState = state => ({
 
 const mapDispatch = {
   getReports,
+  getOccasions,
   clear,
 }
 
