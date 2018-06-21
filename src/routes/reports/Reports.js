@@ -10,6 +10,7 @@ import {PaginationItem} from '../../components'
 import debounce from 'lodash/debounce'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
 
+// TODO add Export XLS
 class Reports extends React.Component {
   constructor(props) {
     super(props)
