@@ -2,6 +2,7 @@ import createReducer, {RESET_STORE} from '../createReducer'
 import qs from 'query-string'
 import {getToken} from './user'
 import {DATE_FORMAT, DEFAULT_PAGE_SIZE} from '../constants'
+import {message} from 'antd'
 
 // ------------------------------------
 // Constants
@@ -17,6 +18,14 @@ export const ADD_CONTACT_FAILURE = 'Contacts.ADD_CONTACT_FAILURE'
 export const REMOVE_CONTACT_REQUEST = 'Contacts.REMOVE_CONTACT_REQUEST'
 export const REMOVE_CONTACT_SUCCESS = 'Contacts.REMOVE_CONTACT_SUCCESS'
 export const REMOVE_CONTACT_FAILURE = 'Contacts.REMOVE_CONTACT_FAILURE'
+
+export const GET_OCCASIONS_REQUEST = 'Contacts.GET_OCCASIONS_REQUEST'
+export const GET_OCCASIONS_SUCCESS = 'Contacts.GET_OCCASIONS_SUCCESS'
+export const GET_OCCASIONS_FAILURE = 'Contacts.GET_OCCASIONS_FAILURE'
+
+export const GET_GROUPS_REQUEST = 'Contacts.GET_GROUPS_REQUEST'
+export const GET_GROUPS_SUCCESS = 'Contacts.GET_GROUPS_SUCCESS'
+export const GET_GROUPS_FAILURE = 'Contacts.GET_GROUPS_FAILURE'
 
 export const CLEAR = 'Contacts.CLEAR'
 
@@ -55,7 +64,10 @@ export const addContact = ({birthday, ...values}, form) => (dispatch, getState, 
       dispatch({type: ADD_CONTACT_SUCCESS, res})
       form.resetFields()
     },
-    failure: () => dispatch({type: ADD_CONTACT_FAILURE}),
+    failure: () => {
+      dispatch({type: ADD_CONTACT_FAILURE})
+      message.error('Something went wrong. Please try again.')
+    }
   })
 }
 
@@ -73,6 +85,40 @@ export const removeContact = (contact) => (dispatch, getState, {fetch}) => {
   })
 }
 
+export const getOccasions = ({search} = {}) => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_OCCASIONS_REQUEST})
+  const {token} = dispatch(getToken())
+  return fetch(`/occasions?${qs.stringify({
+    take: 10,
+    ...search ? {
+      filter_key: 'title',
+      filter_value: search,
+    } : {},
+  })}`, {
+    method: 'GET',
+    token,
+    success: (res) => dispatch({type: GET_OCCASIONS_SUCCESS, occasions: res.data}),
+    failure: () => dispatch({type: GET_OCCASIONS_FAILURE})
+  })
+}
+
+export const getGroups = ({search} = {}) => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_GROUPS_REQUEST})
+  const {token} = dispatch(getToken())
+  return fetch(`/contact-groups?${qs.stringify({
+    take: 10,
+    ...search ? {
+      filter_key: 'title',
+      filter_value: search,
+    } : {},
+  })}`, {
+    method: 'GET',
+    token,
+    success: (res) => dispatch({type: GET_GROUPS_SUCCESS, groups: res.data}),
+    failure: () => dispatch({type: GET_GROUPS_FAILURE})
+  })
+}
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -83,11 +129,15 @@ const initialState = {
     contacts: false,
     addingContact: false,
     removingContact: false,
+    occasions: false,
+    groups: false,
   },
   contacts: [],
   contactsCount: 0,
   page: 1,
   pageSize: DEFAULT_PAGE_SIZE,
+  occasions: [],
+  groups: [],
 }
 
 export default createReducer(initialState, {
@@ -149,6 +199,44 @@ export default createReducer(initialState, {
     loading: {
       ...state.loading,
       removingContact: false,
+    },
+  }),
+  [GET_OCCASIONS_REQUEST]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      occasions: true,
+    },
+  }),
+  [GET_OCCASIONS_SUCCESS]: (state, {occasions}) => ({
+    occasions,
+    loading: {
+      ...state.loading,
+      occasions: false,
+    },
+  }),
+  [GET_OCCASIONS_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      occasions: false,
+    },
+  }),
+  [GET_GROUPS_REQUEST]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      groups: true,
+    },
+  }),
+  [GET_GROUPS_SUCCESS]: (state, {groups}) => ({
+    groups,
+    loading: {
+      ...state.loading,
+      groups: false,
+    },
+  }),
+  [GET_GROUPS_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      groups: false,
     },
   }),
   [CLEAR]: (state, action) => RESET_STORE,

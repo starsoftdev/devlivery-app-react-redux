@@ -1,0 +1,9 @@
+@import '../../styles/variables.css';
+
+.item {
+  margin-bottom: var(--margin-xl);
+}
+
+.date {
+  width: 100%;
+}

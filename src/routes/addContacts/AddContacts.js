@@ -7,6 +7,8 @@ import formMessages from '../../formMessages'
 import PlusIcon from '../../static/plus.svg'
 import {addContact} from '../../reducers/contacts'
 import {DATE_FORMAT} from '../../constants'
+import Reminders from './Reminders'
+import Groups from './Groups'
 
 const SALUTATIONS = ['Mr.', 'Ms.', 'Mrs.', 'Dr.']
 
@@ -157,7 +159,14 @@ class AddContacts extends React.Component {
               />
             </Col>
             <Col xs={24} md={12} className={s.rightColumn}>
-
+              <section className={s.section}>
+                <h1 className={s.header}>Reminders</h1>
+                <Reminders form={this.props.form}/>
+              </section>
+              <section className={s.section}>
+                <h1 className={s.header}>Groups</h1>
+                <Groups form={this.props.form}/>
+              </section>
             </Col>
           </Row>
         </div>
