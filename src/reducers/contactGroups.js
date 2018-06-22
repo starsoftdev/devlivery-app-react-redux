@@ -100,6 +100,7 @@ export default createReducer(initialState, {
     contactGroups: data,
     contactGroupsCount: total,
     loading: false,
+    newContactGroup: '',
   }),
   [GET_CONTACT_GROUPS_FAILURE]: (state, action) => ({
     loading: false,
