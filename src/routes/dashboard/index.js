@@ -2,13 +2,17 @@ import React from 'react'
 import {AppLayout} from '../../components'
 import Dashboard from './Dashboard'
 
-async function action({next}) {
+async function action({next, intl}) {
   const child = await next()
 
   return {
     chunks: ['dashboard'],
     title: child.title,
-    component: <AppLayout><Dashboard breadcrumbs={child.breadcrumbs}>{child.component}</Dashboard></AppLayout>,
+    component: (
+      <AppLayout>
+        <Dashboard breadcrumbs={child.breadcrumbs} intl={intl}>{child.component}</Dashboard>
+      </AppLayout>
+    ),
   }
 }
 

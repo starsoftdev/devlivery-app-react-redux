@@ -8,6 +8,7 @@ import PlusGiftIcon from '../../static/plus_round.svg'
 import PlusIcon from '../../static/plus.svg'
 import {PaginationItem} from '../../components'
 import debounce from 'lodash/debounce'
+import messages from './messages'
 
 // TODO add Create Bundle
 // TODO add Make an Order
@@ -35,22 +36,22 @@ class Bundles extends React.Component {
   render() {
     const {search} = this.state
     // TODO add loading
-    const {bundlesCount, bundles, page, pageSize, loading, getBundles} = this.props
+    const {bundlesCount, bundles, page, pageSize, loading, getBundles, intl} = this.props
 
     return (
       <div className={s.container}>
         <div className={s.actions}>
-          <h1 className={s.header}>Created Bundles</h1>
+          <h1 className={s.header}>{intl.formatMessage(messages.header)}</h1>
           {/*TODO add search icon*/}
           <Input
             className={s.search}
-            placeholder={'Search'}
+            placeholder={intl.formatMessage(messages.search)}
             value={search}
             onChange={this.changeSearch}
           />
           <Button type='primary' ghost>
             <PlusIcon/>
-            Create Bundle
+            {intl.formatMessage(messages.addBundle)}
           </Button>
         </div>
         <Row type='flex' gutter={20}>
@@ -80,7 +81,7 @@ class Bundles extends React.Component {
                     </div>
                     <Button type='primary' ghost>
                       <PlusIcon/>
-                      Make an Order
+                      {intl.formatMessage(messages.makeOrder)}
                     </Button>
                   </div>
                 </div>
@@ -92,7 +93,7 @@ class Bundles extends React.Component {
           <Pagination
             current={page}
             total={bundlesCount}
-            showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
+            showTotal={(total, range) => intl.formatMessage(messages.tableItems, {range0: range[0], range1: range[1], total})}
             pageSize={pageSize}
             showSizeChanger
             onChange={(page, pageSize) => getBundles({page, pageSize})}

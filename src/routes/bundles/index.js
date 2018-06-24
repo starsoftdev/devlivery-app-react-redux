@@ -2,20 +2,19 @@ import React from 'react'
 import Bundles from './Bundles'
 import {setCurrentRouteName} from '../../reducers/global'
 import {getBundles} from '../../reducers/bundles'
-import {BASE_DASHBOARD_BREADCRUMBS} from '../'
+import messages from './messages'
 
-function action({query, store, route}) {
+function action({query, store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
   store.dispatch(getBundles())
 
   return {
     chunks: ['dashboard'],
-    title: 'Bundles',
+    title: intl.formatMessage(messages.title),
     breadcrumbs: [
-      ...BASE_DASHBOARD_BREADCRUMBS,
-      {name: 'Bundles'},
+      {name: intl.formatMessage(messages.breadcrumb)},
     ],
-    component: <Bundles/>,
+    component: <Bundles intl={intl}/>,
   }
 }
 
