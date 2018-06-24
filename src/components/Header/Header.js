@@ -6,10 +6,12 @@ import Logo from '../../static/logo.svg'
 import {DASHBOARD_ROUTES, HOME_ROUTE, LOGIN_ROUTE, LOGOUT_ROUTE, ORDERS_ROUTE, REGISTER1_ROUTE,} from '../../routes'
 import {Link, LanguageSwitcher} from '../../components'
 import cn from 'classnames'
+import {injectIntl} from 'react-intl'
+import messages from './messages'
 
 class Header extends React.Component {
   render() {
-    const {currentRouteName, user} = this.props
+    const {currentRouteName, user, intl} = this.props
     return (
       <header
         className={cn(
@@ -34,15 +36,15 @@ class Header extends React.Component {
               {!user ? (
                 <React.Fragment>
                   <Link to={LOGIN_ROUTE}>
-                    Login
+                    {intl.formatMessage(messages.login)}
                   </Link>
                   <Link to={REGISTER1_ROUTE}>
-                    Sign up
+                    {intl.formatMessage(messages.signUp)}
                   </Link>
                 </React.Fragment>
               ) : (
                 <Link to={LOGOUT_ROUTE}>
-                  Sign Out
+                  {intl.formatMessage(messages.signOut)}
                 </Link>
               )}
             </div>
@@ -54,19 +56,19 @@ class Header extends React.Component {
         ].includes(currentRouteName) && (
           <ul className={s.bottomMenu}>
             <li>
-              <Link to={ORDERS_ROUTE}>New Arrivals</Link>
+              <Link to={ORDERS_ROUTE}>{intl.formatMessage(messages.newArrivals)}</Link>
             </li>
             <li>
-              <Link to={ORDERS_ROUTE}>Card Store</Link>
+              <Link to={ORDERS_ROUTE}>{intl.formatMessage(messages.cardStore)}</Link>
             </li>
             <li>
-              <Link to={ORDERS_ROUTE}>Gift Store</Link>
+              <Link to={ORDERS_ROUTE}>{intl.formatMessage(messages.giftStore)}</Link>
             </li>
             <li>
-              <Link to={ORDERS_ROUTE}>About</Link>
+              <Link to={ORDERS_ROUTE}>{intl.formatMessage(messages.about)}</Link>
             </li>
             <li>
-              <Link to={ORDERS_ROUTE}>Contact Us</Link>
+              <Link to={ORDERS_ROUTE}>{intl.formatMessage(messages.contact)}</Link>
             </li>
           </ul>
         )}
@@ -82,4 +84,4 @@ const mapState = state => ({
 
 const mapDispatch = {}
 
-export default connect(mapState, mapDispatch)(withStyles(s)(Header))
+export default connect(mapState, mapDispatch)(injectIntl(withStyles(s)(Header)))

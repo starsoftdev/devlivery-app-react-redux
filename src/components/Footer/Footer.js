@@ -8,10 +8,12 @@ import Linkedin from '../../static/linkedin.svg'
 import Logo from '../../static/logo.svg'
 import {DASHBOARD_ROUTES} from '../../routes'
 import cn from 'classnames'
+import {injectIntl} from 'react-intl'
+import messages from './messages'
 
 class Footer extends React.Component {
   render() {
-    const {currentRouteName} = this.props
+    const {currentRouteName, intl} = this.props
     return (
       <footer
         className={
@@ -27,16 +29,16 @@ class Footer extends React.Component {
           </div>
           <ul className={s.menu}>
             <li>
-              <a>FAQ</a>
+              <a>{intl.formatMessage(messages.faq)}</a>
             </li>
             <li>
-              <a>Terms of Service</a>
+              <a>{intl.formatMessage(messages.terms)}</a>
             </li>
             <li>
-              <a>Privacy Policy</a>
+              <a>{intl.formatMessage(messages.privacy)}</a>
             </li>
             <li>
-              <a>Shipping & Returns</a>
+              <a>{intl.formatMessage(messages.shipping)}</a>
             </li>
           </ul>
           <ul className={s.socialMedia}>
@@ -68,5 +70,5 @@ const mapState = state => ({
 
 const mapDispatch = {}
 
-export default connect(mapState, mapDispatch)(withStyles(s)(Footer))
+export default connect(mapState, mapDispatch)(injectIntl(withStyles(s)(Footer)))
 
