@@ -15,7 +15,7 @@ class ManageTeam extends React.Component {
 
   render() {
     // TODO add table loading
-    const {teamCount, team, page, pageSize, loading, getTeam} = this.props
+    const {teamCount, team, page, pageSize, loading, getTeam, intl} = this.props
     const columns = [
       {
         title: intl.formatMessage(messages.nameColumn),
@@ -34,12 +34,12 @@ class ManageTeam extends React.Component {
         key: 'group',
       },
       {
-        title: intl.formatMessage(messages.accountManagement),
+        title: intl.formatMessage(messages.accountManagementColumn),
         dataIndex: 'account_management',
         key: 'account_management',
       },
       {
-        title: intl.formatMessage(messages.cardManagement),
+        title: intl.formatMessage(messages.cardManagementColumn),
         dataIndex: 'card_management',
         key: 'card_management',
       },

@@ -26,7 +26,7 @@ class Reports extends React.Component {
   render() {
     // TODO add loading
     // TODO change range picker
-    const {reports, reportsCount, page, pageSize, loading, getReports, occasions, occasion} = this.props
+    const {reports, reportsCount, page, pageSize, loading, getReports, occasions, occasion, intl} = this.props
     const columns = [
       {
         title: intl.formatMessage(messages.contactsColumn),

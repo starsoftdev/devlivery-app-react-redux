@@ -25,12 +25,12 @@ export default defineMessages({
     id: 'manageTeam.groupColumn',
     defaultMessage: 'Group',
   },
-  accountManagement: {
-    id: 'manageTeam.accountManagement',
+  accountManagementColumn: {
+    id: 'manageTeam.accountManagementColumn',
     defaultMessage: 'Account Management',
   },
-  cardManagement: {
-    id: 'manageTeam.cardManagement',
+  cardManagementColumn: {
+    id: 'manageTeam.cardManagementColumn',
     defaultMessage: 'Card Management',
   },
   actionsColumn: {
