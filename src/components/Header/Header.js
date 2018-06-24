@@ -4,7 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Header.css'
 import Logo from '../../static/logo.svg'
 import {DASHBOARD_ROUTES, HOME_ROUTE, LOGIN_ROUTE, LOGOUT_ROUTE, ORDERS_ROUTE, REGISTER1_ROUTE,} from '../../routes'
-import {Link} from '../../components'
+import {Link, LanguageSwitcher} from '../../components'
 import cn from 'classnames'
 
 class Header extends React.Component {
@@ -13,7 +13,6 @@ class Header extends React.Component {
     return (
       <header
         className={cn(
-          s.headerWrapper,
           [
             HOME_ROUTE,
             ...DASHBOARD_ROUTES,
@@ -21,6 +20,9 @@ class Header extends React.Component {
         )}
       >
         <div className={s.header}>
+          <div className={s.leftMenu}>
+            <LanguageSwitcher/>
+          </div>
           <Link to={HOME_ROUTE}>
             <Logo/>
           </Link>
@@ -28,7 +30,7 @@ class Header extends React.Component {
             HOME_ROUTE,
             ...DASHBOARD_ROUTES,
           ].includes(currentRouteName) && (
-            <div className={s.rightSideMenu}>
+            <div className={s.rightMenu}>
               {!user ? (
                 <React.Fragment>
                   <Link to={LOGIN_ROUTE}>

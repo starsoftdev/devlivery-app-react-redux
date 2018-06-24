@@ -1,8 +1,5 @@
 @import '../../styles/variables.css';
 
-.headerWrapper {
-}
-
 .header {
   padding: var(--margin-sm) var(--margin-md);
   position: relative;
@@ -22,7 +19,7 @@
   background-color: var(--white-color);
 }
 
-.rightSideMenu {
+.rightMenu {
   font-style: italic;
 
   & > * {
@@ -34,9 +31,23 @@
     }
   }
 
+  @media (--md-down) {
+    margin-top: var(--margin-xs);
+  }
   @media (--md-up) {
     position: absolute;
     right: var(--margin-md);
+  }
+}
+
+.leftMenu {
+  @media (--md-down) {
+    order: 1;
+    margin-top: var(--margin-xs);
+  }
+  @media (--md-up) {
+    position: absolute;
+    left: var(--margin-md);
   }
 }
 
