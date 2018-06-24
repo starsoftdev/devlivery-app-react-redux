@@ -18,6 +18,8 @@ const isDebug = !process.argv.includes('--release')
 const isVerbose = process.argv.includes('--verbose')
 const isAnalyze = process.argv.includes('--analyze') || process.argv.includes('--analyse')
 
+const REACT_INTL_ENFORCE_DESCRIPTIONS = false
+
 const reScript = /\.(js|jsx|mjs)$/
 const reStyle = /\.(css|less|styl|scss|sass|sss)$/
 const reImage = /\.(bmp|gif|jpg|jpeg|png)$/
@@ -108,6 +110,11 @@ const config = {
             // Remove unnecessary React propTypes from the production build
             // https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types
             ...(isDebug ? [] : ['transform-react-remove-prop-types']),
+            ['react-intl', {
+              messagesDir: path.resolve(__dirname, '../build/messages/extracted'),
+              extractSourceLocation: true,
+              enforceDescriptions: REACT_INTL_ENFORCE_DESCRIPTIONS,
+            }],
             ['import', {libraryName: 'antd'}],
           ],
         },
@@ -307,7 +314,7 @@ const clientConfig = {
   entry: {
     client: [
       './src/babelPolyfill.js',
-      './src/client.js'
+      './src/clientLoader.js'
     ],
   },
 

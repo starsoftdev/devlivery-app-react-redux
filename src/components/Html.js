@@ -26,7 +26,7 @@ class Html extends React.Component {
   render() {
     const {title, description, styles, scripts, app, children} = this.props
     return (
-      <html className="no-js" lang={'en'}>
+      <html className="no-js" lang={app.locale}>
       <head>
         <meta charSet="utf-8"/>
         <meta httpEquiv="x-ua-compatible" content="ie=edge"/>

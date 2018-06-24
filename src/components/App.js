@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Provider as ReduxProvider} from 'react-redux'
+import {IntlProvider} from 'react-intl'
+import {LocaleProvider} from 'antd'
 
 const ContextType = {
   // Enables critical path CSS rendering
@@ -14,6 +16,10 @@ const ContextType = {
   ...ReduxProvider.childContextTypes,
   pathname: PropTypes.string.isRequired,
   query: PropTypes.object,
+  // ReactIntl
+  intl: IntlProvider.childContextTypes.intl,
+  antLocale: LocaleProvider.childContextTypes.antLocale,
+  locale: PropTypes.string,
 }
 
 /**
