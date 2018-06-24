@@ -4,9 +4,8 @@ import {INDIVIDUAL_ACCOUNT, setAccountType, TEAM_ACCOUNT} from '../../reducers/r
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Register1.css'
-import {Card, Link} from '../../components'
+import {Card, Link, SectionHeader} from '../../components'
 import {REGISTER2_ROUTE} from '../'
-import ArrowIcon from '../../static/decor_arrow.svg'
 import IndividualIcon from '../../static/individual.svg'
 import TeamIcon from '../../static/team.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
@@ -20,13 +19,11 @@ class Register1 extends React.Component {
     return (
       <React.Fragment>
         <div className={s.content}>
-          <h1 className={s.header}>
-            <span className={s.headerPrefix}>
-              1
-              <ArrowIcon className={s.arrowIcon}/>
-            </span>
-            {intl.formatMessage(messages.header)}
-          </h1>
+          <SectionHeader
+            header={intl.formatMessage(messages.header)}
+            number={1}
+            prefixClassName={s.headerPrefix}
+          />
           <Row gutter={20}>
             <Col xs={24} sm={12}>
               <Card

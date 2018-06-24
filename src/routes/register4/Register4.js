@@ -3,12 +3,12 @@ import {connect} from 'react-redux'
 import {Button, Form, Input, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Register4.css'
-import ArrowIcon from '../../static/decor_arrow.svg'
 import PlusIcon from '../../static/plus.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
 import {register} from '../../reducers/register'
 import messages from './messages'
+import {SectionHeader} from '../../components'
 
 let uuid = 1
 
@@ -46,13 +46,11 @@ class Register4 extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit} className={s.container}>
         <div className={s.content}>
-          <h1 className={s.header}>
-            <span className={s.headerPrefix}>
-              4
-              <ArrowIcon className={s.arrowIcon}/>
-            </span>
-            {intl.formatMessage(messages.header)}
-          </h1>
+          <SectionHeader
+            header={intl.formatMessage(messages.header)}
+            number={4}
+            prefixClassName={s.headerPrefix}
+          />
           {keys.map((k, i) =>
             <section key={k} className={s.person}>
               <Form.Item>
