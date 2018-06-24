@@ -327,7 +327,7 @@ const clientConfig = {
     }),
 
     // load only needed locales (en is default one)
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|de/),
 
     // Emit a file with assets paths
     // https://github.com/webdeveric/webpack-assets-manifest#options
