@@ -5,6 +5,8 @@ import nodeFetch from 'node-fetch'
 import React from 'react'
 import ReactDOM from 'react-dom/server'
 import PrettyError from 'pretty-error'
+import {IntlProvider} from 'react-intl'
+import './serverIntlPolyfill'
 import App from './components/App'
 import Html from './components/Html'
 import {ErrorPageWithoutStyle} from './routes/error/ErrorPage'
@@ -15,8 +17,10 @@ import configureStore from './store/configureStore'
 import {setConfigVars, setCurrentPathname} from './reducers/global'
 import chunks from './chunk-manifest.json'
 import config from './config'
-import compression from 'compression'
+import {setLocale} from './reducers/intl'
 import cookiesMiddleware from 'universal-cookie-express'
+import compression from 'compression'
+import {LOCALE_COOKIE} from './constants'
 
 const app = express()
 
@@ -46,6 +50,7 @@ app.get('*', async (req, res, next) => {
     // Universal HTTP client
     const fetch = createFetch(nodeFetch, {
       apiUrl: config.api.url,
+      cookies,
     })
 
     const initialState = {}
@@ -59,7 +64,12 @@ app.get('*', async (req, res, next) => {
     store.dispatch(setCurrentPathname(req.path))
     store.dispatch(setConfigVars({
       apiUrl: config.api.url,
+      locales: config.locales,
     }))
+
+    const locale = cookies.get(LOCALE_COOKIE) || config.locales[0]
+
+    const {intl, antLocale} = await store.dispatch(setLocale({locale}))
 
     const css = new Set()
 
@@ -78,6 +88,10 @@ app.get('*', async (req, res, next) => {
       // You can access redux through react-redux connect
       store,
       storeSubscription: null,
+      // intl instance as it can be get with injectIntl
+      intl,
+      antLocale,
+      locale,
       // The twins below are wild, be careful!
       pathname: req.path,
       query: req.query,
@@ -115,6 +129,7 @@ app.get('*', async (req, res, next) => {
     data.app = {
       apiUrl: config.api.url,
       state: context.store.getState(),
+      locale,
     }
 
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />)
@@ -133,15 +148,19 @@ pe.skipNodeFiles()
 pe.skipPackage('express')
 
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+  const locale = req.language
   console.error(pe.render(err))
   const html = ReactDOM.renderToStaticMarkup(
     <Html
       title="Internal Server Error"
       description={err.message}
       styles={[{id: 'css', cssText: errorPageStyle._getCss()}]} // eslint-disable-line no-underscore-dangle
+      app={{lang: locale}}
     >
     {ReactDOM.renderToString(
-      <ErrorPageWithoutStyle error={err}/>
+      <IntlProvider locale={locale}>
+        <ErrorPageWithoutStyle error={err}/>
+      </IntlProvider>,
     )}
     </Html>,
   )

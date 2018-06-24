@@ -3,6 +3,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import deepForceUpdate from 'react-deep-force-update'
 import queryString from 'query-string'
+import {addLocaleData} from 'react-intl'
+// This is so bad: requiring all locale if they are not needed?
+/* @intl-code-template import ${lang} from 'react-intl/locale-data/${lang}' */
+import en from 'react-intl/locale-data/en'
+import de from 'react-intl/locale-data/de'
+/* @intl-code-template-end */
 import App from './components/App'
 import createFetch from './createFetch'
 import configureStore from './store/configureStore'
@@ -10,7 +16,13 @@ import history from './history'
 import {updateMeta} from './DOMUtils'
 import router from './router'
 import {setCurrentPathname} from './reducers/global'
+import {getIntl} from './reducers/intl'
 import Cookies from 'universal-cookie'
+
+/* @intl-code-template addLocaleData(${lang}); */
+addLocaleData(en)
+addLocaleData(de)
+/* @intl-code-template-end */
 
 /* eslint-disable global-require */
 
@@ -24,6 +36,8 @@ const whatwgFetch = createFetch(fetch, {
 })
 
 const store = configureStore(window.App.state, {history, fetch: whatwgFetch, cookies})
+
+const {intl, antLocale} = store.dispatch(getIntl())
 
 const insertCss = (...styles) => {
   // eslint-disable-next-line no-underscore-dangle
@@ -42,6 +56,10 @@ const context = {
   // Initialize a new Redux store
   // http://redux.js.org/docs/basics/UsageWithReact.html
   store,
+  storeSubscription: null,
+  // intl instance as it can be get with injectIntl
+  intl,
+  antLocale,
   cookies,
 }
 
@@ -64,14 +82,20 @@ async function onLocationChange(location, action) {
   }
   currentLocation = location
 
+  const {intl, antLocale} = store.dispatch(getIntl())
+
+  context.intl = intl
+  context.antLocale = antLocale
+
   if (currentLocation !== null) {
     store.dispatch(setCurrentPathname(location.pathname))
   }
 
   const isInitialRender = !action
   try {
-    context.pathname = location.pathname;
-    context.query = queryString.parse(location.search);
+    context.pathname = location.pathname
+    context.query = queryString.parse(location.search)
+    context.locale = store.getState().intl.locale
 
     // Traverses the list of routes in the order they are defined until
     // it finds the first route that matches provided URL path string
@@ -149,10 +173,20 @@ async function onLocationChange(location, action) {
   }
 }
 
-// Handle client-side navigation by using HTML5 History API
-// For more information visit https://github.com/mjackson/history#readme
-history.listen(onLocationChange)
-onLocationChange(currentLocation)
+let isHistoryObserved = false
+export default function main() {
+  // Handle client-side navigation by using HTML5 History API
+  // For more information visit https://github.com/mjackson/history#readme
+  currentLocation = history.location
+  if (!isHistoryObserved) {
+    isHistoryObserved = true
+    history.listen(onLocationChange)
+  }
+  onLocationChange(currentLocation)
+}
+
+// globally accesible entry point
+window.RSK_ENTRY = main
 
 // Enable Hot Module Replacement (HMR)
 if (module.hot) {
