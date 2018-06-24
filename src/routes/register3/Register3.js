@@ -7,6 +7,7 @@ import ArrowIcon from '../../static/decor_arrow.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
 import {setTeamDetails} from '../../reducers/register'
+import messages from './messages'
 
 class Register3 extends React.Component {
   handleSubmit = (e) => {
@@ -19,7 +20,7 @@ class Register3 extends React.Component {
   }
 
   render() {
-    const {teamDetails} = this.props
+    const {teamDetails, intl} = this.props
     const {getFieldDecorator} = this.props.form
     return (
       <Form onSubmit={this.handleSubmit} className={s.container}>
@@ -29,7 +30,7 @@ class Register3 extends React.Component {
               3
               <ArrowIcon className={s.arrowIcon}/>
             </span>
-            Team Details
+            {intl.formatMessage(messages.header)}
           </h1>
           <Row gutter={20}>
             <Col xs={24} sm={12}>
@@ -37,10 +38,10 @@ class Register3 extends React.Component {
                 {getFieldDecorator('first_name', {
                   initialValue: teamDetails && teamDetails.first_name,
                   rules: [
-                    {required: true, message: formMessages.required, whitespace: true},
+                    {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                   ],
                 })(
-                  <Input placeholder={'First Name'}/>
+                  <Input placeholder={intl.formatMessage(messages.firstName)}/>
                 )}
               </Form.Item>
             </Col>
@@ -49,10 +50,10 @@ class Register3 extends React.Component {
                 {getFieldDecorator('last_name', {
                   initialValue: teamDetails && teamDetails.last_name,
                   rules: [
-                    {required: true, message: formMessages.required, whitespace: true},
+                    {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                   ],
                 })(
-                  <Input placeholder={'Last Name'}/>
+                  <Input placeholder={intl.formatMessage(messages.lastName)}/>
                 )}
               </Form.Item>
             </Col>
@@ -61,10 +62,10 @@ class Register3 extends React.Component {
             {getFieldDecorator('role', {
               initialValue: teamDetails && teamDetails.role,
               rules: [
-                {required: true, message: formMessages.required},
+                {required: true, message: intl.formatMessage(formMessages.required)},
               ],
             })(
-              <Input placeholder={'Your Role'}/>
+              <Input placeholder={intl.formatMessage(messages.role)}/>
             )}
           </Form.Item>
         </div>
@@ -75,7 +76,7 @@ class Register3 extends React.Component {
             onKeyHandle={this.handleSubmit}
           />
           <Button htmlType='submit' type='primary' className={s.submitBtn}>
-            Submit
+            {intl.formatMessage(messages.submit)}
           </Button>
         </div>
       </Form>

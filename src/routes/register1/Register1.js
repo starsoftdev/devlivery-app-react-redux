@@ -12,10 +12,11 @@ import TeamIcon from '../../static/team.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import history from '../../history'
 import {generateUrl} from '../../router'
+import messages from './messages'
 
 class Register1 extends React.Component {
   render() {
-    const {setAccountType, accountType} = this.props
+    const {setAccountType, accountType, intl} = this.props
     return (
       <React.Fragment>
         <div className={s.content}>
@@ -24,36 +25,33 @@ class Register1 extends React.Component {
               1
               <ArrowIcon className={s.arrowIcon}/>
             </span>
-            Type of Account
+            {intl.formatMessage(messages.header)}
           </h1>
           <Row gutter={20}>
             <Col xs={24} sm={12}>
               <Card
                 className={s.item}
-                title={'Individual'}
+                title={intl.formatMessage(messages.individual)}
                 onClick={() => setAccountType(INDIVIDUAL_ACCOUNT)}
                 active={accountType === INDIVIDUAL_ACCOUNT}
                 keyValue='a'
                 svg={IndividualIcon}
               />
               <p className={s.description}>
-                * Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an took a type specimen book. It has survived
-                not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                {intl.formatMessage(messages.individualDescription)}
               </p>
             </Col>
             <Col xs={24} sm={12}>
               <Card
                 className={s.item}
-                title={'Team'}
+                title={intl.formatMessage(messages.team)}
                 onClick={() => setAccountType(TEAM_ACCOUNT)}
                 active={accountType === TEAM_ACCOUNT}
                 keyValue='b'
                 svg={TeamIcon}
               />
               <p className={s.description}>
-                * Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only
-                five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                {intl.formatMessage(messages.teamDescription)}
               </p>
             </Col>
           </Row>
@@ -66,7 +64,7 @@ class Register1 extends React.Component {
           />
           <Link to={REGISTER2_ROUTE} disabled={!accountType}>
             <Button type='primary' className={s.submitBtn}>
-              Submit
+              {intl.formatMessage(messages.submit)}
             </Button>
           </Link>
         </div>
