@@ -2,18 +2,19 @@ import React from 'react'
 import ManageTeam from './ManageTeam'
 import {setCurrentRouteName} from '../../reducers/global'
 import {getTeam} from '../../reducers/team'
+import messages from './messages'
 
-function action({query, store, route}) {
+function action({query, store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
   store.dispatch(getTeam())
 
   return {
     chunks: ['dashboard'],
-    title: 'Manage Team',
+    title: intl.formatMessage(messages.title),
     breadcrumbs: [
-      {name: 'Manage Team'},
+      {name: intl.formatMessage(messages.breadcrumb)},
     ],
-    component: <ManageTeam/>,
+    component: <ManageTeam intl={intl}/>,
   }
 }
 
