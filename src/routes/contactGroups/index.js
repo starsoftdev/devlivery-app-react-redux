@@ -2,18 +2,19 @@ import React from 'react'
 import ContactGroups from './ContactGroups'
 import {setCurrentRouteName} from '../../reducers/global'
 import {getContactGroups} from '../../reducers/contactGroups'
+import messages from './messages'
 
-function action({query, store, route}) {
+function action({query, store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
   store.dispatch(getContactGroups())
 
   return {
     chunks: ['contacts'],
-    title: 'Contact Groups',
+    title: intl.formatMessage(messages.title),
     breadcrumbs: [
-      {name: 'Contact Groups'},
+      {name: intl.formatMessage(messages.breadcrumb)},
     ],
-    component: <ContactGroups/>,
+    component: <ContactGroups intl={intl}/>,
   }
 }
 
