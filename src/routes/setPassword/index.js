@@ -2,6 +2,7 @@ import React from 'react'
 import {AppLayout} from '../../components'
 import SetPassword from './SetPassword'
 import {setCurrentRouteName} from '../../reducers/global'
+import messages from './messages'
 
 function action({store, route, query}) {
   store.dispatch(setCurrentRouteName(route.name))
@@ -12,8 +13,8 @@ function action({store, route, query}) {
 
   return {
     chunks: ['setPassword'],
-    title: 'Set Password',
-    component: <AppLayout><SetPassword query={query}/></AppLayout>,
+    title: intl.formatMessage(messages.title),
+    component: <AppLayout><SetPassword query={query} intl={intl}/></AppLayout>,
   }
 }
 

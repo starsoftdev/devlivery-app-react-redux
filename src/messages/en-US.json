@@ -326,5 +326,69 @@
     "files": [
       "src/routes/register4/messages.js"
     ]
+  },
+  {
+    "id": "resetPassword.email",
+    "defaultMessage": "Email",
+    "message": "",
+    "files": [
+      "src/routes/resetPassword/messages.js"
+    ]
+  },
+  {
+    "id": "resetPassword.header",
+    "defaultMessage": "Reset Password",
+    "message": "",
+    "files": [
+      "src/routes/resetPassword/messages.js"
+    ]
+  },
+  {
+    "id": "resetPassword.submit",
+    "defaultMessage": "Submit",
+    "message": "",
+    "files": [
+      "src/routes/resetPassword/messages.js"
+    ]
+  },
+  {
+    "id": "resetPassword.title",
+    "defaultMessage": "Reset Password",
+    "message": "",
+    "files": [
+      "src/routes/resetPassword/messages.js"
+    ]
+  },
+  {
+    "id": "setPassword.header",
+    "defaultMessage": "Set Password",
+    "message": "",
+    "files": [
+      "src/routes/setPassword/messages.js"
+    ]
+  },
+  {
+    "id": "setPassword.password",
+    "defaultMessage": "Password",
+    "message": "",
+    "files": [
+      "src/routes/setPassword/messages.js"
+    ]
+  },
+  {
+    "id": "setPassword.submit",
+    "defaultMessage": "Submit",
+    "message": "",
+    "files": [
+      "src/routes/setPassword/messages.js"
+    ]
+  },
+  {
+    "id": "setPassword.title",
+    "defaultMessage": "Set Password",
+    "message": "",
+    "files": [
+      "src/routes/setPassword/messages.js"
+    ]
   }
 ]

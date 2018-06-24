@@ -5,6 +5,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import {Alert, Button, Form, Input} from 'antd'
 import s from './SetPassword.css'
 import formMessages from '../../formMessages'
+import messages from './messages'
 
 class SetPassword extends React.Component {
   componentWillUnmount() {
@@ -21,12 +22,12 @@ class SetPassword extends React.Component {
   }
 
   render() {
+    const {loading, error, intl} = this.props
     const {getFieldDecorator} = this.props.form
-    const {loading, error} = this.props
 
     return (
       <Form onSubmit={this.handleSubmit} className={s.container}>
-        <h1 className={s.header}>Set Password</h1>
+        <h1 className={s.header}>{intl.formatMessage(messages.header)}</h1>
         <div className={s.content}>
           {error && (
             <Alert
@@ -39,19 +40,19 @@ class SetPassword extends React.Component {
           <Form.Item>
             {getFieldDecorator('password', {
               rules: [
-                {required: true, message: formMessages.required},
+                {required: true, message: intl.formatMessage(formMessages.required)},
               ],
             })(
               <Input
                 type='password'
-                placeholder={'Password'}
+                placeholder={intl.formatMessage(messages.password)}
               />
             )}
           </Form.Item>
         </div>
         <div className={s.actions}>
           <Button type='primary' htmlType='submit' className={s.submitBtn} loading={loading}>
-            Submit
+            {intl.formatMessage(messages.submit)}
           </Button>
         </div>
       </Form>
