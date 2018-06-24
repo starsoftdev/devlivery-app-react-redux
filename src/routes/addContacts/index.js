@@ -1,17 +1,18 @@
 import React from 'react'
 import AddContacts from './AddContacts'
 import {setCurrentRouteName} from '../../reducers/global'
+import messages from './messages'
 
-function action({query, store, route}) {
+function action({query, store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
 
   return {
     chunks: ['contacts'],
-    title: 'New Contact',
+    title: intl.formatMessage(messages.title),
     breadcrumbs: [
-      {name: 'New Contact'},
+      {name: intl.formatMessage(messages.breadcrumb)},
     ],
-    component: <AddContacts/>,
+    component: <AddContacts intl={intl}/>,
   }
 }
 

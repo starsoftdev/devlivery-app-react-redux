@@ -8,9 +8,11 @@ import {connect} from 'react-redux'
 import {getGroups} from '../../reducers/contacts'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
 import debounce from 'lodash/debounce'
+import messages from './messages'
 
 let uuid = 1
 
+// TODO add loading
 class Groups extends React.Component {
   constructor(props) {
     super(props)
@@ -37,7 +39,7 @@ class Groups extends React.Component {
   }
 
   render() {
-    const {groups, loading} = this.props
+    const {groups, loading, intl} = this.props
     const {getFieldDecorator, getFieldValue} = this.props.form
     this.props.form.getFieldDecorator('groupKeys', {initialValue: [0]})
 
@@ -55,7 +57,7 @@ class Groups extends React.Component {
                 <Select
                   showSearch
                   allowClear
-                  placeholder={'Select relevant group'}
+                  placeholder={intl.formatMessage(messages.selectGroup)}
                   notFoundContent={loading.groups ? 'Loading...' : null}
                   filterOption={false}
                   onSearch={(search) => this.getGroups({search})}
@@ -70,7 +72,7 @@ class Groups extends React.Component {
         )}
         <Button type='primary' ghost onClick={this.addItem}>
           <PlusIcon/>
-          Add new group
+          {intl.formatMessage(messages.addGroup)}
         </Button>
       </React.Fragment>
     )
