@@ -8,9 +8,11 @@ import {DATE_FORMAT, DEFAULT_DEBOUNCE_TIME} from '../../constants'
 import {connect} from 'react-redux'
 import {getOccasions} from '../../reducers/contacts'
 import debounce from 'lodash/debounce'
+import messages from './messages'
 
 let uuid = 1
 
+// TODO add loading
 class Reminders extends React.Component {
   constructor(props) {
     super(props)
@@ -37,7 +39,7 @@ class Reminders extends React.Component {
   }
 
   render() {
-    const {occasions, loading} = this.props
+    const {occasions, loading, intl} = this.props
     const {getFieldDecorator, getFieldValue} = this.props.form
     this.props.form.getFieldDecorator('reminderKeys', {initialValue: [0]})
 
@@ -55,7 +57,7 @@ class Reminders extends React.Component {
                 <Select
                   showSearch
                   allowClear
-                  placeholder={'Occasion'}
+                  placeholder={intl.formatMessage(messages.occasion)}
                   notFoundContent={loading.occasions ? 'Loading...' : null}
                   filterOption={false}
                   onSearch={(search) => this.getOccasions({search})}
@@ -79,7 +81,7 @@ class Reminders extends React.Component {
         )}
         <Button type='primary' ghost onClick={this.addItem}>
           <PlusIcon/>
-          Add new reminder
+          {intl.formatMessage(messages.addReminder)}
         </Button>
       </React.Fragment>
     )

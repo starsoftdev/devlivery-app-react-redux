@@ -9,17 +9,18 @@ import {addContact} from '../../reducers/contacts'
 import {DATE_FORMAT} from '../../constants'
 import Reminders from './Reminders'
 import Groups from './Groups'
+import messages from './messages'
 
 const SALUTATIONS = ['Mr.', 'Ms.', 'Mrs.', 'Dr.']
 
 // TODO add accordion for sections
-const AddressSection = ({getFieldDecorator, index, header}) =>
+const AddressSection = ({getFieldDecorator, index, header, intl}) =>
   <section className={s.section}>
     <h1 className={s.header}>{header}</h1>
     <Form.Item>
       {getFieldDecorator(`addresses[${index}].address`, {
       })(
-        <Input placeholder={'Address'}/>
+        <Input placeholder={intl.formatMessage(messages.address)}/>
       )}
     </Form.Item>
     <Row gutter={20}>
@@ -27,7 +28,7 @@ const AddressSection = ({getFieldDecorator, index, header}) =>
         <Form.Item>
           {getFieldDecorator(`addresses[${index}].city`, {
           })(
-            <Input placeholder={'City'}/>
+            <Input placeholder={intl.formatMessage(messages.city)}/>
           )}
         </Form.Item>
       </Col>
@@ -35,7 +36,7 @@ const AddressSection = ({getFieldDecorator, index, header}) =>
         <Form.Item>
           {getFieldDecorator(`addresses[${index}].state`, {
           })(
-            <Input placeholder={'State'}/>
+            <Input placeholder={intl.formatMessage(messages.state)}/>
           )}
         </Form.Item>
       </Col>
@@ -45,7 +46,7 @@ const AddressSection = ({getFieldDecorator, index, header}) =>
         <Form.Item>
           {getFieldDecorator(`addresses[${index}].postal_code`, {
           })(
-            <Input placeholder={'Postal Code'}/>
+            <Input placeholder={intl.formatMessage(messages.postalCode)}/>
           )}
         </Form.Item>
       </Col>
@@ -53,7 +54,7 @@ const AddressSection = ({getFieldDecorator, index, header}) =>
         <Form.Item>
           {getFieldDecorator(`addresses[${index}].country`, {
           })(
-            <Input placeholder={'Country'}/>
+            <Input placeholder={intl.formatMessage(messages.country)}/>
           )}
         </Form.Item>
       </Col>
@@ -71,6 +72,7 @@ class AddContacts extends React.Component {
   }
 
   render() {
+    const {intl} = this.props
     const {getFieldDecorator} = this.props.form
     return (
       <Form onSubmit={this.handleSubmit} className={s.container}>
@@ -78,14 +80,14 @@ class AddContacts extends React.Component {
           <Row type='flex' gutter={20}>
             <Col xs={24} md={12} className={s.leftColumn}>
               <section className={s.section}>
-                <h1 className={s.header}>Add Contact</h1>
+                <h1 className={s.header}>{intl.formatMessage(messages.header)}</h1>
                 <Form.Item>
                   {getFieldDecorator('contact.title', {
                     rules: [
-                      {required: true, message: formMessages.required},
+                      {required: true, message: intl.formatMessage(formMessages.required)},
                     ],
                   })(
-                    <Select placeholder={'Salutation'}>
+                    <Select placeholder={intl.formatMessage(messages.salutation)}>
                       {SALUTATIONS.map((item) =>
                         <Select.Option key={item} value={item}>{item}</Select.Option>
                       )}
@@ -97,10 +99,10 @@ class AddContacts extends React.Component {
                     <Form.Item>
                       {getFieldDecorator('contact.first_name', {
                         rules: [
-                          {required: true, message: formMessages.required, whitespace: true},
+                          {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                         ],
                       })(
-                        <Input placeholder={'First Name'}/>
+                        <Input placeholder={intl.formatMessage(messages.firstName)}/>
                       )}
                     </Form.Item>
                   </Col>
@@ -108,10 +110,10 @@ class AddContacts extends React.Component {
                     <Form.Item>
                       {getFieldDecorator('contact.last_name', {
                         rules: [
-                          {required: true, message: formMessages.required, whitespace: true},
+                          {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                         ],
                       })(
-                        <Input placeholder={'Last Name'}/>
+                        <Input placeholder={intl.formatMessage(messages.lastName)}/>
                       )}
                     </Form.Item>
                   </Col>
@@ -119,28 +121,28 @@ class AddContacts extends React.Component {
                 <Form.Item>
                   {getFieldDecorator('contact.nickname', {
                     rules: [
-                      {required: true, message: formMessages.required},
+                      {required: true, message: intl.formatMessage(formMessages.required)},
                     ],
                   })(
-                    <Input placeholder={'Nickname'}/>
+                    <Input placeholder={intl.formatMessage(messages.nickname)}/>
                   )}
                 </Form.Item>
                 <Form.Item>
                   {getFieldDecorator('contact.relationship', {
                     rules: [
-                      {required: true, message: formMessages.required},
+                      {required: true, message: intl.formatMessage(formMessages.required)},
                     ],
                   })(
-                    <Input placeholder={'Relationship'}/>
+                    <Input placeholder={intl.formatMessage(messages.relationship)}/>
                   )}
                 </Form.Item>
               </section>
               <section className={s.section}>
-                <h1 className={s.header}>Birthday</h1>
+                <h1 className={s.header}>{intl.formatMessage(messages.birthday)}</h1>
                 <Form.Item>
                   {getFieldDecorator('birthday', {
                     rules: [
-                      {required: true, message: formMessages.required},
+                      {required: true, message: intl.formatMessage(formMessages.required)},
                     ],
                   })(
                     <DatePicker className={s.birthday} format={DATE_FORMAT}/>
@@ -148,24 +150,26 @@ class AddContacts extends React.Component {
                 </Form.Item>
               </section>
               <AddressSection
-                header={'Home Address'}
+                header={intl.formatMessage(messages.homeAddress)}
                 getFieldDecorator={getFieldDecorator}
                 index={0}
+                intl={intl}
               />
               <AddressSection
-                header={'Company Address'}
+                header={intl.formatMessage(messages.companyAddress)}
                 getFieldDecorator={getFieldDecorator}
                 index={1}
+                intl={intl}
               />
             </Col>
             <Col xs={24} md={12} className={s.rightColumn}>
               <section className={s.section}>
-                <h1 className={s.header}>Reminders</h1>
-                <Reminders form={this.props.form}/>
+                <h1 className={s.header}>{intl.formatMessage(messages.reminders)}</h1>
+                <Reminders form={this.props.form} intl={intl}/>
               </section>
               <section className={s.section}>
-                <h1 className={s.header}>Groups</h1>
-                <Groups form={this.props.form}/>
+                <h1 className={s.header}>{intl.formatMessage(messages.groups)}</h1>
+                <Groups form={this.props.form} intl={intl}/>
               </section>
             </Col>
           </Row>
@@ -174,7 +178,7 @@ class AddContacts extends React.Component {
           <div className={s.actions}>
             <Button htmlType='submit' type='primary' ghost>
               <PlusIcon/>
-              Save Contact
+              {intl.formatMessage(messages.submit)}
             </Button>
           </div>
         </div>
