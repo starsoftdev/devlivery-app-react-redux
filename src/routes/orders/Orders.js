@@ -9,6 +9,7 @@ import LongArrowIcon from '../../static/long-right-arrow.svg'
 import debounce from 'lodash/debounce'
 import moment from 'moment'
 import cn from 'classnames'
+import messages from './messages'
 
 const EVENT_DATE_FORMAT = 'YYYY-MM-DD'
 
@@ -49,31 +50,31 @@ class Orders extends React.Component {
   render() {
     const {search} = this.state
     // TODO add table loading
-    const {ordersCount, orders, page, pageSize, loading, getOrders, events, date, getEvents} = this.props
+    const {ordersCount, orders, page, pageSize, loading, getOrders, events, date, getEvents, intl} = this.props
     const columns = [
       {
-        title: 'Order Number',
+        title: intl.formatMessage(messages.orderColumn),
         dataIndex: 'order_number',
         key: 'order_number',
       },
       {
-        title: 'Order Date',
+        title: intl.formatMessage(messages.dateColumn),
         dataIndex: 'date',
         key: 'date',
       },
       {
-        title: 'Item(s)',
+        title: intl.formatMessage(messages.itemsColumn),
         dataIndex: 'items',
         key: 'items',
         render: (items) => `${items.card}${items.gifts ? ` + ${items.gifts.join(', ')}` : ''}`
       },
       {
-        title: 'Status',
+        title: intl.formatMessage(messages.statusColumn),
         dataIndex: 'status',
         key: 'status',
       },
       {
-        title: 'Total Price',
+        title: intl.formatMessage(messages.totalColumn),
         dataIndex: 'total',
         key: 'total',
         render: (total) => <React.Fragment>{total} <span className={s.currency}>CHF</span></React.Fragment>
@@ -84,11 +85,11 @@ class Orders extends React.Component {
     return (
       <div className={s.container}>
         <div className={s.actions}>
-          <h1 className={s.header}>Orders History</h1>
+          <h1 className={s.header}>{intl.formatMessage(messages.header)}</h1>
           {/*TODO add search icon*/}
           <Input
             className={s.search}
-            placeholder={'Search'}
+            placeholder={intl.formatMessage(messages.search)}
             value={search}
             onChange={this.changeSearch}
           />
@@ -102,7 +103,7 @@ class Orders extends React.Component {
           pagination={{
             current: page,
             total: ordersCount,
-            showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+            showTotal: (total, range) => intl.formatMessage(messages.tableItems, {range0: range[0], range1: range[1], total}),
             pageSize,
             showSizeChanger: true,
             itemRender: (current, type, el) => <PaginationItem type={type} el={el}/>
@@ -111,7 +112,7 @@ class Orders extends React.Component {
         <div className={s.calendarSection}>
           <section className={s.calendar}>
             <div className={s.calendarHeaderWrapper}>
-              <h2 className={s.calendarHeader}>Calendar</h2>
+              <h2 className={s.calendarHeader}>{intl.formatMessage(messages.calendar)}</h2>
               <CalendarHeader value={moment(date)} onValueChange={getEvents}/>
             </div>
             <Calendar
