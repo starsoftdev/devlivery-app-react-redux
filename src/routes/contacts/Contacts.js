@@ -10,6 +10,7 @@ import ListIcon from '../../static/view_list.svg'
 import {PaginationItem} from '../../components'
 import {clear, getContacts, removeContact} from '../../reducers/contacts'
 import debounce from 'lodash/debounce'
+import messages from './messages'
 
 const GRID_VIEW = 'grid'
 const LIST_VIEW = 'list'
@@ -44,7 +45,7 @@ class Contacts extends React.Component {
     const {view, search} = this.state
     // TODO add loading
     // TODO add sort_by
-    const {contactsCount, contacts, page, pageSize, loading, getContacts, removeContact} = this.props
+    const {contactsCount, contacts, page, pageSize, loading, getContacts, removeContact, intl} = this.props
 
     return (
       <div className={s.container}>
@@ -52,11 +53,11 @@ class Contacts extends React.Component {
           {/*TODO add search icon*/}
           <Input
             className={s.search}
-            placeholder={'Search'}
+            placeholder={intl.formatMessage(messages.search)}
             value={search}
             onChange={this.changeSearch}
           />
-          <Select className={s.sortBy} placeholder={'Sort by'}>
+          <Select className={s.sortBy} placeholder={intl.formatMessage(messages.sortBy)}>
           </Select>
           <div className={s.views}>
             <a className={s.viewBtn} onClick={() => this.changeView(GRID_VIEW)}>
@@ -98,7 +99,7 @@ class Contacts extends React.Component {
           <Pagination
             current={page}
             total={contactsCount}
-            showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
+            showTotal={(total, range) => intl.formatMessage(messages.tableItems, {range0: range[0], range1: range[1], total})}
             pageSize={pageSize}
             showSizeChanger
             onChange={(page, pageSize) => getContacts({page, pageSize})}
