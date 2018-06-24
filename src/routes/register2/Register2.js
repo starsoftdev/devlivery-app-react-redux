@@ -3,12 +3,12 @@ import {connect} from 'react-redux'
 import {Button, Col, DatePicker, Form, Input, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Register2.css'
-import ArrowIcon from '../../static/decor_arrow.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
 import {setIndividualDetails} from '../../reducers/register'
 import messages from './messages'
 import {DATE_FORMAT} from '../../constants'
+import {SectionHeader} from '../../components'
 
 class Register2 extends React.Component {
   handleSubmit = (e) => {
@@ -27,13 +27,11 @@ class Register2 extends React.Component {
       <Form onSubmit={this.handleSubmit} className={s.container}>
         <div className={s.content}>
           <section>
-            <h1 className={s.header}>
-              <span className={s.headerPrefix}>
-                2
-                <ArrowIcon className={s.arrowIcon}/>
-              </span>
-              {intl.formatMessage(messages.header)}
-            </h1>
+            <SectionHeader
+              header={intl.formatMessage(messages.header)}
+              number={2}
+              prefixClassName={s.headerPrefix}
+            />
             <Row gutter={20}>
               <Col xs={24} sm={12}>
                 <Form.Item>

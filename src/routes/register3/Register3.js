@@ -3,11 +3,11 @@ import {connect} from 'react-redux'
 import {Button, Col, Form, Input, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Register3.css'
-import ArrowIcon from '../../static/decor_arrow.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
 import {setTeamDetails} from '../../reducers/register'
 import messages from './messages'
+import {SectionHeader} from '../../components'
 
 class Register3 extends React.Component {
   handleSubmit = (e) => {
@@ -25,13 +25,11 @@ class Register3 extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit} className={s.container}>
         <div className={s.content}>
-          <h1 className={s.header}>
-            <span className={s.headerPrefix}>
-              3
-              <ArrowIcon className={s.arrowIcon}/>
-            </span>
-            {intl.formatMessage(messages.header)}
-          </h1>
+          <SectionHeader
+            header={intl.formatMessage(messages.header)}
+            number={3}
+            prefixClassName={s.headerPrefix}
+          />
           <Row gutter={20}>
             <Col xs={24} sm={12}>
               <Form.Item>
