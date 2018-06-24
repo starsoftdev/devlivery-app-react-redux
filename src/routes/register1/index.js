@@ -2,14 +2,15 @@ import React from 'react'
 import {AppLayout} from '../../components'
 import Register1 from './Register1'
 import {setCurrentRouteName} from '../../reducers/global'
+import messages from './messages'
 
-function action({store, route}) {
+function action({store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
 
   return {
     chunks: ['register'],
-    title: 'Type of Account - Register',
-    component: <AppLayout><Register1/></AppLayout>
+    title: intl.formatMessage(messages.title),
+    component: <AppLayout><Register1 intl={intl}/></AppLayout>
   }
 }
 

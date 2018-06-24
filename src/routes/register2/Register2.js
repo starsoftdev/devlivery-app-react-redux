@@ -1,13 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button, Col, Form, Input, Row, Select} from 'antd'
+import {Button, Col, DatePicker, Form, Input, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Register2.css'
 import ArrowIcon from '../../static/decor_arrow.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
 import {setIndividualDetails} from '../../reducers/register'
-import moment from 'moment'
+import messages from './messages'
+import {DATE_FORMAT} from '../../constants'
 
 class Register2 extends React.Component {
   handleSubmit = (e) => {
@@ -20,7 +21,7 @@ class Register2 extends React.Component {
   }
 
   render() {
-    const {individualDetails} = this.props
+    const {individualDetails, intl} = this.props
     const {getFieldDecorator} = this.props.form
     return (
       <Form onSubmit={this.handleSubmit} className={s.container}>
@@ -31,7 +32,7 @@ class Register2 extends React.Component {
                 2
                 <ArrowIcon className={s.arrowIcon}/>
               </span>
-              Individual Details
+              {intl.formatMessage(messages.header)}
             </h1>
             <Row gutter={20}>
               <Col xs={24} sm={12}>
@@ -39,10 +40,10 @@ class Register2 extends React.Component {
                   {getFieldDecorator('first_name', {
                     initialValue: individualDetails && individualDetails.first_name,
                     rules: [
-                      {required: true, message: formMessages.required, whitespace: true},
+                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                     ],
                   })(
-                    <Input placeholder={'First Name'}/>
+                    <Input placeholder={intl.formatMessage(messages.firstName)}/>
                   )}
                 </Form.Item>
               </Col>
@@ -51,10 +52,10 @@ class Register2 extends React.Component {
                   {getFieldDecorator('last_name', {
                     initialValue: individualDetails && individualDetails.last_name,
                     rules: [
-                      {required: true, message: formMessages.required, whitespace: true},
+                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                     ],
                   })(
-                    <Input placeholder={'Last Name'}/>
+                    <Input placeholder={intl.formatMessage(messages.lastName)}/>
                   )}
                 </Form.Item>
               </Col>
@@ -63,81 +64,47 @@ class Register2 extends React.Component {
               {getFieldDecorator('email', {
                 initialValue: individualDetails && individualDetails.email,
                 rules: [
-                  {required: true, message: formMessages.required},
+                  {required: true, message: intl.formatMessage(formMessages.required)},
                   {type: 'email', message: formMessages.emailInvalid},
                 ],
               })(
-                <Input placeholder={'Email'}/>
+                <Input placeholder={intl.formatMessage(messages.email)}/>
               )}
             </Form.Item>
             <Form.Item>
               {getFieldDecorator('phone', {
                 initialValue: individualDetails && individualDetails.phone,
                 rules: [
-                  {required: true, message: formMessages.required},
+                  {required: true, message: intl.formatMessage(formMessages.required)},
                 ],
               })(
-                <Input placeholder={'Phone'}/>
+                <Input placeholder={intl.formatMessage(messages.phone)}/>
               )}
             </Form.Item>
             <Form.Item>
               {getFieldDecorator('password', {
                 rules: [
-                  {required: true, message: formMessages.required},
+                  {required: true, message: intl.formatMessage(formMessages.required)},
                 ],
               })(
-                <Input type='password' placeholder={'Password'}/>
+                <Input type='password' placeholder={intl.formatMessage(messages.password)}/>
               )}
             </Form.Item>
           </section>
           <section>
             <h1 className={s.header}>
-              Birthday
+              {intl.formatMessage(messages.birthday)}
             </h1>
-            <Row gutter={20}>
-              <Col xs={24} sm={12}>
-                {/* TODO add 0 prefix */}
-                <Form.Item>
-                  {getFieldDecorator('month', {
-                    initialValue: individualDetails ? individualDetails.month : undefined,
-                    rules: [
-                      {required: true, message: formMessages.required},
-                    ],
-                  })(
-                    <Select placeholder={'Month'}>
-                      {moment.months().map((month, i) =>
-                        <Select.Option key={month} value={i + 1}>{month}</Select.Option>
-                      )}
-                    </Select>
-                  )}
-                </Form.Item>
-              </Col>
-              {/* TODO add mask for date */}
-              <Col xs={24} sm={6}>
-                <Form.Item>
-                  {getFieldDecorator('date', {
-                    initialValue: individualDetails && individualDetails.date,
-                    rules: [
-                      {required: true, message: formMessages.required},
-                    ],
-                  })(
-                    <Input placeholder={'Date'}/>
-                  )}
-                </Form.Item>
-              </Col>
-              <Col xs={24} sm={6}>
-                <Form.Item>
-                  {getFieldDecorator('year', {
-                    initialValue: individualDetails && individualDetails.year,
-                    rules: [
-                      {required: true, message: formMessages.required},
-                    ],
-                  })(
-                    <Input placeholder={'Year'}/>
-                  )}
-                </Form.Item>
-              </Col>
-            </Row>
+            <Form.Item>
+              {getFieldDecorator('birthday', {
+                initialValue: individualDetails ? individualDetails.month : undefined,
+                rules: [
+                  {required: true, message: intl.formatMessage(formMessages.required)},
+                ],
+              })(
+                <DatePicker className={s.birthday} format={DATE_FORMAT}/>
+              )}
+            </Form.Item>
           </section>
         </div>
         <div className={s.actions}>
@@ -147,7 +114,7 @@ class Register2 extends React.Component {
             onKeyHandle={this.handleSubmit}
           />
           <Button htmlType='submit' type='primary' className={s.submitBtn}>
-            Submit
+            {intl.formatMessage(messages.submit)}
           </Button>
         </div>
       </Form>

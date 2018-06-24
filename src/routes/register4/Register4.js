@@ -8,6 +8,7 @@ import PlusIcon from '../../static/plus.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
 import {register} from '../../reducers/register'
+import messages from './messages'
 
 let uuid = 1
 
@@ -36,6 +37,7 @@ class Register4 extends React.Component {
   }
 
   render() {
+    const {intl} = this.props
     const {getFieldDecorator, getFieldValue} = this.props.form
     this.props.form.getFieldDecorator('keys', {initialValue: [0]})
 
@@ -49,37 +51,34 @@ class Register4 extends React.Component {
               4
               <ArrowIcon className={s.arrowIcon}/>
             </span>
-            Invite People
+            {intl.formatMessage(messages.header)}
           </h1>
           {keys.map((k, i) =>
             <section key={k} className={s.person}>
               <Form.Item>
                 {getFieldDecorator(`people[${k}].email`, {
                   rules: [
-                    {required: true, message: formMessages.required},
-                    {type: 'email', message: formMessages.emailInvalid},
+                    {required: true, message: intl.formatMessage(formMessages.required)},
+                    {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
                   ],
                 })(
-                  <Input placeholder={'Email'}/>
+                  <Input placeholder={intl.formatMessage(messages.email)}/>
                 )}
               </Form.Item>
               <Form.Item>
                 {getFieldDecorator(`people[${k}].role`, {
                   rules: [
-                    {required: true, message: formMessages.required},
+                    {required: true, message: intl.formatMessage(formMessages.required)},
                   ],
                 })(
-                  <Input placeholder={'Role'}/>
+                  <Input placeholder={intl.formatMessage(messages.role)}/>
                 )}
               </Form.Item>
               <Form.Item>
                 {getFieldDecorator(`people[${k}].permissions`, {
-                  rules: [
-                    {required: true, message: formMessages.required},
-                  ],
                 })(
-                  <Select placeholder={'Permissions Level'} notFoundContent='No Items'>
-                    {['Permission 1', 'Permission 2'].map((permission, i) =>
+                  <Select placeholder={intl.formatMessage(messages.permissionsLevel)}>
+                    {[].map((permission) =>
                       <Select.Option key={permission} value={permission}>{permission}</Select.Option>
                     )}
                   </Select>
@@ -90,7 +89,7 @@ class Register4 extends React.Component {
           <div className={s.addPersonBtnWrapper}>
             <Button type='primary' ghost onClick={this.addItem}>
               <PlusIcon/>
-              Invite one more
+              {intl.formatMessage(messages.inviteMore)}
             </Button>
           </div>
         </div>
@@ -101,7 +100,7 @@ class Register4 extends React.Component {
             onKeyHandle={this.handleSubmit}
           />
           <Button htmlType='submit' type='primary' className={s.submitBtn}>
-            Submit
+            {intl.formatMessage(messages.submit)}
           </Button>
         </div>
       </Form>

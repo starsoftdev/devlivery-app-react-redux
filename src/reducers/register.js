@@ -1,6 +1,7 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {loginSuccess} from './login'
 import {message} from 'antd'
+import {DATE_FORMAT} from '../constants'
 
 // ------------------------------------
 // Constants
@@ -22,7 +23,7 @@ export const CLEAR = 'Register.CLEAR'
 // Actions
 // ------------------------------------
 export const register = (people) => (dispatch, getState, {fetch}) => {
-  const {accountType, individualDetails: {year, month, date, ...otherDetails}, teamDetails} = getState().register
+  const {accountType, individualDetails: {birthday, ...otherDetails}, teamDetails} = getState().register
   dispatch({type: REGISTER_REQUEST})
   return fetch(`/signup`, {
     method: 'POST',
@@ -30,7 +31,7 @@ export const register = (people) => (dispatch, getState, {fetch}) => {
     body: {
       ...otherDetails,
       account_type: accountType,
-      dob: `${date}-${month}-${year}`
+      dob: birthday.format(DATE_FORMAT),
       // TODO send this data to backend when it's done
       // teamDetails,
       // people,

@@ -5,8 +5,9 @@ import {clear, login} from '../../reducers/login'
 import {Alert, Button, Col, Form, Input, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Login.css'
-import formMessages from '../../formMessages'
 import {RESET_PASSWORD_ROUTE, REGISTER1_ROUTE} from '../'
+import messages from './messages'
+import formMessages from '../../formMessages'
 
 class Login extends React.Component {
   componentWillUnmount() {
@@ -24,10 +25,10 @@ class Login extends React.Component {
 
   render() {
     const {getFieldDecorator} = this.props.form
-    const {loading, error} = this.props
+    const {loading, error, intl} = this.props
     return (
       <Form onSubmit={this.handleSubmit} className={s.container}>
-        <h1 className={s.header}>Login In To Your Account</h1>
+        <h1 className={s.header}>{intl.formatMessage(messages.header)}</h1>
         <div className={s.content}>
           {error && (
             <Alert
@@ -40,39 +41,39 @@ class Login extends React.Component {
           <Form.Item>
             {getFieldDecorator('email', {
               rules: [
-                {required: true, message: formMessages.required},
-                {type: 'email', message: formMessages.emailInvalid},
+                {required: true, message: intl.formatMessage(formMessages.required)},
+                {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
               ],
             })(
-              <Input placeholder={'Email'}/>
+              <Input placeholder={intl.formatMessage(messages.email)}/>
             )}
           </Form.Item>
           <Form.Item>
             {getFieldDecorator('password', {
               rules: [
-                {required: true, message: formMessages.required},
+                {required: true, message: intl.formatMessage(formMessages.required)},
               ],
             })(
-              <Input type='password' placeholder={'Password'}/>
+              <Input type='password' placeholder={intl.formatMessage(messages.password)}/>
             )}
           </Form.Item>
           <Row gutter={16} type='flex' justify='space-between'>
             <Col>
-              New here?
+              {intl.formatMessage(messages.newHere)}
               <Link to={REGISTER1_ROUTE} className={s.registerBtn}>
-                Create Account
+                {intl.formatMessage(messages.createAccount)}
               </Link>
             </Col>
             <Col>
               <Link to={RESET_PASSWORD_ROUTE} className={s.forgotPasswordBtn}>
-                Forgot Password?
+                {intl.formatMessage(messages.forgotPassword)}
               </Link>
             </Col>
           </Row>
         </div>
         <div className={s.actions}>
           <Button type='primary' htmlType='submit' className={s.loginBtn} loading={loading}>
-            Login
+            {intl.formatMessage(messages.submit)}
           </Button>
         </div>
       </Form>
