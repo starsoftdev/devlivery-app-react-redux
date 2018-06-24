@@ -9,6 +9,7 @@ import {clear, getOccasions, getReports} from '../../reducers/reports'
 import {PaginationItem} from '../../components'
 import debounce from 'lodash/debounce'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
+import messages from './messages'
 
 // TODO add Export XLS
 class Reports extends React.Component {
@@ -24,36 +25,37 @@ class Reports extends React.Component {
 
   render() {
     // TODO add loading
+    // TODO change range picker
     const {reports, reportsCount, page, pageSize, loading, getReports, occasions, occasion} = this.props
     const columns = [
       {
-        title: 'Contacts',
+        title: intl.formatMessage(messages.contactsColumn),
         dataIndex: 'contacts',
         key: 'contacts',
       },
       {
-        title: 'Scheduled At',
+        title: intl.formatMessage(messages.scheduledAtColumn),
         dataIndex: 'scheduled_at',
         key: 'scheduled_at',
       },
       {
-        title: 'Item(s)',
+        title: intl.formatMessage(messages.itemsColumn),
         dataIndex: '',
         key: 'card',
         render: ({card, gifts}) => `${card}${gifts ? ` + ${gifts}` : ''}`
       },
       {
-        title: 'Occasion',
+        title: intl.formatMessage(messages.occasionColumn),
         dataIndex: 'occasion',
         key: 'occasion',
       },
       {
-        title: 'Sent',
+        title: intl.formatMessage(messages.sentColumn),
         dataIndex: 'sent',
         key: 'sent',
       },
       {
-        title: 'Total Price',
+        title: intl.formatMessage(messages.totalColumn),
         dataIndex: 'total',
         key: 'total',
       },
@@ -62,10 +64,10 @@ class Reports extends React.Component {
     return (
       <div className={s.container}>
         <div className={s.actions}>
-          <h1 className={s.header}>Schedule</h1>
+          <h1 className={s.header}>{intl.formatMessage(messages.header)}</h1>
           <Button type='primary' ghost>
             <PlusIcon/>
-            Export .XLS
+            {intl.formatMessage(messages.export)}
           </Button>
         </div>
         <div className={s.filters}>
@@ -107,7 +109,7 @@ class Reports extends React.Component {
             className={s.occasion}
             allowClear
             showSearch
-            placeholder={'Occasion'}
+            placeholder={intl.formatMessage(messages.occasion)}
             notFoundContent={loading.occasions ? 'Loading...' : null}
             filterOption={false}
             onSearch={(search) => this.getOccasions({search})}
@@ -127,7 +129,7 @@ class Reports extends React.Component {
           pagination={{
             current: page,
             total: reportsCount,
-            showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+            showTotal: (total, range) => intl.formatMessage(messages.tableItems, {range0: range[0], range1: range[1], total}),
             pageSize,
             showSizeChanger: true,
             itemRender: (current, type, el) => <PaginationItem type={type} el={el}/>
