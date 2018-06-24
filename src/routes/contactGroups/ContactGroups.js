@@ -14,6 +14,7 @@ import {
   removeContactGroup
 } from '../../reducers/contactGroups'
 import {PaginationItem} from '../../components'
+import messages from './messages'
 
 // TODO add pagination
 class ContactGroups extends React.Component {
@@ -34,6 +35,7 @@ class ContactGroups extends React.Component {
       pageSize,
       loading,
       getContactGroups,
+      intl,
     } = this.props
 
     return (
@@ -43,13 +45,13 @@ class ContactGroups extends React.Component {
             <div className={s.newGroupNameWrapper}>
               <Input
                 className={s.newGroupName}
-                placeholder={'Group Name'}
+                placeholder={intl.formatMessage(messages.groupName)}
                 value={newContactGroup}
                 onChange={(e) => changeNewContactGroup(e.target.value)}
               />
               <a className={s.addBtn} onClick={addContactGroup}>
                 <PlusIcon className={s.addIcon}/>
-                Add Group
+                {intl.formatMessage(messages.addGroup)}
               </a>
             </div>
             <Row type='flex' gutter={20}>
@@ -71,7 +73,7 @@ class ContactGroups extends React.Component {
               <Pagination
                 current={page}
                 total={contactGroupsCount}
-                showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
+                showTotal={(total, range) => intl.formatMessage(messages.tableItems, {range0: range[0], range1: range[1], total})}
                 pageSize={pageSize}
                 showSizeChanger
                 onChange={(page, pageSize) => getContactGroups({page, pageSize})}
@@ -82,10 +84,7 @@ class ContactGroups extends React.Component {
           </Col>
           <Col xs={24} sm={8}>
             <p className={s.description}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-              industry's standard dummy text ever since the 1500s, electronic typesetting, remaining essentially
-              unchanged
-              remaining.
+              {intl.formatMessage(messages.description)}
             </p>
           </Col>
         </Row>
