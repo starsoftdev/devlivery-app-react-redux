@@ -1,0 +1,14 @@
+@import '../../styles/variables.css';
+
+.container > *:not(:last-child) {
+  margin-right: var(--margin-md);
+}
+
+.selectedLocale {
+  font-weight: 600;
+  font-style: italic;
+}
+
+.locale {
+  font-style: italic;
+}
