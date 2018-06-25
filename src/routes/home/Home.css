@@ -163,6 +163,10 @@
   }
 }
 
+.cardsForEverythingDescription {
+  white-space: pre-wrap;
+}
+
 .cardsForEverythingSection {
   background-color: var(--white-color);
   min-height: 440px;

@@ -13,6 +13,7 @@ import AboutUsIcon from '../../static/decor_about.svg'
 import {animateScroll} from 'react-scroll'
 import {PURCHASE1_ROUTE} from '../'
 import {Link} from '../../components'
+import messages from './messages'
 
 // imageHeight is needed as wrapper circle should have the same size
 const Card = ({number, image, imageHeight, title, description, svg}) =>
@@ -38,35 +39,36 @@ class Home extends React.Component {
   }
 
   render() {
+    const {intl} = this.props
     return (
       <React.Fragment>
         <section className={s.heroSection}>
-          <h2 className={s.subHeader}>We make it easy and seamless to</h2>
-          <h1 className={s.header}>Keep in Touch with Your Contacts</h1>
+          <h2 className={s.subHeader}>{intl.formatMessage(messages.subHeader)}</h2>
+          <h1 className={s.header}>{intl.formatMessage(messages.header)}</h1>
           <Link to={PURCHASE1_ROUTE}>
-            <Button type='primary'>Get Started</Button>
+            <Button type='primary'>{intl.formatMessage(messages.getStarted)}</Button>
           </Link>
           <a className={s.scroll} onClick={this.scrollToFirstSection}>
-            Scroll
+            {intl.formatMessage(messages.scroll)}
             <DownArrow/>
           </a>
         </section>
         <section ref={ref => this.firstSection = ref} className={s.howItWorksSection}>
-          <h3 className={s.howItWorksHeader}>How It Works</h3>
+          <h3 className={s.howItWorksHeader}>{intl.formatMessage(messages.howItWorks)}</h3>
           <Row gutter={{md: 16, lg: 45}} type='flex' justify='center'>
             <Col xs={24} md={8}>
               <Card
                 number={1}
-                title='Choose it'
-                description={`Select a card from out exclusive online catalog`}
+                title={intl.formatMessage(messages.chooseIt)}
+                description={intl.formatMessage(messages.chooseItDescription)}
                 svg={ChooseItImage}
               />
             </Col>
             <Col xs={24} md={8}>
               <Card
                 number={2}
-                title='Personalize it'
-                description={`Write a personal message, add pictures and even attach a gift`}
+                title={intl.formatMessage(messages.personalizeIt)}
+                description={intl.formatMessage(messages.personalizeItDescription)}
                 image={personalizeItImage}
                 imageHeight={125}
               />
@@ -74,8 +76,8 @@ class Home extends React.Component {
             <Col xs={24} md={8}>
               <Card
                 number={3}
-                title='Send it'
-                description={`We'll print, stuff, stamp and mail everything for you.`}
+                title={intl.formatMessage(messages.sendIt)}
+                description={intl.formatMessage(messages.sendItDescription)}
                 image={sendItImage}
                 imageHeight={138}
               />
@@ -92,17 +94,12 @@ class Home extends React.Component {
               />
             </div>
             <div className={s.cardsForEverythingContent}>
-              <h3 className={s.cardsForEverythingHeader}>Cards for Everything</h3>
-              <p>
-                Access our ever-growing card catalog with ease on your desktop. Gifts connect people, make memories and
-                transform relationship. That's why we create gifts of purpose for the moments that matter delivered with
-                simplicity & ease.
-                <br/>
-                <br/>
-                Send meaningful cards effortlessly for any occasion.
+              <h3 className={s.cardsForEverythingHeader}>{intl.formatMessage(messages.cardsForEverything)}</h3>
+              <p className={s.cardsForEverythingDescription}>
+                {intl.formatMessage(messages.cardsForEverythingDescription)}
                 <a className={s.sectionBtn}>
                   <PlusCircleIcon className={s.sectionBtnIcon}/>
-                  <span className={s.sectionBtnLabel}>All our cards</span>
+                  <span className={s.sectionBtnLabel}>{intl.formatMessage(messages.allOurCards)}</span>
                 </a>
               </p>
             </div>
@@ -111,14 +108,12 @@ class Home extends React.Component {
         <section className={s.giftingSection}>
           <div className={s.giftingBackground}>
             <div className={s.giftingContent}>
-              <h3 className={s.giftingHeader}>Organizational Gifting</h3>
+              <h3 className={s.giftingHeader}>{intl.formatMessage(messages.gifting)}</h3>
               <p>
-                Whether you know exactly what you want or need some brilliant ideas; whether you need one gift or thirty
-                - we'll take care of it - every last detail. Express your gratitude to customers, staff and everyone in
-                between who keep your company thriving.
+                {intl.formatMessage(messages.giftingDescription)}
                 <a className={s.sectionBtn}>
                   <PlusCircleIcon className={s.sectionBtnIcon}/>
-                  <span className={s.sectionBtnLabel}>Check it out</span>
+                  <span className={s.sectionBtnLabel}>{intl.formatMessage(messages.checkItOut)}</span>
                 </a>
               </p>
             </div>
@@ -172,21 +167,19 @@ class Home extends React.Component {
         <section className={s.aboutUsSection}>
           <div className={s.aboutUsContent}>
             <AboutUsIcon className={s.aboutUsIcon}/>
-            <h3 className={s.aboutUsHeader}>About Us</h3>
+            <h3 className={s.aboutUsHeader}>{intl.formatMessage(messages.about)}</h3>
             <p>
-              It is a long established fact that a reader will be distracted by the readable content of a page when
-              looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution
-              of letters, as opposed to using 'Content here, content here', making it look like readable English.
+              {intl.formatMessage(messages.aboutDescription)}
             </p>
           </div>
         </section>
         <section className={s.signUpSection}>
           <h3 className={s.signUpHeader}>
-            Sign up to get first access, curated notes about new styles, sales and events.
+            {intl.formatMessage(messages.signUp)}
           </h3>
           <div className={s.signUpInputWrapper}>
-            <Input type='text' placeholder='Enter your email address' className={s.signUpInput}/>
-            <Button type='primary' className={s.signUpBtn}>Submit</Button>
+            <Input type='text' placeholder={intl.formatMessage(messages.email)} className={s.signUpInput}/>
+            <Button type='primary' className={s.signUpBtn}>{intl.formatMessage(messages.submit)}</Button>
           </div>
         </section>
       </React.Fragment>
