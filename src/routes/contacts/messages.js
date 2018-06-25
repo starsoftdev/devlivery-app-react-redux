@@ -25,4 +25,16 @@ export default defineMessages({
     id: 'contacts.tableItems',
     defaultMessage: '{range0}-{range1} of {total} items',
   },
+  nameColumn: {
+    id: 'contacts.nameColumn',
+    defaultMessage: 'Name',
+  },
+  emailColumn: {
+    id: 'contacts.emailColumn',
+    defaultMessage: 'Email',
+  },
+  actionsColumn: {
+    id: 'contacts.actionsColumn',
+    defaultMessage: 'Actions',
+  },
 })
