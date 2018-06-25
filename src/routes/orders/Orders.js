@@ -10,6 +10,7 @@ import debounce from 'lodash/debounce'
 import moment from 'moment'
 import cn from 'classnames'
 import messages from './messages'
+import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
 
 const EVENT_DATE_FORMAT = 'YYYY-MM-DD'
 
@@ -34,7 +35,7 @@ class Orders extends React.Component {
       search: undefined,
     }
 
-    this.getOrders = debounce(this.props.getOrders, 800)
+    this.getOrders = debounce(this.props.getOrders, DEFAULT_DEBOUNCE_TIME)
   }
 
   componentWillUnmount() {
