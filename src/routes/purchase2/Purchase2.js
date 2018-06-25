@@ -8,15 +8,16 @@ import {Actions, Card, SectionHeader} from '../../components'
 import HandwrittenIcon from '../../static/handwritten.svg'
 import PrintedIcon from '../../static/printed.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
+import messages from './messages'
 
 class Purchase2 extends React.Component {
   render() {
-    const {letteringTechnique, setLetteringTechnique, submitLetteringTechnique} = this.props
+    const {letteringTechnique, setLetteringTechnique, submitLetteringTechnique, intl} = this.props
     return (
       <React.Fragment>
         <div className={s.content}>
           <SectionHeader
-            header={'Lettering Technique'}
+            header={intl.formatMessage(messages.header)}
             number={2}
             prefixClassName={s.headerPrefix}
           />
@@ -24,30 +25,27 @@ class Purchase2 extends React.Component {
             <Col className={s.itemWrapper}>
               <Card
                 className={s.item}
-                title={'Handwritten'}
+                title={intl.formatMessage(messages.handwritten)}
                 onClick={() => setLetteringTechnique(HANDWRITTEN)}
                 active={letteringTechnique === HANDWRITTEN}
                 keyValue='a'
                 svg={HandwrittenIcon}
               />
               <p className={s.description}>
-                * Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an took a type specimen book. It has survived
-                not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                {intl.formatMessage(messages.handwrittenDescription)}
               </p>
             </Col>
             <Col className={s.itemWrapper}>
               <Card
                 className={s.item}
-                title={'Printed'}
+                title={intl.formatMessage(messages.printed)}
                 onClick={() => setLetteringTechnique(PRINTED)}
                 active={letteringTechnique === PRINTED}
                 keyValue='b'
                 svg={PrintedIcon}
               />
               <p className={s.description}>
-                * Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only
-                five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                {intl.formatMessage(messages.printedDescription)}
               </p>
             </Col>
           </Row>
@@ -63,7 +61,7 @@ class Purchase2 extends React.Component {
             type='primary'
             disabled={!letteringTechnique}
           >
-            Submit
+            {intl.formatMessage(messages.submit)}
           </Button>
         </Actions>
       </React.Fragment>

@@ -390,5 +390,1413 @@
     "files": [
       "src/routes/setPassword/messages.js"
     ]
+  },
+  {
+    "id": "addContacts.addGroup",
+    "defaultMessage": "Add new group",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.addReminder",
+    "defaultMessage": "Add new reminder",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.address",
+    "defaultMessage": "Address",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.birthday",
+    "defaultMessage": "Birthday",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.breadcrumb",
+    "defaultMessage": "New Contact",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.city",
+    "defaultMessage": "City",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.companyAddress",
+    "defaultMessage": "Company Address",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.country",
+    "defaultMessage": "Country",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.firstName",
+    "defaultMessage": "First Name",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.groups",
+    "defaultMessage": "Groups",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.header",
+    "defaultMessage": "Add Contact",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.homeAddress",
+    "defaultMessage": "Home Address",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.lastName",
+    "defaultMessage": "Last Name",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.nickname",
+    "defaultMessage": "Nickname",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.occasion",
+    "defaultMessage": "Occasion",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.postalCode",
+    "defaultMessage": "Postal Code",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.relationship",
+    "defaultMessage": "Relationship",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.reminders",
+    "defaultMessage": "Reminders",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.salutation",
+    "defaultMessage": "Salutation",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.selectGroup",
+    "defaultMessage": "Select relevant group",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.state",
+    "defaultMessage": "State",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.submit",
+    "defaultMessage": "Save Contact",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "addContacts.title",
+    "defaultMessage": "New Contact",
+    "message": "",
+    "files": [
+      "src/routes/addContacts/messages.js"
+    ]
+  },
+  {
+    "id": "bundles.addBundle",
+    "defaultMessage": "Create Bundle",
+    "message": "",
+    "files": [
+      "src/routes/bundles/messages.js"
+    ]
+  },
+  {
+    "id": "bundles.breadcrumb",
+    "defaultMessage": "Bundles",
+    "message": "",
+    "files": [
+      "src/routes/bundles/messages.js"
+    ]
+  },
+  {
+    "id": "bundles.header",
+    "defaultMessage": "Created Bundles",
+    "message": "",
+    "files": [
+      "src/routes/bundles/messages.js"
+    ]
+  },
+  {
+    "id": "bundles.makeOrder",
+    "defaultMessage": "Make an Order",
+    "message": "",
+    "files": [
+      "src/routes/bundles/messages.js"
+    ]
+  },
+  {
+    "id": "bundles.search",
+    "defaultMessage": "Search",
+    "message": "",
+    "files": [
+      "src/routes/bundles/messages.js"
+    ]
+  },
+  {
+    "id": "bundles.tableItems",
+    "defaultMessage": "{range0}-{range1} of {total} items",
+    "message": "",
+    "files": [
+      "src/routes/bundles/messages.js"
+    ]
+  },
+  {
+    "id": "bundles.title",
+    "defaultMessage": "Bundles",
+    "message": "",
+    "files": [
+      "src/routes/bundles/messages.js"
+    ]
+  },
+  {
+    "id": "contactGroups.addGroup",
+    "defaultMessage": "Add Group",
+    "message": "",
+    "files": [
+      "src/routes/contactGroups/messages.js"
+    ]
+  },
+  {
+    "id": "contactGroups.breadcrumb",
+    "defaultMessage": "Contact Groups",
+    "message": "",
+    "files": [
+      "src/routes/contactGroups/messages.js"
+    ]
+  },
+  {
+    "id": "contactGroups.description",
+    "defaultMessage": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, electronic typesetting, remaining essentially unchanged remaining.",
+    "message": "",
+    "files": [
+      "src/routes/contactGroups/messages.js"
+    ]
+  },
+  {
+    "id": "contactGroups.groupName",
+    "defaultMessage": "Group Name",
+    "message": "",
+    "files": [
+      "src/routes/contactGroups/messages.js"
+    ]
+  },
+  {
+    "id": "contactGroups.tableItems",
+    "defaultMessage": "{range0}-{range1} of {total} items",
+    "message": "",
+    "files": [
+      "src/routes/contactGroups/messages.js"
+    ]
+  },
+  {
+    "id": "contactGroups.title",
+    "defaultMessage": "Contact Groups",
+    "message": "",
+    "files": [
+      "src/routes/contactGroups/messages.js"
+    ]
+  },
+  {
+    "id": "contacts.breadcrumb",
+    "defaultMessage": "Find Contacts",
+    "message": "",
+    "files": [
+      "src/routes/contacts/messages.js"
+    ]
+  },
+  {
+    "id": "contacts.header",
+    "defaultMessage": "Find Contacts",
+    "message": "",
+    "files": [
+      "src/routes/contacts/messages.js"
+    ]
+  },
+  {
+    "id": "contacts.search",
+    "defaultMessage": "Search",
+    "message": "",
+    "files": [
+      "src/routes/contacts/messages.js"
+    ]
+  },
+  {
+    "id": "contacts.sortBy",
+    "defaultMessage": "Sort by",
+    "message": "",
+    "files": [
+      "src/routes/contacts/messages.js"
+    ]
+  },
+  {
+    "id": "contacts.tableItems",
+    "defaultMessage": "{range0}-{range1} of {total} items",
+    "message": "",
+    "files": [
+      "src/routes/contacts/messages.js"
+    ]
+  },
+  {
+    "id": "contacts.title",
+    "defaultMessage": "Find Contacts",
+    "message": "",
+    "files": [
+      "src/routes/contacts/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.addContacts",
+    "defaultMessage": "New Contact",
+    "message": "",
+    "files": [
+      "src/routes/dashboard/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.bundles",
+    "defaultMessage": "Bundles",
+    "message": "",
+    "files": [
+      "src/routes/dashboard/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.contactGroups",
+    "defaultMessage": "Groups",
+    "message": "",
+    "files": [
+      "src/routes/dashboard/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.contacts",
+    "defaultMessage": "Contacts",
+    "message": "",
+    "files": [
+      "src/routes/dashboard/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.dashboard",
+    "defaultMessage": "Dashboard",
+    "message": "",
+    "files": [
+      "src/routes/dashboard/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.findContacts",
+    "defaultMessage": "Find Contacts",
+    "message": "",
+    "files": [
+      "src/routes/dashboard/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.getStarted",
+    "defaultMessage": "Get Started",
+    "message": "",
+    "files": [
+      "src/routes/dashboard/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.home",
+    "defaultMessage": "Home",
+    "message": "",
+    "files": [
+      "src/routes/dashboard/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.importContacts",
+    "defaultMessage": "Import Contacts",
+    "message": "",
+    "files": [
+      "src/routes/dashboard/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.manageTeam",
+    "defaultMessage": "Manage Team",
+    "message": "",
+    "files": [
+      "src/routes/dashboard/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.orders",
+    "defaultMessage": "Orders",
+    "message": "",
+    "files": [
+      "src/routes/dashboard/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.reports",
+    "defaultMessage": "Reports",
+    "message": "",
+    "files": [
+      "src/routes/dashboard/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.settings",
+    "defaultMessage": "Settings",
+    "message": "",
+    "files": [
+      "src/routes/dashboard/messages.js"
+    ]
+  },
+  {
+    "id": "manageTeam.accountManagementColumn",
+    "defaultMessage": "Account Management",
+    "message": "",
+    "files": [
+      "src/routes/manageTeam/messages.js"
+    ]
+  },
+  {
+    "id": "manageTeam.actionsColumn",
+    "defaultMessage": "Edit",
+    "message": "",
+    "files": [
+      "src/routes/manageTeam/messages.js"
+    ]
+  },
+  {
+    "id": "manageTeam.breadcrumb",
+    "defaultMessage": "Manage Team",
+    "message": "",
+    "files": [
+      "src/routes/manageTeam/messages.js"
+    ]
+  },
+  {
+    "id": "manageTeam.cardManagementColumn",
+    "defaultMessage": "Card Management",
+    "message": "",
+    "files": [
+      "src/routes/manageTeam/messages.js"
+    ]
+  },
+  {
+    "id": "manageTeam.groupColumn",
+    "defaultMessage": "Group",
+    "message": "",
+    "files": [
+      "src/routes/manageTeam/messages.js"
+    ]
+  },
+  {
+    "id": "manageTeam.header",
+    "defaultMessage": "Manage Team",
+    "message": "",
+    "files": [
+      "src/routes/manageTeam/messages.js"
+    ]
+  },
+  {
+    "id": "manageTeam.invoiceColumn",
+    "defaultMessage": "Invoice",
+    "message": "",
+    "files": [
+      "src/routes/manageTeam/messages.js"
+    ]
+  },
+  {
+    "id": "manageTeam.nameColumn",
+    "defaultMessage": "Team Member",
+    "message": "",
+    "files": [
+      "src/routes/manageTeam/messages.js"
+    ]
+  },
+  {
+    "id": "manageTeam.tableItems",
+    "defaultMessage": "{range0}-{range1} of {total} items",
+    "message": "",
+    "files": [
+      "src/routes/manageTeam/messages.js"
+    ]
+  },
+  {
+    "id": "manageTeam.title",
+    "defaultMessage": "Manage Team",
+    "message": "",
+    "files": [
+      "src/routes/manageTeam/messages.js"
+    ]
+  },
+  {
+    "id": "orders.breadcrumb",
+    "defaultMessage": "Orders",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "orders.calendar",
+    "defaultMessage": "Calendar",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "orders.dateColumn",
+    "defaultMessage": "Order Date",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "orders.header",
+    "defaultMessage": "Orders History",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "orders.itemsColumn",
+    "defaultMessage": "Item(s)",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "orders.orderColumn",
+    "defaultMessage": "Order Number",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "orders.search",
+    "defaultMessage": "Search",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "orders.statusColumn",
+    "defaultMessage": "Status",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "orders.tableItems",
+    "defaultMessage": "{range0}-{range1} of {total} items",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "orders.title",
+    "defaultMessage": "Orders",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "orders.totalColumn",
+    "defaultMessage": "Total Price",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "reports.breadcrumb",
+    "defaultMessage": "Reports",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.contactsColumn",
+    "defaultMessage": "Contacts",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.export",
+    "defaultMessage": "Export .XLS",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.header",
+    "defaultMessage": "Schedule",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.itemsColumn",
+    "defaultMessage": "Item(s)",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.occasion",
+    "defaultMessage": "Occasion",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.occasionColumn",
+    "defaultMessage": "Occasion",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.scheduledAtColumn",
+    "defaultMessage": "Scheduled At",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.sentColumn",
+    "defaultMessage": "Sent",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.tableItems",
+    "defaultMessage": "{range0}-{range1} of {total} items",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.title",
+    "defaultMessage": "Reports",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.totalColumn",
+    "defaultMessage": "Total Price",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "footer.faq",
+    "defaultMessage": "FAQ",
+    "message": "",
+    "files": [
+      "src/components/Footer/messages.js"
+    ]
+  },
+  {
+    "id": "footer.privacy",
+    "defaultMessage": "Privacy Policy",
+    "message": "",
+    "files": [
+      "src/components/Footer/messages.js"
+    ]
+  },
+  {
+    "id": "footer.shipping",
+    "defaultMessage": "Shipping & Returns",
+    "message": "",
+    "files": [
+      "src/components/Footer/messages.js"
+    ]
+  },
+  {
+    "id": "footer.terms",
+    "defaultMessage": "Terms of Service",
+    "message": "",
+    "files": [
+      "src/components/Footer/messages.js"
+    ]
+  },
+  {
+    "id": "header.about",
+    "defaultMessage": "About",
+    "message": "",
+    "files": [
+      "src/components/Header/messages.js"
+    ]
+  },
+  {
+    "id": "header.cardStore",
+    "defaultMessage": "Card Store",
+    "message": "",
+    "files": [
+      "src/components/Header/messages.js"
+    ]
+  },
+  {
+    "id": "header.contact",
+    "defaultMessage": "Contact Us",
+    "message": "",
+    "files": [
+      "src/components/Header/messages.js"
+    ]
+  },
+  {
+    "id": "header.giftStore",
+    "defaultMessage": "Gift Store",
+    "message": "",
+    "files": [
+      "src/components/Header/messages.js"
+    ]
+  },
+  {
+    "id": "header.login",
+    "defaultMessage": "Login",
+    "message": "",
+    "files": [
+      "src/components/Header/messages.js"
+    ]
+  },
+  {
+    "id": "header.newArrivals",
+    "defaultMessage": "New Arrivals",
+    "message": "",
+    "files": [
+      "src/components/Header/messages.js"
+    ]
+  },
+  {
+    "id": "header.signOut",
+    "defaultMessage": "Sign Out",
+    "message": "",
+    "files": [
+      "src/components/Header/messages.js"
+    ]
+  },
+  {
+    "id": "header.signUp",
+    "defaultMessage": "Sign Up",
+    "message": "",
+    "files": [
+      "src/components/Header/messages.js"
+    ]
+  },
+  {
+    "id": "form.passwordNotMatch",
+    "defaultMessage": "Password does not match the confirm password.",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
+    ]
+  },
+  {
+    "id": "home.about",
+    "defaultMessage": "About Us",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.aboutDescription",
+    "defaultMessage": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.allOurCards",
+    "defaultMessage": "All our cards",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.cardsForEverything",
+    "defaultMessage": "Cards for Everything",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.cardsForEverythingDescription",
+    "defaultMessage": "Access our ever-growing card catalog with ease on your desktop. Gifts connect people, make memories and transform relationship. That's why we create gifts of purpose for the moments that matter delivered with simplicity & ease. \n\nSend meaningful cards effortlessly for any occasion.",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.checkItOut",
+    "defaultMessage": "Check it outCheck it out",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.chooseIt",
+    "defaultMessage": "Choose it",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.chooseItDescription",
+    "defaultMessage": "Select a card from out exclusive online catalog",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.email",
+    "defaultMessage": "Enter your email address",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.getStarted",
+    "defaultMessage": "Get Started",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.gifting",
+    "defaultMessage": "Organizational Gifting",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.giftingDescription",
+    "defaultMessage": "Whether you know exactly what you want or need some brilliant ideas; whether you need one gift or thirty - we'll take care of it - every last detail. Express your gratitude to customers, staff and everyone in between who keep your company thriving.",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.header",
+    "defaultMessage": "Keep in Touch with Your Contacts",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.howItWorks",
+    "defaultMessage": "How It Works",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.personalizeIt",
+    "defaultMessage": "Personalize it",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.personalizeItDescription",
+    "defaultMessage": "Write a personal message, add pictures and even attach a gift",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.scroll",
+    "defaultMessage": "Scroll",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.sendIt",
+    "defaultMessage": "Send it",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.sendItDescription",
+    "defaultMessage": "We'll print, stuff, stamp and mail everything for you.",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.signUp",
+    "defaultMessage": "Sign up to get first access, curated notes about new styles, sales and events.",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.subHeader",
+    "defaultMessage": "We make it easy and seamless to",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.submit",
+    "defaultMessage": "Submit",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.title",
+    "defaultMessage": "ByZumi",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "purchase1.header",
+    "defaultMessage": "Select Occasion",
+    "message": "",
+    "files": [
+      "src/routes/purchase1/messages.js"
+    ]
+  },
+  {
+    "id": "purchase1.submit",
+    "defaultMessage": "Submit",
+    "message": "",
+    "files": [
+      "src/routes/purchase1/messages.js"
+    ]
+  },
+  {
+    "id": "purchase1.title",
+    "defaultMessage": "Purchase",
+    "message": "",
+    "files": [
+      "src/routes/purchase1/messages.js"
+    ]
+  },
+  {
+    "id": "purchase2.handwritten",
+    "defaultMessage": "Handwritten",
+    "message": "",
+    "files": [
+      "src/routes/purchase2/messages.js"
+    ]
+  },
+  {
+    "id": "purchase2.handwrittenDescription",
+    "defaultMessage": "* Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an took a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+    "message": "",
+    "files": [
+      "src/routes/purchase2/messages.js"
+    ]
+  },
+  {
+    "id": "purchase2.header",
+    "defaultMessage": "Lettering Technique",
+    "message": "",
+    "files": [
+      "src/routes/purchase2/messages.js"
+    ]
+  },
+  {
+    "id": "purchase2.printed",
+    "defaultMessage": "Printed",
+    "message": "",
+    "files": [
+      "src/routes/purchase2/messages.js"
+    ]
+  },
+  {
+    "id": "purchase2.printedDescription",
+    "defaultMessage": "* Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+    "message": "",
+    "files": [
+      "src/routes/purchase2/messages.js"
+    ]
+  },
+  {
+    "id": "purchase2.submit",
+    "defaultMessage": "Submit",
+    "message": "",
+    "files": [
+      "src/routes/purchase2/messages.js"
+    ]
+  },
+  {
+    "id": "purchase2.title",
+    "defaultMessage": "Purchase",
+    "message": "",
+    "files": [
+      "src/routes/purchase2/messages.js"
+    ]
+  },
+  {
+    "id": "purchase3.header",
+    "defaultMessage": "Select Style",
+    "message": "",
+    "files": [
+      "src/routes/purchase3/messages.js"
+    ]
+  },
+  {
+    "id": "purchase3.submit",
+    "defaultMessage": "Submit",
+    "message": "",
+    "files": [
+      "src/routes/purchase3/messages.js"
+    ]
+  },
+  {
+    "id": "purchase3.title",
+    "defaultMessage": "Purchase",
+    "message": "",
+    "files": [
+      "src/routes/purchase3/messages.js"
+    ]
+  },
+  {
+    "id": "purchase4.foldedCard",
+    "defaultMessage": "Folded Card",
+    "message": "",
+    "files": [
+      "src/routes/purchase4/messages.js"
+    ]
+  },
+  {
+    "id": "purchase4.foldedCardWithoutPanel",
+    "defaultMessage": "Folded Card without Panel",
+    "message": "",
+    "files": [
+      "src/routes/purchase4/messages.js"
+    ]
+  },
+  {
+    "id": "purchase4.header",
+    "defaultMessage": "Choose the Format",
+    "message": "",
+    "files": [
+      "src/routes/purchase4/messages.js"
+    ]
+  },
+  {
+    "id": "purchase4.postcard",
+    "defaultMessage": "Postcard",
+    "message": "",
+    "files": [
+      "src/routes/purchase4/messages.js"
+    ]
+  },
+  {
+    "id": "purchase4.submit",
+    "defaultMessage": "Submit",
+    "message": "",
+    "files": [
+      "src/routes/purchase4/messages.js"
+    ]
+  },
+  {
+    "id": "purchase4.title",
+    "defaultMessage": "Purchase",
+    "message": "",
+    "files": [
+      "src/routes/purchase4/messages.js"
+    ]
+  },
+  {
+    "id": "purchase5.header",
+    "defaultMessage": "Choose Card",
+    "message": "",
+    "files": [
+      "src/routes/purchase5/messages.js"
+    ]
+  },
+  {
+    "id": "purchase5.submit",
+    "defaultMessage": "Submit",
+    "message": "",
+    "files": [
+      "src/routes/purchase5/messages.js"
+    ]
+  },
+  {
+    "id": "purchase5.title",
+    "defaultMessage": "Purchase",
+    "message": "",
+    "files": [
+      "src/routes/purchase5/messages.js"
+    ]
+  },
+  {
+    "id": "purchase6.body",
+    "defaultMessage": "Body",
+    "message": "",
+    "files": [
+      "src/routes/purchase6/messages.js"
+    ]
+  },
+  {
+    "id": "purchase6.color",
+    "defaultMessage": "Color",
+    "message": "",
+    "files": [
+      "src/routes/purchase6/messages.js"
+    ]
+  },
+  {
+    "id": "purchase6.fontFamily",
+    "defaultMessage": "Font Family",
+    "message": "",
+    "files": [
+      "src/routes/purchase6/messages.js"
+    ]
+  },
+  {
+    "id": "purchase6.fontWeight",
+    "defaultMessage": "Font Weight",
+    "message": "",
+    "files": [
+      "src/routes/purchase6/messages.js"
+    ]
+  },
+  {
+    "id": "purchase6.header",
+    "defaultMessage": "Personalize Card",
+    "message": "",
+    "files": [
+      "src/routes/purchase6/messages.js"
+    ]
+  },
+  {
+    "id": "purchase6.recipient",
+    "defaultMessage": "Recipient name",
+    "message": "",
+    "files": [
+      "src/routes/purchase6/messages.js"
+    ]
+  },
+  {
+    "id": "purchase6.size",
+    "defaultMessage": "Size",
+    "message": "",
+    "files": [
+      "src/routes/purchase6/messages.js"
+    ]
+  },
+  {
+    "id": "purchase6.submit",
+    "defaultMessage": "Submit",
+    "message": "",
+    "files": [
+      "src/routes/purchase6/messages.js"
+    ]
+  },
+  {
+    "id": "purchase6.title",
+    "defaultMessage": "Purchase",
+    "message": "",
+    "files": [
+      "src/routes/purchase6/messages.js"
+    ]
+  },
+  {
+    "id": "purchase7.continueWithoutGift",
+    "defaultMessage": "Continue without Gift",
+    "message": "",
+    "files": [
+      "src/routes/purchase7/messages.js"
+    ]
+  },
+  {
+    "id": "purchase7.header",
+    "defaultMessage": "Add Gift?",
+    "message": "",
+    "files": [
+      "src/routes/purchase7/messages.js"
+    ]
+  },
+  {
+    "id": "purchase7.submit",
+    "defaultMessage": "Submit",
+    "message": "",
+    "files": [
+      "src/routes/purchase7/messages.js"
+    ]
+  },
+  {
+    "id": "purchase7.title",
+    "defaultMessage": "Purchase",
+    "message": "",
+    "files": [
+      "src/routes/purchase7/messages.js"
+    ]
+  },
+  {
+    "id": "purchase8.continueWithoutGift",
+    "defaultMessage": "Continue without Gift",
+    "message": "",
+    "files": [
+      "src/routes/purchase8/messages.js"
+    ]
+  },
+  {
+    "id": "purchase8.header",
+    "defaultMessage": "Select Gift",
+    "message": "",
+    "files": [
+      "src/routes/purchase8/messages.js"
+    ]
+  },
+  {
+    "id": "purchase8.submit",
+    "defaultMessage": "Submit",
+    "message": "",
+    "files": [
+      "src/routes/purchase8/messages.js"
+    ]
+  },
+  {
+    "id": "purchase8.title",
+    "defaultMessage": "Purchase",
+    "message": "",
+    "files": [
+      "src/routes/purchase8/messages.js"
+    ]
+  },
+  {
+    "id": "purchase9.email",
+    "defaultMessage": "Email",
+    "message": "",
+    "files": [
+      "src/routes/purchase9/messages.js"
+    ]
+  },
+  {
+    "id": "purchase9.firstName",
+    "defaultMessage": "First Name",
+    "message": "",
+    "files": [
+      "src/routes/purchase9/messages.js"
+    ]
+  },
+  {
+    "id": "purchase9.header",
+    "defaultMessage": "Create Account",
+    "message": "",
+    "files": [
+      "src/routes/purchase9/messages.js"
+    ]
+  },
+  {
+    "id": "purchase9.individual",
+    "defaultMessage": "Individual",
+    "message": "",
+    "files": [
+      "src/routes/purchase9/messages.js"
+    ]
+  },
+  {
+    "id": "purchase9.lastName",
+    "defaultMessage": "Last Name",
+    "message": "",
+    "files": [
+      "src/routes/purchase9/messages.js"
+    ]
+  },
+  {
+    "id": "purchase9.password",
+    "defaultMessage": "Password",
+    "message": "",
+    "files": [
+      "src/routes/purchase9/messages.js"
+    ]
+  },
+  {
+    "id": "purchase9.passwordAgain",
+    "defaultMessage": "Password Again",
+    "message": "",
+    "files": [
+      "src/routes/purchase9/messages.js"
+    ]
+  },
+  {
+    "id": "purchase9.phone",
+    "defaultMessage": "Phone",
+    "message": "",
+    "files": [
+      "src/routes/purchase9/messages.js"
+    ]
+  },
+  {
+    "id": "purchase9.role",
+    "defaultMessage": "Role",
+    "message": "",
+    "files": [
+      "src/routes/purchase9/messages.js"
+    ]
+  },
+  {
+    "id": "purchase9.submit",
+    "defaultMessage": "Submit",
+    "message": "",
+    "files": [
+      "src/routes/purchase9/messages.js"
+    ]
+  },
+  {
+    "id": "purchase9.team",
+    "defaultMessage": "Team",
+    "message": "",
+    "files": [
+      "src/routes/purchase9/messages.js"
+    ]
+  },
+  {
+    "id": "purchase9.title",
+    "defaultMessage": "Purchase",
+    "message": "",
+    "files": [
+      "src/routes/purchase9/messages.js"
+    ]
+  },
+  {
+    "id": "purchase9.type",
+    "defaultMessage": "Type",
+    "message": "",
+    "files": [
+      "src/routes/purchase9/messages.js"
+    ]
   }
 ]

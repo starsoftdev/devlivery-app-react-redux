@@ -10,6 +10,7 @@ import {HOME_ROUTE} from '../'
 import Logo from '../../static/logo.svg'
 import cn from 'classnames'
 import Preview from './Preview'
+import messages from './messages'
 
 const TextArea = Input.TextArea
 
@@ -34,7 +35,7 @@ class Purchase6 extends React.Component {
 
   render() {
     const {previewCollapsed} = this.state
-    const {cardDetails} = this.props
+    const {cardDetails, intl} = this.props
     const {getFieldDecorator} = this.props.form
 
     return (
@@ -57,7 +58,7 @@ class Purchase6 extends React.Component {
             </div>
             <div className={s.content}>
               <SectionHeader
-                header={'Personalize Card'}
+                header={intl.formatMessage(messages.header)}
                 number={6}
                 prefixClassName={s.headerPrefix}
               />
@@ -67,7 +68,7 @@ class Purchase6 extends React.Component {
                     {getFieldDecorator('recipient', {
                       initialValue: cardDetails ? cardDetails.recipient : undefined,
                     })(
-                      <Select placeholder={'Recipient name'}>
+                      <Select placeholder={intl.formatMessage(messages.recipient)}>
                         {[].map((item) =>
                           <Select.Option key={item} value={item}>{item}</Select.Option>
                         )}
@@ -80,7 +81,7 @@ class Purchase6 extends React.Component {
                     {getFieldDecorator('font_weight', {
                       initialValue: cardDetails ? cardDetails.font_weight : undefined,
                     })(
-                      <Select placeholder={'Font Weight'}>
+                      <Select placeholder={intl.formatMessage(messages.fontWeight)}>
                         {[].map((item) =>
                           <Select.Option key={item} value={item}>{item}</Select.Option>
                         )}
@@ -93,7 +94,7 @@ class Purchase6 extends React.Component {
                     {getFieldDecorator('color', {
                       initialValue: cardDetails ? cardDetails.color : undefined,
                     })(
-                      <Select placeholder={'Color'}>
+                      <Select placeholder={intl.formatMessage(messages.color)}>
                         {[].map((item) =>
                           <Select.Option key={item} value={item}>{item}</Select.Option>
                         )}
@@ -104,20 +105,14 @@ class Purchase6 extends React.Component {
               </Row>
               <Row gutter={20}>
                 <Col xs={24} sm={12}>
-                  <Form.Item>
-                    {getFieldDecorator('recipient_2', {
-                      initialValue: cardDetails ? cardDetails.recipient_2 : undefined,
-                    })(
-                      <Input placeholder={''}/>
-                    )}
-                  </Form.Item>
+
                 </Col>
                 <Col xs={24} sm={6}>
                   <Form.Item>
                     {getFieldDecorator('font_family', {
                       initialValue: cardDetails ? cardDetails.font_family : undefined,
                     })(
-                      <Select placeholder={'Font Family'}>
+                      <Select placeholder={intl.formatMessage(messages.fontFamily)}>
                         {[].map((item) =>
                           <Select.Option key={item} value={item}>{item}</Select.Option>
                         )}
@@ -130,7 +125,7 @@ class Purchase6 extends React.Component {
                     {getFieldDecorator('size', {
                       initialValue: cardDetails ? cardDetails.size : undefined,
                     })(
-                      <Select placeholder={'Size'}>
+                      <Select placeholder={intl.formatMessage(messages.size)}>
                         {[].map((item) =>
                           <Select.Option key={item} value={item}>{item}</Select.Option>
                         )}
@@ -143,7 +138,7 @@ class Purchase6 extends React.Component {
                 {getFieldDecorator('body', {
                   initialValue: cardDetails ? cardDetails.body : undefined,
                 })(
-                  <TextArea placeholder={'Body'} className={s.body} rows={7}/>
+                  <TextArea placeholder={intl.formatMessage(messages.body)} className={s.body} rows={7}/>
                 )}
               </Form.Item>
             </div>
@@ -160,7 +155,7 @@ class Purchase6 extends React.Component {
             type='primary'
             htmlType='submit'
           >
-            Submit
+            {intl.formatMessage(messages.submit)}
           </Button>
         </Actions>
       </Form>

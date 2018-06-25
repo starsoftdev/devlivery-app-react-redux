@@ -11,22 +11,22 @@ import NonFoodImage from '../../static/non_food.svg'
 import DonationImage from '../../static/donation.svg'
 import VoucherImage from '../../static/voucher.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
-
-const GIFT_TYPES = [
-  {key: 'food', title: 'Food', svg: FoodImage},
-  {key: 'non_food', title: 'Non Food', svg: NonFoodImage},
-  {key: 'donation', title: 'Donation', svg: DonationImage},
-  {key: 'voucher', title: 'Voucher', svg: VoucherImage},
-]
+import messages from './messages'
 
 class Purchase7 extends React.Component {
   render() {
-    const {giftType, setGiftType, submitGiftType, continueWithoutGift} = this.props
+    const {giftType, setGiftType, submitGiftType, continueWithoutGift, intl} = this.props
+    const GIFT_TYPES = [
+      {key: 'food', title: 'Food', svg: FoodImage},
+      {key: 'non_food', title: 'Non Food', svg: NonFoodImage},
+      {key: 'donation', title: 'Donation', svg: DonationImage},
+      {key: 'voucher', title: 'Voucher', svg: VoucherImage},
+    ]
     return (
       <React.Fragment>
         <div className={s.content}>
           <SectionHeader
-            header={'Add Gift?'}
+            header={intl.formatMessage(messages.header)}
             number={7}
             prefixClassName={s.headerPrefix}
           />
@@ -57,14 +57,14 @@ class Purchase7 extends React.Component {
             ghost
             onClick={continueWithoutGift}
           >
-            Continue without Gift
+            {intl.formatMessage(messages.continueWithoutGift)}
           </Button>
           <Button
             type='primary'
             disabled={!giftType}
             onClick={submitGiftType}
           >
-            Submit
+            {intl.formatMessage(messages.submit)}
           </Button>
         </Actions>
       </React.Fragment>

@@ -12,6 +12,7 @@ import {HOME_ROUTE} from '../'
 import Logo from '../../static/logo.svg'
 import cn from 'classnames'
 import Preview from './Preview'
+import messages from './messages'
 
 const CARD_STYLES = [
   {key: 'gift1', title: 'Rich Foodie', price: '95.00', currency: 'CHF', image: Gift1Image},
@@ -31,7 +32,7 @@ class Purchase8 extends React.Component {
 
   render() {
     const {previewCollapsed} = this.state
-    const {gift, setGift, submitGift} = this.props
+    const {gift, setGift, submitGift, intl} = this.props
 
     return (
       <React.Fragment>
@@ -53,7 +54,7 @@ class Purchase8 extends React.Component {
             </div>
             <div className={s.content}>
               <SectionHeader
-                header={'Select Gift'}
+                header={intl.formatMessage(messages.header)}
                 number={8}
                 prefixClassName={s.headerPrefix}
               />
@@ -94,7 +95,7 @@ class Purchase8 extends React.Component {
             disabled={!gift}
             onClick={submitGift}
           >
-            Submit
+            {intl.formatMessage(messages.submit)}
           </Button>
         </Actions>
       </React.Fragment>
