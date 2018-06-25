@@ -11,22 +11,24 @@ import PanelCardImage from '../../static/panel_card.svg'
 import GreetingCardImage from '../../static/greeting_card.svg'
 import PostcardImage from '../../static/postcard.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
-
-const CARD_SIZES = [
-  {key: 'folded_card', title: 'Folded Card', svg: BigCardImage, extra: '4" x 5"'},
-  {key: 'postcard', title: 'Postcard', svg: PostcardImage, extra: '5" x 7"'},
-  {key: 'folder_card_without_panel', title: 'Folded Card without Panel', svg: PanelCardImage, extra: '6" x 6"'},
-  {key: 'folder_card2', title: 'Folded Card', svg: GreetingCardImage, extra: '4" x 9"'},
-]
+import messages from './messages'
 
 class Purchase4 extends React.Component {
   render() {
-    const {cardSize, setCardSize, submitCardSize} = this.props
+    const {cardSize, setCardSize, submitCardSize, intl} = this.props
+
+    const CARD_SIZES = [
+      {key: 'folded_card', title: intl.formatMessage(messages.foldedCard), svg: BigCardImage, extra: '4" x 5"'},
+      {key: 'postcard', title: intl.formatMessage(messages.postcard), svg: PostcardImage, extra: '5" x 7"'},
+      {key: 'folder_card_without_panel', title: intl.formatMessage(messages.foldedCardWithoutPanel), svg: PanelCardImage, extra: '6" x 6"'},
+      {key: 'folder_card2', title: intl.formatMessage(messages.foldedCard), svg: GreetingCardImage, extra: '4" x 9"'},
+    ]
+
     return (
       <React.Fragment>
         <div className={s.content}>
           <SectionHeader
-            header={'Choose the Format'}
+            header= {intl.formatMessage(messages.header)}
             number={4}
             prefixClassName={s.headerPrefix}
           />
@@ -57,7 +59,7 @@ class Purchase4 extends React.Component {
             disabled={!cardSize}
             onClick={submitCardSize}
           >
-            Submit
+            {intl.formatMessage(messages.submit)}
           </Button>
         </Actions>
       </React.Fragment>

@@ -10,6 +10,7 @@ import {HOME_ROUTE} from '../'
 import Logo from '../../static/logo.svg'
 import cn from 'classnames'
 import Preview from './Preview'
+import messages from './messages'
 
 class Purchase5 extends React.Component {
   state = {
@@ -22,7 +23,7 @@ class Purchase5 extends React.Component {
 
   render() {
     const {previewCollapsed} = this.state
-    const {cards, card, setCard, submitCard} = this.props
+    const {cards, card, setCard, submitCard, intl} = this.props
 
     return (
       <React.Fragment>
@@ -44,7 +45,7 @@ class Purchase5 extends React.Component {
             </div>
             <div className={s.content}>
               <SectionHeader
-                header={'Choose Card'}
+                header={intl.formatMessage(messages.header)}
                 number={5}
                 prefixClassName={s.headerPrefix}
               />
@@ -75,7 +76,7 @@ class Purchase5 extends React.Component {
             disabled={!card}
             onClick={submitCard}
           >
-            Submit
+            {intl.formatMessage(messages.submit)}
           </Button>
         </Actions>
       </React.Fragment>

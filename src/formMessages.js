@@ -17,4 +17,8 @@ export default defineMessages({
     id: 'form.maxLength',
     defaultMessage: 'Max length is {length} characters.',
   },
+  passwordNotMatch: {
+    id: 'form.passwordNotMatch',
+    defaultMessage: 'Password does not match the confirm password.',
+  },
 })

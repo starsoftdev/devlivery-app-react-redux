@@ -7,15 +7,16 @@ import s from './Purchase1.css'
 import {Actions, Card, SectionHeader} from '../../components'
 import {ALPHABET} from '../../constants'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
+import messages from './messages'
 
 class Purchase1 extends React.Component {
   render() {
-    const {occasions, occasion, setOccasion, submitOccasion} = this.props
+    const {occasions, occasion, setOccasion, submitOccasion, intl} = this.props
     return (
       <React.Fragment>
         <div className={s.content}>
           <SectionHeader
-            header={'Select Occasion'}
+            header={intl.formatMessage(messages.header)}
             number={1}
             prefixClassName={s.headerPrefix}
           />
@@ -42,11 +43,10 @@ class Purchase1 extends React.Component {
           />
           <Button
             type='primary'
-            className={s.submitBtn}
             disabled={!occasion}
             onClick={submitOccasion}
           >
-            Submit
+            {intl.formatMessage(messages.submit)}
           </Button>
         </Actions>
       </React.Fragment>

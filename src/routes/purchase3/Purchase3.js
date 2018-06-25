@@ -7,27 +7,28 @@ import s from './Purchase3.css'
 import {Actions, Card, SectionHeader} from '../../components'
 import {ALPHABET} from '../../constants'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
+import messages from './messages'
 
 class Purchase3 extends React.Component {
   render() {
-    const {cardStyle, setCardStyle, submitCardStyle, cardStyles} = this.props
+    const {cardStyle, setCardStyle, submitCardStyle, cardStyles, intl} = this.props
     return (
       <React.Fragment>
         <div className={s.content}>
           <SectionHeader
-            header={'Select Style'}
+            header={intl.formatMessage(messages.header)}
             number={3}
             prefixClassName={s.headerPrefix}
           />
           <Row className={s.items} gutter={20} type='flex' align='center'>
             {cardStyles.map((item, i) =>
-              <Col key={item.key} className={s.itemWrapper}>
+              <Col key={item.title} className={s.itemWrapper}>
                 <Card
                   className={s.item}
                   title={item.title}
                   image={item.image.url}
                   onClick={() => setCardStyle(item.title)}
-                  active={item.key === cardStyle}
+                  active={item.title === cardStyle}
                   keyValue={ALPHABET[i]}
                 />
               </Col>
@@ -45,7 +46,7 @@ class Purchase3 extends React.Component {
             disabled={!cardStyle}
             onClick={submitCardStyle}
           >
-            Submit
+            {intl.formatMessage(messages.submit)}
           </Button>
         </Actions>
       </React.Fragment>
