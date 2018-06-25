@@ -11,6 +11,7 @@ import {PaginationItem} from '../../components'
 import {clear, getContacts, removeContact} from '../../reducers/contacts'
 import debounce from 'lodash/debounce'
 import messages from './messages'
+import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
 
 const GRID_VIEW = 'grid'
 const LIST_VIEW = 'list'
@@ -24,7 +25,7 @@ class Contacts extends React.Component {
       search: undefined,
     }
 
-    this.getContacts = debounce(this.props.getContacts, 800)
+    this.getContacts = debounce(this.props.getContacts, DEFAULT_DEBOUNCE_TIME)
   }
 
   componentWillUnmount() {

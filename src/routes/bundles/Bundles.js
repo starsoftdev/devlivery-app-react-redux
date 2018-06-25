@@ -9,6 +9,7 @@ import PlusIcon from '../../static/plus.svg'
 import {PaginationItem} from '../../components'
 import debounce from 'lodash/debounce'
 import messages from './messages'
+import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
 
 // TODO add Create Bundle
 // TODO add Make an Order
@@ -26,7 +27,7 @@ class Bundles extends React.Component {
       search: undefined,
     }
 
-    this.getBundles = debounce(this.props.getBundles, 800)
+    this.getBundles = debounce(this.props.getBundles, DEFAULT_DEBOUNCE_TIME)
   }
 
   componentWillUnmount() {
