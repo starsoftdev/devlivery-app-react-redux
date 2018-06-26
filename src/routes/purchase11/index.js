@@ -1,5 +1,4 @@
 import React from 'react'
-import {AppLayout} from '../../components'
 import Purchase11 from './Purchase11'
 import {setCurrentRouteName} from '../../reducers/global'
 
@@ -9,7 +8,7 @@ function action({store, route}) {
   return {
     chunks: ['purchase'],
     title: 'Purchase',
-    component: <AppLayout><Purchase11/></AppLayout>
+    component: <Purchase11/>
   }
 }
 

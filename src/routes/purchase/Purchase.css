@@ -1,0 +1,116 @@
+@import '../../styles/variables.css';
+
+.container {
+  display: flex;
+  flex: auto;
+}
+
+.actions {
+  position: relative;
+  border-bottom: 2px solid color-mod(var(--dark-color) a(10%));
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  max-width: var(--max-dashboard-width);
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  /*border is 2px*/
+  height: 48px;
+  padding-right: var(--margin-md);
+  padding-left: var(--margin-md);
+}
+
+.getStartedBtn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+}
+
+/*TODO add active/focus menu items*/
+.menu {
+  width: 125px;
+  flex-shrink: 0;
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+  background-color: var(--dark-color);
+
+  > li {
+    background-color: var(--dark-color);
+    padding-left: 0 !important;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #79828F;
+    }
+
+    > a {
+      color: var(--white-color);
+      font-family: var(--font-family-secondary);
+      font-size: var(--font-size-sm);
+      letter-spacing: 2.1px;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0 !important;
+
+      > svg {
+        margin-bottom: var(--margin-xs);
+        /*TODO active #ADA39B*/
+      }
+    }
+  }
+}
+
+.subMenu {
+  :global(.ant-menu-submenu-title) {
+    padding: 20px 0 !important;
+    color: var(--white-color);
+    font-family: var(--font-family-secondary);
+    font-size: var(--font-size-sm);
+    letter-spacing: 2.1px;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+
+    > svg {
+      margin-bottom: var(--margin-xs);
+      /*TODO active #ADA39B*/
+    }
+  }
+
+  :global(.ant-menu-sub) {
+    padding-left: 0;
+
+    > li {
+      padding: 10px 20px !important;
+      text-align: center;
+      line-height: 1;
+
+      > a {
+        color: var(--white-color);
+        font-family: var(--font-family-secondary);
+        font-size: 10px;
+        letter-spacing: 1.75px;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
+/*TODO add ant menu styles*/
+:global(.ant-menu-hidden) {
+  display: none;
+}

@@ -1,5 +1,4 @@
 import React from 'react'
-import {AppLayout} from '../../components'
 import Purchase5 from './Purchase5'
 import {setCurrentRouteName} from '../../reducers/global'
 import {getCards} from '../../reducers/purchase'
@@ -12,7 +11,8 @@ function action({store, route, intl}) {
   return {
     chunks: ['purchase'],
     title: intl.formatMessage(messages.title),
-    component: <AppLayout header={null}><Purchase5 intl={intl}/></AppLayout>
+    header: null,
+    component: <Purchase5 intl={intl}/>
   }
 }
 
