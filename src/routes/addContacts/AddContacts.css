@@ -34,21 +34,6 @@
   padding-left: var(--margin-md);
 }
 
-.header {
-  margin-bottom: 0;
-
-  @media (--md-up) {
-    font-size: 40px;
-  }
-  @media (--md-down) {
-    font-size: 32px;
-  }
-}
-
-.section {
-  margin-bottom: var(--margin-xl);
-}
-
 .rightColumn {
   @media (--lg-up) {
     padding-left: 60px !important;
@@ -61,6 +46,3 @@
   }
 }
 
-.birthday {
-  width: 100%;
-}

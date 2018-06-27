@@ -25,32 +25,6 @@
   }
 }
 
-.addContactsContent {
-  padding-bottom: var(--margin-md);
-  padding-right: var(--margin-md);
-  padding-left: var(--margin-md);
-
-  @media (--md-down) {
-    padding-top: var(--margin-md);
-  }
-  @media (--md-up) {
-    padding-top: var(--margin-xl);
-  }
-
-  @media (--sm-up) {
-    margin-right: auto;
-    margin-left: auto;
-    max-width: 425px;
-    width: 100%;
-  }
-}
-
-.addContactsHeaderPrefix {
-  @media (--sm-up) {
-    margin-left: -80px;
-  }
-}
-
 .importContactsContent {
   padding-bottom: var(--margin-md);
   padding-right: var(--margin-md);
