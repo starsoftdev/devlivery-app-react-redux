@@ -9,7 +9,7 @@ async function action({next, intl}) {
     chunks: ['purchase'],
     title: child.title,
     component: (
-      <AppLayout>
+      <AppLayout header={child.header}>
         <Purchase intl={intl}>{child.component}</Purchase>
       </AppLayout>
     ),
