@@ -2,7 +2,6 @@ import React from 'react'
 import {Button, Form, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Groups.css'
-import formMessages from '../../formMessages'
 import PlusIcon from '../../static/plus.svg'
 import {connect} from 'react-redux'
 import {getGroups} from '../../reducers/contacts'
@@ -50,9 +49,6 @@ class Groups extends React.Component {
           <div key={k} className={s.item}>
             <Form.Item>
               {getFieldDecorator(`groups[${k}].title`, {
-                rules: [
-                  {required: true, message: formMessages.required},
-                ],
               })(
                 <Select
                   showSearch
