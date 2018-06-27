@@ -61,7 +61,7 @@ class Purchase extends React.Component {
                     [s.pending]: i > current,
                   })}>
                     <div className={s.tail}/>
-                    <Tooltip title={flowNames[item]}>
+                    <Tooltip title={flowNames[item]} visible={i === current}>
                       {i < current ? (
                         <Link to={item} className={s.step}/>
                       ) : (
