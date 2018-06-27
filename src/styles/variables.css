@@ -72,6 +72,7 @@
   --white-color: #fff;
   --black-color: #000;
   --dark-color: #404D5F;
+  --darker-color: #2D3643;
   --heading-color: var(--dark-color);
   --text-color: rgba(64,77,95,0.7);
   --text-color-secondary: rgba(64,77,95,0.5);

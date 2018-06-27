@@ -1,56 +1,56 @@
 import {defineMessages} from 'react-intl'
 
 export default defineMessages({
-  home: {
-    id: 'purchase.home',
-    defaultMessage: 'Home',
+  purchase1: {
+    id: 'purchase.purchase1',
+    defaultMessage: 'Select Occasion',
   },
-  purchase: {
-    id: 'purchase.purchase',
-    defaultMessage: 'Dashboard',
+  purchase2: {
+    id: 'purchase.purchase2',
+    defaultMessage: 'Lettering Technique',
   },
-  orders: {
-    id: 'purchase.orders',
-    defaultMessage: 'Orders',
+  purchase3: {
+    id: 'purchase.purchase3',
+    defaultMessage: 'Select Style',
   },
-  bundles: {
-    id: 'purchase.bundles',
-    defaultMessage: 'Bundles',
+  purchase4: {
+    id: 'purchase.purchase4',
+    defaultMessage: 'Choose the Format',
   },
-  contacts: {
-    id: 'purchase.contacts',
-    defaultMessage: 'Contacts',
+  purchase5: {
+    id: 'purchase.purchase5',
+    defaultMessage: 'Choose Card',
   },
-  findContacts: {
-    id: 'purchase.findContacts',
-    defaultMessage: 'Find Contacts',
+  purchase6: {
+    id: 'purchase.purchase6',
+    defaultMessage: 'Personalize Card',
   },
-  importContacts: {
-    id: 'purchase.importContacts',
-    defaultMessage: 'Import Contacts',
+  purchase7: {
+    id: 'purchase.purchase7',
+    defaultMessage: 'Add Gift?',
   },
-  addContacts: {
-    id: 'purchase.addContacts',
-    defaultMessage: 'New Contact',
+  purchase8: {
+    id: 'purchase.purchase8',
+    defaultMessage: 'Select Gift',
   },
-  contactGroups: {
-    id: 'purchase.contactGroups',
-    defaultMessage: 'Groups',
+  purchase9: {
+    id: 'purchase.purchase9',
+    defaultMessage: 'Create Account',
   },
-  reports: {
-    id: 'purchase.reports',
-    defaultMessage: 'Reports',
+  purchase10: {
+    id: 'purchase.purchase10',
+    defaultMessage: 'Add your Contact(s)',
   },
-  manageTeam: {
-    id: 'purchase.manageTeam',
-    defaultMessage: 'Manage Team',
+  purchase11: {
+    id: 'purchase.purchase11',
+    defaultMessage: 'Order Confirmation',
   },
-  settings: {
-    id: 'purchase.settings',
-    defaultMessage: 'Settings',
+  purchase12: {
+    id: 'purchase.purchase12',
+    defaultMessage: 'Select Payment Method',
   },
-  getStarted: {
-    id: 'purchase.getStarted',
-    defaultMessage: 'Get Started',
+  purchase13: {
+    id: 'purchase.purchase13',
+    defaultMessage: 'Credit Card Information',
   },
 })

@@ -6,7 +6,7 @@ async function action({next, intl}) {
   const child = await next()
 
   return {
-    chunks: ['dashboard'],
+    chunks: ['purchase'],
     title: child.title,
     component: (
       <AppLayout>
