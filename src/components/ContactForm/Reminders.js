@@ -2,7 +2,6 @@ import React from 'react'
 import {Button, DatePicker, Form, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Reminders.css'
-import formMessages from '../../formMessages'
 import PlusIcon from '../../static/plus.svg'
 import {DATE_FORMAT, DEFAULT_DEBOUNCE_TIME} from '../../constants'
 import {connect} from 'react-redux'
@@ -50,9 +49,6 @@ class Reminders extends React.Component {
           <div key={k} className={s.item}>
             <Form.Item>
               {getFieldDecorator(`reminders[${k}].occasion_id`, {
-                rules: [
-                  {required: true, message: formMessages.required},
-                ],
               })(
                 <Select
                   showSearch
@@ -70,9 +66,6 @@ class Reminders extends React.Component {
             </Form.Item>
             <Form.Item>
               {getFieldDecorator(`reminders[${k}].date`, {
-                rules: [
-                  {required: true, message: formMessages.required},
-                ],
               })(
                 <DatePicker className={s.date} format={DATE_FORMAT}/>
               )}
