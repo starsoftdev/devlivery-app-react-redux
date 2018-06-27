@@ -42,7 +42,8 @@
 
 .headerPrefix {
   @media (min-width: 1501px) {
-    margin-left: -60px;
+    position: absolute;
+    right: 100%;
   }
 }
 
