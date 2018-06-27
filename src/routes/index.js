@@ -52,6 +52,37 @@ export const PURCHASE12_ROUTE = 'purchase12'
 export const PURCHASE13_ROUTE = 'purchase13'
 export const PURCHASE_COMPLETED_ROUTE = 'purchase-completed'
 
+export const PURCHASE_ROUTES = [
+  PURCHASE1_ROUTE,
+  PURCHASE2_ROUTE,
+  PURCHASE3_ROUTE,
+  PURCHASE4_ROUTE,
+  PURCHASE5_ROUTE,
+  PURCHASE6_ROUTE,
+  PURCHASE7_ROUTE,
+  PURCHASE8_ROUTE,
+  PURCHASE9_ROUTE,
+  PURCHASE10_ROUTE,
+  PURCHASE11_ROUTE,
+  PURCHASE12_ROUTE,
+  PURCHASE13_ROUTE,
+]
+
+export const AUTH_PURCHASE_ROUTES = [
+  PURCHASE1_ROUTE,
+  PURCHASE2_ROUTE,
+  PURCHASE3_ROUTE,
+  PURCHASE4_ROUTE,
+  PURCHASE5_ROUTE,
+  PURCHASE6_ROUTE,
+  PURCHASE7_ROUTE,
+  PURCHASE8_ROUTE,
+  PURCHASE10_ROUTE,
+  PURCHASE11_ROUTE,
+  PURCHASE12_ROUTE,
+  PURCHASE13_ROUTE,
+]
+
 const authRoutes = {
   path: '',
   children: [
@@ -172,7 +203,6 @@ const routes = {
       name: SET_PASSWORD_ROUTE,
       load: () => import(/* webpackChunkName: 'setPassword' */ './setPassword'),
     },
-    // Guest Purchase Flow
     {
       path: '/purchase',
       load: () => import(/* webpackChunkName: 'purchase' */ './purchase'),

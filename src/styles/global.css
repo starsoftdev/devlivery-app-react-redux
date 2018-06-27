@@ -10,6 +10,7 @@
 @import './spin.css';
 @import './breadcrumbs.css';
 @import './date-picker.css';
+@import './tooltip.css';
 
 :global {
   .ant-form {

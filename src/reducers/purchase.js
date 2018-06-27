@@ -1,6 +1,7 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {loginSuccess} from './login'
 import {message} from 'antd'
+import {PURCHASE_ROUTES} from '../routes'
 
 // ------------------------------------
 // Constants
@@ -10,6 +11,8 @@ export const PRINTED = 'printed'
 
 export const ADD_CONTACTS_MANUALLY = 'add-contacts-manually'
 export const IMPORT_CONTACTS = 'import-contacts'
+
+export const SET_FLOW = 'Purchase.SET_FLOW'
 
 export const SET_OCCASION = 'Purchase.SET_OCCASION'
 
@@ -33,26 +36,10 @@ export const GET_CARDS_FAILURE = 'Purchase.GET_CARDS_FAILURE'
 
 export const SET_CARD = 'Purchase.SET_CARD'
 
-export const SUBMIT_CARD_REQUEST = 'Purchase.SUBMIT_CARD_REQUEST'
-export const SUBMIT_CARD_SUCCESS = 'Purchase.SUBMIT_CARD_SUCCESS'
-export const SUBMIT_CARD_FAILURE = 'Purchase.SUBMIT_CARD_FAILURE'
-
-export const SUBMIT_CARD_DETAILS_REQUEST = 'Purchase.SUBMIT_CARD_DETAILS_REQUEST'
-export const SUBMIT_CARD_DETAILS_SUCCESS = 'Purchase.SUBMIT_CARD_DETAILS_SUCCESS'
-export const SUBMIT_CARD_DETAILS_FAILURE = 'Purchase.SUBMIT_CARD_DETAILS_FAILURE'
-
 export const SET_GIFT_TYPE = 'Purchase.SET_GIFT_TYPE'
 export const CONTINUE_WITHOUT_GIFT = 'Purchase.CONTINUE_WITHOUT_GIFT'
 
-export const SUBMIT_GIFT_TYPE_REQUEST = 'Purchase.SUBMIT_GIFT_TYPE_REQUEST'
-export const SUBMIT_GIFT_TYPE_SUCCESS = 'Purchase.SUBMIT_GIFT_TYPE_SUCCESS'
-export const SUBMIT_GIFT_TYPE_FAILURE = 'Purchase.SUBMIT_GIFT_TYPE_FAILURE'
-
 export const SET_GIFT = 'Purchase.SET_GIFT'
-
-export const SUBMIT_GIFT_REQUEST = 'Purchase.SUBMIT_GIFT_REQUEST'
-export const SUBMIT_GIFT_SUCCESS = 'Purchase.SUBMIT_GIFT_SUCCESS'
-export const SUBMIT_GIFT_FAILURE = 'Purchase.SUBMIT_GIFT_FAILURE'
 
 export const SET_ADDING_CONTACTS_MODE = 'Purchase.SET_ADDING_CONTACTS_MODE'
 
@@ -70,6 +57,8 @@ export const CLEAR = 'Purchase.CLEAR'
 // ------------------------------------
 // Actions
 // ------------------------------------
+export const setFlow = (flow) => ({type: SET_FLOW, flow})
+
 export const setOccasion = (occasion) => ({type: SET_OCCASION, occasion})
 
 export const getOccasions = () => (dispatch, getState, {fetch}) => {
@@ -135,6 +124,7 @@ export const submitCardSize = () => (dispatch, getState, {history}) => {
 
 export const submitCardDetails = () => (dispatch, getState, {history}) => {
   history.push('/purchase/gift-type')
+  // TODO save card details
 }
 
 export const setGiftType = (giftType) => ({type: SET_GIFT_TYPE, giftType})
@@ -224,9 +214,13 @@ const initialState = {
   paymentMethod: null,
   cardStyles: [],
   cards: [],
+  flow: PURCHASE_ROUTES,
 }
 
 export default createReducer(initialState, {
+  [SET_FLOW]: (state, {flow}) => ({
+    flow,
+  }),
   [SET_OCCASION]: (state, {occasion}) => ({
     occasion,
   }),
@@ -266,9 +260,6 @@ export default createReducer(initialState, {
   }),
   [SET_CARD]: (state, {card}) => ({
     card,
-  }),
-  [SUBMIT_CARD_DETAILS_REQUEST]: (state, {cardDetails}) => ({
-    cardDetails,
   }),
   [SET_GIFT_TYPE]: (state, {giftType}) => ({
     giftType,

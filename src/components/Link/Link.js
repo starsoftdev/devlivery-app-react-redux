@@ -17,7 +17,7 @@ class Link extends React.Component {
       PropTypes.string.isRequired,
       PropTypes.object.isRequired,
     ]),
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     onClick: PropTypes.func,
   }
 
@@ -43,14 +43,14 @@ class Link extends React.Component {
   }
 
   render() {
-    const {to, children, ...props} = this.props
+    const {to, ...props} = this.props
     let url
     if (typeof to === 'string') {
       url = generateUrl(to)
     } else {
       url = generateUrl(to.name, to.params)
     }
-    return <a href={url} {...props} onClick={(e) => this.handleClick(e, url)}>{children}</a>
+    return <a href={url} {...props} onClick={(e) => this.handleClick(e, url)}/>
   }
 }
 
