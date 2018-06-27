@@ -20,7 +20,9 @@
   --input-padding-horizontal-base: 0;
   --input-padding-vertical-base : 4px;
 
+  /* z-index list */
   --zindex-dropdown: 1050;
+  --zindex-tooltip: 1060;
 
   --carousel-dot-width: 16px;
   --carousel-dot-height: 3px;
@@ -33,6 +35,14 @@
   --pagination-item-size-sm: 24px;
   --pagination-font-family: Arial;
   --pagination-font-weight-active: 500;
+
+  /* Tooltip */
+  --tooltip-max-width: 250px;
+  --tooltip-color: var(--link-color);
+  --tooltip-bg: var(--darker-color);
+  --tooltip-arrow-width: 3px;
+  --tooltip-distance: 5px;
+  --tooltip-arrow-color: var(--tooltip-bg);
 
   /*
    * Layout
