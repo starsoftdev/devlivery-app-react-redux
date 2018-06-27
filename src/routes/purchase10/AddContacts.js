@@ -4,6 +4,7 @@ import {Button, Form} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './AddContacts.css'
 import {ContactForm, Actions, SectionHeader} from '../../components'
+import {nextFlowStep} from '../../reducers/purchase'
 import {addContact} from '../../reducers/contacts'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 
@@ -13,7 +14,8 @@ class AddContacts extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.addContact(values)
+        this.props.addContact(values, this.props.form)
+        // TODO
         this.props.nextFlowStep()
       }
     })
@@ -71,6 +73,7 @@ const mapState = state => ({
 
 const mapDispatch = {
   addContact,
+  nextFlowStep,
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(AddContacts)))
