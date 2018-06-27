@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {continueWithoutGift, setGiftType, submitGiftType} from '../../reducers/purchase'
+import {nextFlowStep, setGiftType} from '../../reducers/purchase'
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase7.css'
@@ -15,7 +15,7 @@ import messages from './messages'
 
 class Purchase7 extends React.Component {
   render() {
-    const {giftType, setGiftType, submitGiftType, continueWithoutGift, intl, flowIndex} = this.props
+    const {giftType, setGiftType, nextFlowStep, intl, flowIndex} = this.props
     const GIFT_TYPES = [
       {key: 'food', title: 'Food', svg: FoodImage},
       {key: 'non_food', title: 'Non Food', svg: NonFoodImage},
@@ -27,7 +27,7 @@ class Purchase7 extends React.Component {
         <div className={s.content}>
           <SectionHeader
             header={intl.formatMessage(messages.header)}
-            number={flowIndex}
+            number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
           <Row className={s.items} gutter={20} type='flex' align='center'>
@@ -50,19 +50,22 @@ class Purchase7 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={submitGiftType}
+            onKeyHandle={giftType && nextFlowStep}
           />
           <Button
             type='primary'
             ghost
-            onClick={continueWithoutGift}
+            onClick={() => {
+              setGiftType(null)
+              nextFlowStep()
+            }}
           >
             {intl.formatMessage(messages.continueWithoutGift)}
           </Button>
           <Button
             type='primary'
             disabled={!giftType}
-            onClick={submitGiftType}
+            onClick={nextFlowStep}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
@@ -75,12 +78,12 @@ class Purchase7 extends React.Component {
 const mapState = state => ({
   giftType: state.purchase.giftType,
   loading: state.purchase.loading,
+  flowIndex: state.purchase.flowIndex,
 })
 
 const mapDispatch = {
   setGiftType,
-  submitGiftType,
-  continueWithoutGift,
+  nextFlowStep,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase7))

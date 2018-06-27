@@ -1,11 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {
-  ADD_CONTACTS_MANUALLY,
-  IMPORT_CONTACTS,
-  setAddingContactsMode,
-  submitAddingContacts
-} from '../../reducers/purchase'
+import {ADD_CONTACTS_MANUALLY, IMPORT_CONTACTS, nextFlowStep, setAddingContactsMode} from '../../reducers/purchase'
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase10.css'
@@ -18,14 +13,14 @@ import AddContacts from './AddContacts'
 
 class Purchase10 extends React.Component {
   render() {
-    const {addingContactsMode, setAddingContactsMode, submitAddingContacts, flowIndex} = this.props
+    const {addingContactsMode, setAddingContactsMode, nextFlowStep, flowIndex} = this.props
     return (
       <React.Fragment>
         {addingContactsMode === ADD_CONTACTS_MANUALLY ? (
           <div className={s.addContactsContent}>
             <SectionHeader
               header={'Add your Contact(s)'}
-              number={flowIndex}
+              number={flowIndex + 1}
               prefixClassName={s.addContactsHeaderPrefix}
             />
             <AddContacts/>
@@ -34,7 +29,7 @@ class Purchase10 extends React.Component {
           <div className={s.importContactsContent}>
             <SectionHeader
               header={'Add your Contact(s)'}
-              number={flowIndex}
+              number={flowIndex + 1}
               prefixClassName={s.importContactsHeaderPrefix}
             />
             <ImportContacts/>
@@ -43,7 +38,7 @@ class Purchase10 extends React.Component {
           <div className={s.content}>
             <SectionHeader
               header={'Add your Contact(s)'}
-              number={flowIndex}
+              number={flowIndex + 1}
               prefixClassName={s.headerPrefix}
             />
             <Row className={s.items} gutter={20} type='flex' align='center'>
@@ -74,10 +69,10 @@ class Purchase10 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={submitAddingContacts}
+            onKeyHandle={addingContactsMode && nextFlowStep}
           />
           <Button
-            onClick={submitAddingContacts}
+            onClick={nextFlowStep}
             type='primary'
             disabled={!addingContactsMode}
           >
@@ -91,11 +86,12 @@ class Purchase10 extends React.Component {
 
 const mapState = state => ({
   addingContactsMode: state.purchase.addingContactsMode,
+  flowIndex: state.purchase.flowIndex,
 })
 
 const mapDispatch = {
   setAddingContactsMode,
-  submitAddingContacts,
+  nextFlowStep,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase10))

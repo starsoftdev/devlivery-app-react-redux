@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {setOccasion, submitOccasion} from '../../reducers/purchase'
+import {nextFlowStep, setOccasion} from '../../reducers/purchase'
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase1.css'
@@ -11,13 +11,14 @@ import messages from './messages'
 
 class Purchase1 extends React.Component {
   render() {
-    const {occasions, occasion, setOccasion, submitOccasion, intl, flowIndex} = this.props
+    const {occasions, occasion, setOccasion, intl, flowIndex, nextFlowStep} = this.props
+
     return (
       <React.Fragment>
         <div className={s.content}>
           <SectionHeader
             header={intl.formatMessage(messages.header)}
-            number={flowIndex}
+            number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
           <Row className={s.items} gutter={20} type='flex' align='center'>
@@ -39,12 +40,12 @@ class Purchase1 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={submitOccasion}
+            onKeyHandle={occasion && nextFlowStep}
           />
           <Button
-            type='primary'
             disabled={!occasion}
-            onClick={submitOccasion}
+            type='primary'
+            onClick={nextFlowStep}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
@@ -58,11 +59,12 @@ const mapState = state => ({
   occasions: state.purchase.occasions,
   occasion: state.purchase.occasion,
   loading: state.purchase.loading,
+  flowIndex: state.purchase.flowIndex,
 })
 
 const mapDispatch = {
   setOccasion,
-  submitOccasion,
+  nextFlowStep,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase1))

@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {setCardSize, submitCardSize} from '../../reducers/purchase'
+import {nextFlowStep, setCardSize, submitCardSize} from '../../reducers/purchase'
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase4.css'
@@ -15,7 +15,7 @@ import messages from './messages'
 
 class Purchase4 extends React.Component {
   render() {
-    const {cardSize, setCardSize, submitCardSize, intl, flowIndex} = this.props
+    const {cardSize, setCardSize, nextFlowStep, intl, flowIndex} = this.props
 
     const CARD_SIZES = [
       {key: 'folded_card', title: intl.formatMessage(messages.foldedCard), svg: BigCardImage, extra: '4" x 5"'},
@@ -29,7 +29,7 @@ class Purchase4 extends React.Component {
         <div className={s.content}>
           <SectionHeader
             header= {intl.formatMessage(messages.header)}
-            number={flowIndex}
+            number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
           <Row className={s.items} gutter={20} type='flex' align='center'>
@@ -52,12 +52,12 @@ class Purchase4 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={submitCardSize}
+            onKeyHandle={cardSize && nextFlowStep}
           />
           <Button
             type='primary'
             disabled={!cardSize}
-            onClick={submitCardSize}
+            onClick={nextFlowStep}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
@@ -70,11 +70,12 @@ class Purchase4 extends React.Component {
 const mapState = state => ({
   cardSize: state.purchase.cardSize,
   loading: state.purchase.loading,
+  flowIndex: state.purchase.flowIndex,
 })
 
 const mapDispatch = {
   setCardSize,
-  submitCardSize,
+  nextFlowStep,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase4))

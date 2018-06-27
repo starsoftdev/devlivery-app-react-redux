@@ -5,7 +5,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './PurchaseCompleted.css'
 import {Link} from '../../components'
 import CompletedIcon from '../../static/checked_badge.svg'
-import {HOME_ROUTE} from '../'
+import {ORDERS_ROUTE} from '../'
 
 class PurchaseCompleted extends React.Component {
   render() {
@@ -18,7 +18,7 @@ class PurchaseCompleted extends React.Component {
           <br/>
           Create in 4 simple steps!
         </p>
-        <Link to={HOME_ROUTE} className={s.dashboardBtn}>
+        <Link to={ORDERS_ROUTE} className={s.dashboardBtn}>
           <Button type='primary'>Dashboard</Button>
         </Link>
       </div>

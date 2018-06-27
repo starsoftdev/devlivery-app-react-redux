@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {HANDWRITTEN, PRINTED, setLetteringTechnique, submitLetteringTechnique} from '../../reducers/purchase'
+import {HANDWRITTEN, nextFlowStep, PRINTED, setLetteringTechnique} from '../../reducers/purchase'
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase2.css'
@@ -12,13 +12,13 @@ import messages from './messages'
 
 class Purchase2 extends React.Component {
   render() {
-    const {letteringTechnique, setLetteringTechnique, submitLetteringTechnique, intl, flowIndex} = this.props
+    const {letteringTechnique, setLetteringTechnique, intl, nextFlowStep, flowIndex} = this.props
     return (
       <React.Fragment>
         <div className={s.content}>
           <SectionHeader
             header={intl.formatMessage(messages.header)}
-            number={flowIndex}
+            number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
           <Row className={s.items} gutter={20} type='flex' align='center'>
@@ -54,12 +54,12 @@ class Purchase2 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={submitLetteringTechnique}
+            onKeyHandle={letteringTechnique && nextFlowStep}
           />
           <Button
-            onClick={submitLetteringTechnique}
-            type='primary'
             disabled={!letteringTechnique}
+            type='primary'
+            onClick={nextFlowStep}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
@@ -71,11 +71,12 @@ class Purchase2 extends React.Component {
 
 const mapState = state => ({
   letteringTechnique: state.purchase.letteringTechnique,
+  flowIndex: state.purchase.flowIndex,
 })
 
 const mapDispatch = {
   setLetteringTechnique,
-  submitLetteringTechnique,
+  nextFlowStep,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase2))

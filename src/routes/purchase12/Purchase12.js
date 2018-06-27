@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {PAYPAL, CREDIT_CARD, setPaymentMethod, submitPaymentMethod} from '../../reducers/purchase'
+import {PAYPAL, CREDIT_CARD, setPaymentMethod, nextFlowStep} from '../../reducers/purchase'
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase12.css'
@@ -11,13 +11,13 @@ import KeyHandler, {KEYPRESS} from 'react-key-handler'
 
 class Purchase12 extends React.Component {
   render() {
-    const {paymentMethod, setPaymentMethod, submitPaymentMethod, flowIndex} = this.props
+    const {paymentMethod, setPaymentMethod, nextFlowStep, flowIndex} = this.props
     return (
       <React.Fragment>
         <div className={s.content}>
           <SectionHeader
             header={'Select Payment Method'}
-            number={flowIndex}
+            number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
           <Row className={s.items} gutter={20} type='flex' align='center'>
@@ -47,10 +47,10 @@ class Purchase12 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={submitPaymentMethod}
+            onKeyHandle={paymentMethod && nextFlowStep}
           />
           <Button
-            onClick={submitPaymentMethod}
+            onClick={nextFlowStep}
             type='primary'
             disabled={!paymentMethod}
           >
@@ -64,11 +64,12 @@ class Purchase12 extends React.Component {
 
 const mapState = state => ({
   paymentMethod: state.purchase.paymentMethod,
+  flowIndex: state.purchase.flowIndex,
 })
 
 const mapDispatch = {
   setPaymentMethod,
-  submitPaymentMethod,
+  nextFlowStep,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase12))

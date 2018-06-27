@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {setGift, submitGift} from '../../reducers/purchase'
+import {nextFlowStep, setGift} from '../../reducers/purchase'
 import {Button, Col, Layout, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase8.css'
@@ -32,7 +32,7 @@ class Purchase8 extends React.Component {
 
   render() {
     const {previewCollapsed} = this.state
-    const {gift, setGift, submitGift, intl} = this.props
+    const {gift, setGift, nextFlowStep, intl, flowIndex} = this.props
 
     return (
       <React.Fragment>
@@ -55,7 +55,7 @@ class Purchase8 extends React.Component {
             <div className={s.content}>
               <SectionHeader
                 header={intl.formatMessage(messages.header)}
-                number={flowIndex}
+                number={flowIndex + 1}
                 prefixClassName={s.headerPrefix}
               />
               <Row className={s.items} gutter={20} type='flex' align='center'>
@@ -88,12 +88,12 @@ class Purchase8 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={submitGift}
+            onKeyHandle={gift && nextFlowStep}
           />
           <Button
             type='primary'
             disabled={!gift}
-            onClick={submitGift}
+            onClick={nextFlowStep}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
@@ -106,11 +106,12 @@ class Purchase8 extends React.Component {
 const mapState = state => ({
   gift: state.purchase.gift,
   loading: state.purchase.loading,
+  flowIndex: state.purchase.flowIndex,
 })
 
 const mapDispatch = {
   setGift,
-  submitGift,
+  nextFlowStep,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase8))

@@ -59,7 +59,7 @@ class Purchase6 extends React.Component {
             <div className={s.content}>
               <SectionHeader
                 header={intl.formatMessage(messages.header)}
-                number={flowIndex}
+                number={flowIndex + 1}
                 prefixClassName={s.headerPrefix}
               />
               <Row gutter={20}>
@@ -166,6 +166,7 @@ class Purchase6 extends React.Component {
 const mapState = state => ({
   cardDetails: state.purchase.cardDetails,
   loading: state.purchase.loading,
+  flowIndex: state.purchase.flowIndex,
 })
 
 const mapDispatch = {
