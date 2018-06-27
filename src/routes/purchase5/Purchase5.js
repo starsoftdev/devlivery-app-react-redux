@@ -23,7 +23,7 @@ class Purchase5 extends React.Component {
 
   render() {
     const {previewCollapsed} = this.state
-    const {cards, card, setCard, submitCard, intl} = this.props
+    const {cards, card, setCard, submitCard, intl, flowIndex} = this.props
 
     return (
       <React.Fragment>
@@ -46,7 +46,7 @@ class Purchase5 extends React.Component {
             <div className={s.content}>
               <SectionHeader
                 header={intl.formatMessage(messages.header)}
-                number={5}
+                number={flowIndex}
                 prefixClassName={s.headerPrefix}
               />
               <Row className={s.items} gutter={20} type='flex' align='center'>

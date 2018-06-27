@@ -11,13 +11,13 @@ import messages from './messages'
 
 class Purchase3 extends React.Component {
   render() {
-    const {cardStyle, setCardStyle, submitCardStyle, cardStyles, intl} = this.props
+    const {cardStyle, setCardStyle, submitCardStyle, cardStyles, intl, flowIndex} = this.props
     return (
       <React.Fragment>
         <div className={s.content}>
           <SectionHeader
             header={intl.formatMessage(messages.header)}
-            number={3}
+            number={flowIndex}
             prefixClassName={s.headerPrefix}
           />
           <Row className={s.items} gutter={20} type='flex' align='center'>

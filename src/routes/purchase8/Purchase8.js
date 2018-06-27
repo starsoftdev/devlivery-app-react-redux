@@ -55,7 +55,7 @@ class Purchase8 extends React.Component {
             <div className={s.content}>
               <SectionHeader
                 header={intl.formatMessage(messages.header)}
-                number={8}
+                number={flowIndex}
                 prefixClassName={s.headerPrefix}
               />
               <Row className={s.items} gutter={20} type='flex' align='center'>

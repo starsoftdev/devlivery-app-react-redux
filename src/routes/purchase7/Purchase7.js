@@ -15,7 +15,7 @@ import messages from './messages'
 
 class Purchase7 extends React.Component {
   render() {
-    const {giftType, setGiftType, submitGiftType, continueWithoutGift, intl} = this.props
+    const {giftType, setGiftType, submitGiftType, continueWithoutGift, intl, flowIndex} = this.props
     const GIFT_TYPES = [
       {key: 'food', title: 'Food', svg: FoodImage},
       {key: 'non_food', title: 'Non Food', svg: NonFoodImage},
@@ -27,7 +27,7 @@ class Purchase7 extends React.Component {
         <div className={s.content}>
           <SectionHeader
             header={intl.formatMessage(messages.header)}
-            number={7}
+            number={flowIndex}
             prefixClassName={s.headerPrefix}
           />
           <Row className={s.items} gutter={20} type='flex' align='center'>

@@ -35,7 +35,7 @@ class Purchase6 extends React.Component {
 
   render() {
     const {previewCollapsed} = this.state
-    const {cardDetails, intl} = this.props
+    const {cardDetails, intl, flowIndex} = this.props
     const {getFieldDecorator} = this.props.form
 
     return (
@@ -59,7 +59,7 @@ class Purchase6 extends React.Component {
             <div className={s.content}>
               <SectionHeader
                 header={intl.formatMessage(messages.header)}
-                number={6}
+                number={flowIndex}
                 prefixClassName={s.headerPrefix}
               />
               <Row gutter={20}>

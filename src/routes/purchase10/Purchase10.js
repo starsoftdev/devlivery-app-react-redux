@@ -18,14 +18,14 @@ import AddContacts from './AddContacts'
 
 class Purchase10 extends React.Component {
   render() {
-    const {addingContactsMode, setAddingContactsMode, submitAddingContacts} = this.props
+    const {addingContactsMode, setAddingContactsMode, submitAddingContacts, flowIndex} = this.props
     return (
       <React.Fragment>
         {addingContactsMode === ADD_CONTACTS_MANUALLY ? (
           <div className={s.addContactsContent}>
             <SectionHeader
               header={'Add your Contact(s)'}
-              number={10}
+              number={flowIndex}
               prefixClassName={s.addContactsHeaderPrefix}
             />
             <AddContacts/>
@@ -34,7 +34,7 @@ class Purchase10 extends React.Component {
           <div className={s.importContactsContent}>
             <SectionHeader
               header={'Add your Contact(s)'}
-              number={10}
+              number={flowIndex}
               prefixClassName={s.importContactsHeaderPrefix}
             />
             <ImportContacts/>
@@ -43,7 +43,7 @@ class Purchase10 extends React.Component {
           <div className={s.content}>
             <SectionHeader
               header={'Add your Contact(s)'}
-              number={10}
+              number={flowIndex}
               prefixClassName={s.headerPrefix}
             />
             <Row className={s.items} gutter={20} type='flex' align='center'>

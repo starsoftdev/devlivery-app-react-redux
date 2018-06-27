@@ -48,14 +48,14 @@ class Purchase9 extends React.Component {
   }
 
   render() {
-    const {intl} = this.props
+    const {intl, flowIndex} = this.props
     const {getFieldDecorator} = this.props.form
     return (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
           <SectionHeader
             header={intl.formatMessage(messages.header)}
-            number={9}
+            number={flowIndex}
             prefixClassName={s.headerPrefix}
           />
           <Form.Item>
