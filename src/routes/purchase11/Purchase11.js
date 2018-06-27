@@ -31,7 +31,7 @@ class Purchase11 extends React.Component {
         <div className={s.content}>
           <SectionHeader
             header={'Order Confirmation'}
-            number={flowIndex}
+            number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
           <div className={s.orderInfo}>
@@ -144,6 +144,7 @@ class Purchase11 extends React.Component {
 
 const mapState = state => ({
   loading: state.purchase.loading,
+  flowIndex: state.purchase.flowIndex,
 })
 
 const mapDispatch = {

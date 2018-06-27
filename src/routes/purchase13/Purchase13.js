@@ -1,21 +1,21 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {PAYPAL, CREDIT_CARD, setPaymentMethod, submitPayment} from '../../reducers/purchase'
-import {Button, Col, Row} from 'antd'
+import {nextFlowStep} from '../../reducers/purchase'
+import {Button} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase13.css'
-import {Actions, Card, SectionHeader} from '../../components'
+import {Actions, SectionHeader} from '../../components'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 
 class Purchase13 extends React.Component {
   render() {
-    const {submitPayment, flowIndex} = this.props
+    const {nextFlowStep, flowIndex} = this.props
     return (
       <React.Fragment>
         <div className={s.content}>
           <SectionHeader
             header={'Credit Card Information'}
-            number={flowIndex}
+            number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
         </div>
@@ -23,10 +23,10 @@ class Purchase13 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={submitPayment}
+            onKeyHandle={nextFlowStep}
           />
           <Button
-            onClick={submitPayment}
+            onClick={nextFlowStep}
             type='primary'
           >
             Pay
@@ -38,10 +38,11 @@ class Purchase13 extends React.Component {
 }
 
 const mapState = state => ({
+  flowIndex: state.purchase.flowIndex,
 })
 
 const mapDispatch = {
-  submitPayment,
+  nextFlowStep,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase13))

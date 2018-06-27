@@ -1,7 +1,8 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {loginSuccess} from './login'
 import {message} from 'antd'
-import {PURCHASE_ROUTES} from '../routes'
+import {PURCHASE_COMPLETED_ROUTE, PURCHASE_ROUTES} from '../routes'
+import {generateUrl} from '../router'
 
 // ------------------------------------
 // Constants
@@ -12,41 +13,34 @@ export const PRINTED = 'printed'
 export const ADD_CONTACTS_MANUALLY = 'add-contacts-manually'
 export const IMPORT_CONTACTS = 'import-contacts'
 
-export const SET_FLOW = 'Purchase.SET_FLOW'
+export const PAYPAL = 'PAYPAL'
+export const CREDIT_CARD = 'CREDIT_CARD'
 
+export const SET_FLOW = 'Purchase.SET_FLOW'
+export const SET_FLOW_INDEX = 'Purchase.SET_FLOW_INDEX'
 export const SET_OCCASION = 'Purchase.SET_OCCASION'
+export const SET_LETTERING_TECHNIQUE = 'Purchase.SET_LETTERING_TECHNIQUE'
+export const SET_CARD_STYLE = 'Purchase.SET_CARD_STYLE'
+export const SET_CARD_SIZE = 'Purchase.SET_CARD_SIZE'
+export const SET_CARD = 'Purchase.SET_CARD'
+export const SET_CARD_DETAILS = 'Purchase.SET_CARD_DETAILS'
+export const SET_GIFT_TYPE = 'Purchase.SET_GIFT_TYPE'
+export const CONTINUE_WITHOUT_GIFT = 'Purchase.CONTINUE_WITHOUT_GIFT'
+export const SET_GIFT = 'Purchase.SET_GIFT'
+export const SET_PAYMENT_METHOD = 'Purchase.SET_PAYMENT_METHOD'
+export const SET_ADDING_CONTACTS_MODE = 'Purchase.SET_ADDING_CONTACTS_MODE'
 
 export const GET_OCCASIONS_REQUEST = 'Purchase.GET_OCCASIONS_REQUEST'
 export const GET_OCCASIONS_SUCCESS = 'Purchase.GET_OCCASIONS_SUCCESS'
 export const GET_OCCASIONS_FAILURE = 'Purchase.GET_OCCASIONS_FAILURE'
 
-export const SET_LETTERING_TECHNIQUE = 'Purchase.SET_LETTERING_TECHNIQUE'
-
-export const SET_CARD_STYLE = 'Purchase.SET_CARD_STYLE'
-
 export const GET_CARD_STYLES_REQUEST = 'Purchase.GET_CARD_STYLES_REQUEST'
 export const GET_CARD_STYLES_SUCCESS = 'Purchase.GET_CARD_STYLES_SUCCESS'
 export const GET_CARD_STYLES_FAILURE = 'Purchase.GET_CARD_STYLES_FAILURE'
 
-export const SET_CARD_SIZE = 'Purchase.SET_CARD_SIZE'
-
 export const GET_CARDS_REQUEST = 'Purchase.GET_CARDS_REQUEST'
 export const GET_CARDS_SUCCESS = 'Purchase.GET_CARDS_SUCCESS'
 export const GET_CARDS_FAILURE = 'Purchase.GET_CARDS_FAILURE'
-
-export const SET_CARD = 'Purchase.SET_CARD'
-
-export const SET_GIFT_TYPE = 'Purchase.SET_GIFT_TYPE'
-export const CONTINUE_WITHOUT_GIFT = 'Purchase.CONTINUE_WITHOUT_GIFT'
-
-export const SET_GIFT = 'Purchase.SET_GIFT'
-
-export const SET_ADDING_CONTACTS_MODE = 'Purchase.SET_ADDING_CONTACTS_MODE'
-
-export const PAYPAL = 'Purchase.PAYPAL'
-export const CREDIT_CARD = 'Purchase.CREDIT_CARD'
-
-export const SET_PAYMENT_METHOD = 'Purchase.SET_PAYMENT_METHOD'
 
 export const REGISTER_REQUEST = 'Purchase.REGISTER_REQUEST'
 export const REGISTER_SUCCESS = 'Purchase.REGISTER_SUCCESS'
@@ -59,9 +53,20 @@ export const CLEAR = 'Purchase.CLEAR'
 // ------------------------------------
 export const setFlow = (flow) => ({type: SET_FLOW, flow})
 
-export const getFlowIndex = (routeName) => (dispatch, getState) => {
+export const setFlowIndex = () => (dispatch, getState) => {
+  const {currentRouteName} = getState().global
   const {flow} = getState().purchase
-  return flow.findIndex(item => item === routeName) + 1 // index starts from 0
+  const flowIndex = flow.findIndex(item => item === currentRouteName)
+  dispatch({type: SET_FLOW_INDEX, flowIndex})
+}
+
+export const nextFlowStep = () => (dispatch, getState, {history}) => {
+  const {flow, flowIndex} = getState().purchase
+  if (flowIndex === flow.length - 1) {
+    history.push(generateUrl(PURCHASE_COMPLETED_ROUTE))
+  } else {
+    history.push(generateUrl(flow[flowIndex + 1]))
+  }
 }
 
 export const setOccasion = (occasion) => ({type: SET_OCCASION, occasion})
@@ -79,19 +84,7 @@ export const getOccasions = () => (dispatch, getState, {fetch}) => {
   })
 }
 
-export const submitOccasion = () => (dispatch, getState, {history}) => {
-  const {occasion} = getState().purchase
-  if (!occasion) return
-  history.push('/purchase/lettering-technique')
-}
-
 export const setLetteringTechnique = (letteringTechnique) => ({type: SET_LETTERING_TECHNIQUE, letteringTechnique})
-
-export const submitLetteringTechnique = () => (dispatch, getState, {history}) => {
-  const {letteringTechnique} = getState().purchase
-  if (!letteringTechnique) return
-  history.push('/purchase/card-style')
-}
 
 export const getCardStyles = () => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_CARD_STYLES_REQUEST})
@@ -103,12 +96,6 @@ export const getCardStyles = () => (dispatch, getState, {fetch}) => {
 }
 
 export const setCardStyle = (cardStyle) => ({type: SET_CARD_STYLE, cardStyle})
-
-export const submitCardStyle = () => (dispatch, getState, {history}) => {
-  const {cardStyle} = getState().purchase
-  if (!cardStyle) return
-  history.push('/purchase/card-size')
-}
 
 export const getCards = () => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_CARDS_REQUEST})
@@ -127,60 +114,26 @@ export const submitCardSize = () => (dispatch, getState, {history}) => {
   history.push('/purchase/card')
 }
 
-export const submitCardDetails = () => (dispatch, getState, {history}) => {
-  history.push('/purchase/gift-type')
-  // TODO save card details
+export const submitCardDetails = (cardDetails) => (dispatch, getState) => {
+  dispatch(nextFlowStep())
+  dispatch({type: SET_CARD_DETAILS, cardDetails})
 }
 
 export const setGiftType = (giftType) => ({type: SET_GIFT_TYPE, giftType})
 
-export const submitGiftType = () => (dispatch, getState, {history}) => {
-  history.push('/purchase/gift')
-}
-
-export const continueWithoutGift = () => (dispatch, getState, {history}) => {
-  history.push('/purchase/gift')
-}
-
 export const setCard = (card) => ({type: SET_CARD, card})
-
-export const submitCard = () => (dispatch, getState, {history}) => {
-  const {card} = getState().purchase
-  if (!card) return
-  history.push('/purchase/personalize-card')
-}
 
 export const setGift = (gift) => ({type: SET_GIFT, gift})
 
-export const submitGift = () => (dispatch, getState, {history}) => {
-  const {gift} = getState().purchase
-  if (!gift) return
-  history.push('/purchase/create-account')
-}
-
 export const setAddingContactsMode = (addingContactsMode) => ({type: SET_ADDING_CONTACTS_MODE, addingContactsMode})
 
-export const submitAddingContacts = () => (dispatch, getState, {history}) => {
-  history.push('/purchase/confirmation')
-}
-
-export const submitShipping = () => (dispatch, getState, {history}) => {
-  history.push('/purchase/payment-method')
+export const submitShipping = () => (dispatch, getState) => {
+  dispatch(nextFlowStep())
 }
 
 export const setPaymentMethod = (paymentMethod) => ({type: SET_PAYMENT_METHOD, paymentMethod})
 
-export const submitPaymentMethod = () => (dispatch, getState, {history}) => {
-  const {paymentMethod} = getState().purchase
-  if (!paymentMethod) return
-  history.push('/purchase/payment')
-}
-
-export const submitPayment = () => (dispatch, getState, {history}) => {
-  history.push('/purchase/completed')
-}
-
-export const register = (values) => (dispatch, getState, {fetch, history}) => {
+export const register = (values) => (dispatch, getState, {fetch}) => {
   dispatch({type: REGISTER_REQUEST})
   return fetch(`/signup`, {
     method: 'POST',
@@ -189,7 +142,7 @@ export const register = (values) => (dispatch, getState, {fetch, history}) => {
     success: (res) => {
       dispatch({type: REGISTER_SUCCESS})
       dispatch(loginSuccess(res.data))
-      history.push('/purchase/add-contacts')
+      dispatch(nextFlowStep())
     },
     failure: () => {
       dispatch({type: REGISTER_FAILURE})
@@ -220,11 +173,15 @@ const initialState = {
   cardStyles: [],
   cards: [],
   flow: PURCHASE_ROUTES,
+  flowIndex: null,
 }
 
 export default createReducer(initialState, {
   [SET_FLOW]: (state, {flow}) => ({
     flow,
+  }),
+  [SET_FLOW_INDEX]: (state, {flowIndex}) => ({
+    flowIndex,
   }),
   [SET_OCCASION]: (state, {occasion}) => ({
     occasion,
@@ -265,6 +222,9 @@ export default createReducer(initialState, {
   }),
   [SET_CARD]: (state, {card}) => ({
     card,
+  }),
+  [SET_CARD_DETAILS]: (state, {cardDetails}) => ({
+    cardDetails,
   }),
   [SET_GIFT_TYPE]: (state, {giftType}) => ({
     giftType,

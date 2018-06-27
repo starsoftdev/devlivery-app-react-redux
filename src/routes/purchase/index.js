@@ -1,16 +1,16 @@
 import React from 'react'
 import {AppLayout} from '../../components'
 import Purchase from './Purchase'
-import {setFlow} from '../../reducers/purchase'
+import {setFlow, setFlowIndex} from '../../reducers/purchase'
 import {AUTH_PURCHASE_ROUTES, PURCHASE_ROUTES} from '../'
-import isEqual from 'lodash/isEqual'
 
 async function action({store, next, intl}) {
   const child = await next()
 
-  const {flow} = store.getState().purchase
   const {loggedIn} = store.getState().user
-  store.dispatch(setFlow((isEqual(flow, PURCHASE_ROUTES) && loggedIn) ? AUTH_PURCHASE_ROUTES : PURCHASE_ROUTES))
+  // TODO change it when other flows are added
+  store.dispatch(setFlow(loggedIn ? AUTH_PURCHASE_ROUTES : PURCHASE_ROUTES))
+  store.dispatch(setFlowIndex())
 
   return {
     chunks: ['purchase'],

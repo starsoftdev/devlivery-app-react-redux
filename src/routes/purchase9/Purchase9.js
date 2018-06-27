@@ -55,7 +55,7 @@ class Purchase9 extends React.Component {
         <div className={s.content}>
           <SectionHeader
             header={intl.formatMessage(messages.header)}
-            number={flowIndex}
+            number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
           <Form.Item>
@@ -173,6 +173,7 @@ class Purchase9 extends React.Component {
 
 const mapState = state => ({
   loading: state.purchase.loading,
+  flowIndex: state.purchase.flowIndex,
 })
 
 const mapDispatch = {
