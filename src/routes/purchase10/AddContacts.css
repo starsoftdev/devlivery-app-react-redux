@@ -1,18 +1,27 @@
 @import '../../styles/variables.css';
 
-.header {
-  margin-bottom: 0;
+.content {
+  padding-bottom: var(--margin-md);
+  padding-right: var(--margin-md);
+  padding-left: var(--margin-md);
 
-  @media (--md-up) {
-    font-size: 40px;
-  }
   @media (--md-down) {
-    font-size: 32px;
+    padding-top: var(--margin-md);
+  }
+  @media (--md-up) {
+    padding-top: var(--margin-xl);
+  }
+
+  @media (--sm-up) {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 425px;
+    width: 100%;
   }
 }
 
-.section {
-  &:not(:last-child) {
-    margin-bottom: var(--margin-xl);
+.headerPrefix {
+  @media (--sm-up) {
+    margin-left: -80px;
   }
 }
