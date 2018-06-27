@@ -21,7 +21,8 @@
 
 .headerPrefix {
   @media (--lg-up) {
-    margin-left: -60px;
+    position: absolute;
+    right: 100%;
   }
 }
 

@@ -21,7 +21,8 @@
 
 .headerPrefix {
   @media (min-width: 821px) {
-    margin-left: -80px;
+    position: absolute;
+    right: 100%;
   }
 }
 
@@ -47,7 +48,8 @@
 
 .importContactsHeaderPrefix {
   @media (min-width: 1001px) {
-    margin-left: -80px;
+    position: absolute;
+    right: 100%;
   }
 }
 
