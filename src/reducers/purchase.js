@@ -59,6 +59,11 @@ export const CLEAR = 'Purchase.CLEAR'
 // ------------------------------------
 export const setFlow = (flow) => ({type: SET_FLOW, flow})
 
+export const getFlowIndex = (routeName) => (dispatch, getState) => {
+  const {flow} = getState().purchase
+  return flow.findIndex(item => item === routeName) + 1 // index starts from 0
+}
+
 export const setOccasion = (occasion) => ({type: SET_OCCASION, occasion})
 
 export const getOccasions = () => (dispatch, getState, {fetch}) => {

@@ -15,7 +15,7 @@ import messages from './messages'
 
 class Purchase4 extends React.Component {
   render() {
-    const {cardSize, setCardSize, submitCardSize, intl} = this.props
+    const {cardSize, setCardSize, submitCardSize, intl, flowIndex} = this.props
 
     const CARD_SIZES = [
       {key: 'folded_card', title: intl.formatMessage(messages.foldedCard), svg: BigCardImage, extra: '4" x 5"'},
@@ -29,7 +29,7 @@ class Purchase4 extends React.Component {
         <div className={s.content}>
           <SectionHeader
             header= {intl.formatMessage(messages.header)}
-            number={4}
+            number={flowIndex}
             prefixClassName={s.headerPrefix}
           />
           <Row className={s.items} gutter={20} type='flex' align='center'>

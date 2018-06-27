@@ -24,13 +24,14 @@ class Purchase11 extends React.Component {
   }
 
   render() {
+    const {flowIndex} = this.props
     const {getFieldDecorator} = this.props.form
     return (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
           <SectionHeader
             header={'Order Confirmation'}
-            number={11}
+            number={flowIndex}
             prefixClassName={s.headerPrefix}
           />
           <div className={s.orderInfo}>

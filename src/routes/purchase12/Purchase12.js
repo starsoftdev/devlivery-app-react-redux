@@ -11,13 +11,13 @@ import KeyHandler, {KEYPRESS} from 'react-key-handler'
 
 class Purchase12 extends React.Component {
   render() {
-    const {paymentMethod, setPaymentMethod, submitPaymentMethod} = this.props
+    const {paymentMethod, setPaymentMethod, submitPaymentMethod, flowIndex} = this.props
     return (
       <React.Fragment>
         <div className={s.content}>
           <SectionHeader
             header={'Select Payment Method'}
-            number={12}
+            number={flowIndex}
             prefixClassName={s.headerPrefix}
           />
           <Row className={s.items} gutter={20} type='flex' align='center'>
