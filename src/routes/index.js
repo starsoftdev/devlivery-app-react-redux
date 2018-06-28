@@ -97,6 +97,13 @@ export const EVENT_PURCHASE_ROUTES = [
   PURCHASE13_ROUTE,
 ]
 
+export const ORDER_PURCHASE_ROUTES = [
+  PURCHASE6_ROUTE,
+  PURCHASE11_ROUTE,
+  PURCHASE12_ROUTE,
+  PURCHASE13_ROUTE,
+]
+
 const authRoutes = {
   path: '',
   children: [
