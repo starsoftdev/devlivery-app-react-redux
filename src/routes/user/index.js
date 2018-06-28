@@ -2,7 +2,7 @@ import React from 'react'
 import User from './User'
 import {setCurrentRouteName} from '../../reducers/global'
 
-function action({query, store, route}) {
+function action({store, route}) {
   store.dispatch(setCurrentRouteName(route.name))
 
   return {
