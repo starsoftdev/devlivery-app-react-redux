@@ -141,8 +141,8 @@ export const removeContact = (contact) => (dispatch, getState, {fetch}) => {
   return fetch(`/contacts/${contact.id}`, {
     method: 'DELETE',
     token,
-    success: (res) => {
-      dispatch({type: REMOVE_CONTACT_SUCCESS, res})
+    success: () => {
+      dispatch({type: REMOVE_CONTACT_SUCCESS})
       dispatch(getContacts())
     },
     failure: () => dispatch({type: REMOVE_CONTACT_FAILURE}),
