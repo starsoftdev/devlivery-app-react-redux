@@ -33,6 +33,7 @@
     "query-string": "5.1.1",
     "react": "^16.3.2",
     "react-async-script": "^0.9.1",
+    "react-credit-cards": "^0.7.0",
     "react-dom": "^16.3.2",
     "react-intl": "^2.4.0",
     "react-key-handler": "^1.0.1",

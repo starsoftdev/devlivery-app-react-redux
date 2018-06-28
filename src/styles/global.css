@@ -27,4 +27,8 @@
     content: '';
     background: url('./svgs/cross-circle.svg') no-repeat top left;
   }*/
+
+  .rccs__card--unknown > div {
+    background: linear-gradient(25deg, var(--primary-color), var(--primary-color)) !important;
+  }
 }
