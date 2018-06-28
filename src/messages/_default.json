@@ -288,35 +288,35 @@
     ]
   },
   {
-    "id": "addContacts.breadcrumb",
+    "id": "addContact.breadcrumb",
     "defaultMessage": "New Contact",
     "message": "",
     "files": [
-      "src/routes/addContacts/messages.js"
+      "src/routes/addContact/messages.js"
     ]
   },
   {
-    "id": "addContacts.header",
+    "id": "addContact.header",
     "defaultMessage": "Add Contact",
     "message": "",
     "files": [
-      "src/routes/addContacts/messages.js"
+      "src/routes/addContact/messages.js"
     ]
   },
   {
-    "id": "addContacts.submit",
+    "id": "addContact.submit",
     "defaultMessage": "Save Contact",
     "message": "",
     "files": [
-      "src/routes/addContacts/messages.js"
+      "src/routes/addContact/messages.js"
     ]
   },
   {
-    "id": "addContacts.title",
+    "id": "addContact.title",
     "defaultMessage": "New Contact",
     "message": "",
     "files": [
-      "src/routes/addContacts/messages.js"
+      "src/routes/addContact/messages.js"
     ]
   },
   {
@@ -597,6 +597,38 @@
     "message": "",
     "files": [
       "src/routes/dashboard/messages.js"
+    ]
+  },
+  {
+    "id": "editContact.breadcrumb",
+    "defaultMessage": "Edit Contact",
+    "message": "",
+    "files": [
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
+    "id": "editContact.header",
+    "defaultMessage": "Contact Details",
+    "message": "",
+    "files": [
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
+    "id": "editContact.submit",
+    "defaultMessage": "Save Contact",
+    "message": "",
+    "files": [
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
+    "id": "editContact.title",
+    "defaultMessage": "Edit Contact",
+    "message": "",
+    "files": [
+      "src/routes/editContact/messages.js"
     ]
   },
   {
@@ -1141,6 +1173,62 @@
     "message": "",
     "files": [
       "src/routes/purchase1/messages.js"
+    ]
+  },
+  {
+    "id": "purchase13.cvc",
+    "defaultMessage": "CVC",
+    "message": "",
+    "files": [
+      "src/routes/purchase13/messages.js"
+    ]
+  },
+  {
+    "id": "purchase13.expiry",
+    "defaultMessage": "Expiry",
+    "message": "",
+    "files": [
+      "src/routes/purchase13/messages.js"
+    ]
+  },
+  {
+    "id": "purchase13.header",
+    "defaultMessage": "Credit Card Information",
+    "message": "",
+    "files": [
+      "src/routes/purchase13/messages.js"
+    ]
+  },
+  {
+    "id": "purchase13.name",
+    "defaultMessage": "Full Name",
+    "message": "",
+    "files": [
+      "src/routes/purchase13/messages.js"
+    ]
+  },
+  {
+    "id": "purchase13.number",
+    "defaultMessage": "Card Number",
+    "message": "",
+    "files": [
+      "src/routes/purchase13/messages.js"
+    ]
+  },
+  {
+    "id": "purchase13.submit",
+    "defaultMessage": "Pay",
+    "message": "",
+    "files": [
+      "src/routes/purchase13/messages.js"
+    ]
+  },
+  {
+    "id": "purchase13.title",
+    "defaultMessage": "Purchase",
+    "message": "",
+    "files": [
+      "src/routes/purchase13/messages.js"
     ]
   },
   {
