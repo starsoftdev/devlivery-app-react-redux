@@ -6,10 +6,12 @@ import s from './Bundles.css'
 import {clear, getBundles} from '../../reducers/bundles'
 import PlusGiftIcon from '../../static/plus_round.svg'
 import PlusIcon from '../../static/plus.svg'
-import {PaginationItem} from '../../components'
+import {Link, PaginationItem} from '../../components'
 import debounce from 'lodash/debounce'
 import messages from './messages'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
+import {ORDER_PURCHASE_ROUTES} from '../'
+import {setFlow} from '../../reducers/purchase'
 
 // TODO add Create Bundle
 // TODO add Make an Order
@@ -37,7 +39,7 @@ class Bundles extends React.Component {
   render() {
     const {search} = this.state
     // TODO add loading
-    const {bundlesCount, bundles, page, pageSize, loading, getBundles, intl} = this.props
+    const {bundlesCount, bundles, page, pageSize, loading, getBundles, intl, setFlow} = this.props
 
     return (
       <div className={s.container}>
@@ -80,10 +82,12 @@ class Bundles extends React.Component {
                       <span className={s.cardPrice}>{bundle.total}</span>
                       <span className={s.cardPriceCurrency}>CHF</span>
                     </div>
-                    <Button type='primary' ghost>
-                      <PlusIcon/>
-                      {intl.formatMessage(messages.makeOrder)}
-                    </Button>
+                    <Link to={ORDER_PURCHASE_ROUTES[0]} onClick={() => setFlow(ORDER_PURCHASE_ROUTES)}>
+                      <Button type='primary' ghost>
+                        <PlusIcon/>
+                        {intl.formatMessage(messages.makeOrder)}
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -113,6 +117,7 @@ const mapState = state => ({
 
 const mapDispatch = {
   getBundles,
+  setFlow,
   clear,
 }
 
