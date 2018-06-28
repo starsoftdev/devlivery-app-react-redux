@@ -5,7 +5,7 @@ import {getEvents, getOrders} from '../../reducers/orders'
 import moment from 'moment'
 import messages from './messages'
 
-function action({query, store, route, intl}) {
+function action({store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
   store.dispatch(getOrders())
   store.dispatch(getEvents(moment()))

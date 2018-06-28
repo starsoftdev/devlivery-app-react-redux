@@ -4,7 +4,7 @@ import {setCurrentRouteName} from '../../reducers/global'
 import {getTeam} from '../../reducers/team'
 import messages from './messages'
 
-function action({query, store, route, intl}) {
+function action({store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
   store.dispatch(getTeam())
 
