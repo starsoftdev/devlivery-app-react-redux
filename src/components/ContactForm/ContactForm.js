@@ -8,13 +8,25 @@ import messages from './messages'
 import {injectIntl} from 'react-intl'
 import Reminders from './Reminders'
 import Groups from './Groups'
+import moment from 'moment'
 
 // TODO add accordion for sections
-const AddressSection = ({getFieldDecorator, index, header, intl}) =>
+const AddressSection = ({getFieldDecorator, index, header, intl, initialValues}) =>
   <section className={s.section}>
     <h1 className={s.header}>{header}</h1>
+    {initialValues && initialValues.addresses[index].id && getFieldDecorator(`addresses[${index}].id`, {
+      initialValue: initialValues.addresses[index].id,
+    })(
+      <Input type='hidden'/>
+    )}
+    {getFieldDecorator(`addresses[${index}].title`, {
+      initialValue: header,
+    })(
+      <Input type='hidden'/>
+    )}
     <Form.Item>
       {getFieldDecorator(`addresses[${index}].address`, {
+        initialValue: initialValues && initialValues.addresses[index].address,
       })(
         <Input placeholder={intl.formatMessage(messages.address)}/>
       )}
@@ -23,6 +35,7 @@ const AddressSection = ({getFieldDecorator, index, header, intl}) =>
       <Col xs={24} sm={12}>
         <Form.Item>
           {getFieldDecorator(`addresses[${index}].city`, {
+            initialValue: initialValues && initialValues.addresses[index].city,
           })(
             <Input placeholder={intl.formatMessage(messages.city)}/>
           )}
@@ -31,6 +44,7 @@ const AddressSection = ({getFieldDecorator, index, header, intl}) =>
       <Col xs={24} sm={12}>
         <Form.Item>
           {getFieldDecorator(`addresses[${index}].state`, {
+            initialValue: initialValues && initialValues.addresses[index].state,
           })(
             <Input placeholder={intl.formatMessage(messages.state)}/>
           )}
@@ -41,6 +55,7 @@ const AddressSection = ({getFieldDecorator, index, header, intl}) =>
       <Col xs={24} sm={12}>
         <Form.Item>
           {getFieldDecorator(`addresses[${index}].postal_code`, {
+            initialValue: initialValues && initialValues.addresses[index].postal_code,
           })(
             <Input placeholder={intl.formatMessage(messages.postalCode)}/>
           )}
@@ -49,6 +64,7 @@ const AddressSection = ({getFieldDecorator, index, header, intl}) =>
       <Col xs={24} sm={12}>
         <Form.Item>
           {getFieldDecorator(`addresses[${index}].country`, {
+            initialValue: initialValues && initialValues.addresses[index].country,
           })(
             <Input placeholder={intl.formatMessage(messages.country)}/>
           )}
@@ -61,7 +77,7 @@ const SALUTATIONS = ['Mr.', 'Ms.', 'Mrs.', 'Dr.']
 
 class ContactForm extends React.Component {
   render() {
-    const {intl, children, header} = this.props
+    const {intl, children, header, initialValues} = this.props
     const {getFieldDecorator} = this.props.form
 
     const contactSection = (
@@ -69,6 +85,7 @@ class ContactForm extends React.Component {
         {header && <h1 className={s.header}>{header}</h1>}
         <Form.Item>
           {getFieldDecorator('contact.title', {
+            initialValue: initialValues && initialValues.title,
             rules: [
               {required: true, message: intl.formatMessage(formMessages.required)},
             ],
@@ -84,6 +101,7 @@ class ContactForm extends React.Component {
           <Col xs={24} sm={12}>
             <Form.Item>
               {getFieldDecorator('contact.first_name', {
+                initialValue: initialValues && initialValues.first_name,
                 rules: [
                   {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                 ],
@@ -95,6 +113,7 @@ class ContactForm extends React.Component {
           <Col xs={24} sm={12}>
             <Form.Item>
               {getFieldDecorator('contact.last_name', {
+                initialValue: initialValues && initialValues.last_name,
                 rules: [
                   {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                 ],
@@ -106,6 +125,7 @@ class ContactForm extends React.Component {
         </Row>
         <Form.Item>
           {getFieldDecorator('contact.nickname', {
+            initialValue: initialValues && initialValues.nickname,
             rules: [
               {required: true, message: intl.formatMessage(formMessages.required)},
             ],
@@ -115,6 +135,7 @@ class ContactForm extends React.Component {
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('contact.relationship', {
+            initialValue: initialValues && initialValues.relationship,
             rules: [
               {required: true, message: intl.formatMessage(formMessages.required)},
             ],
@@ -130,6 +151,7 @@ class ContactForm extends React.Component {
         <h1 className={s.header}>{intl.formatMessage(messages.birthday)}</h1>
         <Form.Item>
           {getFieldDecorator('birthday', {
+            initialValue: initialValues ? moment(initialValues.dob, DATE_FORMAT) : undefined,
             rules: [
               {required: true, message: intl.formatMessage(formMessages.required)},
             ],
@@ -146,6 +168,7 @@ class ContactForm extends React.Component {
         getFieldDecorator={getFieldDecorator}
         index={0}
         intl={intl}
+        initialValues={initialValues}
       />
     )
 
@@ -155,20 +178,21 @@ class ContactForm extends React.Component {
         getFieldDecorator={getFieldDecorator}
         index={1}
         intl={intl}
+        initialValues={initialValues}
       />
     )
 
     const remindersSection = (
       <section className={s.section}>
         <h1 className={s.header}>{intl.formatMessage(messages.reminders)}</h1>
-        <Reminders form={this.props.form} intl={intl}/>
+        <Reminders form={this.props.form} intl={intl} initialValues={initialValues}/>
       </section>
     )
 
     const groupsSection = (
       <section className={s.section}>
         <h1 className={s.header}>{intl.formatMessage(messages.groups)}</h1>
-        <Groups form={this.props.form} intl={intl}/>
+        <Groups form={this.props.form} intl={intl} initialValues={initialValues}/>
       </section>
     )
 

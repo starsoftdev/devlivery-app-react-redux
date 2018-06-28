@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, DatePicker, Form, Select} from 'antd'
+import {Button, DatePicker, Form, Input, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Reminders.css'
 import PlusIcon from '../../static/plus.svg'
@@ -8,6 +8,7 @@ import {connect} from 'react-redux'
 import {getOccasions} from '../../reducers/contacts'
 import debounce from 'lodash/debounce'
 import messages from './messages'
+import moment from 'moment/moment'
 
 let uuid = 1
 
@@ -37,8 +38,9 @@ class Reminders extends React.Component {
     this.props.form.setFieldsValue({reminderKeys: newKeys})
   }
 
+  // TODO change reminder date format
   render() {
-    const {occasions, loading, intl} = this.props
+    const {occasions, loading, intl, initialValues} = this.props
     const {getFieldDecorator, getFieldValue} = this.props.form
     this.props.form.getFieldDecorator('reminderKeys', {initialValue: [0]})
 
@@ -47,8 +49,14 @@ class Reminders extends React.Component {
       <React.Fragment>
         {keys.map((k) =>
           <div key={k} className={s.item}>
+            {initialValues && initialValues.reminders[k].id && getFieldDecorator(`reminders[${k}].id`, {
+              initialValue: initialValues.reminders[k].id,
+            })(
+              <Input type='hidden'/>
+            )}
             <Form.Item>
               {getFieldDecorator(`reminders[${k}].occasion_id`, {
+                initialValue: initialValues && initialValues.reminders[k].occasion_id,
               })(
                 <Select
                   showSearch
@@ -66,6 +74,7 @@ class Reminders extends React.Component {
             </Form.Item>
             <Form.Item>
               {getFieldDecorator(`reminders[${k}].date`, {
+                initialValue: initialValues ? moment(initialValues.reminders[k].date, 'DD-MM-YYYY') : undefined,
               })(
                 <DatePicker className={s.date} format={DATE_FORMAT}/>
               )}
