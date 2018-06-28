@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Calendar, Input, Table} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Orders.css'
-import {CalendarHeader, PaginationItem} from '../../components'
+import {CalendarHeader, Link, PaginationItem} from '../../components'
 import {clear, getEvents, getOrders} from '../../reducers/orders'
 import LongArrowIcon from '../../static/long-right-arrow.svg'
 import debounce from 'lodash/debounce'
@@ -11,11 +11,13 @@ import moment from 'moment'
 import cn from 'classnames'
 import messages from './messages'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
+import {EVENT_PURCHASE_ROUTES} from '../index'
+import {setFlow} from '../../reducers/purchase'
 
 const EVENT_DATE_FORMAT = 'YYYY-MM-DD'
 
-const Event = ({first_name, last_name, occasion, occasion_date, occasion_type}) =>
-  <a className={s.event}>
+const Event = ({first_name, last_name, occasion, occasion_date, occasion_type, setFlow}) =>
+  <Link className={s.event} to={EVENT_PURCHASE_ROUTES[0]} onClick={() => setFlow(EVENT_PURCHASE_ROUTES)}>
     <div className={s.eventDate}>
       <div className={s.eventDay}>{moment(occasion_date, EVENT_DATE_FORMAT).format('D')}</div>
       <div className={s.eventWeekDay}>{moment(occasion_date, EVENT_DATE_FORMAT).format('dddd')}</div>
@@ -25,7 +27,7 @@ const Event = ({first_name, last_name, occasion, occasion_date, occasion_type}) 
       <div className={s.eventName}>{first_name} {last_name}</div>
       <LongArrowIcon className={s.eventArrowIcon}/>
     </div>
-  </a>
+  </Link>
 
 class Orders extends React.Component {
   constructor(props) {
@@ -51,7 +53,7 @@ class Orders extends React.Component {
   render() {
     const {search} = this.state
     // TODO add table loading
-    const {ordersCount, orders, page, pageSize, loading, getOrders, events, date, getEvents, intl} = this.props
+    const {ordersCount, orders, page, pageSize, loading, getOrders, events, date, getEvents, intl, setFlow} = this.props
     const columns = [
       {
         title: intl.formatMessage(messages.orderColumn),
@@ -127,7 +129,7 @@ class Orders extends React.Component {
           </section>
           <section className={s.events}>
             {events.map((event, i) =>
-              <Event key={i} {...event}/>
+              <Event key={i} {...event} setFlow={setFlow}/>
             )}
           </section>
         </div>
@@ -143,6 +145,7 @@ const mapState = state => ({
 const mapDispatch = {
   getEvents,
   getOrders,
+  setFlow,
   clear,
 }
 
