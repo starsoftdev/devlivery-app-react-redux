@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Button, Col, Input, Pagination, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Bundles.css'
-import {clear, getBundles} from '../../reducers/bundles'
+import {clear, getBundles, removeBundle} from '../../reducers/bundles'
 import PlusGiftIcon from '../../static/plus_round.svg'
 import PlusIcon from '../../static/plus.svg'
 import {Link, PaginationItem} from '../../components'
@@ -12,6 +12,7 @@ import messages from './messages'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
 import {ORDER_BUNDLE_ROUTES, EDIT_BUNDLE_ROUTES} from '../'
 import {setFlow} from '../../reducers/purchase'
+import RemoveIcon from '../../static/remove.svg'
 
 // TODO add Create Bundle
 // TODO add Make an Order
@@ -39,7 +40,7 @@ class Bundles extends React.Component {
   render() {
     const {search} = this.state
     // TODO add loading
-    const {bundlesCount, bundles, page, pageSize, loading, getBundles, intl, setFlow} = this.props
+    const {bundlesCount, bundles, page, pageSize, loading, getBundles, intl, setFlow, removeBundle} = this.props
 
     return (
       <div className={s.container}>
@@ -63,6 +64,9 @@ class Bundles extends React.Component {
           {bundles.map((bundle) =>
             <Col key={bundle.id} xs={24} md={12}>
               <div className={s.bundle}>
+                <a className={s.removeBtn} onClick={() => removeBundle(bundle)}>
+                  <RemoveIcon/>
+                </a>
                 <div className={s.bundleContent}>
                   <div className={s.cardWrapper}>
                     <div>
@@ -120,6 +124,7 @@ const mapState = state => ({
 const mapDispatch = {
   getBundles,
   setFlow,
+  removeBundle,
   clear,
 }
 
