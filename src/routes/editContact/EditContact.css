@@ -1,0 +1,48 @@
+@import '../../styles/variables.css';
+
+.container {
+  @media (--md-down) {
+    padding-top: var(--margin-md);
+  }
+  @media (--md-up) {
+    padding-top: var(--margin-xl);
+  }
+}
+
+.content {
+  max-width: var(--max-dashboard-width);
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  padding-right: var(--margin-md);
+  padding-left: var(--margin-md);
+}
+
+.actionsWrapper {
+  border-top: 2px solid color-mod(var(--dark-color) a(10%));
+  margin-top: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.actions {
+  max-width: var(--max-dashboard-width);
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  padding-right: var(--margin-md);
+  padding-left: var(--margin-md);
+}
+
+.rightColumn {
+  @media (--lg-up) {
+    padding-left: 60px !important;
+  }
+}
+
+.leftColumn {
+  @media (--lg-up) {
+    padding-right: 60px !important;
+  }
+}
+

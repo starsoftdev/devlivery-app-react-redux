@@ -7,11 +7,12 @@ import EditIcon from '../../static/edit.svg'
 import RemoveIcon from '../../static/remove.svg'
 import GridIcon from '../../static/view_card.svg'
 import ListIcon from '../../static/view_list.svg'
-import {PaginationItem} from '../../components'
+import {Link, PaginationItem} from '../../components'
 import {clear, getContacts, removeContact} from '../../reducers/contacts'
 import debounce from 'lodash/debounce'
 import messages from './messages'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
+import {EDIT_CONTACT_ROUTE} from '../index'
 
 const GRID_VIEW = 'grid'
 const LIST_VIEW = 'list'
@@ -64,9 +65,11 @@ class Contacts extends React.Component {
         title: intl.formatMessage(messages.actionsColumn),
         dataIndex: '',
         key: 'actions',
-        render: () => {
+        render: (contact) => {
           return (
-            <EditIcon/>
+            <Link to={{name: EDIT_CONTACT_ROUTE, params: {contactId: contact.id}}}>
+              <EditIcon/>
+            </Link>
           )
         }
       },
@@ -104,9 +107,9 @@ class Contacts extends React.Component {
                   md={6}
                 >
                   <div className={s.contact}>
-                    <a className={s.editBtn}>
+                    <Link className={s.editBtn} to={{name: EDIT_CONTACT_ROUTE, params: {contactId: contact.id}}}>
                       <EditIcon/>
-                    </a>
+                    </Link>
                     <a className={s.removeBtn} onClick={() => removeContact(contact)}>
                       <RemoveIcon/>
                     </a>
