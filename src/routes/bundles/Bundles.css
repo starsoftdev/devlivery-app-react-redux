@@ -76,6 +76,7 @@
   background-color: var(--white-color);
   box-shadow: 0 1px 2px 0 rgba(0,39,36,0.1);
   margin-bottom: 20px;
+  position: relative;
 }
 
 .giftWrapper {
@@ -137,4 +138,14 @@
 .footer {
   display: flex;
   justify-content: flex-end;
+}
+
+.removeBtn {
+  display: flex;
+  position: absolute;
+  padding: 10px;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  background: var(--white-color);
 }
