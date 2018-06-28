@@ -10,7 +10,7 @@ import {generateUrl} from '../router'
 export const HANDWRITTEN = 'handwritten'
 export const PRINTED = 'printed'
 
-export const ADD_CONTACTS_MANUALLY = 'add-contacts-manually'
+export const ADD_CONTACT_MANUALLY = 'add-contacts-manually'
 export const IMPORT_CONTACTS = 'import-contacts'
 
 export const PAYPAL = 'PAYPAL'
@@ -125,7 +125,7 @@ export const setCard = (card) => ({type: SET_CARD, card})
 
 export const setGift = (gift) => ({type: SET_GIFT, gift})
 
-export const setAddingContactsMode = (addingContactsMode) => ({type: SET_ADDING_CONTACTS_MODE, addingContactsMode})
+export const setAddingContactsMode = (addingContactMode) => ({type: SET_ADDING_CONTACTS_MODE, addingContactMode})
 
 export const submitShipping = () => (dispatch, getState) => {
   dispatch(nextFlowStep())
@@ -168,7 +168,7 @@ const initialState = {
   cardDetails: {},
   giftType: null,
   gift: null,
-  addingContactsMode: null,
+  addingContactMode: null,
   paymentMethod: null,
   cardStyles: [],
   cards: [],
@@ -235,8 +235,8 @@ export default createReducer(initialState, {
   [SET_GIFT]: (state, {gift}) => ({
     gift,
   }),
-  [SET_ADDING_CONTACTS_MODE]: (state, {addingContactsMode}) => ({
-    addingContactsMode,
+  [SET_ADDING_CONTACTS_MODE]: (state, {addingContactMode}) => ({
+    addingContactMode,
   }),
   [SET_PAYMENT_METHOD]: (state, {paymentMethod}) => ({
     paymentMethod,

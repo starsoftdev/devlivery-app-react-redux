@@ -53,7 +53,7 @@ export const getContacts = (params = {}) => (dispatch, getState, {fetch}) => {
 export const addContact = ({birthday, ...values}, form) => (dispatch, getState, {fetch}) => {
   dispatch({type: ADD_CONTACT_REQUEST})
   const {token} = dispatch(getToken())
-  return fetch(`/contacts`, {
+  return fetch(`/add-contact-manually`, {
     method: 'POST',
     body: {
       dob: birthday.format(DATE_FORMAT),

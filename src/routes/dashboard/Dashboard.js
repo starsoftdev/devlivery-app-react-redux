@@ -5,7 +5,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Dashboard.css'
 import {Breadcrumbs, Link} from '../../components'
 import {
-  ADD_CONTACTS_ROUTE,
+  ADD_CONTACT_ROUTE,
   BUNDLES_ROUTE,
   CONTACT_GROUPS_ROUTE,
   CONTACTS_ROUTE,
@@ -68,8 +68,8 @@ class Dashboard extends React.Component {
                 {intl.formatMessage(messages.importContacts)}
               </Link>
             </Menu.Item>
-            <Menu.Item key={ADD_CONTACTS_ROUTE}>
-              <Link to={ADD_CONTACTS_ROUTE}>
+            <Menu.Item key={ADD_CONTACT_ROUTE}>
+              <Link to={ADD_CONTACT_ROUTE}>
                 {intl.formatMessage(messages.addContacts)}
               </Link>
             </Menu.Item>
