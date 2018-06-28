@@ -2,14 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Button, Form} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import s from './AddContacts.css'
+import s from './AddContact.css'
 import {ContactForm, Actions, SectionHeader} from '../../components'
 import {nextFlowStep} from '../../reducers/purchase'
 import {addContact} from '../../reducers/contacts'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 
 
-class AddContacts extends React.Component {
+class AddContact extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
@@ -76,4 +76,4 @@ const mapDispatch = {
   nextFlowStep,
 }
 
-export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(AddContacts)))
+export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(AddContact)))

@@ -17,7 +17,7 @@ export const MANAGE_TEAM_ROUTE = 'manage-team'
 export const REPORTS_ROUTE = 'reports'
 export const CONTACTS_ROUTE = 'contacts'
 export const IMPORT_CONTACTS_ROUTE = 'import-contacts'
-export const ADD_CONTACTS_ROUTE = 'new-contacts'
+export const ADD_CONTACT_ROUTE = 'new-contacts'
 export const CONTACT_GROUPS_ROUTE = 'contact-groups'
 export const BUNDLES_ROUTE = 'bundles'
 export const USER_ROUTE = 'user'
@@ -29,7 +29,7 @@ export const DASHBOARD_ROUTES = [
   REPORTS_ROUTE,
   CONTACTS_ROUTE,
   IMPORT_CONTACTS_ROUTE,
-  ADD_CONTACTS_ROUTE,
+  ADD_CONTACT_ROUTE,
   CONTACT_GROUPS_ROUTE,
   BUNDLES_ROUTE,
   USER_ROUTE,
@@ -150,8 +150,8 @@ const authRoutes = {
         },
         {
           path: '/contacts/new',
-          name: ADD_CONTACTS_ROUTE,
-          load: () => import(/* webpackChunkName: 'contacts' */ './addContacts'),
+          name: ADD_CONTACT_ROUTE,
+          load: () => import(/* webpackChunkName: 'contacts' */ './addContact'),
         },
         {
           path: '/contacts/groups',

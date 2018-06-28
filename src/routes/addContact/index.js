@@ -1,5 +1,5 @@
 import React from 'react'
-import AddContacts from './AddContacts'
+import AddContacts from './AddContact'
 import {setCurrentRouteName} from '../../reducers/global'
 import messages from './messages'
 

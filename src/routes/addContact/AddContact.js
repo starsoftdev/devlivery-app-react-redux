@@ -2,13 +2,13 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Button, Col, Form, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import s from './AddContacts.css'
+import s from './AddContact.css'
 import PlusIcon from '../../static/plus.svg'
 import {addContact} from '../../reducers/contacts'
 import {ContactForm} from '../../components'
 import messages from './messages'
 
-class AddContacts extends React.Component {
+class AddContact extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
@@ -66,4 +66,4 @@ const mapDispatch = {
   addContact,
 }
 
-export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(AddContacts)))
+export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(AddContact)))
