@@ -10,7 +10,7 @@ import {Link, PaginationItem} from '../../components'
 import debounce from 'lodash/debounce'
 import messages from './messages'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
-import {ORDER_PURCHASE_ROUTES} from '../'
+import {ORDER_BUNDLE_ROUTES, EDIT_BUNDLE_ROUTES} from '../'
 import {setFlow} from '../../reducers/purchase'
 
 // TODO add Create Bundle
@@ -52,10 +52,12 @@ class Bundles extends React.Component {
             value={search}
             onChange={this.changeSearch}
           />
-          <Button type='primary' ghost>
-            <PlusIcon/>
-            {intl.formatMessage(messages.addBundle)}
-          </Button>
+          <Link to={EDIT_BUNDLE_ROUTES[0]} onClick={() => setFlow(EDIT_BUNDLE_ROUTES)}>
+            <Button type='primary' ghost>
+              <PlusIcon/>
+              {intl.formatMessage(messages.addBundle)}
+            </Button>
+          </Link>
         </div>
         <Row type='flex' gutter={20}>
           {bundles.map((bundle) =>
@@ -82,7 +84,7 @@ class Bundles extends React.Component {
                       <span className={s.cardPrice}>{bundle.total}</span>
                       <span className={s.cardPriceCurrency}>CHF</span>
                     </div>
-                    <Link to={ORDER_PURCHASE_ROUTES[0]} onClick={() => setFlow(ORDER_PURCHASE_ROUTES)}>
+                    <Link to={ORDER_BUNDLE_ROUTES[0]} onClick={() => setFlow(ORDER_BUNDLE_ROUTES)}>
                       <Button type='primary' ghost>
                         <PlusIcon/>
                         {intl.formatMessage(messages.makeOrder)}
