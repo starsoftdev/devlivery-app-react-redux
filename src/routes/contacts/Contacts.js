@@ -78,8 +78,7 @@ class Contacts extends React.Component {
     return (
       <div className={s.container}>
         <div className={s.actions}>
-          {/*TODO add search icon*/}
-          <Input
+          <Input.Search
             className={s.search}
             placeholder={intl.formatMessage(messages.search)}
             value={search}

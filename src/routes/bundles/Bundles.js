@@ -46,8 +46,7 @@ class Bundles extends React.Component {
       <div className={s.container}>
         <div className={s.actions}>
           <h1 className={s.header}>{intl.formatMessage(messages.header)}</h1>
-          {/*TODO add search icon*/}
-          <Input
+          <Input.Search
             className={s.search}
             placeholder={intl.formatMessage(messages.search)}
             value={search}
