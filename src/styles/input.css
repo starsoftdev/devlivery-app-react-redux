@@ -16,7 +16,7 @@
     height: var(--input-height-base);
     font-size: var(--font-size-base);
     line-height: var(--line-height-base);
-    color:  var(--input-color);
+    color: var(--input-color);
     background-color: var(--input-bg);
     background-image: none;
     border: none;
@@ -25,16 +25,16 @@
     transition: all .3s;
 
     /*Reset placeholder*/
-  /* Firefox*/
+    /* Firefox*/
     &::-moz-placeholder {
       color: var(--input-placeholder-color);
       opacity: 1; /*Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526*/
     }
-  /* Internet Explorer 10+*/
+    /* Internet Explorer 10+*/
     &:-ms-input-placeholder {
       color: var(--input-placeholder-color);
     }
-  /* Safari and Chrome*/
+    /* Safari and Chrome*/
     &::-webkit-input-placeholder {
       color: var(--input-placeholder-color);
     }
@@ -62,26 +62,101 @@
       }
     }
 
-  /*// Reset height for `textarea`s
-    textarea& {
-      max-width: 100%; // prevent textearea resize from coming out of its container
-      height: auto;
-      vertical-align: bottom;
-      transition: all .3s, height 0s;
-      min-height: @input-height-base;
-    }
+    /*// Reset height for `textarea`s
+      textarea& {
+        max-width: 100%; // prevent textearea resize from coming out of its container
+        height: auto;
+        vertical-align: bottom;
+        transition: all .3s, height 0s;
+        min-height: @input-height-base;
+      }
 
-  // Size
-    &-lg {
-      .input-lg();
-    }
+    // Size
+      &-lg {
+        .input-lg();
+      }
 
-    &-sm {
-      .input-sm();
-    }*/
+      &-sm {
+        .input-sm();
+      }*/
   }
 
   .has-error .ant-input:focus {
     box-shadow: none;
+  }
+
+  .ant-input-search {
+    &-icon {
+      color: var(--text-color);
+      cursor: pointer;
+      transition: all .3s;
+      font-size: 18px;
+
+      &:hover {
+        color: #333;
+      }
+    }
+
+    &:not(&-small) > .ant-input-suffix {
+      right: 0;
+    }
+
+    > .ant-input-suffix > .ant-input-search-button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      > .anticon-search {
+        font-size: var(--font-size-lg);
+      }
+    }
+
+    &.ant-input-search-enter-button > .ant-input {
+      padding-right: 46px;
+    }
+
+    &.ant-input-search-enter-button > .ant-input-suffix {
+      right: 0;
+    }
+  }
+
+  .ant-input-affix-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+
+    &:hover .ant-input:not(.ant-input-disabled) {
+    }
+
+    .ant-input {
+      position: static;
+    }
+
+    .ant-input-prefix,
+    .ant-input-suffix {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      line-height: 0;
+      color: var(--text-color);
+
+      /*:not(.anticon) {
+        line-height: @line-height-base;
+      }*/
+    }
+
+    .ant-input-prefix {
+      left: 0;
+    }
+
+    .ant-input-suffix {
+      right: 0;
+    }
+
+    .ant-input:not(:first-child) {
+      padding-left: 20px;
+    }
+
+    .ant-input:not(:last-child) {
+      padding-right: 20px;
+    }
   }
 }
