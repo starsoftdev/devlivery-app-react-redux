@@ -10,7 +10,7 @@ import messages from './messages'
 
 class ColumnsMappingForm extends React.Component {
   render() {
-    const {mappingColumns, intl} = this.props
+    const {mappingColumns, intl, className} = this.props
     const {getFieldDecorator} = this.props.form
 
     const formItemLayout = {
@@ -25,7 +25,7 @@ class ColumnsMappingForm extends React.Component {
     }
 
     return (
-      <Form layout='vertical' hideRequiredMark>
+      <Form layout='vertical' hideRequiredMark className={className}>
         {mappingColumns.db_columns.map(column =>
           <Form.Item
             className={s.row}
