@@ -47,14 +47,14 @@ class Groups extends React.Component {
       <React.Fragment>
         {keys.map((k) =>
           <div key={k} className={s.item}>
-            {initialValues && initialValues.groups[k].id && getFieldDecorator(`groups[${k}].id`, {
+            {initialValues && initialValues.groups[k] && initialValues.groups[k].id && getFieldDecorator(`groups[${k}].id`, {
               initialValue: initialValues.groups[k].id,
             })(
               <Input type='hidden'/>
             )}
             <Form.Item>
               {getFieldDecorator(`groups[${k}].title`, {
-                initialValue: initialValues && initialValues.groups[k].title,
+                initialValue: initialValues && initialValues.groups[k] && initialValues.groups[k].title,
               })(
                 <Select
                   showSearch
