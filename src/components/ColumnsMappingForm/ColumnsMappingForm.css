@@ -1,0 +1,26 @@
+@import '../../styles/variables.css';
+
+.content {
+  padding-bottom: var(--margin-md);
+  padding-right: var(--margin-md);
+  padding-left: var(--margin-md);
+
+  @media (--md-down) {
+    padding-top: var(--margin-md);
+  }
+  @media (--md-up) {
+    padding-top: var(--margin-xl);
+  }
+
+  @media (--sm-up) {
+    max-width: 425px;
+    width: 100%;
+  }
+}
+
+.row {
+  @media (--sm-up) {
+    display: flex;
+    align-items: center;
+  }
+}

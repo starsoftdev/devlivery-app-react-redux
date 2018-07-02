@@ -5,6 +5,7 @@ import {DATE_FORMAT, DEFAULT_PAGE_SIZE} from '../constants'
 import {message} from 'antd'
 import {generateUrl} from '../router'
 import {CONTACTS_ROUTE} from '../routes'
+import mapValues from 'lodash/mapValues'
 
 // ------------------------------------
 // Constants
@@ -36,6 +37,20 @@ export const GET_OCCASIONS_FAILURE = 'Contacts.GET_OCCASIONS_FAILURE'
 export const GET_GROUPS_REQUEST = 'Contacts.GET_GROUPS_REQUEST'
 export const GET_GROUPS_SUCCESS = 'Contacts.GET_GROUPS_SUCCESS'
 export const GET_GROUPS_FAILURE = 'Contacts.GET_GROUPS_FAILURE'
+
+export const UPLOAD_CONTACTS_REQUEST = 'Contacts.UPLOAD_CONTACTS_REQUEST'
+export const UPLOAD_CONTACTS_SUCCESS = 'Contacts.UPLOAD_CONTACTS_SUCCESS'
+export const UPLOAD_CONTACTS_FAILURE = 'Contacts.UPLOAD_CONTACTS_FAILURE'
+
+export const IMPORT_CONTACTS_REQUEST = 'Contacts.IMPORT_CONTACTS_REQUEST'
+export const IMPORT_CONTACTS_SUCCESS = 'Contacts.IMPORT_CONTACTS_SUCCESS'
+export const IMPORT_CONTACTS_FAILURE = 'Contacts.IMPORT_CONTACTS_FAILURE'
+
+export const MAPPING_COLUMNS = 'Contacts.MAPPING_COLUMNS'
+
+export const OPEN_UPLOADED_CONTACTS_MODAL = 'Contacts.OPEN_UPLOADED_CONTACTS_MODAL'
+export const CLOSE_UPLOADED_CONTACTS_MODAL = 'Contacts.CLOSE_UPLOADED_CONTACTS_MODAL'
+export const CHANGE_SELECTED_CONTACTS = 'Contacts.CHANGE_SELECTED_CONTACTS'
 
 export const CLEAR = 'Contacts.CLEAR'
 
@@ -183,6 +198,53 @@ export const getGroups = ({search} = {}) => (dispatch, getState, {fetch}) => {
   })
 }
 
+export const uploadContacts = (file, fileType) => (dispatch, getState, {fetch}) => {
+  dispatch({type: UPLOAD_CONTACTS_REQUEST})
+  const {token} = dispatch(getToken())
+  return fetch(`/contact/import`, {
+    method: 'POST',
+    contentType: 'multipart/form-data',
+    body: {
+      file,
+      file_type: fileType,
+    },
+    token,
+    success: ({data}) => {
+      dispatch({type: UPLOAD_CONTACTS_SUCCESS, uploadedContacts: data.contacts})
+      if (data.db_columns) {
+        dispatch({type: MAPPING_COLUMNS, mappingColumns: data})
+      }
+    },
+    failure: () => dispatch({type: UPLOAD_CONTACTS_FAILURE}),
+  })
+}
+
+export const importContacts = (columnsMapping) => (dispatch, getState, {fetch}) => {
+  dispatch({type: IMPORT_CONTACTS_REQUEST})
+  const {token} = dispatch(getToken())
+  const {uploadedContacts, selectedContacts} = getState().contacts
+  // TODO modify contacts obj
+  const contacts = uploadedContacts
+    .filter((contact, i) => selectedContacts.includes(i))
+    .map(contact => mapValues(columnsMapping, (value) => contact[value]))
+
+  return fetch(`/contact/import-final`, {
+    method: 'POST',
+    body: {
+      contacts,
+    },
+    token,
+    success: () => dispatch({type: IMPORT_CONTACTS_SUCCESS}),
+    failure: () => dispatch({type: IMPORT_CONTACTS_FAILURE}),
+  })
+}
+
+export const openUploadedContactsModal = () => ({type: OPEN_UPLOADED_CONTACTS_MODAL})
+
+export const closeUploadedContactsModal = () => ({type: CLOSE_UPLOADED_CONTACTS_MODAL})
+
+export const changeSelectedContacts = (selectedContacts) => ({type: CHANGE_SELECTED_CONTACTS, selectedContacts})
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -204,6 +266,10 @@ const initialState = {
   occasions: [],
   groups: [],
   contact: null,
+  mappingColumns: null,
+  uploadedContacts: [],
+  uploadedContactsModalOpened: false,
+  selectedContacts: [],
 }
 
 export default createReducer(initialState, {
@@ -341,6 +407,27 @@ export default createReducer(initialState, {
       ...state.loading,
       groups: false,
     },
+  }),
+  [MAPPING_COLUMNS]: (state, {mappingColumns}) => ({
+    mappingColumns,
+  }),
+  [OPEN_UPLOADED_CONTACTS_MODAL]: (state, action) => ({
+    uploadedContactsModalOpened: true,
+  }),
+  [CLOSE_UPLOADED_CONTACTS_MODAL]: (state, action) => ({
+    uploadedContactsModalOpened: false,
+  }),
+  [UPLOAD_CONTACTS_SUCCESS]: (state, {uploadedContacts}) => ({
+    uploadedContacts,
+    selectedContacts: uploadedContacts.map((item, i) => i),
+  }),
+  [CHANGE_SELECTED_CONTACTS]: (state, {selectedContacts}) => ({
+    selectedContacts,
+  }),
+  [IMPORT_CONTACTS_SUCCESS]: (state, action) => ({
+    uploadedContacts: [],
+    selectedContacts: [],
+    mappingColumns: null,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

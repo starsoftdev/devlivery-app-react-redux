@@ -19,29 +19,13 @@
   }
 }
 
+.header {
+  justify-content: space-between;
+}
+
 .headerPrefix {
   @media (min-width: 821px) {
     position: absolute;
     right: 100%;
-  }
-}
-
-.items {
-  flex-wrap: wrap;
-}
-
-.itemWrapper {
-  @media (--xs-down) {
-    width: 100%;
-  }
-}
-
-.item {
-  justify-content: flex-end;
-  margin-bottom: 20px;
-
-  @media (--xs-up) {
-    /*to split by 2*/
-    width: 314px;
   }
 }

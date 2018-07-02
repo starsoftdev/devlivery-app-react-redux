@@ -6,9 +6,9 @@ import cn from 'classnames'
 
 class SectionHeader extends React.Component {
   render() {
-    const {header, number, children, prefixClassName} = this.props
+    const {header, className, number, children, prefixClassName} = this.props
     return (
-      <h1 className={s.header}>
+      <h1 className={cn(s.header, className)}>
         <span className={cn(s.prefix, prefixClassName)}>
           {number}
           <ArrowIcon className={s.arrowIcon}/>

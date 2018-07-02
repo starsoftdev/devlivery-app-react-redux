@@ -1,5 +1,6 @@
 @import './normalize.css';
 @import './layout.css';
+@import './icon.css';
 @import './button.css';
 @import './input.css';
 @import './select.css';
@@ -11,22 +12,13 @@
 @import './breadcrumbs.css';
 @import './date-picker.css';
 @import './tooltip.css';
+@import './modal.css';
+@import './checkbox.css';
 
 :global {
   .ant-form {
     font-family: var(--font-family);
   }
-
-  /*TODO add custom icons for notifications*/
-  /*.anticon-check-circle:before {
-    content: '';
-    background: url('./svgs/check-circle.svg') no-repeat top left;
-  }
-
-  .anticon-cross-circle:before {
-    content: '';
-    background: url('./svgs/cross-circle.svg') no-repeat top left;
-  }*/
 
   .rccs__card--unknown > div {
     background: linear-gradient(25deg, var(--primary-color), var(--primary-color)) !important;

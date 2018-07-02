@@ -1,0 +1,30 @@
+@import '../../styles/variables.css';
+
+.instructions {
+  padding-left: var(--margin-md);
+
+  & > li {
+    margin-bottom: var(--margin-md);
+  }
+}
+
+.link {
+  font-weight: bold;
+  color: var(--primary-color)
+}
+
+.importBtnWrapper {
+  display: flex;
+  width: 140px;
+  margin-bottom: var(--margin-md);
+}
+
+.importBtn {
+  min-width: 140px;
+}
+
+.connectBtn {
+  display: flex;
+  min-width: 140px;
+  margin-bottom: var(--margin-md);
+}
