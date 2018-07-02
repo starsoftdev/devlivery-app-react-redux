@@ -29,3 +29,7 @@
     right: 100%;
   }
 }
+
+.columnsMappingForm {
+  max-width: 425px;
+}

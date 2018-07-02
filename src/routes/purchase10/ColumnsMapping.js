@@ -43,6 +43,7 @@ class ColumnsMapping extends React.Component {
             </Button>
           </SectionHeader>
           <ColumnsMappingForm
+            className={s.columnsMappingForm}
             ref={ref => this.columnsMappingForm = ref}
             onSubmit={this.handleSubmit}
           />
