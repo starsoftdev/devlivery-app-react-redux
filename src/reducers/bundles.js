@@ -2,7 +2,6 @@ import createReducer, {RESET_STORE} from '../createReducer'
 import qs from 'query-string'
 import {getToken} from './user'
 import {DEFAULT_PAGE_SIZE} from '../constants'
-import {REMOVE_CONTACT_FAILURE, REMOVE_CONTACT_REQUEST, REMOVE_CONTACT_SUCCESS} from './contacts'
 
 // ------------------------------------
 // Constants
@@ -14,6 +13,9 @@ export const GET_BUNDLES_FAILURE = 'Bundles.GET_BUNDLES_FAILURE'
 export const REMOVE_BUNDLE_REQUEST = 'Bundles.REMOVE_BUNDLE_REQUEST'
 export const REMOVE_BUNDLE_SUCCESS = 'Bundles.REMOVE_BUNDLE_SUCCESS'
 export const REMOVE_BUNDLE_FAILURE = 'Bundles.REMOVE_BUNDLE_FAILURE'
+
+export const OPEN_BUNDLE_DETAILS_MODAL = 'Bundles.OPEN_BUNDLE_DETAILS_MODAL'
+export const CLOSE_BUNDLE_DETAILS_MODAL = 'Bundles.CLOSE_BUNDLE_DETAILS_MODAL'
 
 export const CLEAR = 'Bundles.CLEAR'
 
@@ -53,6 +55,10 @@ export const removeBundle = (bundle) => (dispatch, getState, {fetch}) => {
   })
 }
 
+export const openBundleDetailsModal = (bundleDetails) => ({type: OPEN_BUNDLE_DETAILS_MODAL, bundleDetails})
+
+export const closeBundleDetailsModal = () => ({type: CLOSE_BUNDLE_DETAILS_MODAL})
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -67,6 +73,8 @@ const initialState = {
   bundlesCount: 0,
   page: 1,
   pageSize: DEFAULT_PAGE_SIZE,
+  bundleDetailsModalOpened: false,
+  bundleDetails: null,
 }
 
 export default createReducer(initialState, {
@@ -111,6 +119,14 @@ export default createReducer(initialState, {
       ...state.loading,
       removingBundle: false,
     },
+  }),
+  [OPEN_BUNDLE_DETAILS_MODAL]: (state, {bundleDetails}) => ({
+    bundleDetailsModalOpened: true,
+    bundleDetails,
+  }),
+  [CLOSE_BUNDLE_DETAILS_MODAL]: (state, action) => ({
+    bundleDetailsModalOpened: false,
+    bundleDetails: null,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

@@ -3,10 +3,10 @@ import {connect} from 'react-redux'
 import {Button, Col, Input, Pagination, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Bundles.css'
-import {clear, getBundles, removeBundle} from '../../reducers/bundles'
+import {clear, getBundles, openBundleDetailsModal, removeBundle} from '../../reducers/bundles'
 import PlusGiftIcon from '../../static/plus_round.svg'
 import PlusIcon from '../../static/plus.svg'
-import {Link, PaginationItem} from '../../components'
+import {Link, PaginationItem, BundleDetails} from '../../components'
 import debounce from 'lodash/debounce'
 import messages from './messages'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
@@ -40,7 +40,7 @@ class Bundles extends React.Component {
   render() {
     const {search} = this.state
     // TODO add loading
-    const {bundlesCount, bundles, page, pageSize, loading, getBundles, intl, setFlow, removeBundle} = this.props
+    const {bundlesCount, bundles, page, pageSize, loading, getBundles, intl, setFlow, removeBundle, openBundleDetailsModal, bundleDetailsModalOpened} = this.props
 
     return (
       <div className={s.container}>
@@ -67,7 +67,7 @@ class Bundles extends React.Component {
                 <a className={s.removeBtn} onClick={() => removeBundle(bundle)}>
                   <RemoveIcon/>
                 </a>
-                <div className={s.bundleContent}>
+                <a className={s.bundleContent} onClick={() => openBundleDetailsModal(bundle)}>
                   <div className={s.cardWrapper}>
                     <div>
                       <img src={bundle.bundle_card.card.images[0].url} className={s.cardImage}/>
@@ -79,11 +79,11 @@ class Bundles extends React.Component {
                       <img src={bundle.bundle_gifts[0].gift.image[0].url} className={s.giftImage}/>
                     </div>
                   </div>
-                </div>
+                </a>
                 <div>
                   <div className={s.bundleActions}>
                     <div className={s.cardInfo}>
-                      <span className={s.cardTitle}>{bundle.title}</span>
+                      <a className={s.cardTitle} onClick={() => openBundleDetailsModal(bundle)}>{bundle.title}</a>
                       <br/>
                       <span className={s.cardPrice}>{bundle.total}</span>
                       <span className={s.cardPriceCurrency}>CHF</span>
@@ -112,6 +112,7 @@ class Bundles extends React.Component {
             itemRender={(current, type, el) => <PaginationItem type={type} el={el}/>}
           />
         </div>
+        {bundleDetailsModalOpened && <BundleDetails/>}
       </div>
     )
   }
@@ -125,6 +126,7 @@ const mapDispatch = {
   getBundles,
   setFlow,
   removeBundle,
+  openBundleDetailsModal,
   clear,
 }
 
