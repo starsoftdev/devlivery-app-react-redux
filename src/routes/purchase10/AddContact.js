@@ -7,7 +7,7 @@ import {ContactForm, Actions, SectionHeader} from '../../components'
 import {nextFlowStep} from '../../reducers/purchase'
 import {addContact} from '../../reducers/contacts'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
-
+import messages from './messages'
 
 class AddContact extends React.Component {
   handleSubmit = (e) => {
@@ -22,7 +22,7 @@ class AddContact extends React.Component {
   }
 
   render() {
-    const {flowIndex} = this.props
+    const {flowIndex, intl} = this.props
     return (
       <ContactForm form={this.props.form} header={null}>
         {({
@@ -36,7 +36,7 @@ class AddContact extends React.Component {
           <Form onSubmit={this.handleSubmit}>
             <div className={s.content}>
               <SectionHeader
-                header={'Add your Contact(s)'}
+                header={intl.formatMessage(messages.header)}
                 number={flowIndex + 1}
                 prefixClassName={s.headerPrefix}
               />
@@ -57,7 +57,7 @@ class AddContact extends React.Component {
                 htmlType='submit'
                 type='primary'
               >
-                Submit
+                {intl.formatMessage(messages.submit)}
               </Button>
             </Actions>
           </Form>

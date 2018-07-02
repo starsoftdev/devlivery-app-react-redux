@@ -1,0 +1,147 @@
+@import './variables.css';
+
+:global {
+  .ant-modal {
+    position: relative;
+    width: auto;
+    margin: 0 auto;
+    top: 100px;
+    padding-bottom: 24px;
+
+    &-wrap {
+      position: fixed;
+      overflow: auto;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: var(--zindex-modal);
+      -webkit-overflow-scrolling: touch;
+      outline: 0;
+    }
+
+    &-title {
+      margin: 0;
+      font-size: 18px;
+      line-height: 18px;
+      font-weight: 500;
+      color: var(--dark-color);
+    }
+
+    &-content {
+      position: relative;
+      background-color: var(--component-background);
+      border: 0;
+      border-radius: 0;
+      background-clip: padding-box;
+      box-shadow: 0 1px 2px 0 rgba(0, 39, 36, 0.1);
+    }
+
+    &-close {
+      cursor: pointer;
+      border: 0;
+      background: transparent;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 10;
+      font-weight: 700;
+      line-height: 1;
+      text-decoration: none;
+      transition: color .3s;
+      color: var(--text-color) -secondary;
+      outline: 0;
+      padding: 0;
+
+      &-x {
+        display: block;
+        font-style: normal;
+        vertical-align: baseline;
+        text-align: center;
+        text-transform: none;
+        text-rendering: auto;
+        width: 51px;
+        height: 51px;
+        line-height: 51px;
+
+        &:before {
+          content: "\e633";
+          display: block;
+          font-family: "anticon" !important;
+        }
+      }
+
+      &:focus,
+      &:hover {
+        color: #444;
+        text-decoration: none;
+      }
+    }
+
+    &-header {
+      padding: 16px 24px;
+      border-radius: 0 0 0 0;
+      background: var(--component-background);
+      color: var(--text-color);
+      border-bottom: 1px solid var(--border-color-base);
+    }
+
+    &-body {
+      padding: 24px;
+      /*font-size: @font-size-base;
+      line-height: @line-height-base;*/
+      word-wrap: break-word;
+    }
+
+    &-footer {
+      border-top: 1px solid var(--border-color-base);
+      padding: 10px 16px;
+      text-align: right;
+      border-radius: 0 0 0 0;
+      button + button {
+        margin-left: 8px;
+        margin-bottom: 0;
+      }
+    }
+
+    &.zoom-enter,
+    &.zoom-appear {
+      animation-duration: .3s;
+      transform: none; /*reset scale avoid mousePosition bug*/
+      opacity: 0;
+    }
+
+    &-mask {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.65);
+      height: 100%;
+      z-index: var(--zindex-modal-mask);
+
+      &-hidden {
+        display: none;
+      }
+    }
+
+    &-open {
+      overflow: hidden;
+    }
+  }
+
+  @media (--md-down) {
+    .ant-modal {
+      width: auto !important;
+      margin: 10px;
+    }
+
+    .vertical-center-modal {
+      .ant-modal {
+        flex: 1;
+      }
+    }
+  }
+
+}

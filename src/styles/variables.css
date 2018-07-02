@@ -23,6 +23,8 @@
   /* z-index list */
   --zindex-dropdown: 1050;
   --zindex-tooltip: 1060;
+  --zindex-modal-mask: 1000;
+  --zindex-modal: 1000;
 
   --carousel-dot-width: 16px;
   --carousel-dot-height: 3px;

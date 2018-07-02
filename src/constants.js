@@ -9,3 +9,9 @@ export const DEFAULT_PAGE_SIZE = 10
 export const DEFAULT_DEBOUNCE_TIME = 800
 
 export const DATE_FORMAT = 'YYYY-MM-DD'
+
+export const REQUIRED_FIELDS = [
+  'first_name',
+  'last_name',
+  'email',
+]

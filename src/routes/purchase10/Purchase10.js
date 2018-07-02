@@ -10,29 +10,22 @@ import ImportContactsIcon from '../../static/import_contacts.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import ImportContacts from './ImportContacts'
 import AddContact from './AddContact'
+import messages from './messages'
 
-// TODO add Import steps
 class Purchase10 extends React.Component {
   render() {
-    const {addingContactMode, setAddingContactsMode, nextFlowStep, flowIndex} = this.props
+    const {addingContactMode, setAddingContactsMode, nextFlowStep, flowIndex, intl} = this.props
     return (
       <React.Fragment>
         {addingContactMode === ADD_CONTACT_MANUALLY ? (
-          <AddContact/>
+          <AddContact intl={intl}/>
         ) : addingContactMode === IMPORT_CONTACTS ? (
-          <div className={s.importContactsContent}>
-            {/*<SectionHeader*/}
-              {/*header={'Add your Contact(s)'}*/}
-              {/*number={flowIndex + 1}*/}
-              {/*prefixClassName={s.importContactsHeaderPrefix}*/}
-            {/*/>*/}
-            {/*<ImportContacts/>*/}
-          </div>
+          <ImportContacts intl={intl}/>
         ) : (
           <React.Fragment>
             <div className={s.content}>
               <SectionHeader
-                header={'Add your Contact(s)'}
+                header={intl.formatMessage(messages.header)}
                 number={flowIndex + 1}
                 prefixClassName={s.headerPrefix}
               />
@@ -40,7 +33,7 @@ class Purchase10 extends React.Component {
                 <Col className={s.itemWrapper}>
                   <Card
                     className={s.item}
-                    title={'Add contact manually'}
+                    title={intl.formatMessage(messages.addContactManually)}
                     onClick={() => setAddingContactsMode(ADD_CONTACT_MANUALLY)}
                     active={addingContactMode === ADD_CONTACT_MANUALLY}
                     keyValue='a'
@@ -50,7 +43,7 @@ class Purchase10 extends React.Component {
                 <Col className={s.itemWrapper}>
                   <Card
                     className={s.item}
-                    title={'Import contacts'}
+                    title={intl.formatMessage(messages.importContacts)}
                     onClick={() => setAddingContactsMode(IMPORT_CONTACTS)}
                     active={addingContactMode === IMPORT_CONTACTS}
                     keyValue='b'
@@ -69,7 +62,7 @@ class Purchase10 extends React.Component {
                 onClick={nextFlowStep}
                 type='primary'
               >
-                Submit
+                {intl.formatMessage(messages.submit)}
               </Button>
             </Actions>
           </React.Fragment>
