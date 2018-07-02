@@ -156,14 +156,14 @@ const authRoutes = {
           load: () => import(/* webpackChunkName: 'contacts' */ './addContact'),
         },
         {
-          path: '/contacts/:contactId',
-          name: EDIT_CONTACT_ROUTE,
-          load: () => import(/* webpackChunkName: 'contacts' */ './editContact'),
-        },
-        {
           path: '/contacts/groups',
           name: CONTACT_GROUPS_ROUTE,
           load: () => import(/* webpackChunkName: 'contacts' */ './contactGroups'),
+        },
+        {
+          path: '/contacts/:contactId',
+          name: EDIT_CONTACT_ROUTE,
+          load: () => import(/* webpackChunkName: 'contacts' */ './editContact'),
         },
         {
           path: '/bundles',
