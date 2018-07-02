@@ -49,14 +49,14 @@ class Reminders extends React.Component {
       <React.Fragment>
         {keys.map((k) =>
           <div key={k} className={s.item}>
-            {initialValues && initialValues.reminders[k].id && getFieldDecorator(`reminders[${k}].id`, {
+            {initialValues && initialValues.reminders[k] && initialValues.reminders[k].id && getFieldDecorator(`reminders[${k}].id`, {
               initialValue: initialValues.reminders[k].id,
             })(
               <Input type='hidden'/>
             )}
             <Form.Item>
               {getFieldDecorator(`reminders[${k}].occasion_id`, {
-                initialValue: initialValues && initialValues.reminders[k].occasion_id,
+                initialValue: initialValues && initialValues.reminders[k] && initialValues.reminders[k].occasion_id,
               })(
                 <Select
                   showSearch
@@ -74,7 +74,7 @@ class Reminders extends React.Component {
             </Form.Item>
             <Form.Item>
               {getFieldDecorator(`reminders[${k}].date`, {
-                initialValue: initialValues ? moment(initialValues.reminders[k].date, 'DD-MM-YYYY') : undefined,
+                initialValue: initialValues && initialValues.reminders[k] ? moment(initialValues.reminders[k].date, 'DD-MM-YYYY') : undefined,
               })(
                 <DatePicker className={s.date} format={DATE_FORMAT}/>
               )}
