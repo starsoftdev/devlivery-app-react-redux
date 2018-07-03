@@ -5,7 +5,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Reports.css'
 import PlusIcon from '../../static/plus.svg'
 import moment from 'moment'
-import {clear, getOccasions, getReports} from '../../reducers/reports'
+import {clear, exportReport, getOccasions, getReports} from '../../reducers/reports'
 import {PaginationItem} from '../../components'
 import debounce from 'lodash/debounce'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
@@ -26,7 +26,7 @@ class Reports extends React.Component {
   render() {
     // TODO add loading
     // TODO change range picker
-    const {reports, reportsCount, page, pageSize, loading, getReports, occasions, occasion, intl} = this.props
+    const {reports, reportsCount, page, pageSize, loading, getReports, occasions, occasion, intl, exportReport} = this.props
     const columns = [
       {
         title: intl.formatMessage(messages.contactsColumn),
@@ -65,7 +65,7 @@ class Reports extends React.Component {
       <div className={s.container}>
         <div className={s.actions}>
           <h1 className={s.header}>{intl.formatMessage(messages.header)}</h1>
-          <Button type='primary' ghost>
+          <Button type='primary' ghost onClick={exportReport}>
             <PlusIcon/>
             {intl.formatMessage(messages.export)}
           </Button>
@@ -147,6 +147,7 @@ const mapState = state => ({
 const mapDispatch = {
   getReports,
   getOccasions,
+  exportReport,
   clear,
 }
 
