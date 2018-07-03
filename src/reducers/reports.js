@@ -14,6 +14,10 @@ export const GET_OCCASIONS_REQUEST = 'Reports.GET_OCCASIONS_REQUEST'
 export const GET_OCCASIONS_SUCCESS = 'Reports.GET_OCCASIONS_SUCCESS'
 export const GET_OCCASIONS_FAILURE = 'Reports.GET_OCCASIONS_FAILURE'
 
+export const EXPORT_REPORT_REQUEST = 'Reports.EXPORT_REPORT_REQUEST'
+export const EXPORT_REPORT_SUCCESS = 'Reports.EXPORT_REPORT_SUCCESS'
+export const EXPORT_REPORT_FAILURE = 'Reports.EXPORT_REPORT_FAILURE'
+
 export const CLEAR = 'Reports.CLEAR'
 
 // ------------------------------------
@@ -47,6 +51,20 @@ export const getOccasions = ({search} = {}) => (dispatch, getState, {fetch}) => 
     method: 'GET',
     success: (res) => dispatch({type: GET_OCCASIONS_SUCCESS, occasions: res.data}),
     failure: () => dispatch({type: GET_OCCASIONS_FAILURE})
+  })
+}
+
+export const exportReport = () => (dispatch, getState, {fetch}) => {
+  dispatch({type: EXPORT_REPORT_REQUEST})
+  const {token} = dispatch(getToken())
+  // TODO add search params
+  return fetch(`/reports/scheduled-orders?export`, {
+    method: 'GET',
+    token,
+    // TODO change export file name
+    fileName: `report.csv`,
+    success: () => dispatch({type: EXPORT_REPORT_SUCCESS}),
+    failure: () => dispatch({type: EXPORT_REPORT_FAILURE}),
   })
 }
 

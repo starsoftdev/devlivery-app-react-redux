@@ -24,7 +24,6 @@ class Purchase13 extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log(values)
         // TODO add payment functionality
         this.props.nextFlowStep()
       }
