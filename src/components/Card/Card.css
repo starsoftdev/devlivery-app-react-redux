@@ -36,6 +36,8 @@
 
 .title {
   letter-spacing: 2.1px;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
 .checkIcon {
