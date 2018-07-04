@@ -13,4 +13,8 @@ export default defineMessages({
     id: 'purchase1.submit',
     defaultMessage: 'Submit',
   },
+  filterByOccasionType: {
+    id: 'purchase1.filterByOccasionType',
+    defaultMessage: 'Filter by Occasion Type',
+  },
 })
