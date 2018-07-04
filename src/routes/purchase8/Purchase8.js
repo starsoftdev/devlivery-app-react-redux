@@ -14,13 +14,6 @@ import cn from 'classnames'
 import Preview from './Preview'
 import messages from './messages'
 
-const CARD_STYLES = [
-  {key: 'gift1', title: 'Rich Foodie', price: '95.00', currency: 'CHF', image: Gift1Image},
-  {key: 'gift2', title: 'Fine Foodie', price: '78.00', currency: 'CHF', image: Gift2Image},
-  {key: 'gift3', title: 'Rich Foodie', price: '70.00', currency: 'CHF', image: Gift1Image},
-  {key: 'gift4', title: 'Christmas Basket', price: '95.00', currency: 'CHF', image: Gift2Image},
-]
-
 class Purchase8 extends React.Component {
   state = {
     previewCollapsed: false,
@@ -32,7 +25,7 @@ class Purchase8 extends React.Component {
 
   render() {
     const {previewCollapsed} = this.state
-    const {gift, setGift, nextFlowStep, intl, flowIndex} = this.props
+    const {gift, setGift, nextFlowStep, intl, flowIndex, gifts} = this.props
 
     return (
       <React.Fragment>
@@ -59,11 +52,11 @@ class Purchase8 extends React.Component {
                 prefixClassName={s.headerPrefix}
               />
               <Row className={s.items} gutter={20} type='flex' align='center'>
-                {CARD_STYLES.map((item) =>
-                  <Col key={item.key} className={s.itemWrapper}>
+                {gifts.map((item) =>
+                  <Col key={item.id} className={s.itemWrapper}>
                     <Card
                       className={s.item}
-                      image={item.image}
+                      image={item.image[0].thumb_url}
                       title={
                         <React.Fragment>
                           {item.title}
@@ -74,8 +67,8 @@ class Purchase8 extends React.Component {
                           </span>
                         </React.Fragment>
                       }
-                      onClick={() => setGift(item.key)}
-                      active={item.key === gift}
+                      onClick={() => setGift(item.id)}
+                      active={item.id === gift}
                     />
                   </Col>
                 )}
@@ -104,6 +97,7 @@ class Purchase8 extends React.Component {
 }
 
 const mapState = state => ({
+  gifts: state.purchase.gifts,
   gift: state.purchase.gift,
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
