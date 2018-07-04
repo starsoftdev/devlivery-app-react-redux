@@ -3,6 +3,7 @@ import {loginSuccess} from './login'
 import {message} from 'antd'
 import {PURCHASE_COMPLETED_ROUTE, PURCHASE_ROUTES} from '../routes'
 import {generateUrl} from '../router'
+import qs from 'query-string'
 
 // ------------------------------------
 // Constants
@@ -33,6 +34,10 @@ export const SET_ADDING_CONTACTS_MODE = 'Purchase.SET_ADDING_CONTACTS_MODE'
 export const GET_OCCASIONS_REQUEST = 'Purchase.GET_OCCASIONS_REQUEST'
 export const GET_OCCASIONS_SUCCESS = 'Purchase.GET_OCCASIONS_SUCCESS'
 export const GET_OCCASIONS_FAILURE = 'Purchase.GET_OCCASIONS_FAILURE'
+
+export const GET_OCCASION_TYPES_REQUEST = 'Purchase.GET_OCCASION_TYPES_REQUEST'
+export const GET_OCCASION_TYPES_SUCCESS = 'Purchase.GET_OCCASION_TYPES_SUCCESS'
+export const GET_OCCASION_TYPES_FAILURE = 'Purchase.GET_OCCASION_TYPES_FAILURE'
 
 export const GET_CARD_STYLES_REQUEST = 'Purchase.GET_CARD_STYLES_REQUEST'
 export const GET_CARD_STYLES_SUCCESS = 'Purchase.GET_CARD_STYLES_SUCCESS'
@@ -71,15 +76,33 @@ export const nextFlowStep = () => (dispatch, getState, {history}) => {
 
 export const setOccasion = (occasion) => ({type: SET_OCCASION, occasion})
 
-export const getOccasions = () => (dispatch, getState, {fetch}) => {
-  dispatch({type: GET_OCCASIONS_REQUEST})
-  return fetch(`/occasions?take=100`, {
+export const getOccasions = (params = {}) => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_OCCASIONS_REQUEST, params})
+  const {occasionType} = getState().purchase
+  return fetch(`/occasions?${qs.stringify({
+    take: 100,
+    ...occasionType ? {
+      filter_key: 'type',
+      filter_value: occasionType,
+    } : {},
+  })}`, {
     method: 'GET',
     success: (res) => {
       dispatch({type: GET_OCCASIONS_SUCCESS, occasions: res.data})
     },
     failure: () => {
       dispatch({type: GET_OCCASIONS_FAILURE})
+    }
+  })
+}
+
+export const getOccasionTypes = () => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_OCCASION_TYPES_REQUEST})
+  return fetch(`/occasion-types`, {
+    method: 'GET',
+    success: (res) =>  dispatch({type: GET_OCCASION_TYPES_SUCCESS, occasionTypes: res.data}),
+    failure: () => {
+      dispatch({type: GET_OCCASION_TYPES_FAILURE})
     }
   })
 }
@@ -174,6 +197,8 @@ const initialState = {
   cards: [],
   flow: PURCHASE_ROUTES,
   flowIndex: null,
+  occasionTypes: [],
+  occasionType: undefined,
 }
 
 export default createReducer(initialState, {
@@ -186,7 +211,8 @@ export default createReducer(initialState, {
   [SET_OCCASION]: (state, {occasion}) => ({
     occasion,
   }),
-  [GET_OCCASIONS_REQUEST]: (state, action) => ({
+  [GET_OCCASIONS_REQUEST]: (state, {params}) => ({
+    occasionType: params.occasionType || state.occasionType,
     loading: {
       ...state.loading,
       occasions: true,
@@ -204,6 +230,9 @@ export default createReducer(initialState, {
       ...state.loading,
       occasions: false,
     }
+  }),
+  [GET_OCCASION_TYPES_SUCCESS]: (state, {occasionTypes}) => ({
+    occasionTypes,
   }),
   [SET_LETTERING_TECHNIQUE]: (state, {letteringTechnique}) => ({
     letteringTechnique,

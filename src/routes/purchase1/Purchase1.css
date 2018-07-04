@@ -19,6 +19,10 @@
   }
 }
 
+.header {
+  justify-content: space-between;
+}
+
 .headerPrefix {
   @media (--lg-up) {
     position: absolute;
@@ -47,4 +51,8 @@
     /*to split by 5*/
     width: 147px;
   }
+}
+
+.occasionType {
+  width: 325px;
 }
