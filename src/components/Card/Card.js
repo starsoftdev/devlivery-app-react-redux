@@ -6,23 +6,32 @@ import cn from 'classnames'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 
 class Card extends React.Component {
+  static defaultProps = {
+    bordered: true,
+  }
+
   render() {
-    const {title, image, active, onClick, keyValue, className, svg, extra} = this.props
+    const {title, image, active, onClick, keyValue, className, svg, extra, description, bordered} = this.props
     return (
-      <div className={cn(s.card, active && s.active, extra && s.withExtra, className)} onClick={onClick}>
+      <div className={cn(s.card, active && s.active, extra && s.withExtra, bordered && s.bordered, className)} onClick={onClick}>
         {extra && <span className={s.extra}>{extra}</span>}
         {active && <CheckIcon className={s.checkIcon}/>}
-        {image && <img src={image} className={s.image}/>}
-        {svg && React.createElement(svg, {className: s.icon})}
-        <h3 className={s.header}>
-          {keyValue && (
-            <React.Fragment>
-              <span className={s.key}>{keyValue}</span>
-              <KeyHandler keyEventName={KEYPRESS} keyValue={keyValue} onKeyHandle={onClick}/>
-            </React.Fragment>
-          )}
-          {title && <span className={s.title}>{title}</span>}
-        </h3>
+        <div className={s.imageWrapper}>
+          {image && <img src={image} className={s.image}/>}
+          {svg && React.createElement(svg, {className: s.icon})}
+          {description && <div className={s.description}>{description}</div>}
+        </div>
+        {title && (
+          <h3 className={s.header}>
+            {keyValue && (
+              <React.Fragment>
+                <span className={s.key}>{keyValue}</span>
+                <KeyHandler keyEventName={KEYPRESS} keyValue={keyValue} onKeyHandle={onClick}/>
+              </React.Fragment>
+            )}
+            <span className={s.title}>{title}</span>
+          </h3>
+        )}
       </div>
     )
   }

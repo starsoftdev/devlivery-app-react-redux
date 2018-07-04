@@ -2,28 +2,41 @@
 
 .card {
   cursor: pointer;
-  background-color: rgba(173, 163, 155, 0.1);
   min-height: 200px;
-  border: 1px solid #ADA39B;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  padding-bottom: 70px;
 
-  &.active {
+  &.bordered.active {
     background-color: rgba(173, 163, 155, 0.3);
+  }
+
+  &:not(.bordered).active {
+    .imageWrapper {
+      background-color: rgba(173, 163, 155, 0.3);
+      outline: 1px solid #ADA39B;
+    }
+  }
+
+  &.bordered {
+    background-color: rgba(173, 163, 155, 0.1);
+    border: 1px solid #ADA39B;
   }
 
   &.withExtra {
     padding-top: var(--margin-xl);
     min-height: 220px;
   }
+
+  &:--hover {
+    .description {
+      display: block;
+    }
+  }
 }
 
 .header {
-  position: absolute;
-  bottom: var(--margin-md);
   font-family: var(--font-family-secondary);
   text-transform: uppercase;
   font-size: var(--font-size-sm);
@@ -31,7 +44,8 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-bottom: 0;
+  margin-bottom: var(--margin-md);
+  margin-top: var(--margin-md);
 }
 
 .title {
@@ -42,9 +56,9 @@
 
 .checkIcon {
   position: absolute;
-  /*because of borders*/
-  top: -1px;
-  right: -1px;
+  top: 0;
+  right: 0;
+  z-index: 1;
 }
 
 .key {
@@ -53,6 +67,23 @@
   height: 16px;
   line-height: 16px;
   border: 1px solid var(--dark-color);
+}
+
+.description {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;  margin-bottom: 20px;
+
+  left: 0;
+  bottom: 0;
+  background: color-mod(var(--white-color) a(90%));
+  padding: var(--margin-md);
+  font-size: 15px;
+}
+
+.imageWrapper {
+  position: relative;
 }
 
 .image {
@@ -65,7 +96,7 @@
 }
 
 .icon {
-  margin-bottom: var(--margin-xs);
+  margin-top: var(--margin-lg);
 }
 
 .extra {

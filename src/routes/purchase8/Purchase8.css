@@ -55,13 +55,15 @@
 }
 
 .itemWrapper {
+  margin-bottom: 20px;
+
   @media (--xs-down) {
     width: 100%;
   }
 }
 
 .item {
-  margin-bottom: 20px;
+  height: 100%;
 
   @media (--xs-up) {
     /*to split by 4*/
