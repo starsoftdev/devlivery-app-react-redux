@@ -47,6 +47,10 @@ export const GET_CARDS_REQUEST = 'Purchase.GET_CARDS_REQUEST'
 export const GET_CARDS_SUCCESS = 'Purchase.GET_CARDS_SUCCESS'
 export const GET_CARDS_FAILURE = 'Purchase.GET_CARDS_FAILURE'
 
+export const GET_GIFTS_REQUEST = 'Purchase.GET_GIFTS_REQUEST'
+export const GET_GIFTS_SUCCESS = 'Purchase.GET_GIFTS_SUCCESS'
+export const GET_GIFTS_FAILURE = 'Purchase.GET_GIFTS_FAILURE'
+
 export const REGISTER_REQUEST = 'Purchase.REGISTER_REQUEST'
 export const REGISTER_SUCCESS = 'Purchase.REGISTER_SUCCESS'
 export const REGISTER_FAILURE = 'Purchase.REGISTER_FAILURE'
@@ -148,6 +152,21 @@ export const setCard = (card) => ({type: SET_CARD, card})
 
 export const setGift = (gift) => ({type: SET_GIFT, gift})
 
+export const getGifts = (params = {}) => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_GIFTS_REQUEST, params})
+  return fetch(`/gifts?${qs.stringify({
+    take: 100,
+  })}`, {
+    method: 'GET',
+    success: (res) => {
+      dispatch({type: GET_GIFTS_SUCCESS, gifts: res.data})
+    },
+    failure: () => {
+      dispatch({type: GET_GIFTS_FAILURE})
+    }
+  })
+}
+
 export const setAddingContactsMode = (addingContactMode) => ({type: SET_ADDING_CONTACTS_MODE, addingContactMode})
 
 export const submitShipping = () => (dispatch, getState) => {
@@ -191,6 +210,7 @@ const initialState = {
   cardDetails: {},
   giftType: null,
   gift: null,
+  gifts: [],
   addingContactMode: null,
   paymentMethod: null,
   cardStyles: [],
@@ -263,6 +283,9 @@ export default createReducer(initialState, {
   }),
   [SET_GIFT]: (state, {gift}) => ({
     gift,
+  }),
+  [GET_GIFTS_SUCCESS]: (state, {gifts}) => ({
+    gifts,
   }),
   [SET_ADDING_CONTACTS_MODE]: (state, {addingContactMode}) => ({
     addingContactMode,
