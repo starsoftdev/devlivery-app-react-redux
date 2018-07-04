@@ -40,6 +40,8 @@
 }
 
 .itemWrapper {
+  margin-bottom: 20px;
+
   @media (--xs-down) {
     width: 100%;
   }
@@ -47,7 +49,6 @@
 
 .item {
   justify-content: flex-end;
-  margin-bottom: 20px;
 
   @media (--xs-up) {
     /*to split by 2*/

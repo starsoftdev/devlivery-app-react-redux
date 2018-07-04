@@ -56,7 +56,7 @@ class Purchase8 extends React.Component {
                   <Col key={item.id} className={s.itemWrapper}>
                     <Card
                       className={s.item}
-                      image={item.image[0].thumb_url}
+                      image={item.image[0].url}
                       title={
                         <React.Fragment>
                           {item.title}
@@ -67,6 +67,8 @@ class Purchase8 extends React.Component {
                           </span>
                         </React.Fragment>
                       }
+                      bordered={false}
+                      description={item.description}
                       onClick={() => setGift(item.id)}
                       active={item.id === gift}
                     />

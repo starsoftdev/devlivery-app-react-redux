@@ -31,13 +31,14 @@
 }
 
 .itemWrapper {
+  margin-bottom: 20px;
+
   @media (--xs-down) {
     width: 100%;
   }
 }
 
 .item {
-  margin-bottom: 20px;
   justify-content: flex-start;
 
   @media (--xs-up) {

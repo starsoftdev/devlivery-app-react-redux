@@ -35,17 +35,19 @@
 }
 
 .itemWrapper {
+  margin-bottom: 20px;
+
   @media (--xs-down) {
     width: 100%;
   }
 }
 
 .item {
-  margin-bottom: 20px;
   justify-content: flex-end;
   padding-top: var(--margin-sm);
   padding-right: var(--margin-sm);
   padding-left: var(--margin-sm);
+  height: 100%;
 
   @media (--xs-up) {
     /*to split by 5*/
