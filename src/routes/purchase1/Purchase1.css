@@ -50,8 +50,8 @@
   height: 100%;
 
   @media (--xs-up) {
-    /*to split by 5*/
-    width: 147px;
+    /*to split by 4*/
+    width: 189px;
   }
 }
 
