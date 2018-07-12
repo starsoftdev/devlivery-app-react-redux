@@ -120,4 +120,4 @@ const mapDispatch = {
   uploadContacts,
 }
 
-export default connect(mapState, mapDispatch)(injectIntl(withStyles(s)(ContactsImporting)))
+export default injectIntl(connect(mapState, mapDispatch)(withStyles(s)(ContactsImporting)))

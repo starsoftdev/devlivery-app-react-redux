@@ -84,4 +84,4 @@ const mapState = state => ({
 
 const mapDispatch = {}
 
-export default connect(mapState, mapDispatch)(injectIntl(withStyles(s)(Header)))
+export default injectIntl(connect(mapState, mapDispatch)(withStyles(s)(Header)))
