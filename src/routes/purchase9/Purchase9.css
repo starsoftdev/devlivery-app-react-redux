@@ -4,6 +4,8 @@
   display: flex;
   flex-direction: column;
   flex: auto;
+  font-size: var(--font-size-base);
+  color: var(--text-color);
 }
 
 .content {
