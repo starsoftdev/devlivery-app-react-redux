@@ -232,7 +232,7 @@ export default createReducer(initialState, {
     occasion,
   }),
   [GET_OCCASIONS_REQUEST]: (state, {params}) => ({
-    occasionType: params.occasionType || state.occasionType,
+    occasionType: params.occasionType,
     loading: {
       ...state.loading,
       occasions: true,
