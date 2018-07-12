@@ -58,4 +58,4 @@ const mapState = state => ({
 const mapDispatch = {
 }
 
-export default Form.create()(connect(mapState, mapDispatch)(injectIntl(withStyles(s)(ColumnsMappingForm))))
+export default Form.create()(injectIntl(connect(mapState, mapDispatch)(withStyles(s)(ColumnsMappingForm))))

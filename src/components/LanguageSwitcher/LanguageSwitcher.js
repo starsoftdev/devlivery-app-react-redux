@@ -4,6 +4,9 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import {connect} from 'react-redux'
 import {setLocale} from '../../reducers/intl'
 import s from './LanguageSwitcher.css'
+import history from '../../history'
+import {generateUrl} from '../../router'
+import {HOME_ROUTE} from '../../routes'
 
 const localeDict = {
   /* @intl-code-template '${lang}-${COUNTRY}': '${Name}', */
@@ -33,7 +36,10 @@ class LanguageSwitcher extends React.Component {
             <a
               key={locale}
               className={s.locale}
-              onClick={() => setLocale({locale})}
+              onClick={() => {
+                setLocale({locale})
+                history.push(generateUrl(HOME_ROUTE))
+              }}
             >
               {localeName(locale)}
             </a>

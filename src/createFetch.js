@@ -1,3 +1,5 @@
+import {LOCALE_COOKIE} from './constants'
+
 const transformFormUrlEncoded = (body) => {
   const str = []
   for (let p in body) {
@@ -16,7 +18,7 @@ const transformFormData = (body) => {
   return formDataBody
 }
 
-const prepareRequestHeaders = (contentType = 'application/json', token) => {
+const prepareRequestHeaders = (cookies, contentType = 'application/json', token) => {
   const headers = {}
   if (token) {
     headers['Authorization'] = `Bearer ${token}`
@@ -25,6 +27,8 @@ const prepareRequestHeaders = (contentType = 'application/json', token) => {
   if (contentType !== 'multipart/form-data') {
     headers['Content-Type'] = contentType
   }
+  const locale = cookies.get(LOCALE_COOKIE) || 'en-US'
+  headers['lang'] = locale.substring(0, 2) // 'en'
   return headers
 }
 
@@ -71,12 +75,12 @@ function openFile(blob, fileName, fileType) {
  * of boilerplate code in the application.
  * https://developer.mozilla.org/docs/Web/API/Fetch_API/Using_Fetch
  */
-function createFetch(fetch, {apiUrl}) {
+function createFetch(fetch, {apiUrl, cookies}) {
   return async (url, {token, contentType, ...options}) => {
     const anotherDomainRequest = url.startsWith('http')
     options.body = prepareRequestBody(options.body, contentType)
     if (!anotherDomainRequest) {
-      options.headers = prepareRequestHeaders(contentType, token)
+      options.headers = prepareRequestHeaders(cookies, contentType, token)
     }
     try {
       const resp = await fetch(anotherDomainRequest ? url : `${apiUrl}${url}`, {

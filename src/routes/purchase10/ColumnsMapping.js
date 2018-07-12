@@ -79,4 +79,4 @@ const mapDispatch = {
   nextFlowStep,
 }
 
-export default connect(mapState, mapDispatch)(injectIntl(withStyles(s)(ColumnsMapping)))
+export default injectIntl(connect(mapState, mapDispatch)(withStyles(s)(ColumnsMapping)))

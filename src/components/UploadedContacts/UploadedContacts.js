@@ -53,4 +53,4 @@ const mapDispatch = {
   changeSelectedContacts,
 }
 
-export default connect(mapState, mapDispatch)(injectIntl(withStyles(s)(UploadedContacts)))
+export default injectIntl(connect(mapState, mapDispatch)(withStyles(s)(UploadedContacts)))
