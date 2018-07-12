@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {submitCardDetails} from '../../reducers/purchase'
-import {Button, Col, Form, Input, Layout, Row, Select} from 'antd'
+import {Button, Col, Form, Layout, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase6.css'
 import {Actions, Link, SectionHeader} from '../../components'
@@ -11,20 +11,43 @@ import Logo from '../../static/logo.svg'
 import cn from 'classnames'
 import Preview from './Preview'
 import messages from './messages'
-
-const TextArea = Input.TextArea
+import {ContentState, convertToRaw, EditorState} from 'draft-js'
+import {Editor} from 'react-draft-wysiwyg'
+import draftToHtml from 'draftjs-to-html'
+import htmlToDraft from 'html-to-draftjs'
+import draftWysiwygStyles from 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 // TODO move preview to separate component
 class Purchase6 extends React.Component {
-  state = {
-    previewCollapsed: false,
+  constructor(props) {
+    super(props)
+    this.state = {
+      editorState: EditorState.createEmpty(),
+      previewCollapsed: false,
+      loaded: false,
+    }
+  }
+
+  componentDidMount() {
+    const {cardDetails} = this.props
+    const newState = {
+      loaded: true
+    }
+    const html = cardDetails ? cardDetails.body : ''
+    const contentBlock = htmlToDraft(html)
+    if (contentBlock) {
+      const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks)
+      newState.editorState = EditorState.createWithContent(contentState)
+    }
+    this.setState(newState)
   }
 
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.submitCardDetails(values)
+        const body = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
+        this.props.submitCardDetails({...values, body})
       }
     })
   }
@@ -33,8 +56,12 @@ class Purchase6 extends React.Component {
     this.setState({previewCollapsed})
   }
 
+  onEditorStateChange = (editorState) => {
+    this.setState({editorState})
+  }
+
   render() {
-    const {previewCollapsed} = this.state
+    const {previewCollapsed, editorState, loaded} = this.state
     const {cardDetails, intl, flowIndex} = this.props
     const {getFieldDecorator} = this.props.form
 
@@ -134,13 +161,13 @@ class Purchase6 extends React.Component {
                   </Form.Item>
                 </Col>
               </Row>
-              <Form.Item>
-                {getFieldDecorator('body', {
-                  initialValue: cardDetails ? cardDetails.body : undefined,
-                })(
-                  <TextArea placeholder={intl.formatMessage(messages.body)} className={s.body} rows={7}/>
-                )}
-              </Form.Item>
+              {loaded && (
+                <Editor
+                  editorClassName={s.editor}
+                  editorState={editorState}
+                  onEditorStateChange={this.onEditorStateChange}
+                />
+              )}
             </div>
           </Layout.Content>
           <Preview onCollapse={this.onPreviewCollapse} collapsed={previewCollapsed}/>
@@ -173,4 +200,4 @@ const mapDispatch = {
   submitCardDetails,
 }
 
-export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Purchase6)))
+export default connect(mapState, mapDispatch)(Form.create()(withStyles(draftWysiwygStyles, s)(Purchase6)))
