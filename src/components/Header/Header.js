@@ -11,17 +11,17 @@ import messages from './messages'
 
 class Header extends React.Component {
   render() {
-    const {currentRouteName, user, intl} = this.props
+    const {className, currentRouteName, user, intl} = this.props
     return (
       <header
         className={cn(
           [
             HOME_ROUTE,
             ...DASHBOARD_ROUTES,
-          ].includes(currentRouteName) && s.light
+          ].includes(currentRouteName) && s.light,
         )}
       >
-        <div className={s.header}>
+        <div className={cn(s.header, className || s.layoutHeader)}>
           <div className={s.leftMenu}>
             <LanguageSwitcher/>
           </div>

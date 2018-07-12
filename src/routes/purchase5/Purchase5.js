@@ -4,10 +4,8 @@ import {nextFlowStep, setCard} from '../../reducers/purchase'
 import {Button, Col, Layout, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase5.css'
-import {Actions, Card, Link, SectionHeader} from '../../components'
+import {Actions, Card, Header, SectionHeader} from '../../components'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
-import {HOME_ROUTE} from '../'
-import Logo from '../../static/logo.svg'
 import cn from 'classnames'
 import Preview from './Preview'
 import messages from './messages'
@@ -38,11 +36,7 @@ class Purchase5 extends React.Component {
             </Button>
           )}
           <Layout.Content className={cn(s.contentWrapper, !previewCollapsed && s.withPreview)}>
-            <div className={s.layoutHeader}>
-              <Link to={HOME_ROUTE}>
-                <Logo/>
-              </Link>
-            </div>
+            <Header className={s.layoutHeader}/>
             <div className={s.content}>
               <SectionHeader
                 header={intl.formatMessage(messages.header)}

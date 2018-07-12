@@ -9,6 +9,10 @@
 .contentWrapper {
   padding-top: 114px;
 
+  @media (--md-down) {
+    padding-top: 144px;
+  }
+
   &.withPreview {
     margin-right: 420px;
   }
@@ -46,8 +50,6 @@
   top: 0;
   left: 0;
   right: 0;
-  padding: var(--margin-sm) var(--margin-md);
-  text-align: center;
 }
 
 .items {
