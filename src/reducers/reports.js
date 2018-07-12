@@ -62,7 +62,8 @@ export const exportReport = () => (dispatch, getState, {fetch}) => {
     method: 'GET',
     token,
     // TODO change export file name
-    fileName: `report.csv`,
+    fileName: `report.xls`,
+    fileType: `application/vnd.ms-excel`,
     success: () => dispatch({type: EXPORT_REPORT_SUCCESS}),
     failure: () => dispatch({type: EXPORT_REPORT_FAILURE}),
   })

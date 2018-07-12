@@ -38,10 +38,10 @@ const prepareRequestBody = (body, contentType) => {
   }
 }
 
-function openFile(blob, fileName) {
+function openFile(blob, fileName, fileType) {
   // It is necessary to create a new blob object with mime-type explicitly set
   // otherwise only Chrome works like it should
-  const newBlob = new Blob([blob], { type: 'text/csv' }) // TODO make type generic
+  const newBlob = new Blob([blob], { type: fileType })
 
   // IE doesn't allow using a blob object directly as link href
   // instead it is necessary to use msSaveOrOpenBlob
