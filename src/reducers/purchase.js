@@ -207,7 +207,7 @@ const initialState = {
   letteringTechnique: null,
   cardStyle: null,
   cardSize: null,
-  cardDetails: {},
+  cardDetails: null,
   giftType: null,
   gift: null,
   gifts: [],
