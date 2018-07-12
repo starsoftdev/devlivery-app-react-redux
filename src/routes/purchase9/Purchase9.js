@@ -42,7 +42,7 @@ class Purchase9 extends React.Component {
   validateToNextPassword = (rule, value, callback) => {
     const form = this.props.form
     if (value && this.state.confirmDirty) {
-      form.validateFields(['confirm'], {force: true})
+      form.validateFields(['password_confirmation'], {force: true})
     }
     callback()
   }
