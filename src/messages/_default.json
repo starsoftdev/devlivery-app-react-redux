@@ -2014,5 +2014,125 @@
     "files": [
       "src/routes/setPassword/messages.js"
     ]
+  },
+  {
+    "id": "columnsMappingForm.notInFile",
+    "defaultMessage": "Not in File",
+    "message": "",
+    "files": [
+      "src/components/ColumnsMappingForm/messages.js"
+    ]
+  },
+  {
+    "id": "uploadedContacts.header",
+    "defaultMessage": "Select Contacts",
+    "message": "",
+    "files": [
+      "src/components/UploadedContacts/messages.js"
+    ]
+  },
+  {
+    "id": "importContacts.breadcrumb",
+    "defaultMessage": "Import Contacts",
+    "message": "",
+    "files": [
+      "src/routes/importContacts/messages.js"
+    ]
+  },
+  {
+    "id": "importContacts.header",
+    "defaultMessage": "Import Contacts",
+    "message": "",
+    "files": [
+      "src/routes/importContacts/messages.js"
+    ]
+  },
+  {
+    "id": "importContacts.selectContacts",
+    "defaultMessage": "Select Contacts",
+    "message": "",
+    "files": [
+      "src/routes/importContacts/messages.js"
+    ]
+  },
+  {
+    "id": "importContacts.subHeader",
+    "defaultMessage": "Match the labels below with the corresponding options in the dropdown select field.",
+    "message": "",
+    "files": [
+      "src/routes/importContacts/messages.js"
+    ]
+  },
+  {
+    "id": "importContacts.submit",
+    "defaultMessage": "Save Contacts",
+    "message": "",
+    "files": [
+      "src/routes/importContacts/messages.js"
+    ]
+  },
+  {
+    "id": "importContacts.title",
+    "defaultMessage": "Import Contacts",
+    "message": "",
+    "files": [
+      "src/routes/importContacts/messages.js"
+    ]
+  },
+  {
+    "id": "purchase1.filterByOccasionType",
+    "defaultMessage": "Filter by Occasion Type",
+    "message": "",
+    "files": [
+      "src/routes/purchase1/messages.js"
+    ]
+  },
+  {
+    "id": "purchase10.addContactManually",
+    "defaultMessage": "Add contacts manually",
+    "message": "",
+    "files": [
+      "src/routes/purchase10/messages.js"
+    ]
+  },
+  {
+    "id": "purchase10.header",
+    "defaultMessage": "Add Contact(s)",
+    "message": "",
+    "files": [
+      "src/routes/purchase10/messages.js"
+    ]
+  },
+  {
+    "id": "purchase10.importContacts",
+    "defaultMessage": "Import contacts",
+    "message": "",
+    "files": [
+      "src/routes/purchase10/messages.js"
+    ]
+  },
+  {
+    "id": "purchase10.selectContacts",
+    "defaultMessage": "Select Contacts",
+    "message": "",
+    "files": [
+      "src/routes/purchase10/messages.js"
+    ]
+  },
+  {
+    "id": "purchase10.submit",
+    "defaultMessage": "Submit",
+    "message": "",
+    "files": [
+      "src/routes/purchase10/messages.js"
+    ]
+  },
+  {
+    "id": "purchase10.title",
+    "defaultMessage": "Purchase",
+    "message": "",
+    "files": [
+      "src/routes/purchase10/messages.js"
+    ]
   }
 ]
