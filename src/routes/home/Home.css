@@ -94,7 +94,7 @@
 .card {
   position: relative;
   background-color: var(--white-color);
-  height: 280px;
+  height: 310px;
   padding: var(--margin-md);
   display: flex;
   flex-direction: column;
