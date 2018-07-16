@@ -49,6 +49,7 @@
 
 .item {
   justify-content: flex-end;
+  height: 210px;
 
   @media (--xs-up) {
     /*to split by 2*/
