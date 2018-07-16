@@ -3,6 +3,7 @@
    * Typography
    * ======================================================================== */
   --border-radius: 4px;
+  --card-box-shadow: 0 1px 2px 0 rgba(0,39,36,0.1);
   --code-family: Consolas, Menlo, Courier, monospace;
   --link-decoration: none;
   --link-hover-decoration: none;

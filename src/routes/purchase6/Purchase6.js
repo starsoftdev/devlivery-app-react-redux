@@ -60,7 +60,7 @@ class Purchase6 extends React.Component {
 
   render() {
     const {previewCollapsed, editorState, loaded} = this.state
-    const {cardDetails, intl, flowIndex} = this.props
+    const {cardDetails, intl, flowIndex, cardSize} = this.props
     const {getFieldDecorator} = this.props.form
 
     return (
@@ -164,7 +164,12 @@ class Purchase6 extends React.Component {
               )}
             </div>
           </Layout.Content>
-          <Preview onCollapse={this.onPreviewCollapse} collapsed={previewCollapsed}/>
+          <Preview
+            onCollapse={this.onPreviewCollapse}
+            collapsed={previewCollapsed}
+            content={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+            cardSize={cardSize}
+          />
         </div>
         <Actions>
           <KeyHandler
@@ -186,6 +191,7 @@ class Purchase6 extends React.Component {
 
 const mapState = state => ({
   cardDetails: state.purchase.cardDetails,
+  cardSize: state.purchase.cardSize,
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
 })
