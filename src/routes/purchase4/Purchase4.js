@@ -1,15 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {nextFlowStep, setCardSize, submitCardSize} from '../../reducers/purchase'
+import {nextFlowStep, setCardSize} from '../../reducers/purchase'
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase4.css'
 import {Actions, Card, SectionHeader} from '../../components'
-import {ALPHABET} from '../../constants'
-import BigCardImage from '../../static/big_card.svg'
-import PanelCardImage from '../../static/panel_card.svg'
-import GreetingCardImage from '../../static/greeting_card.svg'
-import PostcardImage from '../../static/postcard.svg'
+import {ALPHABET, CARD_SIZES} from '../../constants'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
 
@@ -17,30 +13,23 @@ class Purchase4 extends React.Component {
   render() {
     const {cardSize, setCardSize, nextFlowStep, intl, flowIndex} = this.props
 
-    const CARD_SIZES = [
-      {key: 'folded_card', title: intl.formatMessage(messages.foldedCard), svg: BigCardImage, extra: '4" x 5"'},
-      {key: 'postcard', title: intl.formatMessage(messages.postcard), svg: PostcardImage, extra: '5" x 7"'},
-      {key: 'folder_card_without_panel', title: intl.formatMessage(messages.foldedCardWithoutPanel), svg: PanelCardImage, extra: '6" x 6"'},
-      {key: 'folder_card2', title: intl.formatMessage(messages.foldedCard), svg: GreetingCardImage, extra: '4" x 9"'},
-    ]
-
     return (
       <React.Fragment>
         <div className={s.content}>
           <SectionHeader
-            header= {intl.formatMessage(messages.header)}
+            header={intl.formatMessage(messages.header)}
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
           <Row className={s.items} gutter={20} type='flex' align='center'>
-            {CARD_SIZES.map((item, i) =>
+            {CARD_SIZES(intl).map((item, i) =>
               <Col key={item.key} className={s.itemWrapper}>
                 <Card
                   className={s.item}
                   title={item.title}
                   svg={item.svg}
-                  onClick={() => setCardSize(item.key)}
-                  active={item.key === cardSize}
+                  onClick={() => setCardSize(item)}
+                  active={cardSize && cardSize.key === item.key}
                   keyValue={ALPHABET[i]}
                   extra={item.extra}
                 />
