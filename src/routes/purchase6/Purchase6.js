@@ -9,13 +9,17 @@ import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import cn from 'classnames'
 import Preview from './Preview'
 import messages from './messages'
-import {ContentState, convertToRaw, EditorState} from 'draft-js'
+import {ContentState, EditorState} from 'draft-js'
 import {Editor} from 'react-draft-wysiwyg'
-import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
 import draftWysiwygStyles from 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import createStyles from 'draft-js-custom-styles'
+import {stateToHTML} from 'draft-js-export-html'
 
-// TODO move preview to separate component
+const {styles, customStyleFn, exporter} = createStyles(['font-size', 'color', 'font-family', 'font-weight'])
+
+// TODO refactor code
+// TODO move font sizes/colors/etc to constants
 class Purchase6 extends React.Component {
   constructor(props) {
     super(props)
@@ -24,6 +28,8 @@ class Purchase6 extends React.Component {
       previewCollapsed: false,
       loaded: false,
     }
+
+    this.updateEditorState = (editorState) => this.setState({editorState})
   }
 
   componentDidMount() {
@@ -44,7 +50,9 @@ class Purchase6 extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const body = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
+        const {editorState} = this.state
+        const inlineStyles = exporter(editorState)
+        const body = stateToHTML(editorState.getCurrentContent(), {inlineStyles})
         this.props.submitCardDetails({...values, body})
       }
     })
@@ -54,14 +62,37 @@ class Purchase6 extends React.Component {
     this.setState({previewCollapsed})
   }
 
-  onEditorStateChange = (editorState) => {
-    this.setState({editorState})
+  toggleFontSize = (fontSize) => {
+    const newEditorState = styles.fontSize.toggle(this.state.editorState, fontSize)
+
+    return this.updateEditorState(newEditorState)
+  }
+
+  toggleColor = color => {
+    const newEditorState = styles.color.toggle(this.state.editorState, color)
+
+    return this.updateEditorState(newEditorState)
+  }
+
+  toggleFontFamily = (fontFamily) => {
+    const newEditorState = styles.fontFamily.toggle(this.state.editorState, fontFamily)
+
+    return this.updateEditorState(newEditorState)
+  }
+
+
+  toggleFontWeight = (fontWeight) => {
+    const newEditorState = styles.fontWeight.toggle(this.state.editorState, fontWeight)
+
+    return this.updateEditorState(newEditorState)
   }
 
   render() {
     const {previewCollapsed, editorState, loaded} = this.state
     const {cardDetails, intl, flowIndex, cardSize} = this.props
     const {getFieldDecorator} = this.props.form
+    const inlineStyles = exporter(editorState)
+    const html = stateToHTML(editorState.getCurrentContent(), {inlineStyles})
 
     return (
       <Form onSubmit={this.handleSubmit} className={s.form}>
@@ -102,8 +133,11 @@ class Purchase6 extends React.Component {
                     {getFieldDecorator('font_weight', {
                       initialValue: cardDetails ? cardDetails.font_weight : undefined,
                     })(
-                      <Select placeholder={intl.formatMessage(messages.fontWeight)}>
-                        {[].map((item) =>
+                      <Select
+                        placeholder={intl.formatMessage(messages.fontWeight)}
+                        onChange={this.toggleFontWeight}
+                      >
+                        {['normal', 'bold'].map((item) =>
                           <Select.Option key={item} value={item}>{item}</Select.Option>
                         )}
                       </Select>
@@ -115,8 +149,11 @@ class Purchase6 extends React.Component {
                     {getFieldDecorator('color', {
                       initialValue: cardDetails ? cardDetails.color : undefined,
                     })(
-                      <Select placeholder={intl.formatMessage(messages.color)}>
-                        {[].map((item) =>
+                      <Select
+                        placeholder={intl.formatMessage(messages.color)}
+                        onChange={this.toggleColor}
+                      >
+                        {['green', 'blue', 'red', 'purple', 'orange'].map((item) =>
                           <Select.Option key={item} value={item}>{item}</Select.Option>
                         )}
                       </Select>
@@ -126,15 +163,17 @@ class Purchase6 extends React.Component {
               </Row>
               <Row gutter={20}>
                 <Col xs={24} sm={12}>
-
                 </Col>
                 <Col xs={24} sm={6}>
                   <Form.Item>
                     {getFieldDecorator('font_family', {
                       initialValue: cardDetails ? cardDetails.font_family : undefined,
                     })(
-                      <Select placeholder={intl.formatMessage(messages.fontFamily)}>
-                        {[].map((item) =>
+                      <Select
+                        placeholder={intl.formatMessage(messages.fontFamily)}
+                        onChange={this.toggleFontFamily}
+                      >
+                        {['Arial', 'Georgia', 'Impact', 'Tahoma', 'Verdana'].map((item) =>
                           <Select.Option key={item} value={item}>{item}</Select.Option>
                         )}
                       </Select>
@@ -146,8 +185,11 @@ class Purchase6 extends React.Component {
                     {getFieldDecorator('size', {
                       initialValue: cardDetails ? cardDetails.size : undefined,
                     })(
-                      <Select placeholder={intl.formatMessage(messages.size)}>
-                        {[].map((item) =>
+                      <Select
+                        placeholder={intl.formatMessage(messages.size)}
+                        onChange={this.toggleFontSize}
+                      >
+                        {['12px', '24px', '36px', '50px', '72px'].map((item) =>
                           <Select.Option key={item} value={item}>{item}</Select.Option>
                         )}
                       </Select>
@@ -157,9 +199,11 @@ class Purchase6 extends React.Component {
               </Row>
               {loaded && (
                 <Editor
+                  toolbarHidden
+                  customStyleFn={customStyleFn}
                   editorClassName={s.editor}
                   editorState={editorState}
-                  onEditorStateChange={this.onEditorStateChange}
+                  onEditorStateChange={this.updateEditorState}
                 />
               )}
             </div>
@@ -167,7 +211,7 @@ class Purchase6 extends React.Component {
           <Preview
             onCollapse={this.onPreviewCollapse}
             collapsed={previewCollapsed}
-            content={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+            content={html}
             cardSize={cardSize}
           />
         </div>

@@ -77,4 +77,5 @@
   padding-right: 10px;
   padding-left: 10px;
   min-height: 250px;
+  border: 2px solid color-mod(var(--dark-color) a(30%));
 }
