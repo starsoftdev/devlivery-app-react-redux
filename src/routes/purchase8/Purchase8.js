@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {nextFlowStep, setGift} from '../../reducers/purchase'
+import {submitGift, setGift} from '../../reducers/purchase'
 import {Button, Col, Layout, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase8.css'
@@ -21,7 +21,7 @@ class Purchase8 extends React.Component {
 
   render() {
     const {previewCollapsed} = this.state
-    const {gift, setGift, nextFlowStep, intl, flowIndex, gifts} = this.props
+    const {gift, setGift, submitGift, intl, flowIndex, gifts} = this.props
 
     return (
       <React.Fragment>
@@ -61,8 +61,8 @@ class Purchase8 extends React.Component {
                       }
                       bordered={false}
                       description={item.description}
-                      onClick={() => setGift(item.id)}
-                      active={item.id === gift}
+                      onClick={() => setGift(item)}
+                      active={gift && gift.id === item.id}
                     />
                   </Col>
                 )}
@@ -75,12 +75,12 @@ class Purchase8 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={gift && nextFlowStep}
+            onKeyHandle={gift && submitGift}
           />
           <Button
             type='primary'
             disabled={!gift}
-            onClick={nextFlowStep}
+            onClick={submitGift}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
@@ -99,7 +99,7 @@ const mapState = state => ({
 
 const mapDispatch = {
   setGift,
-  nextFlowStep,
+  submitGift,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase8))

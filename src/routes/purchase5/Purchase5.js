@@ -49,8 +49,8 @@ class Purchase5 extends React.Component {
                     <Card
                       className={s.item}
                       image={item.images[0].url}
-                      onClick={() => setCard(item.id)}
-                      active={item.id === card}
+                      onClick={() => setCard(item)}
+                      active={card && card.id === item.id}
                     />
                   </Col>
                 )}

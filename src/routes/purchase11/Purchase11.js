@@ -5,12 +5,10 @@ import {Button, Col, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase11.css'
 import {Actions, SectionHeader} from '../../components'
-import PlusIcon from '../../static/plus_round.svg'
+import PlusGiftIcon from '../../static/plus_round.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import {Form} from 'antd'
 import formMessages from '../../formMessages'
-import cardImage from '../../static/modern_card_style.png'
-import giftImage from '../../static/gift1.png'
 
 class Purchase11 extends React.Component {
   handleSubmit = (e) => {
@@ -24,7 +22,7 @@ class Purchase11 extends React.Component {
   }
 
   render() {
-    const {flowIndex} = this.props
+    const {flowIndex, orderDetails} = this.props
     const {getFieldDecorator} = this.props.form
     return (
       <Form onSubmit={this.handleSubmit} className={s.form}>
@@ -37,25 +35,25 @@ class Purchase11 extends React.Component {
           <div className={s.orderInfo}>
             <div className={s.cardWrapper}>
               <div>
-                <img src={cardImage} className={s.cardImage}/>
+                <img src={orderDetails.items.card.images[0].url} className={s.cardImage}/>
               </div>
-              <PlusIcon className={s.plusIcon}/>
+              <PlusGiftIcon className={s.plusIcon}/>
               <p className={s.cardInfo}>
-                <span className={s.cardType}>Christmas Card</span>
+                <span className={s.cardType}>{orderDetails.items.card.title}</span>
                 <br/>
-                <span className={s.cardPrice}>20.00</span>
-                <span className={s.cardPriceCurrency}>CHF</span>
+                <span className={s.cardPrice}>{orderDetails.items.card.price}</span>
+                <span className={s.cardPriceCurrency}>{orderDetails.items.card.currency}</span>
               </p>
             </div>
             <div className={s.giftWrapper}>
               <div>
-                <img src={giftImage} className={s.giftImage}/>
+                <img src={orderDetails.items.gifts[0].gift.image[0].url} className={s.giftImage}/>
               </div>
               <p className={s.cardInfo}>
-                <span className={s.cardType}>Fine Foodie</span>
+                <span className={s.cardType}>{orderDetails.items.gifts[0].gift.title}</span>
                 <br/>
-                <span className={s.cardPrice}>78.00</span>
-                <span className={s.cardPriceCurrency}>CHF</span>
+                <span className={s.cardPrice}>{orderDetails.items.gifts[0].gift.price}</span>
+                <span className={s.cardPriceCurrency}>{orderDetails.items.gifts[0].gift.currency}</span>
               </p>
             </div>
           </div>
@@ -63,19 +61,14 @@ class Purchase11 extends React.Component {
             <Row type='flex' align='center' gutter={20}>
               <Col xs={24} sm={12}>
                 <section>
-                  <h3 className={s.cardTitle}>MERRY CHRISTMAS</h3>
+                  <h3 className={s.cardTitle}>BUNDLE TITLE</h3>
                   <p>
-                    May your life be filled with joy and happiness and may each new day bring you moments to cherish
+                    CARD DESCRIPTION
                   </p>
                 </section>
               </Col>
               <Col xs={24} sm={12}>
-                <ul className={s.giftDetails}>
-                  <li>Grapes</li>
-                  <li>Pineapple</li>
-                  <li>Kiwi</li>
-                  <li>Mandarin</li>
-                </ul>
+                {orderDetails.items.gifts[0].gift.description}
               </Col>
             </Row>
           </div>
@@ -84,7 +77,7 @@ class Purchase11 extends React.Component {
               <h2 className={s.subtotalHeader}>Subtotal:</h2>
             </Col>
             <Col xs={12}>
-              <span className={s.subtotalValue}>98.00</span>
+              <span className={s.subtotalValue}>{orderDetails.total}</span>
               <span className={s.subtotalCurrency}>CHF</span>
             </Col>
           </Row>
@@ -145,6 +138,7 @@ class Purchase11 extends React.Component {
 const mapState = state => ({
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
+  orderDetails: state.purchase.orderDetails,
 })
 
 const mapDispatch = {

@@ -85,11 +85,6 @@
   padding-bottom: var(--margin-md);
 }
 
-.giftDetails {
-  padding-left: var(--margin-sm);
-  margin-bottom: 0;
-}
-
 .cardTitle {
   font-family: var(--font-family-secondary);
   font-size: 18px;
