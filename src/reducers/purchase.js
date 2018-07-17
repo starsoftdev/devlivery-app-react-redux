@@ -4,6 +4,7 @@ import {message} from 'antd'
 import {PURCHASE_COMPLETED_ROUTE, PURCHASE_ROUTES} from '../routes'
 import {generateUrl} from '../router'
 import qs from 'query-string'
+import {getToken} from './user'
 
 // ------------------------------------
 // Constants
@@ -54,6 +55,18 @@ export const GET_GIFTS_FAILURE = 'Purchase.GET_GIFTS_FAILURE'
 export const REGISTER_REQUEST = 'Purchase.REGISTER_REQUEST'
 export const REGISTER_SUCCESS = 'Purchase.REGISTER_SUCCESS'
 export const REGISTER_FAILURE = 'Purchase.REGISTER_FAILURE'
+
+export const ADD_BUNDLE_REQUEST = 'Purchase.ADD_BUNDLE_REQUEST'
+export const ADD_BUNDLE_SUCCESS = 'Purchase.ADD_BUNDLE_SUCCESS'
+export const ADD_BUNDLE_FAILURE = 'Purchase.ADD_BUNDLE_FAILURE'
+
+export const MAKE_ORDER_REQUEST = 'Purchase.MAKE_ORDER_REQUEST'
+export const MAKE_ORDER_SUCCESS = 'Purchase.MAKE_ORDER_SUCCESS'
+export const MAKE_ORDER_FAILURE = 'Purchase.MAKE_ORDER_FAILURE'
+
+export const GET_ORDER_DETAILS_REQUEST = 'Purchase.GET_ORDER_DETAILS_REQUEST'
+export const GET_ORDER_DETAILS_SUCCESS = 'Purchase.GET_ORDER_DETAILS_SUCCESS'
+export const GET_ORDER_DETAILS_FAILURE = 'Purchase.GET_ORDER_DETAILS_FAILURE'
 
 export const CLEAR = 'Purchase.CLEAR'
 
@@ -184,11 +197,92 @@ export const register = (values) => (dispatch, getState, {fetch}) => {
     success: (res) => {
       dispatch({type: REGISTER_SUCCESS})
       dispatch(loginSuccess(res.data))
-      dispatch(nextFlowStep())
+      dispatch(submitGift())
     },
     failure: () => {
       dispatch({type: REGISTER_FAILURE})
       message.error('Something went wrong. Please try again.')
+    },
+  })
+}
+
+export const submitGift = () => (dispatch, getState) => {
+  const {loggedIn} = getState().user
+  if (loggedIn) {
+    dispatch(addBundle())
+  }
+  dispatch(nextFlowStep())
+}
+
+export const addBundle = () => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  const {letteringTechnique, card, gift} = getState().purchase
+  dispatch({type: ADD_BUNDLE_REQUEST})
+  return fetch(`/create-bundle`, {
+    method: 'POST',
+    contentType: 'application/x-www-form-urlencoded',
+    body: {
+      lettering: letteringTechnique,
+      card_id: card.id,
+      gift_id: gift.id,
+      font_weight: '1',
+      body: '1',
+      card_format: '1',
+      font: '1',
+      font_color: '1',
+      font_size: '1',
+      gift_quantity: '1',
+      title: '111',
+    },
+    token,
+    success: (res) => {
+      dispatch({type: ADD_BUNDLE_SUCCESS, bundle: res.data})
+      dispatch(makeOrder())
+    },
+    failure: () => {
+      dispatch({type: ADD_BUNDLE_FAILURE})
+      // message.error('Something went wrong. Please try again.')
+    },
+  })
+}
+
+export const makeOrder = () => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  const {bundle} = getState().purchase
+  dispatch({type: MAKE_ORDER_REQUEST})
+  return fetch(`/make-order-from-bundle`, {
+    method: 'POST',
+    contentType: 'application/x-www-form-urlencoded',
+    body: {
+      bundle_id: bundle.id,
+    },
+    token,
+    success: (res) => {
+      dispatch({type: MAKE_ORDER_SUCCESS, order: res.data})
+    },
+    failure: () => {
+      dispatch({type: MAKE_ORDER_FAILURE})
+    },
+  })
+}
+
+export const getOrderDetails = () => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  const {order} = getState().purchase
+  if (!order) {
+    return
+  }
+  dispatch({type: GET_ORDER_DETAILS_REQUEST})
+  return fetch(`/order-confirmation?${qs.stringify({
+    order_id: order.id,
+  })}`, {
+    method: 'GET',
+    token,
+    success: (res) => {
+      dispatch({type: GET_ORDER_DETAILS_SUCCESS, orderDetails: res.data})
+    },
+    failure: () => {
+      dispatch({type: GET_ORDER_DETAILS_FAILURE})
     },
   })
 }
@@ -209,6 +303,7 @@ const initialState = {
   cardSize: null,
   cardDetails: null,
   giftType: null,
+  card: null,
   gift: null,
   gifts: [],
   addingContactMode: null,
@@ -219,6 +314,9 @@ const initialState = {
   flowIndex: null,
   occasionTypes: [],
   occasionType: undefined,
+  bundle: null,
+  order: null,
+  orderDetails: null,
 }
 
 export default createReducer(initialState, {
@@ -292,6 +390,15 @@ export default createReducer(initialState, {
   }),
   [SET_PAYMENT_METHOD]: (state, {paymentMethod}) => ({
     paymentMethod,
+  }),
+  [ADD_BUNDLE_SUCCESS]: (state, {bundle}) => ({
+    bundle,
+  }),
+  [MAKE_ORDER_SUCCESS]: (state, {order}) => ({
+    order,
+  }),
+  [GET_ORDER_DETAILS_SUCCESS]: (state, {orderDetails}) => ({
+    orderDetails,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
