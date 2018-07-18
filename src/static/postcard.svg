@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="124px" height="70px" viewBox="0 0 124 70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="116px" height="84px" viewBox="0 0 116 84" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
-    <title>postcard</title>
+    <title>poscard</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="04_Choose_the_Format" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-221.000000, -305.000000)">
-        <g id="card" transform="translate(143.000000, 250.000000)">
-            <g id="postcard" transform="translate(79.000000, 55.000000)">
-                <path d="M25.7585958,2.26001774 C15.1011675,0.999125124 9.6169205,0.999125124 9.30585467,2.26001774 C8.83925593,4.15135666 4.41830622,48.6645831 15.088451,55.5608538 C22.2018809,60.1583676 29.2800958,64.6957225 36.3230956,69.1729184 L4.2627733,66.2852884 L1.16532065,61.9450398 L1.16532065,2.26001774" id="Path-5" fill="#E0DFE6"></path>
-                <path d="M2.19080274,1.88902997 C0.0961606013,39.2101169 0.0961606013,60.2859277 2.19080274,65.1164622 C5.33276595,72.3622639 121.336391,65.1164622 121.788033,65.1164622 C122.239675,65.1164622 121.336391,3.19029386 121.336391,1.88902997 C121.336391,1.02152071 81.6211952,1.02152071 2.19080274,1.88902997 Z" id="Path-2" stroke="#404D5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                <path d="M96.3764599,10.0625287 C96.3764599,19.9856313 96.3764599,24.9968226 96.3764599,25.0961025 C96.3764599,25.2450222 108.847926,24.4926221 108.97352,23.5980057 C109.099114,22.7033893 108.722332,11.224459 108.847926,10.0625287 C108.931656,9.28790847 104.7745,9.28790847 96.3764599,10.0625287 Z" id="Path-3" stroke="#404D5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                <path d="M74.7278751,33.0185289 L108.00548,33.0185289" id="Path-4" stroke="#404D5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                <path d="M58.2145034,57.0219271 L58.2145034,9.74929191" id="Path-4" stroke="#404D5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                <path d="M74.7278751,43.6272246 L108.00548,43.6272246" id="Path-4" stroke="#404D5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                <path d="M74.7278751,55.5620072 L108.00548,55.5620072" id="Path-4" stroke="#404D5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <g id="d_Gift-Flow-3_V2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-520.000000, -302.000000)">
+        <g id="card" transform="translate(443.000000, 250.000000)">
+            <g id="poscard" transform="translate(77.000000, 53.000000)">
+                <path d="M4.42859729,62.5843792 C2.54654418,62.5843792 -3.5041125,66.5909557 4.42859729,68.4776435 C12.3613071,70.3643312 70.3208608,77.6133229 73.8713155,78.7384844 C77.4217703,79.863646 87.4837927,81.8412426 90.7821868,82.0942063 C94.0805809,82.34717 99.2731204,82.2988345 99.8192518,80.8488035 C100.365383,79.3987726 98.6825302,79.2164063 99.1202995,77.5029324 C99.5580687,75.7894585 96.864944,78.8099519 96.3707438,78.7384844 C82.1541107,76.6825829 60.9705775,73.3086906 32.8201441,68.6168073 L5.9175001,63.9866346 L5.9175001,62.5843792 C6.17960029,62.5843792 5.68329935,62.5843792 4.42859729,62.5843792 Z" id="Path-21" fill="#E0DFE6"></path>
+                <polygon id="Path-20" fill="#E0DFE6" points="97.4235903 62.7465262 97.4235903 8.70341816 51.298109 3.82485606 30.6887921 2.03357482 39.108401 0.890676152 113.144192 0.890676152 113.144192 62.7465262"></polygon>
+                <path d="M97.3741644,79.9543086 C104.95395,71.7039472 110.807429,66.6678798 114.934602,64.8461062 C114.934602,63.1600362 115.990528,62.6711316 113.760128,62.6711316 C111.010715,62.6711316 105.548727,62.9173331 97.3741644,63.4097359 L97.3741644,79.9543086 Z" id="Path-18" fill="#E0DFE6"></path>
+                <polygon id="Path-11" stroke="#404D5F" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" points="5.59340192 64.237316 97.1745222 79.0706798 97.1745222 7.85213574 5.59340192 0.80930518"></polygon>
+                <polyline id="Path-19" stroke="#404D5F" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" points="6.445791 0.901064149 113.083501 0.901064149 113.083501 63.6296009 97.7336456 63.6296009"></polyline>
             </g>
         </g>
     </g>
