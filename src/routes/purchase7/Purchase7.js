@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {nextFlowStep, setGiftType} from '../../reducers/purchase'
+import {continueWithoutGift, nextFlowStep, setGiftType} from '../../reducers/purchase'
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase7.css'
@@ -15,7 +15,7 @@ import messages from './messages'
 
 class Purchase7 extends React.Component {
   render() {
-    const {giftType, setGiftType, nextFlowStep, intl, flowIndex} = this.props
+    const {giftType, setGiftType, nextFlowStep, intl, flowIndex, continueWithoutGift} = this.props
     const GIFT_TYPES = [
       {key: 'food', title: 'Food', svg: FoodImage},
       {key: 'non_food', title: 'Non Food', svg: NonFoodImage},
@@ -55,10 +55,7 @@ class Purchase7 extends React.Component {
           <Button
             type='primary'
             ghost
-            onClick={() => {
-              setGiftType(null)
-              nextFlowStep(1)
-            }}
+            onClick={() => continueWithoutGift()}
           >
             {intl.formatMessage(messages.continueWithoutGift)}
           </Button>
@@ -84,6 +81,7 @@ const mapState = state => ({
 const mapDispatch = {
   setGiftType,
   nextFlowStep,
+  continueWithoutGift,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase7))
