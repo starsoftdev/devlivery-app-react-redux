@@ -25,7 +25,6 @@ export const getOrders = (params = {}) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   const {search, ordering, page, pageSize} = getState().orders
   return fetch(`/orders-history?${qs.stringify({
-    // TODO add search on backend
     search,
     ordering,
     page,
