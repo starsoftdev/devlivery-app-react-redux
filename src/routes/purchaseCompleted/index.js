@@ -1,6 +1,7 @@
 import React from 'react'
 import PurchaseCompleted from './PurchaseCompleted'
 import {setCurrentRouteName} from '../../reducers/global'
+import {AppLayout} from '../../components'
 
 function action({store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
@@ -8,7 +9,7 @@ function action({store, route, intl}) {
   return {
     chunks: ['purchase'],
     title: 'Purchase',
-    component: <PurchaseCompleted intl={intl}/>
+    component: <AppLayout><PurchaseCompleted intl={intl}/></AppLayout>
   }
 }
 

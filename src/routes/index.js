@@ -68,6 +68,7 @@ export const PURCHASE_ROUTES = [
   PURCHASE11_ROUTE,
   PURCHASE12_ROUTE,
   PURCHASE13_ROUTE,
+  PURCHASE_COMPLETED_ROUTE,
 ]
 
 export const AUTH_PURCHASE_ROUTES = [
@@ -83,6 +84,7 @@ export const AUTH_PURCHASE_ROUTES = [
   PURCHASE11_ROUTE,
   PURCHASE12_ROUTE,
   PURCHASE13_ROUTE,
+  PURCHASE_COMPLETED_ROUTE,
 ]
 
 export const EVENT_PURCHASE_ROUTES = [
@@ -97,6 +99,7 @@ export const EVENT_PURCHASE_ROUTES = [
   PURCHASE11_ROUTE,
   PURCHASE12_ROUTE,
   PURCHASE13_ROUTE,
+  PURCHASE_COMPLETED_ROUTE,
 ]
 
 export const ORDER_BUNDLE_ROUTES = [
@@ -104,6 +107,7 @@ export const ORDER_BUNDLE_ROUTES = [
   PURCHASE11_ROUTE,
   PURCHASE12_ROUTE,
   PURCHASE13_ROUTE,
+  PURCHASE_COMPLETED_ROUTE,
 ]
 
 export const EDIT_BUNDLE_ROUTES = [
@@ -114,6 +118,7 @@ export const EDIT_BUNDLE_ROUTES = [
   PURCHASE5_ROUTE,
   PURCHASE7_ROUTE,
   PURCHASE8_ROUTE,
+  BUNDLES_ROUTE,
 ]
 
 
@@ -243,6 +248,11 @@ const routes = {
       load: () => import(/* webpackChunkName: 'setPassword' */ './setPassword'),
     },
     {
+      path: '/purchase/completed',
+      name: PURCHASE_COMPLETED_ROUTE,
+      load: () => import(/* webpackChunkName: 'purchase' */ './purchaseCompleted'),
+    },
+    {
       path: '/purchase',
       load: () => import(/* webpackChunkName: 'purchase' */ './purchase'),
       children: [
@@ -311,12 +321,7 @@ const routes = {
           name: PURCHASE13_ROUTE,
           load: () => import(/* webpackChunkName: 'purchase' */ './purchase13'),
         },
-        {
-          path: '/completed',
-          name: PURCHASE_COMPLETED_ROUTE,
-          load: () => import(/* webpackChunkName: 'purchase' */ './purchaseCompleted'),
-        },
-      ]
+      ],
     },
 
     authRoutes,

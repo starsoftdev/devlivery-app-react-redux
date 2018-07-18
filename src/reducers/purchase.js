@@ -1,10 +1,11 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {loginSuccess} from './login'
 import {message} from 'antd'
-import {PURCHASE_COMPLETED_ROUTE, PURCHASE_ROUTES} from '../routes'
+import {PURCHASE_ROUTES} from '../routes'
 import {generateUrl} from '../router'
 import qs from 'query-string'
 import {getToken} from './user'
+import {CARD_SIZES} from '../constants'
 
 // ------------------------------------
 // Constants
@@ -18,6 +19,7 @@ export const IMPORT_CONTACTS = 'import-contacts'
 export const PAYPAL = 'PAYPAL'
 export const CREDIT_CARD = 'CREDIT_CARD'
 
+export const SET_BUNDLE = 'Purchase.SET_BUNDLE'
 export const SET_FLOW = 'Purchase.SET_FLOW'
 export const SET_FLOW_INDEX = 'Purchase.SET_FLOW_INDEX'
 export const SET_OCCASION = 'Purchase.SET_OCCASION'
@@ -80,6 +82,18 @@ export const CLEAR = 'Purchase.CLEAR'
 // ------------------------------------
 // Actions
 // ------------------------------------
+export const setBundle = (bundle, flow) => ({
+  type: SET_BUNDLE,
+  bundle,
+  flow,
+  letteringTechnique: bundle.lettering,
+  card: bundle.bundle_card,
+  gift: bundle.bundle_gifts[0] && bundle.bundle_gifts[0].gift,
+  giftType: bundle.bundle_gifts[0] && bundle.bundle_gifts[0].gift.type,
+  cardSize: CARD_SIZES().find(item => item.key === bundle.card_format),
+  // TODO set other fields (cardStyle/occasion)
+})
+
 export const setFlow = (flow) => ({type: SET_FLOW, flow})
 
 export const setFlowIndex = () => (dispatch, getState) => {
@@ -92,11 +106,10 @@ export const setFlowIndex = () => (dispatch, getState) => {
 // 'step' allows to skip number of steps
 export const nextFlowStep = (step = 0) => (dispatch, getState, {history}) => {
   const {flow, flowIndex} = getState().purchase
-  if (flowIndex === flow.length - 1) {
-    // TODO clear state on last step
-    history.push(generateUrl(PURCHASE_COMPLETED_ROUTE))
-  } else {
-    history.push(generateUrl(flow[flowIndex + 1 + step]))
+  history.push(generateUrl(flow[flowIndex + 1 + step]))
+  // if step is last (except Thank You page/etc)
+  if (flowIndex === flow.length - 2) {
+    dispatch(clear())
   }
 }
 
@@ -235,7 +248,8 @@ export const addBundle = () => (dispatch, getState, {fetch}) => {
       lettering: letteringTechnique,
       card_id: card && card.id,
       gift_id: gift && gift.id,
-      card_format: cardSize,
+      card_format: cardSize && cardSize.key,
+      // TODO decide where cardStyle/occasion should be send
       // TODO send html here
       body: '1',
       // TODO remove these fields
@@ -249,7 +263,6 @@ export const addBundle = () => (dispatch, getState, {fetch}) => {
     token,
     success: (res) => {
       dispatch({type: ADD_BUNDLE_SUCCESS, bundle: res.data})
-      dispatch(makeOrder())
     },
     failure: () => {
       dispatch({type: ADD_BUNDLE_FAILURE})
@@ -260,6 +273,9 @@ export const addBundle = () => (dispatch, getState, {fetch}) => {
 export const makeOrder = () => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   const {bundle} = getState().purchase
+  if (!bundle) {
+    return
+  }
   dispatch({type: MAKE_ORDER_REQUEST})
   return fetch(`/make-order-from-bundle`, {
     method: 'POST',
@@ -373,6 +389,15 @@ const initialState = {
 }
 
 export default createReducer(initialState, {
+  [SET_BUNDLE]: (state, {flow, bundle, letteringTechnique, card, gift, giftType, cardSize}) => ({
+    flow,
+    bundle,
+    letteringTechnique,
+    card,
+    gift,
+    giftType,
+    cardSize,
+  }),
   [SET_FLOW]: (state, {flow}) => ({
     flow,
   }),

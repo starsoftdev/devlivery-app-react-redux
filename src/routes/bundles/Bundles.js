@@ -11,7 +11,7 @@ import debounce from 'lodash/debounce'
 import messages from './messages'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
 import {ORDER_BUNDLE_ROUTES, EDIT_BUNDLE_ROUTES} from '../'
-import {setFlow} from '../../reducers/purchase'
+import {setBundle, setFlow} from '../../reducers/purchase'
 import RemoveIcon from '../../static/remove.svg'
 
 // TODO add Create Bundle
@@ -40,7 +40,7 @@ class Bundles extends React.Component {
   render() {
     const {search} = this.state
     // TODO add loading
-    const {bundlesCount, bundles, page, pageSize, loading, getBundles, intl, setFlow, removeBundle, openBundleDetailsModal, bundleDetailsModalOpened} = this.props
+    const {bundlesCount, bundles, page, pageSize, loading, getBundles, intl, setBundle, setFlow, removeBundle, openBundleDetailsModal, bundleDetailsModalOpened} = this.props
 
     return (
       <div className={s.container}>
@@ -87,7 +87,7 @@ class Bundles extends React.Component {
                       <span className={s.cardPrice}>{bundle.total}</span>
                       <span className={s.cardPriceCurrency}>CHF</span>
                     </div>
-                    <Link to={ORDER_BUNDLE_ROUTES[0]} onClick={() => setFlow(ORDER_BUNDLE_ROUTES)}>
+                    <Link to={ORDER_BUNDLE_ROUTES[0]} onClick={() => setBundle(bundle, ORDER_BUNDLE_ROUTES)}>
                       <Button type='primary' ghost>
                         <PlusIcon/>
                         {intl.formatMessage(messages.makeOrder)}
@@ -123,6 +123,7 @@ const mapState = state => ({
 
 const mapDispatch = {
   getBundles,
+  setBundle,
   setFlow,
   removeBundle,
   openBundleDetailsModal,

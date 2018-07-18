@@ -17,7 +17,6 @@ import {
   PURCHASE7_ROUTE,
   PURCHASE8_ROUTE,
   PURCHASE9_ROUTE,
-  PURCHASE_COMPLETED_ROUTE
 } from '../'
 import messages from './messages'
 import cn from 'classnames'
@@ -50,30 +49,28 @@ class Purchase extends React.Component {
         <div className={s.content}>
           {children}
         </div>
-        {![PURCHASE_COMPLETED_ROUTE].includes(currentRouteName) && (
-          <div className={s.actions}>
-            <div className={s.steps}>
-              {flow.map((item, i) => {
-                return (
-                  <div key={item} className={cn(s.stepWrapper, {
-                    [s.current]: i === current,
-                    [s.completed]: i < current,
-                    [s.pending]: i > current,
-                  })}>
-                    <div className={s.tail}/>
-                    <Tooltip title={flowNames[item]}>
-                      {i < current ? (
-                        <Link to={item} className={s.step}/>
-                      ) : (
-                        <div className={s.step}/>
-                      )}
-                    </Tooltip>
-                  </div>
-                )
-              })}
-            </div>
+        <div className={s.actions}>
+          <div className={s.steps}>
+            {flow.map((item, i) => {
+              return flow.length - 1 !== i ?(
+                <div key={item} className={cn(s.stepWrapper, {
+                  [s.current]: i === current,
+                  [s.completed]: i < current,
+                  [s.pending]: i > current,
+                })}>
+                  <div className={s.tail}/>
+                  <Tooltip title={flowNames[item]}>
+                    {i < current ? (
+                      <Link to={item} className={s.step}/>
+                    ) : (
+                      <div className={s.step}/>
+                    )}
+                  </Tooltip>
+                </div>
+              ) : null
+            })}
           </div>
-        )}
+        </div>
       </React.Fragment>
     )
   }

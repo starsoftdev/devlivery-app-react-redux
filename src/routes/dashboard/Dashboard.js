@@ -6,6 +6,7 @@ import s from './Dashboard.css'
 import {Breadcrumbs, Link} from '../../components'
 import {
   ADD_CONTACT_ROUTE,
+  AUTH_PURCHASE_ROUTES,
   BUNDLES_ROUTE,
   CONTACT_GROUPS_ROUTE,
   CONTACTS_ROUTE,
@@ -24,10 +25,11 @@ import ManageTeamIcon from '../../static/manage_team.svg'
 import BundlesIcon from '../../static/shopping_bag.svg'
 import SettingsIcon from '../../static/settings.svg'
 import messages from './messages'
+import {setFlow} from '../../reducers/purchase'
 
 class Dashboard extends React.Component {
   render() {
-    const {children, breadcrumbs, intl} = this.props
+    const {children, breadcrumbs, intl, setFlow} = this.props
 
     const BASE_DASHBOARD_BREADCRUMBS = [
       {routeName: HOME_ROUTE, name: intl.formatMessage(messages.home)},
@@ -104,7 +106,7 @@ class Dashboard extends React.Component {
               className={s.breadcrumbs}
               breadcrumbs={[...BASE_DASHBOARD_BREADCRUMBS, ...breadcrumbs]}
             />
-            <Link to={PURCHASE1_ROUTE} className={s.getStartedBtn}>
+            <Link to={PURCHASE1_ROUTE} className={s.getStartedBtn} onClick={() => setFlow(AUTH_PURCHASE_ROUTES)}>
               <Button type='primary'>{intl.formatMessage(messages.getStarted)}</Button>
             </Link>
           </div>
@@ -117,6 +119,8 @@ class Dashboard extends React.Component {
 
 const mapState = state => ({})
 
-const mapDispatch = {}
+const mapDispatch = {
+  setFlow,
+}
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Dashboard))
