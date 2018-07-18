@@ -49,8 +49,17 @@ class Purchase5 extends React.Component {
                     <Card
                       className={s.item}
                       image={item.images[0].url}
+                      title={
+                        <span className={s.price}>
+                          {item.price}
+                          <span className={s.currency}>{item.currency}</span>
+                        </span>
+                      }
+                      bordered={false}
+                      description={item.description}
                       onClick={() => setCard(item)}
                       active={card && card.id === item.id}
+
                     />
                   </Col>
                 )}

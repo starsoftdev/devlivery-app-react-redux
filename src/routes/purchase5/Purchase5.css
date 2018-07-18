@@ -74,6 +74,15 @@
   }
 }
 
+.price {
+  letter-spacing: normal;
+}
+
+.currency {
+  color: var(--muted-color);
+  margin-left: 4px;
+}
+
 .previewBtn {
   @media (--xl-up) {
     display: none;
