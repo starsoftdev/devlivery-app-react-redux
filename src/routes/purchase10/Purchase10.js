@@ -56,10 +56,10 @@ class Purchase10 extends React.Component {
               <KeyHandler
                 keyEventName={KEYPRESS}
                 keyCode={13}
-                onKeyHandle={nextFlowStep}
+                onKeyHandle={() => nextFlowStep()}
               />
               <Button
-                onClick={nextFlowStep}
+                onClick={() => nextFlowStep()}
                 type='primary'
               >
                 {intl.formatMessage(messages.submit)}

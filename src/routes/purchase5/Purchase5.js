@@ -72,7 +72,7 @@ class Purchase5 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={card && nextFlowStep}
+            onKeyHandle={() => card && nextFlowStep()}
           />
           <Button
             type='primary'

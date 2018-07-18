@@ -47,10 +47,10 @@ class Purchase12 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={paymentMethod && nextFlowStep}
+            onKeyHandle={() => paymentMethod && nextFlowStep()}
           />
           <Button
-            onClick={nextFlowStep}
+            onClick={() => nextFlowStep()}
             type='primary'
             disabled={!paymentMethod}
           >

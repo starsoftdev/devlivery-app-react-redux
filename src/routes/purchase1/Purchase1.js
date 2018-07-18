@@ -52,12 +52,12 @@ class Purchase1 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={occasion && nextFlowStep}
+            onKeyHandle={() => occasion && nextFlowStep()}
           />
           <Button
             disabled={!occasion}
             type='primary'
-            onClick={nextFlowStep}
+            onClick={() => nextFlowStep()}
           >
             {intl.formatMessage(messages.submit)}
           </Button>

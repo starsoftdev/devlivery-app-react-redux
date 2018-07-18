@@ -50,7 +50,7 @@ class Purchase7 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={giftType && nextFlowStep}
+            onKeyHandle={() => giftType && nextFlowStep()}
           />
           <Button
             type='primary'
@@ -65,7 +65,7 @@ class Purchase7 extends React.Component {
           <Button
             type='primary'
             disabled={!giftType}
-            onClick={nextFlowStep}
+            onClick={() => nextFlowStep()}
           >
             {intl.formatMessage(messages.submit)}
           </Button>

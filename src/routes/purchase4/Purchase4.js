@@ -41,12 +41,12 @@ class Purchase4 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={cardSize && nextFlowStep}
+            onKeyHandle={() => cardSize && nextFlowStep()}
           />
           <Button
             type='primary'
             disabled={!cardSize}
-            onClick={nextFlowStep}
+            onClick={() => nextFlowStep()}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
