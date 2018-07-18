@@ -57,7 +57,7 @@ class Purchase7 extends React.Component {
             ghost
             onClick={() => {
               setGiftType(null)
-              nextFlowStep()
+              nextFlowStep(1)
             }}
           >
             {intl.formatMessage(messages.continueWithoutGift)}
