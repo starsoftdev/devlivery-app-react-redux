@@ -74,7 +74,7 @@ class Reminders extends React.Component {
             </Form.Item>
             <Form.Item>
               {getFieldDecorator(`reminders[${k}].date`, {
-                initialValue: initialValues && initialValues.reminders[k] ? moment(initialValues.reminders[k].date, 'DD-MM-YYYY') : undefined,
+                initialValue: initialValues && initialValues.reminders[k] ? moment(initialValues.reminders[k].date, DATE_FORMAT) : undefined,
               })(
                 <DatePicker className={s.date} format={DATE_FORMAT}/>
               )}
