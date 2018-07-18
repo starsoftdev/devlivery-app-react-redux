@@ -209,6 +209,15 @@ export const register = (values) => (dispatch, getState, {fetch}) => {
   })
 }
 
+export const continueWithoutGift = () => (dispatch, getState) => {
+  const {loggedIn} = getState().user
+  dispatch(setGiftType(null))
+  if (loggedIn) {
+    dispatch(addBundle())
+  }
+  dispatch(nextFlowStep(1))
+}
+
 export const submitGift = () => (dispatch, getState) => {
   const {loggedIn} = getState().user
   if (loggedIn) {
@@ -219,18 +228,20 @@ export const submitGift = () => (dispatch, getState) => {
 
 export const addBundle = () => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  const {letteringTechnique, card, gift} = getState().purchase
+  const {letteringTechnique, card, gift, cardSize} = getState().purchase
   dispatch({type: ADD_BUNDLE_REQUEST})
   return fetch(`/create-bundle`, {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
     body: {
       lettering: letteringTechnique,
-      card_id: card.id,
-      gift_id: gift.id,
-      font_weight: '1',
+      card_id: card && card.id,
+      gift_id: gift && gift.id,
+      card_format: cardSize,
+      // TODO send html here
       body: '1',
-      card_format: '1',
+      // TODO remove these fields
+      font_weight: '1',
       font: '1',
       font_color: '1',
       font_size: '1',
@@ -244,7 +255,6 @@ export const addBundle = () => (dispatch, getState, {fetch}) => {
     },
     failure: () => {
       dispatch({type: ADD_BUNDLE_FAILURE})
-      // message.error('Something went wrong. Please try again.')
     },
   })
 }
