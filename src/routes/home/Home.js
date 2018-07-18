@@ -11,9 +11,10 @@ import personalizeItImage from '../../static/personalize_it.png'
 import sendItImage from '../../static/send_it.png'
 import AboutUsIcon from '../../static/decor_about.svg'
 import {animateScroll} from 'react-scroll'
-import {PURCHASE1_ROUTE} from '../'
+import {AUTH_PURCHASE_ROUTES, PURCHASE1_ROUTE} from '../'
 import {Link} from '../../components'
 import messages from './messages'
+import {setFlow} from '../../reducers/purchase'
 
 // imageHeight is needed as wrapper circle should have the same size
 const Card = ({number, image, imageHeight, title, description, svg}) =>
@@ -39,13 +40,13 @@ class Home extends React.Component {
   }
 
   render() {
-    const {intl} = this.props
+    const {intl, setFlow} = this.props
     return (
       <React.Fragment>
         <section className={s.heroSection}>
           <h2 className={s.subHeader}>{intl.formatMessage(messages.subHeader)}</h2>
           <h1 className={s.header}>{intl.formatMessage(messages.header)}</h1>
-          <Link to={PURCHASE1_ROUTE}>
+          <Link to={PURCHASE1_ROUTE} onClick={() => setFlow(AUTH_PURCHASE_ROUTES)}>
             <Button type='primary'>{intl.formatMessage(messages.getStarted)}</Button>
           </Link>
           <a className={s.scroll} onClick={this.scrollToFirstSection}>
@@ -189,6 +190,8 @@ class Home extends React.Component {
 
 const mapState = state => ({})
 
-const mapDispatch = {}
+const mapDispatch = {
+  setFlow,
+}
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Home))
