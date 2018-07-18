@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="92px" height="100px" viewBox="0 0 92 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>folded_without_panel</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="d_Gift-Flow-3_V2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-835.000000, -292.000000)">
+        <g id="card" transform="translate(743.000000, 250.000000)">
+            <g id="folded_without_panel" transform="translate(92.000000, 43.000000)">
+                <path d="M3.22922626,75.7426322 C1.62188224,76.0154988 0.577364884,76.9059581 0.0956742037,78.41401 C-0.626861817,80.6760878 38.0859029,84.3968384 43.5674566,85.4376633 C49.0490103,86.4784882 51.3244769,92.6254752 51.3244769,94.4792871 C51.3244769,96.333099 53.0922373,100.049245 58.6854966,97.1324333 C64.2787559,94.2156218 67.0790787,92.8495621 71.1440115,91.582103 C75.2089443,90.3146439 87.6117575,83.6188505 90.5582569,78.41401 C93.5047564,73.2091694 89.7347767,75.7426322 87.0545066,75.7426322 C85.26766,75.7426322 82.0625232,77.941571 77.4390963,82.3394487 L73.9774481,85.4376633 L69.1200477,87.6972254 L60.4284397,92.0700495 L56.0488029,95.2786214 L56.0488029,75.7426322 L4.80442337,78.41401 L3.22922626,75.7426322 Z" id="Path-9" fill="#E0DFE6"></path>
+                <path d="M86.21255,76.0311714 C78.9658597,73.8749113 80.0372756,1.00588229 78.9658597,1.55642077 C78.2515824,1.92344642 69.9446509,3.30456448 54.0450651,5.69977496 L55.3761653,95.1785422 L74.6009716,85.4452321 C87.1731508,80.6066984 91.0436769,77.4686781 86.21255,76.0311714 Z" id="Path-10" fill="#E0DFE6"></path>
+                <polygon id="Path-8" fill="#E0DFE6" points="14.2246313 2.63923844 54.873551 8.76193476 54.873551 5.7005866 81.915973 0.600995105 11.1223649 2.63923844"></polygon>
+                <polyline id="Path-14" stroke="#404D5F" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" points="4.60711965 2.10782484 4.60711965 78.0324067 54.2956233 75.2196839"></polyline>
+                <polyline id="Path-15" stroke="#404D5F" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" points="4.72370314 2.07845746 85.9897283 0.666881635 54.9091374 5.20017053 54.9091374 95.2894285"></polyline>
+                <polyline id="Path-16" stroke="#404D5F" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" points="86.4309643 0.881954754 86.4309643 77.3521827 74.0930924 84.6986503"></polyline>
+                <polyline id="Path-17" stroke="#404D5F" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" points="54.9783358 90.9693116 54.9783358 95.5595316 86.5472158 77.5598869"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

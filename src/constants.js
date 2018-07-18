@@ -1,8 +1,8 @@
 import messages from './routes/purchase4/messages'
-import BigCardImage from './static/big_card.svg'
-import PanelCardImage from './static/panel_card.svg'
-import GreetingCardImage from './static/greeting_card.svg'
+import FoldedCardImage from './static/folded_card.svg'
 import PostcardImage from './static/postcard.svg'
+import FoldedCardWithoutPanelImage from './static/folded_without_panel.svg'
+import BigFoldedCardImage from './static/folded_card_big.svg'
 
 export const YEAR = 31536000
 
@@ -25,15 +25,15 @@ export const REQUIRED_FIELDS = [
 // width/height in mm
 export const CARD_SIZES = (intl) => [
   {
-    key: 'folded_card',
+    key: '4x5',
     title: intl.formatMessage(messages.foldedCard),
-    svg: BigCardImage,
+    svg: FoldedCardImage,
     extra: '4" x 5"',
     height: 101.6,
     width: 127,
   },
   {
-    key: 'postcard',
+    key: '5x7',
     title: intl.formatMessage(messages.postcard),
     svg: PostcardImage,
     extra: '5" x 7"',
@@ -41,17 +41,17 @@ export const CARD_SIZES = (intl) => [
     width: 177.8,
   },
   {
-    key: 'folder_card_without_panel',
+    key: '6x6',
     title: intl.formatMessage(messages.foldedCardWithoutPanel),
-    svg: PanelCardImage,
+    svg: FoldedCardWithoutPanelImage,
     extra: '6" x 6"',
     height: 152.4,
     width: 152.4,
   },
   {
-    key: 'folder_card2',
+    key: '4x9',
     title: intl.formatMessage(messages.foldedCard),
-    svg: GreetingCardImage,
+    svg: BigFoldedCardImage,
     extra: '4" x 9"',
     height: 101.6,
     width: 228.6,
