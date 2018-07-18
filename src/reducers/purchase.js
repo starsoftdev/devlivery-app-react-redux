@@ -68,6 +68,14 @@ export const GET_ORDER_DETAILS_REQUEST = 'Purchase.GET_ORDER_DETAILS_REQUEST'
 export const GET_ORDER_DETAILS_SUCCESS = 'Purchase.GET_ORDER_DETAILS_SUCCESS'
 export const GET_ORDER_DETAILS_FAILURE = 'Purchase.GET_ORDER_DETAILS_FAILURE'
 
+export const MAKE_STRIPE_PAYMENT_REQUEST = 'Purchase.MAKE_STRIPE_PAYMENT_REQUEST'
+export const MAKE_STRIPE_PAYMENT_SUCCESS = 'Purchase.MAKE_STRIPE_PAYMENT_SUCCESS'
+export const MAKE_STRIPE_PAYMENT_FAILURE = 'Purchase.MAKE_STRIPE_PAYMENT_FAILURE'
+
+export const MAKE_PAYPAL_PAYMENT_REQUEST = 'Purchase.MAKE_PAYPAL_PAYMENT_REQUEST'
+export const MAKE_PAYPAL_PAYMENT_SUCCESS = 'Purchase.MAKE_PAYPAL_PAYMENT_SUCCESS'
+export const MAKE_PAYPAL_PAYMENT_FAILURE = 'Purchase.MAKE_PAYPAL_PAYMENT_FAILURE'
+
 export const CLEAR = 'Purchase.CLEAR'
 
 // ------------------------------------
@@ -283,6 +291,49 @@ export const getOrderDetails = () => (dispatch, getState, {fetch}) => {
     },
     failure: () => {
       dispatch({type: GET_ORDER_DETAILS_FAILURE})
+    },
+  })
+}
+
+export const makeStripePayment = () => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  const {order} = getState().purchase
+  if (!order) {
+    return
+  }
+  dispatch({type: MAKE_STRIPE_PAYMENT_REQUEST})
+  return fetch(`/payments/stripe/charge/${order.id}`, {
+    method: 'POST',
+    body: {
+      stripeToken: '',
+    },
+    token,
+    success: (res) => {
+      console.log(res)
+      dispatch({type: MAKE_STRIPE_PAYMENT_SUCCESS})
+    },
+    failure: () => {
+      dispatch({type: MAKE_STRIPE_PAYMENT_FAILURE})
+    },
+  })
+}
+
+export const makePaypalPayment = () => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  const {order} = getState().purchase
+  if (!order) {
+    return
+  }
+  dispatch({type: MAKE_PAYPAL_PAYMENT_REQUEST})
+  return fetch(`/payments/paypal/charge/${order.id}`, {
+    method: 'POST',
+    token,
+    success: (res) => {
+      console.log(res)
+      dispatch({type: MAKE_PAYPAL_PAYMENT_SUCCESS})
+    },
+    failure: () => {
+      dispatch({type: MAKE_PAYPAL_PAYMENT_FAILURE})
     },
   })
 }
