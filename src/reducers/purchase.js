@@ -93,6 +93,7 @@ export const setFlowIndex = () => (dispatch, getState) => {
 export const nextFlowStep = (step = 0) => (dispatch, getState, {history}) => {
   const {flow, flowIndex} = getState().purchase
   if (flowIndex === flow.length - 1) {
+    // TODO clear state on last step
     history.push(generateUrl(PURCHASE_COMPLETED_ROUTE))
   } else {
     history.push(generateUrl(flow[flowIndex + 1 + step]))
