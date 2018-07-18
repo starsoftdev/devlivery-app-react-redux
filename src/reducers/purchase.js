@@ -157,12 +157,6 @@ export const getCards = () => (dispatch, getState, {fetch}) => {
 
 export const setCardSize = (cardSize) => ({type: SET_CARD_SIZE, cardSize})
 
-export const submitCardSize = () => (dispatch, getState, {history}) => {
-  const {cardSize} = getState().purchase
-  if (!cardSize) return
-  history.push('/purchase/card')
-}
-
 export const submitCardDetails = (cardDetails) => (dispatch, getState) => {
   dispatch(nextFlowStep())
   dispatch({type: SET_CARD_DETAILS, cardDetails})
