@@ -30,7 +30,6 @@ export const SET_GIFT_TYPE = 'Purchase.SET_GIFT_TYPE'
 export const CONTINUE_WITHOUT_GIFT = 'Purchase.CONTINUE_WITHOUT_GIFT'
 export const SET_GIFT = 'Purchase.SET_GIFT'
 export const SET_PAYMENT_METHOD = 'Purchase.SET_PAYMENT_METHOD'
-export const SET_ADDING_CONTACTS_MODE = 'Purchase.SET_ADDING_CONTACTS_MODE'
 
 export const GET_OCCASIONS_REQUEST = 'Purchase.GET_OCCASIONS_REQUEST'
 export const GET_OCCASIONS_SUCCESS = 'Purchase.GET_OCCASIONS_SUCCESS'
@@ -182,8 +181,6 @@ export const getGifts = (params = {}) => (dispatch, getState, {fetch}) => {
     }
   })
 }
-
-export const setAddingContactsMode = (addingContactMode) => ({type: SET_ADDING_CONTACTS_MODE, addingContactMode})
 
 export const submitShipping = () => (dispatch, getState) => {
   dispatch(nextFlowStep())
@@ -362,7 +359,6 @@ const initialState = {
   card: null,
   gift: null,
   gifts: [],
-  addingContactMode: null,
   paymentMethod: null,
   cardStyles: [],
   cards: [],
@@ -440,9 +436,6 @@ export default createReducer(initialState, {
   }),
   [GET_GIFTS_SUCCESS]: (state, {gifts}) => ({
     gifts,
-  }),
-  [SET_ADDING_CONTACTS_MODE]: (state, {addingContactMode}) => ({
-    addingContactMode,
   }),
   [SET_PAYMENT_METHOD]: (state, {paymentMethod}) => ({
     paymentMethod,

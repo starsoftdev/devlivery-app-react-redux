@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {ADD_CONTACT_MANUALLY, IMPORT_CONTACTS, nextFlowStep, setAddingContactsMode} from '../../reducers/purchase'
+import {ADD_CONTACT_MANUALLY, IMPORT_CONTACTS, nextFlowStep} from '../../reducers/purchase'
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase10.css'
@@ -13,8 +13,17 @@ import AddContact from './AddContact'
 import messages from './messages'
 
 class Purchase10 extends React.Component {
+  state = {
+    addingContactMode: null,
+  }
+
+  setAddingContactsMode = (addingContactMode) => {
+    this.setState({addingContactMode})
+  }
+
   render() {
-    const {addingContactMode, setAddingContactsMode, nextFlowStep, flowIndex, intl} = this.props
+    const {addingContactMode} = this.state
+    const {nextFlowStep, flowIndex, intl} = this.props
     return (
       <React.Fragment>
         {addingContactMode === ADD_CONTACT_MANUALLY ? (
@@ -34,7 +43,7 @@ class Purchase10 extends React.Component {
                   <Card
                     className={s.item}
                     title={intl.formatMessage(messages.addContactManually)}
-                    onClick={() => setAddingContactsMode(ADD_CONTACT_MANUALLY)}
+                    onClick={() => this.setAddingContactsMode(ADD_CONTACT_MANUALLY)}
                     active={addingContactMode === ADD_CONTACT_MANUALLY}
                     keyValue='a'
                     svg={AddContactManuallyIcon}
@@ -44,7 +53,7 @@ class Purchase10 extends React.Component {
                   <Card
                     className={s.item}
                     title={intl.formatMessage(messages.importContacts)}
-                    onClick={() => setAddingContactsMode(IMPORT_CONTACTS)}
+                    onClick={() => this.setAddingContactsMode(IMPORT_CONTACTS)}
                     active={addingContactMode === IMPORT_CONTACTS}
                     keyValue='b'
                     svg={ImportContactsIcon}
@@ -73,12 +82,10 @@ class Purchase10 extends React.Component {
 }
 
 const mapState = state => ({
-  addingContactMode: state.purchase.addingContactMode,
   flowIndex: state.purchase.flowIndex,
 })
 
 const mapDispatch = {
-  setAddingContactsMode,
   nextFlowStep,
 }
 
