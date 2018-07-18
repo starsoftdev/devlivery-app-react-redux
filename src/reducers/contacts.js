@@ -107,6 +107,10 @@ export const getGroupsArray = (groups) => {
   return groups.filter(group => !Object.values(group).includes(undefined) && !Object.values(group).includes(null))
 }
 
+export const getBirthday = (birthday) => {
+  return birthday ? birthday.format(DATE_FORMAT) : undefined
+}
+
 export const addContact = ({birthday, reminders, groups, ...values}, form) => (dispatch, getState, {fetch}) => {
   dispatch({type: ADD_CONTACT_REQUEST})
   const {token} = dispatch(getToken())
@@ -116,7 +120,7 @@ export const addContact = ({birthday, reminders, groups, ...values}, form) => (d
       ...values,
       contact: {
         ...values.contact,
-        dob: birthday.format(DATE_FORMAT),
+        dob: getBirthday(birthday),
       },
       reminders: getRemindersArray(reminders),
       groups: getGroupsArray(groups),
@@ -144,7 +148,7 @@ export const editContact = ({birthday, reminders, groups, ...values}) => (dispat
       contact: {
         id: contact.id,
         ...values.contact,
-        dob: birthday.format(DATE_FORMAT),
+        dob: getBirthday(birthday),
       },
       reminders: getRemindersArray(reminders),
       groups: getGroupsArray(groups),
