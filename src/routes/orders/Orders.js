@@ -10,17 +10,15 @@ import debounce from 'lodash/debounce'
 import moment from 'moment'
 import cn from 'classnames'
 import messages from './messages'
-import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
+import {DATE_FORMAT, DEFAULT_DEBOUNCE_TIME} from '../../constants'
 import {EVENT_PURCHASE_ROUTES} from '../index'
 import {setFlow} from '../../reducers/purchase'
 
-const EVENT_DATE_FORMAT = 'YYYY-MM-DD'
-
-const Event = ({first_name, last_name, occasion, occasion_date, occasion_type, setFlow}) =>
+const Event = ({first_name, last_name, occasion, contact_specific_date, occasion_date, occasion_type, setFlow}) =>
   <Link className={s.event} to={EVENT_PURCHASE_ROUTES[0]} onClick={() => setFlow(EVENT_PURCHASE_ROUTES)}>
     <div className={s.eventDate}>
-      <div className={s.eventDay}>{moment(occasion_date, EVENT_DATE_FORMAT).format('D')}</div>
-      <div className={s.eventWeekDay}>{moment(occasion_date, EVENT_DATE_FORMAT).format('dddd')}</div>
+      <div className={s.eventDay}>{moment(contact_specific_date || occasion_date, DATE_FORMAT).format('D')}</div>
+      <div className={s.eventWeekDay}>{moment(contact_specific_date || occasion_date, DATE_FORMAT).format('dddd')}</div>
     </div>
     <div className={s.eventDetails}>
       <div className={s.eventType}>{occasion} ({occasion_type})</div>
@@ -121,7 +119,7 @@ class Orders extends React.Component {
               fullscreen={false}
               value={moment(date)}
               dateCellRender={(current) => {
-                const hasEvents = events.find(event => moment(event.occasion_date, EVENT_DATE_FORMAT).isSame(current, 'y'))
+                const hasEvents = events.find(event => moment(event.contact_specific_date || event.occasion_date, DATE_FORMAT).isSame(current, 'd'))
                 return hasEvents ? <div className={cn(s.hasEvents, today.isSame(current, 'd') && s.inverted)}/> : null
               }}
             />
