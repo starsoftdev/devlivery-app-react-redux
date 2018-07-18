@@ -54,12 +54,12 @@ class Purchase2 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={letteringTechnique && nextFlowStep}
+            onKeyHandle={() => letteringTechnique && nextFlowStep()}
           />
           <Button
             disabled={!letteringTechnique}
             type='primary'
-            onClick={nextFlowStep}
+            onClick={() => nextFlowStep()}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
