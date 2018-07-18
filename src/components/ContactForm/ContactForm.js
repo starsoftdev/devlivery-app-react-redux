@@ -152,9 +152,6 @@ class ContactForm extends React.Component {
         <Form.Item>
           {getFieldDecorator('birthday', {
             initialValue: initialValues ? moment(initialValues.dob, DATE_FORMAT) : undefined,
-            rules: [
-              {required: true, message: intl.formatMessage(formMessages.required)},
-            ],
           })(
             <DatePicker className={s.birthday} format={DATE_FORMAT}/>
           )}
