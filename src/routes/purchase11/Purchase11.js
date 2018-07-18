@@ -24,7 +24,7 @@ class Purchase11 extends React.Component {
   render() {
     const {flowIndex, orderDetails} = this.props
     const {getFieldDecorator} = this.props.form
-    return (
+    return orderDetails ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
           <SectionHeader
@@ -131,7 +131,7 @@ class Purchase11 extends React.Component {
           </Button>
         </Actions>
       </Form>
-    )
+    ) : null
   }
 }
 
