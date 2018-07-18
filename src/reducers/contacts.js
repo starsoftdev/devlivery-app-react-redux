@@ -92,7 +92,22 @@ export const getContact = (contactId) => (dispatch, getState, {fetch}) => {
   })
 }
 
-export const addContact = ({birthday, reminders, ...values}, form) => (dispatch, getState, {fetch}) => {
+export const getRemindersArray = (reminders) => {
+  return reminders.filter(reminder => {
+    // if one of the property undefined/null - don't send reminder
+    return !Object.values(reminder).includes(undefined) && !Object.values(reminder).includes(null)
+  }).map(item => ({
+    ...item,
+    date: item.date.format(DATE_FORMAT)
+  }))
+}
+
+export const getGroupsArray = (groups) => {
+  // if one of the property undefined/null - don't send group
+  return groups.filter(group => !Object.values(group).includes(undefined) && !Object.values(group).includes(null))
+}
+
+export const addContact = ({birthday, reminders, groups, ...values}, form) => (dispatch, getState, {fetch}) => {
   dispatch({type: ADD_CONTACT_REQUEST})
   const {token} = dispatch(getToken())
   return fetch(`/add-contact-manually`, {
@@ -103,10 +118,8 @@ export const addContact = ({birthday, reminders, ...values}, form) => (dispatch,
         ...values.contact,
         dob: birthday.format(DATE_FORMAT),
       },
-      reminders: reminders.map(item => ({
-        ...item,
-        date: item.date.format(DATE_FORMAT)
-      }))
+      reminders: getRemindersArray(reminders),
+      groups: getGroupsArray(groups),
     },
     token,
     success: (res) => {
@@ -120,7 +133,7 @@ export const addContact = ({birthday, reminders, ...values}, form) => (dispatch,
   })
 }
 
-export const editContact = ({birthday, reminders, ...values}) => (dispatch, getState, {fetch, history}) => {
+export const editContact = ({birthday, reminders, groups, ...values}) => (dispatch, getState, {fetch, history}) => {
   dispatch({type: EDIT_CONTACT_REQUEST})
   const {token} = dispatch(getToken())
   const {contact} = getState().contacts
@@ -133,10 +146,8 @@ export const editContact = ({birthday, reminders, ...values}) => (dispatch, getS
         ...values.contact,
         dob: birthday.format(DATE_FORMAT),
       },
-      reminders: reminders.map(item => ({
-        ...item,
-        date: item.date.format(DATE_FORMAT)
-      }))
+      reminders: getRemindersArray(reminders),
+      groups: getGroupsArray(groups),
     },
     token,
     success: () => {
