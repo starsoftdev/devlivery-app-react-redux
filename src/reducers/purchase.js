@@ -90,12 +90,13 @@ export const setFlowIndex = () => (dispatch, getState) => {
   dispatch({type: SET_FLOW_INDEX, flowIndex})
 }
 
-export const nextFlowStep = () => (dispatch, getState, {history}) => {
+// 'step' allows to skip number of steps
+export const nextFlowStep = (step = 0) => (dispatch, getState, {history}) => {
   const {flow, flowIndex} = getState().purchase
   if (flowIndex === flow.length - 1) {
     history.push(generateUrl(PURCHASE_COMPLETED_ROUTE))
   } else {
-    history.push(generateUrl(flow[flowIndex + 1]))
+    history.push(generateUrl(flow[flowIndex + 1 + step]))
   }
 }
 
