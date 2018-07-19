@@ -12,7 +12,7 @@ import {clear, getContacts, removeContact} from '../../reducers/contacts'
 import debounce from 'lodash/debounce'
 import messages from './messages'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
-import {EDIT_CONTACT_ROUTE} from '../index'
+import {EDIT_CONTACT_ROUTE} from '../'
 
 const GRID_VIEW = 'grid'
 const LIST_VIEW = 'list'
