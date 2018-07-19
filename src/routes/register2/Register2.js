@@ -5,7 +5,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Register2.css'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
-import {setIndividualDetails} from '../../reducers/register'
+import {register} from '../../reducers/register'
 import messages from './messages'
 import {DATE_FORMAT} from '../../constants'
 import {SectionHeader} from '../../components'
@@ -15,7 +15,7 @@ class Register2 extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.setIndividualDetails(values)
+        this.props.register(values)
       }
     })
   }
@@ -95,7 +95,7 @@ class Register2 extends React.Component {
             </h1>
             <Form.Item>
               {getFieldDecorator('birthday', {
-                initialValue: individualDetails ? individualDetails.month : undefined,
+                initialValue: individualDetails ? individualDetails.birthday : undefined,
               })(
                 <DatePicker className={s.birthday} format={DATE_FORMAT}/>
               )}
@@ -122,7 +122,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = {
-  setIndividualDetails,
+  register,
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Register2)))
