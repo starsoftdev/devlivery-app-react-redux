@@ -109,7 +109,7 @@ export const getGroupsArray = (groups) => {
 
 export const getAddressesArray = (addresses) => {
   // if one of the property undefined/null - don't send item
-  return addresses.filter(item => !Object.values(item).includes(undefined) && !Object.values(item).includes(null))
+  return addresses.filter(item => !Object.values(item).includes(undefined) && !Object.values(item).includes(null) && !Object.values(item).includes(''))
 }
 
 export const getBirthday = (birthday) => {
