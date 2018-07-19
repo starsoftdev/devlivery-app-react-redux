@@ -8,7 +8,7 @@ import formMessages from '../../formMessages'
 import {register} from '../../reducers/register'
 import messages from './messages'
 import {DATE_FORMAT} from '../../constants'
-import {SectionHeader} from '../../components'
+import {Actions, SectionHeader} from '../../components'
 
 class Register2 extends React.Component {
   handleSubmit = (e) => {
@@ -102,16 +102,16 @@ class Register2 extends React.Component {
             </Form.Item>
           </section>
         </div>
-        <div className={s.actions}>
+        <Actions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
             onKeyHandle={this.handleSubmit}
           />
-          <Button htmlType='submit' type='primary' className={s.submitBtn}>
+          <Button htmlType='submit' type='primary'>
             {intl.formatMessage(messages.submit)}
           </Button>
-        </div>
+        </Actions>
       </Form>
     )
   }
