@@ -7,14 +7,16 @@ import {ColumnsMappingForm, ContactsImporting, UploadedContacts} from '../../com
 import messages from './messages'
 import {importContacts, openUploadedContactsModal} from '../../reducers/contacts'
 import PlusIcon from '../../static/plus.svg'
+import history from '../../history'
+import {generateUrl} from '../../router'
+import {CONTACTS_ROUTE} from '../'
 
 class ImportContacts extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.columnsMappingForm.validateFields((err, values) => {
       if (!err) {
-        this.props.importContacts(values)
-        // TODO
+        this.props.importContacts(values, () => history.push(generateUrl(CONTACTS_ROUTE)))
       }
     })
   }
