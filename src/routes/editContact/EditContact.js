@@ -11,7 +11,7 @@ import messages from './messages'
 class EditContact extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields({force: true}, (err, values) => {
       if (!err) {
         this.props.editContact(values)
       }

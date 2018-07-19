@@ -14,7 +14,7 @@ import {CONTACTS_ROUTE} from '../'
 class AddContact extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields({force: true}, (err, values) => {
       if (!err) {
         this.props.addContact(values, this.props.form, () => history.push(generateUrl(CONTACTS_ROUTE)))
       }
