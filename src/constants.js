@@ -3,6 +3,10 @@ import FoldedCardImage from './static/folded_card.svg'
 import PostcardImage from './static/postcard.svg'
 import FoldedCardWithoutPanelImage from './static/folded_without_panel.svg'
 import BigFoldedCardImage from './static/folded_card_big.svg'
+import FoodImage from './static/food.svg'
+import NonFoodImage from './static/non_food.svg'
+import DonationImage from './static/donation.svg'
+import VoucherImage from './static/voucher.svg'
 
 export const YEAR = 31536000
 
@@ -56,4 +60,12 @@ export const CARD_SIZES = (intl) => [
     height: 101.6,
     width: 228.6,
   },
+]
+
+// TODO add translations
+export const GIFT_TYPES = (intl) => [
+  {key: 'Food', title: 'Food', svg: FoodImage},
+  {key: 'Fruits', title: 'Non Food', svg: NonFoodImage},
+  {key: 'Donation', title: 'Donation', svg: DonationImage},
+  {key: 'Voucher', title: 'Voucher', svg: VoucherImage},
 ]

@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {submitGift, setGift} from '../../reducers/purchase'
-import {Button, Col, Layout, Row} from 'antd'
+import {getGifts, setGift, submitGift} from '../../reducers/purchase'
+import {Button, Col, Layout, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase8.css'
 import {Actions, Card, Header, SectionHeader} from '../../components'
@@ -9,6 +9,7 @@ import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import cn from 'classnames'
 import Preview from './Preview'
 import messages from './messages'
+import {GIFT_TYPES} from '../../constants'
 
 class Purchase8 extends React.Component {
   state = {
@@ -21,7 +22,7 @@ class Purchase8 extends React.Component {
 
   render() {
     const {previewCollapsed} = this.state
-    const {gift, setGift, submitGift, intl, flowIndex, gifts} = this.props
+    const {gift, setGift, submitGift, intl, flowIndex, gifts, getGifts, giftType} = this.props
 
     return (
       <React.Fragment>
@@ -39,10 +40,23 @@ class Purchase8 extends React.Component {
             <Header className={s.layoutHeader}/>
             <div className={s.content}>
               <SectionHeader
+                className={s.header}
                 header={intl.formatMessage(messages.header)}
                 number={flowIndex + 1}
                 prefixClassName={s.headerPrefix}
-              />
+              >
+                <Select
+                  className={s.giftType}
+                  allowClear
+                  placeholder={intl.formatMessage(messages.filterByGiftType)}
+                  onChange={(giftType) => getGifts({giftType})}
+                  value={giftType}
+                >
+                  {GIFT_TYPES(intl).map(item =>
+                    <Select.Option key={item.key} value={item.key}>{item.title}</Select.Option>
+                  )}
+                </Select>
+              </SectionHeader>
               <Row className={s.items} gutter={20} type='flex' align='center'>
                 {gifts.map((item) =>
                   <Col key={item.id} className={s.itemWrapper}>
@@ -95,11 +109,13 @@ const mapState = state => ({
   gift: state.purchase.gift,
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
+  giftType: state.purchase.giftType,
 })
 
 const mapDispatch = {
   setGift,
   submitGift,
+  getGifts,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase8))

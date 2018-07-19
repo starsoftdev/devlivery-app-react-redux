@@ -6,6 +6,7 @@ import {generateUrl} from '../router'
 import qs from 'query-string'
 import {getToken} from './user'
 import {CARD_SIZES} from '../constants'
+import has from 'lodash/has'
 
 // ------------------------------------
 // Constants
@@ -183,8 +184,13 @@ export const setGift = (gift) => ({type: SET_GIFT, gift})
 
 export const getGifts = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_GIFTS_REQUEST, params})
+  const {giftType} = getState().purchase
   return fetch(`/gifts?${qs.stringify({
     take: 100,
+    ...giftType ? {
+      filter_key: 'type',
+      filter_value: giftType,
+    } : {},
   })}`, {
     method: 'GET',
     success: (res) => {
@@ -372,7 +378,7 @@ const initialState = {
   cardStyle: null,
   cardSize: null,
   cardDetails: null,
-  giftType: null,
+  giftType: undefined,
   card: null,
   gift: null,
   gifts: [],
@@ -459,6 +465,9 @@ export default createReducer(initialState, {
   }),
   [SET_GIFT]: (state, {gift}) => ({
     gift,
+  }),
+  [GET_GIFTS_REQUEST]: (state, {params}) => ({
+    giftType: has(params, 'giftType') ? params.giftType : state.giftType,
   }),
   [GET_GIFTS_SUCCESS]: (state, {gifts}) => ({
     gifts,
