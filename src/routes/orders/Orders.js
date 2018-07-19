@@ -11,7 +11,7 @@ import moment from 'moment'
 import cn from 'classnames'
 import messages from './messages'
 import {DATE_FORMAT, DEFAULT_DEBOUNCE_TIME} from '../../constants'
-import {EVENT_PURCHASE_ROUTES} from '../index'
+import {EVENT_PURCHASE_ROUTES} from '../'
 import {setFlow} from '../../reducers/purchase'
 
 const Event = ({first_name, last_name, occasion, contact_specific_date, occasion_date, occasion_type, setFlow}) =>
