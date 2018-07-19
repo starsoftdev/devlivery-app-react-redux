@@ -6,14 +6,15 @@ import s from './ContactsImporting.css'
 import PlusIcon from '../../static/plus.svg'
 import {uploadContacts} from '../../reducers/contacts'
 import {injectIntl} from 'react-intl'
+import cn from 'classnames'
 
 // TODO add translations
 class ContactsImporting extends React.Component {
   render() {
-    const {uploadContacts, children, intl} = this.props
+    const {uploadContacts, children, intl, sectionClassName} = this.props
 
     const exportGoogleContacts = (
-      <ol className={s.instructions}>
+      <ol className={cn(s.instructions, sectionClassName)}>
         <li>Open <a href='https://gmail.com' rel='nofollow' target='_blank' className={s.link}>Gmail</a>.</li>
         <li>Under Gmail Menu, select <b>Contacts</b>.</li>
         <li>Click the <b>More</b> button in the <b>Contacts</b> toolbar.</li>
@@ -25,7 +26,7 @@ class ContactsImporting extends React.Component {
     )
 
     const exportOutlookContacts = (
-      <ol className={s.instructions}>
+      <ol className={cn(s.instructions, sectionClassName)}>
         <li>Open <a href='https://outlook.com' rel='nofollow' target='_blank' className={s.link}>Outlook</a>.</li>
         <li>Once logged in, click the <b>Apps</b> icon in the upper left-hand corner.</li>
         <li>Click <b>People</b>.</li>
@@ -36,7 +37,7 @@ class ContactsImporting extends React.Component {
     )
 
     const exportCardContacts = (
-      <ol className={s.instructions}>
+      <ol className={cn(s.instructions, sectionClassName)}>
         <li>Open the <b>Applications</b> menu.</li>
         <li>Choose <b>Contacts</b>.</li>
         <li>Pick the list you want to export, such as <b>All Contacts</b>.</li>
