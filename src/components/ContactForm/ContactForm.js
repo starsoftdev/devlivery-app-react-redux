@@ -208,7 +208,7 @@ class ContactForm extends React.Component {
         getFieldDecorator={getFieldDecorator}
         index={0}
         intl={intl}
-        initialValues={initialValues ? initialValues.addresses.find(item => item.title === homeAddress) : null}
+        initialValues={initialValues ? initialValues.addresses.find(item => item.title === homeAddress || item.title === null) : null}
       />
     )
 
