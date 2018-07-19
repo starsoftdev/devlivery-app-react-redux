@@ -45,6 +45,10 @@
   }
 }
 
+.instructions {
+  margin-bottom: var(--margin-xl);
+}
+
 .subHeader {
   font-size: 15px;
   margin-bottom: var(--margin-xl);

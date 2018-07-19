@@ -61,7 +61,7 @@ class ImportContacts extends React.Component {
             {uploadedContactsModalOpened && <UploadedContacts/>}
           </React.Fragment>
         ) : (
-          <ContactsImporting>
+          <ContactsImporting sectionClassName={s.instructions}>
             {({
                 exportGoogleContacts,
                 exportOutlookContacts,
