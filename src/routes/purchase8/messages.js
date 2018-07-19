@@ -17,4 +17,8 @@ export default defineMessages({
     id: 'purchase8.continueWithoutGift',
     defaultMessage: 'Continue without Gift',
   },
+  filterByGiftType: {
+    id: 'purchase8.filterByGiftType',
+    defaultMessage: 'Filter by Type',
+  },
 })

@@ -5,23 +5,14 @@ import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase7.css'
 import {Actions, Card, SectionHeader} from '../../components'
-import {ALPHABET} from '../../constants'
-import FoodImage from '../../static/food.svg'
-import NonFoodImage from '../../static/non_food.svg'
-import DonationImage from '../../static/donation.svg'
-import VoucherImage from '../../static/voucher.svg'
+import {ALPHABET, GIFT_TYPES} from '../../constants'
+
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
 
 class Purchase7 extends React.Component {
   render() {
     const {giftType, setGiftType, nextFlowStep, intl, flowIndex, continueWithoutGift} = this.props
-    const GIFT_TYPES = [
-      {key: 'food', title: 'Food', svg: FoodImage},
-      {key: 'non_food', title: 'Non Food', svg: NonFoodImage},
-      {key: 'donation', title: 'Donation', svg: DonationImage},
-      {key: 'voucher', title: 'Voucher', svg: VoucherImage},
-    ]
     return (
       <React.Fragment>
         <div className={s.content}>
@@ -31,7 +22,7 @@ class Purchase7 extends React.Component {
             prefixClassName={s.headerPrefix}
           />
           <Row className={s.items} gutter={20} type='flex' align='center'>
-            {GIFT_TYPES.map((item, i) =>
+            {GIFT_TYPES(intl).map((item, i) =>
               <Col key={item.key} className={s.itemWrapper}>
                 <Card
                   className={s.item}
