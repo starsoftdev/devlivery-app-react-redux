@@ -63,7 +63,7 @@
     display: block;
   }
   .ant-calendar-picker:hover .ant-calendar-picker-input:not(.ant-input-disabled) {
-    border-color: #1890ff;
+    /*border-color: #1890ff;*/
   }
   .ant-calendar-picker:focus .ant-calendar-picker-input:not(.ant-input-disabled) {
     border-color: #40a9ff;
