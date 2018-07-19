@@ -1,7 +1,7 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import qs from 'query-string'
 import {getToken} from './user'
-import {DATE_FORMAT, DEFAULT_PAGE_SIZE} from '../constants'
+import {ADDRESS_FIELDS, DATE_FORMAT, DEFAULT_PAGE_SIZE} from '../constants'
 import {message} from 'antd'
 import {generateUrl} from '../router'
 import {CONTACTS_ROUTE} from '../routes'
@@ -113,11 +113,10 @@ export const getAddressesArray = (addresses) => {
 }
 
 export const getBirthday = (birthday) => {
-  return birthday ? birthday.format(DATE_FORMAT) : undefined
+  return birthday ? birthday.format(DATE_FORMAT) : null
 }
 
 export const addContact = ({birthday, reminders, groups, addresses, ...values}, form, callback) => (dispatch, getState, {fetch}) => {
-  console.log(values)
   dispatch({type: ADD_CONTACT_REQUEST})
   const {token} = dispatch(getToken())
   return fetch(`/add-contact-manually`, {
@@ -247,10 +246,14 @@ export const importContacts = (columnsMapping, callback) => (dispatch, getState,
   dispatch({type: IMPORT_CONTACTS_REQUEST})
   const {token} = dispatch(getToken())
   const {uploadedContacts, selectedContacts} = getState().contacts
-  // TODO modify contacts obj
+  // TODO modify contacts obj for vcf/xls
   const contacts = uploadedContacts
     .filter((contact, i) => selectedContacts.includes(i))
-    .map(contact => mapValues(columnsMapping, (value) => contact[value]))
+    .map(contact => {
+      const {street, city, country, state, postal_code, ...otherFields} = mapValues(columnsMapping, (value) => contact[value])
+      const addresses = [{address: street, city, country, state, postal_code}]
+      return {...otherFields, addresses}
+    })
 
   return fetch(`/contact/import-final`, {
     method: 'POST',
