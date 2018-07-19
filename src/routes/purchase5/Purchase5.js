@@ -77,7 +77,7 @@ class Purchase5 extends React.Component {
           <Button
             type='primary'
             disabled={!card}
-            onClick={nextFlowStep}
+            onClick={() => nextFlowStep()}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
