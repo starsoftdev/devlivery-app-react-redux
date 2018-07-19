@@ -16,6 +16,7 @@ import {EDIT_CONTACT_ROUTE} from '../index'
 
 const GRID_VIEW = 'grid'
 const LIST_VIEW = 'list'
+const pageSizeOptions = ['12', '24', '36', '48']
 
 class Contacts extends React.Component {
   constructor(props) {
@@ -127,9 +128,10 @@ class Contacts extends React.Component {
                 showTotal={(total, range) => intl.formatMessage(messages.tableItems, {range0: range[0], range1: range[1], total})}
                 pageSize={pageSize}
                 showSizeChanger
-                onChange={(page, pageSize) => getContacts({page, pageSize})}
-                onShowSizeChange={(page, pageSize) => getContacts({page, pageSize})}
+                onChange={(current, pageSize) => getContacts({pagination: {current, pageSize}})}
+                onShowSizeChange={(current, pageSize) => getContacts({pagination: {current, pageSize}})}
                 itemRender={(current, type, el) => <PaginationItem type={type} el={el}/>}
+                pageSizeOptions={pageSizeOptions}
               />
             </div>
           </React.Fragment>
@@ -145,7 +147,8 @@ class Contacts extends React.Component {
               showTotal: (total, range) => intl.formatMessage(messages.tableItems, {range0: range[0], range1: range[1], total}),
               pageSize,
               showSizeChanger: true,
-              itemRender: (current, type, el) => <PaginationItem type={type} el={el}/>
+              itemRender: (current, type, el) => <PaginationItem type={type} el={el}/>,
+              pageSizeOptions,
             }}
           />
         )}
