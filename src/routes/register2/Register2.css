@@ -32,6 +32,17 @@
   }
 }
 
+.sectionHeader {
+  margin-bottom: 0;
+
+  @media (--md-up) {
+    font-size: 40px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
+}
+
 .actions {
   border-top: 2px solid color-mod(var(--dark-color) a(10%));
   margin-top: auto;
