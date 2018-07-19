@@ -26,10 +26,11 @@ import BundlesIcon from '../../static/shopping_bag.svg'
 import SettingsIcon from '../../static/settings.svg'
 import messages from './messages'
 import {setFlow} from '../../reducers/purchase'
+import {TEAM_ACCOUNT} from '../../reducers/register'
 
 class Dashboard extends React.Component {
   render() {
-    const {children, breadcrumbs, intl, setFlow} = this.props
+    const {children, breadcrumbs, intl, setFlow, user} = this.props
 
     const BASE_DASHBOARD_BREADCRUMBS = [
       {routeName: HOME_ROUTE, name: intl.formatMessage(messages.home)},
@@ -87,12 +88,14 @@ class Dashboard extends React.Component {
               {intl.formatMessage(messages.reports)}
             </Link>
           </Menu.Item>
-          <Menu.Item key={MANAGE_TEAM_ROUTE}>
-            <Link to={MANAGE_TEAM_ROUTE}>
-              <ManageTeamIcon/>
-              {intl.formatMessage(messages.manageTeam)}
-            </Link>
-          </Menu.Item>
+          {user.account_type === TEAM_ACCOUNT && (
+            <Menu.Item key={MANAGE_TEAM_ROUTE}>
+              <Link to={MANAGE_TEAM_ROUTE}>
+                <ManageTeamIcon/>
+                {intl.formatMessage(messages.manageTeam)}
+              </Link>
+            </Menu.Item>
+          )}
           <Menu.Item key={USER_ROUTE}>
             <Link to={USER_ROUTE}>
               <SettingsIcon/>
@@ -117,7 +120,9 @@ class Dashboard extends React.Component {
   }
 }
 
-const mapState = state => ({})
+const mapState = state => ({
+  user: state.user.user,
+})
 
 const mapDispatch = {
   setFlow,

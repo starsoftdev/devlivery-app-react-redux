@@ -3,10 +3,17 @@ import ManageTeam from './ManageTeam'
 import {setCurrentRouteName} from '../../reducers/global'
 import {getTeam} from '../../reducers/team'
 import messages from './messages'
+import {TEAM_ACCOUNT} from '../../reducers/register'
 
 function action({store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
   store.dispatch(getTeam())
+
+  const {user} = store.getState().user
+
+  if (user.account_type !== TEAM_ACCOUNT) {
+    return {redirect: '/'}
+  }
 
   return {
     chunks: ['dashboard'],

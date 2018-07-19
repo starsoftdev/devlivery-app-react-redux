@@ -5,6 +5,10 @@ import Dashboard from './Dashboard'
 async function action({next, intl}) {
   const child = await next()
 
+  if (child.redirect) {
+    return child
+  }
+
   return {
     chunks: ['dashboard'],
     title: child.title,
