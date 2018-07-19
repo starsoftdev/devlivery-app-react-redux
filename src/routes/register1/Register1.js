@@ -4,7 +4,7 @@ import {INDIVIDUAL_ACCOUNT, setAccountType, TEAM_ACCOUNT} from '../../reducers/r
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Register1.css'
-import {Card, Link, SectionHeader} from '../../components'
+import {Actions, Card, Link, SectionHeader} from '../../components'
 import {REGISTER2_ROUTE} from '../'
 import IndividualIcon from '../../static/individual.svg'
 import TeamIcon from '../../static/team.svg'
@@ -53,18 +53,18 @@ class Register1 extends React.Component {
             </Col>
           </Row>
         </div>
-        <div className={s.actions}>
+        <Actions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
             onKeyHandle={() => accountType && history.push(generateUrl(REGISTER2_ROUTE))}
           />
           <Link to={REGISTER2_ROUTE} disabled={!accountType}>
-            <Button type='primary' className={s.submitBtn}>
+            <Button type='primary'>
               {intl.formatMessage(messages.submit)}
             </Button>
           </Link>
-        </div>
+        </Actions>
       </React.Fragment>
     )
   }

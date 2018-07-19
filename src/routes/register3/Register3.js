@@ -7,7 +7,7 @@ import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
 import {addTeam} from '../../reducers/register'
 import messages from './messages'
-import {SectionHeader} from '../../components'
+import {Actions, SectionHeader} from '../../components'
 
 class Register3 extends React.Component {
   handleSubmit = (e) => {
@@ -58,16 +58,16 @@ class Register3 extends React.Component {
             )}
           </Form.Item>
         </div>
-        <div className={s.actions}>
+        <Actions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
             onKeyHandle={this.handleSubmit}
           />
-          <Button htmlType='submit' type='primary' className={s.submitBtn}>
+          <Button htmlType='submit' type='primary'>
             {intl.formatMessage(messages.submit)}
           </Button>
-        </div>
+        </Actions>
       </Form>
     )
   }
