@@ -1,11 +1,12 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import qs from 'query-string'
 import {getToken} from './user'
-import {ADDRESS_FIELDS, DATE_FORMAT, DEFAULT_PAGE_SIZE} from '../constants'
+import {DATE_FORMAT} from '../constants'
 import {message} from 'antd'
 import {generateUrl} from '../router'
 import {CONTACTS_ROUTE} from '../routes'
 import mapValues from 'lodash/mapValues'
+import {getBirthday} from '../utils'
 
 // ------------------------------------
 // Constants
@@ -110,10 +111,6 @@ export const getGroupsArray = (groups) => {
 export const getAddressesArray = (addresses) => {
   // if one of the property undefined/null - don't send item
   return addresses.filter(item => !Object.values(item).includes(undefined) && !Object.values(item).includes(null) && !Object.values(item).includes(''))
-}
-
-export const getBirthday = (birthday) => {
-  return birthday ? birthday.format(DATE_FORMAT) : null
 }
 
 export const addContact = ({birthday, reminders, groups, addresses, ...values}, form, callback) => (dispatch, getState, {fetch}) => {

@@ -63,7 +63,7 @@ class Register2 extends React.Component {
                 initialValue: individualDetails && individualDetails.email,
                 rules: [
                   {required: true, message: intl.formatMessage(formMessages.required)},
-                  {type: 'email', message: formMessages.emailInvalid},
+                  {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
                 ],
               })(
                 <Input placeholder={intl.formatMessage(messages.email)}/>
@@ -90,15 +90,12 @@ class Register2 extends React.Component {
             </Form.Item>
           </section>
           <section>
-            <h1 className={s.header}>
+            <h1 className={s.sectionHeader}>
               {intl.formatMessage(messages.birthday)}
             </h1>
             <Form.Item>
               {getFieldDecorator('birthday', {
                 initialValue: individualDetails ? individualDetails.month : undefined,
-                rules: [
-                  {required: true, message: intl.formatMessage(formMessages.required)},
-                ],
               })(
                 <DatePicker className={s.birthday} format={DATE_FORMAT}/>
               )}

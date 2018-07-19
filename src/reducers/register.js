@@ -1,7 +1,7 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {loginSuccess} from './login'
 import {message} from 'antd'
-import {DATE_FORMAT} from '../constants'
+import {getBirthday} from '../utils'
 
 // ------------------------------------
 // Constants
@@ -31,7 +31,7 @@ export const register = (people) => (dispatch, getState, {fetch}) => {
     body: {
       ...otherDetails,
       account_type: accountType,
-      dob: birthday.format(DATE_FORMAT),
+      dob: getBirthday(birthday),
       // TODO send this data to backend when it's done
       // teamDetails,
       // people,
