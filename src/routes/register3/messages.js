@@ -9,13 +9,9 @@ export default defineMessages({
     id: 'register3.header',
     defaultMessage: 'Team Details',
   },
-  firstName: {
-    id: 'register3.firstName',
-    defaultMessage: 'First Name',
-  },
-  lastName: {
-    id: 'register3.lastName',
-    defaultMessage: 'Last Name',
+  name: {
+    id: 'register3.name',
+    defaultMessage: 'Name',
   },
   role: {
     id: 'register3.role',
