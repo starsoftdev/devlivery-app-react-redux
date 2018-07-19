@@ -1,6 +1,6 @@
 @import '../../styles/variables.css';
 
-.header {
+.headerWrapper {
   position: relative;
   display: flex;
   align-items: center;
@@ -11,6 +11,10 @@
   @media (--md-down) {
     font-size: 32px;
   }
+}
+
+.header {
+  display: inline-flex;
 }
 
 .prefix {

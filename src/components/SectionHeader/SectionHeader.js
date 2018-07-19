@@ -8,12 +8,14 @@ class SectionHeader extends React.Component {
   render() {
     const {header, className, number, children, prefixClassName} = this.props
     return (
-      <h1 className={cn(s.header, className)}>
-        <span className={cn(s.prefix, prefixClassName)}>
-          {number}
-          <ArrowIcon className={s.arrowIcon}/>
+      <h1 className={cn(s.headerWrapper, className)}>
+        <span className={s.header}>
+          <span className={cn(s.prefix, prefixClassName)}>
+            {number}
+            <ArrowIcon className={s.arrowIcon}/>
+          </span>
+          {header}
         </span>
-        {header}
         {children}
       </h1>
     )
