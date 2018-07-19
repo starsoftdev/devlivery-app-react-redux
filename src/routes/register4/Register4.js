@@ -6,10 +6,10 @@ import s from './Register4.css'
 import PlusIcon from '../../static/plus.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
-import {register} from '../../reducers/register'
+import {invitePeople} from '../../reducers/register'
 import messages from './messages'
 import {Actions, Link, SectionHeader} from '../../components'
-import {ORDERS_ROUTE} from '../index'
+import {ORDERS_ROUTE} from '../'
 
 let uuid = 1
 
@@ -18,7 +18,7 @@ class Register4 extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.register(values.people)
+        this.props.invitePeople(values.people)
       }
     })
   }
@@ -38,7 +38,7 @@ class Register4 extends React.Component {
   }
 
   render() {
-    const {intl} = this.props
+    const {intl, permissions} = this.props
     const {getFieldDecorator, getFieldValue} = this.props.form
     this.props.form.getFieldDecorator('keys', {initialValue: [0]})
 
@@ -65,10 +65,12 @@ class Register4 extends React.Component {
                 )}
               </Form.Item>
               <Form.Item>
-                {getFieldDecorator(`people[${k}].permissions`, {
-                })(
-                  <Select placeholder={intl.formatMessage(messages.permissionsLevel)}>
-                    {[].map((permission) =>
+                {getFieldDecorator(`people[${k}].permissions`, {})(
+                  <Select
+                    allowClear
+                    placeholder={intl.formatMessage(messages.permissionsLevel)}
+                  >
+                    {permissions.map((permission) =>
                       <Select.Option key={permission} value={permission}>{permission}</Select.Option>
                     )}
                   </Select>
@@ -106,10 +108,12 @@ class Register4 extends React.Component {
   }
 }
 
-const mapState = state => ({})
+const mapState = state => ({
+  permissions: state.register.permissions,
+})
 
 const mapDispatch = {
-  register,
+  invitePeople,
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Register4)))
