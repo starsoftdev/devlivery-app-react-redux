@@ -62,7 +62,7 @@ class Purchase8 extends React.Component {
                   <Col key={item.id} className={s.itemWrapper}>
                     <Card
                       className={s.item}
-                      image={item.image[0].url}
+                      image={item.image[0] && item.image[0].url}
                       title={
                         <React.Fragment>
                           {item.title}
