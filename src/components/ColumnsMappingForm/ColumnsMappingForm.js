@@ -38,7 +38,10 @@ class ColumnsMappingForm extends React.Component {
                 {required: REQUIRED_FIELDS.includes(column), message: intl.formatMessage(formMessages.required)},
               ],
             })(
-              <Select placeholder={intl.formatMessage(messages.notInFile)}>
+              <Select
+                allowClear
+                placeholder={intl.formatMessage(messages.notInFile)}
+              >
                 {mappingColumns.user_columns.map(item =>
                   <Select.Option key={item}>{item}</Select.Option>
                 )}

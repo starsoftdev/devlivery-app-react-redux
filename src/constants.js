@@ -20,10 +20,20 @@ export const DEFAULT_DEBOUNCE_TIME = 800
 
 export const DATE_FORMAT = 'YYYY-MM-DD'
 
+export const ADDRESS_FIELDS = [
+  'street',
+  'city',
+  'state',
+  'country',
+  'postal_code',
+]
+
 export const REQUIRED_FIELDS = [
   'first_name',
   'last_name',
   'email',
+  'phone',
+  ...ADDRESS_FIELDS,
 ]
 
 // width/height in mm
