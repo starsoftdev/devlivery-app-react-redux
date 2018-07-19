@@ -1,8 +1,8 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {loginSuccess} from './login'
 import {message} from 'antd'
-import {getBirthday} from '../utils'
 import {getToken} from './user'
+import {DATE_FORMAT} from '../constants'
 
 // ------------------------------------
 // Constants
@@ -37,7 +37,7 @@ export const CLEAR = 'Register.CLEAR'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const register = (values) => (dispatch, getState, {fetch}) => {
+export const register = (values) => (dispatch, getState, {fetch, history}) => {
   dispatch({type: REGISTER_REQUEST, individualDetails: values})
   const {accountType, individualDetails: {birthday, ...otherDetails}} = getState().register
   return fetch(`/signup`, {
@@ -46,12 +46,19 @@ export const register = (values) => (dispatch, getState, {fetch}) => {
     body: {
       ...otherDetails,
       account_type: accountType,
-      dob: getBirthday(birthday),
+      ...birthday ? {
+        dob: birthday.format(DATE_FORMAT)
+      } : {},
     },
     success: (res) => {
       dispatch({type: REGISTER_SUCCESS})
       dispatch(loginSuccess(res.data))
-      history.push(accountType === TEAM_ACCOUNT ? '/register/team-details' : '/dashboard/orders')
+      if (accountType === TEAM_ACCOUNT) {
+        history.push('/register/team-details')
+      } else {
+        history.push('/dashboard/orders')
+        dispatch(clear())
+      }
     },
     failure: () => {
       dispatch({type: REGISTER_FAILURE})
@@ -89,7 +96,7 @@ export const getPermissions = () => (dispatch, getState, {fetch}) => {
   })
 }
 
-export const addTeam = (values) => (dispatch, getState, {fetch}) => {
+export const addTeam = (values) => (dispatch, getState, {fetch, history}) => {
   const {user} = getState().user
   const {token} = dispatch(getToken())
   dispatch({type: ADD_TEAM_REQUEST, teamDetails: values})
@@ -112,17 +119,17 @@ export const addTeam = (values) => (dispatch, getState, {fetch}) => {
 }
 
 // TODO invite people
-export const invitePeople = (people) => (dispatch, getState, {fetch}) => {
+export const invitePeople = (people) => (dispatch, getState, {fetch, history}) => {
   const {token} = dispatch(getToken())
   dispatch({type: INVITE_PEOPLE_REQUEST, people})
   return fetch(`/invitations`, {
     method: 'POST',
-    body: {
-    },
+    body: {},
     token,
     success: () => {
       dispatch({type: INVITE_PEOPLE_SUCCESS})
       history.push('/dashboard/orders')
+      dispatch(clear())
     },
     failure: () => {
       dispatch({type: INVITE_PEOPLE_FAILURE})
