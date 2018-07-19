@@ -7,13 +7,16 @@ import PlusIcon from '../../static/plus.svg'
 import {addContact} from '../../reducers/contacts'
 import {ContactForm} from '../../components'
 import messages from './messages'
+import history from '../../history'
+import {generateUrl} from '../../router'
+import {CONTACTS_ROUTE} from '../'
 
 class AddContact extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.addContact(values, this.props.form)
+        this.props.addContact(values, this.props.form, () => history.push(generateUrl(CONTACTS_ROUTE)))
       }
     })
   }

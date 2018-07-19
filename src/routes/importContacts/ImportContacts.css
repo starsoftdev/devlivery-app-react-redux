@@ -36,6 +36,15 @@
   }
 }
 
+.sectionHeader {
+  @media (--md-up) {
+    font-size: 40px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
+}
+
 .subHeader {
   font-size: 15px;
   margin-bottom: var(--margin-xl);

@@ -14,9 +14,7 @@ class AddContact extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.addContact(values, this.props.form)
-        // TODO
-        this.props.nextFlowStep()
+        this.props.addContact(values, this.props.form, () => this.props.nextFlowStep())
       }
     })
   }

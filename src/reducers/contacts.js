@@ -116,7 +116,7 @@ export const getBirthday = (birthday) => {
   return birthday ? birthday.format(DATE_FORMAT) : undefined
 }
 
-export const addContact = ({birthday, reminders, groups, addresses, ...values}, form) => (dispatch, getState, {fetch}) => {
+export const addContact = ({birthday, reminders, groups, addresses, ...values}, form, callback) => (dispatch, getState, {fetch}) => {
   console.log(values)
   dispatch({type: ADD_CONTACT_REQUEST})
   const {token} = dispatch(getToken())
@@ -136,6 +136,7 @@ export const addContact = ({birthday, reminders, groups, addresses, ...values}, 
     success: (res) => {
       dispatch({type: ADD_CONTACT_SUCCESS, res})
       form.resetFields()
+      callback()
     },
     failure: () => {
       dispatch({type: ADD_CONTACT_FAILURE})
@@ -242,7 +243,7 @@ export const uploadContacts = (file, fileType) => (dispatch, getState, {fetch}) 
   })
 }
 
-export const importContacts = (columnsMapping) => (dispatch, getState, {fetch}) => {
+export const importContacts = (columnsMapping, callback) => (dispatch, getState, {fetch}) => {
   dispatch({type: IMPORT_CONTACTS_REQUEST})
   const {token} = dispatch(getToken())
   const {uploadedContacts, selectedContacts} = getState().contacts
@@ -257,7 +258,10 @@ export const importContacts = (columnsMapping) => (dispatch, getState, {fetch}) 
       contacts,
     },
     token,
-    success: () => dispatch({type: IMPORT_CONTACTS_SUCCESS}),
+    success: () => {
+      dispatch({type: IMPORT_CONTACTS_SUCCESS})
+      callback()
+    },
     failure: () => dispatch({type: IMPORT_CONTACTS_FAILURE}),
   })
 }
