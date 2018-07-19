@@ -13,6 +13,14 @@ export default defineMessages({
     id: 'contactForm.lastName',
     defaultMessage: 'Last Name',
   },
+  email: {
+    id: 'contactForm.email',
+    defaultMessage: 'Email',
+  },
+  phone: {
+    id: 'contactForm.phone',
+    defaultMessage: 'Phone',
+  },
   nickname: {
     id: 'contactForm.nickname',
     defaultMessage: 'Nickname',

@@ -93,9 +93,9 @@ export const getContact = (contactId) => (dispatch, getState, {fetch}) => {
 }
 
 export const getRemindersArray = (reminders) => {
-  return reminders.filter(reminder => {
-    // if one of the property undefined/null - don't send reminder
-    return !Object.values(reminder).includes(undefined) && !Object.values(reminder).includes(null)
+  return reminders.filter(item => {
+    // if one of the property undefined/null - don't send item
+    return !Object.values(item).includes(undefined) && !Object.values(item).includes(null)
   }).map(item => ({
     ...item,
     date: item.date.format(DATE_FORMAT)
@@ -103,15 +103,21 @@ export const getRemindersArray = (reminders) => {
 }
 
 export const getGroupsArray = (groups) => {
-  // if one of the property undefined/null - don't send group
-  return groups.filter(group => !Object.values(group).includes(undefined) && !Object.values(group).includes(null))
+  // if one of the property undefined/null - don't send item
+  return groups.filter(item => !Object.values(item).includes(undefined) && !Object.values(item).includes(null))
+}
+
+export const getAddressesArray = (addresses) => {
+  // if one of the property undefined/null - don't send item
+  return addresses.filter(item => !Object.values(item).includes(undefined) && !Object.values(item).includes(null))
 }
 
 export const getBirthday = (birthday) => {
   return birthday ? birthday.format(DATE_FORMAT) : undefined
 }
 
-export const addContact = ({birthday, reminders, groups, ...values}, form) => (dispatch, getState, {fetch}) => {
+export const addContact = ({birthday, reminders, groups, addresses, ...values}, form) => (dispatch, getState, {fetch}) => {
+  console.log(values)
   dispatch({type: ADD_CONTACT_REQUEST})
   const {token} = dispatch(getToken())
   return fetch(`/add-contact-manually`, {
@@ -122,6 +128,7 @@ export const addContact = ({birthday, reminders, groups, ...values}, form) => (d
         ...values.contact,
         dob: getBirthday(birthday),
       },
+      addresses: getAddressesArray(addresses),
       reminders: getRemindersArray(reminders),
       groups: getGroupsArray(groups),
     },
@@ -137,7 +144,7 @@ export const addContact = ({birthday, reminders, groups, ...values}, form) => (d
   })
 }
 
-export const editContact = ({birthday, reminders, groups, ...values}) => (dispatch, getState, {fetch, history}) => {
+export const editContact = ({birthday, reminders, groups, addresses, ...values}) => (dispatch, getState, {fetch, history}) => {
   dispatch({type: EDIT_CONTACT_REQUEST})
   const {token} = dispatch(getToken())
   const {contact} = getState().contacts
@@ -150,6 +157,7 @@ export const editContact = ({birthday, reminders, groups, ...values}) => (dispat
         ...values.contact,
         dob: getBirthday(birthday),
       },
+      addresses: getAddressesArray(addresses),
       reminders: getRemindersArray(reminders),
       groups: getGroupsArray(groups),
     },
@@ -277,7 +285,7 @@ const initialState = {
   contacts: [],
   contactsCount: 0,
   page: 1,
-  pageSize: DEFAULT_PAGE_SIZE,
+  pageSize: 12,
   occasions: [],
   groups: [],
   contact: null,
@@ -291,8 +299,8 @@ export default createReducer(initialState, {
   [GET_CONTACTS_REQUEST]: (state, {params}) => ({
     // do not send search param if string is empty
     search: params.search !== undefined ? (params.search || undefined) : state.search,
-    page: params.page || 1,
-    pageSize: params.pageSize || state.pageSize,
+    page: params.pagination ? params.pagination.current : 1,
+    pageSize: params.pagination ? params.pagination.pageSize : 12,
     loading: {
       ...state.loading,
       contacts: true,

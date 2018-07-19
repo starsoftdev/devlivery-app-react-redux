@@ -14,7 +14,7 @@ import moment from 'moment'
 const AddressSection = ({getFieldDecorator, index, header, intl, initialValues}) =>
   <section className={s.section}>
     <h1 className={s.header}>{header}</h1>
-    {initialValues && initialValues.addresses[index].id && getFieldDecorator(`addresses[${index}].id`, {
+    {initialValues && initialValues.addresses[index] && initialValues.addresses[index].id && getFieldDecorator(`addresses[${index}].id`, {
       initialValue: initialValues.addresses[index].id,
     })(
       <Input type='hidden'/>
@@ -26,7 +26,7 @@ const AddressSection = ({getFieldDecorator, index, header, intl, initialValues})
     )}
     <Form.Item>
       {getFieldDecorator(`addresses[${index}].address`, {
-        initialValue: initialValues && initialValues.addresses[index].address,
+        initialValue: initialValues && initialValues.addresses[index] && initialValues.addresses[index].address,
       })(
         <Input placeholder={intl.formatMessage(messages.address)}/>
       )}
@@ -35,7 +35,7 @@ const AddressSection = ({getFieldDecorator, index, header, intl, initialValues})
       <Col xs={24} sm={12}>
         <Form.Item>
           {getFieldDecorator(`addresses[${index}].city`, {
-            initialValue: initialValues && initialValues.addresses[index].city,
+            initialValue: initialValues && initialValues.addresses[index] && initialValues.addresses[index].city,
           })(
             <Input placeholder={intl.formatMessage(messages.city)}/>
           )}
@@ -44,7 +44,7 @@ const AddressSection = ({getFieldDecorator, index, header, intl, initialValues})
       <Col xs={24} sm={12}>
         <Form.Item>
           {getFieldDecorator(`addresses[${index}].state`, {
-            initialValue: initialValues && initialValues.addresses[index].state,
+            initialValue: initialValues && initialValues.addresses[index] && initialValues.addresses[index].state,
           })(
             <Input placeholder={intl.formatMessage(messages.state)}/>
           )}
@@ -55,7 +55,7 @@ const AddressSection = ({getFieldDecorator, index, header, intl, initialValues})
       <Col xs={24} sm={12}>
         <Form.Item>
           {getFieldDecorator(`addresses[${index}].postal_code`, {
-            initialValue: initialValues && initialValues.addresses[index].postal_code,
+            initialValue: initialValues && initialValues.addresses[index] && initialValues.addresses[index].postal_code,
           })(
             <Input placeholder={intl.formatMessage(messages.postalCode)}/>
           )}
@@ -64,7 +64,7 @@ const AddressSection = ({getFieldDecorator, index, header, intl, initialValues})
       <Col xs={24} sm={12}>
         <Form.Item>
           {getFieldDecorator(`addresses[${index}].country`, {
-            initialValue: initialValues && initialValues.addresses[index].country,
+            initialValue: initialValues && initialValues.addresses[index] && initialValues.addresses[index].country,
           })(
             <Input placeholder={intl.formatMessage(messages.country)}/>
           )}
@@ -85,10 +85,7 @@ class ContactForm extends React.Component {
         {header && <h1 className={s.header}>{header}</h1>}
         <Form.Item>
           {getFieldDecorator('contact.title', {
-            initialValue: initialValues && initialValues.title,
-            rules: [
-              {required: true, message: intl.formatMessage(formMessages.required)},
-            ],
+            initialValue: initialValues && initialValues.title ? initialValues.title : undefined,
           })(
             <Select placeholder={intl.formatMessage(messages.salutation)}>
               {SALUTATIONS.map((item) =>
@@ -124,11 +121,28 @@ class ContactForm extends React.Component {
           </Col>
         </Row>
         <Form.Item>
-          {getFieldDecorator('contact.nickname', {
-            initialValue: initialValues && initialValues.nickname,
+          {getFieldDecorator('contact.email', {
+            initialValue: initialValues && initialValues.email,
             rules: [
               {required: true, message: intl.formatMessage(formMessages.required)},
             ],
+          })(
+            <Input placeholder={intl.formatMessage(messages.email)}/>
+          )}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator('contact.phone', {
+            initialValue: initialValues && initialValues.phone,
+            rules: [
+              {required: true, message: intl.formatMessage(formMessages.required)},
+            ],
+          })(
+            <Input placeholder={intl.formatMessage(messages.phone)}/>
+          )}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator('contact.nickname', {
+            initialValue: initialValues && initialValues.nickname,
           })(
             <Input placeholder={intl.formatMessage(messages.nickname)}/>
           )}
@@ -136,9 +150,6 @@ class ContactForm extends React.Component {
         <Form.Item>
           {getFieldDecorator('contact.relationship', {
             initialValue: initialValues && initialValues.relationship,
-            rules: [
-              {required: true, message: intl.formatMessage(formMessages.required)},
-            ],
           })(
             <Input placeholder={intl.formatMessage(messages.relationship)}/>
           )}
