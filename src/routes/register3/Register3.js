@@ -42,10 +42,7 @@ class Register3 extends React.Component {
           </Form.Item>
           <Form.Item>
             {getFieldDecorator('role_id', {
-              initialValue: teamDetails ? teamDetails.role : undefined,
-              rules: [
-                {required: true, message: intl.formatMessage(formMessages.required)},
-              ],
+              initialValue: teamDetails ? teamDetails.role_id : undefined,
             })(
               <Select
                 allowClear
