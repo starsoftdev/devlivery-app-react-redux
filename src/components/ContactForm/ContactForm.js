@@ -11,72 +11,99 @@ import Groups from './Groups'
 import moment from 'moment'
 
 // TODO add accordion for sections
-const AddressSection = ({getFieldDecorator, index, header, intl, initialValues}) =>
-  <section className={s.section}>
-    <h1 className={s.header}>{header}</h1>
-    {initialValues && initialValues.addresses[index] && initialValues.addresses[index].id && getFieldDecorator(`addresses[${index}].id`, {
-      initialValue: initialValues.addresses[index].id,
-    })(
-      <Input type='hidden'/>
-    )}
-    {getFieldDecorator(`addresses[${index}].title`, {
-      initialValue: header,
-    })(
-      <Input type='hidden'/>
-    )}
-    <Form.Item>
-      {getFieldDecorator(`addresses[${index}].address`, {
-        initialValue: initialValues && initialValues.addresses[index] && initialValues.addresses[index].address,
+const AddressSection = ({getFieldDecorator, index, header, intl, initialValues, required, onAddressChange}) => {
+  const rules = [
+    {required, message: intl.formatMessage(formMessages.required)}
+  ]
+  return (
+    <section className={s.section}>
+      <h1 className={s.header}>{header}</h1>
+      {initialValues && initialValues.id && getFieldDecorator(`addresses[${index}].id`, {
+        initialValue: initialValues.id,
       })(
-        <Input placeholder={intl.formatMessage(messages.address)}/>
+        <Input type='hidden'/>
       )}
-    </Form.Item>
-    <Row gutter={20}>
-      <Col xs={24} sm={12}>
-        <Form.Item>
-          {getFieldDecorator(`addresses[${index}].city`, {
-            initialValue: initialValues && initialValues.addresses[index] && initialValues.addresses[index].city,
-          })(
-            <Input placeholder={intl.formatMessage(messages.city)}/>
-          )}
-        </Form.Item>
-      </Col>
-      <Col xs={24} sm={12}>
-        <Form.Item>
-          {getFieldDecorator(`addresses[${index}].state`, {
-            initialValue: initialValues && initialValues.addresses[index] && initialValues.addresses[index].state,
-          })(
-            <Input placeholder={intl.formatMessage(messages.state)}/>
-          )}
-        </Form.Item>
-      </Col>
-    </Row>
-    <Row gutter={20}>
-      <Col xs={24} sm={12}>
-        <Form.Item>
-          {getFieldDecorator(`addresses[${index}].postal_code`, {
-            initialValue: initialValues && initialValues.addresses[index] && initialValues.addresses[index].postal_code,
-          })(
-            <Input placeholder={intl.formatMessage(messages.postalCode)}/>
-          )}
-        </Form.Item>
-      </Col>
-      <Col xs={24} sm={12}>
-        <Form.Item>
-          {getFieldDecorator(`addresses[${index}].country`, {
-            initialValue: initialValues && initialValues.addresses[index] && initialValues.addresses[index].country,
-          })(
-            <Input placeholder={intl.formatMessage(messages.country)}/>
-          )}
-        </Form.Item>
-      </Col>
-    </Row>
-  </section>
+      {getFieldDecorator(`addresses[${index}].title`, {
+        initialValue: header,
+      })(
+        <Input type='hidden'/>
+      )}
+      <Form.Item>
+        {getFieldDecorator(`addresses[${index}].address`, {
+          initialValue: initialValues && initialValues.address,
+          rules,
+        })(
+          <Input placeholder={intl.formatMessage(messages.address)} onChange={(e) => onAddressChange(e.target.value)}/>
+        )}
+      </Form.Item>
+      <Row gutter={20}>
+        <Col xs={24} sm={12}>
+          <Form.Item>
+            {getFieldDecorator(`addresses[${index}].city`, {
+              initialValue: initialValues && initialValues.city,
+              rules,
+            })(
+              <Input placeholder={intl.formatMessage(messages.city)}/>
+            )}
+          </Form.Item>
+        </Col>
+        <Col xs={24} sm={12}>
+          <Form.Item>
+            {getFieldDecorator(`addresses[${index}].state`, {
+              initialValue: initialValues && initialValues.state,
+              rules,
+            })(
+              <Input placeholder={intl.formatMessage(messages.state)}/>
+            )}
+          </Form.Item>
+        </Col>
+      </Row>
+      <Row gutter={20}>
+        <Col xs={24} sm={12}>
+          <Form.Item>
+            {getFieldDecorator(`addresses[${index}].postal_code`, {
+              initialValue: initialValues && initialValues.postal_code,
+              rules,
+            })(
+              <Input placeholder={intl.formatMessage(messages.postalCode)}/>
+            )}
+          </Form.Item>
+        </Col>
+        <Col xs={24} sm={12}>
+          <Form.Item>
+            {getFieldDecorator(`addresses[${index}].country`, {
+              initialValue: initialValues && initialValues.country,
+              rules,
+            })(
+              <Input placeholder={intl.formatMessage(messages.country)}/>
+            )}
+          </Form.Item>
+        </Col>
+      </Row>
+    </section>
+  )
+}
 
 const SALUTATIONS = ['Mr.', 'Ms.', 'Mrs.', 'Dr.']
 
 class ContactForm extends React.Component {
+  state = {
+    requiredAddress: 0,
+  }
+
+  // TODO find a better way to set at least one address required
+  changeRequiredAddress = (index, value) => {
+    let requiredAddress = index
+    if (!value && index === 1) {
+      requiredAddress = 0
+    } else if (!value && index === 0) {
+      requiredAddress = 1
+    }
+    this.setState({requiredAddress})
+  }
+
   render() {
+    const {requiredAddress} = this.state
     const {intl, children, header, initialValues} = this.props
     const {getFieldDecorator} = this.props.form
 
@@ -170,23 +197,30 @@ class ContactForm extends React.Component {
       </section>
     )
 
+    const homeAddress = intl.formatMessage(messages.homeAddress)
+    const companyAddress = intl.formatMessage(messages.companyAddress)
+
     const homeAddressSection = (
       <AddressSection
-        header={intl.formatMessage(messages.homeAddress)}
+        required={requiredAddress === 0}
+        onAddressChange={(value) => this.changeRequiredAddress(0, value)}
+        header={homeAddress}
         getFieldDecorator={getFieldDecorator}
         index={0}
         intl={intl}
-        initialValues={initialValues}
+        initialValues={initialValues ? initialValues.addresses.find(item => item.title === homeAddress) : null}
       />
     )
 
     const companyAddressSection = (
       <AddressSection
-        header={intl.formatMessage(messages.companyAddress)}
+        required={requiredAddress === 1}
+        onAddressChange={(value) => this.changeRequiredAddress(1, value)}
+        header={companyAddress}
         getFieldDecorator={getFieldDecorator}
         index={1}
         intl={intl}
-        initialValues={initialValues}
+        initialValues={initialValues ? initialValues.addresses.find(item => item.title === companyAddress) : null}
       />
     )
 
