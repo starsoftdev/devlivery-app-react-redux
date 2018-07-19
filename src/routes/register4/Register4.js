@@ -8,7 +8,8 @@ import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
 import {register} from '../../reducers/register'
 import messages from './messages'
-import {SectionHeader} from '../../components'
+import {Actions, Link, SectionHeader} from '../../components'
+import {ORDERS_ROUTE} from '../index'
 
 let uuid = 1
 
@@ -64,15 +65,6 @@ class Register4 extends React.Component {
                 )}
               </Form.Item>
               <Form.Item>
-                {getFieldDecorator(`people[${k}].role`, {
-                  rules: [
-                    {required: true, message: intl.formatMessage(formMessages.required)},
-                  ],
-                })(
-                  <Input placeholder={intl.formatMessage(messages.role)}/>
-                )}
-              </Form.Item>
-              <Form.Item>
                 {getFieldDecorator(`people[${k}].permissions`, {
                 })(
                   <Select placeholder={intl.formatMessage(messages.permissionsLevel)}>
@@ -91,16 +83,24 @@ class Register4 extends React.Component {
             </Button>
           </div>
         </div>
-        <div className={s.actions}>
+        <Actions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
             onKeyHandle={this.handleSubmit}
           />
-          <Button htmlType='submit' type='primary' className={s.submitBtn}>
+          <Link to={ORDERS_ROUTE}>
+            <Button
+              type='primary'
+              ghost
+            >
+              {intl.formatMessage(messages.skip)}
+            </Button>
+          </Link>
+          <Button htmlType='submit' type='primary'>
             {intl.formatMessage(messages.submit)}
           </Button>
-        </div>
+        </Actions>
       </Form>
     )
   }
