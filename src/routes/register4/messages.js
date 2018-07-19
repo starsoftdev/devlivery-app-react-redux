@@ -29,4 +29,8 @@ export default defineMessages({
     id: 'register4.submit',
     defaultMessage: 'Submit',
   },
+  skip: {
+    id: 'register4.skip',
+    defaultMessage: 'skip',
+  },
 })
