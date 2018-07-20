@@ -6,7 +6,8 @@ import {message} from 'antd'
 import {generateUrl} from '../router'
 import {CONTACTS_ROUTE} from '../routes'
 import mapValues from 'lodash/mapValues'
-import {getBirthday} from '../utils'
+import has from 'lodash/has'
+import {getBirthday, getOrdering} from '../utils'
 
 // ------------------------------------
 // Constants
@@ -65,11 +66,13 @@ export const CLEAR = 'Contacts.CLEAR'
 export const getContacts = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_CONTACTS_REQUEST, params})
   const {token} = dispatch(getToken())
-  const {search, page, pageSize} = getState().contacts
+  const {search, page, pageSize, ordering} = getState().contacts
+
   return fetch(`/view-contacts?${qs.stringify({
     ...search ? {
       name: search
     } : {},
+    ...getOrdering(ordering),
     page,
     per_page: pageSize,
   })}`, {
@@ -321,12 +324,14 @@ const initialState = {
   uploadedContacts: [],
   uploadedContactsModalOpened: false,
   selectedContacts: [],
+  ordering: '-dob'
 }
 
 export default createReducer(initialState, {
   [GET_CONTACTS_REQUEST]: (state, {params}) => ({
     // do not send search param if string is empty
     search: params.search !== undefined ? (params.search || undefined) : state.search,
+    ordering: has(params, 'ordering') ? params.ordering : state.ordering,
     page: params.pagination ? params.pagination.current : 1,
     pageSize: params.pagination ? params.pagination.pageSize : 12,
     loading: {

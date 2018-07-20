@@ -48,7 +48,7 @@ class Contacts extends React.Component {
     const {view, search} = this.state
     // TODO add loading
     // TODO add sort_by
-    const {contactsCount, contacts, page, pageSize, loading, getContacts, removeContact, intl} = this.props
+    const {contactsCount, contacts, page, pageSize, loading, getContacts, removeContact, intl, ordering} = this.props
 
     const columns = [
       {
@@ -76,6 +76,12 @@ class Contacts extends React.Component {
       },
     ]
 
+    const contactSortBy = [
+      {value: '-dob', label: 'Upcoming birthdays'},
+      {value: 'first_name', label: 'A-Z'},
+      {value: '-first_name', label: 'Z-A'},
+    ]
+
     return (
       <div className={s.container}>
         <div className={s.actions}>
@@ -85,7 +91,15 @@ class Contacts extends React.Component {
             value={search}
             onChange={this.changeSearch}
           />
-          <Select className={s.sortBy} placeholder={intl.formatMessage(messages.sortBy)}>
+          <Select
+            className={s.sortBy}
+            placeholder={intl.formatMessage(messages.sortBy)}
+            onChange={(ordering) => getContacts({ordering})}
+            value={ordering}
+          >
+            {contactSortBy.map(item =>
+              <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>
+            )}
           </Select>
           <div className={s.views}>
             <a className={s.viewBtn} onClick={() => this.changeView(GRID_VIEW)}>
