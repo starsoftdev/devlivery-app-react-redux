@@ -11,7 +11,7 @@ import messages from './messages'
 
 class Header extends React.Component {
   render() {
-    const {className, currentRouteName, user, intl} = this.props
+    const {className, currentRouteName, user, intl, loggedIn} = this.props
     return (
       <header
         className={cn(
@@ -70,6 +70,11 @@ class Header extends React.Component {
             <li>
               <Link to={ORDERS_ROUTE}>{intl.formatMessage(messages.contact)}</Link>
             </li>
+            {loggedIn && (
+              <li>
+                <Link to={ORDERS_ROUTE}>{intl.formatMessage(messages.dashboard)}</Link>
+              </li>
+            )}
           </ul>
         )}
       </header>
@@ -80,6 +85,7 @@ class Header extends React.Component {
 const mapState = state => ({
   currentRouteName: state.global.currentRouteName,
   user: state.user.user,
+  loggedIn: state.user.loggedIn,
 })
 
 const mapDispatch = {}

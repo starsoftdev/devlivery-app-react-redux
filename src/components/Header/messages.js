@@ -33,4 +33,8 @@ export default defineMessages({
     id: 'header.contact',
     defaultMessage: 'Contact Us',
   },
+  dashboard: {
+    id: 'header.dashboard',
+    defaultMessage: 'Dashboard',
+  },
 })
