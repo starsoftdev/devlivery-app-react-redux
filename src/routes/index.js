@@ -55,6 +55,7 @@ export const PURCHASE11_ROUTE = 'purchase11'
 export const PURCHASE12_ROUTE = 'purchase12'
 export const PURCHASE13_ROUTE = 'purchase13'
 export const PURCHASE_COMPLETED_ROUTE = 'purchase-completed'
+export const ADD_BUNDLE_ROUTE = 'add-bundle'
 
 export const PURCHASE_ROUTES = [
   PURCHASE1_ROUTE,
@@ -120,6 +121,7 @@ export const EDIT_BUNDLE_ROUTES = [
   PURCHASE5_ROUTE,
   PURCHASE7_ROUTE,
   PURCHASE8_ROUTE,
+  ADD_BUNDLE_ROUTE,
   BUNDLES_ROUTE,
 ]
 
@@ -327,6 +329,11 @@ const routes = {
           path: '/payment',
           name: PURCHASE13_ROUTE,
           load: () => import(/* webpackChunkName: 'purchase' */ './purchase13'),
+        },
+        {
+          path: '/create-bundle',
+          name: ADD_BUNDLE_ROUTE,
+          load: () => import(/* webpackChunkName: 'purchase' */ './addBundle'),
         },
       ],
     },

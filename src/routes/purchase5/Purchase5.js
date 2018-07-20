@@ -10,6 +10,7 @@ import cn from 'classnames'
 import Preview from './Preview'
 import messages from './messages'
 
+// TODO filter by occasion selected on Purchase 1
 class Purchase5 extends React.Component {
   state = {
     previewCollapsed: false,
