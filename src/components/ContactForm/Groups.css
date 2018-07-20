@@ -2,8 +2,17 @@
 
 .item {
   margin-bottom: var(--margin-xl);
+  position: relative;
 }
 
 .date {
   width: 100%;
+}
+
+.removeIcon {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: -30px;
+  transform: translateY(-50%);
 }
