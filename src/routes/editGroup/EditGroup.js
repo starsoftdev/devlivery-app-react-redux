@@ -16,6 +16,7 @@ const GRID_VIEW = 'grid'
 const LIST_VIEW = 'list'
 const pageSizeOptions = ['12', '24', '36', '48']
 
+// TODO reuse code from Contacts page
 class EditGroup extends React.Component {
   constructor(props) {
     super(props)

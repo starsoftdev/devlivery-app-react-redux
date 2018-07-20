@@ -1,7 +1,7 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {loginSuccess} from './login'
 import {message} from 'antd'
-import {PURCHASE_ROUTES} from '../routes'
+import {EDIT_BUNDLE_ROUTES, PURCHASE_ROUTES} from '../routes'
 import {generateUrl} from '../router'
 import qs from 'query-string'
 import {getToken} from './user'
@@ -92,7 +92,7 @@ export const setBundle = (bundle, flow) => ({
   gift: bundle.bundle_gifts[0] && bundle.bundle_gifts[0].gift,
   giftType: bundle.bundle_gifts[0] && bundle.bundle_gifts[0].gift.type,
   cardSize: CARD_SIZES().find(item => item.key === bundle.card_format),
-  // TODO set other fields (cardStyle/occasion)
+  // TODO set other fields (cardStyle)
 })
 
 export const setFlow = (flow) => ({type: SET_FLOW, flow})
@@ -228,8 +228,9 @@ export const register = (values) => (dispatch, getState, {fetch}) => {
 
 export const continueWithoutGift = () => (dispatch, getState) => {
   const {loggedIn} = getState().user
+  const {flow} = getState().purchase
   dispatch(setGiftType(null))
-  if (loggedIn) {
+  if (loggedIn && flow !== EDIT_BUNDLE_ROUTES) {
     dispatch(addBundle())
   }
   dispatch(nextFlowStep(1))
@@ -237,15 +238,16 @@ export const continueWithoutGift = () => (dispatch, getState) => {
 
 export const submitGift = () => (dispatch, getState) => {
   const {loggedIn} = getState().user
-  if (loggedIn) {
+  const {flow} = getState().purchase
+  if (loggedIn && flow !== EDIT_BUNDLE_ROUTES) {
     dispatch(addBundle())
   }
   dispatch(nextFlowStep())
 }
 
-export const addBundle = () => (dispatch, getState, {fetch}) => {
+export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  const {letteringTechnique, card, gift, cardSize} = getState().purchase
+  const {letteringTechnique, card, gift, cardSize, flow} = getState().purchase
   dispatch({type: ADD_BUNDLE_REQUEST})
   return fetch(`/create-bundle`, {
     method: 'POST',
@@ -255,7 +257,7 @@ export const addBundle = () => (dispatch, getState, {fetch}) => {
       card_id: card && card.id,
       gift_id: gift && gift.id,
       card_format: cardSize && cardSize.key,
-      // TODO decide where cardStyle/occasion should be send
+      // TODO decide where cardStyle should be send
       // TODO send html here
       body: '1',
       // TODO remove these fields
@@ -265,10 +267,14 @@ export const addBundle = () => (dispatch, getState, {fetch}) => {
       font_size: '1',
       gift_quantity: '1',
       title: '111',
+      ...values,
     },
     token,
     success: (res) => {
       dispatch({type: ADD_BUNDLE_SUCCESS, bundle: res.data})
+      if (flow === EDIT_BUNDLE_ROUTES) {
+        dispatch(nextFlowStep())
+      }
     },
     failure: () => {
       dispatch({type: ADD_BUNDLE_FAILURE})
