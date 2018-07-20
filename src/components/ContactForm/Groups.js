@@ -4,7 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Groups.css'
 import PlusIcon from '../../static/plus.svg'
 import {connect} from 'react-redux'
-import {getGroups} from '../../reducers/contacts'
+import {getGroups, addGroup} from '../../reducers/contacts'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
 import debounce from 'lodash/debounce'
 import messages from './messages'
@@ -16,11 +16,20 @@ class Groups extends React.Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      group: null
+    }
+
     this.getGroups = debounce(props.getGroups, DEFAULT_DEBOUNCE_TIME)
   }
 
   componentWillMount () {
     this.props.getGroups()
+  }
+
+  addGroup = (group, index) => {
+    this.props.addGroup(group)
+    this.props.form.setFieldsValue({[`groups[${index}].title`]: group})
   }
 
   // TODO add remove button somewhere
@@ -38,6 +47,7 @@ class Groups extends React.Component {
   }
 
   render() {
+    const {group} = this.state
     const {groups, loading, intl, initialValues} = this.props
     const {getFieldDecorator, getFieldValue} = this.props.form
     this.props.form.getFieldDecorator('groupKeys', {initialValue: [0]})
@@ -62,8 +72,17 @@ class Groups extends React.Component {
                   placeholder={intl.formatMessage(messages.selectGroup)}
                   notFoundContent={loading.groups ? 'Loading...' : null}
                   filterOption={false}
-                  onSearch={(search) => this.getGroups({search})}
+                  onSearch={(search) => {
+                    this.getGroups({search})
+                    this.setState({group: search})
+                  }}
+                  onChange={(key) => {
+                    if (key === group) {
+                      this.addGroup(group, k)
+                    }
+                  }}
                 >
+                  {group && <Select.Option key={group}>+ Add "{group}"</Select.Option>}
                   {groups.map(item =>
                     <Select.Option key={item.title} value={item.title}>{item.title}</Select.Option>
                   )}
@@ -87,6 +106,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = {
+  addGroup,
   getGroups,
 }
 
