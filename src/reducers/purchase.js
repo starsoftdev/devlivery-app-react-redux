@@ -278,8 +278,8 @@ export const addBundle = () => (dispatch, getState, {fetch}) => {
 
 export const makeOrder = () => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  const {bundle} = getState().purchase
-  if (!bundle) {
+  const {bundle, order} = getState().purchase
+  if (!bundle || order) {
     return
   }
   dispatch({type: MAKE_ORDER_REQUEST})
