@@ -19,6 +19,7 @@ export const CONTACTS_ROUTE = 'contacts'
 export const IMPORT_CONTACTS_ROUTE = 'import-contacts'
 export const ADD_CONTACT_ROUTE = 'add-contact'
 export const EDIT_CONTACT_ROUTE = 'edit-contact'
+export const EDIT_GROUP_ROUTE = 'edit-group'
 export const CONTACT_GROUPS_ROUTE = 'contact-groups'
 export const BUNDLES_ROUTE = 'bundles'
 export const USER_ROUTE = 'user'
@@ -32,6 +33,7 @@ export const DASHBOARD_ROUTES = [
   IMPORT_CONTACTS_ROUTE,
   ADD_CONTACT_ROUTE,
   EDIT_CONTACT_ROUTE,
+  EDIT_GROUP_ROUTE,
   CONTACT_GROUPS_ROUTE,
   BUNDLES_ROUTE,
   USER_ROUTE,
@@ -164,6 +166,11 @@ const authRoutes = {
           path: '/contacts/groups',
           name: CONTACT_GROUPS_ROUTE,
           load: () => import(/* webpackChunkName: 'contacts' */ './contactGroups'),
+        },
+        {
+          path: '/contacts/groups/:groupId',
+          name: EDIT_GROUP_ROUTE,
+          load: () => import(/* webpackChunkName: 'contacts' */ './editGroup'),
         },
         {
           path: '/contacts/:contactId',

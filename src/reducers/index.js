@@ -12,6 +12,7 @@ import contactGroups from './contactGroups'
 import reports from './reports'
 import bundles from './bundles'
 import team from './team'
+import contactGroup from './contactGroup'
 import intl from './intl'
 
 export default combineReducers({
@@ -28,5 +29,6 @@ export default combineReducers({
   reports,
   bundles,
   team,
+  contactGroup,
   intl,
 })
