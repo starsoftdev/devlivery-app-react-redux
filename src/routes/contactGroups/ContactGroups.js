@@ -13,10 +13,10 @@ import {
   getContactGroups,
   removeContactGroup
 } from '../../reducers/contactGroups'
-import {PaginationItem} from '../../components'
+import {Link, PaginationItem} from '../../components'
 import messages from './messages'
+import {EDIT_GROUP_ROUTE} from '../index'
 
-// TODO add pagination
 class ContactGroups extends React.Component {
   componentWillUnmount() {
     this.props.clear()
@@ -58,9 +58,9 @@ class ContactGroups extends React.Component {
               {contactGroups.map((group) =>
                 <Col key={group.id} xs={24} sm={12}>
                   <div className={s.group}>
-                    <a className={s.editBtn}>
+                    <Link className={s.editBtn} to={{name: EDIT_GROUP_ROUTE, params: {groupId: group.id, title: group.title}}}>
                       <EditIcon/>
-                    </a>
+                    </Link>
                     <a className={s.removeBtn} onClick={() => removeContactGroup(group)}>
                       <RemoveIcon/>
                     </a>
