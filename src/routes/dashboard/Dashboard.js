@@ -88,7 +88,7 @@ class Dashboard extends React.Component {
               {intl.formatMessage(messages.reports)}
             </Link>
           </Menu.Item>
-          {user.account_type === TEAM_ACCOUNT && (
+          {user && user.account_type === TEAM_ACCOUNT && (
             <Menu.Item key={MANAGE_TEAM_ROUTE}>
               <Link to={MANAGE_TEAM_ROUTE}>
                 <ManageTeamIcon/>
