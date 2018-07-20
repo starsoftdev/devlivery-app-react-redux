@@ -274,6 +274,7 @@ export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
       dispatch({type: ADD_BUNDLE_SUCCESS, bundle: res.data})
       if (flow === EDIT_BUNDLE_ROUTES) {
         dispatch(nextFlowStep())
+        message.success('Bundle created.')
       }
     },
     failure: () => {
