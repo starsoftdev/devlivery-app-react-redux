@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, DatePicker, Form, Input, Select} from 'antd'
+import {Button, DatePicker, Form, Icon, Input, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Reminders.css'
 import PlusIcon from '../../static/plus.svg'
@@ -47,7 +47,7 @@ class Reminders extends React.Component {
     const keys = getFieldValue('reminderKeys')
     return (
       <React.Fragment>
-        {keys.map((k) =>
+        {keys.map((k, i) =>
           <div key={k} className={s.item}>
             {initialValues && initialValues.reminders[k] && initialValues.reminders[k].id && getFieldDecorator(`reminders[${k}].id`, {
               initialValue: initialValues.reminders[k].id,
@@ -79,6 +79,9 @@ class Reminders extends React.Component {
                 <DatePicker className={s.date} format={DATE_FORMAT}/>
               )}
             </Form.Item>
+            {i > 0 && (
+              <Icon type='close' onClick={() => this.removeItem(k)} className={s.removeIcon}/>
+            )}
           </div>
         )}
         <Button type='primary' ghost onClick={this.addItem}>

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Form, Input, Select} from 'antd'
+import {Button, Form, Icon, Input, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Groups.css'
 import PlusIcon from '../../static/plus.svg'
@@ -55,7 +55,7 @@ class Groups extends React.Component {
     const keys = getFieldValue('groupKeys')
     return (
       <React.Fragment>
-        {keys.map((k) =>
+        {keys.map((k, i) =>
           <div key={k} className={s.item}>
             {initialValues && initialValues.groups[k] && initialValues.groups[k].id && getFieldDecorator(`groups[${k}].id`, {
               initialValue: initialValues.groups[k].id,
@@ -89,6 +89,9 @@ class Groups extends React.Component {
                 </Select>
               )}
             </Form.Item>
+            {i > 0 && (
+              <Icon type='close' onClick={() => this.removeItem(k)} className={s.removeIcon}/>
+            )}
           </div>
         )}
         <Button type='primary' ghost onClick={this.addItem}>
