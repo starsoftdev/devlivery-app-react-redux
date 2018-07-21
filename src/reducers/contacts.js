@@ -54,10 +54,6 @@ export const OPEN_UPLOADED_CONTACTS_MODAL = 'Contacts.OPEN_UPLOADED_CONTACTS_MOD
 export const CLOSE_UPLOADED_CONTACTS_MODAL = 'Contacts.CLOSE_UPLOADED_CONTACTS_MODAL'
 export const CHANGE_SELECTED_CONTACTS = 'Contacts.CHANGE_SELECTED_CONTACTS'
 
-export const ADD_GROUP_REQUEST = 'Contacts.ADD_GROUP_REQUEST'
-export const ADD_GROUP_SUCCESS = 'Contacts.ADD_GROUP_SUCCESS'
-export const ADD_GROUP_FAILURE = 'Contacts.ADD_GROUP_FAILURE'
-
 export const CLEAR = 'Contacts.CLEAR'
 
 // ------------------------------------
@@ -105,7 +101,12 @@ export const getRemindersArray = (reminders) => {
     // if one of the property undefined/null - don't send item
     return !Object.values(item).includes(undefined) && !Object.values(item).includes(null)
   }).map(item => ({
-    ...item,
+    // if user provided new occasion title
+    ...typeof item.occasion_id === 'string' ? {
+      custom_title: item.occasion_id
+    } : {
+      occasion_id: item.occasion_id
+    },
     date: item.date.format(DATE_FORMAT)
   }))
 }
@@ -222,26 +223,6 @@ export const getGroups = ({search} = {}) => (dispatch, getState, {fetch}) => {
     token,
     success: (res) => dispatch({type: GET_GROUPS_SUCCESS, groups: res.data}),
     failure: () => dispatch({type: GET_GROUPS_FAILURE})
-  })
-}
-
-export const addGroup = (title) => (dispatch, getState, {fetch}) => {
-  const {token} = dispatch(getToken())
-  dispatch({type: ADD_GROUP_REQUEST})
-  return fetch(`/contact-groups`, {
-    method: 'POST',
-    body: {
-      title
-    },
-    token,
-    success: () => {
-      dispatch({type: ADD_GROUP_SUCCESS})
-      dispatch(getGroups())
-    },
-    failure: () => {
-      dispatch({type: ADD_GROUP_FAILURE})
-      message.error('Something went wrong. Please try again.')
-    },
   })
 }
 

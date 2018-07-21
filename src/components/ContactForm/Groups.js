@@ -4,7 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Groups.css'
 import PlusIcon from '../../static/plus.svg'
 import {connect} from 'react-redux'
-import {getGroups, addGroup} from '../../reducers/contacts'
+import {getGroups} from '../../reducers/contacts'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
 import debounce from 'lodash/debounce'
 import messages from './messages'
@@ -17,7 +17,8 @@ class Groups extends React.Component {
     super(props)
 
     this.state = {
-      group: null
+      groupName: null,
+      newGroup: null,
     }
 
     this.getGroups = debounce(props.getGroups, DEFAULT_DEBOUNCE_TIME)
@@ -27,12 +28,13 @@ class Groups extends React.Component {
     this.props.getGroups()
   }
 
-  addGroup = (group, index) => {
-    this.props.addGroup(group)
-    this.props.form.setFieldsValue({[`groups[${index}].title`]: group})
+  addGroup = (groupName) => {
+    this.setState({
+      newGroup: groupName,
+      groupName: null,
+    })
   }
 
-  // TODO add remove button somewhere
   removeItem = (k) => {
     const keys = this.props.form.getFieldValue('groupKeys')
     const newKeys = keys.filter(key => key !== k)
@@ -47,10 +49,16 @@ class Groups extends React.Component {
   }
 
   render() {
-    const {group} = this.state
+    const {groupName, newGroup} = this.state
     const {groups, loading, intl, initialValues} = this.props
     const {getFieldDecorator, getFieldValue} = this.props.form
     this.props.form.getFieldDecorator('groupKeys', {initialValue: [0]})
+
+    let groupsList = [...groups]
+
+    if (newGroup && !groupName) {
+      groupsList = [{title: newGroup}, ...groups.filter(item => item.title !== newGroup)]
+    }
 
     const keys = getFieldValue('groupKeys')
     return (
@@ -74,17 +82,19 @@ class Groups extends React.Component {
                   filterOption={false}
                   onSearch={(search) => {
                     this.getGroups({search})
-                    this.setState({group: search})
+                    this.setState({groupName: search})
                   }}
-                  onChange={(key) => {
-                    if (key === group) {
-                      this.addGroup(group, k)
+                  onChange={(value, {key}) => {
+                    if (+key === 0) {
+                      this.addGroup(groupName)
                     }
                   }}
                 >
-                  {group && <Select.Option key={group}>+ Add "{group}"</Select.Option>}
-                  {groups.map(item =>
-                    <Select.Option key={item.title} value={item.title}>{item.title}</Select.Option>
+                  {groupName && !groupsList.find(item => item.title === groupName) && (
+                    <Select.Option key={0} value={groupName}>+ Add "{groupName}"</Select.Option>
+                  )}
+                  {groupsList.map((item, i) =>
+                    <Select.Option key={i + 1} value={item.title}>{item.title}</Select.Option>
                   )}
                 </Select>
               )}
@@ -109,7 +119,6 @@ const mapState = state => ({
 })
 
 const mapDispatch = {
-  addGroup,
   getGroups,
 }
 
