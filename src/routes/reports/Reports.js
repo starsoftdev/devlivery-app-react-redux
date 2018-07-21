@@ -1,17 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button, Col, Input, Row, Select, Table} from 'antd'
+import {Button, Col, DatePicker, Row, Select, Table} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Reports.css'
 import PlusIcon from '../../static/plus.svg'
-import moment from 'moment'
 import {clear, exportReport, getOccasions, getReports} from '../../reducers/reports'
 import {PaginationItem} from '../../components'
 import debounce from 'lodash/debounce'
-import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
+import {DATE_FORMAT, DEFAULT_DEBOUNCE_TIME} from '../../constants'
 import messages from './messages'
 
-// TODO add Export XLS
 class Reports extends React.Component {
   constructor(props) {
     super(props)
@@ -23,9 +21,51 @@ class Reports extends React.Component {
     this.props.clear()
   }
 
+  state = {
+    startValue: null,
+    endValue: null,
+    endOpen: false,
+  }
+
+  disabledStartDate = (startValue) => {
+    const endValue = this.state.endValue
+    if (!startValue || !endValue) {
+      return false
+    }
+    return startValue.valueOf() > endValue.valueOf()
+  }
+
+  disabledEndDate = (endValue) => {
+    const startValue = this.state.startValue
+    if (!endValue || !startValue) {
+      return false
+    }
+    return endValue.valueOf() <= startValue.valueOf()
+  }
+
+  onStartChange = (value) => {
+    this.setState({startValue: value})
+    this.props.getReports({from: value})
+  }
+
+  onEndChange = (value) => {
+    this.setState({endValue: value})
+    this.props.getReports({to: value})
+  }
+
+  handleStartOpenChange = (open) => {
+    if (!open) {
+      this.setState({endOpen: true})
+    }
+  }
+
+  handleEndOpenChange = (open) => {
+    this.setState({endOpen: open})
+  }
+
   render() {
     // TODO add loading
-    // TODO change range picker
+    const { startValue, endValue, endOpen } = this.state
     const {reports, reportsCount, page, pageSize, loading, getReports, occasions, occasion, intl, exportReport} = this.props
     const columns = [
       {
@@ -78,14 +118,14 @@ class Reports extends React.Component {
               </div>
             </Col>
             <Col>
-              <Select placeholder={'Month'} className={s.month}>
-                {moment.months().map((month, i) =>
-                  <Select.Option key={month} value={i + 1}>{month}</Select.Option>
-                )}
-              </Select>
-            </Col>
-            <Col className={s.date}>
-              <Input placeholder={'Date'}/>
+              <DatePicker
+                disabledDate={this.disabledStartDate}
+                format={DATE_FORMAT}
+                value={startValue}
+                placeholder={'Start date'}
+                onChange={this.onStartChange}
+                onOpenChange={this.handleStartOpenChange}
+              />
             </Col>
           </Row>
           <Row type='flex' gutter={20} align='middle' className={s.filterWrapper}>
@@ -95,14 +135,15 @@ class Reports extends React.Component {
               </div>
             </Col>
             <Col>
-              <Select placeholder={'Month'} className={s.month}>
-                {moment.months().map((month, i) =>
-                  <Select.Option key={month} value={i + 1}>{month}</Select.Option>
-                )}
-              </Select>
-            </Col>
-            <Col className={s.date}>
-              <Input placeholder={'Date'}/>
+              <DatePicker
+                disabledDate={this.disabledEndDate}
+                format={DATE_FORMAT}
+                value={endValue}
+                placeholder={'End date'}
+                onChange={this.onEndChange}
+                open={endOpen}
+                onOpenChange={this.handleEndOpenChange}
+              />
             </Col>
           </Row>
           <Select
@@ -129,7 +170,11 @@ class Reports extends React.Component {
           pagination={{
             current: page,
             total: reportsCount,
-            showTotal: (total, range) => intl.formatMessage(messages.tableItems, {range0: range[0], range1: range[1], total}),
+            showTotal: (total, range) => intl.formatMessage(messages.tableItems, {
+              range0: range[0],
+              range1: range[1],
+              total
+            }),
             pageSize,
             showSizeChanger: true,
             itemRender: (current, type, el) => <PaginationItem type={type} el={el}/>
