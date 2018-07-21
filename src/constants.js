@@ -8,6 +8,7 @@ import NonFoodImage from './static/non_food.svg'
 import DonationImage from './static/donation.svg'
 import VoucherImage from './static/voucher.svg'
 
+export const DAY = 86400
 export const YEAR = 31536000
 
 export const TOKEN_COOKIE = 'token'
