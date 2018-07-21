@@ -1,7 +1,8 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import qs from 'query-string'
 import {getToken} from './user'
-import {DEFAULT_PAGE_SIZE} from '../constants'
+import {DATE_FORMAT, DEFAULT_PAGE_SIZE} from '../constants'
+import has from 'lodash/has'
 
 // ------------------------------------
 // Constants
@@ -26,11 +27,13 @@ export const CLEAR = 'Reports.CLEAR'
 export const getReports = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_REPORTS_REQUEST, params})
   const {token} = dispatch(getToken())
-  const {occasion, page, pageSize} = getState().reports
+  const {occasion, page, pageSize, from, to} = getState().reports
   return fetch(`/reports/scheduled-orders?${qs.stringify({
     occasion,
     page,
     per_page: pageSize,
+    from: from ? from.format(DATE_FORMAT) : undefined,
+    to: to ? to.format(DATE_FORMAT) : undefined,
   })}`, {
     method: 'GET',
     token,
@@ -85,13 +88,17 @@ const initialState = {
   pageSize: DEFAULT_PAGE_SIZE,
   occasions: [],
   occasion: undefined,
+  from: undefined,
+  to: undefined,
 }
 
 export default createReducer(initialState, {
   [GET_REPORTS_REQUEST]: (state, {params}) => ({
     page: params.pagination ? params.pagination.current : 1,
     pageSize: params.pagination ? params.pagination.pageSize : DEFAULT_PAGE_SIZE,
-    occasion: params.occasion || state.occasion,
+    occasion: has(params, 'occasion') ? params.occasion : state.occasion,
+    from: has(params, 'from') ? params.from : state.from,
+    to: has(params, 'to') ? params.to : state.to,
     loading: {
       ...state.loading,
       reports: true,
