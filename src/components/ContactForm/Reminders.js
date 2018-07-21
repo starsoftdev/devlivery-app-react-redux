@@ -17,6 +17,11 @@ class Reminders extends React.Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      occasionTitle: null,
+      newOccasion: null,
+    }
+
     this.getOccasions = debounce(props.getOccasions, DEFAULT_DEBOUNCE_TIME)
   }
 
@@ -24,7 +29,13 @@ class Reminders extends React.Component {
     this.props.getOccasions()
   }
 
-  // TODO add remove button somewhere
+  addOccasion = (occasionTitle) => {
+    this.setState({
+      newOccasion: occasionTitle,
+      occasionTitle: null,
+    })
+  }
+
   removeItem = (k) => {
     const keys = this.props.form.getFieldValue('reminderKeys')
     const newKeys = keys.filter(key => key !== k)
@@ -38,11 +49,17 @@ class Reminders extends React.Component {
     this.props.form.setFieldsValue({reminderKeys: newKeys})
   }
 
-  // TODO change reminder date format
   render() {
+    const {occasionTitle, newOccasion} = this.state
     const {occasions, loading, intl, initialValues} = this.props
     const {getFieldDecorator, getFieldValue} = this.props.form
     this.props.form.getFieldDecorator('reminderKeys', {initialValue: [0]})
+
+    let occasionsList = [...occasions]
+
+    if (newOccasion && !occasionTitle) {
+      occasionsList = [{title: newOccasion}, ...occasions.filter(item => item.title !== newOccasion)]
+    }
 
     const keys = getFieldValue('reminderKeys')
     return (
@@ -64,10 +81,21 @@ class Reminders extends React.Component {
                   placeholder={intl.formatMessage(messages.occasion)}
                   notFoundContent={loading.occasions ? 'Loading...' : null}
                   filterOption={false}
-                  onSearch={(search) => this.getOccasions({search})}
+                  onSearch={(search) => {
+                    this.getOccasions({search})
+                    this.setState({occasionTitle: search})
+                  }}
+                  onChange={(value, {key}) => {
+                    if (+key === 0) {
+                      this.addOccasion(occasionTitle)
+                    }
+                  }}
                 >
-                  {occasions.map(item =>
-                    <Select.Option key={item.id} value={item.id}>{item.title}</Select.Option>
+                  {occasionTitle && !occasionsList.find(item => item.title === occasionTitle) && (
+                    <Select.Option key={0} value={occasionTitle}>+ Add "{occasionTitle}"</Select.Option>
+                  )}
+                  {occasionsList.map((item, i) =>
+                    <Select.Option key={i + 1} value={item.title}>{item.title}</Select.Option>
                   )}
                 </Select>
               )}
