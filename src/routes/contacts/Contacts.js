@@ -47,7 +47,6 @@ class Contacts extends React.Component {
   render() {
     const {view, search} = this.state
     // TODO add loading
-    // TODO add sort_by
     const {contactsCount, contacts, page, pageSize, loading, getContacts, removeContact, intl, ordering} = this.props
 
     const columns = [
@@ -77,11 +76,11 @@ class Contacts extends React.Component {
     ]
 
     const contactSortBy = [
-      {value: '-dob', label: 'Upcoming birthdays'},
       {value: 'first_name', label: 'A-Z'},
       {value: '-first_name', label: 'Z-A'},
       {value: '-updated_at', label: 'Last Update Date'},
       {value: '-created_at', label: 'Creation Date'},
+      {value: '-dob', label: 'Upcoming birthdays'},
     ]
 
     return (
@@ -129,7 +128,7 @@ class Contacts extends React.Component {
                     <a className={s.removeBtn} onClick={() => removeContact(contact)}>
                       <RemoveIcon/>
                     </a>
-                    <p className={s.contactName}>{contact.dob}</p>
+                    <p className={s.contactName}>{contact.first_name} {contact.last_name}</p>
                     <a href={`tel:${contact.phone}`} className={s.contactPhone}>
                       {contact.phone}
                     </a>
