@@ -69,6 +69,9 @@ export const getContacts = (params = {}) => (dispatch, getState, {fetch}) => {
       name: search
     } : {},
     ...getOrdering(ordering),
+    ...ordering.includes('dob') ? {
+      upcoming: '',
+    } : {},
     page,
     per_page: pageSize,
   })}`, {
@@ -306,7 +309,7 @@ const initialState = {
   uploadedContacts: [],
   uploadedContactsModalOpened: false,
   selectedContacts: [],
-  ordering: '-dob'
+  ordering: 'first_name'
 }
 
 export default createReducer(initialState, {
