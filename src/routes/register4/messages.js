@@ -21,10 +21,6 @@ export default defineMessages({
     id: 'register4.inviteMore',
     defaultMessage: 'Invite one more',
   },
-  permissionsLevel: {
-    id: 'register4.permissionsLevel',
-    defaultMessage: 'Permissions Level',
-  },
   submit: {
     id: 'register4.submit',
     defaultMessage: 'Submit',

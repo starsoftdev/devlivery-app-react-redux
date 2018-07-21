@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button, Form, Input, Select} from 'antd'
+import {Button, Form, Icon, Input, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Register4.css'
 import PlusIcon from '../../static/plus.svg'
@@ -11,9 +11,9 @@ import messages from './messages'
 import {Actions, Link, SectionHeader} from '../../components'
 import {ORDERS_ROUTE} from '../'
 
-let uuid = 1
-
 class Register4 extends React.Component {
+  uuid = 1
+
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
@@ -23,7 +23,6 @@ class Register4 extends React.Component {
     })
   }
 
-  // TODO add remove button somewhere
   removeItem = (k) => {
     const keys = this.props.form.getFieldValue('keys')
     const newKeys = keys.filter(key => key !== k)
@@ -32,13 +31,13 @@ class Register4 extends React.Component {
 
   addItem = () => {
     const keys = this.props.form.getFieldValue('keys')
-    const newKeys = keys.concat(uuid)
-    uuid++
+    const newKeys = keys.concat(this.uuid)
+    this.uuid++
     this.props.form.setFieldsValue({keys: newKeys})
   }
 
   render() {
-    const {intl, permissions} = this.props
+    const {intl, roles} = this.props
     const {getFieldDecorator, getFieldValue} = this.props.form
     this.props.form.getFieldDecorator('keys', {initialValue: [0]})
 
@@ -65,17 +64,20 @@ class Register4 extends React.Component {
                 )}
               </Form.Item>
               <Form.Item>
-                {getFieldDecorator(`people[${k}].permissions`, {})(
+                {getFieldDecorator(`people[${k}].role`, {})(
                   <Select
                     allowClear
-                    placeholder={intl.formatMessage(messages.permissionsLevel)}
+                    placeholder={intl.formatMessage(messages.role)}
                   >
-                    {permissions.map((permission) =>
-                      <Select.Option key={permission} value={permission}>{permission}</Select.Option>
+                    {roles.map(item =>
+                      <Select.Option key={item.id} value={item.name}>{item.name}</Select.Option>
                     )}
                   </Select>
                 )}
               </Form.Item>
+              {i > 0 && (
+                <Icon type='close' onClick={() => this.removeItem(k)} className={s.removeIcon}/>
+              )}
             </section>
           )}
           <div className={s.addPersonBtnWrapper}>
@@ -109,7 +111,7 @@ class Register4 extends React.Component {
 }
 
 const mapState = state => ({
-  permissions: state.register.permissions,
+  roles: state.register.roles,
 })
 
 const mapDispatch = {
