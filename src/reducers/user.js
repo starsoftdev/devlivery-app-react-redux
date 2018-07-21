@@ -21,17 +21,13 @@ export const UPDATE_PASSWORD_FAILURE = 'User.UPDATE_PASSWORD_FAILURE'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const expireToken = () => (dispatch, getState, {cookies}) => {
-  cookies.remove(TOKEN_COOKIE, {path: ''})
-}
-
 export const getToken = () => (dispatch, getState, {cookies}) => {
   const token = cookies.get(TOKEN_COOKIE)
   return {token}
 }
 
-export const logout = () => (dispatch, getState) => {
-  dispatch(expireToken())
+export const logout = () => (dispatch, getState, {cookies}) => {
+  cookies.remove(TOKEN_COOKIE, {path: ''})
   dispatch({type: LOGOUT_SUCCESS})
 }
 
