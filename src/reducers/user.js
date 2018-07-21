@@ -27,7 +27,7 @@ export const getToken = () => (dispatch, getState, {cookies}) => {
 }
 
 export const logout = () => (dispatch, getState, {cookies}) => {
-  cookies.remove(TOKEN_COOKIE, {path: ''})
+  cookies.remove(TOKEN_COOKIE)
   dispatch({type: LOGOUT_SUCCESS})
 }
 
