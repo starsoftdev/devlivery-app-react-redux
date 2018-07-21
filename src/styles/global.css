@@ -14,6 +14,7 @@
 @import './tooltip.css';
 @import './modal.css';
 @import './checkbox.css';
+@import './popover.css';
 
 :global {
   .ant-form {
