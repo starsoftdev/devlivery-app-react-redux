@@ -14,3 +14,5 @@ export const getOrdering = (ordering) => {
     ...orderDesc ? {order_by: 'desc'} : {},
   } : {}
 }
+
+export const createArray = (length) => Array.from(Array(length), (item, i) => i)

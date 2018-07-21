@@ -8,11 +8,12 @@ import {getGroups} from '../../reducers/contacts'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
 import debounce from 'lodash/debounce'
 import messages from './messages'
-
-let uuid = 1
+import {createArray} from '../../utils'
 
 // TODO add loading
 class Groups extends React.Component {
+  uuid = 1
+
   constructor(props) {
     super(props)
 
@@ -26,6 +27,11 @@ class Groups extends React.Component {
 
   componentWillMount () {
     this.props.getGroups()
+  }
+
+  componentDidMount () {
+    const {initialValues} = this.props
+    this.uuid = initialValues ? initialValues.length : 1
   }
 
   addGroup = (groupName) => {
@@ -43,8 +49,8 @@ class Groups extends React.Component {
 
   addItem = () => {
     const keys = this.props.form.getFieldValue('groupKeys')
-    const newKeys = keys.concat(uuid)
-    uuid++
+    const newKeys = keys.concat(this.uuid)
+    this.uuid++
     this.props.form.setFieldsValue({groupKeys: newKeys})
   }
 
@@ -52,7 +58,7 @@ class Groups extends React.Component {
     const {groupName, newGroup} = this.state
     const {groups, loading, intl, initialValues} = this.props
     const {getFieldDecorator, getFieldValue} = this.props.form
-    this.props.form.getFieldDecorator('groupKeys', {initialValue: [0]})
+    this.props.form.getFieldDecorator('groupKeys', {initialValue: createArray(initialValues ? initialValues.length : 1)})
 
     let groupsList = [...groups]
 
@@ -65,14 +71,14 @@ class Groups extends React.Component {
       <React.Fragment>
         {keys.map((k, i) =>
           <div key={k} className={s.item}>
-            {initialValues && initialValues.groups[k] && initialValues.groups[k].id && getFieldDecorator(`groups[${k}].id`, {
-              initialValue: initialValues.groups[k].id,
+            {initialValues && initialValues[k] && initialValues[k].id && getFieldDecorator(`groups[${k}].id`, {
+              initialValue: initialValues[k].id,
             })(
               <Input type='hidden'/>
             )}
             <Form.Item>
               {getFieldDecorator(`groups[${k}].title`, {
-                initialValue: initialValues && initialValues.groups[k] && initialValues.groups[k].title,
+                initialValue: initialValues && initialValues[k] ? initialValues[k].title : undefined,
               })(
                 <Select
                   showSearch
@@ -84,8 +90,8 @@ class Groups extends React.Component {
                     this.getGroups({search})
                     this.setState({groupName: search})
                   }}
-                  onChange={(value, {key}) => {
-                    if (+key === 0) {
+                  onChange={(value, item) => {
+                    if (item && +item.key === 0) {
                       this.addGroup(groupName)
                     }
                   }}

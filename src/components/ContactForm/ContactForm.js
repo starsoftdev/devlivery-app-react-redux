@@ -189,7 +189,7 @@ class ContactForm extends React.Component {
         <h1 className={s.header}>{intl.formatMessage(messages.birthday)}</h1>
         <Form.Item>
           {getFieldDecorator('birthday', {
-            initialValue: initialValues ? moment(initialValues.dob, DATE_FORMAT) : undefined,
+            initialValue: initialValues && initialValues.dob ? moment(initialValues.dob, DATE_FORMAT) : undefined,
           })(
             <DatePicker className={s.birthday} format={DATE_FORMAT}/>
           )}
@@ -227,14 +227,14 @@ class ContactForm extends React.Component {
     const remindersSection = (
       <section className={s.section}>
         <h1 className={s.header}>{intl.formatMessage(messages.reminders)}</h1>
-        <Reminders form={this.props.form} intl={intl} initialValues={initialValues}/>
+        <Reminders form={this.props.form} intl={intl} initialValues={initialValues ? initialValues.reminders : null}/>
       </section>
     )
 
     const groupsSection = (
       <section className={s.section}>
         <h1 className={s.header}>{intl.formatMessage(messages.groups)}</h1>
-        <Groups form={this.props.form} intl={intl} initialValues={initialValues}/>
+        <Groups form={this.props.form} intl={intl} initialValues={initialValues ? initialValues.groups : null}/>
       </section>
     )
 

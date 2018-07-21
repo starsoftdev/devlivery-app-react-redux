@@ -99,13 +99,14 @@ export const getContact = (contactId) => (dispatch, getState, {fetch}) => {
 export const getRemindersArray = (reminders) => {
   return reminders.filter(item => {
     // if one of the property undefined/null - don't send item
-    return !Object.values(item).includes(undefined) && !Object.values(item).includes(null)
+    return (item.custom_title || item.occasion_id) && item.date
   }).map(item => ({
+    recurring: item.recurring,
     // if user provided new occasion title
-    ...typeof item.occasion_id === 'string' ? {
+    ...isNaN(+item.occasion_id) ? {
       custom_title: item.occasion_id
     } : {
-      occasion_id: item.occasion_id
+      occasion_id: +item.occasion_id
     },
     date: item.date.format(DATE_FORMAT)
   }))
