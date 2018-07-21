@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Col, Input, Pagination, Row, Select, Table} from 'antd'
+import {Col, Input, Pagination, Popconfirm, Row, Select, Table} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Contacts.css'
 import EditIcon from '../../static/edit.svg'
@@ -67,9 +67,19 @@ class Contacts extends React.Component {
         key: 'actions',
         render: (contact) => {
           return (
-            <Link to={{name: EDIT_CONTACT_ROUTE, params: {contactId: contact.id}}}>
-              <EditIcon/>
-            </Link>
+            <React.Fragment>
+              <Link to={{name: EDIT_CONTACT_ROUTE, params: {contactId: contact.id}}}>
+                <EditIcon/>
+              </Link>
+              <Popconfirm
+                title={intl.formatMessage(messages.confirmRemoving)}
+                onConfirm={() => removeContact(contact)}
+              >
+                <a className={s.removeIcon}>
+                  <RemoveIcon/>
+                </a>
+              </Popconfirm>
+            </React.Fragment>
           )
         }
       },
@@ -125,9 +135,14 @@ class Contacts extends React.Component {
                     <Link className={s.editBtn} to={{name: EDIT_CONTACT_ROUTE, params: {contactId: contact.id}}}>
                       <EditIcon/>
                     </Link>
-                    <a className={s.removeBtn} onClick={() => removeContact(contact)}>
-                      <RemoveIcon/>
-                    </a>
+                    <Popconfirm
+                      title={intl.formatMessage(messages.confirmRemoving)}
+                      onConfirm={() => removeContact(contact)}
+                    >
+                      <a className={s.removeBtn}>
+                        <RemoveIcon/>
+                      </a>
+                    </Popconfirm>
                     <p className={s.contactName}>{contact.first_name} {contact.last_name}</p>
                     <a href={`tel:${contact.phone}`} className={s.contactPhone}>
                       {contact.phone}

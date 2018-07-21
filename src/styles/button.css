@@ -111,6 +111,12 @@
       margin-right: var(--margin-xs);
     }
 
+    /*TODO make sure nothing is broken*/
+    &-sm {
+      height: 30px;
+      min-width: 50px;
+    }
+
     /*&&-loading:before {
       display: block;
     }

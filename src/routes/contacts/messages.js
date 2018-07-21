@@ -37,4 +37,8 @@ export default defineMessages({
     id: 'contacts.actionsColumn',
     defaultMessage: 'Actions',
   },
+  confirmRemoving: {
+    id: 'contacts.confirmRemoving',
+    defaultMessage: 'Are you sure?',
+  },
 })
