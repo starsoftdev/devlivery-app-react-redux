@@ -15,6 +15,9 @@ export const GET_EVENTS_REQUEST = 'Orders.GET_EVENTS_REQUEST'
 export const GET_EVENTS_SUCCESS = 'Orders.GET_EVENTS_SUCCESS'
 export const GET_EVENTS_FAILURE = 'Orders.GET_EVENTS_FAILURE'
 
+export const OPEN_CALENDAR_EVENTS_MODAL = 'Orders.OPEN_CALENDAR_EVENTS_MODAL'
+export const CLOSE_CALENDAR_EVENTS_MODAL = 'Orders.CLOSE_CALENDAR_EVENTS_MODAL'
+
 export const CLEAR = 'Orders.CLEAR'
 
 // ------------------------------------
@@ -51,6 +54,10 @@ export const getEvents = (date) => (dispatch, getState, {fetch}) => {
   })
 }
 
+export const openCalendarEventsModal = (selectedDate) => ({type: OPEN_CALENDAR_EVENTS_MODAL, selectedDate})
+
+export const closeCalendarEventsModal = () => ({type: CLOSE_CALENDAR_EVENTS_MODAL})
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -68,6 +75,8 @@ const initialState = {
   search: undefined,
   events: [],
   date: moment().format(),
+  calendarEventsModalOpened: false,
+  selectedDate: null,
 }
 
 export default createReducer(initialState, {
@@ -114,6 +123,14 @@ export default createReducer(initialState, {
       ...state.loading,
       events: false,
     },
+  }),
+  [OPEN_CALENDAR_EVENTS_MODAL]: (state, {selectedDate}) => ({
+    calendarEventsModalOpened: true,
+    selectedDate,
+  }),
+  [CLOSE_CALENDAR_EVENTS_MODAL]: (state, action) => ({
+    calendarEventsModalOpened: false,
+    selectedDate: null,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
