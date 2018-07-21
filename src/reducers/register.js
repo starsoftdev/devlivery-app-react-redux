@@ -3,7 +3,6 @@ import {loginSuccess} from './login'
 import {message} from 'antd'
 import {getToken} from './user'
 import {DATE_FORMAT} from '../constants'
-import {getBirthday} from '../utils'
 
 // ------------------------------------
 // Constants
@@ -47,7 +46,9 @@ export const register = (values) => (dispatch, getState, {fetch, history}) => {
     body: {
       ...otherDetails,
       account_type: accountType,
-      dob: getBirthday(birthday),
+      ...birthday ? {
+        dob: birthday.format(DATE_FORMAT)
+      } : {},
     },
     success: (res) => {
       dispatch({type: REGISTER_SUCCESS})
