@@ -20,10 +20,6 @@ export const GET_ROLES_REQUEST = 'Register.GET_ROLES_REQUEST'
 export const GET_ROLES_SUCCESS = 'Register.GET_ROLES_SUCCESS'
 export const GET_ROLES_FAILURE = 'Register.GET_ROLES_FAILURE'
 
-export const GET_PERMISSIONS_REQUEST = 'Register.GET_PERMISSIONS_REQUEST'
-export const GET_PERMISSIONS_SUCCESS = 'Register.GET_PERMISSIONS_SUCCESS'
-export const GET_PERMISSIONS_FAILURE = 'Register.GET_PERMISSIONS_FAILURE'
-
 export const ADD_TEAM_REQUEST = 'Register.ADD_TEAM_REQUEST'
 export const ADD_TEAM_SUCCESS = 'Register.ADD_TEAM_SUCCESS'
 export const ADD_TEAM_FAILURE = 'Register.ADD_TEAM_FAILURE'
@@ -82,20 +78,6 @@ export const getRoles = () => (dispatch, getState, {fetch}) => {
   })
 }
 
-// TODO make sure this request is needed
-export const getPermissions = () => (dispatch, getState, {fetch}) => {
-  dispatch({type: GET_PERMISSIONS_REQUEST})
-  return fetch(`/permissions`, {
-    method: 'GET',
-    success: (permissions) => {
-      dispatch({type: GET_PERMISSIONS_SUCCESS, permissions})
-    },
-    failure: () => {
-      dispatch({type: GET_PERMISSIONS_FAILURE})
-    }
-  })
-}
-
 export const addTeam = (values) => (dispatch, getState, {fetch, history}) => {
   const {user} = getState().user
   const {token} = dispatch(getToken())
@@ -118,17 +100,19 @@ export const addTeam = (values) => (dispatch, getState, {fetch, history}) => {
   })
 }
 
-// TODO invite people
 export const invitePeople = (people) => (dispatch, getState, {fetch, history}) => {
   const {token} = dispatch(getToken())
   dispatch({type: INVITE_PEOPLE_REQUEST, people})
   return fetch(`/invitations`, {
     method: 'POST',
-    body: {},
+    body: {
+      users: people,
+    },
     token,
-    success: () => {
+    success: (res) => {
       dispatch({type: INVITE_PEOPLE_SUCCESS})
       history.push('/dashboard/orders')
+      message.success(res.data)
       dispatch(clear())
     },
     failure: () => {
@@ -147,14 +131,12 @@ const initialState = {
   loading: {
     register: false,
     roles: false,
-    permissions: false,
     addingTeam: false,
   },
   accountType: null,
   individualDetails: null,
   teamDetails: null,
   roles: [],
-  permissions: [],
 }
 
 export default createReducer(initialState, {
@@ -194,25 +176,6 @@ export default createReducer(initialState, {
     loading: {
       ...state.loading,
       roles: false,
-    },
-  }),
-  [GET_PERMISSIONS_REQUEST]: (state, action) => ({
-    loading: {
-      ...state.loading,
-      permissions: true,
-    },
-  }),
-  [GET_PERMISSIONS_SUCCESS]: (state, action) => ({
-    // TODO
-    loading: {
-      ...state.loading,
-      permissions: false,
-    },
-  }),
-  [GET_PERMISSIONS_FAILURE]: (state, action) => ({
-    loading: {
-      ...state.loading,
-      permissions: false,
     },
   }),
   [ADD_TEAM_REQUEST]: (state, {teamDetails}) => ({

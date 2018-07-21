@@ -40,4 +40,13 @@
 
 .person {
   margin-bottom: 50px;
+  position: relative;
+}
+
+.removeIcon {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: -30px;
+  transform: translateY(-50%);
 }
