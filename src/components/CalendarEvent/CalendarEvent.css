@@ -1,0 +1,66 @@
+@import '../../styles/variables.css';
+
+.event {
+  display: flex;
+  box-shadow: 0 1px 2px 0 rgba(0,39,36,0.1);
+  background-color: var(--white-color);
+}
+
+.event + .event {
+  /*to adjust to calendar height*/
+  margin-top: 25px;
+}
+
+.eventDate {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  border-right: 2px solid color-mod(var(--dark-color) a(10%));
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.eventDay {
+  color: var(--light-grey-color);
+  font-size: 40px;
+  line-height: 40px;
+}
+
+.eventMonth {
+  color: var(--text-color);
+}
+
+.eventDetails {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 24px;
+  padding-right: 60px;
+  position: relative;
+}
+
+.eventType {
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-sm);
+  color: var(--dark-color);
+  text-transform: uppercase;
+  letter-spacing: 2.1px;
+}
+
+.eventName {
+  font-family: var(--font-family-secondary);
+  font-size: 18px;
+  color: var(--dark-color);
+  text-transform: uppercase;
+  letter-spacing: 3.15px;
+}
+
+.eventArrowIcon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: var(--margin-xl);
+}

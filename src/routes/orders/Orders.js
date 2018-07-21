@@ -3,29 +3,13 @@ import {connect} from 'react-redux'
 import {Calendar, Input, Table} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Orders.css'
-import {CalendarHeader, Link, PaginationItem} from '../../components'
-import {clear, getEvents, getOrders} from '../../reducers/orders'
-import LongArrowIcon from '../../static/long-right-arrow.svg'
+import {CalendarHeader, CalendarEvent, PaginationItem, CalendarEvents} from '../../components'
+import {clear, getEvents, getOrders, openCalendarEventsModal} from '../../reducers/orders'
 import debounce from 'lodash/debounce'
 import moment from 'moment'
 import cn from 'classnames'
 import messages from './messages'
 import {DATE_FORMAT, DEFAULT_DEBOUNCE_TIME} from '../../constants'
-import {EVENT_PURCHASE_ROUTES} from '../'
-import {setFlow} from '../../reducers/purchase'
-
-const Event = ({first_name, last_name, occasion, contact_specific_date, occasion_date, occasion_type, setFlow}) =>
-  <Link className={s.event} to={EVENT_PURCHASE_ROUTES[0]} onClick={() => setFlow(EVENT_PURCHASE_ROUTES)}>
-    <div className={s.eventDate}>
-      <div className={s.eventDay}>{moment(contact_specific_date || occasion_date, DATE_FORMAT).format('D')}</div>
-      <div className={s.eventWeekDay}>{moment(contact_specific_date || occasion_date, DATE_FORMAT).format('dddd')}</div>
-    </div>
-    <div className={s.eventDetails}>
-      <div className={s.eventType}>{occasion} ({occasion_type})</div>
-      <div className={s.eventName}>{first_name} {last_name}</div>
-      <LongArrowIcon className={s.eventArrowIcon}/>
-    </div>
-  </Link>
 
 class Orders extends React.Component {
   constructor(props) {
@@ -51,7 +35,7 @@ class Orders extends React.Component {
   render() {
     const {search} = this.state
     // TODO add table loading
-    const {ordersCount, orders, page, pageSize, loading, getOrders, events, date, getEvents, intl, setFlow} = this.props
+    const {ordersCount, orders, page, pageSize, loading, getOrders, events, date, getEvents, intl, openCalendarEventsModal, calendarEventsModalOpened} = this.props
     const columns = [
       {
         title: intl.formatMessage(messages.orderColumn),
@@ -122,13 +106,20 @@ class Orders extends React.Component {
                 const hasEvents = events.find(event => moment(event.contact_specific_date || event.occasion_date, DATE_FORMAT).isSame(current, 'd'))
                 return hasEvents ? <div className={cn(s.hasEvents, today.isSame(current, 'd') && s.inverted)}/> : null
               }}
+              onSelect={(current) => {
+                const hasEvents = events.find(event => moment(event.contact_specific_date || event.occasion_date, DATE_FORMAT).isSame(current, 'd'))
+                if (hasEvents) {
+                  openCalendarEventsModal(current)
+                }
+              }}
             />
           </section>
           <section className={s.events}>
-            {events.map((event, i) =>
-              <Event key={i} {...event} setFlow={setFlow}/>
-            )}
+            {events.map((event, i) => i < 3 ? (
+              <CalendarEvent key={i} {...event}/>
+            ) : null)}
           </section>
+          {calendarEventsModalOpened && <CalendarEvents/>}
         </div>
       </div>
     )
@@ -141,8 +132,8 @@ const mapState = state => ({
 
 const mapDispatch = {
   getEvents,
+  openCalendarEventsModal,
   getOrders,
-  setFlow,
   clear,
 }
 

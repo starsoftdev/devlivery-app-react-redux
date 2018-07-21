@@ -14,3 +14,5 @@ export {default as ContactsImporting} from './ContactsImporting/ContactsImportin
 export {default as ColumnsMappingForm} from './ColumnsMappingForm/ColumnsMappingForm'
 export {default as UploadedContacts} from './UploadedContacts/UploadedContacts'
 export {default as BundleDetails} from './BundleDetails/BundleDetails'
+export {default as CalendarEvents} from './CalendarEvents/CalendarEvents'
+export {default as CalendarEvent} from './CalendarEvent/CalendarEvent'
