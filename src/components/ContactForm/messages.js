@@ -85,4 +85,8 @@ export default defineMessages({
     id: 'contactForm.addReminder',
     defaultMessage: 'Add new reminder',
   },
+  repeat: {
+    id: 'contactForm.repeat',
+    defaultMessage: 'Repeat',
+  },
 })

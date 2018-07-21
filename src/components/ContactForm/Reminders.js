@@ -9,11 +9,12 @@ import {getOccasions} from '../../reducers/contacts'
 import debounce from 'lodash/debounce'
 import messages from './messages'
 import moment from 'moment/moment'
-
-let uuid = 1
+import {createArray} from '../../utils'
 
 // TODO add loading
 class Reminders extends React.Component {
+  uuid = 1
+
   constructor(props) {
     super(props)
 
@@ -27,6 +28,11 @@ class Reminders extends React.Component {
 
   componentWillMount () {
     this.props.getOccasions()
+  }
+
+  componentDidMount () {
+    const {initialValues} = this.props
+    this.uuid = initialValues ? initialValues.length : 1
   }
 
   addOccasion = (occasionTitle) => {
@@ -44,8 +50,8 @@ class Reminders extends React.Component {
 
   addItem = () => {
     const keys = this.props.form.getFieldValue('reminderKeys')
-    const newKeys = keys.concat(uuid)
-    uuid++
+    const newKeys = keys.concat(this.uuid)
+    this.uuid++
     this.props.form.setFieldsValue({reminderKeys: newKeys})
   }
 
@@ -53,6 +59,7 @@ class Reminders extends React.Component {
     const {occasionTitle, newOccasion} = this.state
     const {occasions, loading, intl, initialValues} = this.props
     const {getFieldDecorator, getFieldValue} = this.props.form
+
     this.props.form.getFieldDecorator('reminderKeys', {initialValue: [0]})
 
     let occasionsList = [...occasions]
@@ -66,14 +73,14 @@ class Reminders extends React.Component {
       <React.Fragment>
         {keys.map((k, i) =>
           <div key={k} className={s.item}>
-            {initialValues && initialValues.reminders[k] && initialValues.reminders[k].id && getFieldDecorator(`reminders[${k}].id`, {
-              initialValue: initialValues.reminders[k].id,
+            {initialValues && initialValues[k] && initialValues[k].id && getFieldDecorator(`reminders[${k}].id`, {
+              initialValue: initialValues[k].id,
             })(
               <Input type='hidden'/>
             )}
             <Form.Item>
               {getFieldDecorator(`reminders[${k}].occasion_id`, {
-                initialValue: initialValues && initialValues.reminders[k] && initialValues.reminders[k].occasion_id,
+                initialValue: initialValues && initialValues[k] ? `${initialValues[k].occasion_id}` : undefined,
               })(
                 <Select
                   showSearch
@@ -85,8 +92,8 @@ class Reminders extends React.Component {
                     this.getOccasions({search})
                     this.setState({occasionTitle: search})
                   }}
-                  onChange={(value, {key}) => {
-                    if (+key === 0) {
+                  onChange={(value, item) => {
+                    if (item && +item.key === 0) {
                       this.addOccasion(occasionTitle)
                     }
                   }}
@@ -95,16 +102,30 @@ class Reminders extends React.Component {
                     <Select.Option key={0} value={occasionTitle}>+ Add "{occasionTitle}"</Select.Option>
                   )}
                   {occasionsList.map((item, i) =>
-                    <Select.Option key={i + 1} value={item.title}>{item.title}</Select.Option>
+                    <Select.Option key={i + 1} value={`${item.id}`}>{item.title}</Select.Option>
                   )}
                 </Select>
               )}
             </Form.Item>
             <Form.Item>
               {getFieldDecorator(`reminders[${k}].date`, {
-                initialValue: initialValues && initialValues.reminders[k] ? moment(initialValues.reminders[k].date, DATE_FORMAT) : undefined,
+                initialValue: initialValues && initialValues[k] ? moment(initialValues[k].date, DATE_FORMAT) : undefined,
               })(
                 <DatePicker className={s.date} format={DATE_FORMAT}/>
+              )}
+            </Form.Item>
+            <Form.Item>
+              {getFieldDecorator(`reminders[${k}].recurring`, {
+                initialValue: initialValues && initialValues[k] && initialValues[k].recurring ? initialValues[k].recurring : undefined,
+              })(
+                <Select
+                  allowClear
+                  placeholder={intl.formatMessage(messages.repeat)}
+                >
+                  {[{value: 'm', label: 'Every month'}, {value: 'y', label: 'Every year'}].map((item) =>
+                    <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>
+                  )}
+                </Select>
               )}
             </Form.Item>
             {i > 0 && (
