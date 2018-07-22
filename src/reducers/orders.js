@@ -3,6 +3,7 @@ import qs from 'query-string'
 import {getToken} from './user'
 import {DEFAULT_PAGE_SIZE} from '../constants'
 import moment from 'moment'
+import has from 'lodash/has'
 
 // ------------------------------------
 // Constants
@@ -81,8 +82,7 @@ const initialState = {
 
 export default createReducer(initialState, {
   [GET_ORDERS_REQUEST]: (state, {params}) => ({
-    // do not send search param if string is empty
-    search: params.search !== undefined ? (params.search || undefined) : state.search,
+    search: has(params, 'search') ? params.search : state.search,
     page: params.pagination ? params.pagination.current : 1,
     pageSize: params.pagination ? params.pagination.pageSize : DEFAULT_PAGE_SIZE,
     loading: {
