@@ -4,15 +4,17 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Header.css'
 import Logo from '../../static/logo.svg'
 import {
+  CARD_STORE_ROUTE,
   DASHBOARD_ROUTES,
   GIFT_STORE_ROUTE,
   HOME_ROUTE,
+  HOME_ROUTES,
   LOGIN_ROUTE,
   LOGOUT_ROUTE,
   ORDERS_ROUTE,
   REGISTER1_ROUTE,
 } from '../../routes'
-import {Link, LanguageSwitcher} from '../../components'
+import {LanguageSwitcher, Link} from '../../components'
 import cn from 'classnames'
 import {injectIntl} from 'react-intl'
 import messages from './messages'
@@ -24,8 +26,7 @@ class Header extends React.Component {
       <header
         className={cn(
           [
-            HOME_ROUTE,
-            GIFT_STORE_ROUTE,
+            ...HOME_ROUTES,
             ...DASHBOARD_ROUTES,
           ].includes(currentRouteName) && s.light,
         )}
@@ -38,8 +39,7 @@ class Header extends React.Component {
             <Logo/>
           </Link>
           {[
-            HOME_ROUTE,
-            GIFT_STORE_ROUTE,
+            ...HOME_ROUTES,
             ...DASHBOARD_ROUTES,
           ].includes(currentRouteName) && (
             <div className={s.rightMenu}>
@@ -61,8 +61,7 @@ class Header extends React.Component {
           )}
         </div>
         {[
-          HOME_ROUTE,
-          GIFT_STORE_ROUTE,
+          ...HOME_ROUTES,
           ...DASHBOARD_ROUTES,
         ].includes(currentRouteName) && (
           <ul className={s.bottomMenu}>
@@ -70,7 +69,7 @@ class Header extends React.Component {
               <Link to={ORDERS_ROUTE}>{intl.formatMessage(messages.newArrivals)}</Link>
             </li>
             <li>
-              <Link to={ORDERS_ROUTE}>{intl.formatMessage(messages.cardStore)}</Link>
+              <Link to={CARD_STORE_ROUTE}>{intl.formatMessage(messages.cardStore)}</Link>
             </li>
             <li>
               <Link to={GIFT_STORE_ROUTE}>{intl.formatMessage(messages.giftStore)}</Link>

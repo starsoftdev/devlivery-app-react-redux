@@ -4,6 +4,7 @@ import {getUser, logout} from '../reducers/user'
 
 export const HOME_ROUTE = 'home'
 export const GIFT_STORE_ROUTE = 'gift-store'
+export const CARD_STORE_ROUTE = 'card-store'
 export const LOGIN_ROUTE = 'login'
 export const REGISTER1_ROUTE = 'register1'
 export const REGISTER2_ROUTE = 'register2'
@@ -24,6 +25,12 @@ export const EDIT_GROUP_ROUTE = 'edit-group'
 export const CONTACT_GROUPS_ROUTE = 'contact-groups'
 export const BUNDLES_ROUTE = 'bundles'
 export const USER_ROUTE = 'user'
+
+export const HOME_ROUTES = [
+  HOME_ROUTE,
+  GIFT_STORE_ROUTE,
+  CARD_STORE_ROUTE,
+]
 
 export const DASHBOARD_ROUTES = [
   DASHBOARD_ROUTE,
@@ -226,6 +233,11 @@ const routes = {
       path: '/gift-store',
       name: GIFT_STORE_ROUTE,
       load: () => import(/* webpackChunkName: 'giftStore' */ './giftStore'),
+    },
+    {
+      path: '/card-store',
+      name: CARD_STORE_ROUTE,
+      load: () => import(/* webpackChunkName: 'cardStore' */ './cardStore'),
     },
     {
       path: '/login',
