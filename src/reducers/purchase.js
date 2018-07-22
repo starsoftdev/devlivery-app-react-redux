@@ -254,7 +254,9 @@ export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
     body: {
       lettering: letteringTechnique,
       card_id: card && card.id,
-      gift_id: gift && gift.id,
+      ...gift ? {
+        gift_id: gift.id,
+      } : {},
       card_format: cardSize && cardSize.key,
       // TODO decide where cardStyle should be send
       // TODO send html here

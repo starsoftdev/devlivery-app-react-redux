@@ -37,7 +37,9 @@ class Purchase11 extends React.Component {
               <div>
                 <img src={orderDetails.items.card.images[0].url} className={s.cardImage}/>
               </div>
-              <PlusGiftIcon className={s.plusIcon}/>
+              {orderDetails.items.gifts[0] && (
+                <PlusGiftIcon className={s.plusIcon}/>
+              )}
               <p className={s.cardInfo}>
                 <span className={s.cardType}>{orderDetails.items.card.title}</span>
                 <br/>
@@ -45,17 +47,19 @@ class Purchase11 extends React.Component {
                 <span className={s.cardPriceCurrency}>{orderDetails.items.card.currency}</span>
               </p>
             </div>
-            <div className={s.giftWrapper}>
-              <div>
-                <img src={orderDetails.items.gifts[0].gift.image[0].url} className={s.giftImage}/>
+            {orderDetails.items.gifts[0] && (
+              <div className={s.giftWrapper}>
+                <div>
+                  <img src={orderDetails.items.gifts[0].gift.image[0].url} className={s.giftImage}/>
+                </div>
+                <p className={s.cardInfo}>
+                  <span className={s.cardType}>{orderDetails.items.gifts[0].gift.title}</span>
+                  <br/>
+                  <span className={s.cardPrice}>{orderDetails.items.gifts[0].gift.price}</span>
+                  <span className={s.cardPriceCurrency}>{orderDetails.items.gifts[0].gift.currency}</span>
+                </p>
               </div>
-              <p className={s.cardInfo}>
-                <span className={s.cardType}>{orderDetails.items.gifts[0].gift.title}</span>
-                <br/>
-                <span className={s.cardPrice}>{orderDetails.items.gifts[0].gift.price}</span>
-                <span className={s.cardPriceCurrency}>{orderDetails.items.gifts[0].gift.currency}</span>
-              </p>
-            </div>
+            )}
           </div>
           <div className={s.orderDetails}>
             <Row type='flex' align='center' gutter={20}>
@@ -68,7 +72,7 @@ class Purchase11 extends React.Component {
                 </section>
               </Col>
               <Col xs={24} sm={12}>
-                {orderDetails.items.gifts[0].gift.description}
+                {orderDetails.items.gifts[0] && orderDetails.items.gifts[0].gift.description}
               </Col>
             </Row>
           </div>

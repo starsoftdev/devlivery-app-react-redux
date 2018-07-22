@@ -71,13 +71,17 @@ class Bundles extends React.Component {
                     <div>
                       <img src={bundle.bundle_card.card.images[0].url} className={s.cardImage}/>
                     </div>
-                    <PlusGiftIcon className={s.plusIcon}/>
+                    {bundle.bundle_gifts[0] && (
+                      <PlusGiftIcon className={s.plusIcon}/>
+                    )}
                   </div>
-                  <div className={s.giftWrapper}>
-                    <div>
-                      <img src={bundle.bundle_gifts[0].gift.image[0].url} className={s.giftImage}/>
+                  {bundle.bundle_gifts[0] && (
+                    <div className={s.giftWrapper}>
+                      <div>
+                        <img src={bundle.bundle_gifts[0].gift.image[0].url} className={s.giftImage}/>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </a>
                 <div>
                   <div className={s.bundleActions}>
