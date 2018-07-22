@@ -49,26 +49,6 @@ export default defineMessages({
     id: 'contactForm.birthday',
     defaultMessage: 'Birthday',
   },
-  address: {
-    id: 'contactForm.address',
-    defaultMessage: 'Address',
-  },
-  city: {
-    id: 'contactForm.city',
-    defaultMessage: 'City',
-  },
-  state: {
-    id: 'contactForm.state',
-    defaultMessage: 'State',
-  },
-  postalCode: {
-    id: 'contactForm.postalCode',
-    defaultMessage: 'Postal Code',
-  },
-  country: {
-    id: 'contactForm.country',
-    defaultMessage: 'Country',
-  },
   selectGroup: {
     id: 'contactForm.selectGroup',
     defaultMessage: 'Select relevant group',

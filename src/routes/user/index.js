@@ -1,9 +1,11 @@
 import React from 'react'
 import User from './User'
 import {setCurrentRouteName} from '../../reducers/global'
+import {getUserDetails} from '../../reducers/user'
 
-function action({store, route}) {
+function action({store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
+  store.dispatch(getUserDetails())
 
   return {
     chunks: ['dashboard'],
@@ -11,7 +13,7 @@ function action({store, route}) {
     breadcrumbs: [
       {name: 'Settings'},
     ],
-    component: <User/>,
+    component: <User intl={intl}/>,
   }
 }
 

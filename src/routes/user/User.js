@@ -1,38 +1,49 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button, Col, Form, Input, Row, Select} from 'antd'
+import {Button, Checkbox, Col, DatePicker, Form, Input, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './User.css'
 import formMessages from '../../formMessages'
 import moment from 'moment'
 import PlusIcon from '../../static/plus.svg'
+import {DATE_FORMAT} from '../../constants'
+import {ChangePasswordForm} from '../../components'
+import {updateUser} from '../../reducers/user'
+import messages from './messages'
 
 class User extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        // this.props.addContacts(values)
+        this.props.updateUser(values)
       }
     })
   }
 
   render() {
-    const {account} = this.props
+    const {user, intl} = this.props
     const {getFieldDecorator} = this.props.form
+
+    const address = user && user.addresses && user.addresses.find(item => item.default)
+
+    const reminderTimes = [
+      {value: 0, label: 'Same Day'},
+      {value: 1, label: 'Day Before'},
+      {value: 2, label: '3 Days Before'},
+      {value: 3, label: '1 week before'},
+    ]
+
     return (
       <div className={s.container}>
-        <Form onSubmit={this.handleSubmit} className={s.form}>
+        <div className={s.form}>
           <Row type='flex' gutter={20} className={s.leftColumn}>
             <Col xs={24} md={12}>
               <section className={s.section}>
                 <h1 className={s.header}>Personal Information</h1>
                 <Form.Item>
-                  {getFieldDecorator('nickname', {
-                    initialValue: account && account.nickname,
-                    rules: [
-                      {required: true, message: formMessages.required, whitespace: true},
-                    ],
+                  {getFieldDecorator('user.nickname', {
+                    initialValue: user && user.nickname,
                   })(
                     <Input placeholder={'Nickname'}/>
                   )}
@@ -40,10 +51,10 @@ class User extends React.Component {
                 <Row gutter={20}>
                   <Col xs={24} sm={12}>
                     <Form.Item>
-                      {getFieldDecorator('first_name', {
-                        initialValue: account && account.first_name,
+                      {getFieldDecorator('user.first_name', {
+                        initialValue: user && user.first_name,
                         rules: [
-                          {required: true, message: formMessages.required, whitespace: true},
+                          {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                         ],
                       })(
                         <Input placeholder={'First Name'}/>
@@ -52,10 +63,10 @@ class User extends React.Component {
                   </Col>
                   <Col xs={24} sm={12}>
                     <Form.Item>
-                      {getFieldDecorator('last_name', {
-                        initialValue: account && account.last_name,
+                      {getFieldDecorator('user.last_name', {
+                        initialValue: user && user.last_name,
                         rules: [
-                          {required: true, message: formMessages.required, whitespace: true},
+                          {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                         ],
                       })(
                         <Input placeholder={'Last Name'}/>
@@ -64,17 +75,19 @@ class User extends React.Component {
                   </Col>
                 </Row>
                 <Form.Item>
-                  {getFieldDecorator('email', {
+                  {getFieldDecorator('user.email', {
+                    initialValue: user && user.email,
                     rules: [
-                      {required: true, message: formMessages.required},
-                      {type: 'email', message: formMessages.emailInvalid},
+                      {required: true, message: intl.formatMessage(formMessages.required)},
+                      {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
                     ],
                   })(
                     <Input placeholder={'Email'}/>
                   )}
                 </Form.Item>
                 <Form.Item>
-                  {getFieldDecorator('phone', {
+                  {getFieldDecorator('user.phone', {
+                    initialValue: user && user.phone,
                     rules: [
                       {required: true, message: formMessages.required},
                     ],
@@ -85,79 +98,35 @@ class User extends React.Component {
               </section>
               <section className={s.section}>
                 <h1 className={s.header}>Birthday</h1>
-                <Row gutter={20}>
-                  <Col xs={24} sm={12}>
-                    {/* TODO add birthday fields as on Register 2 */}
-                    <Form.Item>
-                      {getFieldDecorator('month', {
-                        initialValue: account ? account.month : undefined,
-                        rules: [
-                          {required: true, message: formMessages.required},
-                        ],
-                      })(
-                        <Select placeholder={'Month'}>
-                          {moment.months().map((month, i) =>
-                            <Select.Option key={month} value={i + 1}>{month}</Select.Option>
-                          )}
-                        </Select>
-                      )}
-                    </Form.Item>
-                  </Col>
-                  <Col xs={24} sm={6}>
-                    <Form.Item>
-                      {getFieldDecorator('date', {
-                        initialValue: account && account.date,
-                        rules: [
-                          {required: true, message: formMessages.required},
-                        ],
-                      })(
-                        <Input placeholder={'Date'}/>
-                      )}
-                    </Form.Item>
-                  </Col>
-                  <Col xs={24} sm={6}>
-                    <Form.Item>
-                      {getFieldDecorator('year', {
-                        initialValue: account && account.year,
-                        rules: [
-                          {required: true, message: formMessages.required},
-                        ],
-                      })(
-                        <Input placeholder={'Year'}/>
-                      )}
-                    </Form.Item>
-                  </Col>
-                </Row>
+                <Form.Item>
+                  {getFieldDecorator('birthday', {
+                    initialValue: user && user.dob ? moment(user.dob, DATE_FORMAT) : undefined,
+                  })(
+                    <DatePicker className={s.birthday} format={DATE_FORMAT}/>
+                  )}
+                </Form.Item>
               </section>
               <section className={s.section}>
                 <h1 className={s.header}>Billing Details</h1>
                 <Form.Item>
-                  {getFieldDecorator('card_number', {
-                    rules: [
-                      {required: true, message: formMessages.required},
-                    ],
+                  {getFieldDecorator('billing.card_number', {
+                    initialValue: user && user.billing && user.billing.card_number,
                   })(
                     <Input placeholder={'Card Number'}/>
                   )}
                 </Form.Item>
                 <Form.Item>
-                  {getFieldDecorator('card_name', {
-                    rules: [
-                      {required: true, message: formMessages.required},
-                    ],
+                  {getFieldDecorator('billing.name_on_card', {
+                    initialValue: user && user.billing && user.billing.name_on_card,
                   })(
                     <Input placeholder={'Card Name'}/>
                   )}
                 </Form.Item>
                 <Row gutter={20}>
                   <Col xs={24} sm={6}>
-                    {/* TODO add birthday fields as on Register 2 */}
                     <Form.Item>
-                      {getFieldDecorator('card_month', {
-                        initialValue: account ? account.month : undefined,
-                        rules: [
-                          {required: true, message: formMessages.required},
-                        ],
+                      {getFieldDecorator('billing.expiry_month', {
+                        initialValue: user && user.billing && user.billing.expiry_month,
                       })(
                         <Input placeholder={'MM'}/>
                       )}
@@ -165,23 +134,17 @@ class User extends React.Component {
                   </Col>
                   <Col xs={24} sm={6}>
                     <Form.Item>
-                      {getFieldDecorator('card_year', {
-                        initialValue: account && account.date,
-                        rules: [
-                          {required: true, message: formMessages.required},
-                        ],
+                      {getFieldDecorator('billing.expiry_year', {
+                        initialValue: user && user.billing && user.billing.expiry_year,
                       })(
-                        <Input placeholder={'YY'}/>
+                        <Input placeholder={'YYYY'}/>
                       )}
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12}>
                     <Form.Item>
-                      {getFieldDecorator('cvv', {
-                        initialValue: account && account.year,
-                        rules: [
-                          {required: true, message: formMessages.required},
-                        ],
+                      {getFieldDecorator('billing.cvv', {
+                        initialValue: user && user.billing && user.billing.cvv,
                       })(
                         <Input placeholder={'CVV'}/>
                       )}
@@ -189,18 +152,55 @@ class User extends React.Component {
                   </Col>
                 </Row>
               </section>
+              <section className={s.section}>
+                <h1 className={s.header}>{'Contact Preferences'}</h1>
+                <Form.Item className={s.checkboxWrapper}>
+                  {getFieldDecorator('preference.notify_on_reminders', {
+                    valuePropName: 'checked',
+                    initialValue: user && user.preference &&  user.preference.notify_on_reminders,
+
+                  })(
+                    <Checkbox>Notify me of new reminders via email</Checkbox>
+                  )}
+                </Form.Item>
+                <Form.Item className={s.checkboxWrapper}>
+                  {getFieldDecorator('preference.receive_promotional_emails', {
+                    valuePropName: 'checked',
+                    initialValue: user && user.preference && user.preference.receive_promotional_emails,
+                  })(
+                    <Checkbox>I would like to receive promotional email</Checkbox>
+                  )}
+                </Form.Item>
+                <Form.Item>
+                  {getFieldDecorator('remind', {
+                    initialValue: user && user.preference ? user.preference.remind : undefined,
+                  })(
+                    <Select
+                      allowClear
+                      placeholder={'Notification Time for Upcoming Reminders'}
+                      className={s.select}
+                    >
+                      {reminderTimes.map((item) =>
+                        <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>
+                      )}
+                    </Select>
+                  )}
+                </Form.Item>
+              </section>
             </Col>
             <Col xs={24} md={12} className={s.rightColumn}>
               <section className={s.section}>
-                <h1 className={s.header}>Shipping Address</h1>
+                <h1 className={s.header}>{'Shipping Address'}</h1>
+                {address && address.id && getFieldDecorator(`address.id`, {
+                  initialValue: address.id,
+                })(
+                  <Input type='hidden'/>
+                )}
                 <Row gutter={20}>
                   <Col xs={24} sm={12}>
                     <Form.Item>
-                      {getFieldDecorator('shipping_first_name', {
-                        initialValue: account && account.first_name,
-                        rules: [
-                          {required: true, message: formMessages.required, whitespace: true},
-                        ],
+                      {getFieldDecorator('address.first_name', {
+                        initialValue: address && address.first_name,
                       })(
                         <Input placeholder={'First Name'}/>
                       )}
@@ -208,11 +208,8 @@ class User extends React.Component {
                   </Col>
                   <Col xs={24} sm={12}>
                     <Form.Item>
-                      {getFieldDecorator('shipping_last_name', {
-                        initialValue: account && account.last_name,
-                        rules: [
-                          {required: true, message: formMessages.required, whitespace: true},
-                        ],
+                      {getFieldDecorator('address.last_name', {
+                        initialValue: address && address.last_name,
                       })(
                         <Input placeholder={'Last Name'}/>
                       )}
@@ -220,47 +217,47 @@ class User extends React.Component {
                   </Col>
                 </Row>
                 <Form.Item>
-                  {getFieldDecorator('shipping_company', {
-                    initialValue: account && account.shipping_company,
+                  {getFieldDecorator(`address.company`, {
+                    initialValue: address && address.company,
                     rules: [
-                      {required: true, message: formMessages.required, whitespace: true},
+                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                     ],
                   })(
-                    <Input placeholder={'Company'}/>
+                    <Input placeholder={intl.formatMessage(messages.company)}/>
                   )}
                 </Form.Item>
                 <Form.Item>
-                  {getFieldDecorator('shipping_address', {
-                    initialValue: account && account.shipping_address,
+                  {getFieldDecorator(`address.address`, {
+                    initialValue: address && address.address,
                     rules: [
-                      {required: true, message: formMessages.required, whitespace: true},
+                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                     ],
                   })(
-                    <Input placeholder={'Address'}/>
+                    <Input placeholder={intl.formatMessage(messages.address)}/>
                   )}
                 </Form.Item>
                 <Row gutter={20}>
                   <Col xs={24} sm={12}>
                     <Form.Item>
-                      {getFieldDecorator('shipping_city', {
-                        initialValue: account && account.shipping_city,
+                      {getFieldDecorator(`address.city`, {
+                        initialValue: address && address.city,
                         rules: [
-                          {required: true, message: formMessages.required, whitespace: true},
+                          {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                         ],
                       })(
-                        <Input placeholder={'City'}/>
+                        <Input placeholder={intl.formatMessage(messages.city)}/>
                       )}
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12}>
                     <Form.Item>
-                      {getFieldDecorator('shipping_state', {
-                        initialValue: account && account.shipping_state,
+                      {getFieldDecorator(`address.state`, {
+                        initialValue: address && address.state,
                         rules: [
-                          {required: true, message: formMessages.required, whitespace: true},
+                          {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                         ],
                       })(
-                        <Input placeholder={'State'}/>
+                        <Input placeholder={intl.formatMessage(messages.state)}/>
                       )}
                     </Form.Item>
                   </Col>
@@ -268,72 +265,37 @@ class User extends React.Component {
                 <Row gutter={20}>
                   <Col xs={24} sm={12}>
                     <Form.Item>
-                      {getFieldDecorator('shipping_postal_code', {
-                        initialValue: account && account.shipping_postal_code,
+                      {getFieldDecorator(`address.postal_code`, {
+                        initialValue: address && address.postal_code,
                         rules: [
-                          {required: true, message: formMessages.required},
+                          {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                         ],
                       })(
-                        <Input placeholder={'Postal Code'}/>
+                        <Input placeholder={intl.formatMessage(messages.postalCode)}/>
                       )}
                     </Form.Item>
                   </Col>
                   <Col xs={24} sm={12}>
                     <Form.Item>
-                      {getFieldDecorator('shipping_country', {
-                        initialValue: account && account.shipping_country,
+                      {getFieldDecorator(`address.country`, {
+                        initialValue: address && address.country,
                         rules: [
-                          {required: true, message: formMessages.required, whitespace: true},
+                          {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                         ],
                       })(
-                        <Input placeholder={'Country'}/>
+                        <Input placeholder={intl.formatMessage(messages.country)}/>
                       )}
                     </Form.Item>
                   </Col>
                 </Row>
               </section>
-              <section className={s.section}>
-                <h1 className={s.header}>Change Password</h1>
-                <Row gutter={20}>
-                  <Col xs={24} sm={12}>
-                    <Form.Item>
-                      {getFieldDecorator('old_password', {
-                        rules: [
-                          {required: true, message: formMessages.required},
-                        ],
-                      })(
-                        <Input placeholder={'Old Password'} type='password'/>
-                      )}
-                    </Form.Item>
-                  </Col>
-                  <Col xs={24} sm={12}>
-                    <Form.Item>
-                      {getFieldDecorator('password', {
-                        rules: [
-                          {required: true, message: formMessages.required},
-                        ],
-                      })(
-                        <Input placeholder={'New Password'} type='password'/>
-                      )}
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Form.Item>
-                  {getFieldDecorator('confirmation_password', {
-                    rules: [
-                      {required: true, message: formMessages.required},
-                    ],
-                  })(
-                    <Input placeholder={'New Password'} type='password'/>
-                  )}
-                </Form.Item>
-              </section>
+              <ChangePasswordForm/>
             </Col>
           </Row>
-        </Form>
+        </div>
         <div className={s.actionsWrapper}>
           <div className={s.actions}>
-            <Button type='primary' ghost>
+            <Button type='primary' ghost onClick={this.handleSubmit}>
               <PlusIcon/>
               Save
             </Button>
@@ -345,8 +307,11 @@ class User extends React.Component {
 }
 
 const mapState = state => ({
+  user: state.user.user,
 })
 
-const mapDispatch = {}
+const mapDispatch = {
+  updateUser,
+}
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(User)))

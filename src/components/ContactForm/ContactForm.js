@@ -4,85 +4,12 @@ import s from './ContactForm.css'
 import {Col, DatePicker, Input, Row, Select, Form} from 'antd'
 import formMessages from '../../formMessages'
 import {DATE_FORMAT} from '../../constants'
+import {Address} from '../../components'
 import messages from './messages'
 import {injectIntl} from 'react-intl'
 import Reminders from './Reminders'
 import Groups from './Groups'
 import moment from 'moment'
-
-// TODO add accordion for sections
-const AddressSection = ({getFieldDecorator, index, header, intl, initialValues, required, onAddressChange}) => {
-  const rules = [
-    {required, message: intl.formatMessage(formMessages.required)}
-  ]
-  return (
-    <section className={s.section}>
-      <h1 className={s.header}>{header}</h1>
-      {initialValues && initialValues.id && getFieldDecorator(`addresses[${index}].id`, {
-        initialValue: initialValues.id,
-      })(
-        <Input type='hidden'/>
-      )}
-      {getFieldDecorator(`addresses[${index}].title`, {
-        initialValue: header,
-      })(
-        <Input type='hidden'/>
-      )}
-      <Form.Item>
-        {getFieldDecorator(`addresses[${index}].address`, {
-          initialValue: initialValues && initialValues.address,
-          rules,
-        })(
-          <Input placeholder={intl.formatMessage(messages.address)} onChange={(e) => onAddressChange(e.target.value)}/>
-        )}
-      </Form.Item>
-      <Row gutter={20}>
-        <Col xs={24} sm={12}>
-          <Form.Item>
-            {getFieldDecorator(`addresses[${index}].city`, {
-              initialValue: initialValues && initialValues.city,
-              rules,
-            })(
-              <Input placeholder={intl.formatMessage(messages.city)}/>
-            )}
-          </Form.Item>
-        </Col>
-        <Col xs={24} sm={12}>
-          <Form.Item>
-            {getFieldDecorator(`addresses[${index}].state`, {
-              initialValue: initialValues && initialValues.state,
-              rules,
-            })(
-              <Input placeholder={intl.formatMessage(messages.state)}/>
-            )}
-          </Form.Item>
-        </Col>
-      </Row>
-      <Row gutter={20}>
-        <Col xs={24} sm={12}>
-          <Form.Item>
-            {getFieldDecorator(`addresses[${index}].postal_code`, {
-              initialValue: initialValues && initialValues.postal_code,
-              rules,
-            })(
-              <Input placeholder={intl.formatMessage(messages.postalCode)}/>
-            )}
-          </Form.Item>
-        </Col>
-        <Col xs={24} sm={12}>
-          <Form.Item>
-            {getFieldDecorator(`addresses[${index}].country`, {
-              initialValue: initialValues && initialValues.country,
-              rules,
-            })(
-              <Input placeholder={intl.formatMessage(messages.country)}/>
-            )}
-          </Form.Item>
-        </Col>
-      </Row>
-    </section>
-  )
-}
 
 const SALUTATIONS = ['Mr.', 'Ms.', 'Mrs.', 'Dr.']
 
@@ -201,7 +128,7 @@ class ContactForm extends React.Component {
     const companyAddress = intl.formatMessage(messages.companyAddress)
 
     const homeAddressSection = (
-      <AddressSection
+      <Address
         required={requiredAddress === 0}
         onAddressChange={(value) => this.changeRequiredAddress(0, value)}
         header={homeAddress}
@@ -213,7 +140,7 @@ class ContactForm extends React.Component {
     )
 
     const companyAddressSection = (
-      <AddressSection
+      <Address
         required={requiredAddress === 1}
         onAddressChange={(value) => this.changeRequiredAddress(1, value)}
         header={companyAddress}
