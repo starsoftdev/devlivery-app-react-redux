@@ -7,7 +7,6 @@ import s from './Purchase10.css'
 import {Actions, Card, SectionHeader} from '../../components'
 import AddContactManuallyIcon from '../../static/add_contacts_manually.svg'
 import ImportContactsIcon from '../../static/import_contacts.svg'
-import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import ImportContacts from './ImportContacts'
 import AddContact from './AddContact'
 import messages from './messages'
@@ -62,13 +61,8 @@ class Purchase10 extends React.Component {
               </Row>
             </div>
             <Actions>
-              <KeyHandler
-                keyEventName={KEYPRESS}
-                keyCode={13}
-                onKeyHandle={() => nextFlowStep()}
-              />
               <Button
-                onClick={() => nextFlowStep()}
+                disabled
                 type='primary'
               >
                 {intl.formatMessage(messages.submit)}
