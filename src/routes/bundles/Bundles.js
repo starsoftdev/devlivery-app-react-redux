@@ -14,8 +14,6 @@ import {ORDER_BUNDLE_ROUTES, EDIT_BUNDLE_ROUTES} from '../'
 import {setBundle, setFlow} from '../../reducers/purchase'
 import RemoveIcon from '../../static/remove.svg'
 
-// TODO add Create Bundle
-// TODO add Make an Order
 class Bundles extends React.Component {
   changeSearch = (e) => {
     const search = e.target.value
