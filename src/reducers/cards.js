@@ -2,7 +2,6 @@ import createReducer, {RESET_STORE} from '../createReducer'
 import qs from 'query-string'
 import {getToken} from './user'
 import has from 'lodash/has'
-import {SET_LETTERING_TECHNIQUE} from './purchase'
 
 // ------------------------------------
 // Constants
@@ -31,7 +30,7 @@ export const CLEAR = 'Gifts.CLEAR'
 export const getCards = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_CARDS_REQUEST, params})
   const {token} = dispatch(getToken())
-  const {page, pageSize, search, occasion, cardStyle, letteringTechnique} = getState().cards
+  const {page, pageSize, search, occasion, cardStyle, cardSize} = getState().cards
   return fetch(`/cards?${qs.stringify({
     // TODO how to apply to filters at the same time
     ...search ? {
@@ -102,7 +101,7 @@ const initialState = {
   page: 1,
   pageSize: 16,
   search: undefined,
-  letteringTechnique: undefined,
+  cardSize: undefined,
   occasionTypes: [],
   occasionType: undefined,
   cardStyles: [],
@@ -115,7 +114,9 @@ export default createReducer(initialState, {
   [GET_CARDS_REQUEST]: (state, {params}) => ({
     page: params.pagination ? params.pagination.current : 1,
     search: has(params, 'search') ? params.search : state.search,
-    giftType: has(params, 'giftType') ? params.giftType : state.giftType,
+    cardSize: has(params, 'cardSize') ? params.cardSize : state.cardSize,
+    occasion: has(params, 'occasion') ? params.occasion : state.occasion,
+    cardStyle: has(params, 'cardStyle') ? params.cardStyle : state.cardStyle,
     loading: {
       ...state.loading,
       cards: true,
