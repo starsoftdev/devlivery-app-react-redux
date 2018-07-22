@@ -68,6 +68,7 @@ export const PURCHASE12_ROUTE = 'purchase12'
 export const PURCHASE13_ROUTE = 'purchase13'
 export const PURCHASE_COMPLETED_ROUTE = 'purchase-completed'
 export const ADD_BUNDLE_ROUTE = 'add-bundle'
+export const DONATION_ROUTE = 'donation'
 
 export const PURCHASE_ROUTES = [
   PURCHASE1_ROUTE,
@@ -366,6 +367,11 @@ const routes = {
           path: '/create-bundle',
           name: ADD_BUNDLE_ROUTE,
           load: () => import(/* webpackChunkName: 'purchase' */ './addBundle'),
+        },
+        {
+          path: '/donation',
+          name: DONATION_ROUTE,
+          load: () => import(/* webpackChunkName: 'purchase' */ './donation'),
         },
       ],
     },

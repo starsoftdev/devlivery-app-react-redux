@@ -7,7 +7,7 @@ export default defineMessages({
   },
   header: {
     id: 'addBundle.header',
-    defaultMessage: 'Bundle confirmation',
+    defaultMessage: 'Bundle Confirmation',
   },
   bundleName: {
     id: 'addBundle.bundleName',
