@@ -60,13 +60,14 @@ class Reminders extends React.Component {
     const {occasions, loading, intl, initialValues} = this.props
     const {getFieldDecorator, getFieldValue} = this.props.form
 
-    this.props.form.getFieldDecorator('reminderKeys', {initialValue: [0]})
+    this.props.form.getFieldDecorator('reminderKeys', {initialValue: createArray(initialValues && initialValues.length ? initialValues.length : 1)})
 
     let occasionsList = [...occasions]
 
     if (newOccasion && !occasionTitle) {
       occasionsList = [{title: newOccasion}, ...occasions.filter(item => item.title !== newOccasion)]
     }
+    // TODO refactor occasion custom title
 
     const keys = getFieldValue('reminderKeys')
     return (
@@ -80,7 +81,7 @@ class Reminders extends React.Component {
             )}
             <Form.Item>
               {getFieldDecorator(`reminders[${k}].occasion_id`, {
-                initialValue: initialValues && initialValues[k] ? `${initialValues[k].occasion_id}` : undefined,
+                initialValue: initialValues && initialValues[k] ? (initialValues[k].occasion_id !== null ? `${initialValues[k].occasion_id}` : initialValues[k].title) : undefined,
               })(
                 <Select
                   showSearch
@@ -100,6 +101,9 @@ class Reminders extends React.Component {
                 >
                   {occasionTitle && !occasionsList.find(item => item.title === occasionTitle) && (
                     <Select.Option key={0} value={occasionTitle}>+ Add "{occasionTitle}"</Select.Option>
+                  )}
+                  {!occasionTitle && initialValues && initialValues[k] && initialValues[k].occasion_id === null && initialValues[k].title && !occasionsList.find(item => item.title === initialValues[k].title) && (
+                    <Select.Option key={0} value={initialValues[k].title}>{initialValues[k].title}</Select.Option>
                   )}
                   {occasionsList.map((item, i) =>
                     <Select.Option key={i + 1} value={`${item.id}`}>{item.title}</Select.Option>
