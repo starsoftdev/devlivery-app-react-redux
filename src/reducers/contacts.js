@@ -314,8 +314,7 @@ const initialState = {
 
 export default createReducer(initialState, {
   [GET_CONTACTS_REQUEST]: (state, {params}) => ({
-    // do not send search param if string is empty
-    search: params.search !== undefined ? (params.search || undefined) : state.search,
+    search: has(params, 'search') ? params.search : state.search,
     ordering: has(params, 'ordering') ? params.ordering : state.ordering,
     page: params.pagination ? params.pagination.current : 1,
     pageSize: params.pagination ? params.pagination.pageSize : 12,
