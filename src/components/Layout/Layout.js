@@ -9,7 +9,7 @@ import formStyles from 'antd/lib/form/style/index.css'
 import alertStyles from 'antd/lib/alert/style/index.css'
 import messageStyles from 'antd/lib/message/style/index.css'
 import globalStyles from '../../styles/global.css'
-import {DASHBOARD_ROUTES, HOME_ROUTE} from '../../routes'
+import {DASHBOARD_ROUTES, GIFT_STORE_ROUTE, HOME_ROUTE} from '../../routes'
 
 class AppLayout extends React.Component {
   static defaultProps = {
@@ -26,6 +26,7 @@ class AppLayout extends React.Component {
         </main>
         {[
           HOME_ROUTE,
+          GIFT_STORE_ROUTE,
           ...DASHBOARD_ROUTES,
         ].includes(currentRouteName) && <Footer/>}
       </Layout>

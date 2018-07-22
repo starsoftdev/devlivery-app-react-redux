@@ -3,6 +3,7 @@ import {generateUrl} from '../router'
 import {getUser, logout} from '../reducers/user'
 
 export const HOME_ROUTE = 'home'
+export const GIFT_STORE_ROUTE = 'gift-store'
 export const LOGIN_ROUTE = 'login'
 export const REGISTER1_ROUTE = 'register1'
 export const REGISTER2_ROUTE = 'register2'
@@ -220,6 +221,11 @@ const routes = {
       path: '/',
       name: HOME_ROUTE,
       load: () => import(/* webpackChunkName: 'home' */ './home'),
+    },
+    {
+      path: '/gift-store',
+      name: GIFT_STORE_ROUTE,
+      load: () => import(/* webpackChunkName: 'giftStore' */ './giftStore'),
     },
     {
       path: '/login',
