@@ -4,11 +4,10 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './CardStore.css'
 import messages from './messages'
 import debounce from 'lodash/debounce'
-import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
+import {CARD_SIZES, DEFAULT_DEBOUNCE_TIME} from '../../constants'
 import {getCards, getOccasions} from '../../reducers/cards'
 import {Col, Input, Pagination, Row, Select} from 'antd'
 import {Card, PaginationItem} from '../../components'
-import {HANDWRITTEN, PRINTED} from '../../reducers/purchase'
 
 class CardStore extends React.Component {
   constructor(props) {
@@ -30,17 +29,6 @@ class CardStore extends React.Component {
   render() {
     const {search} = this.state
     const {cards, cardsCount, getCards, intl, page, pageSize, cardStyles, occasions, getOccasions, occasionTypes, loading} = this.props
-
-    const letteringTechniques = [
-      {
-        label: intl.formatMessage(messages.handwritten),
-        value: HANDWRITTEN,
-      },
-      {
-        label: intl.formatMessage(messages.printed),
-        value: PRINTED,
-      }
-    ]
 
     return (
       <div className={s.container}>
@@ -66,11 +54,11 @@ class CardStore extends React.Component {
             </ul>
           </section>
           <section>
-            <h3 className={s.filterHeader}>{intl.formatMessage(messages.lettering)}</h3>
+            <h3 className={s.filterHeader}>{intl.formatMessage(messages.size)}</h3>
             <ul className={s.filterItems}>
-              {letteringTechniques.map((item) =>
-                <li key={item.value}>
-                  <a onClick={() => getCards({letteringTechnique: item.value})}>{item.label}</a>
+              {CARD_SIZES(intl).map((item) =>
+                <li key={item.key}>
+                  <a onClick={() => getCards({cardSize: item.key})}>{item.title}</a>
                 </li>
               )}
             </ul>

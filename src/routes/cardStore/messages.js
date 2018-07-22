@@ -17,17 +17,9 @@ export default defineMessages({
     id: 'cardStore.noData',
     defaultMessage: 'No data.',
   },
-  lettering: {
-    id: 'cardStore.lettering',
-    defaultMessage: 'Lettering',
-  },
-  handwritten: {
-    id: 'cardStore.handwritten',
-    defaultMessage: 'Handwritten',
-  },
-  printed: {
-    id: 'cardStore.printed',
-    defaultMessage: 'Printed',
+  size: {
+    id: 'cardStore.size',
+    defaultMessage: 'Size',
   },
   style: {
     id: 'cardStore.style',
