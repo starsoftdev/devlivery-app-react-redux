@@ -1,0 +1,54 @@
+@import '../../styles/variables.css';
+
+.content {
+  padding-bottom: var(--margin-md);
+  padding-right: var(--margin-md);
+  padding-left: var(--margin-md);
+
+  @media (--md-down) {
+    padding-top: var(--margin-md);
+  }
+  @media (--md-up) {
+    padding-top: var(--margin-xl);
+  }
+  @media (min-width: 1341px) {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: var(--max-content-width);
+    width: 100%;
+  }
+}
+
+.headerPrefix {
+  @media (min-width: 1341px) {
+    position: absolute;
+    right: 100%;
+  }
+}
+
+.items {
+  flex-wrap: wrap;
+}
+
+.itemWrapper {
+  margin-bottom: 20px;
+
+  @media (--xs-down) {
+    width: 100%;
+  }
+}
+
+.item {
+  justify-content: flex-start;
+
+  @media (--xs-up) {
+    /*to split by 4*/
+    width: 277px;
+  }
+}
+
+.amount {
+  @media (--xs-up) {
+    max-width: 230px;
+  }
+}

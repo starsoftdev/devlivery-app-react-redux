@@ -53,4 +53,12 @@ export default defineMessages({
     id: 'purchase.purchase13',
     defaultMessage: 'Credit Card Information',
   },
+  addBundle: {
+    id: 'purchase.addBundle',
+    defaultMessage: 'Bundle Confirmation',
+  },
+  donation: {
+    id: 'purchase.donation',
+    defaultMessage: 'Donation',
+  },
 })

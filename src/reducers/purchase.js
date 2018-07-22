@@ -1,7 +1,7 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {loginSuccess} from './login'
 import {message} from 'antd'
-import {EDIT_BUNDLE_ROUTES, PURCHASE_ROUTES} from '../routes'
+import {DONATION_ROUTE, EDIT_BUNDLE_ROUTES, PURCHASE8_ROUTE, PURCHASE_ROUTES} from '../routes'
 import {generateUrl} from '../router'
 import qs from 'query-string'
 import {getToken} from './user'
@@ -77,6 +77,12 @@ export const MAKE_STRIPE_PAYMENT_FAILURE = 'Purchase.MAKE_STRIPE_PAYMENT_FAILURE
 export const MAKE_PAYPAL_PAYMENT_REQUEST = 'Purchase.MAKE_PAYPAL_PAYMENT_REQUEST'
 export const MAKE_PAYPAL_PAYMENT_SUCCESS = 'Purchase.MAKE_PAYPAL_PAYMENT_SUCCESS'
 export const MAKE_PAYPAL_PAYMENT_FAILURE = 'Purchase.MAKE_PAYPAL_PAYMENT_FAILURE'
+
+export const GET_DONATION_ORGS_REQUEST = 'Purchase.GET_DONATION_ORGS_REQUEST'
+export const GET_DONATION_ORGS_SUCCESS = 'Purchase.GET_DONATION_ORGS_SUCCESS'
+export const GET_DONATION_ORGS_FAILURE = 'Purchase.GET_DONATION_ORGS_FAILURE'
+
+export const SET_DONATION_ORG = 'Purchase.SET_DONATION_ORG'
 
 export const CLEAR = 'Purchase.CLEAR'
 
@@ -371,6 +377,35 @@ export const makePaypalPayment = () => (dispatch, getState, {fetch}) => {
   })
 }
 
+export const getDonationOrgs = () => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  dispatch({type: GET_DONATION_ORGS_REQUEST})
+  return fetch(`/donation`, {
+    method: 'GET',
+    token,
+    success: (res) => dispatch({type: GET_DONATION_ORGS_SUCCESS, donationOrgs: res.data}),
+    failure: () => dispatch({type: GET_DONATION_ORGS_FAILURE})
+  })
+}
+
+export const setDonationOrg = (donationOrg) => ({type: SET_DONATION_ORG, donationOrg})
+
+export const submitGiftType = () => (dispatch, getState) => {
+  const {flow, giftType} = getState().purchase
+  // TODO
+  if (giftType === 'Donation') {
+    dispatch(setFlow(flow.map(item => item === PURCHASE8_ROUTE ? DONATION_ROUTE : item)))
+  } else {
+    dispatch(setFlow(flow.map(item => item === DONATION_ROUTE ? PURCHASE8_ROUTE : item)))
+  }
+  dispatch(nextFlowStep())
+}
+
+export const submitDonation = () => (dispatch, getState) => {
+  // TODO
+  dispatch(submitGift())
+}
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -379,6 +414,7 @@ export const clear = () => ({type: CLEAR})
 const initialState = {
   loading: {
     occasions: false,
+    donationOrgs: false,
   },
   occasions: [],
   occasion: null,
@@ -400,6 +436,8 @@ const initialState = {
   bundle: null,
   order: null,
   orderDetails: null,
+  donationOrgs: [],
+  donationOrg: null
 }
 
 export default createReducer(initialState, {
@@ -491,6 +529,28 @@ export default createReducer(initialState, {
   }),
   [GET_ORDER_DETAILS_SUCCESS]: (state, {orderDetails}) => ({
     orderDetails,
+  }),
+  [SET_DONATION_ORG]: (state, {donationOrg}) => ({
+    donationOrg,
+  }),
+  [GET_DONATION_ORGS_REQUEST]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      donationOrgs: true,
+    }
+  }),
+  [GET_DONATION_ORGS_SUCCESS]: (state, {donationOrgs}) => ({
+    donationOrgs,
+    loading: {
+      ...state.loading,
+      donationOrgs: false,
+    }
+  }),
+  [GET_DONATION_ORGS_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      donationOrgs: false,
+    }
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

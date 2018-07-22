@@ -23,6 +23,7 @@ class Purchase8 extends React.Component {
   render() {
     const {previewCollapsed} = this.state
     const {gift, setGift, submitGift, intl, flowIndex, gifts, getGifts, giftType} = this.props
+    // TODO change GIFT_TYPES i < 2
 
     return (
       <React.Fragment>
@@ -52,9 +53,9 @@ class Purchase8 extends React.Component {
                   onChange={(giftType) => getGifts({giftType})}
                   value={giftType}
                 >
-                  {GIFT_TYPES(intl).map(item =>
+                  {GIFT_TYPES(intl).map((item, i) => i < 2 ? (
                     <Select.Option key={item.key} value={item.key}>{item.title}</Select.Option>
-                  )}
+                  ) : null)}
                 </Select>
               </SectionHeader>
               <Row className={s.items} gutter={20} type='flex' align='center'>
