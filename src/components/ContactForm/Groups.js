@@ -58,7 +58,7 @@ class Groups extends React.Component {
     const {groupName, newGroup} = this.state
     const {groups, loading, intl, initialValues} = this.props
     const {getFieldDecorator, getFieldValue} = this.props.form
-    this.props.form.getFieldDecorator('groupKeys', {initialValue: createArray(initialValues ? initialValues.length : 1)})
+    this.props.form.getFieldDecorator('groupKeys', {initialValue: createArray(initialValues && initialValues.length ? initialValues.length : 1)})
 
     let groupsList = [...groups]
 
