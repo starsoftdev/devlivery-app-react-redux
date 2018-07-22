@@ -11,6 +11,7 @@ import {
   HOME_ROUTES,
   LOGIN_ROUTE,
   LOGOUT_ROUTE,
+  NEW_ARRIVALS_ROUTE,
   ORDERS_ROUTE,
   REGISTER1_ROUTE,
 } from '../../routes'
@@ -66,7 +67,7 @@ class Header extends React.Component {
         ].includes(currentRouteName) && (
           <ul className={s.bottomMenu}>
             <li>
-              <Link to={ORDERS_ROUTE}>{intl.formatMessage(messages.newArrivals)}</Link>
+              <Link to={NEW_ARRIVALS_ROUTE}>{intl.formatMessage(messages.newArrivals)}</Link>
             </li>
             <li>
               <Link to={CARD_STORE_ROUTE}>{intl.formatMessage(messages.cardStore)}</Link>

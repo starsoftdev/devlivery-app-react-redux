@@ -15,6 +15,7 @@ import team from './team'
 import contactGroup from './contactGroup'
 import gifts from './gifts'
 import cards from './cards'
+import newArrivals from './newArrivals'
 import intl from './intl'
 
 export default combineReducers({
@@ -34,5 +35,6 @@ export default combineReducers({
   contactGroup,
   gifts,
   cards,
+  newArrivals,
   intl,
 })
