@@ -22,9 +22,9 @@ class Purchase11 extends React.Component {
   }
 
   render() {
-    const {flowIndex, orderDetails} = this.props
+    const {flowIndex, order} = this.props
     const {getFieldDecorator} = this.props.form
-    return orderDetails ? (
+    return order ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
           <SectionHeader
@@ -35,28 +35,28 @@ class Purchase11 extends React.Component {
           <div className={s.orderInfo}>
             <div className={s.cardWrapper}>
               <div>
-                <img src={orderDetails.items.card.images[0].url} className={s.cardImage}/>
+                <img src={order.items.card.images[0].url} className={s.cardImage}/>
               </div>
-              {orderDetails.items.gifts[0] && (
+              {order.items.gifts[0] && (
                 <PlusGiftIcon className={s.plusIcon}/>
               )}
               <p className={s.cardInfo}>
-                <span className={s.cardType}>{orderDetails.items.card.title}</span>
+                <span className={s.cardType}>{order.items.card.title}</span>
                 <br/>
-                <span className={s.cardPrice}>{orderDetails.items.card.price}</span>
-                <span className={s.cardPriceCurrency}>{orderDetails.items.card.currency}</span>
+                <span className={s.cardPrice}>{order.items.card.price}</span>
+                <span className={s.cardPriceCurrency}>{order.items.card.currency}</span>
               </p>
             </div>
-            {orderDetails.items.gifts[0] && (
+            {order.items.gifts[0] && (
               <div className={s.giftWrapper}>
                 <div>
-                  <img src={orderDetails.items.gifts[0].gift.image[0].url} className={s.giftImage}/>
+                  <img src={order.items.gifts[0].gift.image[0].url} className={s.giftImage}/>
                 </div>
                 <p className={s.cardInfo}>
-                  <span className={s.cardType}>{orderDetails.items.gifts[0].gift.title}</span>
+                  <span className={s.cardType}>{order.items.gifts[0].gift.title}</span>
                   <br/>
-                  <span className={s.cardPrice}>{orderDetails.items.gifts[0].gift.price}</span>
-                  <span className={s.cardPriceCurrency}>{orderDetails.items.gifts[0].gift.currency}</span>
+                  <span className={s.cardPrice}>{order.items.gifts[0].gift.price}</span>
+                  <span className={s.cardPriceCurrency}>{order.items.gifts[0].gift.currency}</span>
                 </p>
               </div>
             )}
@@ -72,7 +72,7 @@ class Purchase11 extends React.Component {
                 </section>
               </Col>
               <Col xs={24} sm={12}>
-                {orderDetails.items.gifts[0] && orderDetails.items.gifts[0].gift.description}
+                {order.items.gifts[0] && order.items.gifts[0].gift.description}
               </Col>
             </Row>
           </div>
@@ -81,7 +81,7 @@ class Purchase11 extends React.Component {
               <h2 className={s.subtotalHeader}>Subtotal:</h2>
             </Col>
             <Col xs={12}>
-              <span className={s.subtotalValue}>{orderDetails.total}</span>
+              <span className={s.subtotalValue}>{order.total}</span>
               <span className={s.subtotalCurrency}>CHF</span>
             </Col>
           </Row>
@@ -142,7 +142,7 @@ class Purchase11 extends React.Component {
 const mapState = state => ({
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
-  orderDetails: state.purchase.orderDetails,
+  order: state.purchase.order,
 })
 
 const mapDispatch = {

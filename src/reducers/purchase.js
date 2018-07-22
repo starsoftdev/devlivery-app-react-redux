@@ -66,10 +66,6 @@ export const MAKE_ORDER_REQUEST = 'Purchase.MAKE_ORDER_REQUEST'
 export const MAKE_ORDER_SUCCESS = 'Purchase.MAKE_ORDER_SUCCESS'
 export const MAKE_ORDER_FAILURE = 'Purchase.MAKE_ORDER_FAILURE'
 
-export const GET_ORDER_DETAILS_REQUEST = 'Purchase.GET_ORDER_DETAILS_REQUEST'
-export const GET_ORDER_DETAILS_SUCCESS = 'Purchase.GET_ORDER_DETAILS_SUCCESS'
-export const GET_ORDER_DETAILS_FAILURE = 'Purchase.GET_ORDER_DETAILS_FAILURE'
-
 export const MAKE_STRIPE_PAYMENT_REQUEST = 'Purchase.MAKE_STRIPE_PAYMENT_REQUEST'
 export const MAKE_STRIPE_PAYMENT_SUCCESS = 'Purchase.MAKE_STRIPE_PAYMENT_SUCCESS'
 export const MAKE_STRIPE_PAYMENT_FAILURE = 'Purchase.MAKE_STRIPE_PAYMENT_FAILURE'
@@ -313,27 +309,6 @@ export const makeOrder = () => (dispatch, getState, {fetch}) => {
   })
 }
 
-export const getOrderDetails = () => (dispatch, getState, {fetch}) => {
-  const {token} = dispatch(getToken())
-  const {order} = getState().purchase
-  if (!order) {
-    return
-  }
-  dispatch({type: GET_ORDER_DETAILS_REQUEST})
-  return fetch(`/order-confirmation?${qs.stringify({
-    order_id: order.id,
-  })}`, {
-    method: 'GET',
-    token,
-    success: (res) => {
-      dispatch({type: GET_ORDER_DETAILS_SUCCESS, orderDetails: res.data})
-    },
-    failure: () => {
-      dispatch({type: GET_ORDER_DETAILS_FAILURE})
-    },
-  })
-}
-
 export const makeStripePayment = () => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   const {order} = getState().purchase
@@ -435,7 +410,6 @@ const initialState = {
   occasionType: undefined,
   bundle: null,
   order: null,
-  orderDetails: null,
   donationOrgs: [],
   donationOrg: null
 }
@@ -526,9 +500,6 @@ export default createReducer(initialState, {
   }),
   [MAKE_ORDER_SUCCESS]: (state, {order}) => ({
     order,
-  }),
-  [GET_ORDER_DETAILS_SUCCESS]: (state, {orderDetails}) => ({
-    orderDetails,
   }),
   [SET_DONATION_ORG]: (state, {donationOrg}) => ({
     donationOrg,
