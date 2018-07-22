@@ -60,3 +60,15 @@
     padding-right: 60px !important;
   }
 }
+
+.birthday {
+  width: 100%;
+}
+
+.checkboxWrapper {
+  margin-bottom: 0;
+}
+
+.select {
+  width: 100%;
+}

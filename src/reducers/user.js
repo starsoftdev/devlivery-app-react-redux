@@ -1,5 +1,7 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {TOKEN_COOKIE} from '../constants'
+import {getBirthday} from '../utils'
+import {message} from 'antd'
 
 // ------------------------------------
 // Constants
@@ -22,7 +24,7 @@ export const UPDATE_PASSWORD_FAILURE = 'User.UPDATE_PASSWORD_FAILURE'
 // Actions
 // ------------------------------------
 export const getToken = () => (dispatch, getState, {cookies}) => {
-  const token = cookies.get(TOKEN_COOKIE)
+  const token = cookies.get(TOKEN_COOKIE, {path: ''})
   return {token}
 }
 
@@ -49,37 +51,62 @@ export const getUser = () => (dispatch, getState, {fetch}) => {
   }
 }
 
-export const updateUser = (values) => (dispatch, getState, {fetch}) => {
+export const getUserDetails = () => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  const {user} = getState().user
+  dispatch({type: GET_USER_REQUEST})
+  return fetch(`/users?filter_key=id&filter_value=${user.id}&with=addresses,preference,billing`, {
+    method: 'GET',
+    token,
+    success: (res) => dispatch(getUserSuccess(res.data[0])),
+    failure: () => dispatch({type: GET_USER_FAILURE})
+  })
+}
+
+export const updateUser = ({user, birthday, preference, ...values}) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   dispatch({type: UPDATE_USER_REQUEST})
-  return fetch(`/user/me/`, {
-    method: 'PATCH',
+  return fetch(`/edit-settings`, {
+    method: 'POST',
     token,
-    body: values,
-    success: (user) => {
-      dispatch({type: UPDATE_USER_SUCCESS, user})
-      // TODO add notification
+    body: {
+      ...values,
+      user: {
+        ...user,
+        dob: getBirthday(birthday),
+      },
+      preference: {
+        ...preference,
+        remind: preference.remind || 0,
+      },
+    },
+    success: () => {
+      dispatch({type: UPDATE_USER_SUCCESS})
+      message.success('User updated.')
+      dispatch(getUserDetails())
     },
     failure: () => {
       dispatch({type: UPDATE_USER_FAILURE})
-      // TODO add notification
+      message.error('Something went wrong. Please try again.')
     }
   })
 }
 
-export const updatePassword = (values) => (dispatch, getState, {fetch}) => {
+export const updatePassword = (values, form) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   dispatch({type: UPDATE_PASSWORD_REQUEST})
-  return fetch(`/user/me/change-password/`, {
-    method: 'PATCH',
+  return fetch(`/update-password`, {
+    method: 'POST',
     token,
     body: values,
     success: () => {
       dispatch({type: UPDATE_PASSWORD_SUCCESS})
-      // TODO add notification
+      message.success('Password changed.')
+      form.resetFields()
     },
     failure: (error) => {
       dispatch({type: UPDATE_PASSWORD_FAILURE, error})
+      message.error('Something went wrong. Please try again.')
     }
   })
 }
@@ -109,10 +136,7 @@ export default createReducer(initialState, {
       updatingUser: true,
     }
   }),
-  [UPDATE_USER_SUCCESS]: (state, {user}) => ({
-    user,
-    role: user.role,
-    customer: user.customer,
+  [UPDATE_USER_SUCCESS]: (state, action) => ({
     loading: {
       ...state.loading,
       updatingUser: false,
