@@ -217,7 +217,7 @@ export const register = (values) => (dispatch, getState, {fetch}) => {
     success: (res) => {
       dispatch({type: REGISTER_SUCCESS})
       dispatch(loginSuccess(res.data))
-      dispatch(submitGift())
+      dispatch(nextFlowStep())
     },
     failure: () => {
       dispatch({type: REGISTER_FAILURE})
@@ -226,21 +226,20 @@ export const register = (values) => (dispatch, getState, {fetch}) => {
   })
 }
 
-export const continueWithoutGift = () => (dispatch, getState) => {
+export const continueWithoutGift = () => async (dispatch, getState) => {
   const {loggedIn} = getState().user
   const {flow} = getState().purchase
   dispatch(setGiftType(null))
   if (loggedIn && flow !== EDIT_BUNDLE_ROUTES) {
-    dispatch(addBundle())
+    await dispatch(addBundle())
   }
   dispatch(nextFlowStep(1))
 }
 
-export const submitGift = () => (dispatch, getState) => {
-  const {loggedIn} = getState().user
+export const submitGift = () => async (dispatch, getState) => {
   const {flow} = getState().purchase
-  if (loggedIn && flow !== EDIT_BUNDLE_ROUTES) {
-    dispatch(addBundle())
+  if (flow !== EDIT_BUNDLE_ROUTES) {
+    await dispatch(addBundle())
   }
   dispatch(nextFlowStep())
 }

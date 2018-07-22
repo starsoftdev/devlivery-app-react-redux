@@ -143,15 +143,6 @@ class Purchase9 extends React.Component {
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item>
-            {getFieldDecorator('role', {
-              rules: [
-                {required: true, message: intl.formatMessage(formMessages.required)},
-              ],
-            })(
-              <Input placeholder={intl.formatMessage(messages.role)}/>
-            )}
-          </Form.Item>
         </div>
         <Actions>
           <KeyHandler

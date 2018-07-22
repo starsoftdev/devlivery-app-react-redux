@@ -125,7 +125,7 @@ export const getAddressesArray = (addresses) => {
   return addresses.filter(item => !Object.values(item).includes(undefined) && !Object.values(item).includes(null) && !Object.values(item).includes(''))
 }
 
-export const addContact = ({birthday, reminders, groups, addresses, ...values}, form, callback) => (dispatch, getState, {fetch}) => {
+export const addContact = ({birthday, reminders, groups, addresses, ...values}, callback, form) => (dispatch, getState, {fetch}) => {
   dispatch({type: ADD_CONTACT_REQUEST})
   const {token} = dispatch(getToken())
   return fetch(`/add-contact-manually`, {
@@ -134,7 +134,9 @@ export const addContact = ({birthday, reminders, groups, addresses, ...values}, 
       ...values,
       contact: {
         ...values.contact,
-        dob: getBirthday(birthday),
+        ...birthday ? {
+          dob: birthday.format(DATE_FORMAT)
+        } : {},
       },
       addresses: getAddressesArray(addresses),
       reminders: getRemindersArray(reminders),
@@ -143,8 +145,8 @@ export const addContact = ({birthday, reminders, groups, addresses, ...values}, 
     token,
     success: (res) => {
       dispatch({type: ADD_CONTACT_SUCCESS, res})
-      form.resetFields()
-      callback()
+      if (form) form.resetFields()
+      if (callback) callback()
     },
     failure: () => {
       dispatch({type: ADD_CONTACT_FAILURE})
