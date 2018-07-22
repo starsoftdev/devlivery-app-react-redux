@@ -1,0 +1,161 @@
+@import '../../styles/variables.css';
+
+.container {
+  max-width: var(--max-content-width);
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+
+  @media (--md-up) {
+    padding: var(--margin-xl) var(--margin-md);
+  }
+  @media (--md-down) {
+    flex-direction: column;
+    padding: var(--margin-md);
+  }
+}
+
+.search {
+  margin-bottom: var(--margin-md);
+}
+
+.filters {
+  width: 300px;
+
+  @media (--md-up) {
+    padding-top: 70px;
+  }
+}
+
+.filterHeader {
+  margin-bottom: var(--margin-md);
+
+  @media (--md-up) {
+    font-size: 40px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
+}
+
+.filterItems {
+  list-style-type: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: var(--margin-sm);
+  margin-bottom: var(--margin-sm);
+
+  li {
+    padding: 8px 0;
+
+    @media (--sm-down) {
+      margin-bottom: var(--margin-sm);
+    }
+  }
+
+  a {
+    text-transform: uppercase;
+    letter-spacing: 2.1px;
+    font-size: 12px;
+    color: var(--dark-color);
+    font-family: var(--font-family-secondary);
+  }
+}
+
+.content {
+}
+
+.carousel {
+  position: relative;
+  margin-bottom: var(--margin-md);
+}
+
+.leftBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  left: -3px;
+  top: 50%;
+  transform: translateY(-50%) rotate(180deg);
+  z-index: 1;
+  background: var(--dark-color);
+}
+
+.leftArrow > g {
+  stroke: var(--white-color);
+}
+
+.rightBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  right: -3px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  background: var(--dark-color);
+}
+
+.rightArrow > g {
+  stroke: var(--white-color);
+}
+
+.itemWrapper {
+  margin-bottom: 20px;
+}
+
+.price {
+  letter-spacing: normal;
+}
+
+.currency {
+  color: var(--muted-color);
+  margin-left: 4px;
+}
+
+.footer {
+  text-align: center;
+}
+
+.noData {
+  text-align: center;
+}
+
+.occasionType {
+  width: 200px;
+  margin-bottom: var(--margin-md);
+}
+
+.carouselItem {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  color: var(--white-color);
+  text-align: center;
+
+  @media (--md-up) {
+    font-size: 54px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
+  @media (--sm-down) {
+    font-size: 28px;
+  }
+}

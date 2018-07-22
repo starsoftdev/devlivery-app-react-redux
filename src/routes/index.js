@@ -5,6 +5,7 @@ import {getUser, logout} from '../reducers/user'
 export const HOME_ROUTE = 'home'
 export const GIFT_STORE_ROUTE = 'gift-store'
 export const CARD_STORE_ROUTE = 'card-store'
+export const NEW_ARRIVALS_ROUTE = 'new-arrivals'
 export const LOGIN_ROUTE = 'login'
 export const REGISTER1_ROUTE = 'register1'
 export const REGISTER2_ROUTE = 'register2'
@@ -30,6 +31,7 @@ export const HOME_ROUTES = [
   HOME_ROUTE,
   GIFT_STORE_ROUTE,
   CARD_STORE_ROUTE,
+  NEW_ARRIVALS_ROUTE,
 ]
 
 export const DASHBOARD_ROUTES = [
@@ -238,6 +240,11 @@ const routes = {
       path: '/card-store',
       name: CARD_STORE_ROUTE,
       load: () => import(/* webpackChunkName: 'cardStore' */ './cardStore'),
+    },
+    {
+      path: '/new-arrivals',
+      name: NEW_ARRIVALS_ROUTE,
+      load: () => import(/* webpackChunkName: 'newArrivals' */ './newArrivals'),
     },
     {
       path: '/login',
