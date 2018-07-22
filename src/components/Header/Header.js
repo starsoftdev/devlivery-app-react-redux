@@ -4,6 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Header.css'
 import Logo from '../../static/logo.svg'
 import {
+  ABOUT_ROUTE,
   CARD_STORE_ROUTE,
   DASHBOARD_ROUTES,
   GIFT_STORE_ROUTE,
@@ -76,7 +77,7 @@ class Header extends React.Component {
               <Link to={GIFT_STORE_ROUTE}>{intl.formatMessage(messages.giftStore)}</Link>
             </li>
             <li>
-              <Link to={ORDERS_ROUTE}>{intl.formatMessage(messages.about)}</Link>
+              <Link to={ABOUT_ROUTE}>{intl.formatMessage(messages.about)}</Link>
             </li>
             <li>
               <Link to={ORDERS_ROUTE}>{intl.formatMessage(messages.contact)}</Link>
