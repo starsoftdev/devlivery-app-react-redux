@@ -28,7 +28,7 @@ class GiftStore extends React.Component {
 
   render() {
     const {search} = this.state
-    const {gifts, giftsCount, getGifts, intl, page, pageSize} = this.props
+    const {gifts, giftsCount, getGifts, intl, page, pageSize, loading} = this.props
     // TODO change GIFT_TYPES i < 2
     return (
       <div className={s.container}>
@@ -71,9 +71,9 @@ class GiftStore extends React.Component {
                 </Col>
               )}
             </Row>
-          ) : (
+          ) : !loading.gifts ? (
             <div className={s.noData}>{intl.formatMessage(messages.noData)}</div>
-          )}
+          ) : null}
           {!!gifts.length && (
             <div className={s.footer}>
               <Pagination
