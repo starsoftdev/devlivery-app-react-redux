@@ -3,6 +3,7 @@ import {loginSuccess} from './login'
 import {message} from 'antd'
 import {getToken} from './user'
 import {DATE_FORMAT} from '../constants'
+import {getFormErrors} from '../utils'
 
 // ------------------------------------
 // Constants
@@ -33,7 +34,7 @@ export const CLEAR = 'Register.CLEAR'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const register = (values) => (dispatch, getState, {fetch, history}) => {
+export const register = (values, form) => (dispatch, getState, {fetch, history}) => {
   dispatch({type: REGISTER_REQUEST, individualDetails: values})
   const {accountType, individualDetails: {birthday, ...otherDetails}} = getState().register
   return fetch(`/signup`, {
@@ -56,9 +57,14 @@ export const register = (values) => (dispatch, getState, {fetch, history}) => {
         dispatch(clear())
       }
     },
-    failure: () => {
+    failure: (res) => {
       dispatch({type: REGISTER_FAILURE})
-      message.error('Something went wrong. Please try again.')
+      const {formErrors} = getFormErrors({...res, values})
+      if (formErrors)
+        form.setFields(formErrors)
+      else
+      // TODO
+        message.error('Something went wrong. Please try again.')
     },
   })
 }

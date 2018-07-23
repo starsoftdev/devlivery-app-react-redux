@@ -238,6 +238,7 @@ export const register = (values, form) => (dispatch, getState, {fetch}) => {
       if (formErrors)
         form.setFields(formErrors)
       else
+        // TODO
         message.error('Something went wrong. Please try again.')
       dispatch({type: REGISTER_FAILURE})
     },
@@ -248,6 +249,7 @@ export const continueWithoutGift = () => async (dispatch, getState) => {
   const {loggedIn} = getState().user
   const {flow} = getState().purchase
   dispatch(setGiftType(null))
+  // TODO fix it
   if (loggedIn && flow !== EDIT_BUNDLE_ROUTES) {
     await dispatch(addBundle())
   }
@@ -256,6 +258,7 @@ export const continueWithoutGift = () => async (dispatch, getState) => {
 
 export const submitGift = () => async (dispatch, getState) => {
   const {flow} = getState().purchase
+  // TODO fix it
   if (flow !== EDIT_BUNDLE_ROUTES) {
     await dispatch(addBundle())
   }
