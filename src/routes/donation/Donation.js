@@ -11,21 +11,7 @@ import messages from './messages'
 
 class Donation extends React.Component {
   render() {
-    const {donationOrg, setDonationOrg, intl, flowIndex, submitDonation, loading} = this.props
-    // TODO remove no data label
-    const donationOrgs = [
-      {
-        "id": 2,
-        "name": "ColorElephant",
-        "logo": [
-          {
-            "url": "http://byzumi.test/storage/files/dfb891be-b527-469c-b880-bd216c8a9567.jpg",
-            "thumb_url": "http://byzumi.test/storage/files/thumb-dfb891be-b527-469c-b880-bd216c8a9567.jpg",
-            "mime_type": "image/jpeg"
-          }
-        ]
-      }
-    ]
+    const {donationOrg, setDonationOrg, donationOrgs, intl, flowIndex, submitDonation, loading} = this.props
     return (
       <React.Fragment>
         <div className={s.content}>
