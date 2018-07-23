@@ -62,6 +62,16 @@ class Contacts extends React.Component {
         key: 'email',
       },
       {
+        title: intl.formatMessage(messages.phoneColumn),
+        dataIndex: 'phone',
+        key: 'phone',
+      },
+      {
+        title: intl.formatMessage(messages.birthdayColumn),
+        dataIndex: 'dob',
+        key: 'dob',
+      },
+      {
         title: intl.formatMessage(messages.actionsColumn),
         dataIndex: '',
         key: 'actions',
@@ -144,9 +154,11 @@ class Contacts extends React.Component {
                       </a>
                     </Popconfirm>
                     <p className={s.contactName}>{contact.first_name} {contact.last_name}</p>
-                    <a href={`tel:${contact.phone}`} className={s.contactPhone}>
-                      {contact.phone}
-                    </a>
+                    <a href={`tel:${contact.phone}`} className={s.contactPhone}>{contact.phone}</a>
+                    <a href={`mailto:${contact.email}`} className={s.contactEmail}>{contact.email}</a>
+                    {contact.dob && (
+                      <div className={s.contactBirthday}>{contact.dob}</div>
+                    )}
                   </div>
                 </Col>
               )}
