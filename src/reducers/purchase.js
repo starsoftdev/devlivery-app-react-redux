@@ -7,6 +7,7 @@ import qs from 'query-string'
 import {getToken} from './user'
 import {CARD_SIZES} from '../constants'
 import has from 'lodash/has'
+import {getFormErrors} from '../utils'
 
 // ------------------------------------
 // Constants
@@ -221,7 +222,7 @@ export const submitShipping = () => (dispatch, getState) => {
 
 export const setPaymentMethod = (paymentMethod) => ({type: SET_PAYMENT_METHOD, paymentMethod})
 
-export const register = (values) => (dispatch, getState, {fetch}) => {
+export const register = (values, form) => (dispatch, getState, {fetch}) => {
   dispatch({type: REGISTER_REQUEST})
   return fetch(`/signup`, {
     method: 'POST',
@@ -232,9 +233,13 @@ export const register = (values) => (dispatch, getState, {fetch}) => {
       dispatch(loginSuccess(res.data))
       dispatch(nextFlowStep())
     },
-    failure: () => {
+    failure: (res) => {
+      const {formErrors} = getFormErrors({...res, values})
+      if (formErrors)
+        form.setFields(formErrors)
+      else
+        message.error('Something went wrong. Please try again.')
       dispatch({type: REGISTER_FAILURE})
-      message.error('Something went wrong. Please try again.')
     },
   })
 }
