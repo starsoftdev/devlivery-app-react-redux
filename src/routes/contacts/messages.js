@@ -33,6 +33,14 @@ export default defineMessages({
     id: 'contacts.emailColumn',
     defaultMessage: 'Email',
   },
+  phoneColumn: {
+    id: 'contacts.phoneColumn',
+    defaultMessage: 'Phone',
+  },
+  birthdayColumn: {
+    id: 'contacts.birthdayColumn',
+    defaultMessage: 'Birthday',
+  },
   actionsColumn: {
     id: 'contacts.actionsColumn',
     defaultMessage: 'Actions',
