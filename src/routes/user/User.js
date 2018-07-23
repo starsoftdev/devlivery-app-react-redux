@@ -172,7 +172,7 @@ class User extends React.Component {
                   )}
                 </Form.Item>
                 <Form.Item>
-                  {getFieldDecorator('remind', {
+                  {getFieldDecorator('preference.remind', {
                     initialValue: user && user.preference ? user.preference.remind : undefined,
                   })(
                     <Select
