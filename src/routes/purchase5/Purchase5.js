@@ -10,7 +10,7 @@ import cn from 'classnames'
 import Preview from './Preview'
 import messages from './messages'
 
-// TODO filter by occasion selected on Purchase 1
+// TODO remove no cards label
 class Purchase5 extends React.Component {
   state = {
     previewCollapsed: false,
@@ -22,7 +22,7 @@ class Purchase5 extends React.Component {
 
   render() {
     const {previewCollapsed} = this.state
-    const {cards, card, setCard, nextFlowStep, intl, flowIndex} = this.props
+    const {cards, card, setCard, nextFlowStep, intl, flowIndex, loading} = this.props
 
     return (
       <React.Fragment>
@@ -44,27 +44,30 @@ class Purchase5 extends React.Component {
                 number={flowIndex + 1}
                 prefixClassName={s.headerPrefix}
               />
-              <Row className={s.items} gutter={20} type='flex' align='center'>
-                {cards.map((item) =>
-                  <Col key={item.id} className={s.itemWrapper}>
-                    <Card
-                      className={s.item}
-                      image={item.images[0].url}
-                      title={
-                        <span className={s.price}>
-                          {item.price}
-                          <span className={s.currency}>{item.currency}</span>
-                        </span>
-                      }
-                      bordered={false}
-                      description={item.description}
-                      onClick={() => setCard(item)}
-                      active={card && card.id === item.id}
-
-                    />
-                  </Col>
-                )}
-              </Row>
+              {!!cards.length ? (
+                <Row className={s.items} gutter={20} type='flex' align='center'>
+                  {cards.map((item) =>
+                    <Col key={item.id} className={s.itemWrapper}>
+                      <Card
+                        className={s.item}
+                        image={item.images[0].url}
+                        title={
+                          <span className={s.price}>
+                            {item.price}
+                            <span className={s.currency}>{item.currency}</span>
+                          </span>
+                        }
+                        bordered={false}
+                        description={item.description}
+                        onClick={() => setCard(item)}
+                        active={card && card.id === item.id}
+                      />
+                    </Col>
+                  )}
+                </Row>
+              ) : !loading.cards ? (
+                <div style={{textAlign: 'center'}}>No cards.</div>
+              ) : null}
             </div>
           </Layout.Content>
           <Preview onCollapse={this.onPreviewCollapse} collapsed={previewCollapsed}/>

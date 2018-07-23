@@ -164,7 +164,18 @@ export const setCardStyle = (cardStyle) => ({type: SET_CARD_STYLE, cardStyle})
 
 export const getCards = () => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_CARDS_REQUEST})
-  return fetch(`/cards`, {
+  const {occasion, cardStyle} = getState().purchase
+  return fetch(`/cards?${qs.stringify({
+    take: 100,
+    filters: JSON.stringify({
+      ...occasion ? {
+        occasion_id: occasion,
+      } : {},
+      ...cardStyle ? {
+        style: cardStyle,
+      } : {},
+    })
+  })}`, {
     method: 'GET',
     success: (res) => dispatch({type: GET_CARDS_SUCCESS, cards: res.data}),
     failure: () => dispatch({type: GET_CARDS_FAILURE})
@@ -390,6 +401,7 @@ const initialState = {
   loading: {
     occasions: false,
     donationOrgs: false,
+    cards: false,
   },
   occasions: [],
   occasion: null,
@@ -465,8 +477,24 @@ export default createReducer(initialState, {
   [SET_CARD_STYLE]: (state, {cardStyle}) => ({
     cardStyle,
   }),
+  [GET_CARDS_REQUEST]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      cards: true,
+    }
+  }),
   [GET_CARDS_SUCCESS]: (state, {cards}) => ({
     cards,
+    loading: {
+      ...state.loading,
+      cards: false,
+    }
+  }),
+  [GET_CARDS_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      cards: false,
+    }
   }),
   [SET_CARD_SIZE]: (state, {cardSize}) => ({
     cardSize,
