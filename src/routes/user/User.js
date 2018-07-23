@@ -30,8 +30,8 @@ class User extends React.Component {
     const reminderTimes = [
       {value: 0, label: 'Same Day'},
       {value: 1, label: 'Day Before'},
-      {value: 2, label: '3 Days Before'},
-      {value: 3, label: '1 week before'},
+      {value: 3, label: '3 Days Before'},
+      {value: 7, label: '1 week before'},
     ]
 
     return (
