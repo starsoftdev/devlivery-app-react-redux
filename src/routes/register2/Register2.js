@@ -15,7 +15,7 @@ class Register2 extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.register(values)
+        this.props.register(values, this.props.form)
       }
     })
   }
