@@ -32,7 +32,7 @@ class Reminders extends React.Component {
 
   componentDidMount () {
     const {initialValues} = this.props
-    this.uuid = initialValues ? initialValues.length : 1
+    this.uuid = initialValues && initialValues.length ? initialValues.length : 1
   }
 
   addOccasion = (occasionTitle) => {
