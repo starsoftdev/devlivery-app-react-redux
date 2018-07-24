@@ -281,7 +281,6 @@ export const getBundleValues = (values) => {
 
 export const addBundle = (values) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  console.log(values)
   const {letteringTechnique, card, gift, cardSize, flow} = getState().purchase
   dispatch({type: ADD_BUNDLE_REQUEST})
   return fetch(`/create-bundle`, {
@@ -350,7 +349,6 @@ export const makeStripePayment = () => (dispatch, getState, {fetch}) => {
     },
     token,
     success: (res) => {
-      console.log(res)
       dispatch({type: MAKE_STRIPE_PAYMENT_SUCCESS})
     },
     failure: () => {
@@ -370,7 +368,6 @@ export const makePaypalPayment = () => (dispatch, getState, {fetch}) => {
     method: 'POST',
     token,
     success: (res) => {
-      console.log(res)
       dispatch({type: MAKE_PAYPAL_PAYMENT_SUCCESS})
     },
     failure: () => {

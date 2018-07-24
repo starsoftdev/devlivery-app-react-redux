@@ -13,7 +13,6 @@ export const getFormErrors = ({values, errors}) => {
     fields.forEach(field => {
       // backend returns wrong field path (e.g. addresses.0.address => addresses[0].address)
       const fieldKey = field.replace(/\.(\d+?)\./g, "[$1].")
-      console.log(fieldKey, values)
       formErrors[fieldKey] = {
         value: get(values, fieldKey),
         errors: [{
