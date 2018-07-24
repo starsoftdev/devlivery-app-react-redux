@@ -10,8 +10,11 @@ import debounce from 'lodash/debounce'
 import messages from './messages'
 import moment from 'moment/moment'
 import {createArray} from '../../utils'
+import formMessages from '../../formMessages'
 
 // TODO add loading
+// TODO refactor occasion custom title
+// TODO add all translations
 class Reminders extends React.Component {
   uuid = 1
 
@@ -55,6 +58,16 @@ class Reminders extends React.Component {
     this.props.form.setFieldsValue({reminderKeys: newKeys})
   }
 
+  validateMinLength = (rule, value, callback) => {
+    const {intl} = this.props
+    // user can select occasion id or type custom title (which needs to validated)
+    if (value && isNaN(+value) && value.length < 3) {
+      callback(intl.formatMessage(formMessages.minLength, {length: 3}))
+    } else {
+      callback()
+    }
+  }
+
   render() {
     const {occasionTitle, newOccasion} = this.state
     const {occasions, loading, intl, initialValues} = this.props
@@ -67,7 +80,6 @@ class Reminders extends React.Component {
     if (newOccasion && !occasionTitle) {
       occasionsList = [{title: newOccasion}, ...occasions.filter(item => item.title !== newOccasion)]
     }
-    // TODO refactor occasion custom title
 
     const keys = getFieldValue('reminderKeys')
     return (
@@ -82,6 +94,9 @@ class Reminders extends React.Component {
             <Form.Item>
               {getFieldDecorator(`reminders[${k}].occasion_id`, {
                 initialValue: initialValues && initialValues[k] ? (initialValues[k].occasion_id !== null ? `${initialValues[k].occasion_id}` : initialValues[k].title) : undefined,
+                rules: [
+                  {validator: this.validateMinLength}
+                ]
               })(
                 <Select
                   showSearch

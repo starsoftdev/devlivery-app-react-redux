@@ -26,7 +26,10 @@ const Address = ({getFieldDecorator, index, header, intl, initialValues, require
       <Form.Item>
         {getFieldDecorator(`addresses[${index}].address`, {
           initialValue: initialValues && initialValues.address,
-          rules,
+          rules: [
+            ...rules,
+            {min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})}
+          ],
         })(
           <Input placeholder={intl.formatMessage(messages.address)} onChange={(e) => onAddressChange(e.target.value)}/>
         )}
