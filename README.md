@@ -1,18 +1,21 @@
-## Requirements
-1. [Node.js](https://nodejs.org/en/download/)
-2. [Yarn](https://yarnpkg.com/lang/en/docs/install/)
+## Frontend
 
+This boilerplate is based on [React Starter Kit](https://github.com/kriasoft/react-starter-kit) which is an built on top of [Node.js](https://nodejs.org/),
+[Express](http://expressjs.com/) and
+[React](https://facebook.github.io/react/), containing modern web development
+tools such as [Webpack](http://webpack.github.io/), [Babel](http://babeljs.io/)
+and [Browsersync](http://www.browsersync.io/).
 
-## Run frontend app for development
-1. `yarn install`
-2. `yarn start`
-This will start the app at http://localhost:3000 and launch a browser.
+### Getting Started
 
+Follow the [getting started guide](./docs/getting-started.md) to run the project.
 
-## Run frontend app for production:
-1. Install all packages `yarn install`
-2. Run `yarn build --release`
-3. Go to build directory `cd build`
-4. Install production packages `yarn install`
-5. Run `yarn start`
-You can modify PORT|API_URL (more variables in /src/config.js) using Environment Variables e.g. `yarn start PORT=9000`
+### Documentation
+
+Here you can find project [docs](./docs/README.md).
+
+### Learn More
+
+  * [Getting Started with React.js](http://facebook.github.io/react/)
+  * [More about Redux](https://redux.js.org/)
+  * [Learn ES6](https://babeljs.io/docs/learn-es6/), [ES6 Features](https://github.com/lukehoban/es6features#readme)
