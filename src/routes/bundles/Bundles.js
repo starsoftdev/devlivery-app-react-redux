@@ -6,11 +6,11 @@ import s from './Bundles.css'
 import {clear, getBundles, openBundleDetailsModal, removeBundle} from '../../reducers/bundles'
 import PlusGiftIcon from '../../static/plus_round.svg'
 import PlusIcon from '../../static/plus.svg'
-import {Link, PaginationItem, BundleDetails} from '../../components'
+import {BundleDetails, PaginationItem} from '../../components'
 import debounce from 'lodash/debounce'
 import messages from './messages'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
-import {ORDER_BUNDLE_ROUTES, EDIT_BUNDLE_ROUTES} from '../'
+import {EDIT_BUNDLE_FLOW} from '../'
 import {setBundle, setFlow} from '../../reducers/purchase'
 import RemoveIcon from '../../static/remove.svg'
 
@@ -50,12 +50,10 @@ class Bundles extends React.Component {
             value={search}
             onChange={this.changeSearch}
           />
-          <Link to={EDIT_BUNDLE_ROUTES[0]} onClick={() => setFlow(EDIT_BUNDLE_ROUTES)}>
-            <Button type='primary' ghost>
-              <PlusIcon/>
-              {intl.formatMessage(messages.addBundle)}
-            </Button>
-          </Link>
+          <Button type='primary' ghost onClick={() => setFlow(EDIT_BUNDLE_FLOW)}>
+            <PlusIcon/>
+            {intl.formatMessage(messages.addBundle)}
+          </Button>
         </div>
         <Row type='flex' gutter={20}>
           {bundles.map((bundle) =>
@@ -89,12 +87,10 @@ class Bundles extends React.Component {
                       <span className={s.cardPrice}>{bundle.total}</span>
                       <span className={s.cardPriceCurrency}>CHF</span>
                     </div>
-                    <Link to={ORDER_BUNDLE_ROUTES[0]} onClick={() => setBundle(bundle, ORDER_BUNDLE_ROUTES)}>
-                      <Button type='primary' ghost>
-                        <PlusIcon/>
-                        {intl.formatMessage(messages.makeOrder)}
-                      </Button>
-                    </Link>
+                    <Button type='primary' ghost onClick={() => setBundle(bundle)}>
+                      <PlusIcon/>
+                      {intl.formatMessage(messages.makeOrder)}
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -105,7 +101,11 @@ class Bundles extends React.Component {
           <Pagination
             current={page}
             total={bundlesCount}
-            showTotal={(total, range) => intl.formatMessage(messages.tableItems, {range0: range[0], range1: range[1], total})}
+            showTotal={(total, range) => intl.formatMessage(messages.tableItems, {
+              range0: range[0],
+              range1: range[1],
+              total
+            })}
             pageSize={pageSize}
             showSizeChanger
             onChange={(page, pageSize) => getBundles({page, pageSize})}
