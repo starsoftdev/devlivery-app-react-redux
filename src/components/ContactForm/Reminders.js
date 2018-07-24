@@ -70,10 +70,10 @@ class Reminders extends React.Component {
 
   render() {
     const {occasionTitle, newOccasion} = this.state
-    const {occasions, loading, intl, initialValues} = this.props
-    const {getFieldDecorator, getFieldValue} = this.props.form
+    const {occasions, loading, intl, initialValues, form} = this.props
+    const {getFieldDecorator, getFieldValue} = form
 
-    this.props.form.getFieldDecorator('reminderKeys', {initialValue: createArray(initialValues && initialValues.length ? initialValues.length : 1)})
+    form.getFieldDecorator('reminderKeys', {initialValue: createArray(initialValues && initialValues.length ? initialValues.length : 1)})
 
     let occasionsList = [...occasions]
 
@@ -109,6 +109,12 @@ class Reminders extends React.Component {
                     this.setState({occasionTitle: search})
                   }}
                   onChange={(value, item) => {
+                    if (item && +item.key !== 0) {
+                      const selectedOccasion = occasions.find(occasion => occasion.id === +value)
+                      if (selectedOccasion.date) {
+                        form.setFieldsValue({[`reminders[${k}].date`]: moment(selectedOccasion.date, DATE_FORMAT)})
+                      }
+                    }
                     if (item && +item.key === 0) {
                       this.addOccasion(occasionTitle)
                     }
