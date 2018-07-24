@@ -13,7 +13,7 @@ class EditContact extends React.Component {
     e.preventDefault()
     this.props.form.validateFields({force: true}, (err, values) => {
       if (!err) {
-        this.props.editContact(values)
+        this.props.editContact(values, this.props.form)
       }
     })
   }
