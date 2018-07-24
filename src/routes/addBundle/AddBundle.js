@@ -8,7 +8,6 @@ import {Actions, SectionHeader} from '../../components'
 import PlusGiftIcon from '../../static/plus_round.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import {Form} from 'antd'
-import formMessages from '../../formMessages'
 import messages from './messages'
 
 // TODO reuse code from Purchase 11
@@ -71,9 +70,6 @@ class AddBundle extends React.Component {
           <div className={s.orderDetails}>
             <Form.Item>
               {getFieldDecorator('title', {
-                rules: [
-                  {required: true, message: intl.formatMessage(formMessages.required)},
-                ],
               })(
                 <Input placeholder={intl.formatMessage(messages.bundleName)}/>
               )}
