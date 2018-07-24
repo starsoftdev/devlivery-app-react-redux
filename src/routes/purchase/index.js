@@ -8,7 +8,6 @@ async function action({store, next, intl}) {
   const child = await next()
   const {loggedIn} = store.getState().user
   const {flow} = store.getState().purchase
-  console.log(flow, loggedIn)
   if (flow.key === PURCHASE_FLOW.key && loggedIn) {
     store.dispatch(setFlow(AUTH_PURCHASE_FLOW, false))
   } else if (flow.key === AUTH_PURCHASE_FLOW.key && !loggedIn) {
