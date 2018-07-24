@@ -2,18 +2,17 @@ import React from 'react'
 import {AppLayout} from '../../components'
 import Purchase from './Purchase'
 import {setFlow, setFlowIndex} from '../../reducers/purchase'
-import {AUTH_PURCHASE_ROUTES, PURCHASE_ROUTES} from '../'
-import isEqual from 'lodash/isEqual'
+import {AUTH_PURCHASE_FLOW, PURCHASE_FLOW} from '../'
 
 async function action({store, next, intl}) {
   const child = await next()
   const {loggedIn} = store.getState().user
   const {flow} = store.getState().purchase
-
-  if (isEqual(flow, PURCHASE_ROUTES) && loggedIn) {
-    store.dispatch(setFlow(AUTH_PURCHASE_ROUTES))
-  } else if (isEqual(flow, AUTH_PURCHASE_ROUTES) && !loggedIn) {
-    store.dispatch(setFlow(PURCHASE_ROUTES))
+  console.log(flow, loggedIn)
+  if (flow.key === PURCHASE_FLOW.key && loggedIn) {
+    store.dispatch(setFlow(AUTH_PURCHASE_FLOW, false))
+  } else if (flow.key === AUTH_PURCHASE_FLOW.key && !loggedIn) {
+    store.dispatch(setFlow(PURCHASE_FLOW, false))
   }
   store.dispatch(setFlowIndex())
 

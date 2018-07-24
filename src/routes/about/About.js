@@ -2,19 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './About.css'
-import DecorTopElement from '../../static/decor_element_top.svg'
-import PlusCircleIcon from '../../static/plus-circle.svg'
-import {Button, Carousel, Col, Input, Row} from 'antd'
-import DownArrow from '../../static/down_arrow.svg'
-import ChooseItImage from '../../static/choose_it.svg'
-import personalizeItImage from '../../static/personalize_it.png'
-import sendItImage from '../../static/send_it.png'
-import AboutUsIcon from '../../static/decor_about.svg'
-import {animateScroll} from 'react-scroll'
-import {AUTH_PURCHASE_ROUTES, PURCHASE1_ROUTE} from '../'
-import {Link} from '../../components'
+import {Button, Col, Input, Row} from 'antd'
 import messages from './messages'
-import {setFlow} from '../../reducers/purchase'
 
 class About extends React.Component {
   render() {
@@ -50,7 +39,9 @@ class About extends React.Component {
               <Col xs={24} sm={12}>
                 <div>
                   <p className={s.feedback}>
-                    “ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make a type specimen book. ”
+                    “ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                    the industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it
+                    to make a type specimen book. ”
                     <br/>
                     <b>- Adam Smith</b>
                   </p>
@@ -86,7 +77,6 @@ class About extends React.Component {
 
 const mapState = state => ({})
 
-const mapDispatch = {
-}
+const mapDispatch = {}
 
 export default connect(mapState, mapDispatch)(withStyles(s)(About))

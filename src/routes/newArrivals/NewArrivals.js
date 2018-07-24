@@ -9,7 +9,7 @@ import debounce from 'lodash/debounce'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
 import {getCards, getGifts} from '../../reducers/newArrivals'
 import ArrowIcon from '../../static/decor_arrow.svg'
-import {PURCHASE1_ROUTE} from '../index'
+import {PURCHASE1_ROUTE} from '../'
 
 const FOOD_GIFTS_INDEX = 0
 const NON_FOOD_GIFTS_INDEX = 1
@@ -50,6 +50,7 @@ class NewArrivals extends React.Component {
     const {search, slideIndex} = this.state
     const {intl, cards, loading, gifts} = this.props
 
+    // TODO add setFlow on PURCHASE1_ROUTE link
     return (
       <div className={s.container}>
         <div className={s.content}>
