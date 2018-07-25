@@ -18,3 +18,5 @@ export {default as CalendarEvents} from './CalendarEvents/CalendarEvents'
 export {default as CalendarEvent} from './CalendarEvent/CalendarEvent'
 export {default as ChangePasswordForm} from './ChangePasswordForm/ChangePasswordForm'
 export {default as Address} from './Address/Address'
+export {default as OrderDetails} from './OrderDetails/OrderDetails'
+
