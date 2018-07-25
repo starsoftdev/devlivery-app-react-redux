@@ -19,7 +19,11 @@ export default defineMessages({
   },
   fontWeight: {
     id: 'purchase6.fontWeight',
-    defaultMessage: 'Font Weight',
+    defaultMessage: 'Weight',
+  },
+  textAlignment: {
+    id: 'purchase6.textAlignment',
+    defaultMessage: 'Text align',
   },
   color: {
     id: 'purchase6.color',

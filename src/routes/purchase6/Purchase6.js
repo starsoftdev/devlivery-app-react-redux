@@ -1,22 +1,22 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {submitCardDetails} from '../../reducers/purchase'
-import {Button, Col, Form, Layout, Row, Select} from 'antd'
+import {Button, Col, Form, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase6.css'
-import {Actions, Header, SectionHeader} from '../../components'
+import {Actions, SectionHeader} from '../../components'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
-import cn from 'classnames'
-import Preview from './Preview'
 import messages from './messages'
 import {ContentState, EditorState} from 'draft-js'
 import {Editor} from 'react-draft-wysiwyg'
 import htmlToDraft from 'html-to-draftjs'
-import draftWysiwygStyles from 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import draftWysiwygStyles from '../../styles/react-draft-wysiwyg.css'
 import createStyles from 'draft-js-custom-styles'
 import {stateToHTML} from 'draft-js-export-html'
+import EditorIcon from '../../static/editor_icon.svg'
 
-const {styles, customStyleFn, exporter} = createStyles(['font-size', 'color', 'font-family', 'font-weight'])
+// TODO make text-alignment work
+const {styles, customStyleFn, exporter} = createStyles(['font-size', 'color', 'font-family', 'font-weight', 'text-alignment'])
 
 // TODO refactor code
 // TODO move font sizes/colors/etc to constants
@@ -25,8 +25,7 @@ class Purchase6 extends React.Component {
     super(props)
     this.state = {
       editorState: EditorState.createEmpty(),
-      previewCollapsed: false,
-      loaded: false,
+      mounted: false,
     }
 
     this.updateEditorState = (editorState) => this.setState({editorState})
@@ -34,8 +33,9 @@ class Purchase6 extends React.Component {
 
   componentDidMount() {
     const {cardDetails} = this.props
+    // load editor only on client side (not server side)
     const newState = {
-      loaded: true
+      mounted: true
     }
     const html = cardDetails ? cardDetails.body : ''
     const contentBlock = htmlToDraft(html)
@@ -56,10 +56,6 @@ class Purchase6 extends React.Component {
         this.props.submitCardDetails({...values, body})
       }
     })
-  }
-
-  onPreviewCollapse = (previewCollapsed) => {
-    this.setState({previewCollapsed})
   }
 
   toggleFontSize = (fontSize) => {
@@ -87,48 +83,84 @@ class Purchase6 extends React.Component {
     return this.updateEditorState(newEditorState)
   }
 
+
+  toggleTextAlignment = (textAlignment) => {
+    const newEditorState = styles.textAlignment.toggle(this.state.editorState, textAlignment)
+
+    return this.updateEditorState(newEditorState)
+  }
+
   render() {
-    const {previewCollapsed, editorState, loaded} = this.state
-    const {cardDetails, intl, flowIndex, cardSize} = this.props
+    const {editorState, mounted} = this.state
+    const {cardDetails, intl, flowIndex, /*cardSize*/} = this.props
+    // TODO
+    const cardSize = {
+      height: 101.6,
+      width: 228.6,
+    }
     const {getFieldDecorator} = this.props.form
     const inlineStyles = exporter(editorState)
     const html = stateToHTML(editorState.getCurrentContent(), {inlineStyles})
 
     return (
       <Form onSubmit={this.handleSubmit} className={s.form}>
-        <div className={s.container}>
-          {previewCollapsed && (
-            <Button
-              type='primary'
-              className={s.previewBtn}
-              onClick={() => this.onPreviewCollapse(false)}
-            >
-              Preview
-            </Button>
-          )}
-          <Layout.Content className={cn(s.contentWrapper, !previewCollapsed && s.withPreview)}>
-            <Header className={s.layoutHeader}/>
-            <div className={s.content}>
-              <SectionHeader
-                header={intl.formatMessage(messages.header)}
-                number={flowIndex + 1}
-                prefixClassName={s.headerPrefix}
-              />
+        <div className={s.content}>
+          <SectionHeader
+            header={intl.formatMessage(messages.header)}
+            number={flowIndex + 1}
+            prefixClassName={s.headerPrefix}
+          />
+          <div className={s.editorContainer}>
+            <div className={s.editorWrapper}>
+              <div className={s.editorIconWrapper}>
+                <EditorIcon/>
+              </div>
+              <div
+                style={{
+                  width: `${cardSize.width}mm`,
+                  height: `${cardSize.height}mm`,
+                }}
+              >
+                {mounted && (
+                  <Editor
+                    wrapperClassName={s.editor}
+                    toolbarHidden
+                    customStyleFn={customStyleFn}
+                    editorClassName={s.editorBody}
+                    editorState={editorState}
+                    onEditorStateChange={this.updateEditorState}
+                  />
+                )}
+              </div>
+            </div>
+            <div className={s.editorActions}>
+              <Form.Item>
+                {getFieldDecorator('recipient', {
+                  initialValue: cardDetails ? cardDetails.recipient : undefined,
+                })(
+                  <Select placeholder={intl.formatMessage(messages.recipient)}>
+                    {[].map((item) =>
+                      <Select.Option key={item} value={item}>{item}</Select.Option>
+                    )}
+                  </Select>
+                )}
+              </Form.Item>
+              <Form.Item>
+                {getFieldDecorator('font_family', {
+                  initialValue: cardDetails ? cardDetails.font_family : undefined,
+                })(
+                  <Select
+                    placeholder={intl.formatMessage(messages.fontFamily)}
+                    onChange={this.toggleFontFamily}
+                  >
+                    {['Arial', 'Georgia', 'Impact', 'Tahoma', 'Verdana'].map((item) =>
+                      <Select.Option key={item} value={item}>{item}</Select.Option>
+                    )}
+                  </Select>
+                )}
+              </Form.Item>
               <Row gutter={20}>
                 <Col xs={24} sm={12}>
-                  <Form.Item>
-                    {getFieldDecorator('recipient', {
-                      initialValue: cardDetails ? cardDetails.recipient : undefined,
-                    })(
-                      <Select placeholder={intl.formatMessage(messages.recipient)}>
-                        {[].map((item) =>
-                          <Select.Option key={item} value={item}>{item}</Select.Option>
-                        )}
-                      </Select>
-                    )}
-                  </Form.Item>
-                </Col>
-                <Col xs={24} sm={6}>
                   <Form.Item>
                     {getFieldDecorator('font_weight', {
                       initialValue: cardDetails ? cardDetails.font_weight : undefined,
@@ -144,43 +176,7 @@ class Purchase6 extends React.Component {
                     )}
                   </Form.Item>
                 </Col>
-                <Col xs={24} sm={6}>
-                  <Form.Item>
-                    {getFieldDecorator('color', {
-                      initialValue: cardDetails ? cardDetails.color : undefined,
-                    })(
-                      <Select
-                        placeholder={intl.formatMessage(messages.color)}
-                        onChange={this.toggleColor}
-                      >
-                        {['green', 'blue', 'red', 'purple', 'orange'].map((item) =>
-                          <Select.Option key={item} value={item}>{item}</Select.Option>
-                        )}
-                      </Select>
-                    )}
-                  </Form.Item>
-                </Col>
-              </Row>
-              <Row gutter={20}>
                 <Col xs={24} sm={12}>
-                </Col>
-                <Col xs={24} sm={6}>
-                  <Form.Item>
-                    {getFieldDecorator('font_family', {
-                      initialValue: cardDetails ? cardDetails.font_family : undefined,
-                    })(
-                      <Select
-                        placeholder={intl.formatMessage(messages.fontFamily)}
-                        onChange={this.toggleFontFamily}
-                      >
-                        {['Arial', 'Georgia', 'Impact', 'Tahoma', 'Verdana'].map((item) =>
-                          <Select.Option key={item} value={item}>{item}</Select.Option>
-                        )}
-                      </Select>
-                    )}
-                  </Form.Item>
-                </Col>
-                <Col xs={24} sm={6}>
                   <Form.Item>
                     {getFieldDecorator('size', {
                       initialValue: cardDetails ? cardDetails.size : undefined,
@@ -197,23 +193,60 @@ class Purchase6 extends React.Component {
                   </Form.Item>
                 </Col>
               </Row>
-              {loaded && (
-                <Editor
-                  toolbarHidden
-                  customStyleFn={customStyleFn}
-                  editorClassName={s.editor}
-                  editorState={editorState}
-                  onEditorStateChange={this.updateEditorState}
-                />
-              )}
+              <Form.Item>
+                {getFieldDecorator('text_alignment', {
+                  initialValue: cardDetails ? cardDetails.text_alignment : undefined,
+                })(
+                  <Select
+                    placeholder={intl.formatMessage(messages.textAlignment)}
+                    onChange={this.toggleTextAlignment}
+                  >
+                    {[
+                      {
+                        value: 'left', label: 'Text align left',
+                      },
+                      {
+                        value: 'center', label: 'Text align center',
+                      },
+                      {
+                        value: 'right', label: 'Text align right',
+                      },
+                    ].map((item) =>
+                      <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>
+                    )}
+                  </Select>
+                )}
+              </Form.Item>
+              <div className={s.colors}>
+                {[
+                  '#BF2828',
+                  '#F5A623',
+                  '#F8E71C',
+                  '#8B572A',
+                  '#50E3C2',
+                  '#B8E986',
+                  '#000000',
+                  '#4A4A4A',
+                  '#9B9B9B',
+                  '#4A90E2',
+                  '#BD10E0',
+                  '#9013FE',
+                  '#4E7321',
+                  '#E0DFE5',
+                  '#845932',
+                  '#4A4A3A',
+                ].map((item) =>
+                  <div key={item} className={s.colorWrapper}>
+                    <a
+                      className={s.color}
+                      style={{backgroundColor: item}}
+                      onClick={() => this.toggleColor(item)}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
-          </Layout.Content>
-          <Preview
-            onCollapse={this.onPreviewCollapse}
-            collapsed={previewCollapsed}
-            content={html}
-            cardSize={cardSize}
-          />
+          </div>
         </div>
         <Actions>
           <KeyHandler
