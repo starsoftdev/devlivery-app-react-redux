@@ -63,6 +63,7 @@
   padding: 5px 10px;
   border: 1px solid rgba(64,77,95,0.1);
   background: var(--body-background);
+  overflow: hidden;
 }
 
 .editor {
