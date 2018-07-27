@@ -328,26 +328,56 @@ export const makeOrder = () => (dispatch, getState, {fetch}) => {
   })
 }
 
-export const makeStripePayment = () => (dispatch, getState, {fetch}) => {
+const STRIPE_API_KEY = 'pk_test_RZuClDNHgWzhvxegdoj5TVLt';
+
+export const makeStripePayment = (card) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   const {order} = getState().purchase
   if (!order) {
     return
   }
   dispatch({type: MAKE_STRIPE_PAYMENT_REQUEST})
-  return fetch(`/payments/stripe/charge/${order.id}`, {
+  const {
+    number,
+    expiry_month,
+    expiry_year,
+    cvc,
+  } = card;
+  return fetch('https://api.stripe.com/v1/tokens', {
     method: 'POST',
+    contentType: 'application/x-www-form-urlencoded',
+    headers: {
+      Authorization: `Bearer ${STRIPE_API_KEY}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
     body: {
-      stripeToken: '',
+      'card[number]': number,
+      'card[exp_month]': expiry_month,
+      'card[exp_year]': expiry_year,
+      'card[cvc]': cvc,
     },
-    token,
-    success: (res) => {
-      console.log(res)
-      dispatch({type: MAKE_STRIPE_PAYMENT_SUCCESS})
+    success: (stripeToken) => {
+      return fetch(`/payments/stripe/charge/${order.id}`, {
+        method: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+        body: {
+          stripeToken: stripeToken.id,
+        },
+        token,
+        success: () => {
+          dispatch(nextFlowStep())
+          dispatch({type: MAKE_STRIPE_PAYMENT_SUCCESS})
+        },
+        failure: () => {
+          dispatch({type: MAKE_STRIPE_PAYMENT_FAILURE})
+        },
+      })
     },
-    failure: () => {
-      dispatch({type: MAKE_STRIPE_PAYMENT_FAILURE})
-    },
+    failure: (error) => {
+      console.error(error);
+      dispatch({ type: MAKE_STRIPE_PAYMENT_FAILURE })
+    }
+    // body: `card[number]=${number}&card[exp_month]=${expiry_month}&card[exp_year]=${expiry_year}&card[cvc]=${cvc}`
   })
 }
 

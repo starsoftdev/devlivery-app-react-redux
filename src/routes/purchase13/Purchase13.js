@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {nextFlowStep} from '../../reducers/purchase'
+import {CREDIT_CARD, nextFlowStep, makeStripePayment} from '../../reducers/purchase'
 import {Button, Col, Form, Input, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase13.css'
@@ -24,8 +24,21 @@ class Purchase13 extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        // TODO add payment functionality
-        this.props.nextFlowStep()
+        const card = {
+          ...values,
+          expiry_month: values.expiry.slice(0, 2),
+          expiry_year: `20${values.expiry.slice(-2)}`,
+        }
+
+        switch (this.props.paymentMethod) {
+          case CREDIT_CARD:
+            this.props.makeStripePayment(card)
+            break
+
+          default:
+            this.props.nextFlowStep()
+            break
+        }
       }
     })
   }
@@ -147,11 +160,13 @@ class Purchase13 extends React.Component {
 }
 
 const mapState = state => ({
+  paymentMethod: state.purchase.paymentMethod,
   flowIndex: state.purchase.flowIndex,
 })
 
 const mapDispatch = {
   nextFlowStep,
+  makeStripePayment,
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s, creditCardStyles)(Purchase13)))
