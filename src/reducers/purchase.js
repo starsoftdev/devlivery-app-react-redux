@@ -374,7 +374,6 @@ export const makeStripePayment = (card) => (dispatch, getState, {fetch}) => {
       })
     },
     failure: (error) => {
-      console.error(error);
       dispatch({ type: MAKE_STRIPE_PAYMENT_FAILURE })
     }
     // body: `card[number]=${number}&card[exp_month]=${expiry_month}&card[exp_year]=${expiry_year}&card[cvc]=${cvc}`
@@ -392,7 +391,6 @@ export const makePaypalPayment = () => (dispatch, getState, {fetch}) => {
     method: 'POST',
     token,
     success: (res) => {
-      console.log(res)
       dispatch({type: MAKE_PAYPAL_PAYMENT_SUCCESS})
     },
     failure: () => {
