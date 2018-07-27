@@ -92,12 +92,7 @@ class Purchase6 extends React.Component {
 
   render() {
     const {editorState, mounted} = this.state
-    const {cardDetails, intl, flowIndex, /*cardSize*/} = this.props
-    // TODO
-    const cardSize = {
-      height: 101.6,
-      width: 228.6,
-    }
+    const {cardDetails, intl, flowIndex, cardSize} = this.props
     const {getFieldDecorator} = this.props.form
     const inlineStyles = exporter(editorState)
     const html = stateToHTML(editorState.getCurrentContent(), {inlineStyles})
@@ -117,8 +112,8 @@ class Purchase6 extends React.Component {
               </div>
               <div
                 style={{
-                  width: `${cardSize.width}mm`,
-                  height: `${cardSize.height}mm`,
+                  width: `${cardSize ? cardSize.width : 100}mm`,
+                  height: `${cardSize ? cardSize.height : 100}mm`,
                 }}
               >
                 {mounted && (
