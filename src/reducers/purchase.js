@@ -279,7 +279,7 @@ export const getBundleValues = (values) => {
   return Object.keys(values).forEach(key => values[key] === undefined && delete values[key])
 }
 
-export const addBundle = (values) => (dispatch, getState, {fetch}) => {
+export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   const {letteringTechnique, card, gift, cardSize, flow} = getState().purchase
   dispatch({type: ADD_BUNDLE_REQUEST})
