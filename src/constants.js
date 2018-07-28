@@ -76,7 +76,9 @@ export const NON_FOOD_TYPE = 'Non-Food'
 export const GIFT_TYPES = (intl) => [
   {key: FOOD_TYPE, title: 'Food', svg: FoodImage},
   {key: NON_FOOD_TYPE, title: 'Non Food', svg: NonFoodImage},
-  // TODO
-  // {key: 'Donation', title: 'Donation', svg: DonationImage},
-  // {key: 'Voucher', title: 'Voucher', svg: VoucherImage},
+]
+
+export const ADDITIONAL_GIFT_TYPES = (intl) => [
+  {key: 'Donation', title: 'Donation', svg: DonationImage},
+  {key: 'Voucher', title: 'Voucher', svg: VoucherImage},
 ]
