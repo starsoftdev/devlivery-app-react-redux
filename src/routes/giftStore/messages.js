@@ -17,4 +17,8 @@ export default defineMessages({
     id: 'giftStore.noData',
     defaultMessage: 'No data.',
   },
+  clearFilters: {
+    id: 'giftStore.clearFilters',
+    defaultMessage: 'Clear filters',
+  },
 })

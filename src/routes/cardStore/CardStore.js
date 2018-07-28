@@ -5,7 +5,7 @@ import s from './CardStore.css'
 import messages from './messages'
 import debounce from 'lodash/debounce'
 import {CARD_SIZES, DEFAULT_DEBOUNCE_TIME} from '../../constants'
-import {clearFilters, getCards, getOccasions} from '../../reducers/cards'
+import {clearFilters, getCards, getOccasions, clear} from '../../reducers/cards'
 import {Button, Col, Input, Pagination, Row, Select} from 'antd'
 import {Card, PaginationItem} from '../../components'
 import cn from 'classnames'
@@ -19,6 +19,10 @@ class CardStore extends React.Component {
     }
 
     this.getCards = debounce(this.props.getCards, DEFAULT_DEBOUNCE_TIME)
+  }
+
+  componentWillUnmount() {
+    this.props.clear()
   }
 
   changeSearch = (e) => {
@@ -150,6 +154,7 @@ class CardStore extends React.Component {
           {!!cards.length && (
             <div className={s.footer}>
               <Pagination
+                hideOnSinglePage
                 current={page}
                 total={cardsCount}
                 pageSize={pageSize}
@@ -172,6 +177,7 @@ const mapDispatch = {
   getCards,
   getOccasions,
   clearFilters,
+  clear,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(CardStore))

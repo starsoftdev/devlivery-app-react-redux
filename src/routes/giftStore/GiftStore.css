@@ -16,8 +16,13 @@
   }
 }
 
-.search {
+.actions {
   margin-bottom: var(--margin-md);
+  display: flex;
+}
+
+.clearFilters {
+  margin-left: var(--margin-md);
 }
 
 .filters {
@@ -88,4 +93,8 @@
 
 .noData {
   text-align: center;
+}
+
+.selected {
+  font-weight: 600;
 }
