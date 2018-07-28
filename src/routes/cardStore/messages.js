@@ -33,4 +33,8 @@ export default defineMessages({
     id: 'cardStore.occasionType',
     defaultMessage: 'Occasion Type',
   },
+  clearFilters: {
+    id: 'cardStore.clearFilters',
+    defaultMessage: 'Clear filters',
+  },
 })

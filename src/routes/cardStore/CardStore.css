@@ -16,8 +16,13 @@
   }
 }
 
-.search {
+.actions {
   margin-bottom: var(--margin-md);
+  display: flex;
+}
+
+.clearFilters {
+  margin-left: var(--margin-md);
 }
 
 .filters {
@@ -93,4 +98,8 @@
 .occasionType {
   width: 200px;
   margin-bottom: var(--margin-md);
+}
+
+.selected {
+  font-weight: 600;
 }
