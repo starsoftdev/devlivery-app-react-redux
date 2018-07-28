@@ -69,10 +69,13 @@ export const CARD_SIZES = (intl) => [
   },
 ]
 
+export const FOOD_TYPE = 'Food'
+export const NON_FOOD_TYPE = 'Non-Food'
+
 // TODO add translations
 export const GIFT_TYPES = (intl) => [
-  {key: 'Food', title: 'Food', svg: FoodImage},
-  {key: 'Non-Food', title: 'Non Food', svg: NonFoodImage},
+  {key: FOOD_TYPE, title: 'Food', svg: FoodImage},
+  {key: NON_FOOD_TYPE, title: 'Non Food', svg: NonFoodImage},
   // TODO
   // {key: 'Donation', title: 'Donation', svg: DonationImage},
   // {key: 'Voucher', title: 'Voucher', svg: VoucherImage},

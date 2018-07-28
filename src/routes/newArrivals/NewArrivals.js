@@ -6,7 +6,7 @@ import messages from './messages'
 import {Button, Carousel, Col, Input, Row} from 'antd'
 import {Card, Link} from '../../components'
 import debounce from 'lodash/debounce'
-import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
+import {DEFAULT_DEBOUNCE_TIME, FOOD_TYPE, NON_FOOD_TYPE} from '../../constants'
 import {getCards, getGifts} from '../../reducers/newArrivals'
 import ArrowIcon from '../../static/decor_arrow.svg'
 import {PURCHASE1_ROUTE} from '../'
@@ -33,17 +33,24 @@ class NewArrivals extends React.Component {
     const search = e.target.value
     this.setState({search})
     if (slideIndex === FOOD_GIFTS_INDEX) {
-      // TODO change gift type
-      this.getGifts({search, giftType: 'Food'})
+      this.getGifts({search, giftType: FOOD_TYPE})
     } else if (slideIndex === NON_FOOD_GIFTS_INDEX) {
-      this.getGifts({search, giftType: 'Fruits'})
+      this.getGifts({search, giftType: NON_FOOD_TYPE})
     } else if (slideIndex === CARDS_INDEX) {
       this.getCards({search})
     }
   }
 
   changeSlideIndex = (slideIndex) => {
+    console.log(slideIndex)
     this.setState({slideIndex})
+    if (slideIndex === FOOD_GIFTS_INDEX) {
+      this.getGifts({giftType: FOOD_TYPE})
+    } else if (slideIndex === NON_FOOD_GIFTS_INDEX) {
+      this.getGifts({giftType: NON_FOOD_TYPE})
+    } else if (slideIndex === CARDS_INDEX) {
+      this.getCards()
+    }
   }
 
   render() {
