@@ -44,7 +44,7 @@ export const getCards = (params = {}) => (dispatch, getState, {fetch}) => {
         style: cardStyle,
       } : {},
       ...cardSize ? {
-        size: cardSize,
+        card_format: cardSize,
       } : {},
     }),
     page,
