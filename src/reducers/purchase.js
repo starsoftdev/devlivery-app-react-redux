@@ -1,11 +1,18 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {loginSuccess} from './login'
 import {message} from 'antd'
-import {DONATION_ROUTE, EDIT_BUNDLE_FLOW, ORDER_BUNDLE_FLOW, PURCHASE8_ROUTE, PURCHASE_FLOW} from '../routes'
+import {
+  CONFIRM_DONATION_ROUTE,
+  DONATION_ROUTE,
+  EDIT_BUNDLE_FLOW,
+  ORDER_BUNDLE_FLOW, PURCHASE11_ROUTE,
+  PURCHASE8_ROUTE,
+  PURCHASE_FLOW
+} from '../routes'
 import {generateUrl} from '../router'
 import qs from 'query-string'
 import {getToken} from './user'
-import {CARD_SIZES} from '../constants'
+import {CARD_SIZES, DONATION_TYPE} from '../constants'
 import has from 'lodash/has'
 import {getFormErrors} from '../utils'
 
@@ -80,6 +87,12 @@ export const GET_DONATION_ORGS_SUCCESS = 'Purchase.GET_DONATION_ORGS_SUCCESS'
 export const GET_DONATION_ORGS_FAILURE = 'Purchase.GET_DONATION_ORGS_FAILURE'
 
 export const SET_DONATION_ORG = 'Purchase.SET_DONATION_ORG'
+
+export const CONFIRM_DONATION_REQUEST = 'Purchase.CONFIRM_DONATION_REQUEST'
+export const CONFIRM_DONATION_SUCCESS = 'Purchase.CONFIRM_DONATION_SUCCESS'
+export const CONFIRM_DONATION_FAILURE = 'Purchase.CONFIRM_DONATION_FAILURE'
+
+export const SUBMIT_DONATION = 'Purchase.SUBMIT_DONATION'
 
 export const CLEAR = 'Purchase.CLEAR'
 
@@ -391,24 +404,58 @@ export const setDonationOrg = (donationOrg) => ({type: SET_DONATION_ORG, donatio
 
 export const submitGiftType = () => (dispatch, getState) => {
   const {flow, giftType} = getState().purchase
-  // TODO make sure donation is a gift type
-  if (giftType === 'Donation') {
+  if (giftType === DONATION_TYPE) {
     dispatch(setFlow({
       ...flow,
-      routes: flow.routes.map(item => item === PURCHASE8_ROUTE ? DONATION_ROUTE : item)
+      routes: flow.routes.map(item => {
+        if (item === PURCHASE8_ROUTE)
+          return DONATION_ROUTE
+        if (item === PURCHASE11_ROUTE)
+          return CONFIRM_DONATION_ROUTE
+        return item
+      })
     }, false))
   } else {
     dispatch(setFlow({
       ...flow,
-      routes: flow.routes.map(item => item === DONATION_ROUTE ? PURCHASE8_ROUTE : item)
+      routes: flow.routes.map(item => {
+        if (item === DONATION_ROUTE)
+          return PURCHASE8_ROUTE
+        if (item === CONFIRM_DONATION_ROUTE)
+          return PURCHASE11_ROUTE
+        return item
+      })
     }, false))
   }
   dispatch(nextFlowStep())
 }
 
-export const submitDonation = () => (dispatch, getState) => {
-  // TODO finish donation page
+export const submitDonation = ({donationAmount}) => (dispatch, getState) => {
+  dispatch({type: SUBMIT_DONATION, donationAmount})
   dispatch(submitGift())
+}
+
+export const confirmDonation = () => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  const {donationOrg, bundle, donationAmount} = getState().purchase
+  dispatch({type: CONFIRM_DONATION_REQUEST})
+  return fetch(`/donations`, {
+    method: 'POST',
+    body: {
+      bundle_id: bundle.id,
+      organization_id: donationOrg.id,
+      amount: +donationAmount,
+    },
+    token,
+    success: (res) => {
+      // TODO save data for next steps
+      dispatch({type: CONFIRM_DONATION_SUCCESS})
+      dispatch(nextFlowStep())
+    },
+    failure: () => {
+      dispatch({type: CONFIRM_DONATION_FAILURE})
+    },
+  })
 }
 
 export const clear = () => ({type: CLEAR})
@@ -442,7 +489,8 @@ const initialState = {
   bundle: null,
   order: null,
   donationOrgs: [],
-  donationOrg: null
+  donationOrg: null,
+  donationAmount: undefined,
 }
 
 export default createReducer(initialState, {
@@ -568,6 +616,9 @@ export default createReducer(initialState, {
       ...state.loading,
       donationOrgs: false,
     }
+  }),
+  [SUBMIT_DONATION]: (state, {donationAmount}) => ({
+    donationAmount,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
