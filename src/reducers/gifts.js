@@ -10,6 +10,7 @@ export const GET_GIFTS_REQUEST = 'Gifts.GET_GIFTS_REQUEST'
 export const GET_GIFTS_SUCCESS = 'Gifts.GET_GIFTS_SUCCESS'
 export const GET_GIFTS_FAILURE = 'Gifts.GET_GIFTS_FAILURE'
 
+export const CLEAR_FILTERS = 'Gifts.CLEAR_FILTERS'
 export const CLEAR = 'Gifts.CLEAR'
 
 // ------------------------------------
@@ -20,15 +21,14 @@ export const getGifts = (params = {}) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   const {page, pageSize, search, giftType} = getState().gifts
   return fetch(`/gifts?${qs.stringify({
-    // TODO how to apply to filters at the same time
-    ...search ? {
-      filter_key: 'title',
-      filter_value: search,
-    } : {},
-    ...giftType ? {
-      filter_key: 'type',
-      filter_value: giftType,
-    } : {},
+    filters: JSON.stringify({
+      ...search ? {
+        title: search,
+      } : {},
+      ...giftType ? {
+        type: giftType,
+      } : {},
+    }),
     page,
     per_page: pageSize,
   })}`, {
@@ -37,6 +37,11 @@ export const getGifts = (params = {}) => (dispatch, getState, {fetch}) => {
     success: (res) => dispatch({type: GET_GIFTS_SUCCESS, res}),
     failure: () => dispatch({type: GET_GIFTS_FAILURE}),
   })
+}
+
+export const clearFilters = () => (dispatch, getState) => {
+  dispatch({type: CLEAR_FILTERS})
+  dispatch(getGifts())
 }
 
 export const clear = () => ({type: CLEAR})
@@ -79,6 +84,9 @@ export default createReducer(initialState, {
       ...state.loading,
       gifts: false,
     },
+  }),
+  [CLEAR_FILTERS]: (state, action) => ({
+    giftType: undefined,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

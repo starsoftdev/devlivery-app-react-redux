@@ -22,8 +22,8 @@ export const GET_CARD_STYLES_REQUEST = 'Cards.GET_CARD_STYLES_REQUEST'
 export const GET_CARD_STYLES_SUCCESS = 'Cards.GET_CARD_STYLES_SUCCESS'
 export const GET_CARD_STYLES_FAILURE = 'Cards.GET_CARD_STYLES_FAILURE'
 
-export const CLEAR_FILTERS = 'Gifts.CLEAR_FILTERS'
-export const CLEAR = 'Gifts.CLEAR'
+export const CLEAR_FILTERS = 'Cards.CLEAR_FILTERS'
+export const CLEAR = 'Cards.CLEAR'
 
 // ------------------------------------
 // Actions
