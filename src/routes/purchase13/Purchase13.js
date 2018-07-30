@@ -1,6 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {CREDIT_CARD, BITPAY, nextFlowStep, makeStripePayment, makeBitpayPayment} from '../../reducers/purchase'
+import {
+  CREDIT_CARD,
+  BITPAY,
+  PAYPAL,
+  nextFlowStep,
+  makeStripePayment,
+  makeBitpayPayment,
+  makePaypalPayment,
+} from '../../reducers/purchase'
 import {Button, Col, Form, Input, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase13.css'
@@ -22,6 +30,10 @@ class Purchase13 extends React.Component {
 
   componentDidMount() {
     switch (this.props.paymentMethod) {
+      case PAYPAL:
+        this.props.makePaypalPayment();
+        break;
+
       case BITPAY:
         this.props.makeBitpayPayment();
         this.props.nextFlowStep();
@@ -178,6 +190,7 @@ const mapDispatch = {
   nextFlowStep,
   makeStripePayment,
   makeBitpayPayment,
+  makePaypalPayment,
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s, creditCardStyles)(Purchase13)))
