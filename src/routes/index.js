@@ -69,6 +69,8 @@ export const PURCHASE13_ROUTE = 'purchase13'
 export const PURCHASE_COMPLETED_ROUTE = 'purchase-completed'
 export const ADD_BUNDLE_ROUTE = 'add-bundle'
 export const DONATION_ROUTE = 'donation'
+export const PAYPAL_REDIRECT_BACK = 'paypal-redirect-back'
+export const PAYPAL_REDIRECT_BACK_CANCEL = 'paypal-redirect-back-cancel'
 
 export const PURCHASE_ROUTES = [
   PURCHASE1_ROUTE,
@@ -293,6 +295,16 @@ const routes = {
       path: '/purchase/completed',
       name: PURCHASE_COMPLETED_ROUTE,
       load: () => import(/* webpackChunkName: 'purchase' */ './purchaseCompleted'),
+    },
+    {
+      path: '/payments/paypal/redirect-back',
+      name: PAYPAL_REDIRECT_BACK,
+      load: () => import(/* webpackChunkName: 'purchase' */ './paypalRedirectBack'),
+    },
+    {
+      path: '/payments/paypal/cancel',
+      name: PAYPAL_REDIRECT_BACK_CANCEL,
+      load: () => import(/* webpackChunkName: 'purchase' */ './paypalRedirectBack'),
     },
     {
       path: '/purchase',

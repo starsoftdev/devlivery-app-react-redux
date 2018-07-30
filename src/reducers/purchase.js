@@ -383,6 +383,8 @@ export const makeStripePayment = (card) => (dispatch, getState, {fetch}) => {
   })
 }
 
+const TRANSACTION_ID_KEY = 'transaction_id'
+
 export const makePaypalPayment = () => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   const {order} = getState().purchase
@@ -394,9 +396,71 @@ export const makePaypalPayment = () => (dispatch, getState, {fetch}) => {
     method: 'POST',
     token,
     success: (res) => {
+      const {approval_url, transaction_id} = res.data
+      localStorage.setItem(TRANSACTION_ID_KEY, transaction_id)
+      window.location = approval_url
       dispatch({type: MAKE_PAYPAL_PAYMENT_SUCCESS})
     },
     failure: () => {
+      dispatch({type: MAKE_PAYPAL_PAYMENT_FAILURE})
+    },
+  })
+}
+
+export const executePaypalPayment = ({paymentId, paypalToken, payerId}) => (dispatch, getState, {fetch, history}) => {
+  const {token} = dispatch(getToken())
+  const transactionId = localStorage.getItem(TRANSACTION_ID_KEY)
+  if (!transactionId) {
+    return
+  }
+  return fetch('/payments/paypal/execute', {
+    method: 'POST',
+    contentType: 'application/x-www-form-urlencoded',
+    body: {
+      transaction_id: transactionId,
+      token: paymentId,
+      paymentId,
+      payerId,
+    },
+    token,
+    success: (res) => {
+      localStorage.removeItem(TRANSACTION_ID_KEY)
+      history.push('/purchase/completed')
+      dispatch({type: MAKE_PAYPAL_PAYMENT_SUCCESS})
+    },
+    failure: () => {
+      // payment failed, let user choose another one
+      history.push('/purchase/payment-method')
+      localStorage.removeItem(TRANSACTION_ID_KEY)
+      // TODO add error message to be shown
+      dispatch({type: MAKE_PAYPAL_PAYMENT_FAILURE})
+    },
+  })
+}
+
+export const cancelPaypalPayment = () => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  const transactionId = localStorage.getItem(TRANSACTION_ID_KEY)
+
+  if (!transactionId) {
+    return
+  }
+
+  return fetch('/payments/paypal/cancel', {
+    method: 'POST',
+    contentType: 'application/x-www-form-urlencoded',
+    body: {
+      transaction_id: transactionId,
+    },
+    token,
+    success: (res) => {
+      localStorage.removeItem(TRANSACTION_ID_KEY)
+      // redirect to payment method selection
+      history.push('/purchase/payment-method')
+      dispatch({type: MAKE_PAYPAL_PAYMENT_SUCCESS})
+    },
+    failure: () => {
+      localStorage.removeItem(TRANSACTION_ID_KEY)
       dispatch({type: MAKE_PAYPAL_PAYMENT_FAILURE})
     },
   })
