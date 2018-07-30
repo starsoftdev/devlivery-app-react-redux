@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {PAYPAL, CREDIT_CARD, setPaymentMethod, nextFlowStep} from '../../reducers/purchase'
+import {PAYPAL, CREDIT_CARD, BITPAY, setPaymentMethod, nextFlowStep} from '../../reducers/purchase'
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase12.css'
@@ -38,6 +38,16 @@ class Purchase12 extends React.Component {
                 onClick={() => setPaymentMethod(CREDIT_CARD)}
                 active={paymentMethod === CREDIT_CARD}
                 keyValue='b'
+                svg={CreditCardIcon}
+              />
+            </Col>
+            <Col className={s.itemWrapper}>
+              <Card
+                className={s.item}
+                title={'BitPay'}
+                onClick={() => setPaymentMethod(BITPAY)}
+                active={paymentMethod === BITPAY}
+                keyValue='c'
                 svg={CreditCardIcon}
               />
             </Col>
