@@ -24,6 +24,7 @@ class Purchase13 extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        // TODO validate card fields
         const card = {
           ...values,
           expiry_month: values.expiry.slice(0, 2),

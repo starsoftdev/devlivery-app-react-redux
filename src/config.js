@@ -20,6 +20,10 @@ module.exports = {
     url: process.env.API_URL || 'http://139.59.175.153:8081/api/v1',
   },
 
+  stripe: {
+    apiKey: 'pk_test_RZuClDNHgWzhvxegdoj5TVLt',
+  },
+
   // Web analytics
   analytics: {
     // https://analytics.google.com/

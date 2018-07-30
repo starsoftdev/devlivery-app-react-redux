@@ -11,10 +11,11 @@ export const SET_CONFIG_VARS = 'Global.SET_CONFIG_VARS'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const setConfigVars = ({apiUrl, locales}) => ({
+export const setConfigVars = ({apiUrl, locales, stripeApiKey}) => ({
   type: SET_CONFIG_VARS,
   apiUrl,
   locales,
+  stripeApiKey,
 })
 
 export const setCurrentPathname = (currentPathname) => ({type: SET_CURRENT_PATHNAME, currentPathname})
@@ -29,6 +30,7 @@ const initialState = {
   currentRouteName: null,
   apiUrl: null,
   locales: [],
+  stripeApiKey: null,
 }
 
 export default createReducer(initialState, {
@@ -38,8 +40,9 @@ export default createReducer(initialState, {
   [SET_CURRENT_ROUTE_NAME]: (state, {currentRouteName}) => ({
     currentRouteName,
   }),
-  [SET_CONFIG_VARS]: (state, {apiUrl, locales}) => ({
+  [SET_CONFIG_VARS]: (state, {apiUrl, locales, stripeApiKey}) => ({
     apiUrl,
     locales,
+    stripeApiKey,
   }),
 })
