@@ -328,8 +328,6 @@ export const makeOrder = () => (dispatch, getState, {fetch}) => {
   })
 }
 
-const STRIPE_API_KEY = 'pk_test_RZuClDNHgWzhvxegdoj5TVLt';
-
 export const makeStripePayment = (card) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   const {order} = getState().purchase
@@ -342,12 +340,13 @@ export const makeStripePayment = (card) => (dispatch, getState, {fetch}) => {
     expiry_month,
     expiry_year,
     cvc,
-  } = card;
+  } = card
+  const { stripeApiKey } = getState().global
   return fetch('https://api.stripe.com/v1/tokens', {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
     headers: {
-      Authorization: `Bearer ${STRIPE_API_KEY}`,
+      Authorization: `Bearer ${stripeApiKey}`,
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: {
@@ -376,7 +375,6 @@ export const makeStripePayment = (card) => (dispatch, getState, {fetch}) => {
     failure: (error) => {
       dispatch({ type: MAKE_STRIPE_PAYMENT_FAILURE })
     }
-    // body: `card[number]=${number}&card[exp_month]=${expiry_month}&card[exp_year]=${expiry_year}&card[cvc]=${cvc}`
   })
 }
 
