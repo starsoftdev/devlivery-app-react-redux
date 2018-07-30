@@ -20,6 +20,7 @@ export const IMPORT_CONTACTS = 'import-contacts'
 
 export const PAYPAL = 'PAYPAL'
 export const CREDIT_CARD = 'CREDIT_CARD'
+export const BITPAY = 'BITPAY'
 
 export const SET_BUNDLE = 'Purchase.SET_BUNDLE'
 export const SET_FLOW = 'Purchase.SET_FLOW'
@@ -74,6 +75,10 @@ export const MAKE_STRIPE_PAYMENT_FAILURE = 'Purchase.MAKE_STRIPE_PAYMENT_FAILURE
 export const MAKE_PAYPAL_PAYMENT_REQUEST = 'Purchase.MAKE_PAYPAL_PAYMENT_REQUEST'
 export const MAKE_PAYPAL_PAYMENT_SUCCESS = 'Purchase.MAKE_PAYPAL_PAYMENT_SUCCESS'
 export const MAKE_PAYPAL_PAYMENT_FAILURE = 'Purchase.MAKE_PAYPAL_PAYMENT_FAILURE'
+
+export const MAKE_BITPAY_PAYMENT_REQUEST = 'Purchase.MAKE_BITPAY_PAYMENT_REQUEST'
+export const MAKE_BITPAY_PAYMENT_SUCCESS = 'Purchase.MAKE_BITPAY_PAYMENT_SUCCESS'
+export const MAKE_BITPAY_PAYMENT_FAILURE = 'Purchase.MAKE_BITPAY_PAYMENT_FAILURE'
 
 export const GET_DONATION_ORGS_REQUEST = 'Purchase.GET_DONATION_ORGS_REQUEST'
 export const GET_DONATION_ORGS_SUCCESS = 'Purchase.GET_DONATION_ORGS_SUCCESS'
@@ -393,6 +398,27 @@ export const makePaypalPayment = () => (dispatch, getState, {fetch}) => {
     },
     failure: () => {
       dispatch({type: MAKE_PAYPAL_PAYMENT_FAILURE})
+    },
+  })
+}
+
+export const makeBitpayPayment = () => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  const {order} = getState().purchase
+  if (!order) {
+    return
+  }
+  dispatch({type: MAKE_BITPAY_PAYMENT_REQUEST})
+  return fetch(`/payments/bitpay/charge/${order.id}`, {
+    method: 'POST',
+    token,
+    success: (res) => {
+      // redirect to bitpay payment page
+      window.location = res.data.approval_url
+      dispatch({type: MAKE_BITPAY_PAYMENT_SUCCESS})
+    },
+    failure: () => {
+      dispatch({type: MAKE_BITPAY_PAYMENT_FAILURE})
     },
   })
 }
