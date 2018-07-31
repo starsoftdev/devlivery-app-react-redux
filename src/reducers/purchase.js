@@ -605,6 +605,7 @@ const initialState = {
     occasions: false,
     donationOrgs: false,
     cards: false,
+    payment: false,
   },
   occasions: [],
   occasion: null,
@@ -757,6 +758,60 @@ export default createReducer(initialState, {
   }),
   [SUBMIT_DONATION]: (state, {donationAmount}) => ({
     donationAmount,
+  }),
+  [MAKE_STRIPE_PAYMENT_REQUEST]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      payment: true,
+    }
+  }),
+  [MAKE_STRIPE_PAYMENT_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      payment: false,
+    }
+  }),
+  [MAKE_STRIPE_PAYMENT_SUCCESS]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      payment: false,
+    }
+  }),
+  [MAKE_PAYPAL_PAYMENT_REQUEST]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      payment: true,
+    }
+  }),
+  [MAKE_PAYPAL_PAYMENT_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      payment: false,
+    }
+  }),
+  [MAKE_PAYPAL_PAYMENT_SUCCESS]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      payment: false,
+    }
+  }),
+  [MAKE_BITPAY_PAYMENT_REQUEST]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      payment: true,
+    }
+  }),
+  [MAKE_BITPAY_PAYMENT_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      payment: false,
+    }
+  }),
+  [MAKE_BITPAY_PAYMENT_SUCCESS]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      payment: false,
+    }
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

@@ -9,7 +9,7 @@ import {
   makeBitpayPayment,
   makePaypalPayment,
 } from '../../reducers/purchase'
-import {Button, Col, Form, Input, Row} from 'antd'
+import {Button, Col, Form, Input, Row, Spin, Icon} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase13.css'
 import {Actions, SectionHeader} from '../../components'
@@ -32,12 +32,12 @@ class Purchase13 extends React.Component {
     switch (this.props.paymentMethod) {
       case PAYPAL:
         this.props.makePaypalPayment()
-        this.props.nextFlowStep()
+        // this.props.nextFlowStep()
         break
 
       case BITPAY:
         this.props.makeBitpayPayment()
-        this.props.nextFlowStep()
+        // this.props.nextFlowStep()
         break
     }
   }
@@ -94,8 +94,14 @@ class Purchase13 extends React.Component {
     const {number, name, expiry, cvc, focused} = this.state
     const {flowIndex, intl} = this.props
     const {getFieldDecorator} = this.props.form
+    console.log(this.props.loading)
     return (
       <React.Fragment>
+        <Spin
+          wrapperClassName='action-spin'
+          indicator={<Icon style={{fontSize: '16px'}} spin type='loading'/>}
+          spinning={this.props.loading}
+        />
         <div className={s.content}>
           <SectionHeader
             header={intl.formatMessage(messages.header)}
@@ -185,6 +191,7 @@ class Purchase13 extends React.Component {
 const mapState = state => ({
   paymentMethod: state.purchase.paymentMethod,
   flowIndex: state.purchase.flowIndex,
+  loading: state.purchase.loading.payment,
 })
 
 const mapDispatch = {

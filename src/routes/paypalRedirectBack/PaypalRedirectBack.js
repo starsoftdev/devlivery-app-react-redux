@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {AppLayout} from '../../components'
 import {executePaypalPayment, cancelPaypalPayment} from '../../reducers/purchase'
+import {Spin, Icon} from 'antd'
 
 class PaypalRedirectBack extends React.PureComponent {
   componentDidMount() {
@@ -18,7 +19,15 @@ class PaypalRedirectBack extends React.PureComponent {
   }
 
   render() {
-    return <AppLayout />
+    return (
+      <AppLayout>
+        <Spin
+          wrapperClassName='action-spin'
+          indicator={<Icon style={{fontSize: '16px'}} spin type='loading'/>}
+          spinning={true}
+        />
+      </AppLayout>
+    )
   }
 }
 
