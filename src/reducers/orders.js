@@ -19,6 +19,13 @@ export const GET_EVENTS_FAILURE = 'Orders.GET_EVENTS_FAILURE'
 export const OPEN_CALENDAR_EVENTS_MODAL = 'Orders.OPEN_CALENDAR_EVENTS_MODAL'
 export const CLOSE_CALENDAR_EVENTS_MODAL = 'Orders.CLOSE_CALENDAR_EVENTS_MODAL'
 
+export const OPEN_ORDER_DETAILS_MODAL = 'Orders.OPEN_ORDER_DETAILS_MODAL'
+export const CLOSE_ORDER_DETAILS_MODAL = 'Orders.CLOSE_ORDER_DETAILS_MODAL'
+
+export const GET_ORDER_DETAILS_REQUEST = 'Orders.GET_ORDER_DETAILS_REQUEST'
+export const GET_ORDER_DETAILS_SUCCESS = 'Orders.GET_ORDER_DETAILS_SUCCESS'
+export const GET_ORDER_DETAILS_FAILURE = 'Orders.GET_ORDER_DETAILS_FAILURE'
+
 export const CLEAR = 'Orders.CLEAR'
 
 // ------------------------------------
@@ -59,6 +66,30 @@ export const openCalendarEventsModal = (selectedDate) => ({type: OPEN_CALENDAR_E
 
 export const closeCalendarEventsModal = () => ({type: CLOSE_CALENDAR_EVENTS_MODAL})
 
+export const openOrderDetailsModal = (order) => (dispatch, getState) => {
+  dispatch({type: OPEN_ORDER_DETAILS_MODAL})
+  dispatch(getOrderDetails(order))
+}
+
+export const closeOrderDetailsModal = () => ({type: CLOSE_ORDER_DETAILS_MODAL})
+
+export const getOrderDetails = (order) => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  dispatch({type: GET_ORDER_DETAILS_REQUEST})
+  return fetch(`/order-confirmation?${qs.stringify({
+    order_id: order.id,
+  })}`, {
+    method: 'GET',
+    token,
+    success: (res) => {
+      dispatch({type: GET_ORDER_DETAILS_SUCCESS, orderDetails: res.data})
+    },
+    failure: () => {
+      dispatch({type: GET_ORDER_DETAILS_FAILURE})
+    },
+  })
+}
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -68,6 +99,7 @@ const initialState = {
   loading: {
     orders: false,
     events: false,
+    orderDetails: false,
   },
   orders: [],
   ordersCount: 0,
@@ -78,6 +110,8 @@ const initialState = {
   date: moment().format(),
   calendarEventsModalOpened: false,
   selectedDate: null,
+  orderDetailsModalOpened: false,
+  orderDetails: null,
 }
 
 export default createReducer(initialState, {
@@ -131,6 +165,32 @@ export default createReducer(initialState, {
   [CLOSE_CALENDAR_EVENTS_MODAL]: (state, action) => ({
     calendarEventsModalOpened: false,
     selectedDate: null,
+  }),
+  [OPEN_ORDER_DETAILS_MODAL]: (state, action) => ({
+    orderDetailsModalOpened: true,
+  }),
+  [CLOSE_ORDER_DETAILS_MODAL]: (state, action) => ({
+    orderDetailsModalOpened: false,
+    orderDetails: null,
+  }),
+  [GET_ORDER_DETAILS_REQUEST]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      orderDetails: true,
+    },
+  }),
+  [GET_ORDER_DETAILS_SUCCESS]: (state, {orderDetails}) => ({
+    orderDetails,
+    loading: {
+      ...state.loading,
+      orderDetails: false,
+    },
+  }),
+  [GET_ORDER_DETAILS_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      orderDetails: false,
+    },
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
