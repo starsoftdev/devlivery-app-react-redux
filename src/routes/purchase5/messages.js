@@ -13,4 +13,8 @@ export default defineMessages({
     id: 'purchase5.submit',
     defaultMessage: 'Submit',
   },
+  color: {
+    id: 'purchase5.color',
+    defaultMessage: 'Color',
+  },
 })

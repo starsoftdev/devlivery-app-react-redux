@@ -107,6 +107,10 @@ export const CONFIRM_DONATION_FAILURE = 'Purchase.CONFIRM_DONATION_FAILURE'
 
 export const SUBMIT_DONATION = 'Purchase.SUBMIT_DONATION'
 
+export const GET_CARD_COLORS_REQUEST = 'Purchase.GET_CARD_COLORS_REQUEST'
+export const GET_CARD_COLORS_SUCCESS = 'Purchase.GET_CARD_COLORS_SUCCESS'
+export const GET_CARD_COLORS_FAILURE = 'Purchase.GET_CARD_COLORS_FAILURE'
+
 export const CLEAR = 'Purchase.CLEAR'
 
 // ------------------------------------
@@ -198,14 +202,17 @@ export const getCardStyles = () => (dispatch, getState, {fetch}) => {
 
 export const setCardStyle = (cardStyle) => ({type: SET_CARD_STYLE, cardStyle})
 
-export const getCards = () => (dispatch, getState, {fetch}) => {
-  dispatch({type: GET_CARDS_REQUEST})
-  const {occasion, cardStyle} = getState().purchase
+export const getCards = (params = {}) => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_CARDS_REQUEST, params})
+  const {occasion, cardStyle, cardColor} = getState().purchase
   return fetch(`/cards?${qs.stringify({
     take: 100,
     filters: JSON.stringify({
       ...occasion ? {
         occasion_id: occasion,
+      } : {},  
+      ...cardColor ? {
+        color: cardColor,
       } : {},
       ...cardStyle ? {
         style: cardStyle,
@@ -595,6 +602,19 @@ export const confirmDonation = () => (dispatch, getState, {fetch}) => {
   })
 }
 
+export const getCardColors = () => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_CARD_COLORS_REQUEST})
+  return fetch(`/card-colors?take=100`, {
+    method: 'GET',
+    success: (res) => {
+      dispatch({type: GET_CARD_COLORS_SUCCESS, cardColors: res.data})
+    },
+    failure: () => {
+      dispatch({type: GET_CARD_COLORS_FAILURE})
+    }
+  })
+}
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -629,6 +649,8 @@ const initialState = {
   donationOrgs: [],
   donationOrg: null,
   donationAmount: undefined,
+  cardColors: [],
+  cardColor: undefined,
 }
 
 export default createReducer(initialState, {
@@ -682,7 +704,8 @@ export default createReducer(initialState, {
   [SET_CARD_STYLE]: (state, {cardStyle}) => ({
     cardStyle,
   }),
-  [GET_CARDS_REQUEST]: (state, action) => ({
+  [GET_CARDS_REQUEST]: (state, {params}) => ({
+    cardColor: has(params, 'cardColor') ? params.cardColor : state.cardColor,
     loading: {
       ...state.loading,
       cards: true,
@@ -812,6 +835,9 @@ export default createReducer(initialState, {
       ...state.loading,
       payment: false,
     }
+  }),
+  [GET_CARD_COLORS_SUCCESS]: (state, {cardColors}) => ({
+    cardColors,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

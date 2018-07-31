@@ -38,6 +38,10 @@
   }
 }
 
+.header {
+  justify-content: space-between;
+}
+
 .headerPrefix {
   @media (min-width: 1501px) {
     position: absolute;
@@ -94,4 +98,8 @@
     z-index: 11;
     transform: rotate(90deg);
   }
+}
+
+.color {
+  width: 200px;
 }
