@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {nextFlowStep, setCard} from '../../reducers/purchase'
-import {Button, Col, Layout, Row} from 'antd'
+import {getCards, nextFlowStep, setCard} from '../../reducers/purchase'
+import {Button, Col, Layout, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase5.css'
 import {Actions, Card, Header, SectionHeader} from '../../components'
@@ -22,7 +22,7 @@ class Purchase5 extends React.Component {
 
   render() {
     const {previewCollapsed} = this.state
-    const {cards, card, setCard, nextFlowStep, intl, flowIndex, loading} = this.props
+    const {cards, card, setCard, nextFlowStep, intl, flowIndex, loading, getCards, cardColors} = this.props
 
     return (
       <React.Fragment>
@@ -42,8 +42,20 @@ class Purchase5 extends React.Component {
               <SectionHeader
                 header={intl.formatMessage(messages.header)}
                 number={flowIndex + 1}
+                className={s.header}
                 prefixClassName={s.headerPrefix}
-              />
+              >
+                <Select
+                  className={s.color}
+                  allowClear
+                  placeholder={intl.formatMessage(messages.color)}
+                  onChange={(cardColor) => getCards({cardColor})}
+                >
+                  {cardColors.map(item =>
+                    <Select.Option key={item.title} value={item.title}>{item.title}</Select.Option>
+                  )}
+                </Select>
+              </SectionHeader>
               {!!cards.length ? (
                 <Row className={s.items} gutter={20} type='flex' align='center'>
                   {cards.map((item) =>
@@ -96,11 +108,13 @@ const mapState = state => ({
   card: state.purchase.card,
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
+  cardColors: state.purchase.cardColors,
 })
 
 const mapDispatch = {
   setCard,
   nextFlowStep,
+  getCards,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase5))
