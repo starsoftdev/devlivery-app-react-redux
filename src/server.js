@@ -65,6 +65,7 @@ app.get('*', async (req, res, next) => {
     store.dispatch(setConfigVars({
       apiUrl: config.api.url,
       locales: config.locales,
+      stripeApiKey: config.stripe.apiKey,
     }))
 
     const locale = cookies.get(LOCALE_COOKIE) || config.locales[0]
