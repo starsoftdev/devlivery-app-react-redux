@@ -6,7 +6,7 @@ import s from './Dashboard.css'
 import {Breadcrumbs, Link} from '../../components'
 import {
   ADD_CONTACT_ROUTE,
-  AUTH_PURCHASE_ROUTES,
+  AUTH_PURCHASE_FLOW,
   BUNDLES_ROUTE,
   CONTACT_GROUPS_ROUTE,
   CONTACTS_ROUTE,
@@ -14,7 +14,6 @@ import {
   IMPORT_CONTACTS_ROUTE,
   MANAGE_TEAM_ROUTE,
   ORDERS_ROUTE,
-  PURCHASE1_ROUTE,
   REPORTS_ROUTE,
   USER_ROUTE
 } from '../'
@@ -109,9 +108,13 @@ class Dashboard extends React.Component {
               className={s.breadcrumbs}
               breadcrumbs={[...BASE_DASHBOARD_BREADCRUMBS, ...breadcrumbs]}
             />
-            <Link to={PURCHASE1_ROUTE} className={s.getStartedBtn} onClick={() => setFlow(AUTH_PURCHASE_ROUTES)}>
-              <Button type='primary'>{intl.formatMessage(messages.getStarted)}</Button>
-            </Link>
+            <Button
+              type='primary'
+              className={s.getStartedBtn}
+              onClick={() => setFlow(AUTH_PURCHASE_FLOW)}
+            >
+              {intl.formatMessage(messages.getStarted)}
+            </Button>
           </div>
           {children}
         </div>

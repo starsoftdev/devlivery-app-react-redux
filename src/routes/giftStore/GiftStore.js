@@ -5,9 +5,10 @@ import s from './GiftStore.css'
 import messages from './messages'
 import debounce from 'lodash/debounce'
 import {DEFAULT_DEBOUNCE_TIME, GIFT_TYPES} from '../../constants'
-import {getGifts} from '../../reducers/gifts'
-import {Col, Input, Pagination, Row} from 'antd'
+import {clearFilters, getGifts, clear} from '../../reducers/gifts'
+import {Button, Col, Input, Pagination, Row} from 'antd'
 import {Card, PaginationItem} from '../../components'
+import cn from 'classnames'
 
 class GiftStore extends React.Component {
   constructor(props) {
@@ -20,6 +21,10 @@ class GiftStore extends React.Component {
     this.getGifts = debounce(this.props.getGifts, DEFAULT_DEBOUNCE_TIME)
   }
 
+  componentWillUnmount() {
+    this.props.clear()
+  }
+
   changeSearch = (e) => {
     const search = e.target.value
     this.setState({search})
@@ -28,27 +33,40 @@ class GiftStore extends React.Component {
 
   render() {
     const {search} = this.state
-    const {gifts, giftsCount, getGifts, intl, page, pageSize, loading} = this.props
-    // TODO change GIFT_TYPES i < 2
+    const {gifts, giftsCount, getGifts, intl, page, pageSize, loading, clearFilters, giftType} = this.props
     return (
       <div className={s.container}>
         <div className={s.filters}>
           <h3 className={s.filterHeader}>{intl.formatMessage(messages.collections)}</h3>
           <ul className={s.filterItems}>
-            {GIFT_TYPES(intl).map((item, i) => i < 2 ? (
+            {GIFT_TYPES(intl).map((item) =>
               <li key={item.key}>
-                <a onClick={() => getGifts({giftType: item.key})}>{item.title}</a>
+                <a
+                  onClick={() => getGifts({giftType: item.key})}
+                  className={cn(item.key === giftType && s.selected)}
+                >
+                  {item.title}
+                </a>
               </li>
-            ) : null)}
+            )}
           </ul>
         </div>
         <div className={s.content}>
-          <Input.Search
-            className={s.search}
-            placeholder={intl.formatMessage(messages.search)}
-            value={search}
-            onChange={this.changeSearch}
-          />
+          <div className={s.actions}>
+            <Input.Search
+              placeholder={intl.formatMessage(messages.search)}
+              value={search}
+              onChange={this.changeSearch}
+            />
+            <Button
+              className={s.clearFilters}
+              type='primary'
+              ghost
+              onClick={clearFilters}
+            >
+              {intl.formatMessage(messages.clearFilters)}
+            </Button>
+          </div>
           {!!gifts.length ? (
             <Row gutter={20} type='flex'>
               {gifts.map((item) =>
@@ -77,6 +95,7 @@ class GiftStore extends React.Component {
           {!!gifts.length && (
             <div className={s.footer}>
               <Pagination
+                hideOnSinglePage
                 current={page}
                 total={giftsCount}
                 pageSize={pageSize}
@@ -97,6 +116,8 @@ const mapState = state => ({
 
 const mapDispatch = {
   getGifts,
+  clearFilters,
+  clear,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(GiftStore))

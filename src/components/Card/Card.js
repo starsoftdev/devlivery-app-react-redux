@@ -11,9 +11,19 @@ class Card extends React.Component {
   }
 
   render() {
-    const {title, image, active, onClick, keyValue, className, svg, extra, description, bordered} = this.props
+    const {title, image, active, onClick, keyValue, className, svg, extra, description, bordered, disabled} = this.props
     return (
-      <div className={cn(s.card, active && s.active, extra && s.withExtra, bordered && s.bordered, className)} onClick={onClick}>
+      <div
+        className={cn(
+          s.card,
+          active && s.active,
+          extra && s.withExtra,
+          bordered && s.bordered,
+          disabled && s.disabled,
+          className
+        )}
+        {...!disabled ? {onClick} : {}}
+      >
         {extra && <span className={s.extra}>{extra}</span>}
         {active && <CheckIcon className={s.checkIcon}/>}
         <div className={s.imageWrapper}>
@@ -26,7 +36,9 @@ class Card extends React.Component {
             {keyValue && (
               <React.Fragment>
                 <span className={s.key}>{keyValue}</span>
-                <KeyHandler keyEventName={KEYPRESS} keyValue={keyValue} onKeyHandle={onClick}/>
+                {!disabled && (
+                  <KeyHandler keyEventName={KEYPRESS} keyValue={keyValue} onKeyHandle={onClick}/>
+                )}
               </React.Fragment>
             )}
             <span className={s.title}>{title}</span>

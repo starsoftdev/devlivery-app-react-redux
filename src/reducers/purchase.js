@@ -1,11 +1,18 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {loginSuccess} from './login'
 import {message} from 'antd'
-import {DONATION_ROUTE, EDIT_BUNDLE_ROUTES, PURCHASE8_ROUTE, PURCHASE_ROUTES} from '../routes'
+import {
+  CONFIRM_DONATION_ROUTE,
+  DONATION_ROUTE,
+  EDIT_BUNDLE_FLOW,
+  ORDER_BUNDLE_FLOW, PURCHASE11_ROUTE,
+  PURCHASE8_ROUTE,
+  PURCHASE_FLOW
+} from '../routes'
 import {generateUrl} from '../router'
 import qs from 'query-string'
 import {getToken} from './user'
-import {CARD_SIZES} from '../constants'
+import {CARD_SIZES, DONATION_TYPE} from '../constants'
 import has from 'lodash/has'
 import {getFormErrors} from '../utils'
 
@@ -94,38 +101,53 @@ export const GET_DONATION_ORGS_FAILURE = 'Purchase.GET_DONATION_ORGS_FAILURE'
 
 export const SET_DONATION_ORG = 'Purchase.SET_DONATION_ORG'
 
+export const CONFIRM_DONATION_REQUEST = 'Purchase.CONFIRM_DONATION_REQUEST'
+export const CONFIRM_DONATION_SUCCESS = 'Purchase.CONFIRM_DONATION_SUCCESS'
+export const CONFIRM_DONATION_FAILURE = 'Purchase.CONFIRM_DONATION_FAILURE'
+
+export const SUBMIT_DONATION = 'Purchase.SUBMIT_DONATION'
+
 export const CLEAR = 'Purchase.CLEAR'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const setBundle = (bundle, flow) => ({
-  type: SET_BUNDLE,
-  bundle,
-  flow,
-  letteringTechnique: bundle.lettering,
-  card: bundle.bundle_card,
-  gift: bundle.bundle_gifts[0] && bundle.bundle_gifts[0].gift,
-  giftType: bundle.bundle_gifts[0] && bundle.bundle_gifts[0].gift.type,
-  cardSize: CARD_SIZES().find(item => item.key === bundle.card_format),
-  // TODO set other fields (cardStyle)
-})
+export const setFlow = (flow, redirect = true) => (dispatch, getState, {history}) => {
+  dispatch({type: SET_FLOW, flow})
+  if (redirect) {
+    // TODO decide if flow key should be in url to fix issue when user goes back to purchase flow
+    // TODO or replace history after finishing flow to prevent this situation
+    history.push(generateUrl(flow.routes[0]))
+  }
+}
 
-export const setFlow = (flow) => ({type: SET_FLOW, flow})
+export const setBundle = (bundle) => (dispatch, getState) => {
+  dispatch({
+    type: SET_BUNDLE,
+    bundle,
+    letteringTechnique: bundle.lettering,
+    card: bundle.bundle_card.card,
+    gift: bundle.bundle_gifts[0] && bundle.bundle_gifts[0].gift,
+    giftType: bundle.bundle_gifts[0] && bundle.bundle_gifts[0].gift.type,
+    cardSize: CARD_SIZES().find(item => item.key === bundle.bundle_card.card.size),
+    cardStyle: bundle.bundle_card.card.style,
+  })
+  dispatch(setFlow(ORDER_BUNDLE_FLOW))
+}
 
 export const setFlowIndex = () => (dispatch, getState) => {
   const {currentRouteName} = getState().global
   const {flow} = getState().purchase
-  const flowIndex = flow.findIndex(item => item === currentRouteName)
+  const flowIndex = flow.routes.findIndex(item => item === currentRouteName)
   dispatch({type: SET_FLOW_INDEX, flowIndex})
 }
 
 // 'step' allows to skip number of steps
 export const nextFlowStep = (step = 0) => (dispatch, getState, {history}) => {
   const {flow, flowIndex} = getState().purchase
-  history.push(generateUrl(flow[flowIndex + 1 + step]))
+  history.push(generateUrl(flow.routes[flowIndex + 1 + step]))
   // if step is last (except Thank You page/etc)
-  if (flowIndex === flow.length - 2) {
+  if (flowIndex === flow.routes.length - 2) {
     dispatch(clear())
   }
 }
@@ -156,7 +178,7 @@ export const getOccasionTypes = () => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_OCCASION_TYPES_REQUEST})
   return fetch(`/occasion-types`, {
     method: 'GET',
-    success: (res) =>  dispatch({type: GET_OCCASION_TYPES_SUCCESS, occasionTypes: res.data}),
+    success: (res) => dispatch({type: GET_OCCASION_TYPES_SUCCESS, occasionTypes: res.data}),
     failure: () => {
       dispatch({type: GET_OCCASION_TYPES_FAILURE})
     }
@@ -251,7 +273,7 @@ export const register = (values, form) => (dispatch, getState, {fetch}) => {
       if (formErrors)
         form.setFields(formErrors)
       else
-        // TODO
+      // TODO
         message.error('Something went wrong. Please try again.')
       dispatch({type: REGISTER_FAILURE})
     },
@@ -263,7 +285,7 @@ export const continueWithoutGift = () => async (dispatch, getState) => {
   const {flow} = getState().purchase
   dispatch(setGiftType(null))
   // TODO fix it
-  if (loggedIn && flow !== EDIT_BUNDLE_ROUTES) {
+  if (loggedIn && flow.key !== EDIT_BUNDLE_FLOW.key) {
     await dispatch(addBundle())
   }
   dispatch(nextFlowStep(1))
@@ -272,10 +294,15 @@ export const continueWithoutGift = () => async (dispatch, getState) => {
 export const submitGift = () => async (dispatch, getState) => {
   const {flow} = getState().purchase
   // TODO fix it
-  if (flow !== EDIT_BUNDLE_ROUTES) {
+  if (flow.key !== EDIT_BUNDLE_FLOW.key) {
     await dispatch(addBundle())
   }
   dispatch(nextFlowStep())
+}
+
+// TODO backend can't get undefined value
+export const getBundleValues = (values) => {
+  return Object.keys(values).forEach(key => values[key] === undefined && delete values[key])
 }
 
 export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
@@ -291,22 +318,14 @@ export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
       ...gift ? {
         gift_id: gift.id,
       } : {},
-      // TODO decide where cardStyle should be send
       // TODO send html here
-      body: '1',
-      // TODO remove these fields
-      font_weight: '1',
-      font: '1',
-      font_color: '1',
-      font_size: '1',
-      gift_quantity: '1',
-      title: '111',
-      ...values,
+      body: '.',
+      ...getBundleValues(values),
     },
     token,
     success: (res) => {
       dispatch({type: ADD_BUNDLE_SUCCESS, bundle: res.data})
-      if (flow === EDIT_BUNDLE_ROUTES) {
+      if (flow.key === EDIT_BUNDLE_FLOW.key) {
         dispatch(nextFlowStep())
         message.success('Bundle created.')
       }
@@ -367,6 +386,7 @@ export const makeStripePayment = (card) => (dispatch, getState, {fetch}) => {
       'card[exp_year]': expiry_year,
       'card[cvc]': cvc,
     },
+    token,
     success: (stripeToken) => {
       return fetch(`/payments/stripe/charge/${order.id}`, {
         method: 'POST',
@@ -521,18 +541,58 @@ export const setDonationOrg = (donationOrg) => ({type: SET_DONATION_ORG, donatio
 
 export const submitGiftType = () => (dispatch, getState) => {
   const {flow, giftType} = getState().purchase
-  // TODO
-  if (giftType === 'Donation') {
-    dispatch(setFlow(flow.map(item => item === PURCHASE8_ROUTE ? DONATION_ROUTE : item)))
+  if (giftType === DONATION_TYPE) {
+    dispatch(setFlow({
+      ...flow,
+      routes: flow.routes.map(item => {
+        if (item === PURCHASE8_ROUTE)
+          return DONATION_ROUTE
+        if (item === PURCHASE11_ROUTE)
+          return CONFIRM_DONATION_ROUTE
+        return item
+      })
+    }, false))
   } else {
-    dispatch(setFlow(flow.map(item => item === DONATION_ROUTE ? PURCHASE8_ROUTE : item)))
+    dispatch(setFlow({
+      ...flow,
+      routes: flow.routes.map(item => {
+        if (item === DONATION_ROUTE)
+          return PURCHASE8_ROUTE
+        if (item === CONFIRM_DONATION_ROUTE)
+          return PURCHASE11_ROUTE
+        return item
+      })
+    }, false))
   }
   dispatch(nextFlowStep())
 }
 
-export const submitDonation = () => (dispatch, getState) => {
-  // TODO
+export const submitDonation = ({donationAmount}) => (dispatch, getState) => {
+  dispatch({type: SUBMIT_DONATION, donationAmount})
   dispatch(submitGift())
+}
+
+export const confirmDonation = () => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  const {donationOrg, bundle, donationAmount} = getState().purchase
+  dispatch({type: CONFIRM_DONATION_REQUEST})
+  return fetch(`/donations`, {
+    method: 'POST',
+    body: {
+      bundle_id: bundle.id,
+      organization_id: donationOrg.id,
+      amount: +donationAmount,
+    },
+    token,
+    success: (res) => {
+      // TODO save data for next steps
+      dispatch({type: CONFIRM_DONATION_SUCCESS})
+      dispatch(nextFlowStep())
+    },
+    failure: () => {
+      dispatch({type: CONFIRM_DONATION_FAILURE})
+    },
+  })
 }
 
 export const clear = () => ({type: CLEAR})
@@ -559,25 +619,26 @@ const initialState = {
   paymentMethod: null,
   cardStyles: [],
   cards: [],
-  flow: PURCHASE_ROUTES,
+  flow: PURCHASE_FLOW,
   flowIndex: null,
   occasionTypes: [],
   occasionType: undefined,
   bundle: null,
   order: null,
   donationOrgs: [],
-  donationOrg: null
+  donationOrg: null,
+  donationAmount: undefined,
 }
 
 export default createReducer(initialState, {
-  [SET_BUNDLE]: (state, {flow, bundle, letteringTechnique, card, gift, giftType, cardSize}) => ({
-    flow,
+  [SET_BUNDLE]: (state, {bundle, letteringTechnique, card, gift, giftType, cardSize, cardStyle}) => ({
     bundle,
     letteringTechnique,
     card,
     gift,
     giftType,
     cardSize,
+    cardStyle,
   }),
   [SET_FLOW]: (state, {flow}) => ({
     flow,
@@ -693,6 +754,9 @@ export default createReducer(initialState, {
       ...state.loading,
       donationOrgs: false,
     }
+  }),
+  [SUBMIT_DONATION]: (state, {donationAmount}) => ({
+    donationAmount,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

@@ -7,7 +7,7 @@ import {generateUrl} from '../router'
 import {CONTACTS_ROUTE} from '../routes'
 import mapValues from 'lodash/mapValues'
 import has from 'lodash/has'
-import {getBirthday, getOrdering} from '../utils'
+import {getBirthday, getFormErrors, getOrdering} from '../utils'
 
 // ------------------------------------
 // Constants
@@ -125,17 +125,18 @@ export const getAddressesArray = (addresses) => {
   return addresses.filter(item => !Object.values(item).includes(undefined) && !Object.values(item).includes(null) && !Object.values(item).includes(''))
 }
 
-export const addContact = ({birthday, reminders, groups, addresses, ...values}, callback, form) => (dispatch, getState, {fetch}) => {
+export const addContact = (values, form, callback) => (dispatch, getState, {fetch}) => {
   dispatch({type: ADD_CONTACT_REQUEST})
+  const {dob, reminders, groups, addresses, ...otherValues} = values
   const {token} = dispatch(getToken())
   return fetch(`/add-contact-manually`, {
     method: 'POST',
     body: {
-      ...values,
+      ...otherValues,
       contact: {
-        ...values.contact,
-        ...birthday ? {
-          dob: birthday.format(DATE_FORMAT)
+        ...otherValues.contact,
+        ...dob ? {
+          dob: dob.format(DATE_FORMAT)
         } : {},
       },
       addresses: getAddressesArray(addresses),
@@ -148,25 +149,32 @@ export const addContact = ({birthday, reminders, groups, addresses, ...values}, 
       if (form) form.resetFields()
       if (callback) callback()
     },
-    failure: () => {
+    failure: (res) => {
       dispatch({type: ADD_CONTACT_FAILURE})
-      message.error('Something went wrong. Please try again.')
+      const {formErrors} = getFormErrors({...res, values})
+      if (formErrors)
+        form.setFields(formErrors)
+      else
+        message.error('Something went wrong. Please try again.')
     }
   })
 }
 
-export const editContact = ({birthday, reminders, groups, addresses, ...values}) => (dispatch, getState, {fetch, history}) => {
+export const editContact = (values, form) => (dispatch, getState, {fetch, history}) => {
   dispatch({type: EDIT_CONTACT_REQUEST})
   const {token} = dispatch(getToken())
   const {contact} = getState().contacts
+
+  const {dob, reminders, groups, addresses, ...otherValues} = values
+
   return fetch(`/edit-contact`, {
     method: 'POST',
     body: {
-      ...values,
+      ...otherValues,
       contact: {
         id: contact.id,
-        ...values.contact,
-        dob: getBirthday(birthday),
+        ...otherValues.contact,
+        dob: getBirthday(dob),
       },
       addresses: getAddressesArray(addresses),
       reminders: getRemindersArray(reminders),
@@ -177,9 +185,13 @@ export const editContact = ({birthday, reminders, groups, addresses, ...values})
       dispatch({type: EDIT_CONTACT_SUCCESS})
       history.push(generateUrl(CONTACTS_ROUTE))
     },
-    failure: () => {
+    failure: (res) => {
       dispatch({type: EDIT_CONTACT_FAILURE})
-      message.error('Something went wrong. Please try again.')
+      const {formErrors} = getFormErrors({...res, values})
+      if (formErrors)
+        form.setFields(formErrors)
+      else
+        message.error('Something went wrong. Please try again.')
     }
   })
 }

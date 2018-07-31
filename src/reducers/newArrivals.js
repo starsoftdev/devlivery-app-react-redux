@@ -2,6 +2,7 @@ import createReducer, {RESET_STORE} from '../createReducer'
 import qs from 'query-string'
 import {getToken} from './user'
 import has from 'lodash/has'
+import {FOOD_TYPE} from '../constants'
 
 // ------------------------------------
 // Constants
@@ -22,13 +23,16 @@ export const CLEAR = 'Gifts.CLEAR'
 export const getGifts = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_GIFTS_REQUEST, params})
   const {token} = dispatch(getToken())
-  // TODO gift type
   const {page, pageSize, search, giftType} = getState().newArrivals
   return fetch(`/gifts?${qs.stringify({
-    ...search ? {
-      filter_key: 'title',
-      filter_value: search,
-    } : {},
+    filters: JSON.stringify({
+      ...search ? {
+        title: search,
+      } : {},
+      ...giftType ? {
+        type: giftType,
+      } : {},
+    }),
     page,
     per_page: pageSize,
   })}`, {
@@ -71,9 +75,9 @@ const initialState = {
   gifts: [],
   cards: [],
   page: 1,
-  pageSize: 16,
+  pageSize: 8,
   search: undefined,
-  giftType: undefined,
+  giftType: FOOD_TYPE,
 }
 
 export default createReducer(initialState, {

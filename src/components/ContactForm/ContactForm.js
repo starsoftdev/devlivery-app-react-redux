@@ -115,7 +115,7 @@ class ContactForm extends React.Component {
       <section className={s.section}>
         <h1 className={s.header}>{intl.formatMessage(messages.birthday)}</h1>
         <Form.Item>
-          {getFieldDecorator('birthday', {
+          {getFieldDecorator('dob', {
             initialValue: initialValues && initialValues.dob ? moment(initialValues.dob, DATE_FORMAT) : undefined,
           })(
             <DatePicker className={s.birthday} format={DATE_FORMAT}/>

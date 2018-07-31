@@ -1,11 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {continueWithoutGift, submitGiftType, setGiftType} from '../../reducers/purchase'
+import {continueWithoutGift, setGiftType, submitGiftType} from '../../reducers/purchase'
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase7.css'
 import {Actions, Card, SectionHeader} from '../../components'
-import {ALPHABET, GIFT_TYPES} from '../../constants'
+import {ADDITIONAL_GIFT_TYPES, ALPHABET, GIFT_TYPES} from '../../constants'
 
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
@@ -22,7 +22,7 @@ class Purchase7 extends React.Component {
             prefixClassName={s.headerPrefix}
           />
           <Row className={s.items} gutter={20} type='flex' align='center'>
-            {GIFT_TYPES(intl).map((item, i) =>
+            {[...GIFT_TYPES(intl), ...ADDITIONAL_GIFT_TYPES(intl)].map((item, i) =>
               <Col key={item.key} className={s.itemWrapper}>
                 <Card
                   className={s.item}

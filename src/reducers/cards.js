@@ -22,7 +22,8 @@ export const GET_CARD_STYLES_REQUEST = 'Cards.GET_CARD_STYLES_REQUEST'
 export const GET_CARD_STYLES_SUCCESS = 'Cards.GET_CARD_STYLES_SUCCESS'
 export const GET_CARD_STYLES_FAILURE = 'Cards.GET_CARD_STYLES_FAILURE'
 
-export const CLEAR = 'Gifts.CLEAR'
+export const CLEAR_FILTERS = 'Cards.CLEAR_FILTERS'
+export const CLEAR = 'Cards.CLEAR'
 
 // ------------------------------------
 // Actions
@@ -32,11 +33,20 @@ export const getCards = (params = {}) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   const {page, pageSize, search, occasion, cardStyle, cardSize} = getState().cards
   return fetch(`/cards?${qs.stringify({
-    // TODO how to apply to filters at the same time
-    ...search ? {
-      filter_key: 'title',
-      filter_value: search,
-    } : {},
+    filters: JSON.stringify({
+      ...search ? {
+        title: search,
+      } : {},
+      ...occasion ? {
+        occasion_id: occasion,
+      } : {},
+      ...cardStyle ? {
+        style: cardStyle,
+      } : {},
+      ...cardSize ? {
+        size: cardSize,
+      } : {},
+    }),
     page,
     per_page: pageSize,
   })}`, {
@@ -85,6 +95,11 @@ export const getCardStyles = () => (dispatch, getState, {fetch}) => {
     success: (res) => dispatch({type: GET_CARD_STYLES_SUCCESS, cardStyles: res.data}),
     failure: () => dispatch({type: GET_CARD_STYLES_FAILURE})
   })
+}
+
+export const clearFilters = () => (dispatch, getState) => {
+  dispatch({type: CLEAR_FILTERS})
+  dispatch(getCards())
 }
 
 export const clear = () => ({type: CLEAR})
@@ -161,6 +176,11 @@ export default createReducer(initialState, {
   }),
   [GET_CARD_STYLES_SUCCESS]: (state, {cardStyles}) => ({
     cardStyles,
+  }),
+  [CLEAR_FILTERS]: (state, action) => ({
+    occasion: undefined,
+    cardSize: undefined,
+    cardStyle: undefined,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

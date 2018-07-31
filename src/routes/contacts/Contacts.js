@@ -156,7 +156,7 @@ class Contacts extends React.Component {
                     <p className={s.contactName}>{contact.first_name} {contact.last_name}</p>
                     <a href={`tel:${contact.phone}`} className={s.contactPhone}>{contact.phone}</a>
                     <a href={`mailto:${contact.email}`} className={s.contactEmail}>{contact.email}</a>
-                    {contact.dob && (
+                    {contact.dob && ordering.includes('dob') && (
                       <div className={s.contactBirthday}>Birthday: {contact.dob}</div>
                     )}
                   </div>

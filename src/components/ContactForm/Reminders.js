@@ -10,8 +10,11 @@ import debounce from 'lodash/debounce'
 import messages from './messages'
 import moment from 'moment/moment'
 import {createArray} from '../../utils'
+import formMessages from '../../formMessages'
 
 // TODO add loading
+// TODO refactor occasion custom title
+// TODO add all translations
 class Reminders extends React.Component {
   uuid = 1
 
@@ -55,19 +58,28 @@ class Reminders extends React.Component {
     this.props.form.setFieldsValue({reminderKeys: newKeys})
   }
 
+  validateMinLength = (rule, value, callback) => {
+    const {intl} = this.props
+    // user can select occasion id or type custom title (which needs to validated)
+    if (value && isNaN(+value) && value.length < 3) {
+      callback(intl.formatMessage(formMessages.minLength, {length: 3}))
+    } else {
+      callback()
+    }
+  }
+
   render() {
     const {occasionTitle, newOccasion} = this.state
-    const {occasions, loading, intl, initialValues} = this.props
-    const {getFieldDecorator, getFieldValue} = this.props.form
+    const {occasions, loading, intl, initialValues, form} = this.props
+    const {getFieldDecorator, getFieldValue} = form
 
-    this.props.form.getFieldDecorator('reminderKeys', {initialValue: createArray(initialValues && initialValues.length ? initialValues.length : 1)})
+    form.getFieldDecorator('reminderKeys', {initialValue: createArray(initialValues && initialValues.length ? initialValues.length : 1)})
 
     let occasionsList = [...occasions]
 
     if (newOccasion && !occasionTitle) {
       occasionsList = [{title: newOccasion}, ...occasions.filter(item => item.title !== newOccasion)]
     }
-    // TODO refactor occasion custom title
 
     const keys = getFieldValue('reminderKeys')
     return (
@@ -82,6 +94,9 @@ class Reminders extends React.Component {
             <Form.Item>
               {getFieldDecorator(`reminders[${k}].occasion_id`, {
                 initialValue: initialValues && initialValues[k] ? (initialValues[k].occasion_id !== null ? `${initialValues[k].occasion_id}` : initialValues[k].title) : undefined,
+                rules: [
+                  {validator: this.validateMinLength}
+                ]
               })(
                 <Select
                   showSearch
@@ -94,6 +109,12 @@ class Reminders extends React.Component {
                     this.setState({occasionTitle: search})
                   }}
                   onChange={(value, item) => {
+                    if (item && +item.key !== 0) {
+                      const selectedOccasion = occasions.find(occasion => occasion.id === +value)
+                      if (selectedOccasion.date) {
+                        form.setFieldsValue({[`reminders[${k}].date`]: moment(selectedOccasion.date, DATE_FORMAT)})
+                      }
+                    }
                     if (item && +item.key === 0) {
                       this.addOccasion(occasionTitle)
                     }

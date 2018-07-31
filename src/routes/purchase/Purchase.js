@@ -27,7 +27,7 @@ class Purchase extends React.Component {
   render() {
     const {children, intl, flow, currentRouteName} = this.props
 
-    const current = flow.findIndex(item => item === currentRouteName)
+    const current = flow.routes.findIndex(item => item === currentRouteName)
 
     const flowNames = {
       [PURCHASE1_ROUTE]: intl.formatMessage(messages.purchase1),
@@ -54,7 +54,7 @@ class Purchase extends React.Component {
         </div>
         <div className={s.actions}>
           <div className={s.steps}>
-            {flow.map((item, i) => {
+            {flow.routes.map((item, i) => {
               return flow.length - 1 !== i ?(
                 <div key={item} className={cn(s.stepWrapper, {
                   [s.current]: i === current,

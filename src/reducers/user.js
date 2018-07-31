@@ -29,13 +29,13 @@ export const getToken = () => (dispatch, getState, {cookies}) => {
 }
 
 export const logout = () => (dispatch, getState, {cookies}) => {
-  cookies.remove(TOKEN_COOKIE)
+  cookies.remove(TOKEN_COOKIE, {path: ''})
   dispatch({type: LOGOUT_SUCCESS})
 }
 
 export const getUserSuccess = (user) => ({type: GET_USER_SUCCESS, user})
 
-export const getUser = () => (dispatch, getState, {fetch}) => {
+export const getUser = () => (dispatch, getState, {fetch, cookies}) => {
   const {token} = dispatch(getToken())
   const {user} = getState().user
   if (!user && token) {
@@ -44,7 +44,10 @@ export const getUser = () => (dispatch, getState, {fetch}) => {
       method: 'GET',
       token,
       success: (user) => dispatch(getUserSuccess(user)),
-      failure: () => dispatch({type: GET_USER_FAILURE})
+      failure: () => {
+        dispatch({type: GET_USER_FAILURE})
+        cookies.remove(TOKEN_COOKIE, {path: ''})
+      }
     })
   } else {
     return user

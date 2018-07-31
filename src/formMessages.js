@@ -17,6 +17,10 @@ export default defineMessages({
     id: 'form.maxLength',
     defaultMessage: 'Max length is {length} characters.',
   },
+  minLength: {
+    id: 'form.minLength',
+    defaultMessage: 'The field must be at least {length} characters.',
+  },
   passwordNotMatch: {
     id: 'form.passwordNotMatch',
     defaultMessage: 'Password does not match the confirm password.',
