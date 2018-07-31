@@ -76,6 +76,14 @@ export const MAKE_PAYPAL_PAYMENT_REQUEST = 'Purchase.MAKE_PAYPAL_PAYMENT_REQUEST
 export const MAKE_PAYPAL_PAYMENT_SUCCESS = 'Purchase.MAKE_PAYPAL_PAYMENT_SUCCESS'
 export const MAKE_PAYPAL_PAYMENT_FAILURE = 'Purchase.MAKE_PAYPAL_PAYMENT_FAILURE'
 
+export const EXECUTE_PAYPAL_PAYMENT_REQUEST = 'Purchase.EXECUTE_PAYPAL_PAYMENT_REQUEST'
+export const EXECUTE_PAYPAL_PAYMENT_SUCCESS = 'Purchase.EXECUTE_PAYPAL_PAYMENT_SUCCESS'
+export const EXECUTE_PAYPAL_PAYMENT_FAILURE = 'Purchase.EXECUTE_PAYPAL_PAYMENT_FAILURE'
+
+export const CANCEL_PAYPAL_PAYMENT_REQUEST = 'Purchase.CANCEL_PAYPAL_PAYMENT_REQUEST'
+export const CANCEL_PAYPAL_PAYMENT_SUCCESS = 'Purchase.CANCEL_PAYPAL_PAYMENT_SUCCESS'
+export const CANCEL_PAYPAL_PAYMENT_FAILURE = 'Purchase.CANCEL_PAYPAL_PAYMENT_FAILURE'
+
 export const MAKE_BITPAY_PAYMENT_REQUEST = 'Purchase.MAKE_BITPAY_PAYMENT_REQUEST'
 export const MAKE_BITPAY_PAYMENT_SUCCESS = 'Purchase.MAKE_BITPAY_PAYMENT_SUCCESS'
 export const MAKE_BITPAY_PAYMENT_FAILURE = 'Purchase.MAKE_BITPAY_PAYMENT_FAILURE'
@@ -272,7 +280,7 @@ export const submitGift = () => async (dispatch, getState) => {
 
 export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  const {letteringTechnique, card, gift, cardSize, flow} = getState().purchase
+  const {letteringTechnique, card, gift, flow} = getState().purchase
   dispatch({type: ADD_BUNDLE_REQUEST})
   return fetch(`/create-bundle`, {
     method: 'POST',
@@ -283,7 +291,6 @@ export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
       ...gift ? {
         gift_id: gift.id,
       } : {},
-      card_format: cardSize && cardSize.key,
       // TODO decide where cardStyle should be send
       // TODO send html here
       body: '1',
@@ -346,7 +353,7 @@ export const makeStripePayment = (card) => (dispatch, getState, {fetch}) => {
     expiry_year,
     cvc,
   } = card
-  const { stripeApiKey } = getState().global
+  const {stripeApiKey} = getState().global
   return fetch('https://api.stripe.com/v1/tokens', {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
@@ -384,6 +391,7 @@ export const makeStripePayment = (card) => (dispatch, getState, {fetch}) => {
 }
 
 const TRANSACTION_ID_KEY = 'transaction_id'
+const ORDER_ID_KEY = 'order_id'
 
 export const makePaypalPayment = () => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
@@ -391,12 +399,14 @@ export const makePaypalPayment = () => (dispatch, getState, {fetch}) => {
   if (!order) {
     return
   }
+
   dispatch({type: MAKE_PAYPAL_PAYMENT_REQUEST})
   return fetch(`/payments/paypal/charge/${order.id}`, {
     method: 'POST',
     token,
     success: (res) => {
       const {approval_url, transaction_id} = res.data
+      localStorage.setItem(ORDER_ID_KEY, order.id)
       localStorage.setItem(TRANSACTION_ID_KEY, transaction_id)
       window.location = approval_url
       dispatch({type: MAKE_PAYPAL_PAYMENT_SUCCESS})
@@ -407,12 +417,24 @@ export const makePaypalPayment = () => (dispatch, getState, {fetch}) => {
   })
 }
 
+const returnToPaymentMethod = (keepOrder) => (dispatch, getState, {history}) => {
+  const orderId = localStorage.getItem(ORDER_ID_KEY)
+  dispatch({ type: MAKE_ORDER_SUCCESS, order: { id: orderId } })
+  if (!keepOrder) {
+    localStorage.removeItem(ORDER_ID_KEY)
+  }
+  localStorage.removeItem(TRANSACTION_ID_KEY)
+  // let user choose another payment method or try again
+  history.push('/purchase/payment-method')
+}
+
 export const executePaypalPayment = ({paymentId, paypalToken, payerId}) => (dispatch, getState, {fetch, history}) => {
   const {token} = dispatch(getToken())
   const transactionId = localStorage.getItem(TRANSACTION_ID_KEY)
   if (!transactionId) {
     return
   }
+  dispatch({type: EXECUTE_PAYPAL_PAYMENT_REQUEST})
   return fetch('/payments/paypal/execute', {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
@@ -425,27 +447,26 @@ export const executePaypalPayment = ({paymentId, paypalToken, payerId}) => (disp
     token,
     success: (res) => {
       localStorage.removeItem(TRANSACTION_ID_KEY)
+      localStorage.removeItem(ORDER_ID_KEY)
       history.push('/purchase/completed')
-      dispatch({type: MAKE_PAYPAL_PAYMENT_SUCCESS})
+      dispatch({type: EXECUTE_PAYPAL_PAYMENT_SUCCESS})
     },
     failure: () => {
       // payment failed, let user choose another one
-      history.push('/purchase/payment-method')
-      localStorage.removeItem(TRANSACTION_ID_KEY)
+      dispatch(returnToPaymentMethod())
       // TODO add error message to be shown
-      dispatch({type: MAKE_PAYPAL_PAYMENT_FAILURE})
+      dispatch({type: EXECUTE_PAYPAL_PAYMENT_FAILURE})
     },
   })
 }
 
-export const cancelPaypalPayment = () => (dispatch, getState, {fetch}) => {
+export const cancelPaypalPayment = () => (dispatch, getState, {fetch, history}) => {
   const {token} = dispatch(getToken())
   const transactionId = localStorage.getItem(TRANSACTION_ID_KEY)
-
   if (!transactionId) {
     return
   }
-
+  dispatch({type: CANCEL_PAYPAL_PAYMENT_REQUEST})
   return fetch('/payments/paypal/cancel', {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
@@ -454,14 +475,12 @@ export const cancelPaypalPayment = () => (dispatch, getState, {fetch}) => {
     },
     token,
     success: (res) => {
-      localStorage.removeItem(TRANSACTION_ID_KEY)
-      // redirect to payment method selection
-      history.push('/purchase/payment-method')
-      dispatch({type: MAKE_PAYPAL_PAYMENT_SUCCESS})
+      dispatch(returnToPaymentMethod(true))
+      dispatch({type: CANCEL_PAYPAL_PAYMENT_SUCCESS})
     },
     failure: () => {
-      localStorage.removeItem(TRANSACTION_ID_KEY)
-      dispatch({type: MAKE_PAYPAL_PAYMENT_FAILURE})
+      dispatch(returnToPaymentMethod(true))
+      dispatch({type: CANCEL_PAYPAL_PAYMENT_FAILURE})
     },
   })
 }
