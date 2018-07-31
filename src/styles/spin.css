@@ -8,8 +8,9 @@
     text-align: center;
     opacity: 0;
     position: absolute;
-    /*transition: transform 0.3s @ease-in-out-circ;*/
+    transition: transform 0.3s @ease-in-out-circ;
     display: none;
+    animation: antRotate 1s infinite linear;
 
     &-spinning {
       opacity: 1;
@@ -187,7 +188,7 @@
 
 @keyframes :global(antRotate) {
   to {
-    transform: rotate(405deg);
+    transform: rotate(360deg);
   }
 }
 
