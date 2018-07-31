@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import {Calendar, Input, Table} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Orders.css'
-import {CalendarHeader, CalendarEvent, PaginationItem, CalendarEvents, OrderDetails} from '../../components'
-import {clear, getEvents, getOrders, getOrderById, openCalendarEventsModal, openOrderDetailsModal} from '../../reducers/orders'
+import {CalendarHeader, CalendarEvent, PaginationItem, CalendarEvents} from '../../components'
+import {clear, getEvents, getOrders, openCalendarEventsModal} from '../../reducers/orders'
 import debounce from 'lodash/debounce'
 import moment from 'moment'
 import cn from 'classnames'
@@ -35,7 +35,7 @@ class Orders extends React.Component {
   render() {
     const {search} = this.state
     // TODO add table loading
-    const {ordersCount, orders, page, pageSize, loading, getOrders, getOrderById, events, date, getEvents, intl, openCalendarEventsModal, openOrderDetailsModal, calendarEventsModalOpened, orderDetailsModalOpened} = this.props
+    const {ordersCount, orders, page, pageSize, loading, getOrders, events, date, getEvents, intl, openCalendarEventsModal, calendarEventsModalOpened} = this.props
     const columns = [
       {
         title: intl.formatMessage(messages.orderColumn),
@@ -64,14 +64,7 @@ class Orders extends React.Component {
         key: 'total',
         render: (total) => <React.Fragment>{total} <span className={s.currency}>CHF</span></React.Fragment>
       },
-      {
-        title: 'View',
-        dataIndex: 'details',
-        key: 'details',
-        render: ( text, record) => (<a href='#' onClick={(e) => {openOrderDetailsModal(record.id)}}>{'Details..'}</a>),
-      },
     ]
-
     const today = moment()
 
     return (
@@ -127,7 +120,6 @@ class Orders extends React.Component {
             ) : null)}
           </section>
           {calendarEventsModalOpened && <CalendarEvents/>}
-          {orderDetailsModalOpened && <OrderDetails/>}
         </div>
       </div>
     )
@@ -141,9 +133,7 @@ const mapState = state => ({
 const mapDispatch = {
   getEvents,
   openCalendarEventsModal,
-  openOrderDetailsModal,
   getOrders,
-  getOrderById,
   clear,
 }
 

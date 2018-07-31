@@ -12,19 +12,12 @@ export const GET_ORDERS_REQUEST = 'Orders.GET_ORDERS_REQUEST'
 export const GET_ORDERS_SUCCESS = 'Orders.GET_ORDERS_SUCCESS'
 export const GET_ORDERS_FAILURE = 'Orders.GET_ORDERS_FAILURE'
 
-export const GET_ORDER_BY_ID_REQUEST = 'Orders.GET_ORDER_BY_ID_REQUEST'
-export const GET_ORDER_BY_ID_SUCCESS = 'Orders.GET_ORDER_BY_ID_SUCCESS'
-export const GET_ORDER_BY_ID_FAILURE = 'Orders.GET_ORDER_BY_ID_FAILURE'
-
 export const GET_EVENTS_REQUEST = 'Orders.GET_EVENTS_REQUEST'
 export const GET_EVENTS_SUCCESS = 'Orders.GET_EVENTS_SUCCESS'
 export const GET_EVENTS_FAILURE = 'Orders.GET_EVENTS_FAILURE'
 
 export const OPEN_CALENDAR_EVENTS_MODAL = 'Orders.OPEN_CALENDAR_EVENTS_MODAL'
 export const CLOSE_CALENDAR_EVENTS_MODAL = 'Orders.CLOSE_CALENDAR_EVENTS_MODAL'
-
-export const OPEN_ORDER_DETAILS_MODAL  = 'Orders.OPEN_ORDER_DETAILS_MODAL'
-export const CLOSE_ORDER_DETAILS_MODAL = 'Orders.CLOSE_ORDER_DETAILS_MODAL'
 
 export const CLEAR = 'Orders.CLEAR'
 
@@ -48,23 +41,6 @@ export const getOrders = (params = {}) => (dispatch, getState, {fetch}) => {
   })
 }
 
-export const getOrderById = (params = {}) => (dispatch, getState, {fetch}) => {
-  dispatch({type: GET_ORDER_BY_ID_REQUEST, params})
-  const {token} = dispatch(getToken())
-  const {selectedOrder} = getState().orders
-
-  return fetch(`/order-confirmation?order_id=${
-    selectedOrder
-  }`, {
-    method: 'GET',
-    token,
-    success: (res) => {
-      dispatch({type: GET_ORDER_BY_ID_SUCCESS, orderDataById: res.data})
-    },
-    failure: () => dispatch({type: GET_ORDER_BY_ID_FAILURE}),
-  })
-}
-
 export const getEvents = (date) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_EVENTS_REQUEST, date: date.format()})
   const {token} = dispatch(getToken())
@@ -83,10 +59,6 @@ export const openCalendarEventsModal = (selectedDate) => ({type: OPEN_CALENDAR_E
 
 export const closeCalendarEventsModal = () => ({type: CLOSE_CALENDAR_EVENTS_MODAL})
 
-export const openOrderDetailsModal  = (selectedOrder) => ({type: OPEN_ORDER_DETAILS_MODAL, selectedOrder})
-
-export const closeOrderDetailsModal = () => ({type: CLOSE_ORDER_DETAILS_MODAL})
-
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -96,10 +68,8 @@ const initialState = {
   loading: {
     orders: false,
     events: false,
-    orderById: false,
   },
   orders: [],
-  orderDataById: null,
   ordersCount: 0,
   page: 1,
   pageSize: DEFAULT_PAGE_SIZE,
@@ -108,8 +78,6 @@ const initialState = {
   date: moment().format(),
   calendarEventsModalOpened: false,
   selectedDate: null,
-  orderDetailsModalOpened: false,
-  selectedOrder: null,
 }
 
 export default createReducer(initialState, {
@@ -156,14 +124,6 @@ export default createReducer(initialState, {
       events: false,
     },
   }),
-  [GET_ORDER_BY_ID_REQUEST]: (state, {orderDataById}) => ({
-    orderDataById,
-  }),
-  [GET_ORDER_BY_ID_SUCCESS]: (state, {orderDataById}) => ({
-    orderDataById,
-  }),
-  [GET_ORDER_BY_ID_FAILURE]: (state, action) => ({
-  }),
   [OPEN_CALENDAR_EVENTS_MODAL]: (state, {selectedDate}) => ({
     calendarEventsModalOpened: true,
     selectedDate,
@@ -171,14 +131,6 @@ export default createReducer(initialState, {
   [CLOSE_CALENDAR_EVENTS_MODAL]: (state, action) => ({
     calendarEventsModalOpened: false,
     selectedDate: null,
-  }),
-  [OPEN_ORDER_DETAILS_MODAL]: (state, {selectedOrder}) => ({
-    orderDetailsModalOpened: true,
-    selectedOrder,
-  }),
-  [CLOSE_ORDER_DETAILS_MODAL]: (state, action) => ({
-    orderDetailsModalOpened: false,
-    selectedOrder: null,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
