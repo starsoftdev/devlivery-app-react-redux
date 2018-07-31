@@ -113,11 +113,11 @@ export const setBundle = (bundle) => (dispatch, getState) => {
     type: SET_BUNDLE,
     bundle,
     letteringTechnique: bundle.lettering,
-    card: bundle.bundle_card,
+    card: bundle.bundle_card.card,
     gift: bundle.bundle_gifts[0] && bundle.bundle_gifts[0].gift,
     giftType: bundle.bundle_gifts[0] && bundle.bundle_gifts[0].gift.type,
-    cardSize: CARD_SIZES().find(item => item.key === bundle.card_format),
-    // TODO set other fields (cardStyle)
+    cardSize: CARD_SIZES().find(item => item.key === bundle.bundle_card.card.size),
+    cardStyle: bundle.bundle_card.card.style,
   })
   dispatch(setFlow(ORDER_BUNDLE_FLOW))
 }
@@ -294,7 +294,7 @@ export const getBundleValues = (values) => {
 
 export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  const {letteringTechnique, card, gift, cardSize, flow} = getState().purchase
+  const {letteringTechnique, card, gift, flow} = getState().purchase
   dispatch({type: ADD_BUNDLE_REQUEST})
   return fetch(`/create-bundle`, {
     method: 'POST',
@@ -305,10 +305,8 @@ export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
       ...gift ? {
         gift_id: gift.id,
       } : {},
-      card_format: cardSize && cardSize.key,
       // TODO send html here
       body: '.',
-      // TODO decide where cardStyle should be send
       ...getBundleValues(values),
     },
     token,
@@ -494,13 +492,14 @@ const initialState = {
 }
 
 export default createReducer(initialState, {
-  [SET_BUNDLE]: (state, {bundle, letteringTechnique, card, gift, giftType, cardSize}) => ({
+  [SET_BUNDLE]: (state, {bundle, letteringTechnique, card, gift, giftType, cardSize, cardStyle}) => ({
     bundle,
     letteringTechnique,
     card,
     gift,
     giftType,
     cardSize,
+    cardStyle,
   }),
   [SET_FLOW]: (state, {flow}) => ({
     flow,
