@@ -27,6 +27,7 @@ export const IMPORT_CONTACTS = 'import-contacts'
 
 export const PAYPAL = 'PAYPAL'
 export const CREDIT_CARD = 'CREDIT_CARD'
+export const BITPAY = 'BITPAY'
 
 export const SET_BUNDLE = 'Purchase.SET_BUNDLE'
 export const SET_FLOW = 'Purchase.SET_FLOW'
@@ -81,6 +82,18 @@ export const MAKE_STRIPE_PAYMENT_FAILURE = 'Purchase.MAKE_STRIPE_PAYMENT_FAILURE
 export const MAKE_PAYPAL_PAYMENT_REQUEST = 'Purchase.MAKE_PAYPAL_PAYMENT_REQUEST'
 export const MAKE_PAYPAL_PAYMENT_SUCCESS = 'Purchase.MAKE_PAYPAL_PAYMENT_SUCCESS'
 export const MAKE_PAYPAL_PAYMENT_FAILURE = 'Purchase.MAKE_PAYPAL_PAYMENT_FAILURE'
+
+export const EXECUTE_PAYPAL_PAYMENT_REQUEST = 'Purchase.EXECUTE_PAYPAL_PAYMENT_REQUEST'
+export const EXECUTE_PAYPAL_PAYMENT_SUCCESS = 'Purchase.EXECUTE_PAYPAL_PAYMENT_SUCCESS'
+export const EXECUTE_PAYPAL_PAYMENT_FAILURE = 'Purchase.EXECUTE_PAYPAL_PAYMENT_FAILURE'
+
+export const CANCEL_PAYPAL_PAYMENT_REQUEST = 'Purchase.CANCEL_PAYPAL_PAYMENT_REQUEST'
+export const CANCEL_PAYPAL_PAYMENT_SUCCESS = 'Purchase.CANCEL_PAYPAL_PAYMENT_SUCCESS'
+export const CANCEL_PAYPAL_PAYMENT_FAILURE = 'Purchase.CANCEL_PAYPAL_PAYMENT_FAILURE'
+
+export const MAKE_BITPAY_PAYMENT_REQUEST = 'Purchase.MAKE_BITPAY_PAYMENT_REQUEST'
+export const MAKE_BITPAY_PAYMENT_SUCCESS = 'Purchase.MAKE_BITPAY_PAYMENT_SUCCESS'
+export const MAKE_BITPAY_PAYMENT_FAILURE = 'Purchase.MAKE_BITPAY_PAYMENT_FAILURE'
 
 export const GET_DONATION_ORGS_REQUEST = 'Purchase.GET_DONATION_ORGS_REQUEST'
 export const GET_DONATION_ORGS_SUCCESS = 'Purchase.GET_DONATION_ORGS_SUCCESS'
@@ -346,27 +359,59 @@ export const makeOrder = () => (dispatch, getState, {fetch}) => {
   })
 }
 
-export const makeStripePayment = () => (dispatch, getState, {fetch}) => {
+export const makeStripePayment = (card) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   const {order} = getState().purchase
   if (!order) {
     return
   }
   dispatch({type: MAKE_STRIPE_PAYMENT_REQUEST})
-  return fetch(`/payments/stripe/charge/${order.id}`, {
+  const {
+    number,
+    expiry_month,
+    expiry_year,
+    cvc,
+  } = card
+  const {stripeApiKey} = getState().global
+  return fetch('https://api.stripe.com/v1/tokens', {
     method: 'POST',
+    contentType: 'application/x-www-form-urlencoded',
+    headers: {
+      Authorization: `Bearer ${stripeApiKey}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
     body: {
-      stripeToken: '',
+      'card[number]': number,
+      'card[exp_month]': expiry_month,
+      'card[exp_year]': expiry_year,
+      'card[cvc]': cvc,
     },
     token,
-    success: (res) => {
-      dispatch({type: MAKE_STRIPE_PAYMENT_SUCCESS})
+    success: (stripeToken) => {
+      return fetch(`/payments/stripe/charge/${order.id}`, {
+        method: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+        body: {
+          stripeToken: stripeToken.id,
+        },
+        token,
+        success: () => {
+          dispatch(nextFlowStep())
+          dispatch({type: MAKE_STRIPE_PAYMENT_SUCCESS})
+        },
+        failure: () => {
+          dispatch({type: MAKE_STRIPE_PAYMENT_FAILURE})
+        },
+      })
     },
-    failure: () => {
-      dispatch({type: MAKE_STRIPE_PAYMENT_FAILURE})
-    },
+    failure: (error) => {
+      dispatch({ type: MAKE_STRIPE_PAYMENT_FAILURE })
+    }
   })
 }
+
+const TRANSACTION_ID_KEY = 'transaction_id'
+const ORDER_ID_KEY = 'order_id'
 
 export const makePaypalPayment = () => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
@@ -374,15 +419,109 @@ export const makePaypalPayment = () => (dispatch, getState, {fetch}) => {
   if (!order) {
     return
   }
+
   dispatch({type: MAKE_PAYPAL_PAYMENT_REQUEST})
   return fetch(`/payments/paypal/charge/${order.id}`, {
     method: 'POST',
     token,
     success: (res) => {
+      const {approval_url, transaction_id} = res.data
+      localStorage.setItem(ORDER_ID_KEY, order.id)
+      localStorage.setItem(TRANSACTION_ID_KEY, transaction_id)
+      window.location = approval_url
       dispatch({type: MAKE_PAYPAL_PAYMENT_SUCCESS})
     },
     failure: () => {
       dispatch({type: MAKE_PAYPAL_PAYMENT_FAILURE})
+    },
+  })
+}
+
+const returnToPaymentMethod = (keepOrder) => (dispatch, getState, {history}) => {
+  const orderId = localStorage.getItem(ORDER_ID_KEY)
+  dispatch({ type: MAKE_ORDER_SUCCESS, order: { id: orderId } })
+  if (!keepOrder) {
+    localStorage.removeItem(ORDER_ID_KEY)
+  }
+  localStorage.removeItem(TRANSACTION_ID_KEY)
+  // let user choose another payment method or try again
+  history.push('/purchase/payment-method')
+}
+
+export const executePaypalPayment = ({paymentId, paypalToken, payerId}) => (dispatch, getState, {fetch, history}) => {
+  const {token} = dispatch(getToken())
+  const transactionId = localStorage.getItem(TRANSACTION_ID_KEY)
+  if (!transactionId) {
+    return
+  }
+  dispatch({type: EXECUTE_PAYPAL_PAYMENT_REQUEST})
+  return fetch('/payments/paypal/execute', {
+    method: 'POST',
+    contentType: 'application/x-www-form-urlencoded',
+    body: {
+      transaction_id: transactionId,
+      token: paymentId,
+      paymentId,
+      payerId,
+    },
+    token,
+    success: (res) => {
+      localStorage.removeItem(TRANSACTION_ID_KEY)
+      localStorage.removeItem(ORDER_ID_KEY)
+      history.push('/purchase/completed')
+      dispatch({type: EXECUTE_PAYPAL_PAYMENT_SUCCESS})
+    },
+    failure: () => {
+      // payment failed, let user choose another one
+      dispatch(returnToPaymentMethod())
+      // TODO add error message to be shown
+      dispatch({type: EXECUTE_PAYPAL_PAYMENT_FAILURE})
+    },
+  })
+}
+
+export const cancelPaypalPayment = () => (dispatch, getState, {fetch, history}) => {
+  const {token} = dispatch(getToken())
+  const transactionId = localStorage.getItem(TRANSACTION_ID_KEY)
+  if (!transactionId) {
+    return
+  }
+  dispatch({type: CANCEL_PAYPAL_PAYMENT_REQUEST})
+  return fetch('/payments/paypal/cancel', {
+    method: 'POST',
+    contentType: 'application/x-www-form-urlencoded',
+    body: {
+      transaction_id: transactionId,
+    },
+    token,
+    success: (res) => {
+      dispatch(returnToPaymentMethod(true))
+      dispatch({type: CANCEL_PAYPAL_PAYMENT_SUCCESS})
+    },
+    failure: () => {
+      dispatch(returnToPaymentMethod(true))
+      dispatch({type: CANCEL_PAYPAL_PAYMENT_FAILURE})
+    },
+  })
+}
+
+export const makeBitpayPayment = () => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  const {order} = getState().purchase
+  if (!order) {
+    return
+  }
+  dispatch({type: MAKE_BITPAY_PAYMENT_REQUEST})
+  return fetch(`/payments/bitpay/charge/${order.id}`, {
+    method: 'POST',
+    token,
+    success: (res) => {
+      // redirect to bitpay payment page
+      window.location = res.data.approval_url
+      dispatch({type: MAKE_BITPAY_PAYMENT_SUCCESS})
+    },
+    failure: () => {
+      dispatch({type: MAKE_BITPAY_PAYMENT_FAILURE})
     },
   })
 }
@@ -466,6 +605,7 @@ const initialState = {
     occasions: false,
     donationOrgs: false,
     cards: false,
+    payment: false,
   },
   occasions: [],
   occasion: null,
@@ -618,6 +758,60 @@ export default createReducer(initialState, {
   }),
   [SUBMIT_DONATION]: (state, {donationAmount}) => ({
     donationAmount,
+  }),
+  [MAKE_STRIPE_PAYMENT_REQUEST]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      payment: true,
+    }
+  }),
+  [MAKE_STRIPE_PAYMENT_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      payment: false,
+    }
+  }),
+  [MAKE_STRIPE_PAYMENT_SUCCESS]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      payment: false,
+    }
+  }),
+  [MAKE_PAYPAL_PAYMENT_REQUEST]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      payment: true,
+    }
+  }),
+  [MAKE_PAYPAL_PAYMENT_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      payment: false,
+    }
+  }),
+  [MAKE_PAYPAL_PAYMENT_SUCCESS]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      payment: false,
+    }
+  }),
+  [MAKE_BITPAY_PAYMENT_REQUEST]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      payment: true,
+    }
+  }),
+  [MAKE_BITPAY_PAYMENT_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      payment: false,
+    }
+  }),
+  [MAKE_BITPAY_PAYMENT_SUCCESS]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      payment: false,
+    }
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

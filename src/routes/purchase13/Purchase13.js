@@ -1,7 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {nextFlowStep} from '../../reducers/purchase'
-import {Button, Col, Form, Input, Row} from 'antd'
+import {
+  CREDIT_CARD,
+  BITPAY,
+  PAYPAL,
+  nextFlowStep,
+  makeStripePayment,
+  makeBitpayPayment,
+  makePaypalPayment,
+} from '../../reducers/purchase'
+import {Button, Col, Form, Input, Row, Spin, Icon} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase13.css'
 import {Actions, SectionHeader} from '../../components'
@@ -20,12 +28,40 @@ class Purchase13 extends React.Component {
     focused: '',
   }
 
+  componentDidMount() {
+    switch (this.props.paymentMethod) {
+      case PAYPAL:
+        this.props.makePaypalPayment()
+        // this.props.nextFlowStep()
+        break
+
+      case BITPAY:
+        this.props.makeBitpayPayment()
+        // this.props.nextFlowStep()
+        break
+    }
+  }
+
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        // TODO add payment functionality
-        this.props.nextFlowStep()
+        // TODO validate card fields
+        const card = {
+          ...values,
+          expiry_month: values.expiry.slice(0, 2),
+          expiry_year: `20${values.expiry.slice(-2)}`,
+        }
+
+        switch (this.props.paymentMethod) {
+          case CREDIT_CARD:
+            this.props.makeStripePayment(card)
+            break
+
+          default:
+            this.props.nextFlowStep()
+            break
+        }
       }
     })
   }
@@ -58,8 +94,14 @@ class Purchase13 extends React.Component {
     const {number, name, expiry, cvc, focused} = this.state
     const {flowIndex, intl} = this.props
     const {getFieldDecorator} = this.props.form
+    console.log(this.props.loading)
     return (
       <React.Fragment>
+        <Spin
+          wrapperClassName='action-spin'
+          indicator={<Icon style={{fontSize: '16px'}} spin type='loading'/>}
+          spinning={this.props.loading}
+        />
         <div className={s.content}>
           <SectionHeader
             header={intl.formatMessage(messages.header)}
@@ -147,11 +189,16 @@ class Purchase13 extends React.Component {
 }
 
 const mapState = state => ({
+  paymentMethod: state.purchase.paymentMethod,
   flowIndex: state.purchase.flowIndex,
+  loading: state.purchase.loading.payment,
 })
 
 const mapDispatch = {
   nextFlowStep,
+  makeStripePayment,
+  makeBitpayPayment,
+  makePaypalPayment,
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s, creditCardStyles)(Purchase13)))
