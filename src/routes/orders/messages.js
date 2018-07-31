@@ -45,4 +45,40 @@ export default defineMessages({
     id: 'orders.totalColumn',
     defaultMessage: 'Total Price',
   },
+  productColumn: {
+    id: 'orders.productColumn',
+    defaultMessage: 'Product',
+  },
+  quantityColumn: {
+    id: 'orders.quantityColumn',
+    defaultMessage: 'Quantity',
+  },
+  priceColumn: {
+    id: 'orders.priceColumn',
+    defaultMessage: 'Price',
+  },
+  orderDetailsHeader: {
+    id: 'orders.orderDetailsHeader',
+    defaultMessage: 'Order Details',
+  },
+  summary: {
+    id: 'orders.summary',
+    defaultMessage: 'Order Summary',
+  },
+  summarySubtotal: {
+    id: 'orders.summarySubtotal',
+    defaultMessage: 'Subtotal',
+  },
+  summaryTaxes: {
+    id: 'orders.summaryTaxes',
+    defaultMessage: 'Taxes',
+  },
+  summaryShipping: {
+    id: 'orders.summaryShipping',
+    defaultMessage: 'Shipping',
+  },
+  summaryTotal: {
+    id: 'orders.summaryTotal',
+    defaultMessage: 'Total',
+  },
 })

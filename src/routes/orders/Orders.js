@@ -4,12 +4,13 @@ import {Calendar, Input, Table} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Orders.css'
 import {CalendarHeader, CalendarEvent, PaginationItem, CalendarEvents} from '../../components'
-import {clear, getEvents, getOrders, openCalendarEventsModal} from '../../reducers/orders'
+import {clear, getEvents, getOrders, openCalendarEventsModal, openOrderDetailsModal} from '../../reducers/orders'
 import debounce from 'lodash/debounce'
 import moment from 'moment'
 import cn from 'classnames'
 import messages from './messages'
 import {DATE_FORMAT, DEFAULT_DEBOUNCE_TIME} from '../../constants'
+import OrderDetails from './OrderDetails'
 
 class Orders extends React.Component {
   constructor(props) {
@@ -35,12 +36,28 @@ class Orders extends React.Component {
   render() {
     const {search} = this.state
     // TODO add table loading
-    const {ordersCount, orders, page, pageSize, loading, getOrders, events, date, getEvents, intl, openCalendarEventsModal, calendarEventsModalOpened} = this.props
+    const {
+      ordersCount,
+      orders,
+      page,
+      pageSize,
+      loading,
+      getOrders,
+      events,
+      date,
+      getEvents,
+      intl,
+      openCalendarEventsModal,
+      calendarEventsModalOpened,
+      openOrderDetailsModal,
+      orderDetailsModalOpened,
+    } = this.props
     const columns = [
       {
         title: intl.formatMessage(messages.orderColumn),
         dataIndex: 'order_number',
         key: 'order_number',
+        render: (orderNumber, order) => <a onClick={() => openOrderDetailsModal(order)}>{orderNumber}</a>
       },
       {
         title: intl.formatMessage(messages.dateColumn),
@@ -51,7 +68,7 @@ class Orders extends React.Component {
         title: intl.formatMessage(messages.itemsColumn),
         dataIndex: 'items',
         key: 'items',
-        render: (items) => `${items.card}${items.gifts ? ` + ${items.gifts.join(', ')}` : ''}`
+        render: (items) => `${items.card}${items.gifts && items.gifts.length ? ` + ${items.gifts.join(', ')}` : ''}`
       },
       {
         title: intl.formatMessage(messages.statusColumn),
@@ -120,6 +137,7 @@ class Orders extends React.Component {
             ) : null)}
           </section>
           {calendarEventsModalOpened && <CalendarEvents/>}
+          {orderDetailsModalOpened && <OrderDetails intl={intl}/>}
         </div>
       </div>
     )
@@ -133,6 +151,7 @@ const mapState = state => ({
 const mapDispatch = {
   getEvents,
   openCalendarEventsModal,
+  openOrderDetailsModal,
   getOrders,
   clear,
 }
