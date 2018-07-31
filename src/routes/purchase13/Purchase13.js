@@ -31,13 +31,14 @@ class Purchase13 extends React.Component {
   componentDidMount() {
     switch (this.props.paymentMethod) {
       case PAYPAL:
-        this.props.makePaypalPayment();
-        break;
+        this.props.makePaypalPayment()
+        this.props.nextFlowStep()
+        break
 
       case BITPAY:
-        this.props.makeBitpayPayment();
-        this.props.nextFlowStep();
-        break;
+        this.props.makeBitpayPayment()
+        this.props.nextFlowStep()
+        break
     }
   }
 
