@@ -36,43 +36,51 @@ export const REQUIRED_FIELDS = [
 // width/height in mm
 export const CARD_SIZES = (intl) => [
   {
-    key: '4x5',
+    key: '4" x 5"',
     title: intl && intl.formatMessage(messages.foldedCard),
     svg: FoldedCardImage,
-    extra: '4" x 5"',
+    extra: '4" × 5"',
     height: 101.6,
     width: 127,
   },
   {
-    key: '5x7',
+    key: '5" x 7"',
     title: intl && intl.formatMessage(messages.postcard),
     svg: PostcardImage,
-    extra: '5" x 7"',
+    extra: '5" × 7"',
     height: 127,
     width: 177.8,
   },
   {
-    key: '6x6',
+    key: '6" x 6"',
     title: intl && intl.formatMessage(messages.foldedCardWithoutPanel),
     svg: FoldedCardWithoutPanelImage,
-    extra: '6" x 6"',
+    extra: '6" × 6"',
     height: 152.4,
     width: 152.4,
   },
   {
-    key: '4x9',
+    key: '4" x 9"',
     title: intl && intl.formatMessage(messages.foldedCard),
     svg: BigFoldedCardImage,
-    extra: '4" x 9"',
+    extra: '4" × 9"',
     height: 101.6,
     width: 228.6,
   },
 ]
 
+export const FOOD_TYPE = 'Food'
+export const NON_FOOD_TYPE = 'Non-Food'
+export const DONATION_TYPE = 'Donation'
+export const VOUCHER_TYPE = 'Voucher'
+
 // TODO add translations
 export const GIFT_TYPES = (intl) => [
-  {key: 'Food', title: 'Food', svg: FoodImage},
-  {key: 'Fruits', title: 'Non Food', svg: NonFoodImage},
-  {key: 'Donation', title: 'Donation', svg: DonationImage},
-  {key: 'Voucher', title: 'Voucher', svg: VoucherImage},
+  {key: FOOD_TYPE, title: 'Food', svg: FoodImage},
+  {key: NON_FOOD_TYPE, title: 'Non Food', svg: NonFoodImage},
+]
+
+export const ADDITIONAL_GIFT_TYPES = (intl) => [
+  {key: DONATION_TYPE, title: 'Donation', svg: DonationImage},
+  {key: VOUCHER_TYPE, title: 'Voucher', svg: VoucherImage},
 ]

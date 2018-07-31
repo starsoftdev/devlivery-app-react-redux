@@ -5,9 +5,10 @@ import s from './CardStore.css'
 import messages from './messages'
 import debounce from 'lodash/debounce'
 import {CARD_SIZES, DEFAULT_DEBOUNCE_TIME} from '../../constants'
-import {getCards, getOccasions} from '../../reducers/cards'
-import {Col, Input, Pagination, Row, Select} from 'antd'
+import {clearFilters, getCards, getOccasions, clear} from '../../reducers/cards'
+import {Button, Col, Input, Pagination, Row, Select} from 'antd'
 import {Card, PaginationItem} from '../../components'
+import cn from 'classnames'
 
 class CardStore extends React.Component {
   constructor(props) {
@@ -20,6 +21,10 @@ class CardStore extends React.Component {
     this.getCards = debounce(this.props.getCards, DEFAULT_DEBOUNCE_TIME)
   }
 
+  componentWillUnmount() {
+    this.props.clear()
+  }
+
   changeSearch = (e) => {
     const search = e.target.value
     this.setState({search})
@@ -28,7 +33,23 @@ class CardStore extends React.Component {
 
   render() {
     const {search} = this.state
-    const {cards, cardsCount, getCards, intl, page, pageSize, cardStyles, occasions, getOccasions, occasionTypes, loading} = this.props
+    const {
+      cards,
+      cardsCount,
+      getCards,
+      intl,
+      page,
+      pageSize,
+      cardStyles,
+      occasions,
+      getOccasions,
+      occasionTypes,
+      loading,
+      clearFilters,
+      occasion,
+      cardSize,
+      cardStyle,
+    } = this.props
 
     return (
       <div className={s.container}>
@@ -48,7 +69,12 @@ class CardStore extends React.Component {
             <ul className={s.filterItems}>
               {occasions.map((item) =>
                 <li key={item.id}>
-                  <a onClick={() => getCards({occasion: item.id})}>{item.title}</a>
+                  <a
+                    onClick={() => getCards({occasion: item.id})}
+                    className={cn(item.id === occasion && s.selected)}
+                  >
+                    {item.title}
+                  </a>
                 </li>
               )}
             </ul>
@@ -58,7 +84,12 @@ class CardStore extends React.Component {
             <ul className={s.filterItems}>
               {CARD_SIZES(intl).map((item) =>
                 <li key={item.key}>
-                  <a onClick={() => getCards({cardSize: item.key})}>{item.title}</a>
+                  <a
+                    onClick={() => getCards({cardSize: item.key})}
+                    className={cn(item.key === cardSize && s.selected)}
+                  >
+                    {`${item.extra} ${item.title}`}
+                  </a>
                 </li>
               )}
             </ul>
@@ -68,19 +99,33 @@ class CardStore extends React.Component {
             <ul className={s.filterItems}>
               {cardStyles.map((item) =>
                 <li key={item.title}>
-                  <a onClick={() => getCards({cardStyle: item.title})}>{item.title}</a>
+                  <a
+                    onClick={() => getCards({cardStyle: item.title})}
+                    className={cn(item.title === cardStyle && s.selected)}
+                  >
+                    {item.title}
+                  </a>
                 </li>
               )}
             </ul>
           </section>
         </div>
         <div className={s.content}>
-          <Input.Search
-            className={s.search}
-            placeholder={intl.formatMessage(messages.search)}
-            value={search}
-            onChange={this.changeSearch}
-          />
+          <div className={s.actions}>
+            <Input.Search
+              placeholder={intl.formatMessage(messages.search)}
+              value={search}
+              onChange={this.changeSearch}
+            />
+            <Button
+              className={s.clearFilters}
+              type='primary'
+              ghost
+              onClick={clearFilters}
+            >
+              {intl.formatMessage(messages.clearFilters)}
+            </Button>
+          </div>
           {!!cards.length ? (
             <Row gutter={20} type='flex'>
               {cards.map((item) =>
@@ -109,6 +154,7 @@ class CardStore extends React.Component {
           {!!cards.length && (
             <div className={s.footer}>
               <Pagination
+                hideOnSinglePage
                 current={page}
                 total={cardsCount}
                 pageSize={pageSize}
@@ -130,6 +176,8 @@ const mapState = state => ({
 const mapDispatch = {
   getCards,
   getOccasions,
+  clearFilters,
+  clear,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(CardStore))

@@ -1,17 +1,29 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {submitDonation, setDonationOrg} from '../../reducers/purchase'
-import {Button, Col, Input, Row} from 'antd'
+import {Button, Col, Form, Input, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Donation.css'
 import {Actions, Card, SectionHeader} from '../../components'
 import {ALPHABET} from '../../constants'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
+import formMessages from '../../formMessages'
 
 class Donation extends React.Component {
+  handleSubmit = (e) => {
+    e.preventDefault()
+    this.props.form.validateFields((err, values) => {
+      if (!err && this.props.donationOrg) {
+        this.props.submitDonation(values)
+      }
+    })
+  }
+
   render() {
-    const {donationOrg, setDonationOrg, donationOrgs, intl, flowIndex, submitDonation, loading} = this.props
+    const {donationOrg, setDonationOrg, donationOrgs, intl, flowIndex, loading, donationAmount} = this.props
+    const {getFieldDecorator} = this.props.form
+    // TODO make amount input as InputNumber field
     return (
       <React.Fragment>
         <div className={s.content}>
@@ -29,8 +41,8 @@ class Donation extends React.Component {
                     className={s.item}
                     title={item.name}
                     image={item.logo && item.logo[0] && item.logo[0].url}
-                    onClick={() => setDonationOrg(item.id)}
-                    active={item.id === donationOrg}
+                    onClick={() => setDonationOrg(item)}
+                    active={donationOrg && donationOrg.id === item.id}
                     keyValue={ALPHABET[i]}
                   />
                 </Col>
@@ -39,18 +51,29 @@ class Donation extends React.Component {
           ) : !loading.donationOrgs ? (
             <div style={{textAlign: 'center'}}>No organizations.</div>
           ) : null}
-          <Input placeholder={intl.formatMessage(messages.amount)} className={s.amount}/>
+          <Form>
+            <Form.Item>
+              {getFieldDecorator('donationAmount', {
+                initialValue: donationAmount,
+                rules: [
+                  {required: true, message: intl.formatMessage(formMessages.required)},
+                ],
+              })(
+                <Input placeholder={intl.formatMessage(messages.amount)} className={s.amount}/>
+              )}
+            </Form.Item>
+          </Form>
         </div>
         <Actions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={() => donationOrg && submitDonation()}
+            onKeyHandle={this.handleSubmit}
           />
           <Button
             type='primary'
             disabled={!donationOrg}
-            onClick={() => submitDonation()}
+            onClick={this.handleSubmit}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
@@ -63,6 +86,7 @@ class Donation extends React.Component {
 const mapState = state => ({
   donationOrgs: state.purchase.donationOrgs,
   donationOrg: state.purchase.donationOrg,
+  donationAmount: state.purchase.donationAmount,
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
 })
@@ -72,4 +96,4 @@ const mapDispatch = {
   submitDonation,
 }
 
-export default connect(mapState, mapDispatch)(withStyles(s)(Donation))
+export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Donation)))

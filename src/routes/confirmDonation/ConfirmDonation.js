@@ -1,35 +1,24 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {addBundle} from '../../reducers/purchase'
-import {Button, Col, Input, Row} from 'antd'
+import {confirmDonation} from '../../reducers/purchase'
+import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import s from './AddBundle.css'
+import s from './ConfirmDonation.css'
 import {Actions, SectionHeader} from '../../components'
 import PlusGiftIcon from '../../static/plus_round.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import {Form} from 'antd'
 import messages from './messages'
 
-// TODO reuse code from Purchase 11
-// TODO calculate bundle price correctly
-class AddBundle extends React.Component {
-  handleSubmit = (e) => {
-    e.preventDefault()
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        this.props.addBundle(values)
-      }
-    })
-  }
-
+class ConfirmDonation extends React.Component {
   getPrice = () => {
-    const {card, gift} = this.props
-    return (card.price + (gift ? gift.price : 0)).toFixed(2)
+    const {card, donationAmount} = this.props
+    return (card.price + (+donationAmount)).toFixed(2)
   }
 
   render() {
-    const {flowIndex, card, gift, intl} = this.props
-    const {getFieldDecorator} = this.props.form
+    const {flowIndex, card, gift, intl, donationOrg, donationAmount, confirmDonation} = this.props
+    // TODO price with vat?
     return card ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -53,27 +42,19 @@ class AddBundle extends React.Component {
                 <PlusGiftIcon className={s.plusIcon}/>
               )}
             </div>
-            {gift && (
+            {donationOrg && (
               <div className={s.giftWrapper}>
                 <div>
-                  <img src={gift.image[0].url} className={s.giftImage}/>
+                  <img src={donationOrg.logo && donationOrg.logo[0] && donationOrg.logo[0].url} className={s.giftImage}/>
                 </div>
                 <p className={s.cardInfo}>
-                  <span className={s.cardType}>{gift.title}</span>
+                  <span className={s.cardType}>{donationOrg.name}</span>
                   <br/>
-                  <span className={s.cardPrice}>{gift.price}</span>
-                  <span className={s.cardPriceCurrency}>{gift.currency}</span>
+                  <span className={s.cardPrice}>{donationAmount}</span>
+                  <span className={s.cardPriceCurrency}>{'CHF'}</span>
                 </p>
               </div>
             )}
-          </div>
-          <div className={s.orderDetails}>
-            <Form.Item>
-              {getFieldDecorator('title', {
-              })(
-                <Input placeholder={intl.formatMessage(messages.bundleName)}/>
-              )}
-            </Form.Item>
           </div>
           <Row type='flex' align='center' gutter={20} className={s.subtotalSection}>
             <Col xs={12}>
@@ -81,7 +62,7 @@ class AddBundle extends React.Component {
             </Col>
             <Col xs={12}>
               <span className={s.subtotalValue}>{this.getPrice()}</span>
-              <span className={s.subtotalCurrency}>CHF</span>
+              <span className={s.subtotalCurrency}>{'CHF'}</span>
             </Col>
           </Row>
         </div>
@@ -89,11 +70,11 @@ class AddBundle extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={this.handleSubmit}
+            onKeyHandle={confirmDonation}
           />
           <Button
             type='primary'
-            htmlType='submit'
+            onClick={confirmDonation}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
@@ -108,10 +89,12 @@ const mapState = state => ({
   flowIndex: state.purchase.flowIndex,
   card: state.purchase.card,
   gift: state.purchase.gift,
+  donationOrg: state.purchase.donationOrg,
+  donationAmount: state.purchase.donationAmount,
 })
 
 const mapDispatch = {
-  addBundle,
+  confirmDonation,
 }
 
-export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(AddBundle)))
+export default connect(mapState, mapDispatch)(withStyles(s)(ConfirmDonation))

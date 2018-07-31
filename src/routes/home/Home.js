@@ -11,8 +11,7 @@ import personalizeItImage from '../../static/personalize_it.png'
 import sendItImage from '../../static/send_it.png'
 import AboutUsIcon from '../../static/decor_about.svg'
 import {animateScroll} from 'react-scroll'
-import {AUTH_PURCHASE_ROUTES, PURCHASE1_ROUTE} from '../'
-import {Link} from '../../components'
+import {AUTH_PURCHASE_FLOW} from '../'
 import messages from './messages'
 import {setFlow} from '../../reducers/purchase'
 
@@ -46,9 +45,9 @@ class Home extends React.Component {
         <section className={s.heroSection}>
           <h2 className={s.subHeader}>{intl.formatMessage(messages.subHeader)}</h2>
           <h1 className={s.header}>{intl.formatMessage(messages.header)}</h1>
-          <Link to={PURCHASE1_ROUTE} onClick={() => setFlow(AUTH_PURCHASE_ROUTES)}>
-            <Button type='primary'>{intl.formatMessage(messages.getStarted)}</Button>
-          </Link>
+          <Button type='primary' onClick={() => setFlow(AUTH_PURCHASE_FLOW)}>
+            {intl.formatMessage(messages.getStarted)}
+          </Button>
           <a className={s.scroll} onClick={this.scrollToFirstSection}>
             {intl.formatMessage(messages.scroll)}
             <DownArrow/>

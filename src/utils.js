@@ -1,4 +1,5 @@
 import {DATE_FORMAT} from './constants'
+import get from 'lodash/get'
 
 export const getSuccessMessage = (res) => res && typeof res.data === 'string' ? res.data : null
 
@@ -10,10 +11,12 @@ export const getFormErrors = ({values, errors}) => {
     const formErrors = {}
     const fields = Object.keys(errors.validation)
     fields.forEach(field => {
-      formErrors[field] = {
-        value: values[field],
+      // backend returns wrong field path (e.g. addresses.0.address => addresses[0].address)
+      const fieldKey = field.replace(/\.(\d+?)\./g, "[$1].")
+      formErrors[fieldKey] = {
+        value: get(values, fieldKey),
         errors: [{
-          field,
+          field: fieldKey,
           message: errors.validation[field][0]
         }]
       }
