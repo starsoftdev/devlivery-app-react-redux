@@ -96,7 +96,7 @@ class OrderDetails extends React.Component {
           <React.Fragment>
             <div className={s.headerWrapper}>
               <h1 className={s.header}>{`#${orderDetails.order_number}`}</h1>
-              <div className={s.date}>{orderDetails.date}</div>
+              <div className={s.date}>{orderDetails.created_at}</div>
             </div>
             <Row type='flex' gutter={20}>
               <Col xs={24} sm={16}>
