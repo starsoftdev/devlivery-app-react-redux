@@ -17,30 +17,8 @@
   }
 }
 
-.newGroupName {
-  /*TODO use addonAfter for input*/
-  padding-right: 100px;
-}
-
-.newGroupNameWrapper {
-  position: relative;
-  margin-bottom: var(--margin-md);
-}
-
-.addBtn {
-  font-family: var(--font-family-secondary);
-  color: var(--primary-color);
-  font-size: var(--font-size-sm);
-  text-transform: uppercase;
-  display: inline-flex;
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-
-  &:--hover {
-    color: var(--primary-color);
-  }
+.description {
+  margin-top: var(--margin-md);
 }
 
 .addIcon {
@@ -94,10 +72,6 @@
   right: 0;
   top: 0;
   z-index: 1;
-}
-
-.description {
-  padding-top: calc(50px + var(--margin-md));
 }
 
 .footer {

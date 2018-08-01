@@ -7,78 +7,105 @@ import has from 'lodash/has'
 // ------------------------------------
 // Constants
 // ------------------------------------
+export const GET_CONTACTS_REQUEST = 'ContactGroup.GET_CONTACTS_REQUEST'
+export const GET_CONTACTS_SUCCESS = 'ContactGroup.GET_CONTACTS_SUCCESS'
+export const GET_CONTACTS_FAILURE = 'ContactGroup.GET_CONTACTS_FAILURE'
+
 export const GET_GROUP_CONTACTS_REQUEST = 'ContactGroup.GET_GROUP_CONTACTS_REQUEST'
 export const GET_GROUP_CONTACTS_SUCCESS = 'ContactGroup.GET_GROUP_CONTACTS_SUCCESS'
 export const GET_GROUP_CONTACTS_FAILURE = 'ContactGroup.GET_GROUP_CONTACTS_FAILURE'
 
-export const EDIT_GROUP_REQUEST = 'ContactGroup.EDIT_GROUP_REQUEST'
-export const EDIT_GROUP_SUCCESS = 'ContactGroup.EDIT_GROUP_SUCCESS'
-export const EDIT_GROUP_FAILURE = 'ContactGroup.EDIT_GROUP_FAILURE'
+export const ADD_CONTACT_GROUP_REQUEST = 'ContactGroups.ADD_CONTACT_GROUP_REQUEST'
+export const ADD_CONTACT_GROUP_SUCCESS = 'ContactGroups.ADD_CONTACT_GROUP_SUCCESS'
+export const ADD_CONTACT_GROUP_FAILURE = 'ContactGroups.ADD_CONTACT_GROUP_FAILURE'
 
-export const REMOVE_CONTACT_FROM_GROUP_REQUEST = 'ContactGroup.REMOVE_CONTACT_FROM_GROUP_REQUEST'
-export const REMOVE_CONTACT_FROM_GROUP_SUCCESS = 'ContactGroup.REMOVE_CONTACT_FROM_GROUP_SUCCESS'
-export const REMOVE_CONTACT_FROM_GROUP_FAILURE = 'ContactGroup.REMOVE_CONTACT_FROM_GROUP_FAILURE'
+export const EDIT_CONTACT_GROUP_REQUEST = 'ContactGroup.EDIT_CONTACT_GROUP_REQUEST'
+export const EDIT_CONTACT_GROUP_SUCCESS = 'ContactGroup.EDIT_CONTACT_GROUP_SUCCESS'
+export const EDIT_CONTACT_GROUP_FAILURE = 'ContactGroup.EDIT_CONTACT_GROUP_FAILURE'
+
+export const CHANGE_SELECTED_CONTACTS = 'ContactGroups.CHANGE_SELECTED_CONTACTS'
 
 export const CLEAR = 'ContactGroup.CLEAR'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const getGroupContacts = (params = {}) => (dispatch, getState, {fetch}) => {
-  dispatch({type: GET_GROUP_CONTACTS_REQUEST, params})
+export const getContacts = (params = {}) => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_CONTACTS_REQUEST, params})
   const {token} = dispatch(getToken())
-  const {title, page, pageSize} = getState().contactGroup
-  return fetch(`/contacts-by-group?${qs.stringify({
-    title,
+  const {page, pageSize} = getState().contactGroup
+
+  return fetch(`/view-contacts?${qs.stringify({
     page,
     per_page: pageSize,
   })}`, {
     method: 'GET',
     token,
-    success: (res) => dispatch({type: GET_GROUP_CONTACTS_SUCCESS, res}),
+    success: (res) => dispatch({type: GET_CONTACTS_SUCCESS, res}),
+    failure: () => dispatch({type: GET_CONTACTS_FAILURE}),
+  })
+}
+
+export const getGroupContacts = (params = {}) => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_GROUP_CONTACTS_REQUEST, params})
+  const {token} = dispatch(getToken())
+  const {title} = getState().contactGroup
+  return fetch(`/contacts-by-group?${qs.stringify({
+    title,
+    take: 1000,
+  })}`, {
+    method: 'GET',
+    token,
+    success: (res) => dispatch({type: GET_GROUP_CONTACTS_SUCCESS, groupContacts: res.data}),
     failure: () => dispatch({type: GET_GROUP_CONTACTS_FAILURE}),
   })
 }
 
-export const editGroup = (values) => (dispatch, getState, {fetch}) => {
-  dispatch({type: EDIT_GROUP_REQUEST})
+export const addContactGroup = (values) => (dispatch, getState, {fetch, history}) => {
+  dispatch({type: ADD_CONTACT_GROUP_REQUEST})
   const {token} = dispatch(getToken())
-  const {groupId} = getState().contactGroup
+  const {user} = getState().user
+  const {groupContacts} = getState().contactGroup
+  return fetch(`/contact-groups`, {
+    method: 'POST',
+    token,
+    body: {
+      ...values,
+      user_id: user.id,
+      // TODO send groupContacts
+    },
+    success: () => {
+      dispatch({type: ADD_CONTACT_GROUP_SUCCESS})
+      history.push('/dashboard/contacts/groups')
+    },
+    failure: () => dispatch({type: ADD_CONTACT_GROUP_FAILURE}),
+  })
+}
+
+export const editContactGroup = (values) => (dispatch, getState, {fetch, history}) => {
+  dispatch({type: EDIT_CONTACT_GROUP_REQUEST})
+  const {token} = dispatch(getToken())
+  const {groupId, groupContacts} = getState().contactGroup
   return fetch(`/contact-groups/${groupId}`, {
     method: 'PUT',
-    body: values,
+    body: {
+      ...values,
+      // TODO send groupContacts
+    },
     token,
     success: () => {
-      dispatch({type: EDIT_GROUP_SUCCESS})
+      dispatch({type: EDIT_CONTACT_GROUP_SUCCESS})
       message.success('Group updated.')
+      history.push('/dashboard/contacts/groups')
     },
     failure: () => {
-      dispatch({type: EDIT_GROUP_FAILURE})
+      dispatch({type: EDIT_CONTACT_GROUP_FAILURE})
       message.error('Something went wrong. Please try again.')
     }
   })
 }
 
-export const removeContactFromGroup = (contact) => (dispatch, getState, {fetch}) => {
-  dispatch({type: REMOVE_CONTACT_FROM_GROUP_REQUEST})
-  const {token} = dispatch(getToken())
-  const {groupId, groupContacts} = getState().contactGroup
-  return fetch(`/contact/${contact.id}/group/${groupId}/detach`, {
-    method: 'POST',
-    token,
-    success: () => {
-      dispatch({
-        type: REMOVE_CONTACT_FROM_GROUP_SUCCESS,
-        groupContacts: groupContacts.filter(item => item.id !== contact.id)
-      })
-      message.success('Contact removed from group.')
-    },
-    failure: () => {
-      dispatch({type: REMOVE_CONTACT_FROM_GROUP_FAILURE})
-      message.error('Something went wrong. Please try again.')
-    },
-  })
-}
+export const changeSelectedContacts = (groupContacts) => ({type: CHANGE_SELECTED_CONTACTS, groupContacts})
 
 export const clear = () => ({type: CLEAR})
 
@@ -88,9 +115,10 @@ export const clear = () => ({type: CLEAR})
 const initialState = {
   loading: {
     groupContacts: false,
-    editingGroup: false,
-    removingContactFromGroup: false,
+    editingContactGroup: false,
   },
+  contacts: [],
+  contactsCount: 0,
   groupContacts: [],
   groupContactsCount: 0,
   page: 1,
@@ -100,19 +128,24 @@ const initialState = {
 }
 
 export default createReducer(initialState, {
+  [GET_CONTACTS_REQUEST]: (state, {params}) => ({
+    page: params.pagination ? params.pagination.current : 1,
+    pageSize: params.pagination ? params.pagination.pageSize : 12,
+  }),
+  [GET_CONTACTS_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
+    contacts: data,
+    contactsCount: total,
+  }),
   [GET_GROUP_CONTACTS_REQUEST]: (state, {params}) => ({
     title: has(params, 'title') ? params.title : state.title,
     groupId: has(params, 'groupId') ? params.groupId : state.groupId,
-    page: params.pagination ? params.pagination.current : 1,
-    pageSize: params.pagination ? params.pagination.pageSize : 12,
     loading: {
       ...state.loading,
       groupContacts: true,
     },
   }),
-  [GET_GROUP_CONTACTS_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
-    groupContacts: data,
-    groupContactsCount: total,
+  [GET_GROUP_CONTACTS_SUCCESS]: (state, {groupContacts}) => ({
+    groupContacts,
     loading: {
       ...state.loading,
       groupContacts: false,
@@ -124,43 +157,26 @@ export default createReducer(initialState, {
       groupContacts: false,
     },
   }),
-  [EDIT_GROUP_REQUEST]: (state, action) => ({
+  [EDIT_CONTACT_GROUP_REQUEST]: (state, action) => ({
     loading: {
       ...state.loading,
-      editingGroup: true,
+      editingContactGroup: true,
     },
   }),
-  [EDIT_GROUP_SUCCESS]: (state, action) => ({
+  [EDIT_CONTACT_GROUP_SUCCESS]: (state, action) => ({
     loading: {
       ...state.loading,
-      editingGroup: false,
+      editingContactGroup: false,
     },
   }),
-  [EDIT_GROUP_FAILURE]: (state, action) => ({
+  [EDIT_CONTACT_GROUP_FAILURE]: (state, action) => ({
     loading: {
       ...state.loading,
-      editingGroup: false,
+      editingContactGroup: false,
     },
   }),
-  [REMOVE_CONTACT_FROM_GROUP_REQUEST]: (state, action) => ({
-    loading: {
-      ...state.loading,
-      removingContactFromGroup: true,
-    },
-  }),
-  [REMOVE_CONTACT_FROM_GROUP_SUCCESS]: (state, {groupContacts}) => ({
+  [CHANGE_SELECTED_CONTACTS]: (state, {groupContacts}) => ({
     groupContacts,
-    groupContactsCount: state.groupContactsCount - 1,
-    loading: {
-      ...state.loading,
-      removingContactFromGroup: false,
-    },
-  }),
-  [REMOVE_CONTACT_FROM_GROUP_FAILURE]: (state, action) => ({
-    loading: {
-      ...state.loading,
-      removingContactFromGroup: false,
-    },
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
