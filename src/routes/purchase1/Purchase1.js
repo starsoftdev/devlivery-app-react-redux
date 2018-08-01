@@ -40,8 +40,8 @@ class Purchase1 extends React.Component {
                   className={s.item}
                   title={item.title}
                   image={item.image.url}
-                  onClick={() => setOccasion(item.id)}
-                  active={item.id === occasion}
+                  onClick={() => setOccasion(item)}
+                  active={occasion && occasion.id === item.id}
                   keyValue={ALPHABET[i]}
                 />
               </Col>

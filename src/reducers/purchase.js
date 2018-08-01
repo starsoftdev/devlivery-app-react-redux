@@ -111,6 +111,10 @@ export const GET_CARD_COLORS_REQUEST = 'Purchase.GET_CARD_COLORS_REQUEST'
 export const GET_CARD_COLORS_SUCCESS = 'Purchase.GET_CARD_COLORS_SUCCESS'
 export const GET_CARD_COLORS_FAILURE = 'Purchase.GET_CARD_COLORS_FAILURE'
 
+export const ADD_CARD_BODY_REQUEST = 'Purchase.ADD_CARD_BODY_REQUEST'
+export const ADD_CARD_BODY_SUCCESS = 'Purchase.ADD_CARD_BODY_SUCCESS'
+export const ADD_CARD_BODY_FAILURE = 'Purchase.ADD_CARD_BODY_FAILURE'
+
 export const CLEAR = 'Purchase.CLEAR'
 
 // ------------------------------------
@@ -209,7 +213,7 @@ export const getCards = (params = {}) => (dispatch, getState, {fetch}) => {
     take: 100,
     filters: JSON.stringify({
       ...occasion ? {
-        occasion_id: occasion,
+        occasion_id: occasion.id,
       } : {},  
       ...cardColor ? {
         color: cardColor,
@@ -314,7 +318,7 @@ export const getBundleValues = (values) => {
 
 export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  const {letteringTechnique, card, gift, flow} = getState().purchase
+  const {letteringTechnique, card, gift, flow, cardDetails} = getState().purchase
   dispatch({type: ADD_BUNDLE_REQUEST})
   return fetch(`/create-bundle`, {
     method: 'POST',
@@ -325,8 +329,8 @@ export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
       ...gift ? {
         gift_id: gift.id,
       } : {},
-      // TODO send html here
-      body: '.',
+      // TODO check if we need to send card body here
+      body: cardDetails.body,
       ...getBundleValues(values),
     },
     token,
@@ -345,8 +349,8 @@ export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
 
 export const makeOrder = () => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  const {bundle, order} = getState().purchase
-  if (!bundle || order) {
+  const {bundle} = getState().purchase
+  if (!bundle) {
     return
   }
   dispatch({type: MAKE_ORDER_REQUEST})
@@ -358,11 +362,32 @@ export const makeOrder = () => (dispatch, getState, {fetch}) => {
     },
     token,
     success: (res) => {
-      dispatch({type: MAKE_ORDER_SUCCESS, order: res.data})
+      const order = res.data
+      // TODO check if we need this request
+      dispatch(addCardBody(order))
+      dispatch({type: MAKE_ORDER_SUCCESS, order})
     },
     failure: () => {
       dispatch({type: MAKE_ORDER_FAILURE})
     },
+  })
+}
+
+export const addCardBody = (order) => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  const {cardDetails} = getState().purchase
+  dispatch({type: ADD_CARD_BODY_REQUEST})
+  return fetch(`/order/add-htmls`, {
+    method: 'POST',
+    body: {
+      order_id: order.id,
+      html1: cardDetails.body,
+      // TODO check why we need this
+      html2: '.',
+    },
+    token,
+    success: () => dispatch({type: ADD_CARD_BODY_SUCCESS}),
+    failure: () => dispatch({type: ADD_CARD_BODY_FAILURE}),
   })
 }
 
@@ -735,6 +760,9 @@ export default createReducer(initialState, {
   }),
   [SET_GIFT_TYPE]: (state, {giftType}) => ({
     giftType,
+    ...giftType === null ? {
+      gift: null
+    } : {}
   }),
   [CONTINUE_WITHOUT_GIFT]: (state, action) => ({
     giftType: null,

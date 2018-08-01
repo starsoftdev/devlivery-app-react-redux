@@ -22,7 +22,7 @@ class Purchase11 extends React.Component {
   }
 
   render() {
-    const {flowIndex, order} = this.props
+    const {flowIndex, bundle, order, occasion} = this.props
     const {getFieldDecorator} = this.props.form
     return order ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
@@ -65,10 +65,8 @@ class Purchase11 extends React.Component {
             <Row type='flex' align='center' gutter={20}>
               <Col xs={24} sm={12}>
                 <section>
-                  <h3 className={s.cardTitle}>BUNDLE TITLE</h3>
-                  <p>
-                    CARD DESCRIPTION
-                  </p>
+                  <h3 className={s.cardTitle}>{occasion.title}</h3>
+                  <div dangerouslySetInnerHTML={{__html: bundle.body}}/>
                 </section>
               </Col>
               <Col xs={24} sm={12}>
@@ -142,7 +140,9 @@ class Purchase11 extends React.Component {
 const mapState = state => ({
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
+  bundle: state.purchase.bundle,
   order: state.purchase.order,
+  occasion: state.purchase.occasion,
 })
 
 const mapDispatch = {
