@@ -94,8 +94,6 @@ class Purchase6 extends React.Component {
     const {editorState, mounted} = this.state
     const {cardDetails, intl, flowIndex, cardSize} = this.props
     const {getFieldDecorator} = this.props.form
-    const inlineStyles = exporter(editorState)
-    const html = stateToHTML(editorState.getCurrentContent(), {inlineStyles})
 
     return (
       <Form onSubmit={this.handleSubmit} className={s.form}>
