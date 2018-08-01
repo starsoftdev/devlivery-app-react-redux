@@ -10,10 +10,6 @@ export const GET_CONTACT_GROUPS_REQUEST = 'ContactGroups.GET_CONTACT_GROUPS_REQU
 export const GET_CONTACT_GROUPS_SUCCESS = 'ContactGroups.GET_CONTACT_GROUPS_SUCCESS'
 export const GET_CONTACT_GROUPS_FAILURE = 'ContactGroups.GET_CONTACT_GROUPS_FAILURE'
 
-export const ADD_CONTACT_GROUP_REQUEST = 'ContactGroups.ADD_CONTACT_GROUP_REQUEST'
-export const ADD_CONTACT_GROUP_SUCCESS = 'ContactGroups.ADD_CONTACT_GROUP_SUCCESS'
-export const ADD_CONTACT_GROUP_FAILURE = 'ContactGroups.ADD_CONTACT_GROUP_FAILURE'
-
 export const REMOVE_CONTACT_GROUP_REQUEST = 'ContactGroups.REMOVE_CONTACT_GROUP_REQUEST'
 export const REMOVE_CONTACT_GROUP_SUCCESS = 'ContactGroups.REMOVE_CONTACT_GROUP_SUCCESS'
 export const REMOVE_CONTACT_GROUP_FAILURE = 'ContactGroups.REMOVE_CONTACT_GROUP_FAILURE'
@@ -37,26 +33,6 @@ export const getContactGroups = (params = {}) => (dispatch, getState, {fetch}) =
     token,
     success: (res) => dispatch({type: GET_CONTACT_GROUPS_SUCCESS, res}),
     failure: () => dispatch({type: GET_CONTACT_GROUPS_FAILURE}),
-  })
-}
-
-export const addContactGroup = () => (dispatch, getState, {fetch}) => {
-  dispatch({type: ADD_CONTACT_GROUP_REQUEST})
-  const {token} = dispatch(getToken())
-  const {newContactGroup} = getState().contactGroups
-  const {user} = getState().user
-  return fetch(`/contact-groups`, {
-    method: 'POST',
-    token,
-    body: {
-      title: newContactGroup,
-      user_id: user.id,
-    },
-    success: () => {
-      dispatch({type: ADD_CONTACT_GROUP_SUCCESS})
-      dispatch(getContactGroups())
-    },
-    failure: () => dispatch({type: ADD_CONTACT_GROUP_FAILURE}),
   })
 }
 

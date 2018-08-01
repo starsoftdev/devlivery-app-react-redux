@@ -1,12 +1,15 @@
 import React from 'react'
-import EditGroup from './EditGroup'
+import ContactGroup from './ContactGroup'
 import {setCurrentRouteName} from '../../reducers/global'
-import {getGroupContacts} from '../../reducers/contactGroup'
+import {getContacts, getGroupContacts} from '../../reducers/contactGroup'
 import messages from './messages'
 
 function action({store, route, intl, query, params}) {
   store.dispatch(setCurrentRouteName(route.name))
-  store.dispatch(getGroupContacts({...params, ...query}))
+  store.dispatch(getContacts())
+  if (params.groupId) {
+    store.dispatch(getGroupContacts({...params, ...query}))
+  }
 
   return {
     chunks: ['contacts'],
@@ -14,7 +17,7 @@ function action({store, route, intl, query, params}) {
     breadcrumbs: [
       {name: intl.formatMessage(messages.breadcrumb)},
     ],
-    component: <EditGroup intl={intl}/>,
+    component: <ContactGroup intl={intl}/>,
   }
 }
 
