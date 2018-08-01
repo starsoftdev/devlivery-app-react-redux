@@ -1,0 +1,21 @@
+@import '../../styles/variables.css';
+
+.contactDetail {
+  color: var(--dark-color);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family-secondary);
+}
+
+.contactDetailTitle {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: color-mod(var(--dark-color) a(70%));
+}
+
+.detailRow {
+  margin-bottom: 20px;
+}
+
+.ant-modal-title {
+  font-size: 30px;
+}
