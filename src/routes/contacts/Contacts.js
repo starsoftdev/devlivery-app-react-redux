@@ -1,13 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Col, Input, Pagination, Popconfirm, Row, Select, Table} from 'antd'
+import {Col, Input, Pagination, Popconfirm, Row, Select, Table, Modal} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Contacts.css'
 import EditIcon from '../../static/edit.svg'
 import RemoveIcon from '../../static/remove.svg'
 import GridIcon from '../../static/view_card.svg'
 import ListIcon from '../../static/view_list.svg'
-import {Link, PaginationItem} from '../../components'
+import {Link, PaginationItem, ContactDetail} from '../../components'
 import {clear, getContacts, removeContact} from '../../reducers/contacts'
 import debounce from 'lodash/debounce'
 import messages from './messages'
@@ -25,6 +25,8 @@ class Contacts extends React.Component {
     this.state = {
       view: GRID_VIEW,
       search: undefined,
+      showContactView: false,
+      contactId: null,
     }
 
     this.getContacts = debounce(this.props.getContacts, DEFAULT_DEBOUNCE_TIME)
@@ -42,6 +44,23 @@ class Contacts extends React.Component {
 
   changeView = (view) => {
     this.setState({view})
+  }
+
+  showDetailContactView = (id) => {
+    this.setState({showContactView: true, contactId: id})
+  }
+
+  closeDetailContactView = () => {
+    this.setState({showContactView: false, contactId: null})
+  }
+
+  renderModal = () => {
+    const id = this.state.contactId
+    return <ContactDetail
+            closeDetailContactView={this.closeDetailContactView}
+            showContactView={this.state.showContactView}
+            contactId={id}
+           />
   }
 
   render() {
@@ -133,13 +152,15 @@ class Contacts extends React.Component {
         </div>
         {view === GRID_VIEW ? (
           <React.Fragment>
+            {this.state.showContactView && this.renderModal()}
             <Row type='flex' gutter={20}>
               {contacts.map((contact) =>
                 <Col
-                  key={contact.id}
                   xs={24}
                   sm={12}
                   md={6}
+                  key={contact.id}
+                  onClick={() => this.showDetailContactView(contact.id)}
                 >
                   <div className={s.contact}>
                     <Link className={s.editBtn} to={{name: EDIT_CONTACT_ROUTE, params: {contactId: contact.id}}}>
