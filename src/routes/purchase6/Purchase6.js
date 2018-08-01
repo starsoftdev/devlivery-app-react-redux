@@ -18,6 +18,45 @@ import EditorIcon from '../../static/editor_icon.svg'
 // TODO make text-alignment work
 const {styles, customStyleFn, exporter} = createStyles(['font-size', 'color', 'font-family', 'font-weight', 'text-alignment'])
 
+const FONTS = [
+  'Playfair Display',
+  'PT Serif',
+  'Cinzel',
+  'Playfair Display SC',
+  'Open Sans',
+  'Montserrat',
+  'Raleway',
+  'Josefin Sans',
+  'Teko',
+  'Merienda',
+  'Shadows Into Light',
+  'Dancing Script',
+  'Gloria Hallelujah',
+  'Amatic SC',
+  'Great Vibes',
+  'Caveat',
+  'Sacramento',
+  'Yellowtail',
+  'Covered By Your Grace',
+  'Italianno',
+  'Anonymous Pro',
+  'Nova Mono',
+  'Cutive Mono',
+]
+
+const loadFont = (font) => {
+  if (!document.getElementById(font)) {
+    const head = document.getElementsByTagName('head')[0]
+    const link = document.createElement('link')
+    link.id = font
+    link.rel = 'stylesheet'
+    link.type = 'text/css'
+    link.href = `https://fonts.googleapis.com/css?family=${font}`
+    link.media = 'all'
+    head.appendChild(link)
+  }
+}
+
 // TODO refactor code
 // TODO move font sizes/colors/etc to constants
 class Purchase6 extends React.Component {
@@ -72,7 +111,7 @@ class Purchase6 extends React.Component {
 
   toggleFontFamily = (fontFamily) => {
     const newEditorState = styles.fontFamily.toggle(this.state.editorState, fontFamily)
-
+    loadFont(fontFamily)
     return this.updateEditorState(newEditorState)
   }
 
@@ -146,7 +185,7 @@ class Purchase6 extends React.Component {
                     placeholder={intl.formatMessage(messages.fontFamily)}
                     onChange={this.toggleFontFamily}
                   >
-                    {['Arial', 'Georgia', 'Impact', 'Tahoma', 'Verdana'].map((item) =>
+                    {FONTS.map((item) =>
                       <Select.Option key={item} value={item}>{item}</Select.Option>
                     )}
                   </Select>
