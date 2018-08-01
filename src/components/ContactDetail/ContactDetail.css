@@ -1,0 +1,21 @@
+@import '../../styles/variables.css';
+
+.contactDetail {
+  color: var(--dark-color);
+  font-size: 15px;
+  font-family: "Proxima Nova";
+}
+
+.contactDetailTitle {
+  margin-bottom: 15px;
+  font-size: 15px;
+  color: color-mod(var(--dark-color) a(70%));
+}
+
+.detailRow {
+  margin-bottom: 20px;
+}
+
+.ant-modal-title {
+  font-size: 30px;
+}
