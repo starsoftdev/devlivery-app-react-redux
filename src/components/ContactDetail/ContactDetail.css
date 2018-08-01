@@ -2,13 +2,13 @@
 
 .contactDetail {
   color: var(--dark-color);
-  font-size: var(--font-size-sm);
-  font-family: var(--font-family-secondary);
+  font-size: 15px;
+  font-family: "Proxima Nova";
 }
 
 .contactDetailTitle {
   margin-bottom: 15px;
-  font-size: 16px;
+  font-size: 15px;
   color: color-mod(var(--dark-color) a(70%));
 }
 
