@@ -3,14 +3,15 @@ import {connect} from 'react-redux'
 import {Calendar, Input, Table} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Orders.css'
-import {CalendarHeader, CalendarEvent, PaginationItem, CalendarEvents} from '../../components'
+import {CalendarEvent, CalendarEvents, CalendarHeader, PaginationItem} from '../../components'
 import {clear, getEvents, getOrders, openCalendarEventsModal, openOrderDetailsModal} from '../../reducers/orders'
 import debounce from 'lodash/debounce'
 import moment from 'moment'
 import cn from 'classnames'
 import messages from './messages'
-import {DATE_FORMAT, DEFAULT_DEBOUNCE_TIME} from '../../constants'
+import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
 import OrderDetails from './OrderDetails'
+import {getEvent} from '../../utils'
 
 class Orders extends React.Component {
   constructor(props) {
@@ -51,6 +52,7 @@ class Orders extends React.Component {
       calendarEventsModalOpened,
       openOrderDetailsModal,
       orderDetailsModalOpened,
+      upcomingEvents,
     } = this.props
     const columns = [
       {
@@ -104,7 +106,11 @@ class Orders extends React.Component {
           pagination={{
             current: page,
             total: ordersCount,
-            showTotal: (total, range) => intl.formatMessage(messages.tableItems, {range0: range[0], range1: range[1], total}),
+            showTotal: (total, range) => intl.formatMessage(messages.tableItems, {
+              range0: range[0],
+              range1: range[1],
+              total
+            }),
             pageSize,
             showSizeChanger: true,
             itemRender: (current, type, el) => <PaginationItem type={type} el={el}/>
@@ -120,11 +126,11 @@ class Orders extends React.Component {
               fullscreen={false}
               value={moment(date)}
               dateCellRender={(current) => {
-                const hasEvents = events.find(event => moment(event.contact_specific_date || event.occasion_date, DATE_FORMAT).isSame(current, 'd'))
+                const hasEvents = events.find(event => getEvent(event, current))
                 return hasEvents ? <div className={cn(s.hasEvents, today.isSame(current, 'd') && s.inverted)}/> : null
               }}
               onSelect={(current) => {
-                const hasEvents = events.find(event => moment(event.contact_specific_date || event.occasion_date, DATE_FORMAT).isSame(current, 'd'))
+                const hasEvents = events.find(event => getEvent(event, current))
                 if (hasEvents) {
                   openCalendarEventsModal(current)
                 }
@@ -132,9 +138,9 @@ class Orders extends React.Component {
             />
           </section>
           <section className={s.events}>
-            {events.map((event, i) => i < 3 ? (
+            {upcomingEvents.map((event, i) =>
               <CalendarEvent key={i} {...event}/>
-            ) : null)}
+            )}
           </section>
           {calendarEventsModalOpened && <CalendarEvents/>}
           {orderDetailsModalOpened && <OrderDetails intl={intl}/>}

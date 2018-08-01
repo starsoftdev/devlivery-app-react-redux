@@ -16,6 +16,10 @@ export const GET_EVENTS_REQUEST = 'Orders.GET_EVENTS_REQUEST'
 export const GET_EVENTS_SUCCESS = 'Orders.GET_EVENTS_SUCCESS'
 export const GET_EVENTS_FAILURE = 'Orders.GET_EVENTS_FAILURE'
 
+export const GET_UPCOMING_EVENTS_REQUEST = 'Orders.GET_UPCOMING_EVENTS_REQUEST'
+export const GET_UPCOMING_EVENTS_SUCCESS = 'Orders.GET_UPCOMING_EVENTS_SUCCESS'
+export const GET_UPCOMING_EVENTS_FAILURE = 'Orders.GET_UPCOMING_EVENTS_FAILURE'
+
 export const OPEN_CALENDAR_EVENTS_MODAL = 'Orders.OPEN_CALENDAR_EVENTS_MODAL'
 export const CLOSE_CALENDAR_EVENTS_MODAL = 'Orders.CLOSE_CALENDAR_EVENTS_MODAL'
 
@@ -62,6 +66,20 @@ export const getEvents = (date) => (dispatch, getState, {fetch}) => {
   })
 }
 
+export const getUpcomingEvents = () => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_UPCOMING_EVENTS_REQUEST})
+  const {token} = dispatch(getToken())
+  return fetch(`/contact-reminders?${qs.stringify({
+    take: 3,
+  })}`, {
+    method: 'GET',
+    token,
+    // TODO add ability to get only 3 events
+    success: (res) => dispatch({type: GET_UPCOMING_EVENTS_SUCCESS, upcomingEvents: res.data.filter((item, i) => i < 3)}),
+    failure: () => dispatch({type: GET_UPCOMING_EVENTS_FAILURE}),
+  })
+}
+
 export const openCalendarEventsModal = (selectedDate) => ({type: OPEN_CALENDAR_EVENTS_MODAL, selectedDate})
 
 export const closeCalendarEventsModal = () => ({type: CLOSE_CALENDAR_EVENTS_MODAL})
@@ -99,6 +117,7 @@ const initialState = {
   loading: {
     orders: false,
     events: false,
+    upcomingEvents: false,
     orderDetails: false,
   },
   orders: [],
@@ -112,6 +131,7 @@ const initialState = {
   selectedDate: null,
   orderDetailsModalOpened: false,
   orderDetails: null,
+  upcomingEvents: [],
 }
 
 export default createReducer(initialState, {
@@ -190,6 +210,25 @@ export default createReducer(initialState, {
     loading: {
       ...state.loading,
       orderDetails: false,
+    },
+  }),
+  [GET_UPCOMING_EVENTS_REQUEST]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      upcomingEvents: true,
+    },
+  }),
+  [GET_UPCOMING_EVENTS_SUCCESS]: (state, {upcomingEvents}) => ({
+    upcomingEvents,
+    loading: {
+      ...state.loading,
+      upcomingEvents: false,
+    },
+  }),
+  [GET_UPCOMING_EVENTS_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      upcomingEvents: false,
     },
   }),
   [CLEAR]: (state, action) => RESET_STORE,

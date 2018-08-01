@@ -5,13 +5,13 @@ import {Modal} from 'antd'
 import {connect} from 'react-redux'
 import {closeCalendarEventsModal} from '../../reducers/orders'
 import moment from 'moment'
-import {DATE_FORMAT} from '../../constants'
 import {CalendarEvent} from '../'
+import {getEvent} from '../../utils'
 
 class CalendarEvents extends React.Component {
   render() {
     const {closeCalendarEventsModal, events, selectedDate} = this.props
-    const dayEvents = events.filter(event => moment(event.contact_specific_date || event.occasion_date, DATE_FORMAT).isSame(selectedDate, 'd'))
+    const dayEvents = events.filter(event => getEvent(event, moment(selectedDate)))
     return (
       <Modal
         visible
@@ -21,9 +21,9 @@ class CalendarEvents extends React.Component {
         width={500}
         footer={null}
       >
-        {dayEvents.map((event, i) => i < 3 ? (
+        {dayEvents.map((event, i) =>
           <CalendarEvent key={i} {...event}/>
-        ) : null)}
+        )}
       </Modal>
     )
   }
