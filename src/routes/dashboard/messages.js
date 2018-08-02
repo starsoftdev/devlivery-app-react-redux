@@ -45,6 +45,10 @@ export default defineMessages({
     id: 'dashboard.manageTeam',
     defaultMessage: 'Manage Team',
   },
+  permissionGroup: {
+    id: 'dashboard.permissionGroup',
+    defaultMessage: 'permission groups',
+  },
   settings: {
     id: 'dashboard.settings',
     defaultMessage: 'Settings',
