@@ -56,7 +56,7 @@ export const getGroupContacts = (params = {}) => (dispatch, getState, {fetch}) =
   })}`, {
     method: 'GET',
     token,
-    success: (res) => dispatch({type: GET_GROUP_CONTACTS_SUCCESS, groupContacts: res.data}),
+    success: (res) => dispatch({type: GET_GROUP_CONTACTS_SUCCESS, groupContacts: res.data.map(item => item.id)}),
     failure: () => dispatch({type: GET_GROUP_CONTACTS_FAILURE}),
   })
 }
@@ -72,7 +72,7 @@ export const addContactGroup = (values) => (dispatch, getState, {fetch, history}
     body: {
       ...values,
       user_id: user.id,
-      // TODO send groupContacts
+      contacts: groupContacts,
     },
     success: () => {
       dispatch({type: ADD_CONTACT_GROUP_SUCCESS})
@@ -90,7 +90,8 @@ export const editContactGroup = (values) => (dispatch, getState, {fetch, history
     method: 'PUT',
     body: {
       ...values,
-      // TODO send groupContacts
+      contacts: groupContacts,
+      _method : 'put'
     },
     token,
     success: () => {
