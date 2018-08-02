@@ -44,13 +44,6 @@ export const getOrdering = (ordering) => {
 export const createArray = (length) => Array.from(Array(length), (item, i) => i)
 
 export const getEvent = (event, current) => {
-  // TODO fix recurring events on backend
   const eventDate = moment(event.contact_specific_date || event.occasion_date, DATE_FORMAT)
-  if (event.recurring === 'y') {
-    return eventDate.month() === current.month() && eventDate.day() === current.day()
-  } else if (event.recurring === 'm') {
-    return eventDate.day() === current.day()
-  } else {
-    return eventDate.isSame(current, 'd')
-  }
+  return eventDate.isSame(current, 'd')
 }
