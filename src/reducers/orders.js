@@ -58,6 +58,7 @@ export const getEvents = (date) => (dispatch, getState, {fetch}) => {
   return fetch(`/contact-reminders?${qs.stringify({
     month: date.format('MM'),
     year: date.format('YYYY'),
+    'three-months': '',
   })}`, {
     method: 'GET',
     token,
@@ -71,11 +72,11 @@ export const getUpcomingEvents = () => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   return fetch(`/contact-reminders?${qs.stringify({
     take: 3,
+    upcoming: '',
   })}`, {
     method: 'GET',
     token,
-    // TODO add ability to get only 3 events
-    success: (res) => dispatch({type: GET_UPCOMING_EVENTS_SUCCESS, upcomingEvents: res.data.filter((item, i) => i < 3)}),
+    success: (res) => dispatch({type: GET_UPCOMING_EVENTS_SUCCESS, upcomingEvents: res.data}),
     failure: () => dispatch({type: GET_UPCOMING_EVENTS_FAILURE}),
   })
 }
