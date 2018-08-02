@@ -71,6 +71,7 @@ export const PURCHASE13_ROUTE = 'purchase13'
 export const PURCHASE_COMPLETED_ROUTE = 'purchase-completed'
 export const ADD_BUNDLE_ROUTE = 'add-bundle'
 export const DONATION_ROUTE = 'donation'
+export const VOUCHER_ROUTE = 'voucher'
 export const PAYPAL_REDIRECT_BACK = 'paypal-redirect-back'
 export const PAYPAL_REDIRECT_BACK_CANCEL = 'paypal-redirect-back-cancel'
 export const CONFIRM_DONATION_ROUTE = 'confirm-donation'
@@ -412,6 +413,11 @@ const routes = {
           path: '/confirm-donation',
           name: CONFIRM_DONATION_ROUTE,
           load: () => import(/* webpackChunkName: 'purchase' */ './confirmDonation'),
+        },
+        {
+          path: '/voucher',
+          name: VOUCHER_ROUTE,
+          load: () => import(/* webpackChunkName: 'purchase' */ './voucher'),
         },
       ],
     },

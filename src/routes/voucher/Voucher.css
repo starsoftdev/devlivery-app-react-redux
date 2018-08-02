@@ -1,0 +1,44 @@
+@import '../../styles/variables.css';
+
+.content {
+  padding-bottom: var(--margin-md);
+
+  @media (--md-down) {
+    padding-top: var(--margin-md);
+  }
+  @media (--md-up) {
+    padding-top: var(--margin-xl);
+  }
+  @media (min-width: 565px) {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 425px;
+    width: 100%;
+  }
+}
+
+.headerPrefix {
+  @media (min-width: 565px) {
+    position: absolute;
+    right: 100%;
+  }
+}
+
+.header {
+  @media (max-width: 564px) {
+    padding-right: var(--margin-md);
+    padding-left: var(--margin-md);
+  }
+}
+
+.description {
+  @media (max-width: 564px) {
+    padding-right: var(--margin-md);
+    padding-left: var(--margin-md);
+  }
+}
+
+.voucherWrapper {
+  display: flex;
+  justify-content: center;
+}

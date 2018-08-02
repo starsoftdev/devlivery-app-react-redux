@@ -61,4 +61,12 @@ export default defineMessages({
     id: 'purchase.donation',
     defaultMessage: 'Donation',
   },
+  voucher: {
+    id: 'purchase.voucher',
+    defaultMessage: 'Voucher',
+  },
+  confirmDonation: {
+    id: 'purchase.confirmDonation',
+    defaultMessage: 'Order Confirmation',
+  },
 })
