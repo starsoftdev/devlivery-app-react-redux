@@ -4,7 +4,8 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase.css'
 import {Tooltip} from 'antd'
 import {
-  ADD_BUNDLE_ROUTE, DONATION_ROUTE,
+  ADD_BUNDLE_ROUTE, CONFIRM_DONATION_ROUTE,
+  DONATION_ROUTE,
   PURCHASE10_ROUTE,
   PURCHASE11_ROUTE,
   PURCHASE12_ROUTE,
@@ -18,6 +19,7 @@ import {
   PURCHASE7_ROUTE,
   PURCHASE8_ROUTE,
   PURCHASE9_ROUTE,
+  VOUCHER_ROUTE,
 } from '../'
 import messages from './messages'
 import cn from 'classnames'
@@ -45,6 +47,8 @@ class Purchase extends React.Component {
       [PURCHASE13_ROUTE]: intl.formatMessage(messages.purchase13),
       [ADD_BUNDLE_ROUTE]: intl.formatMessage(messages.addBundle),
       [DONATION_ROUTE]: intl.formatMessage(messages.donation),
+      [CONFIRM_DONATION_ROUTE]: intl.formatMessage(messages.confirmDonation),
+      [VOUCHER_ROUTE]: intl.formatMessage(messages.voucher),
     }
 
     return (
@@ -55,7 +59,7 @@ class Purchase extends React.Component {
         <div className={s.actions}>
           <div className={s.steps}>
             {flow.routes.map((item, i) => {
-              return flow.length - 1 !== i ?(
+              return flow.length - 1 !== i ? (
                 <div key={item} className={cn(s.stepWrapper, {
                   [s.current]: i === current,
                   [s.completed]: i < current,

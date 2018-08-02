@@ -5,14 +5,16 @@ import {
   CONFIRM_DONATION_ROUTE,
   DONATION_ROUTE,
   EDIT_BUNDLE_FLOW,
-  ORDER_BUNDLE_FLOW, PURCHASE11_ROUTE,
+  ORDER_BUNDLE_FLOW,
+  PURCHASE11_ROUTE,
   PURCHASE8_ROUTE,
-  PURCHASE_FLOW
+  PURCHASE_FLOW,
+  VOUCHER_ROUTE,
 } from '../routes'
 import {generateUrl} from '../router'
 import qs from 'query-string'
 import {getToken} from './user'
-import {CARD_SIZES, DONATION_TYPE} from '../constants'
+import {CARD_SIZES, DONATION_TYPE, VOUCHER_TYPE} from '../constants'
 import has from 'lodash/has'
 import {getFormErrors} from '../utils'
 
@@ -114,6 +116,10 @@ export const GET_CARD_COLORS_FAILURE = 'Purchase.GET_CARD_COLORS_FAILURE'
 export const ADD_CARD_BODY_REQUEST = 'Purchase.ADD_CARD_BODY_REQUEST'
 export const ADD_CARD_BODY_SUCCESS = 'Purchase.ADD_CARD_BODY_SUCCESS'
 export const ADD_CARD_BODY_FAILURE = 'Purchase.ADD_CARD_BODY_FAILURE'
+
+export const SUBMIT_VOUCHER_REQUEST = 'Purchase.SUBMIT_VOUCHER_REQUEST'
+export const SUBMIT_VOUCHER_SUCCESS = 'Purchase.SUBMIT_VOUCHER_SUCCESS'
+export const SUBMIT_VOUCHER_FAILURE = 'Purchase.SUBMIT_VOUCHER_FAILURE'
 
 export const CLEAR = 'Purchase.CLEAR'
 
@@ -573,14 +579,26 @@ export const setDonationOrg = (donationOrg) => ({type: SET_DONATION_ORG, donatio
 
 export const submitGiftType = () => (dispatch, getState) => {
   const {flow, giftType} = getState().purchase
+  // TODO try to find a better way to replace steps in the flow
   if (giftType === DONATION_TYPE) {
     dispatch(setFlow({
       ...flow,
       routes: flow.routes.map(item => {
-        if (item === PURCHASE8_ROUTE)
+        if (item === PURCHASE8_ROUTE || item === VOUCHER_ROUTE)
           return DONATION_ROUTE
         if (item === PURCHASE11_ROUTE)
           return CONFIRM_DONATION_ROUTE
+        return item
+      })
+    }, false))
+  } else if (giftType === VOUCHER_TYPE) {
+    dispatch(setFlow({
+      ...flow,
+      routes: flow.routes.map(item => {
+        if (item === PURCHASE8_ROUTE || item === DONATION_ROUTE)
+          return VOUCHER_ROUTE
+        if (item === CONFIRM_DONATION_ROUTE)
+          return PURCHASE11_ROUTE
         return item
       })
     }, false))
@@ -588,7 +606,7 @@ export const submitGiftType = () => (dispatch, getState) => {
     dispatch(setFlow({
       ...flow,
       routes: flow.routes.map(item => {
-        if (item === DONATION_ROUTE)
+        if (item === DONATION_ROUTE || item === VOUCHER_ROUTE)
           return PURCHASE8_ROUTE
         if (item === CONFIRM_DONATION_ROUTE)
           return PURCHASE11_ROUTE
@@ -602,6 +620,32 @@ export const submitGiftType = () => (dispatch, getState) => {
 export const submitDonation = ({donationAmount}) => (dispatch, getState) => {
   dispatch({type: SUBMIT_DONATION, donationAmount})
   dispatch(submitGift())
+}
+
+export const submitVoucher = ({voucher}) => async (dispatch, getState, {fetch}) => {
+  await dispatch(addBundle())
+  const {token} = dispatch(getToken())
+  const {bundle} = getState().purchase
+  console.log(voucher)
+  dispatch({type: SUBMIT_VOUCHER_REQUEST})
+  return fetch(`/vouchers`, {
+    method: 'POST',
+    body: {
+      bundle_id: bundle.id,
+      // TODO check why text is needed
+      text: '.....',
+      html: voucher,
+    },
+    token,
+    success: (res) => {
+      console.log(res)
+      dispatch({type: SUBMIT_VOUCHER_SUCCESS})
+      dispatch(nextFlowStep())
+    },
+    failure: () => {
+      dispatch({type: SUBMIT_VOUCHER_FAILURE})
+    },
+  })
 }
 
 export const confirmDonation = () => (dispatch, getState, {fetch}) => {
