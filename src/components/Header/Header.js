@@ -15,6 +15,7 @@ import {
   NEW_ARRIVALS_ROUTE,
   ORDERS_ROUTE,
   REGISTER1_ROUTE,
+  CONTACT_US_ROUTE,
 } from '../../routes'
 import {LanguageSwitcher, Link} from '../../components'
 import cn from 'classnames'
@@ -85,7 +86,7 @@ class Header extends React.Component {
               <Link to={ABOUT_ROUTE}>{intl.formatMessage(messages.about)}</Link>
             </li>
             <li>
-              <Link to={ORDERS_ROUTE}>{intl.formatMessage(messages.contact)}</Link>
+              <Link to={CONTACT_US_ROUTE}>{intl.formatMessage(messages.contact)}</Link>
             </li>
           </ul>
         )}

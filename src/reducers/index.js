@@ -16,6 +16,7 @@ import contactGroup from './contactGroup'
 import gifts from './gifts'
 import cards from './cards'
 import newArrivals from './newArrivals'
+import contactUs from './contactUs'
 import intl from './intl'
 
 export default combineReducers({
@@ -36,5 +37,6 @@ export default combineReducers({
   gifts,
   cards,
   newArrivals,
+  contactUs,
   intl,
 })
