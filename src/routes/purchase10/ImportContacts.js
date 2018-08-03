@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './ImportContacts.css'
-import {Actions, ContactsImporting, SectionHeader} from '../../components'
+import {PurchaseActions, ContactsImporting, SectionHeader} from '../../components'
 import cn from 'classnames'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import {nextFlowStep} from '../../reducers/purchase'
@@ -50,7 +50,7 @@ class ImportContacts extends React.Component {
                 </Col>
               </Row>
             </div>
-            <Actions>
+            <PurchaseActions>
               <KeyHandler
                 keyEventName={KEYPRESS}
                 keyCode={13}
@@ -62,7 +62,7 @@ class ImportContacts extends React.Component {
               >
                 {intl.formatMessage(messages.submit)}
               </Button>
-            </Actions>
+            </PurchaseActions>
           </React.Fragment>
         }
       </ContactsImporting>

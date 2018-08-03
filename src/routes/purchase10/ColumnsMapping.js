@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Button} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './ColumnsMapping.css'
-import {Actions, ColumnsMappingForm, SectionHeader, UploadedContacts} from '../../components'
+import {PurchaseActions, ColumnsMappingForm, SectionHeader, UploadedContacts} from '../../components'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
 import {injectIntl} from 'react-intl'
@@ -46,7 +46,7 @@ class ColumnsMapping extends React.Component {
             onSubmit={this.handleSubmit}
           />
         </div>
-        <Actions>
+        <PurchaseActions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -58,7 +58,7 @@ class ColumnsMapping extends React.Component {
           >
             {intl.formatMessage(messages.submit)}
           </Button>
-        </Actions>
+        </PurchaseActions>
         {uploadedContactsModalOpened && <UploadedContacts/>}
       </React.Fragment>
     )

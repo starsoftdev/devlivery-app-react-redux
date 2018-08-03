@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Button, Form} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './AddContact.css'
-import {ContactForm, Actions, SectionHeader} from '../../components'
+import {ContactForm, PurchaseActions, SectionHeader} from '../../components'
 import {nextFlowStep} from '../../reducers/purchase'
 import {addContact} from '../../reducers/contacts'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
@@ -45,7 +45,7 @@ class AddContact extends React.Component {
               {remindersSection}
               {groupsSection}
             </div>
-            <Actions>
+            <PurchaseActions>
               <KeyHandler
                 keyEventName={KEYPRESS}
                 keyCode={13}
@@ -57,7 +57,7 @@ class AddContact extends React.Component {
               >
                 {intl.formatMessage(messages.submit)}
               </Button>
-            </Actions>
+            </PurchaseActions>
           </Form>
         )}
       </ContactForm>

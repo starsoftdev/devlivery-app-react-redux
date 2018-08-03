@@ -12,6 +12,7 @@
   padding-bottom: var(--margin-md);
   padding-right: var(--margin-md);
   padding-left: var(--margin-md);
+  flex: auto;
 
   @media (--md-down) {
     padding-top: var(--margin-md);

@@ -4,7 +4,7 @@ import {submitCardDetails} from '../../reducers/purchase'
 import {Button, Col, Form, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase6.css'
-import {Actions, SectionHeader} from '../../components'
+import {PurchaseActions, SectionHeader} from '../../components'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
 import {ContentState, EditorState} from 'draft-js'
@@ -280,7 +280,7 @@ class Purchase6 extends React.Component {
             </div>
           </div>
         </div>
-        <Actions>
+        <PurchaseActions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -292,7 +292,7 @@ class Purchase6 extends React.Component {
           >
             {intl.formatMessage(messages.submit)}
           </Button>
-        </Actions>
+        </PurchaseActions>
       </Form>
     )
   }

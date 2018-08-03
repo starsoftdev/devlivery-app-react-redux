@@ -12,7 +12,7 @@ import {
 import {Button, Col, Form, Input, Row, Spin, Icon} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase13.css'
-import {Actions, SectionHeader} from '../../components'
+import {PurchaseActions, SectionHeader} from '../../components'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import ReactCreditCard from 'react-credit-cards'
 import creditCardStyles from 'react-credit-cards/es/styles-compiled.css'
@@ -170,7 +170,7 @@ class Purchase13 extends React.Component {
             </Col>
           </Row>
         </div>
-        <Actions>
+        <PurchaseActions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -182,7 +182,7 @@ class Purchase13 extends React.Component {
           >
             {intl.formatMessage(messages.submit)}
           </Button>
-        </Actions>
+        </PurchaseActions>
       </React.Fragment>
     )
   }

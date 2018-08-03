@@ -20,7 +20,7 @@ async function action({store, next, intl}) {
     title: child.title,
     component: (
       <AppLayout header={child.header}>
-        <Purchase intl={intl}>{child.component}</Purchase>
+        <Purchase intl={intl} actions={child.actions}>{child.component}</Purchase>
       </AppLayout>
     ),
   }

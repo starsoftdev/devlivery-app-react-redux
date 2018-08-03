@@ -4,9 +4,8 @@ import {continueWithoutGift, setGiftType, submitGiftType} from '../../reducers/p
 import {Button, Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase7.css'
-import {Actions, Card, SectionHeader} from '../../components'
+import {Card, PurchaseActions, SectionHeader} from '../../components'
 import {ADDITIONAL_GIFT_TYPES, ALPHABET, GIFT_TYPES} from '../../constants'
-
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
 
@@ -40,7 +39,7 @@ class Purchase7 extends React.Component {
             )}
           </Row>
         </div>
-        <Actions>
+        <PurchaseActions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -60,7 +59,7 @@ class Purchase7 extends React.Component {
           >
             {intl.formatMessage(messages.submit)}
           </Button>
-        </Actions>
+        </PurchaseActions>
       </React.Fragment>
     )
   }
