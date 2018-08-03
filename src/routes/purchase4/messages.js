@@ -9,10 +9,6 @@ export default defineMessages({
     id: 'purchase4.header',
     defaultMessage: 'Choose the Format',
   },
-  submit: {
-    id: 'purchase4.submit',
-    defaultMessage: 'Submit',
-  },
   foldedCard: {
     id: 'purchase4.foldedCard',
     defaultMessage: 'Folded Card',
