@@ -29,6 +29,7 @@ export const sendEnquiries = (values, callback) => (dispatch, getState, {fetch})
       email,
       subject,
       message,
+      attachments,
     },
     success: (res) => {
       dispatch({type: SEND_CONTACT_US_SUCCESS, res})
