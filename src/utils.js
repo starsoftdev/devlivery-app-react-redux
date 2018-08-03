@@ -45,5 +45,12 @@ export const createArray = (length) => Array.from(Array(length), (item, i) => i)
 
 export const getEvent = (event, current) => {
   const eventDate = moment(event.contact_specific_date || event.occasion_date, DATE_FORMAT)
-  return eventDate.isSame(current, 'd')
+  // backend doesn't return recurring events in intuitive way
+  if (event.recurring === 'y') {
+    return eventDate.month() === current.month() && eventDate.date() === current.date()
+  } else if (event.recurring === 'm') {
+    return eventDate.date() === current.date()
+  } else {
+    return eventDate.isSame(current, 'd')
+  }
 }
