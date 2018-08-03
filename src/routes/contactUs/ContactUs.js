@@ -40,7 +40,6 @@ class ContactUs extends React.Component {
 
   addAttachment = (e) => {
     const files = e.target.files
-    console.log(files[files.length-1])
     if (this.state.attachments.length < 5) {
       this.setState({
         attachments: [...this.state.attachments, files[files.length-1]]
