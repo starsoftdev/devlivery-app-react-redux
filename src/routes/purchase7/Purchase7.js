@@ -28,7 +28,10 @@ class Purchase7 extends React.Component {
                   className={s.item}
                   title={item.title}
                   svg={item.svg}
-                  onClick={() => setGiftType(item.key)}
+                  onClick={() => {
+                    setGiftType(item.key)
+                    submitGiftType()
+                  }}
                   active={item.key === giftType}
                   keyValue={ALPHABET[i]}
                   extra={item.extra}

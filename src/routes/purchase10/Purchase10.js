@@ -1,10 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {ADD_CONTACT_MANUALLY, IMPORT_CONTACTS, nextFlowStep} from '../../reducers/purchase'
-import {Button, Col, Row} from 'antd'
+import {ADD_CONTACT_MANUALLY, IMPORT_CONTACTS} from '../../reducers/purchase'
+import {Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase10.css'
-import {Actions, Card, SectionHeader} from '../../components'
+import {Card, SectionHeader} from '../../components'
 import AddContactManuallyIcon from '../../static/add_contacts_manually.svg'
 import ImportContactsIcon from '../../static/import_contacts.svg'
 import ImportContacts from './ImportContacts'
@@ -22,7 +22,7 @@ class Purchase10 extends React.Component {
 
   render() {
     const {addingContactMode} = this.state
-    const {nextFlowStep, flowIndex, intl} = this.props
+    const {flowIndex, intl} = this.props
     return (
       <React.Fragment>
         {addingContactMode === ADD_CONTACT_MANUALLY ? (
@@ -30,45 +30,35 @@ class Purchase10 extends React.Component {
         ) : addingContactMode === IMPORT_CONTACTS ? (
           <ImportContacts intl={intl}/>
         ) : (
-          <React.Fragment>
-            <div className={s.content}>
-              <SectionHeader
-                header={intl.formatMessage(messages.header)}
-                number={flowIndex + 1}
-                prefixClassName={s.headerPrefix}
-              />
-              <Row className={s.items} gutter={20} type='flex' align='center'>
-                <Col className={s.itemWrapper}>
-                  <Card
-                    className={s.item}
-                    title={intl.formatMessage(messages.addContactManually)}
-                    onClick={() => this.setAddingContactsMode(ADD_CONTACT_MANUALLY)}
-                    active={addingContactMode === ADD_CONTACT_MANUALLY}
-                    keyValue='a'
-                    svg={AddContactManuallyIcon}
-                  />
-                </Col>
-                <Col className={s.itemWrapper}>
-                  <Card
-                    className={s.item}
-                    title={intl.formatMessage(messages.importContacts)}
-                    onClick={() => this.setAddingContactsMode(IMPORT_CONTACTS)}
-                    active={addingContactMode === IMPORT_CONTACTS}
-                    keyValue='b'
-                    svg={ImportContactsIcon}
-                  />
-                </Col>
-              </Row>
-            </div>
-            <Actions>
-              <Button
-                disabled
-                type='primary'
-              >
-                {intl.formatMessage(messages.submit)}
-              </Button>
-            </Actions>
-          </React.Fragment>
+          <div className={s.content}>
+            <SectionHeader
+              header={intl.formatMessage(messages.header)}
+              number={flowIndex + 1}
+              prefixClassName={s.headerPrefix}
+            />
+            <Row className={s.items} gutter={20} type='flex' align='center'>
+              <Col className={s.itemWrapper}>
+                <Card
+                  className={s.item}
+                  title={intl.formatMessage(messages.addContactManually)}
+                  onClick={() => this.setAddingContactsMode(ADD_CONTACT_MANUALLY)}
+                  active={addingContactMode === ADD_CONTACT_MANUALLY}
+                  keyValue='a'
+                  svg={AddContactManuallyIcon}
+                />
+              </Col>
+              <Col className={s.itemWrapper}>
+                <Card
+                  className={s.item}
+                  title={intl.formatMessage(messages.importContacts)}
+                  onClick={() => this.setAddingContactsMode(IMPORT_CONTACTS)}
+                  active={addingContactMode === IMPORT_CONTACTS}
+                  keyValue='b'
+                  svg={ImportContactsIcon}
+                />
+              </Col>
+            </Row>
+          </div>
         )}
       </React.Fragment>
     )
@@ -80,7 +70,6 @@ const mapState = state => ({
 })
 
 const mapDispatch = {
-  nextFlowStep,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase10))

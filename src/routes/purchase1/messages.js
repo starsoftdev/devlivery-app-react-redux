@@ -9,10 +9,6 @@ export default defineMessages({
     id: 'purchase1.header',
     defaultMessage: 'Select Occasion',
   },
-  submit: {
-    id: 'purchase1.submit',
-    defaultMessage: 'Submit',
-  },
   filterByOccasionType: {
     id: 'purchase1.filterByOccasionType',
     defaultMessage: 'Filter by Occasion Type',
