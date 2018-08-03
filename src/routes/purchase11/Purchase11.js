@@ -4,7 +4,7 @@ import {submitShipping} from '../../reducers/purchase'
 import {Button, Col, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase11.css'
-import {Actions, SectionHeader} from '../../components'
+import {PurchaseActions, SectionHeader} from '../../components'
 import PlusGiftIcon from '../../static/plus_round.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import {Form} from 'antd'
@@ -119,7 +119,7 @@ class Purchase11 extends React.Component {
             </Row>
           </section>
         </div>
-        <Actions>
+        <PurchaseActions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -131,7 +131,7 @@ class Purchase11 extends React.Component {
           >
             Proceed to checkout
           </Button>
-        </Actions>
+        </PurchaseActions>
       </Form>
     ) : null
   }

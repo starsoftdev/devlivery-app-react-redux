@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Button, Col, Form, Input, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase9.css'
-import {Actions, SectionHeader} from '../../components'
+import {PurchaseActions, SectionHeader} from '../../components'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
 import {INDIVIDUAL_ACCOUNT, TEAM_ACCOUNT} from '../../reducers/register'
@@ -144,7 +144,7 @@ class Purchase9 extends React.Component {
             </Col>
           </Row>
         </div>
-        <Actions>
+        <PurchaseActions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -156,7 +156,7 @@ class Purchase9 extends React.Component {
           >
             {intl.formatMessage(messages.submit)}
           </Button>
-        </Actions>
+        </PurchaseActions>
       </Form>
     )
   }

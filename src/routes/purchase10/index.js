@@ -8,7 +8,8 @@ function action({store, route, intl}) {
   return {
     chunks: ['purchase'],
     title: 'Purchase',
-    component: <Purchase10 intl={intl}/>
+    component: <Purchase10 intl={intl}/>,
+    actions: null
   }
 }
 
