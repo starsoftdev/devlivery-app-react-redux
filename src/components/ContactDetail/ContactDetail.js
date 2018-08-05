@@ -14,6 +14,7 @@ class ContactDetail extends React.Component {
     const {last_name, first_name, email, phone, nickname, relationship, addresses} = this.props
     return (
       <Modal
+        className={s.contactDetailModal}
         title={`${first_name} ${last_name}`}
         visible={this.props.showContactView}
         onCancel={this.props.closeDetailContactView}
@@ -43,9 +44,11 @@ class ContactDetail extends React.Component {
           {addresses && addresses.map((address) =>
             <Col key={address.id} md={12}>
               <span className={s.contactDetailTitle}>{address.title}</span><br/>
-              <span className={s.contactDetail}>{address.address}</span><br/>
+              <span className={s.contactDetail}>
+                {address.address2 ? `${address.address} ${address.address2}` : address.address}
+              </span>
+              <br/>
               <span className={s.contactDetail}>{address.city}</span><br/>
-              <span className={s.contactDetail}>{address.state}</span><br/>
               <span className={s.contactDetail}>{address.country}</span><br/>
             </Col>
           )}

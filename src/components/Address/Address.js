@@ -25,7 +25,7 @@ const Address = ({getFieldDecorator, index, header, intl, initialValues, require
       )}
       <Form.Item>
         {getFieldDecorator(`addresses[${index}].address`, {
-          initialValue: initialValues && initialValues.address,
+          initialValue: initialValues && initialValues.address ? (typeof initialValues.address === 'string' ? initialValues.address : initialValues.address[0]) : undefined,
           rules: [
             ...rules,
             {min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})}
@@ -34,28 +34,21 @@ const Address = ({getFieldDecorator, index, header, intl, initialValues, require
           <Input placeholder={intl.formatMessage(messages.address)} onChange={(e) => onAddressChange(e.target.value)}/>
         )}
       </Form.Item>
-      <Row gutter={20}>
-        <Col xs={24} sm={12}>
-          <Form.Item>
-            {getFieldDecorator(`addresses[${index}].city`, {
-              initialValue: initialValues && initialValues.city,
-              rules,
-            })(
-              <Input placeholder={intl.formatMessage(messages.city)}/>
-            )}
-          </Form.Item>
-        </Col>
-        <Col xs={24} sm={12}>
-          <Form.Item>
-            {getFieldDecorator(`addresses[${index}].state`, {
-              initialValue: initialValues && initialValues.state,
-              rules,
-            })(
-              <Input placeholder={intl.formatMessage(messages.state)}/>
-            )}
-          </Form.Item>
-        </Col>
-      </Row>
+      <Form.Item>
+        {getFieldDecorator(`addresses[${index}].address2`, {
+          initialValue: initialValues && initialValues.address ? (typeof initialValues.address === 'string' ? initialValues.address : initialValues.address[1]) : undefined,
+        })(
+          <Input placeholder={intl.formatMessage(messages.address)}/>
+        )}
+      </Form.Item>
+      <Form.Item>
+        {getFieldDecorator(`addresses[${index}].city`, {
+          initialValue: initialValues && initialValues.city,
+          rules,
+        })(
+          <Input placeholder={intl.formatMessage(messages.city)}/>
+        )}
+      </Form.Item>
       <Row gutter={20}>
         <Col xs={24} sm={12}>
           <Form.Item>
