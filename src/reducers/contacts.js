@@ -121,8 +121,13 @@ export const getGroupsArray = (groups) => {
 }
 
 export const getAddressesArray = (addresses) => {
-  // if one of the property undefined/null - don't send item
-  return addresses.filter(item => !Object.values(item).includes(undefined) && !Object.values(item).includes(null) && !Object.values(item).includes(''))
+  // if 'address' is empty - don't send item
+  return addresses.filter(item => !!item.address).map(({address2, ...item}) => {
+    return address2 ? {
+      ...item,
+      address: `${item.address}\n${address2}`
+    } : item
+  })
 }
 
 export const addContact = (values, form, callback) => (dispatch, getState, {fetch}) => {
