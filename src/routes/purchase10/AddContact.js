@@ -5,11 +5,18 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './AddContact.css'
 import {ContactForm, PurchaseActions, SectionHeader} from '../../components'
 import {nextFlowStep} from '../../reducers/purchase'
-import {addContact} from '../../reducers/contacts'
+import {addContact, saveFields} from '../../reducers/contacts'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
+import isEmpty from 'lodash/isEmpty'
 
 class AddContact extends React.Component {
+  componentDidMount () {
+    if (!isEmpty(this.props.fields)) {
+      this.props.form.setFieldsValue(this.props.fields)
+    }
+  }
+
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields({force: true}, (err, values) => {
@@ -67,11 +74,17 @@ class AddContact extends React.Component {
 
 const mapState = state => ({
   flowIndex: state.purchase.flowIndex,
+  fields: state.contacts.fields,
 })
 
 const mapDispatch = {
   addContact,
   nextFlowStep,
+  saveFields,
 }
 
-export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(AddContact)))
+export default connect(mapState, mapDispatch)(Form.create({
+  onValuesChange(props, fields, values) {
+    props.saveFields(values, fields)
+  },
+})(withStyles(s)(AddContact)))
