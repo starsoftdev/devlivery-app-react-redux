@@ -6,7 +6,7 @@ import formMessages from '../../formMessages'
 import {injectIntl} from 'react-intl'
 import messages from './messages'
 
-const Address = ({getFieldDecorator, index, header, intl, initialValues, required, onAddressChange}) => {
+const Address = ({getFieldDecorator, index, header, intl, initialValues, required, onAddressChange, title}) => {
   const rules = [
     {required, message: intl.formatMessage(formMessages.required)}
   ]
@@ -19,7 +19,7 @@ const Address = ({getFieldDecorator, index, header, intl, initialValues, require
         <Input type='hidden'/>
       )}
       {getFieldDecorator(`addresses[${index}].title`, {
-        initialValue: header,
+        initialValue: title,
       })(
         <Input type='hidden'/>
       )}
