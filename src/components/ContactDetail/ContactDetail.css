@@ -1,14 +1,22 @@
 @import '../../styles/variables.css';
 
+.contactDetailModal {
+  :global(.ant-modal-title) {
+    font-size: 36px;
+    line-height: 36px;
+  }
+  :global(.ant-modal-header) {
+    padding: 61px 24px 18px 24px;
+  }
+}
+
 .contactDetail {
   color: var(--dark-color);
-  font-size: 15px;
-  font-family: "Proxima Nova";
+  font-family: var(--font-family-secondary);
 }
 
 .contactDetailTitle {
   margin-bottom: 15px;
-  font-size: 15px;
   color: color-mod(var(--dark-color) a(70%));
 }
 
