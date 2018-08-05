@@ -14,7 +14,7 @@ import {
 import {generateUrl} from '../router'
 import qs from 'query-string'
 import {getToken} from './user'
-import {CARD_SIZES, DONATION_TYPE, VOUCHER_TYPE} from '../constants'
+import {CARD_SIZES, DATE_FORMAT, DONATION_TYPE, VOUCHER_TYPE} from '../constants'
 import has from 'lodash/has'
 import {getFormErrors} from '../utils'
 
@@ -120,6 +120,14 @@ export const ADD_CARD_BODY_FAILURE = 'Purchase.ADD_CARD_BODY_FAILURE'
 export const SUBMIT_VOUCHER_REQUEST = 'Purchase.SUBMIT_VOUCHER_REQUEST'
 export const SUBMIT_VOUCHER_SUCCESS = 'Purchase.SUBMIT_VOUCHER_SUCCESS'
 export const SUBMIT_VOUCHER_FAILURE = 'Purchase.SUBMIT_VOUCHER_FAILURE'
+
+export const GET_DELIVERY_LOCATIONS_REQUEST = 'Purchase.GET_DELIVERY_LOCATIONS_REQUEST'
+export const GET_DELIVERY_LOCATIONS_SUCCESS = 'Purchase.GET_DELIVERY_LOCATIONS_SUCCESS'
+export const GET_DELIVERY_LOCATIONS_FAILURE = 'Purchase.GET_DELIVERY_LOCATIONS_FAILURE'
+
+export const SUBMIT_SHIPPING_REQUEST = 'Purchase.SUBMIT_SHIPPING_REQUEST'
+export const SUBMIT_SHIPPING_SUCCESS = 'Purchase.SUBMIT_SHIPPING_SUCCESS'
+export const SUBMIT_SHIPPING_FAILURE = 'Purchase.SUBMIT_SHIPPING_FAILURE'
 
 export const CLEAR = 'Purchase.CLEAR'
 
@@ -268,8 +276,24 @@ export const getGifts = (params = {}) => (dispatch, getState, {fetch}) => {
   })
 }
 
-export const submitShipping = () => (dispatch, getState) => {
-  dispatch(nextFlowStep())
+export const submitShipping = (values) => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  dispatch({type: SUBMIT_SHIPPING_REQUEST, values})
+  const {order, deliveryLocation, deliveryTime} = getState().purchase
+  return fetch(`/set-wheretosend`, {
+    method: 'POST',
+    body: {
+      order_id: order.id,
+      deliverable: deliveryLocation,
+      schedule_date: deliveryTime,
+    },
+    token,
+    success: () => {
+      dispatch({type: SUBMIT_SHIPPING_SUCCESS})
+      dispatch(nextFlowStep())
+    },
+    failure: () => dispatch({type: SUBMIT_SHIPPING_FAILURE}),
+  })
 }
 
 export const setPaymentMethod = (paymentMethod) => ({type: SET_PAYMENT_METHOD, paymentMethod})
@@ -372,6 +396,7 @@ export const makeOrder = () => (dispatch, getState, {fetch}) => {
       // TODO check if we need this request
       dispatch(addCardBody(order))
       dispatch({type: MAKE_ORDER_SUCCESS, order})
+      dispatch(getDeliveryLocations(order))
     },
     failure: () => {
       dispatch({type: MAKE_ORDER_FAILURE})
@@ -684,6 +709,21 @@ export const getCardColors = () => (dispatch, getState, {fetch}) => {
   })
 }
 
+export const getDeliveryLocations = (order) => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  dispatch({type: GET_DELIVERY_LOCATIONS_REQUEST})
+  return fetch(`/order/${order.id}/get-deliverable-locations`, {
+    method: 'GET',
+    token,
+    success: (res) => {
+      dispatch({type: GET_DELIVERY_LOCATIONS_SUCCESS, deliveryLocations: res.data})
+    },
+    failure: () => {
+      dispatch({type: GET_DELIVERY_LOCATIONS_FAILURE})
+    }
+  })
+}
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -720,6 +760,9 @@ const initialState = {
   donationAmount: undefined,
   cardColors: [],
   cardColor: undefined,
+  deliveryLocations: [],
+  deliveryLocation: undefined,
+  deliveryTime: undefined,
 }
 
 export default createReducer(initialState, {
@@ -910,6 +953,13 @@ export default createReducer(initialState, {
   }),
   [GET_CARD_COLORS_SUCCESS]: (state, {cardColors}) => ({
     cardColors,
+  }),
+  [GET_DELIVERY_LOCATIONS_SUCCESS]: (state, {deliveryLocations}) => ({
+    deliveryLocations,
+  }),
+  [SUBMIT_SHIPPING_REQUEST]: (state, {values}) => ({
+    deliveryLocation: values.deliverable,
+    deliveryTime: values.schedule_date ? values.schedule_date.format(DATE_FORMAT) : undefined,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

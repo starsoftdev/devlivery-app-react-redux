@@ -1,34 +1,35 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {submitShipping} from '../../reducers/purchase'
-import {Button, Col, Row, Select} from 'antd'
+import {Button, Col, DatePicker, Form, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase11.css'
 import {PurchaseActions, SectionHeader} from '../../components'
 import PlusGiftIcon from '../../static/plus_round.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
-import {Form} from 'antd'
 import formMessages from '../../formMessages'
+import messages from './messages'
+import {DATE_FORMAT} from '../../constants'
+import moment from 'moment'
 
 class Purchase11 extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
-    // TODO
-    // this.props.form.validateFields((err, values) => {
-    //   if (!err) {
-    this.props.submitShipping()
-    // }
-    // })
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        this.props.submitShipping(values)
+      }
+    })
   }
 
   render() {
-    const {flowIndex, bundle, order, occasion} = this.props
+    const {flowIndex, bundle, order, occasion, intl, deliveryLocations, deliveryLocation, deliveryTime} = this.props
     const {getFieldDecorator} = this.props.form
     return order ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
           <SectionHeader
-            header={'Order Confirmation'}
+            header={intl.formatMessage(messages.header)}
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
@@ -76,7 +77,7 @@ class Purchase11 extends React.Component {
           </div>
           <Row type='flex' align='center' gutter={20} className={s.subtotalSection}>
             <Col xs={12}>
-              <h2 className={s.subtotalHeader}>Subtotal:</h2>
+              <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.subtotal)}</h2>
             </Col>
             <Col xs={12}>
               <span className={s.subtotalValue}>{order.total}</span>
@@ -84,18 +85,19 @@ class Purchase11 extends React.Component {
             </Col>
           </Row>
           <section className={s.section}>
-            <h2 className={s.sectionHeader}>Shipping</h2>
+            <h2 className={s.sectionHeader}>{intl.formatMessage(messages.shipping)}</h2>
             <Row gutter={20} type='flex' align='center'>
               <Col xs={24} sm={12}>
                 <Form.Item>
-                  {getFieldDecorator('deliver_time', {
+                  {getFieldDecorator('deliverable', {
+                    initialValue: deliveryLocation,
                     rules: [
-                      {required: true, message: formMessages.required},
+                      {required: true, message: intl.formatMessage(formMessages.required)},
                     ],
                   })(
-                    <Select placeholder={'Deliver time'} className={s.select}>
-                      {[].map((item, i) =>
-                        <Select.Option key={item} value={item}>{item}</Select.Option>
+                    <Select placeholder={intl.formatMessage(messages.deliveryPlace)} className={s.select}>
+                      {deliveryLocations.map((item) =>
+                        <Select.Option key={item.value} value={item.value}>{item.title}</Select.Option>
                       )}
                     </Select>
                   )}
@@ -103,16 +105,14 @@ class Purchase11 extends React.Component {
               </Col>
               <Col xs={24} sm={12}>
                 <Form.Item>
-                  {getFieldDecorator('deliver_place', {
-                    rules: [
-                      {required: true, message: formMessages.required},
-                    ],
+                  {getFieldDecorator('schedule_date', {
+                    initialValue: deliveryTime ? moment(deliveryTime, DATE_FORMAT) : undefined,
                   })(
-                    <Select placeholder={'Where to send'} className={s.select}>
-                      {[].map((item, i) =>
-                        <Select.Option key={item} value={item}>{item}</Select.Option>
-                      )}
-                    </Select>
+                    <DatePicker
+                      className={s.select}
+                      placeholder={intl.formatMessage(messages.deliveryTime)}
+                      format={DATE_FORMAT}
+                    />
                   )}
                 </Form.Item>
               </Col>
@@ -129,7 +129,7 @@ class Purchase11 extends React.Component {
             type='primary'
             htmlType='submit'
           >
-            Proceed to checkout
+            {intl.formatMessage(messages.submit)}
           </Button>
         </PurchaseActions>
       </Form>
@@ -143,6 +143,9 @@ const mapState = state => ({
   bundle: state.purchase.bundle,
   order: state.purchase.order,
   occasion: state.purchase.occasion,
+  deliveryLocations: state.purchase.deliveryLocations,
+  deliveryLocation: state.purchase.deliveryLocation,
+  deliveryTime: state.purchase.deliveryTime,
 })
 
 const mapDispatch = {

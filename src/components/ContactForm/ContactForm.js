@@ -129,6 +129,7 @@ class ContactForm extends React.Component {
 
     const homeAddressSection = (
       <Address
+        title='home'
         required={requiredAddress === 0}
         onAddressChange={(value) => this.changeRequiredAddress(0, value)}
         header={homeAddress}
@@ -141,6 +142,7 @@ class ContactForm extends React.Component {
 
     const companyAddressSection = (
       <Address
+        title='office'
         required={requiredAddress === 1}
         onAddressChange={(value) => this.changeRequiredAddress(1, value)}
         header={companyAddress}
