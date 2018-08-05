@@ -54,6 +54,8 @@ export const OPEN_UPLOADED_CONTACTS_MODAL = 'Contacts.OPEN_UPLOADED_CONTACTS_MOD
 export const CLOSE_UPLOADED_CONTACTS_MODAL = 'Contacts.CLOSE_UPLOADED_CONTACTS_MODAL'
 export const CHANGE_SELECTED_CONTACTS = 'Contacts.CHANGE_SELECTED_CONTACTS'
 
+export const SAVE_FIELDS = 'Contacts.SAVE_FIELDS'
+
 export const CLEAR = 'Contacts.CLEAR'
 
 // ------------------------------------
@@ -303,6 +305,10 @@ export const closeUploadedContactsModal = () => ({type: CLOSE_UPLOADED_CONTACTS_
 
 export const changeSelectedContacts = (selectedContacts) => ({type: CHANGE_SELECTED_CONTACTS, selectedContacts})
 
+export const saveFields = (fields) => (dispatch, getState) => {
+  dispatch({type: SAVE_FIELDS, fields})
+}
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -328,7 +334,8 @@ const initialState = {
   uploadedContacts: [],
   uploadedContactsModalOpened: false,
   selectedContacts: [],
-  ordering: 'first_name'
+  ordering: 'first_name',
+  fields: {},
 }
 
 export default createReducer(initialState, {
@@ -382,6 +389,7 @@ export default createReducer(initialState, {
     },
   }),
   [ADD_CONTACT_SUCCESS]: (state, action) => ({
+    fields: {},
     loading: {
       ...state.loading,
       addingContact: false,
@@ -487,6 +495,12 @@ export default createReducer(initialState, {
     uploadedContacts: [],
     selectedContacts: [],
     mappingColumns: null,
+  }),
+  [SAVE_FIELDS]: (state, {fields}) => ({
+    fields: {
+      ...state.fields,
+      ...fields,
+    },
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
