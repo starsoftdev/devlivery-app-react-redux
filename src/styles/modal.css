@@ -22,8 +22,8 @@
 
     &-title {
       margin: 0;
-      font-size: 36px;
-      line-height: 36px;
+      font-size: 18px;
+      line-height: 18px;
       font-weight: 500;
       color: var(--dark-color);
     }
@@ -79,7 +79,7 @@
     }
 
     &-header {
-      padding: 61px 24px 18px 24px;
+      padding: 16px 24px;
       border-radius: 0 0 0 0;
       background: var(--component-background);
       color: var(--text-color);
@@ -143,5 +143,4 @@
       }
     }
   }
-
 }
