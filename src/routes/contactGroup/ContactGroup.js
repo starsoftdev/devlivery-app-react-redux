@@ -1,41 +1,42 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button, Input, Table} from 'antd'
+import {Button, Form, Input, Table} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './ContactGroup.css'
 import {PaginationItem} from '../../components'
 import messages from './messages'
 import {
   addContactGroup,
-  editContactGroup,
   changeSelectedContacts,
   clear,
+  editContactGroup,
   getContacts,
 } from '../../reducers/contactGroup'
 import PlusIcon from '../../static/plus.svg'
+import formMessages from '../../formMessages'
 
 class ContactGroup extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      groupName: props.title,
-    }
-  }
-
   componentWillUnmount() {
     this.props.clear()
   }
 
-  changeGroupName = (e) => {
-    const groupName = e.target.value
-    this.setState({groupName})
+  handleSubmit = (e) => {
+    e.preventDefault()
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        if (this.props.groupId) {
+          this.props.editContactGroup({title: values.title})
+        } else {
+          this.props.addContactGroup({title: values.title})
+        }
+      }
+    })
   }
 
   render() {
-    const {groupName} = this.state
     // TODO add loading
-    const {contactsCount, groupContacts, page, pageSize, loading, intl, addContactGroup, changeSelectedContacts, contacts, getContacts, groupId, editContactGroup} = this.props
+    const {contactsCount, groupContacts, page, pageSize, loading, intl, changeSelectedContacts, contacts, getContacts, title} = this.props
+    const {getFieldDecorator} = this.props.form
 
     const columns = [
       {
@@ -64,13 +65,21 @@ class ContactGroup extends React.Component {
     return (
       <React.Fragment>
         <div className={s.container}>
-          <Input
-            className={s.groupName}
-            placeholder={intl.formatMessage(messages.groupName)}
-            value={groupName}
-            onChange={this.changeGroupName}
-          />
+          <Form.Item>
+            {getFieldDecorator(`title`, {
+              initialValue: title,
+              rules: [
+                {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+              ],
+            })(
+              <Input
+                className={s.groupName}
+                placeholder={intl.formatMessage(messages.groupName)}
+              />
+            )}
+          </Form.Item>
           <Table
+            className={s.contacts}
             columns={columns}
             dataSource={contacts}
             rowKey={record => record.id}
@@ -94,7 +103,11 @@ class ContactGroup extends React.Component {
         </div>
         <div className={s.actionsWrapper}>
           <div className={s.actions}>
-            <Button type='primary' ghost onClick={() => groupId ? editContactGroup({title: groupName}) : addContactGroup({title: groupName})}>
+            <Button
+              type='primary'
+              ghost
+              onClick={this.handleSubmit}
+            >
               <PlusIcon/>
               {intl.formatMessage(messages.submit)}
             </Button>
@@ -117,4 +130,4 @@ const mapDispatch = {
   clear,
 }
 
-export default connect(mapState, mapDispatch)(withStyles(s)(ContactGroup))
+export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(ContactGroup)))
