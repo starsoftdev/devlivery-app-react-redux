@@ -1,0 +1,22 @@
+@import '../../styles/variables.css';
+
+.fileInput {
+  display: none;
+}
+
+.modalContainer {
+  & {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  input {
+    max-width: 360px;
+  }
+}
+
+.avatarEditorContainer {
+  display: block;
+  margin: 0 auto;
+}

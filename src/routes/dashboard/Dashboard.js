@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Button, Menu} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Dashboard.css'
-import {Breadcrumbs, Link} from '../../components'
+import {Breadcrumbs, Link, Avatar} from '../../components'
 import {
   ADD_CONTACT_ROUTE,
   AUTH_PURCHASE_FLOW,
@@ -39,6 +39,9 @@ class Dashboard extends React.Component {
     return (
       <div className={s.container}>
         <Menu className={s.menu} mode='inline'>
+          <Menu.Item>
+            <Avatar />
+          </Menu.Item>
           <Menu.Item key={ORDERS_ROUTE}>
             <Link to={ORDERS_ROUTE}>
               <OrdersIcon/>
