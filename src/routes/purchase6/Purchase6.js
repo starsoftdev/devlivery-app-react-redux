@@ -19,31 +19,7 @@ import {loadFont} from '../../utils'
 // TODO make text-alignment work
 const {styles, customStyleFn, exporter} = createStyles(['font-size', 'color', 'font-family', 'font-weight', 'text-alignment'])
 
-const FONTS = [
-  'Playfair Display',
-  'PT Serif',
-  'Cinzel',
-  'Playfair Display SC',
-  'Open Sans',
-  'Montserrat',
-  'Raleway',
-  'Josefin Sans',
-  'Teko',
-  'Merienda',
-  'Shadows Into Light',
-  'Dancing Script',
-  'Gloria Hallelujah',
-  'Amatic SC',
-  'Great Vibes',
-  'Caveat',
-  'Sacramento',
-  'Yellowtail',
-  'Covered By Your Grace',
-  'Italianno',
-  'Anonymous Pro',
-  'Nova Mono',
-  'Cutive Mono',
-]
+const FONTS = ['Amatic SC', 'Anonymous Pro', 'Caveat', 'Cinzel', 'Covered By Your Grace', 'Cutive Mono', 'Dancing Script', 'Gloria Hallelujah', 'Great Vibes', 'Italianno', 'Josefin Sans', 'Merienda', 'Montserrat', 'Nova Mono', 'Open Sans', 'PT Serif', 'Playfair Display', 'Playfair Display SC', 'Raleway', 'Sacramento', 'Shadows Into Light', 'Teko', 'Yellowtail']
 
 // TODO refactor code
 // TODO move font sizes/colors/etc to constants
