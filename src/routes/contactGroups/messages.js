@@ -25,4 +25,8 @@ export default defineMessages({
     id: 'contactGroups.tableItems',
     defaultMessage: '{range0}-{range1} of {total} items',
   },
+  confirmRemoving: {
+    id: 'contactGroups.confirmRemoving',
+    defaultMessage: 'Are you sure you want to delete',
+  },
 })

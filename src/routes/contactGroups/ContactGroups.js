@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button, Col, Pagination, Row} from 'antd'
+import {Button, Col, Pagination, Row, Popconfirm} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './ContactGroups.css'
 import EditIcon from '../../static/edit.svg'
@@ -41,9 +41,14 @@ class ContactGroups extends React.Component {
                           to={{name: EDIT_CONTACT_GROUP_ROUTE, params: {groupId: group.id, title: group.title}}}>
                       <EditIcon/>
                     </Link>
-                    <a className={s.removeBtn} onClick={() => removeContactGroup(group)}>
-                      <RemoveIcon/>
-                    </a>
+                    <Popconfirm
+                      title={intl.formatMessage(messages.confirmRemoving)}
+                      onConfirm={() => removeContactGroup(group)}
+                    >
+                      <a className={s.removeBtn}>
+                        <RemoveIcon/>
+                      </a>
+                    </Popconfirm>
                     <p className={s.groupName}>{group.title}</p>
                   </div>
                 </Col>
