@@ -55,7 +55,7 @@ class AvatarEditModal extends React.Component {
             height={110}
             border={50}
             borderRadius={110}
-            scale={this.state.zoom}
+            scale={parseFloat(this.state.zoom)}
             rotate={0}
             image={this.state.newUrl}
           />

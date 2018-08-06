@@ -13,6 +13,13 @@ class Avatar extends React.Component {
     super(props)
     this.state = {
       showEditAvatarModal: false,
+      avatar: '',
+    }
+  }
+
+  componentDidMount() {
+    if(this.props.user.avatar){
+      this.setState({avatar: this.props.user.avatar.url})
     }
   }
 
@@ -21,7 +28,6 @@ class Avatar extends React.Component {
   }
 
   render() {
-    const avatar = this.props.userAvatar
     return (
       <React.Fragment>
         <Modal
@@ -33,14 +39,14 @@ class Avatar extends React.Component {
         >
           <AvatarEditModal
             uploadAvatar={this.props.uploadAvatar}
-            url={this.props.userAvatar}
+            url={this.state.avatar}
             toggleEditAavatarModal={this.toggleEditAavatarModal}
           />
         </Modal>
         <div className={s.avatarContainer} onClick={this.toggleEditAavatarModal}>
           <div className={s.avatarWrapper}>
             <EditIcon className={s.editBtn} />
-            {avatar ? <img src={avatar} width='110'/> : <NoAvatarIcon />}
+            {this.state.avatar ? <img src={this.state.avatar} width='110'/> : <NoAvatarIcon />}
           </div>
         </div>
       </React.Fragment>
@@ -48,12 +54,8 @@ class Avatar extends React.Component {
   }
 }
 
-Avatar.defaultProps = {
-  userAvatar: '',
-};
-
 const mapState = state => ({
-  userAvatar: state.user.user.data.avatar ? state.user.user.data.avatar.url : '',
+  user: state.user.user,
 })
 
 const mapDispatch = {
