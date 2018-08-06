@@ -48,8 +48,12 @@ class Avatar extends React.Component {
   }
 }
 
+Avatar.defaultProps = {
+  userAvatar: '',
+};
+
 const mapState = state => ({
-  userAvatar: state.user.user.data.avatar.url,
+  userAvatar: state.user.user.data.avatar ? state.user.user.data.avatar.url : '',
 })
 
 const mapDispatch = {
