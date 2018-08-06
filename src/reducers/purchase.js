@@ -647,23 +647,20 @@ export const submitDonation = ({donationAmount}) => (dispatch, getState) => {
   dispatch(submitGift())
 }
 
-export const submitVoucher = ({voucher}) => async (dispatch, getState, {fetch}) => {
+export const submitVoucher = ({voucher, ...values}) => async (dispatch, getState, {fetch}) => {
   await dispatch(addBundle())
   const {token} = dispatch(getToken())
   const {bundle} = getState().purchase
-  console.log(voucher)
-  dispatch({type: SUBMIT_VOUCHER_REQUEST})
+  dispatch({type: SUBMIT_VOUCHER_REQUEST, values})
   return fetch(`/vouchers`, {
     method: 'POST',
     body: {
       bundle_id: bundle.id,
-      // TODO check why text is needed
-      text: '.....',
+      ...values,
       html: voucher,
     },
     token,
     success: (res) => {
-      console.log(res)
       dispatch({type: SUBMIT_VOUCHER_SUCCESS})
       dispatch(nextFlowStep())
     },
@@ -763,6 +760,7 @@ const initialState = {
   deliveryLocations: [],
   deliveryLocation: undefined,
   deliveryTime: undefined,
+  voucher: null,
 }
 
 export default createReducer(initialState, {
@@ -960,6 +958,9 @@ export default createReducer(initialState, {
   [SUBMIT_SHIPPING_REQUEST]: (state, {values}) => ({
     deliveryLocation: values.deliverable,
     deliveryTime: values.schedule_date ? values.schedule_date.format(DATE_FORMAT) : undefined,
+  }),
+  [SUBMIT_VOUCHER_REQUEST]: (state, {values}) => ({
+    voucher: values,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

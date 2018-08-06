@@ -14,6 +14,7 @@ import draftWysiwygStyles from '../../styles/react-draft-wysiwyg.css'
 import createStyles from 'draft-js-custom-styles'
 import {stateToHTML} from 'draft-js-export-html'
 import EditorIcon from '../../static/editor_icon.svg'
+import {loadFont} from '../../utils'
 
 // TODO make text-alignment work
 const {styles, customStyleFn, exporter} = createStyles(['font-size', 'color', 'font-family', 'font-weight', 'text-alignment'])
@@ -43,19 +44,6 @@ const FONTS = [
   'Nova Mono',
   'Cutive Mono',
 ]
-
-const loadFont = (font) => {
-  if (!document.getElementById(font)) {
-    const head = document.getElementsByTagName('head')[0]
-    const link = document.createElement('link')
-    link.id = font
-    link.rel = 'stylesheet'
-    link.type = 'text/css'
-    link.href = `https://fonts.googleapis.com/css?family=${font}`
-    link.media = 'all'
-    head.appendChild(link)
-  }
-}
 
 // TODO refactor code
 // TODO move font sizes/colors/etc to constants

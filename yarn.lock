@@ -777,6 +777,18 @@
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
 
+"@types/prop-types@^15.5.4":
+  version "15.5.4"
+  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.4.tgz#9e6199bad131786e24c2baa2a82705a02139fbf8"
+  dependencies:
+    "@types/react" "*"
+
+"@types/react@*":
+  version "16.4.7"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.4.7.tgz#f33f6d759a7e1833befa15224d68942d178a5a3f"
+  dependencies:
+    csstype "^2.2.0"
+
 "@webassemblyjs/ast@1.5.8":
   version "1.5.8"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.5.8.tgz#f75ac7e7602b7833abd5d53951baae8a07ebb5df"
@@ -2466,6 +2478,10 @@ cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
   resolved "https://registry.yarnpkg.com/cssstyle/-/cssstyle-0.3.1.tgz#6da9b4cff1bc5d716e6e5fe8e04fcb1b50a49adf"
   dependencies:
     cssom "0.3.x"
+
+csstype@^2.2.0:
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.5.6.tgz#2ae1db2319642d8b80a668d2d025c6196071e788"
 
 currently-unhandled@^0.4.1:
   version "0.4.1"
@@ -6610,6 +6626,13 @@ react-async-script@^0.9.1:
   resolved "https://registry.yarnpkg.com/react-async-script/-/react-async-script-0.9.1.tgz#d4a496c726fab0c6ef05998ab16e50c742820b60"
   dependencies:
     prop-types ">=15.5.0"
+
+react-contenteditable@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/react-contenteditable/-/react-contenteditable-2.1.5.tgz#d68a04f86c43f3b75a6647ef71b5b6c52ceead93"
+  dependencies:
+    "@types/prop-types" "^15.5.4"
+    fast-deep-equal "^2.0.1"
 
 react-credit-cards@^0.7.0:
   version "0.7.0"
