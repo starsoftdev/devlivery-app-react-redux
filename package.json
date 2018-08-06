@@ -38,6 +38,7 @@
     "react": "^16.3.2",
     "react-async-script": "^0.9.1",
     "react-contenteditable": "^2.1.5",
+    "react-avatar-editor": "^11.0.4",
     "react-credit-cards": "^0.7.0",
     "react-dom": "^16.3.2",
     "react-draft-wysiwyg": "^1.12.13",
