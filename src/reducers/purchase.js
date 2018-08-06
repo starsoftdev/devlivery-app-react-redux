@@ -695,7 +695,10 @@ export const confirmDonation = () => (dispatch, getState, {fetch}) => {
 
 export const getCardColors = () => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_CARD_COLORS_REQUEST})
-  return fetch(`/card-colors?take=100`, {
+  return fetch(`/card-colors?${qs.stringify({
+    take: 100,
+    order_by: 'title',
+  })}`, {
     method: 'GET',
     success: (res) => {
       dispatch({type: GET_CARD_COLORS_SUCCESS, cardColors: res.data})
