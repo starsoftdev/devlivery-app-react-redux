@@ -13,13 +13,21 @@ export default defineMessages({
     id: 'voucher.submit',
     defaultMessage: 'Submit',
   },
+  voucherHeader: {
+    id: 'voucher.voucherHeader',
+    defaultMessage: 'Voucher',
+  },
   receiver: {
     id: 'voucher.receiver',
-    defaultMessage: 'receiver',
+    defaultMessage: 'Receiver',
   },
   giver: {
     id: 'voucher.giver',
     defaultMessage: 'Giver',
+  },
+  freeText: {
+    id: 'voucher.freeText',
+    defaultMessage: 'Free Text',
   },
   description: {
     id: 'voucher.description',

@@ -54,3 +54,16 @@ export const getEvent = (event, current) => {
     return eventDate.isSame(current, 'd')
   }
 }
+
+export const loadFont = (font) => {
+  if (!document.getElementById(font)) {
+    const head = document.getElementsByTagName('head')[0]
+    const link = document.createElement('link')
+    link.id = font
+    link.rel = 'stylesheet'
+    link.type = 'text/css'
+    link.href = `https://fonts.googleapis.com/css?family=${font}`
+    link.media = 'all'
+    head.appendChild(link)
+  }
+}
