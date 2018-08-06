@@ -36,7 +36,7 @@ class Purchase6 extends React.Component {
 
   componentDidMount() {
     const {cardDetails} = this.props
-    // load editor only on client side (not server side)
+    // load editorRef only on client side (not server side)
     const newState = {
       mounted: true
     }

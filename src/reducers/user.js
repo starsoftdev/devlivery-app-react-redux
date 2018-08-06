@@ -20,6 +20,10 @@ export const UPDATE_PASSWORD_REQUEST = 'User.UPDATE_PASSWORD_REQUEST'
 export const UPDATE_PASSWORD_SUCCESS = 'User.UPDATE_PASSWORD_SUCCESS'
 export const UPDATE_PASSWORD_FAILURE = 'User.UPDATE_PASSWORD_FAILURE'
 
+export const UPLOAD_AVATAR_REQUEST = 'User.UPLOAD_AVATAR_REQUEST'
+export const UPLOAD_AVATAR_SUCCESS = 'User.UPLOAD_AVATAR_SUCCESS'
+export const UPLOAD_AVATAR_FAILURE = 'User.UPLOAD_AVATAR_FAILURE'
+
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -114,6 +118,27 @@ export const updatePassword = (values, form) => (dispatch, getState, {fetch}) =>
   })
 }
 
+export const uploadAvatar = (imageBlob) => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  dispatch({type: UPLOAD_AVATAR_REQUEST})
+  return fetch(`/update-avatar`, {
+    method: 'POST',
+    contentType: 'multipart/form-data',
+    token,
+    body: {
+      image: imageBlob,
+    },
+    success: () => {
+      dispatch({type: UPLOAD_AVATAR_SUCCESS})
+      dispatch(getUser())
+    },
+    failure: (error) => {
+      dispatch({type: UPLOAD_AVATAR_FAILURE, error})
+      message.error('Something went wrong. Please try again.')
+    }
+  })
+}
+
 // ------------------------------------
 // Reducer
 // ------------------------------------
@@ -121,6 +146,7 @@ const initialState = {
   loading: {
     updatingUser: false,
     updatingPassword: false,
+    uploadingAvatar: false,
   },
   loggedIn: false,
   error: null,
@@ -169,6 +195,27 @@ export default createReducer(initialState, {
     loading: {
       ...state.loading,
       updatingPassword: false,
+    }
+  }),
+  [UPLOAD_AVATAR_REQUEST]: (state, {error}) => ({
+    error,
+    loading: {
+      ...state.loading,
+      uploadingAvatar: true,
+    }
+  }),
+  [UPLOAD_AVATAR_SUCCESS]: (state, {error}) => ({
+    error,
+    loading: {
+      ...state.loading,
+      uploadingAvatar: false,
+    }
+  }),
+  [UPLOAD_AVATAR_FAILURE]: (state, {error}) => ({
+    error,
+    loading: {
+      ...state.loading,
+      uploadingAvatar: false,
     }
   }),
 })
