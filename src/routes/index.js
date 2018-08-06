@@ -7,6 +7,7 @@ export const GIFT_STORE_ROUTE = 'gift-store'
 export const CARD_STORE_ROUTE = 'card-store'
 export const NEW_ARRIVALS_ROUTE = 'new-arrivals'
 export const ABOUT_ROUTE = 'about'
+export const CONTACT_US_ROUTE = 'contact-us'
 export const LOGIN_ROUTE = 'login'
 export const REGISTER1_ROUTE = 'register1'
 export const REGISTER2_ROUTE = 'register2'
@@ -35,6 +36,7 @@ export const HOME_ROUTES = [
   CARD_STORE_ROUTE,
   NEW_ARRIVALS_ROUTE,
   ABOUT_ROUTE,
+  CONTACT_US_ROUTE,
 ]
 
 export const DASHBOARD_ROUTES = [
@@ -279,6 +281,11 @@ const routes = {
       path: '/about',
       name: ABOUT_ROUTE,
       load: () => import(/* webpackChunkName: 'about' */ './about'),
+    },
+    {
+      path: '/contact-us',
+      name: CONTACT_US_ROUTE,
+      load: () => import(/* webpackChunkName: 'contactUs' */ './contactUs'),
     },
     {
       path: '/login',
