@@ -64,12 +64,14 @@ class AvatarEditModal extends React.Component {
             <Input name='zoom' type='range' min='0.1' max='2' step='0.1' onChange={this.setZoom}/>
           </div>
           <div className={s.modalContainer}>
+            <label>
             <Button type='primary' ghost>
-              <label>
+
                 Load image
                 <input className={s.fileInput} type='file' onChange={this.setUrl}/>
-              </label>
+
             </Button>
+            </label>
             <Button type='primary' onClick={this.onClickSave}>Save</Button>
           </div>
         </div>

@@ -60,7 +60,7 @@ class Purchase5 extends React.Component {
                   <Col key={item.id} className={s.itemWrapper}>
                     <Card
                       className={s.item}
-                      image={item.images[0].url}
+                      image={item.images[0] && item.images[0].url}
                       title={
                         <span className={s.price}>
                             {item.price}

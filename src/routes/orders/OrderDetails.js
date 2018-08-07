@@ -28,7 +28,7 @@ class OrderDetails extends React.Component {
               return (
                 <div className={s.product}>
                   <div>
-                    <img src={item.images[0].url} className={s.productImage}/>
+                    <img src={item.images[0] && item.images[0].url} className={s.productImage}/>
                   </div>
                   <div className={s.title}>{item.title}</div>
                 </div>
@@ -37,7 +37,7 @@ class OrderDetails extends React.Component {
               return (
                 <div className={s.product}>
                   <div>
-                    <img src={item.image[0].url} className={s.productImage}/>
+                    <img src={item.image[0] && item.image[0].url} className={s.productImage}/>
                   </div>
                   <div className={s.title}>{item.title}</div>
                 </div>
