@@ -47,7 +47,7 @@ export const getUser = () => (dispatch, getState, {fetch, cookies}) => {
     return fetch(`/current-user`, {
       method: 'GET',
       token,
-      success: (user) => dispatch(getUserSuccess(user.data)),
+      success: (res) => dispatch(getUserSuccess(res.data)),
       failure: () => {
         dispatch({type: GET_USER_FAILURE})
         cookies.remove(TOKEN_COOKIE, {path: ''})
@@ -150,11 +150,12 @@ const initialState = {
   },
   loggedIn: false,
   error: null,
+  user: null,
 }
 
 export default createReducer(initialState, {
   [LOGOUT_SUCCESS]: (state, action) => RESET_STORE,
-  [GET_USER_SUCCESS]: (state, {user, role}) => ({
+  [GET_USER_SUCCESS]: (state, {user}) => ({
     user,
     loggedIn: true,
   }),

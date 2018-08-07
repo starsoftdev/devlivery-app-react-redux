@@ -36,7 +36,7 @@
 .messageTitle {
   font-size: 15px;
   font-family: "Proxima Nova";
-  color: var(--input-color);
+  color: rgba(64,77,95,0.5);
   height: 50px;
   display: block;
   padding-top: 20px;
@@ -55,13 +55,13 @@
   color: #4A979B;
   font-family: "Proxima Nova";
   font-size: 12px;
-  letter-spacing: 2.1px;
+  letter-spacing: 1.7px;
   line-height: 15px;
   text-transform: uppercase;
   border: none;
   box-shadow: none;
   outline: none;
-  font-weight: 400;
+  font-weight: 100;
   cursor: pointer;
 }
 
