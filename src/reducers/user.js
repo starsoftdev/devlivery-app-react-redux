@@ -130,7 +130,7 @@ export const uploadAvatar = (imageBlob) => (dispatch, getState, {fetch}) => {
     },
     success: () => {
       dispatch({type: UPLOAD_AVATAR_SUCCESS})
-      dispatch(getUser())
+      dispatch(getUserDetails())
     },
     failure: (error) => {
       dispatch({type: UPLOAD_AVATAR_FAILURE, error})
