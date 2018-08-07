@@ -241,8 +241,19 @@ const authRoutes = {
       },
     },
   ],
+  async action({next, store}) {
+    await store.dispatch(getUser())
+    // Execute each child route until one of them return the result
+    const route = await next()
+
+    // Provide default values for title, description etc.
+    route.title = `${route.title || ''}`
+    route.description = route.description || ''
+
+    return route
+  },
   async action({store, next, pathname}) {
-    const {loggedIn} = store.getState().user
+    const {loggedIn} = await store.getState().user
     if (!loggedIn) {
       return {redirect: `/login?next=${pathname}`}
     }
