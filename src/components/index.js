@@ -21,4 +21,4 @@ export {default as ChangePasswordForm} from './ChangePasswordForm/ChangePassword
 export {default as Address} from './Address/Address'
 export {default as PurchaseActions} from './PurchaseActions/PurchaseActions'
 export {default as Avatar} from './Avatar/Avatar'
-
+export {default as TablePermission} from './TablePermission/TablePermission'

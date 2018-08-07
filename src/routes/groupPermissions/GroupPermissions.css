@@ -1,0 +1,77 @@
+@import '../../styles/variables.css';
+
+.container {
+  max-width: var(--max-dashboard-width);
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  padding-right: var(--margin-md);
+  padding-left: var(--margin-md);
+  padding-bottom: var(--margin-xl);
+
+  @media (--md-down) {
+    padding-top: var(--margin-md);
+  }
+  @media (--md-up) {
+    padding-top: var(--margin-xl);
+  }
+}
+
+.header {
+  margin-bottom: 0;
+
+  @media (--md-up) {
+    font-size: 40px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
+}
+
+.newGroupName {
+  /*TODO use addonAfter for input*/
+  /*padding-right: 100px;*/
+}
+
+.addBtn {
+  font-family: var(--font-family-secondary);
+  color: var(--primary-color);
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  display: inline-flex;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  &:--hover {
+     color: var(--primary-color);
+   }
+}
+
+.addIcon {
+  margin-right: var(--margin-xs);
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  @media (--sm-down) {
+    flex-direction: column;
+  }
+}
+
+.titleWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  .newGroupNameWrapper {
+    width: 40%;
+    position: relative;
+    margin-bottom: var(--margin-md);
+  }
+}
