@@ -18,8 +18,14 @@ class Avatar extends React.Component {
   }
 
   componentDidMount() {
-    if(this.props.user.avatar){
+    if(this.props.user.avatar) {
       this.setState({avatar: this.props.user.avatar.url})
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.user.avatar !== nextProps.user.avatar) {
+      this.setState({avatar: nextProps.user.avatar.url})
     }
   }
 
