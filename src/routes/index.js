@@ -19,6 +19,7 @@ export const SET_PASSWORD_ROUTE = 'set-password'
 export const DASHBOARD_ROUTE = 'dashboard'
 export const ORDERS_ROUTE = 'orders'
 export const MANAGE_TEAM_ROUTE = 'manage-team'
+export const GROUP_PERMISSION_ROUTE = 'group-permission'
 export const REPORTS_ROUTE = 'reports'
 export const CONTACTS_ROUTE = 'contacts'
 export const IMPORT_CONTACTS_ROUTE = 'import-contacts'
@@ -53,6 +54,7 @@ export const DASHBOARD_ROUTES = [
   CONTACT_GROUPS_ROUTE,
   BUNDLES_ROUTE,
   USER_ROUTE,
+  GROUP_PERMISSION_ROUTE,
 ]
 
 export const LOGOUT_ROUTE = 'logout'
@@ -179,6 +181,11 @@ const authRoutes = {
           path: '/manage-team',
           name: MANAGE_TEAM_ROUTE,
           load: () => import(/* webpackChunkName: 'dashboard' */ './manageTeam'),
+        },
+        {
+          path: '/group-permission',
+          name: GROUP_PERMISSION_ROUTE,
+          load: () => import(/* webpackChunkName: 'dashboard' */ './groupPermissions'),
         },
         {
           path: '/reports',

@@ -15,7 +15,8 @@ import {
   MANAGE_TEAM_ROUTE,
   ORDERS_ROUTE,
   REPORTS_ROUTE,
-  USER_ROUTE
+  USER_ROUTE,
+  GROUP_PERMISSION_ROUTE
 } from '../'
 import OrdersIcon from '../../static/orders.svg'
 import ContactsIcon from '../../static/book.svg'
@@ -91,13 +92,28 @@ class Dashboard extends React.Component {
             </Link>
           </Menu.Item>
           {user && user.account_type === TEAM_ACCOUNT && (
-            <Menu.Item key={MANAGE_TEAM_ROUTE}>
-              <Link to={MANAGE_TEAM_ROUTE}>
-                <ManageTeamIcon/>
-                {intl.formatMessage(messages.manageTeam)}
-              </Link>
-            </Menu.Item>
+            <Menu.SubMenu
+              className={s.subMenu}
+              title={
+                <React.Fragment>
+                  <ManageTeamIcon/>
+                  {intl.formatMessage(messages.manageTeam)}
+                </React.Fragment>
+              }
+            >
+              <Menu.Item key={MANAGE_TEAM_ROUTE}>
+                <Link to={MANAGE_TEAM_ROUTE}>
+                  {intl.formatMessage(messages.manageTeam)}
+                </Link>
+              </Menu.Item>
+              <Menu.Item key={GROUP_PERMISSION_ROUTE}>
+                <Link to={GROUP_PERMISSION_ROUTE}>
+                  {intl.formatMessage(messages.permissionGroup)}
+                </Link>
+              </Menu.Item>
+            </Menu.SubMenu>
           )}
+
           <Menu.Item key={USER_ROUTE}>
             <Link to={USER_ROUTE}>
               <SettingsIcon/>
