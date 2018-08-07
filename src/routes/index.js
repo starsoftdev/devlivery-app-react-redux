@@ -1,6 +1,6 @@
 import React from 'react'
 import {generateUrl} from '../router'
-import {getUser, logout} from '../reducers/user'
+import {getUser, getUserDetails, logout} from '../reducers/user'
 
 export const HOME_ROUTE = 'home'
 export const GIFT_STORE_ROUTE = 'gift-store'
@@ -248,21 +248,10 @@ const authRoutes = {
       },
     },
   ],
-  async action({next, store}) {
-    await store.dispatch(getUser())
-    // Execute each child route until one of them return the result
-    const route = await next()
-
-    // Provide default values for title, description etc.
-    route.title = `${route.title || ''}`
-    route.description = route.description || ''
-
-    return route
-  },
   async action({store, next, pathname}) {
-    const {loggedIn} = await store.getState().user
+    const {loggedIn} = store.getState().user
     if (!loggedIn) {
-      return {redirect: `/login?next=${pathname}`}
+      return await {redirect: `/login?next=${pathname}`}
     }
     return await next()
   },
