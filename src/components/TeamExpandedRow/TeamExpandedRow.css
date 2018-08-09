@@ -1,0 +1,28 @@
+@import '../../styles/variables.css';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+}
+
+.leftInputRow {
+  display: flex;
+  margin-bottom: 40px;
+  margin-top: -1px;
+  width: 100%;
+  align-items: flex-end;
+}
+
+.amountInput {
+  max-width: 280px;
+}
+
+input {
+  padding-bottom: 0;
+}

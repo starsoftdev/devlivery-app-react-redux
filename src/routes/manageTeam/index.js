@@ -2,12 +2,14 @@ import React from 'react'
 import ManageTeam from './ManageTeam'
 import {setCurrentRouteName} from '../../reducers/global'
 import {getTeam} from '../../reducers/team'
+import {getPendingTeam} from '../../reducers/pendingMembers'
 import messages from './messages'
 import {TEAM_ACCOUNT} from '../../reducers/register'
 
 function action({store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
   store.dispatch(getTeam())
+  store.dispatch(getPendingTeam())
 
   const {user} = store.getState().user
 

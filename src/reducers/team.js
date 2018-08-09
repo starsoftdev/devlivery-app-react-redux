@@ -10,6 +10,26 @@ export const GET_TEAM_REQUEST = 'Team.GET_TEAM_REQUEST'
 export const GET_TEAM_SUCCESS = 'Team.GET_TEAM_SUCCESS'
 export const GET_TEAM_FAILURE = 'Team.GET_TEAM_FAILURE'
 
+export const EDIT_TEAM_MEMBER_ROLE_REQUEST = 'Team.EDIT_TEAM_MEMBER_ROLE_REQUEST'
+export const EDIT_TEAM_MEMBER_ROLE_SUCCESS = 'Team.EDIT_TEAM_MEMBER_ROLE_SUCCESS'
+export const EDIT_TEAM_MEMBER_ROLE_FAILURE = 'Team.EDIT_TEAM_MEMBER_ROLE_FAILURE'
+
+export const ADD_NEW_BUDGET_REQUEST = 'Team.ADD_NEW_BUDGET_REQUEST'
+export const ADD_NEW_BUDGET_SUCCESS = 'Team.ADD_NEW_BUDGET_SUCCESS'
+export const ADD_NEW_BUDGET_FAILURE = 'Team.ADD_NEW_BUDGET_FAILURE'
+
+export const ADD_AMOUNT_BUDGET_REQUEST = 'Team.ADD_AMOUNT_BUDGET_REQUEST'
+export const ADD_AMOUNT_BUDGET_SUCCESS = 'Team.ADD_AMOUNT_BUDGET_SUCCESS'
+export const ADD_AMOUNT_BUDGET_FAILURE = 'Team.ADD_AMOUNT_BUDGET_FAILURE'
+
+export const REDUCE_AMOUNT_BUDGET_REQUEST = 'Team.REDUCE_AMOUNT_BUDGET_REQUEST'
+export const REDUCE_AMOUNT_BUDGET_SUCCESS = 'Team.REDUCE_AMOUNT_BUDGET_SUCCESS'
+export const REDUCE_AMOUNT_BUDGET_FAILURE = 'Team.REDUCE_AMOUNT_BUDGET_FAILURE'
+
+export const DELETE_BUDGET_REQUEST = 'Team.DELETE_BUDGET_REQUEST'
+export const DELETE_BUDGET_SUCCESS = 'Team.DELETE_BUDGET_SUCCESS'
+export const DELETE_BUDGET_FAILURE = 'Team.DELETE_BUDGET_FAILURE'
+
 export const CLEAR = 'Team.CLEAR'
 
 // ------------------------------------
@@ -27,6 +47,97 @@ export const getTeam = (params = {}) => (dispatch, getState, {fetch}) => {
     token,
     success: (res) => dispatch({type: GET_TEAM_SUCCESS, res}),
     failure: () => dispatch({type: GET_TEAM_FAILURE}),
+  })
+}
+
+export const addBudget = (member_id, budget) => (dispatch, getState, {fetch}) => {
+  dispatch({type: ADD_NEW_BUDGET_REQUEST})
+  const {token} = dispatch(getToken())
+  return fetch(`/budgets/add`, {
+    method: 'POST',
+    contentType: 'multipart/form-data',
+    token,
+    body: {
+      member_id,
+      budget,
+    },
+    success: () => {
+      dispatch({type: ADD_NEW_BUDGET_SUCCESS})
+      dispatch(getTeam())
+    },
+    failure: () => dispatch({type: ADD_NEW_BUDGET_FAILURE}),
+  })
+}
+
+export const addAmountBudget = (budget_id, amount) => (dispatch, getState, {fetch}) => {
+  dispatch({type: ADD_AMOUNT_BUDGET_REQUEST})
+  const {token} = dispatch(getToken())
+  return fetch(`/budgets/add-amount`, {
+    method: 'POST',
+    token,
+    body: {
+      budget_id,
+      amount,
+    },
+    success: () => {
+      dispatch({type: ADD_AMOUNT_BUDGET_SUCCESS})
+      dispatch(getTeam())
+    },
+    failure: () => dispatch({type: ADD_AMOUNT_BUDGET_FAILURE}),
+  })
+}
+
+export const reduceAmountBudget = (budget_id, amount) => (dispatch, getState, {fetch}) => {
+  dispatch({type: ADD_AMOUNT_BUDGET_REQUEST})
+  const {token} = dispatch(getToken())
+  return fetch(`/budgets/reduce-amount`, {
+    method: 'POST',
+    token,
+    body: {
+      budget_id,
+      amount,
+    },
+    success: () => {
+      dispatch({type: ADD_AMOUNT_BUDGET_SUCCESS})
+      dispatch(getTeam())
+    },
+    failure: () => dispatch({type: ADD_AMOUNT_BUDGET_FAILURE}),
+  })
+}
+
+export const updateTeamMemberRole = (id, roles) => (dispatch, getState, {fetch}) => {
+  dispatch({type: EDIT_TEAM_MEMBER_ROLE_REQUEST})
+  const {token} = dispatch(getToken())
+  return fetch(`/role/assign`, {
+    method: 'POST',
+    token,
+    body: {
+      user_id: id,
+      role_ids: roles,
+    },
+    success: () => {
+      dispatch({type: EDIT_TEAM_MEMBER_ROLE_SUCCESS})
+      dispatch(getTeam())
+    },
+    failure: () => dispatch({type: EDIT_TEAM_MEMBER_ROLE_FAILURE}),
+  })
+}
+
+export const deleteBudget = (budget_id) => (dispatch, getState, {fetch}) => {
+  dispatch({type: DELETE_BUDGET_REQUEST})
+  const {token} = dispatch(getToken())
+  return fetch(`/budgets/delete`, {
+    method: 'POST',
+    contentType: 'multipart/form-data',
+    token,
+    body: {
+      budget_id,
+    },
+    success: () => {
+      dispatch({type: DELETE_BUDGET_SUCCESS})
+      dispatch(getTeam())
+    },
+    failure: () => dispatch({type: DELETE_BUDGET_FAILURE}),
   })
 }
 

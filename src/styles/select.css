@@ -206,6 +206,21 @@
     }
   }
 
+  .ant-select-selection--multiple {
+    ul {
+      position: absolute;
+    }
+
+    li {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .ant-select-selection__choice__remove {
+      width: 10px;
+    }
+  }
+
   .ant-select-dropdown {
     /*reset component*/
     font-family: var(--font-family-secondary);

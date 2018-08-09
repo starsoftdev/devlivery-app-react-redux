@@ -18,6 +18,7 @@ import cards from './cards'
 import newArrivals from './newArrivals'
 import contactUs from './contactUs'
 import permission from './permissions'
+import pendingMembers from './pendingMembers'
 import intl from './intl'
 
 export default combineReducers({
@@ -41,4 +42,5 @@ export default combineReducers({
   contactUs,
   intl,
   permission,
+  pendingMembers,
 })
