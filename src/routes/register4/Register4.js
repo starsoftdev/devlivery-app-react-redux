@@ -67,6 +67,7 @@ class Register4 extends React.Component {
                 {getFieldDecorator(`people[${k}].role`, {})(
                   <Select
                     allowClear
+                    mode='multiple'
                     placeholder={intl.formatMessage(messages.role)}
                   >
                     {roles.map(item =>
