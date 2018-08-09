@@ -129,6 +129,14 @@ export const SUBMIT_SHIPPING_REQUEST = 'Purchase.SUBMIT_SHIPPING_REQUEST'
 export const SUBMIT_SHIPPING_SUCCESS = 'Purchase.SUBMIT_SHIPPING_SUCCESS'
 export const SUBMIT_SHIPPING_FAILURE = 'Purchase.SUBMIT_SHIPPING_FAILURE'
 
+export const GET_RECIPIENTS_REQUEST = 'Purchase.GET_RECIPIENTS_REQUEST'
+export const GET_RECIPIENTS_SUCCESS = 'Purchase.GET_RECIPIENTS_SUCCESS'
+export const GET_RECIPIENTS_FAILURE = 'Purchase.GET_RECIPIENTS_FAILURE'
+
+export const ADD_RECIPIENTS_REQUEST = 'Purchase.ADD_RECIPIENTS_REQUEST'
+export const ADD_RECIPIENTS_SUCCESS = 'Purchase.ADD_RECIPIENTS_SUCCESS'
+export const ADD_RECIPIENTS_FAILURE = 'Purchase.ADD_RECIPIENTS_FAILURE'
+
 export const CLEAR = 'Purchase.CLEAR'
 
 // ------------------------------------
@@ -218,6 +226,33 @@ export const getCardStyles = () => (dispatch, getState, {fetch}) => {
   })
 }
 
+export const getRecipients = () => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  dispatch({type: GET_RECIPIENTS_REQUEST})
+  return fetch(`/view-contacts`, {
+    method: 'GET',
+    token,
+    success: (recipients) => dispatch({type: GET_RECIPIENTS_SUCCESS, recipients}),
+    failure: () => dispatch({type: GET_RECIPIENTS_FAILURE})
+  })
+}
+
+export const addRecipientsOrder = () => (dispatch, getState, {fetch}) => {
+  dispatch({type: ADD_RECIPIENTS_REQUEST})
+  const {recipient} = getState().purchase.cardDetails
+  const order = getState().purchase.order ? getState().purchase.order.id : null
+  return fetch(`/order-recipients`, {
+    method: 'POST',
+    contentType: 'multipart/form-data',
+    body: {
+      order_id: order,
+      contact_id: recipient,
+    },
+    success: () => dispatch({type: ADD_RECIPIENTS_SUCCESS}),
+    failure: () => dispatch({type: ADD_RECIPIENTS_FAILURE})
+  })
+}
+
 export const setCardStyle = (cardStyle) => ({type: SET_CARD_STYLE, cardStyle})
 
 export const getCards = (params = {}) => (dispatch, getState, {fetch}) => {
@@ -248,6 +283,7 @@ export const setCardSize = (cardSize) => ({type: SET_CARD_SIZE, cardSize})
 export const submitCardDetails = (cardDetails) => (dispatch, getState) => {
   dispatch(nextFlowStep())
   dispatch({type: SET_CARD_DETAILS, cardDetails})
+  // dispatch(addRecipientsOrder())
 }
 
 export const setGiftType = (giftType) => ({type: SET_GIFT_TYPE, giftType})
@@ -397,6 +433,7 @@ export const makeOrder = () => (dispatch, getState, {fetch}) => {
       dispatch(addCardBody(order))
       dispatch({type: MAKE_ORDER_SUCCESS, order})
       dispatch(getDeliveryLocations(order))
+      dispatch(addRecipientsOrder())
     },
     failure: () => {
       dispatch({type: MAKE_ORDER_FAILURE})
@@ -735,6 +772,7 @@ const initialState = {
     donationOrgs: false,
     cards: false,
     payment: false,
+    recipients: false
   },
   occasions: [],
   occasion: null,
@@ -764,6 +802,7 @@ const initialState = {
   deliveryLocation: undefined,
   deliveryTime: undefined,
   voucher: null,
+  recipients: [],
 }
 
 export default createReducer(initialState, {
@@ -964,6 +1003,25 @@ export default createReducer(initialState, {
   }),
   [SUBMIT_VOUCHER_REQUEST]: (state, {values}) => ({
     voucher: values,
+  }),
+  [GET_RECIPIENTS_REQUEST]: (state) => ({
+    loading: {
+      ...state.loading,
+      recipients: true,
+    }
+  }),
+  [GET_RECIPIENTS_SUCCESS]: (state, res) => ({
+    loading: {
+      ...state.loading,
+      recipients: false,
+    },
+    recipients: res.recipients,
+  }),
+  [GET_RECIPIENTS_FAILURE]: (state) => ({
+    loading: {
+      ...state.loading,
+      recipients: false,
+    },
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

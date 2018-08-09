@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {submitCardDetails} from '../../reducers/purchase'
+import {submitCardDetails, getRecipients} from '../../reducers/purchase'
 import {Button, Col, Form, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase6.css'
@@ -35,6 +35,7 @@ class Purchase6 extends React.Component {
   }
 
   componentDidMount() {
+    this.props.getRecipients()
     const {cardDetails} = this.props
     // load editor only on client side (not server side)
     const newState = {
@@ -95,7 +96,7 @@ class Purchase6 extends React.Component {
 
   render() {
     const {editorState, mounted} = this.state
-    const {cardDetails, intl, flowIndex, cardSize} = this.props
+    const {cardDetails, intl, flowIndex, cardSize, recipients} = this.props
     const {getFieldDecorator} = this.props.form
 
     return (
@@ -135,8 +136,8 @@ class Purchase6 extends React.Component {
                   initialValue: cardDetails ? cardDetails.recipient : undefined,
                 })(
                   <Select placeholder={intl.formatMessage(messages.recipient)}>
-                    {[].map((item) =>
-                      <Select.Option key={item} value={item}>{item}</Select.Option>
+                    {recipients.data && recipients.data.map((item) =>
+                      <Select.Option key={item.id} value={item.id}>{item.first_name+' '+item.last_name}</Select.Option>
                     )}
                   </Select>
                 )}
@@ -267,9 +268,11 @@ const mapState = state => ({
   cardSize: state.purchase.cardSize,
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
+  recipients: state.purchase.recipients,
 })
 
 const mapDispatch = {
+  getRecipients,
   submitCardDetails,
 }
 
