@@ -94,3 +94,11 @@
   color: var(--dark-color);
   text-transform: uppercase;
 }
+
+.shippingDetailsTitle {
+  margin-top: 10px;
+}
+
+.shippingDetails {
+  margin-top: 10px;
+}

@@ -153,6 +153,18 @@ class OrderDetails extends React.Component {
                     </div>
                   </footer>
                 </section>
+                <section>
+                  <h3>Shipping details</h3>
+                  {orderDetails.recipients && orderDetails.recipients.map((recipient) => (
+                    <div className={s.shippingDetails}>
+                      <span>{recipient.contact.title}</span><br/>
+                      <span>{recipient.contact.first_name + ' ' + recipient.contact.last_name}</span><br/>
+                      <span>{recipient.receiving_address.address}</span><br/>
+                      <span>{recipient.receiving_address.postal_code + ' ' + recipient.receiving_address.city}</span><br/>
+                      <span>{recipient.receiving_address.country}</span><br/>
+                    </div>
+                  ))}
+                </section>
               </Col>
             </Row>
           </React.Fragment>
