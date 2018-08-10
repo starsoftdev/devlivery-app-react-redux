@@ -396,7 +396,7 @@ export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
         gift_id: gift.id,
       } : {},
       // TODO check if we need to send card body here
-      body: cardDetails.body,
+      body: cardDetails && cardDetails.body,
       ...getBundleValues(values),
     },
     token,
