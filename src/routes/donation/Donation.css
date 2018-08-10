@@ -28,6 +28,9 @@
 
 .items {
   flex-wrap: wrap;
+  max-width: 800px;
+  margin-left: auto!important;
+  margin-right: auto!important;
 }
 
 .itemWrapper {
@@ -43,7 +46,13 @@
 
   @media (--xs-up) {
     /*to split by 4*/
-    width: 277px;
+    width: 222px;
+    height: 230px;
+  }
+
+  img {
+    width: 222px;
+    height: 162px;
   }
 }
 
