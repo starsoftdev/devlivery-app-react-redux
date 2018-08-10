@@ -69,7 +69,6 @@ class ImportContacts extends React.Component {
                 csvUploadButton,
                 xlsUploadButton,
                 vcfUploadButton,
-                googleConnectButton,
               }) =>
               <div className={s.content}>
                 <Row type='flex' gutter={20}>
@@ -87,12 +86,6 @@ class ImportContacts extends React.Component {
                       {csvUploadButton}
                       {xlsUploadButton}
                       {vcfUploadButton}
-                    </section>
-                  </Col>
-                  <Col xs={24} md={6}>
-                    <section>
-                      <h1 className={s.sectionHeader}>Connect</h1>
-                      {googleConnectButton}
                     </section>
                   </Col>
                 </Row>
