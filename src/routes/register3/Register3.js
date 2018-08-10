@@ -50,7 +50,6 @@ class Register3 extends React.Component {
             })(
               <Select
                 allowClear
-                mode='multiple'
                 placeholder={intl.formatMessage(messages.role)}
               >
                 {roles.map(item =>
