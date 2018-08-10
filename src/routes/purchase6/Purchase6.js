@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {submitCardDetails, getRecipients} from '../../reducers/purchase'
+import {submitCardDetails, getRecipients, getMessageTemplate} from '../../reducers/purchase'
 import {Button, Col, Form, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase6.css'
@@ -35,7 +35,7 @@ class Purchase6 extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getRecipients()
+    this.props.getMessageTemplate()
     const {cardDetails} = this.props
     // load editor only on client side (not server side)
     const newState = {
@@ -94,11 +94,14 @@ class Purchase6 extends React.Component {
     return this.updateEditorState(newEditorState)
   }
 
+  onTemplateChange = (value) => {
+    this.editor.editor.textContent += value
+  }
+
   render() {
     const {editorState, mounted} = this.state
-    const {cardDetails, intl, flowIndex, cardSize, recipients} = this.props
+    const {cardDetails, intl, flowIndex, cardSize, templates} = this.props
     const {getFieldDecorator} = this.props.form
-
     return (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -120,6 +123,7 @@ class Purchase6 extends React.Component {
               >
                 {mounted && (
                   <Editor
+                    editorRef={(editor) => this.editor = editor}
                     wrapperClassName={s.editor}
                     toolbarHidden
                     customStyleFn={customStyleFn}
@@ -135,9 +139,9 @@ class Purchase6 extends React.Component {
                 {getFieldDecorator('recipient', {
                   initialValue: cardDetails ? cardDetails.recipient : undefined,
                 })(
-                  <Select placeholder={intl.formatMessage(messages.recipient)}>
-                    {recipients.data && recipients.data.map((item) =>
-                      <Select.Option key={item.id} value={item.id}>{item.first_name+' '+item.last_name}</Select.Option>
+                  <Select onChange={this.onTemplateChange} placeholder={intl.formatMessage(messages.recipient)}>
+                    {templates && templates.map((item) =>
+                      <Select.Option key={item.name} value={item.template}>{item.name}</Select.Option>
                     )}
                   </Select>
                 )}
@@ -268,11 +272,11 @@ const mapState = state => ({
   cardSize: state.purchase.cardSize,
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
-  recipients: state.purchase.recipients,
+  templates: state.purchase.templates,
 })
 
 const mapDispatch = {
-  getRecipients,
+  getMessageTemplate,
   submitCardDetails,
 }
 
