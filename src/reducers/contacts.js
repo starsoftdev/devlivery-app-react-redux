@@ -394,6 +394,7 @@ export default createReducer(initialState, {
       ...state.loading,
       addingContact: false,
     },
+    newContact: action.res.data
   }),
   [ADD_CONTACT_FAILURE]: (state, action) => ({
     loading: {

@@ -133,6 +133,10 @@ export const GET_RECIPIENTS_REQUEST = 'Purchase.GET_RECIPIENTS_REQUEST'
 export const GET_RECIPIENTS_SUCCESS = 'Purchase.GET_RECIPIENTS_SUCCESS'
 export const GET_RECIPIENTS_FAILURE = 'Purchase.GET_RECIPIENTS_FAILURE'
 
+export const GET_TEMPLATE_REQUEST = 'Purchase.GET_TEMPLATE_REQUEST'
+export const GET_TEMPLATE_SUCCESS = 'Purchase.GET_TEMPLATE_SUCCESS'
+export const GET_TEMPLATE_FAILURE = 'Purchase.GET_TEMPLATE_FAILURE'
+
 export const ADD_RECIPIENTS_REQUEST = 'Purchase.ADD_RECIPIENTS_REQUEST'
 export const ADD_RECIPIENTS_SUCCESS = 'Purchase.ADD_RECIPIENTS_SUCCESS'
 export const ADD_RECIPIENTS_FAILURE = 'Purchase.ADD_RECIPIENTS_FAILURE'
@@ -226,6 +230,17 @@ export const getCardStyles = () => (dispatch, getState, {fetch}) => {
   })
 }
 
+export const getMessageTemplate = () => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  dispatch({type: GET_TEMPLATE_REQUEST})
+  return fetch(`/message-templates`, {
+    method: 'GET',
+    token,
+    success: (res) => dispatch({type: GET_TEMPLATE_SUCCESS, res}),
+    failure: () => dispatch({type: GET_TEMPLATE_FAILURE})
+  })
+}
+
 export const getRecipients = () => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   dispatch({type: GET_RECIPIENTS_REQUEST})
@@ -239,14 +254,14 @@ export const getRecipients = () => (dispatch, getState, {fetch}) => {
 
 export const addRecipientsOrder = () => (dispatch, getState, {fetch}) => {
   dispatch({type: ADD_RECIPIENTS_REQUEST})
-  const {recipient} = getState().purchase.cardDetails
+  const {id} = getState().contacts.newContact
   const order = getState().purchase.order ? getState().purchase.order.id : null
   return fetch(`/order-recipients`, {
     method: 'POST',
     contentType: 'multipart/form-data',
     body: {
       order_id: order,
-      contact_id: recipient,
+      contact_id: id,
     },
     success: () => dispatch({type: ADD_RECIPIENTS_SUCCESS}),
     failure: () => dispatch({type: ADD_RECIPIENTS_FAILURE})
@@ -803,6 +818,7 @@ const initialState = {
   deliveryTime: undefined,
   voucher: null,
   recipients: [],
+  templates: null,
 }
 
 export default createReducer(initialState, {
@@ -1022,6 +1038,9 @@ export default createReducer(initialState, {
       ...state.loading,
       recipients: false,
     },
+  }),
+  [GET_TEMPLATE_SUCCESS]: (state, res) => ({
+    templates: res.res,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
