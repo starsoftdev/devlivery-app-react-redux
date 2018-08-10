@@ -694,8 +694,9 @@ export const submitGiftType = () => (dispatch, getState) => {
   dispatch(nextFlowStep())
 }
 
-export const submitDonation = ({donationAmount}) => (dispatch, getState) => {
-  dispatch({type: SUBMIT_DONATION, donationAmount})
+export const submitDonation = (donation) => (dispatch, getState) => {
+  console.log(donation)
+  dispatch({type: SUBMIT_DONATION, donation})
   dispatch(submitGift())
 }
 
@@ -724,7 +725,7 @@ export const submitVoucher = ({voucher, ...values}) => async (dispatch, getState
 
 export const confirmDonation = () => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  const {donationOrg, bundle, donationAmount} = getState().purchase
+  const {donationOrg, bundle, donationAmount, hide_amount} = getState().purchase
   dispatch({type: CONFIRM_DONATION_REQUEST})
   return fetch(`/donations`, {
     method: 'POST',
@@ -732,6 +733,7 @@ export const confirmDonation = () => (dispatch, getState, {fetch}) => {
       bundle_id: bundle.id,
       organization_id: donationOrg.id,
       amount: +donationAmount,
+      hide_amount,
     },
     token,
     success: (res) => {
@@ -811,6 +813,7 @@ const initialState = {
   donationOrgs: [],
   donationOrg: null,
   donationAmount: undefined,
+  hide_amount: false,
   cardColors: [],
   cardColor: undefined,
   deliveryLocations: [],
@@ -950,8 +953,9 @@ export default createReducer(initialState, {
       donationOrgs: false,
     }
   }),
-  [SUBMIT_DONATION]: (state, {donationAmount}) => ({
-    donationAmount,
+  [SUBMIT_DONATION]: (state, action) => ({
+    donationAmount: action.donationAmount,
+    hide_amount: action.hide_amount,
   }),
   [MAKE_STRIPE_PAYMENT_REQUEST]: (state, action) => ({
     loading: {

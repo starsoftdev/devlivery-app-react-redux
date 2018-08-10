@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {submitDonation, setDonationOrg} from '../../reducers/purchase'
-import {Button, Col, Form, Input, Row} from 'antd'
+import {Button, Col, Form, Input, Row, Checkbox, Tooltip} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Donation.css'
 import {Actions, Card, SectionHeader} from '../../components'
@@ -21,7 +21,7 @@ class Donation extends React.Component {
   }
 
   render() {
-    const {donationOrg, setDonationOrg, donationOrgs, intl, flowIndex, loading, donationAmount} = this.props
+    const {donationOrg, setDonationOrg, donationOrgs, intl, flowIndex, loading, donationAmount, hide_amount} = this.props
     const {getFieldDecorator} = this.props.form
     // TODO make amount input as InputNumber field
     return (
@@ -33,18 +33,20 @@ class Donation extends React.Component {
             prefixClassName={s.headerPrefix}
           />
           <p>{intl.formatMessage(messages.description)}</p>
-          {!!donationOrgs.length ? (
+          {donationOrgs.length ? (
             <Row className={s.items} gutter={20} type='flex' align='center'>
               {donationOrgs.map((item, i) =>
                 <Col key={item.id} className={s.itemWrapper}>
-                  <Card
-                    className={s.item}
-                    title={item.name}
-                    image={item.logo && item.logo[0] && item.logo[0].url}
-                    onClick={() => setDonationOrg(item)}
-                    active={donationOrg && donationOrg.id === item.id}
-                    keyValue={ALPHABET[i]}
-                  />
+                  <Tooltip placement="bottom" title={item.description}>
+                    <Card
+                      className={s.item}
+                      title={item.name}
+                      image={item.logo && item.logo[0] && item.logo[0].url}
+                      onClick={() => setDonationOrg(item)}
+                      active={donationOrg && donationOrg.id === item.id}
+                      keyValue={ALPHABET[i]}
+                    />
+                  </Tooltip>
                 </Col>
               )}
             </Row>
@@ -60,6 +62,16 @@ class Donation extends React.Component {
                 ],
               })(
                 <Input placeholder={intl.formatMessage(messages.amount)} className={s.amount}/>
+              )}
+            </Form.Item>
+            <Form.Item>
+              {getFieldDecorator('hide_amount', {
+                initialValue: hide_amount,
+                rules: [
+                  {required: false,}
+                ],
+                })(
+                  <Checkbox>Hide amount</Checkbox>
               )}
             </Form.Item>
           </Form>
@@ -87,6 +99,7 @@ const mapState = state => ({
   donationOrgs: state.purchase.donationOrgs,
   donationOrg: state.purchase.donationOrg,
   donationAmount: state.purchase.donationAmount,
+  hide_amount: state.purchase.hide_amount,
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
 })
