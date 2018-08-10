@@ -94,7 +94,6 @@ class Purchase13 extends React.Component {
     const {number, name, expiry, cvc, focused} = this.state
     const {flowIndex, intl} = this.props
     const {getFieldDecorator} = this.props.form
-    console.log(this.props.loading)
     return (
       <React.Fragment>
         <Spin
