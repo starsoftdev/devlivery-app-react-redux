@@ -25,7 +25,6 @@ import messages from './messages'
 class Header extends React.Component {
   render() {
     const {className, currentRouteName, user, intl} = this.props
-    console.log(currentRouteName)
     return (
       <header
         className={cn(

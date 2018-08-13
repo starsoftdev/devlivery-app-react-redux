@@ -53,8 +53,6 @@ class Purchase13 extends React.Component {
           expiry_year: `20${values.expiry.slice(-2)}`,
         }
 
-        console.log(card)
-
         switch (this.props.paymentMethod) {
           case CREDIT_CARD:
             this.props.makeStripePayment(card)
@@ -110,11 +108,16 @@ class Purchase13 extends React.Component {
     const {getFieldDecorator} = this.props.form
     return (
       <React.Fragment>
-        <Spin
-          wrapperClassName='action-spin'
-          indicator={<Icon style={{fontSize: '16px'}} spin type='loading'/>}
-          spinning={this.props.loading}
-        />
+        {this.props.paymentMethod !== CREDIT_CARD &&
+          <div className={s.loadingScreen}>
+            <Spin
+              wrapperClassName='action-spin'
+              indicator={<Icon style={{fontSize: '16px'}} spin type='loading'/>}
+              spinning={this.props.loading}
+            />
+          </div>
+        }
+
         <div className={s.content}>
           <SectionHeader
             header={intl.formatMessage(messages.header)}

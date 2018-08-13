@@ -48,3 +48,14 @@
     width: 314px;
   }
 }
+
+.loadingScreen {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 100;
+  background: white;
+}
