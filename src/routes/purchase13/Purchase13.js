@@ -53,6 +53,8 @@ class Purchase13 extends React.Component {
           expiry_year: `20${values.expiry.slice(-2)}`,
         }
 
+        console.log(card)
+
         switch (this.props.paymentMethod) {
           case CREDIT_CARD:
             this.props.makeStripePayment(card)
@@ -90,6 +92,18 @@ class Purchase13 extends React.Component {
     })
   }
 
+  validation = (field, length) => {
+    if (field.length === length) {
+      return {
+        status: 'success'
+      }
+    }
+    return {
+      status: 'error',
+      help: 'required'
+    }
+  }
+
   render() {
     const {number, name, expiry, cvc, focused} = this.state
     const {flowIndex, intl} = this.props
@@ -119,13 +133,16 @@ class Purchase13 extends React.Component {
             </Col>
             <Col xs={24} sm={12}>
               <Form>
-                <Form.Item>
+                <Form.Item
+                  {...this.validation(this.state.number, 16)}
+                >
                   {getFieldDecorator('number', {
                   })(
                     <Input
                       placeholder={intl.formatMessage(messages.number)}
                       onChange={(e) => this.handleInputChange(e, 'number')}
                       onFocus={(e) => this.handleInputFocus(e, 'number')}
+                      maxLength='16'
                     />
                   )}
                 </Form.Item>
@@ -141,25 +158,31 @@ class Purchase13 extends React.Component {
                 </Form.Item>
                 <Row gutter={20}>
                   <Col xs={16}>
-                    <Form.Item>
+                    <Form.Item
+                      {...this.validation(this.state.expiry, 4)}
+                    >
                       {getFieldDecorator('expiry', {
                       })(
                         <Input
                           placeholder={intl.formatMessage(messages.expiry)}
                           onChange={(e) => this.handleInputChange(e, 'expiry')}
                           onFocus={(e) => this.handleInputFocus(e, 'expiry')}
+                          maxLength='4'
                         />
                       )}
                     </Form.Item>
                   </Col>
                   <Col xs={8}>
-                    <Form.Item>
+                    <Form.Item
+                      {...this.validation(this.state.cvc, 3)}
+                    >
                       {getFieldDecorator('cvc', {
                       })(
                         <Input
                           placeholder={intl.formatMessage(messages.cvc)}
                           onChange={(e) => this.handleInputChange(e, 'cvc')}
                           onFocus={(e) => this.handleInputFocus(e, 'cvc')}
+                          maxLength='3'
                         />
                       )}
                     </Form.Item>
