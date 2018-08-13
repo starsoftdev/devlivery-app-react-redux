@@ -521,6 +521,7 @@ export const makeStripePayment = (card) => (dispatch, getState, {fetch}) => {
     },
     failure: (error) => {
       dispatch({ type: MAKE_STRIPE_PAYMENT_FAILURE })
+      message.error(error.error.message)
     }
   })
 }
