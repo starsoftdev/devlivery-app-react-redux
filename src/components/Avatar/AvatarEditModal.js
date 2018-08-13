@@ -3,7 +3,7 @@ import AvatarEditor from 'react-avatar-editor'
 import {injectIntl} from 'react-intl'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './AvatarEditModal.css'
-import {Button, Input} from 'antd'
+import {Button, Input, Upload} from 'antd'
 
 class AvatarEditModal extends React.Component {
   constructor(props){
@@ -11,6 +11,7 @@ class AvatarEditModal extends React.Component {
     this.state = {
       newUrl: '',
       zoom: 1,
+      fileName: '',
     }
   }
 
@@ -23,19 +24,24 @@ class AvatarEditModal extends React.Component {
   onClickSave = () => {
     if(this.props.url !== this.state.newUrl) {
       const canvas = this.editorRef.getImage().toBlob((blob) => {
-        this.props.uploadAvatar(blob)
+        this.props.uploadAvatar(this.blobToFile(blob, this.state.fileName))
       })
     }
     this.props.toggleEditAavatarModal()
   }
 
-  setUrl = (e) => {
+  setFile = (file) => {
     const fr = new FileReader()
-    fr.onload = (event) => {
-      this.setState({newUrl: event.target.result})
+    fr.onload = (e) => {
+      this.setState({newUrl: e.target.result, fileName: file.name})
     }
-    fr.readAsDataURL(e.target.files[0])
+    fr.readAsDataURL(file)
+  }
 
+  blobToFile = (theBlob, fileName) => {
+    theBlob.lastModifiedDate = new Date();
+    theBlob.name = fileName;
+    return theBlob;
   }
 
   setZoom = (e) => {
@@ -64,12 +70,22 @@ class AvatarEditModal extends React.Component {
             <Input name='zoom' type='range' min='0.1' max='2' step='0.1' onChange={this.setZoom}/>
           </div>
           <div className={s.modalContainer}>
-            <Button type='primary' ghost>
-              <label className={s.loadImageBtn}>
-                <span>Load image</span>
-                <input className={s.fileInput} type='file' onChange={this.setUrl}/>
-              </label>
-            </Button>
+            <Upload
+              className={s.importBtnWrapper}
+              accept='image/*'
+              beforeUpload={(file) => {
+                this.setFile(file)
+                return false
+              }}
+              fileList={[]}
+            >
+              <Button type='primary' ghost>
+                <label className={s.loadImageBtn}>
+                  Load image
+                </label>
+              </Button>
+            </Upload>
+
             <Button type='primary' onClick={this.onClickSave}>Save</Button>
           </div>
         </div>
