@@ -25,6 +25,7 @@ import messages from './messages'
 class Header extends React.Component {
   render() {
     const {className, currentRouteName, user, intl} = this.props
+    console.log(currentRouteName)
     return (
       <header
         className={cn(
@@ -73,20 +74,40 @@ class Header extends React.Component {
           ...DASHBOARD_ROUTES,
         ].includes(currentRouteName) && (
           <ul className={s.bottomMenu}>
-            <li>
+            <li onClick={this.getLocation}>
               <Link to={NEW_ARRIVALS_ROUTE}>{intl.formatMessage(messages.newArrivals)}</Link>
+              {NEW_ARRIVALS_ROUTE === currentRouteName &&
+              <div className={s.dashWrapper}>
+                <hr className={s.underline}/>
+              </div>}
             </li>
             <li>
               <Link to={CARD_STORE_ROUTE}>{intl.formatMessage(messages.cardStore)}</Link>
+              {CARD_STORE_ROUTE === currentRouteName &&
+              <div className={s.dashWrapper}>
+                <hr className={s.underline}/>
+              </div>}
             </li>
             <li>
               <Link to={GIFT_STORE_ROUTE}>{intl.formatMessage(messages.giftStore)}</Link>
+              {GIFT_STORE_ROUTE === currentRouteName &&
+              <div className={s.dashWrapper}>
+                <hr className={s.underline}/>
+              </div>}
             </li>
             <li>
               <Link to={ABOUT_ROUTE}>{intl.formatMessage(messages.about)}</Link>
+              {ABOUT_ROUTE === currentRouteName &&
+              <div className={s.dashWrapper}>
+                <hr className={s.underline}/>
+              </div>}
             </li>
             <li>
               <Link to={CONTACT_US_ROUTE}>{intl.formatMessage(messages.contact)}</Link>
+              {CONTACT_US_ROUTE === currentRouteName &&
+              <div className={s.dashWrapper}>
+                <hr className={s.underline}/>
+              </div>}
             </li>
           </ul>
         )}
