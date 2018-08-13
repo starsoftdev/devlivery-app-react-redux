@@ -190,6 +190,7 @@ export const editContact = (values, form) => (dispatch, getState, {fetch, histor
     token,
     success: () => {
       dispatch({type: EDIT_CONTACT_SUCCESS})
+      message.success('Contact was successfully updated')
       history.push(generateUrl(CONTACTS_ROUTE))
     },
     failure: (res) => {
