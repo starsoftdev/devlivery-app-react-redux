@@ -79,7 +79,7 @@ class Purchase11 extends React.Component {
             <Row type='flex' align='center' gutter={20}>
               <Col xs={24} sm={12}>
                 <section>
-                  <h3 className={s.cardTitle}>{occasion.title}</h3>
+                  <h3 className={s.cardTitle}>{occasion && occasion.title}</h3>
                   <div dangerouslySetInnerHTML={{__html: bundle.body}}/>
                 </section>
               </Col>
