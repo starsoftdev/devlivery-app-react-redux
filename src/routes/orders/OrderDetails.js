@@ -42,6 +42,16 @@ class OrderDetails extends React.Component {
                   <div className={s.title}>{item.title}</div>
                 </div>
               )
+            case VOUCHER_TYPE:
+              return (
+                <div className={s.product}>
+                  <div className={s.voucher_details}>
+                    <span>From: {item.from}</span><br/>
+                    <span>To: {item.to}</span>
+                  </div>
+                  <div className={s.title}>{item.title}</div>
+                </div>
+              )
             default:
               return null
           }
@@ -59,6 +69,8 @@ class OrderDetails extends React.Component {
             quantity = 1
           } else if (item.productType === GIFT_TYPE) {
             quantity = item.quantity
+          } else if (item.productType === VOUCHER_TYPE) {
+            quantity = 1
           }
 
           return (
@@ -112,6 +124,10 @@ class OrderDetails extends React.Component {
                       quantity: item.quantity,
                       productType: GIFT_TYPE
                     })),
+                    {
+                      ...orderDetails.voucher,
+                      productType: VOUCHER_TYPE,
+                    },
                   ]}
                   rowKey={record => record.id}
                   pagination={false}
