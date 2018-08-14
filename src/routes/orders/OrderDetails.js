@@ -1,7 +1,7 @@
 import React from 'react'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './OrderDetails.css'
-import {Col, Modal, Row, Table} from 'antd'
+import {Col, Modal, Row, Table, Button} from 'antd'
 import {connect} from 'react-redux'
 import {closeOrderDetailsModal} from '../../reducers/orders'
 import messages from './messages'
@@ -13,7 +13,28 @@ const VOUCHER_TYPE = 'voucher'
 const DONATION_TYPE = 'donation'
 
 class OrderDetails extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      currentShipping: 0,
+    }
+  }
+
+  prevShipping = () => {
+    if(this.state.currentShipping !== 0) {
+      this.setState({currentShipping: this.state.currentShipping - 1})
+    }
+  }
+
+  nextShipping = () => {
+    if(this.state.currentShipping !== this.props.orderDetails.recipients.length - 1) {
+      this.setState({currentShipping: this.state.currentShipping + 1})
+    }
+  }
+
   render() {
+
+    const currentShipping = this.state.currentShipping
     const {closeOrderDetailsModal, orderDetails, intl} = this.props
 
     const columns = [
@@ -46,8 +67,6 @@ class OrderDetails extends React.Component {
               return (
                 <div className={s.product}>
                   <div className={s.voucher_details}>
-                    <span>From: {item.from}</span><br/>
-                    <span>To: {item.to}</span>
                   </div>
                   <div className={s.title}>{item.title}</div>
                 </div>
@@ -170,16 +189,35 @@ class OrderDetails extends React.Component {
                   </footer>
                 </section>
                 <section>
-                  <h3>Shipping details</h3>
-                  {orderDetails.recipients && orderDetails.recipients.map((recipient) => (
-                    <div className={s.shippingDetails}>
-                      <span>{recipient.contact.title}</span><br/>
-                      <span>{recipient.contact.first_name + ' ' + recipient.contact.last_name}</span><br/>
-                      <span>{recipient.receiving_address.address}</span><br/>
-                      <span>{recipient.receiving_address.postal_code + ' ' + recipient.receiving_address.city}</span><br/>
-                      <span>{recipient.receiving_address.country}</span><br/>
-                    </div>
-                  ))}
+                  {orderDetails.recipients && (
+                    <React.Fragment>
+                      <div className={s.shippingDetails}>
+                        <h3>Shipping details {currentShipping + 1} / {orderDetails.recipients.length}</h3>
+                        <span>{orderDetails.recipients[currentShipping].contact.title}</span><br/>
+                        <span>{orderDetails.recipients[currentShipping].contact.first_name + ' ' + orderDetails.recipients[currentShipping].contact.last_name}</span><br/>
+                        <span>{orderDetails.recipients[currentShipping].receiving_address.address}</span><br/>
+                        <span>{orderDetails.recipients[currentShipping].receiving_address.postal_code + ' ' + orderDetails.recipients[currentShipping].receiving_address.city}</span><br/>
+                        <span>{orderDetails.recipients[currentShipping].receiving_address.country}</span><br/>
+                      </div>
+                      <div className={s.shippingButtons}>
+                        <Button
+                          type='primary'
+                          onClick={this.prevShipping}
+                          size='small'
+                          ghost
+                        >
+                          Prev
+                        </Button>
+                        <Button
+                          type='primary'
+                          onClick={this.nextShipping}
+                          size='small'
+                        >
+                          next
+                        </Button>
+                      </div>
+                    </React.Fragment>
+                  )}
                 </section>
               </Col>
             </Row>
