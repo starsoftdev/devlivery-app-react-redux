@@ -189,7 +189,7 @@ class OrderDetails extends React.Component {
                   </footer>
                 </section>
                 <section>
-                  {orderDetails.recipients && (
+                  {orderDetails.recipients.length > 0 && (
                     <React.Fragment>
                       <div className={s.shippingDetails}>
                         <h3>Shipping details {currentShipping + 1} / {orderDetails.recipients.length}</h3>
