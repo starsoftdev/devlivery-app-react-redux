@@ -38,7 +38,7 @@ class Purchase11 extends React.Component {
               <div>
                 <img src={order.items.card.images[0].url} className={s.cardImage}/>
               </div>
-              {order.items.gifts[0] && (
+              {(order.items.gifts[0] || order.voucher) && (
                 <PlusGiftIcon className={s.plusIcon}/>
               )}
               <p className={s.cardInfo}>
@@ -58,6 +58,19 @@ class Purchase11 extends React.Component {
                   <br/>
                   <span className={s.cardPrice}>{order.items.gifts[0].gift.price}</span>
                   <span className={s.cardPriceCurrency}>{order.items.gifts[0].gift.currency}</span>
+                </p>
+              </div>
+            )}
+            {order.voucher && (
+              <div className={s.giftWrapper}>
+                <div>
+                  <span className={s.cardType}>From: {order.voucher.from}</span><br/>
+                  <span className={s.cardType}>To: {order.voucher.to}</span>
+                </div>
+                <p className={s.cardInfo}>
+                  <span className={s.cardType}>{order.voucher.title}</span>
+                  <br/>
+                  <span className={s.cardPrice}>{order.voucher.price}</span>
                 </p>
               </div>
             )}
