@@ -111,9 +111,7 @@ class Reminders extends React.Component {
                   onChange={(value, item) => {
                     if (item && +item.key !== 0) {
                       const selectedOccasion = occasions.find(occasion => occasion.id === +value)
-                      if (selectedOccasion.date) {
-                        form.setFieldsValue({[`reminders[${k}].date`]: moment(selectedOccasion.date, DATE_FORMAT)})
-                      }
+                      form.setFieldsValue({[`reminders[${k}].date`]: selectedOccasion.date ? moment(selectedOccasion.date, DATE_FORMAT) : undefined})
                     }
                     if (item && +item.key === 0) {
                       this.addOccasion(occasionTitle)
