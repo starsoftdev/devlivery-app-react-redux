@@ -3,7 +3,7 @@ import AvatarEditor from 'react-avatar-editor'
 import {injectIntl} from 'react-intl'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './AvatarEditModal.css'
-import {Button, Input, Upload} from 'antd'
+import {Button, Input, Upload, message} from 'antd'
 
 class AvatarEditModal extends React.Component {
   constructor(props) {
@@ -25,6 +25,11 @@ class AvatarEditModal extends React.Component {
   }
 
   setFile = (file) => {
+    const lessThanMaxSize = file.size / 1024 / 1024 < 2
+    if (!lessThanMaxSize) {
+      // TODO move to translations
+      message.error('The image may not be greater than 2048 kilobytes.')
+    }
     const fr = new FileReader()
     fr.onload = (e) => {
       this.setState({newUrl: e.target.result, fileName: file.name})
