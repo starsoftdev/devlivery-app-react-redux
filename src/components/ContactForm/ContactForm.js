@@ -124,19 +124,16 @@ class ContactForm extends React.Component {
       </section>
     )
 
-    const homeAddress = intl.formatMessage(messages.homeAddress)
-    const companyAddress = intl.formatMessage(messages.companyAddress)
-
     const homeAddressSection = (
       <Address
         title='home'
         required={requiredAddress === 0}
         onAddressChange={(value) => this.changeRequiredAddress(0, value)}
-        header={homeAddress}
+        header={intl.formatMessage(messages.homeAddress)}
         getFieldDecorator={getFieldDecorator}
         index={0}
         intl={intl}
-        initialValues={initialValues ? initialValues.addresses.find(item => item.title === homeAddress || item.title === null) : null}
+        initialValues={initialValues ? initialValues.addresses.find(item => item.title === 'home' || item.title === null) : null}
       />
     )
 
@@ -145,11 +142,11 @@ class ContactForm extends React.Component {
         title='office'
         required={requiredAddress === 1}
         onAddressChange={(value) => this.changeRequiredAddress(1, value)}
-        header={companyAddress}
+        header={intl.formatMessage(messages.companyAddress)}
         getFieldDecorator={getFieldDecorator}
         index={1}
         intl={intl}
-        initialValues={initialValues ? initialValues.addresses.find(item => item.title === companyAddress) : null}
+        initialValues={initialValues ? initialValues.addresses.find(item => item.title === 'office') : null}
       />
     )
 
