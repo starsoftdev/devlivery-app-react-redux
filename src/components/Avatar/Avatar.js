@@ -9,50 +9,37 @@ import {connect} from 'react-redux'
 import {uploadAvatar} from '../../reducers/user'
 
 class Avatar extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      showEditAvatarModal: false,
-      avatar: '',
-    }
+  state = {
+    editAvatarModalOpened: false,
   }
 
-  componentDidMount() {
-    if(this.props.user.avatar) {
-      this.setState({avatar: this.props.user.avatar.url})
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if(this.props.user.avatar !== nextProps.user.avatar) {
-      this.setState({avatar: nextProps.user.avatar.url})
-    }
-  }
-
-  toggleEditAavatarModal = () => {
-    this.setState({showEditAvatarModal: !this.state.showEditAvatarModal})
+  toggleEditAvatarModal = () => {
+    this.setState({editAvatarModalOpened: !this.state.editAvatarModalOpened})
   }
 
   render() {
+    const {editAvatarModalOpened} = this.state
+    const {user} = this.props
+
     return (
       <React.Fragment>
         <Modal
-          title="Edit avatar"
-          visible={this.state.showEditAvatarModal}
+          title='Edit avatar'
+          visible={editAvatarModalOpened}
           onOk={this.handleOk}
-          onCancel={this.toggleEditAavatarModal}
+          onCancel={this.toggleEditAvatarModal}
           footer={null}
         >
           <AvatarEditModal
             uploadAvatar={this.props.uploadAvatar}
-            url={this.state.avatar}
-            toggleEditAavatarModal={this.toggleEditAavatarModal}
+            url={user && user.avatar && user.avatar.url}
+            toggleEditAvatarModal={this.toggleEditAvatarModal}
           />
         </Modal>
-        <div className={s.avatarContainer} onClick={this.toggleEditAavatarModal}>
+        <div className={s.avatarContainer} onClick={this.toggleEditAvatarModal}>
           <div className={s.avatarWrapper}>
-            <EditIcon className={s.editBtn} />
-            {this.state.avatar ? <img src={this.state.avatar} width='110'/> : <NoAvatarIcon />}
+            <EditIcon className={s.editBtn}/>
+            {user && user.avatar ? <img src={user.avatar.url} width='110'/> : <NoAvatarIcon/>}
           </div>
         </div>
       </React.Fragment>
