@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {submitCardDetails, getRecipients, getMessageTemplate} from '../../reducers/purchase'
+import {submitCardDetails, getMessageTemplate} from '../../reducers/purchase'
 import {Button, Col, Form, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase6.css'
@@ -95,7 +95,16 @@ class Purchase6 extends React.Component {
   }
 
   onTemplateChange = (value) => {
-    this.editor.editor.textContent += value
+    const newState = {
+      mounted: true
+    }
+    const html = this.editor.editor.textContent + ' ' + value + ' '
+    const contentBlock = htmlToDraft(html)
+    if (contentBlock) {
+      const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks)
+      newState.editorState = EditorState.createWithContent(contentState)
+    }
+    this.setState(newState)
   }
 
   render() {
