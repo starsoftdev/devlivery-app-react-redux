@@ -133,8 +133,10 @@ export const uploadAvatar = (imageBlob) => (dispatch, getState, {fetch}) => {
       dispatch(getUserDetails())
     },
     failure: (error) => {
-      dispatch({type: UPLOAD_AVATAR_FAILURE, error})
-      message.error('Something went wrong. Please try again.')
+      dispatch({type: UPLOAD_AVATAR_FAILURE})
+      if (error && error.image) {
+        message.error(error.image)
+      }
     }
   })
 }
@@ -197,22 +199,19 @@ export default createReducer(initialState, {
       updatingPassword: false,
     }
   }),
-  [UPLOAD_AVATAR_REQUEST]: (state, {error}) => ({
-    error,
+  [UPLOAD_AVATAR_REQUEST]: (state, action) => ({
     loading: {
       ...state.loading,
       uploadingAvatar: true,
     }
   }),
-  [UPLOAD_AVATAR_SUCCESS]: (state, {error}) => ({
-    error,
+  [UPLOAD_AVATAR_SUCCESS]: (state, action) => ({
     loading: {
       ...state.loading,
       uploadingAvatar: false,
     }
   }),
-  [UPLOAD_AVATAR_FAILURE]: (state, {error}) => ({
-    error,
+  [UPLOAD_AVATAR_FAILURE]: (state, action) => ({
     loading: {
       ...state.loading,
       uploadingAvatar: false,
