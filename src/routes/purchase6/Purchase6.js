@@ -7,7 +7,7 @@ import s from './Purchase6.css'
 import {PurchaseActions, SectionHeader} from '../../components'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
-import {ContentState, EditorState} from 'draft-js'
+import {ContentState, EditorState, Modifier} from 'draft-js'
 import {Editor} from 'react-draft-wysiwyg'
 import htmlToDraft from 'html-to-draftjs'
 import draftWysiwygStyles from '../../styles/react-draft-wysiwyg.css'
@@ -95,16 +95,26 @@ class Purchase6 extends React.Component {
   }
 
   onTemplateChange = (value) => {
-    const newState = {
-      mounted: true
+    const { editorState } = this.state
+    const selection = editorState.getSelection()
+    const contentState = editorState.getCurrentContent()
+    let nextEditorState = EditorState.createEmpty()
+    if (selection.isCollapsed()) {
+      const nextContentState = Modifier.insertText(contentState, selection, value);
+      nextEditorState = EditorState.push(
+        editorState,
+        nextContentState,
+        'insert-characters'
+      );
+    } else {
+      const nextContentState = Modifier.replaceText(contentState, selection, value);
+      nextEditorState = EditorState.push(
+        editorState,
+        nextContentState,
+        'insert-characters'
+      );
     }
-    const html = this.editor.editor.textContent + ' ' + value + ' '
-    const contentBlock = htmlToDraft(html)
-    if (contentBlock) {
-      const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks)
-      newState.editorState = EditorState.createWithContent(contentState)
-    }
-    this.setState(newState)
+    this.setState({editorState: nextEditorState})
   }
 
   render() {
