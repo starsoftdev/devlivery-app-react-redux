@@ -18,7 +18,12 @@ class AvatarEditModal extends React.Component {
   onClickSave = () => {
     if (this.props.url !== this.state.newUrl) {
       this.editorRef.getImage().toBlob((blob) => {
-        this.props.uploadAvatar(new File([blob], this.state.fileName))
+        const lessThanMaxSize = blob.size / 1024 / 1024 < 2
+        if(lessThanMaxSize) {
+          this.props.uploadAvatar(new File([blob], this.state.fileName))
+        } else {
+          message.error('picture is too big. Need to reduce zoom')
+        }
       })
     }
     this.props.toggleEditAvatarModal()
