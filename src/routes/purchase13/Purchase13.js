@@ -9,7 +9,7 @@ import {
   makeBitpayPayment,
   makePaypalPayment,
 } from '../../reducers/purchase'
-import {Button, Col, Form, Input, Row, Spin, Icon} from 'antd'
+import {Button, Col, Form, Input, Row, Spin, Icon, message} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase13.css'
 import {PurchaseActions, SectionHeader} from '../../components'
@@ -45,23 +45,28 @@ class Purchase13 extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
-      if (!err) {
-        // TODO validate card fields
-        const card = {
-          ...values,
-          expiry_month: values.expiry.slice(0, 2),
-          expiry_year: `20${values.expiry.slice(-2)}`,
-        }
+      console.log(values)
+      if (values.number && values.name && values.expiry && values.cvc) {
+        if (!err) {
+          // TODO validate card fields
+          const card = {
+            ...values,
+            expiry_month: values.expiry.slice(0, 2),
+            expiry_year: `20${values.expiry.slice(-2)}`,
+          }
 
-        switch (this.props.paymentMethod) {
-          case CREDIT_CARD:
-            this.props.makeStripePayment(card)
-            break
+          switch (this.props.paymentMethod) {
+            case CREDIT_CARD:
+              this.props.makeStripePayment(card)
+              break
 
-          default:
-            this.props.nextFlowStep()
-            break
+            default:
+              this.props.nextFlowStep()
+              break
+          }
         }
+      } else {
+        message.error('All fields must be filled in')
       }
     })
   }
