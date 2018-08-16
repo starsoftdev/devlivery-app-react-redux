@@ -547,8 +547,9 @@ export const makePaypalPayment = () => (dispatch, getState, {fetch}) => {
       window.location = approval_url
       dispatch({type: MAKE_PAYPAL_PAYMENT_SUCCESS})
     },
-    failure: () => {
+    failure: (error) => {
       dispatch({type: MAKE_PAYPAL_PAYMENT_FAILURE})
+      message.error(error.error.message)
     },
   })
 }
