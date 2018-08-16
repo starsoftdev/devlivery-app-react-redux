@@ -1,9 +1,8 @@
 import {applyMiddleware, compose, createStore} from 'redux'
 import thunk from 'redux-thunk'
-import rootReducer from '../reducers'
 import createHelpers from './createHelpers'
 
-export default function configureStore(initialState, helpersConfig) {
+export default function configureStore(rootReducer, initialState, helpersConfig) {
   const helpers = createHelpers(helpersConfig)
   const middleware = [
     thunk.withExtraArgument(helpers),

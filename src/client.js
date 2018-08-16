@@ -17,8 +17,11 @@ import {updateMeta} from './DOMUtils'
 import router from './router'
 import {setCurrentPathname} from './reducers/global'
 import {getIntl} from './reducers/intl'
-import Cookies from 'universal-cookie'
-
+import UniversalCookie from 'universal-cookie'
+import {persistCombineReducers, persistStore} from 'redux-persist'
+import {CookieStorage} from 'redux-persist-cookie-storage'
+import reducers from './reducers'
+import Cookies from 'js-cookie'
 /* @intl-code-template addLocaleData(${lang}); */
 addLocaleData(en)
 addLocaleData(de)
@@ -28,14 +31,34 @@ addLocaleData(de)
 
 // Global (context) variables that can be easily accessed from any React component
 // https://facebook.github.io/react/docs/context.html
-const cookies = new Cookies()
+const cookies = new UniversalCookie()
 
 const whatwgFetch = createFetch(fetch, {
   apiUrl: window.App.apiUrl,
   cookies,
 })
 
-const store = configureStore(window.App.state, {history, fetch: whatwgFetch, cookies})
+const persistConfig = {
+  key: 'root',
+  // TODO find a way to use universal-cookie for redux persist
+  storage: new CookieStorage(Cookies, {
+    setCookieOptions: {httpOnly: false}
+  }),
+  whitelist: [
+    // reducers which need to be stored in cookies to keep data on refreshing page
+    'purchase',
+  ],
+  stateReconciler(inboundState, originalState) {
+    // Ignore state from cookies, only use preloadedState from window object
+    return originalState
+  }
+}
+
+const rootReducer = persistCombineReducers(persistConfig, reducers)
+
+const store = configureStore(rootReducer, window.App.state, {history, fetch: whatwgFetch, cookies})
+
+const persistor = persistStore(store, window.App.state)
 
 const {intl, antLocale} = store.dispatch(getIntl())
 
