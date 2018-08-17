@@ -65,7 +65,7 @@ class Bundles extends React.Component {
                 <a className={s.bundleContent} onClick={() => openBundleDetailsModal(bundle)}>
                   <div className={s.cardWrapper}>
                     <div>
-                      <img src={bundle.bundle_card.card.images[0].url} className={s.cardImage}/>
+                      <img src={bundle.bundle_card.card.images[0] && bundle.bundle_card.card.images[0].url} className={s.cardImage}/>
                     </div>
                     {bundle.bundle_gifts[0] && (
                       <PlusGiftIcon className={s.plusIcon}/>
@@ -74,7 +74,7 @@ class Bundles extends React.Component {
                   {bundle.bundle_gifts[0] && (
                     <div className={s.giftWrapper}>
                       <div>
-                        <img src={bundle.bundle_gifts[0].gift.image[0].url} className={s.giftImage}/>
+                        <img src={bundle.bundle_gifts[0].gift.image[0] && bundle.bundle_gifts[0].gift.image[0].url} className={s.giftImage}/>
                       </div>
                     </div>
                   )}

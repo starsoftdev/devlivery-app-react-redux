@@ -254,11 +254,13 @@ export const getRecipients = () => (dispatch, getState, {fetch}) => {
 
 export const addRecipientsOrder = () => (dispatch, getState, {fetch}) => {
   dispatch({type: ADD_RECIPIENTS_REQUEST})
+  const {token} = dispatch(getToken())
   const {id} = getState().contacts.newContact
   const order = getState().purchase.order ? getState().purchase.order.id : null
   return fetch(`/order-recipients`, {
     method: 'POST',
     contentType: 'multipart/form-data',
+    token,
     body: {
       order_id: order,
       contact_id: id,
