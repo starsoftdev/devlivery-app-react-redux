@@ -20,10 +20,10 @@ import config from './config'
 import {setLocale} from './reducers/intl'
 import compression from 'compression'
 import {LOCALE_COOKIE} from './constants'
-import {persistCombineReducers, persistStore} from 'redux-persist'
-import {CookieStorage, NodeCookiesWrapper} from 'redux-persist-cookie-storage'
+
 import reducers from './reducers'
 import Cookies from 'cookies'
+import { combineReducers } from 'redux';
 
 const configurePersistor = async (store) => {
   return new Promise((resolve) => {
@@ -67,30 +67,15 @@ app.get('*', async (req, res, next) => {
 
     const initialState = {}
 
-    const cookieJar = new NodeCookiesWrapper(cookies)
-
-    const persistConfig = {
-      key: 'root',
-      storage: new CookieStorage(cookieJar, {
-        setCookieOptions: {httpOnly: false}
-      }),
-      whitelist: [],
-    }
-
-    const rootReducer = persistCombineReducers(persistConfig, reducers)
-
-    const store = configureStore(rootReducer, initialState, {
+  
+    const store = configureStore(combineReducers(reducers), initialState, {
       fetch,
       cookies,
       // I should not use `history` on server.. but how I do redirection? follow universal-router
     })
 
     // Wait until persistor has completed deserialization
-    const persistor = await configurePersistor(store)
-
-    // Force cookies to be set
-    await persistor.flush()
-
+   
     store.dispatch(setCurrentPathname(req.path))
     store.dispatch(setConfigVars({
       apiUrl: config.api.url,
