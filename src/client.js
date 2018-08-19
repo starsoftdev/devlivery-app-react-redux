@@ -18,10 +18,12 @@ import router from './router'
 import {setCurrentPathname} from './reducers/global'
 import {getIntl} from './reducers/intl'
 import UniversalCookie from 'universal-cookie'
-import {persistCombineReducers, persistStore} from 'redux-persist'
-import {CookieStorage} from 'redux-persist-cookie-storage'
+
 import reducers from './reducers'
 import Cookies from 'js-cookie'
+import { combineReducers } from 'redux';
+import { loadState, saveState } from './localStorage';
+
 /* @intl-code-template addLocaleData(${lang}); */
 addLocaleData(en)
 addLocaleData(de)
@@ -38,28 +40,21 @@ const whatwgFetch = createFetch(fetch, {
   cookies,
 })
 
-const persistConfig = {
-  key: 'root',
-  // TODO find a way to use universal-cookie for redux persist
-  storage: new CookieStorage(Cookies, {
-    setCookieOptions: {httpOnly: false}
-  }),
-  whitelist: [
-    // reducers which need to be stored in cookies to keep data on refreshing page
-    'purchase',
-  ],
-  stateReconciler(inboundState, originalState) {
-    // Ignore state from cookies, only use preloadedState from window object
-    return originalState
-  }
-}
+const persistedState = loadState();
+const store = configureStore(
+  combineReducers(reducers), 
+  window.App.state,//persistedState, 
+  {history, fetch: whatwgFetch, cookies},
+)
 
-const rootReducer = persistCombineReducers(persistConfig, reducers)
-
-const store = configureStore(rootReducer, window.App.state, {history, fetch: whatwgFetch, cookies})
-
-const persistor = persistStore(store, window.App.state)
-
+store.subscribe(() => {
+  //saveState(store.getState());
+  
+  saveState({
+    purchase: store.getState().purchase,
+  });
+  
+});
 const {intl, antLocale} = store.dispatch(getIntl())
 
 const insertCss = (...styles) => {
