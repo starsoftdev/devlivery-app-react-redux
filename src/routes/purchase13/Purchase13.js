@@ -45,7 +45,6 @@ class Purchase13 extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
-      console.log(values)
       if (values.number && values.name && values.expiry && values.cvc) {
         if (!err) {
           // TODO validate card fields
