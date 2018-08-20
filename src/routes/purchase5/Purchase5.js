@@ -48,7 +48,7 @@ class Purchase5 extends React.Component {
                 allowClear
                 //placeholder={intl.formatMessage(messages.color)}
                 onChange={(cardColor) => getCards({cardColor})}
-                defaultValue = {cardColor ? cardColor:intl.formatMessage(messages.color)}
+                value = {cardColor ? cardColor:intl.formatMessage(messages.color)}
               >
                 {cardColors.map(item =>
                   <Select.Option key={item.title} value={item.title}>{item.title}</Select.Option>
