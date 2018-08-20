@@ -9,6 +9,8 @@ import PlusGiftIcon from '../../static/plus_round.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import {Form} from 'antd'
 import messages from './messages'
+import {getItemImage} from '../../utils'
+import {CARD_IMAGES_PROP, GIFT_IMAGES_PROP} from '../../constants'
 
 // TODO reuse code from Purchase 11
 // TODO calculate bundle price correctly
@@ -40,9 +42,7 @@ class AddBundle extends React.Component {
           />
           <div className={s.orderInfo}>
             <div className={s.cardWrapper}>
-              <div>
-                <img src={card.images[0].url} className={s.cardImage}/>
-              </div>
+              <div style={{backgroundImage: `url(${getItemImage(card, CARD_IMAGES_PROP)})`}} className={s.itemImage}/>
               <p className={s.cardInfo}>
                 <span className={s.cardType}>{card.title}</span>
                 <br/>
@@ -55,9 +55,7 @@ class AddBundle extends React.Component {
             </div>
             {gift && (
               <div className={s.giftWrapper}>
-                <div>
-                  <img src={gift.image[0].url} className={s.giftImage}/>
-                </div>
+                <div style={{backgroundImage: `url(${getItemImage(gift, GIFT_IMAGES_PROP)})`}} className={s.itemImage}/>
                 <p className={s.cardInfo}>
                   <span className={s.cardType}>{gift.title}</span>
                   <br/>

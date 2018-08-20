@@ -41,7 +41,8 @@ class Donation extends React.Component {
                     <Card
                       className={s.item}
                       title={item.name}
-                      image={item.logo && item.logo[0] && item.logo[0].url}
+                      item={item}
+                      imagesProp={'logo'}
                       onClick={() => setDonationOrg(item)}
                       active={donationOrg && donationOrg.id === item.id}
                       keyValue={ALPHABET[i]}

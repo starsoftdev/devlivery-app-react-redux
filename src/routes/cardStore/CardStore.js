@@ -4,7 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './CardStore.css'
 import messages from './messages'
 import debounce from 'lodash/debounce'
-import {CARD_SIZES, DEFAULT_DEBOUNCE_TIME} from '../../constants'
+import {CARD_IMAGES_PROP, CARD_SIZES, DEFAULT_DEBOUNCE_TIME} from '../../constants'
 import {clearFilters, getCards, getOccasions, clear} from '../../reducers/cards'
 import {Button, Col, Input, Pagination, Row, Select} from 'antd'
 import {Card, PaginationItem} from '../../components'
@@ -131,7 +131,8 @@ class CardStore extends React.Component {
               {cards.map((item) =>
                 <Col key={item.id} xs={24} sm={12} md={8} lg={6} className={s.itemWrapper}>
                   <Card
-                    image={item.images[0] && item.images[0].url}
+                    item={item}
+                    imagesProp={CARD_IMAGES_PROP}
                     title={
                       <React.Fragment>
                         {item.title}

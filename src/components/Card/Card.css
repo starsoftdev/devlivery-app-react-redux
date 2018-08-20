@@ -86,21 +86,24 @@
   font-size: 15px;
 }
 
-.imageWrapper {
+.content {
   position: relative;
+  justify-content: center;
+  width: 100%;
+  display: flex;
+  flex: 1;
+  min-height: 125px;
 }
 
 .image {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 200px;
   width: 100%;
-  height: auto;
-
-  @media (--xs-down) {
-    max-width: 100%;
-  }
 }
 
-.icon {
-  margin-top: var(--margin-lg);
+.svgImage {
 }
 
 .extra {

@@ -6,7 +6,7 @@ import messages from './messages'
 import {Button, Carousel, Col, Input, Row} from 'antd'
 import {Card, Link} from '../../components'
 import debounce from 'lodash/debounce'
-import {DEFAULT_DEBOUNCE_TIME, FOOD_TYPE, NON_FOOD_TYPE} from '../../constants'
+import {CARD_IMAGES_PROP, DEFAULT_DEBOUNCE_TIME, FOOD_TYPE, GIFT_IMAGES_PROP, NON_FOOD_TYPE} from '../../constants'
 import {getCards, getGifts} from '../../reducers/newArrivals'
 import ArrowIcon from '../../static/decor_arrow.svg'
 import {PURCHASE1_ROUTE} from '../'
@@ -114,15 +114,16 @@ class NewArrivals extends React.Component {
                 {cards.map((item) =>
                   <Col key={item.id} xs={24} sm={12} md={8} lg={6} className={s.itemWrapper}>
                     <Card
-                      image={item.images[0] && item.images[0].url}
+                      item={item}
+                      imagesProp={CARD_IMAGES_PROP}
                       title={
                         <React.Fragment>
                           {item.title}
                           <br/>
                           <span className={s.price}>
-                          {item.price}
+                            {item.price}
                             <span className={s.currency}>{item.currency}</span>
-                        </span>
+                          </span>
                         </React.Fragment>
                       }
                       bordered={false}
@@ -140,7 +141,8 @@ class NewArrivals extends React.Component {
                 {gifts.map((item) =>
                   <Col key={item.id} xs={24} sm={12} md={8} lg={6} className={s.itemWrapper}>
                     <Card
-                      image={item.image[0] && item.image[0].url}
+                      item={item}
+                      imagesProp={GIFT_IMAGES_PROP}
                       title={
                         <React.Fragment>
                           {item.title}

@@ -9,6 +9,8 @@ import PlusGiftIcon from '../../static/plus_round.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import {Form} from 'antd'
 import messages from './messages'
+import {getItemImage} from '../../utils'
+import {CARD_IMAGES_PROP} from '../../constants'
 
 class ConfirmDonation extends React.Component {
   getPrice = () => {
@@ -17,7 +19,7 @@ class ConfirmDonation extends React.Component {
   }
 
   render() {
-    const {flowIndex, card, gift, intl, donationOrg, donationAmount, confirmDonation} = this.props
+    const {flowIndex, card, intl, donationOrg, donationAmount, confirmDonation} = this.props
     // TODO price with vat?
     return card ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
@@ -29,24 +31,20 @@ class ConfirmDonation extends React.Component {
           />
           <div className={s.orderInfo}>
             <div className={s.cardWrapper}>
-              <div>
-                <img src={card.images[0].url} className={s.cardImage}/>
-              </div>
+              <div style={{backgroundImage: `url(${getItemImage(card, CARD_IMAGES_PROP)})`}} className={s.itemImage}/>
               <p className={s.cardInfo}>
                 <span className={s.cardType}>{card.title}</span>
                 <br/>
                 <span className={s.cardPrice}>{card.price}</span>
                 <span className={s.cardPriceCurrency}>{card.currency}</span>
               </p>
-              {gift && (
+              {donationOrg && (
                 <PlusGiftIcon className={s.plusIcon}/>
               )}
             </div>
             {donationOrg && (
               <div className={s.giftWrapper}>
-                <div>
-                  <img src={donationOrg.logo && donationOrg.logo[0] && donationOrg.logo[0].url} className={s.giftImage}/>
-                </div>
+                <div style={{backgroundImage: `url(${getItemImage(donationOrg, 'logo')})`}} className={s.itemImage}/>
                 <p className={s.cardInfo}>
                   <span className={s.cardType}>{donationOrg.name}</span>
                   <br/>
@@ -88,7 +86,6 @@ const mapState = state => ({
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
   card: state.purchase.card,
-  gift: state.purchase.gift,
   donationOrg: state.purchase.donationOrg,
   donationAmount: state.purchase.donationAmount,
 })

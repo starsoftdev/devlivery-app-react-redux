@@ -115,14 +115,12 @@
   z-index: 1;
 }
 
-.cardImage {
-  max-width: 100%;
-  height: auto;
-}
-
-.giftImage {
-  max-width: 100%;
-  height: auto;
+.itemImage {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 200px;
+  width: 100%;
 }
 
 .orderInfo {

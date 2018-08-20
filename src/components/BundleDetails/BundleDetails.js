@@ -4,6 +4,8 @@ import s from './BundleDetails.css'
 import {Modal} from 'antd'
 import {connect} from 'react-redux'
 import {closeBundleDetailsModal} from '../../reducers/bundles'
+import {getItemImage} from '../../utils'
+import {CARD_IMAGES_PROP, GIFT_IMAGES_PROP} from '../../constants'
 
 class BundleDetails extends React.Component {
   render() {
@@ -17,9 +19,7 @@ class BundleDetails extends React.Component {
         width={500}
         footer={null}
       >
-        <div>
-          <img src={bundleDetails.bundle_card.card.images[0].url} className={s.cardImage}/>
-        </div>
+        <div style={{backgroundImage: `url(${getItemImage(bundleDetails.bundle_card.card, CARD_IMAGES_PROP)})`}} className={s.itemImage}/>
         <h3 className={s.cardTitle}>{bundleDetails.bundle_card.card.title}</h3>
         <p>
           <span className={s.price}>{bundleDetails.bundle_card.card.price}</span>
@@ -27,9 +27,7 @@ class BundleDetails extends React.Component {
         </p>
         {bundleDetails.bundle_gifts.map((bundleGift) =>
           <React.Fragment key={bundleGift.id}>
-            <div>
-              <img src={bundleGift.gift.image[0].url} className={s.giftImage}/>
-            </div>
+            <div style={{backgroundImage: `url(${getItemImage(bundleGift.gift, GIFT_IMAGES_PROP)})`}} className={s.itemImage}/>
             <h3 className={s.giftTitle}>{bundleGift.gift.title}</h3>
             <p>
               <span className={s.price}>{bundleGift.gift.price}</span>
