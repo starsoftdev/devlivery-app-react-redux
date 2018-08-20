@@ -35,7 +35,6 @@ const voucherStyles = {
   input: {
     color: '#404D5F',
     fontSize: '15px',
-    lineHeight: '32px',
     fontFamily: 'Proxima Nova',
     outline: 'none'
   },
@@ -55,6 +54,9 @@ const voucherStyles = {
     top: 187,
     left: leftMargin,
     right: rightMargin,
+    lineHeight: '32px',
+    maxHeight: '32px',
+    overflow: 'hidden',
   },
   giverLabel: {
     position: 'absolute',
@@ -65,6 +67,9 @@ const voucherStyles = {
     top: 272,
     left: leftMargin,
     right: rightMargin,
+    lineHeight: '32px',
+    maxHeight: '32px',
+    overflow: 'hidden',
   },
   bodyLabel: {
     position: 'absolute',
@@ -72,15 +77,18 @@ const voucherStyles = {
   },
   body: {
     position: 'absolute',
-    top: 357,
+    top: 356,
     left: leftMargin,
     right: rightMargin,
+    lineHeight: '35px',
+    maxHeight: '105px',
+    overflow: 'hidden',
   }
 }
 
 // TODO add recipient/receiver fields as dropdowns
 class Voucher extends React.Component {
-  componentDidMount () {
+  componentDidMount() {
     loadFont('Abril Fatface')
     loadFont('Alex Brush')
   }
@@ -100,6 +108,7 @@ class Voucher extends React.Component {
 
   render() {
     const {intl, flowIndex, loading, voucher} = this.props
+    // TODO fix  The prop `html` is marked as required in `ContentEditable`, but its value is `undefined`
     const {getFieldDecorator} = this.props.form
 
     return (
@@ -113,29 +122,35 @@ class Voucher extends React.Component {
           />
           <p className={s.description}>{intl.formatMessage(messages.description)}</p>
           <div className={s.voucherWrapper}>
-            <div style={{backgroundImage: `url(${VOUCHER_TEMPLATE})`, ...voucherStyles.background}} ref={ref => this.voucher = ref}>
-              <style>{'.voucherBody > div {margin-top: 3px;}'}</style>
+            <div style={{backgroundImage: `url(${VOUCHER_TEMPLATE})`, ...voucherStyles.background}}
+                 ref={ref => this.voucher = ref}>
               <div style={voucherStyles.header}>{intl.formatMessage(messages.voucherHeader)}</div>
-              <div style={{...voucherStyles.receiverLabel, ...voucherStyles.label}}>{intl.formatMessage(messages.receiver)}</div>
+              <div style={{...voucherStyles.receiverLabel, ...voucherStyles.label}}>
+                {intl.formatMessage(messages.receiver)}
+              </div>
               {getFieldDecorator('from', {
                 initialValue: voucher ? voucher.from : '',
                 valuePropName: 'html',
               })(
                 <ContentEditable style={{...voucherStyles.receiver, ...voucherStyles.input}}/>
               )}
-              <div style={{...voucherStyles.giverLabel, ...voucherStyles.label}}>{intl.formatMessage(messages.giver)}</div>
+              <div style={{...voucherStyles.giverLabel, ...voucherStyles.label}}>
+                {intl.formatMessage(messages.giver)}
+              </div>
               {getFieldDecorator('to', {
                 initialValue: voucher ? voucher.to : '',
                 valuePropName: 'html',
               })(
                 <ContentEditable style={{...voucherStyles.giver, ...voucherStyles.input}}/>
               )}
-              <div style={{...voucherStyles.bodyLabel, ...voucherStyles.label}}>{intl.formatMessage(messages.freeText)}</div>
+              <div style={{...voucherStyles.bodyLabel, ...voucherStyles.label}}>
+                {intl.formatMessage(messages.freeText)}
+              </div>
               {getFieldDecorator('text', {
                 initialValue: voucher ? voucher.text : '',
                 valuePropName: 'html',
               })(
-                <ContentEditable style={{...voucherStyles.body, ...voucherStyles.input}} className={'voucherBody'}/>
+                <ContentEditable style={{...voucherStyles.body, ...voucherStyles.input}}/>
               )}
             </div>
           </div>
