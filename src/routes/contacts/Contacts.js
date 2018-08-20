@@ -103,6 +103,7 @@ class Contacts extends React.Component {
               <Popconfirm
                 title={intl.formatMessage(messages.confirmRemoving)}
                 onConfirm={() => removeContact(contact)}
+                okText={intl.formatMessage(messages.acceptRemoving)}
               >
                 <a className={s.removeIcon}>
                   <RemoveIcon/>
@@ -169,6 +170,7 @@ class Contacts extends React.Component {
                     <Popconfirm
                       title={intl.formatMessage(messages.confirmRemoving)}
                       onConfirm={() => removeContact(contact)}
+                      okText={intl.formatMessage(messages.acceptRemoving)}
                     >
                       <a className={s.removeBtn}>
                         <RemoveIcon/>
