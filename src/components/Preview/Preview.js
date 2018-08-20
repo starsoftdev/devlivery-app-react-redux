@@ -32,10 +32,11 @@ class Preview extends React.Component {
               </div>
             )}
           >
-            {item[imagesProp].map((image, i) =>
+            {item[imagesProp].map((image, i) => image.url ? (
               <div key={i}>
                 <div style={{backgroundImage: `url(${image.url})`}} className={s.previewImage}/>
               </div>
+              ) : null
             )}
           </Carousel>
           {item.description && (
