@@ -57,6 +57,8 @@ export const GET_CARD_STYLES_REQUEST = 'Purchase.GET_CARD_STYLES_REQUEST'
 export const GET_CARD_STYLES_SUCCESS = 'Purchase.GET_CARD_STYLES_SUCCESS'
 export const GET_CARD_STYLES_FAILURE = 'Purchase.GET_CARD_STYLES_FAILURE'
 
+export const GET_CARDCOLOR_SUCCESS = 'Purchase.GET_CARDCOLOR_SUCCESS';
+
 export const GET_CARDS_REQUEST = 'Purchase.GET_CARDS_REQUEST'
 export const GET_CARDS_SUCCESS = 'Purchase.GET_CARDS_SUCCESS'
 export const GET_CARDS_FAILURE = 'Purchase.GET_CARDS_FAILURE'
@@ -153,6 +155,12 @@ export const setFlow = (flow, redirect = true) => (dispatch, getState, {history}
     // TODO or replace history after finishing flow to prevent this situation
     history.push(generateUrl(flow.routes[0]))
   }
+  var {occasion} = getState().purchase;
+  if(occasion != null)
+  {
+    occasion = null;
+    dispatch({type: SET_OCCASION, occasion})
+  }
 }
 
 export const setBundle = (bundle) => (dispatch, getState) => {
@@ -186,8 +194,15 @@ export const nextFlowStep = (step = 0) => (dispatch, getState, {history}) => {
   }
 }
 
-export const setOccasion = (occasion) => ({type: SET_OCCASION, occasion})
-
+export const setOccasion = (occasion) => (dispatch, getState, {fetch}) => {
+  dispatch({type: SET_OCCASION, occasion})
+  var {letteringTechnique} = getState().purchase;
+  if(letteringTechnique != null)
+  {
+    letteringTechnique = null;
+    dispatch({type: SET_LETTERING_TECHNIQUE, letteringTechnique})
+  }
+}
 export const getOccasions = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_OCCASIONS_REQUEST, params})
   const {occasionType} = getState().purchase
@@ -219,8 +234,15 @@ export const getOccasionTypes = () => (dispatch, getState, {fetch}) => {
   })
 }
 
-export const setLetteringTechnique = (letteringTechnique) => ({type: SET_LETTERING_TECHNIQUE, letteringTechnique})
-
+export const setLetteringTechnique = (letteringTechnique) => (dispatch, getState, {fetch}) => {
+  dispatch({type: SET_LETTERING_TECHNIQUE, letteringTechnique})
+  var {cardStyle} = getState().purchase;
+  if(cardStyle != null)
+  {
+    cardStyle = null;
+    dispatch({type: SET_CARD_STYLE, cardStyle})
+  }
+}
 export const getCardStyles = () => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_CARD_STYLES_REQUEST})
   return fetch(`/card-styles`, {
@@ -270,7 +292,15 @@ export const addRecipientsOrder = () => (dispatch, getState, {fetch}) => {
   })
 }
 
-export const setCardStyle = (cardStyle) => ({type: SET_CARD_STYLE, cardStyle})
+export const setCardStyle = (cardStyle) => (dispatch, getState, {fetch}) => {
+  dispatch({type: SET_CARD_STYLE, cardStyle})
+  var {cardSize} = getState().purchase;
+  if(cardSize != null)
+  {
+    cardSize = null;
+    dispatch({type: SET_CARD_SIZE, cardSize})
+  }
+}
 
 export const getCards = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_CARDS_REQUEST, params})
@@ -280,7 +310,7 @@ export const getCards = (params = {}) => (dispatch, getState, {fetch}) => {
     filters: JSON.stringify({
       ...occasion ? {
         occasion_id: occasion.id,
-      } : {},  
+      } : {}, 
       ...cardColor ? {
         color: cardColor,
       } : {},
@@ -295,8 +325,16 @@ export const getCards = (params = {}) => (dispatch, getState, {fetch}) => {
   })
 }
 
-export const setCardSize = (cardSize) => ({type: SET_CARD_SIZE, cardSize})
-
+export const setCardSize = (cardSize) => (dispatch, getState) => {
+  dispatch({type: SET_CARD_SIZE, cardSize})
+  var {card} = getState().purchase;
+  if(card != null)
+  {
+    card = null;
+    dispatch({type: SET_CARD, card})
+  }
+  dispatch({type:GET_CARDCOLOR_SUCCESS, cardColor:null})
+}
 export const submitCardDetails = (cardDetails) => (dispatch, getState) => {
   dispatch(nextFlowStep())
   dispatch({type: SET_CARD_DETAILS, cardDetails})
@@ -878,6 +916,9 @@ export default createReducer(initialState, {
   }),
   [SET_CARD_STYLE]: (state, {cardStyle}) => ({
     cardStyle,
+  }),
+  [GET_CARDCOLOR_SUCCESS]: (state, {cardColor}) => ({
+    cardColor,
   }),
   [GET_CARDS_REQUEST]: (state, {params}) => ({
     cardColor: has(params, 'cardColor') ? params.cardColor : state.cardColor,

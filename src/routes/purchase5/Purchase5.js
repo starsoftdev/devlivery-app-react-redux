@@ -21,7 +21,7 @@ class Purchase5 extends React.Component {
 
   render() {
     const {previewCollapsed} = this.state
-    const {cards, card, setCard, nextFlowStep, intl, flowIndex, loading, getCards, cardColors} = this.props
+    const {cards, card, setCard, nextFlowStep, intl, flowIndex, loading, getCards, cardColors, cardColor} = this.props
 
     return (
       <div className={s.container}>
@@ -46,8 +46,9 @@ class Purchase5 extends React.Component {
               <Select
                 className={s.color}
                 allowClear
-                placeholder={intl.formatMessage(messages.color)}
+                //placeholder={intl.formatMessage(messages.color)}
                 onChange={(cardColor) => getCards({cardColor})}
+                defaultValue = {cardColor ? cardColor:intl.formatMessage(messages.color)}
               >
                 {cardColors.map(item =>
                   <Select.Option key={item.title} value={item.title}>{item.title}</Select.Option>
@@ -96,6 +97,7 @@ const mapState = state => ({
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
   cardColors: state.purchase.cardColors,
+  cardColor: state.purchase.cardColor
 })
 
 const mapDispatch = {
