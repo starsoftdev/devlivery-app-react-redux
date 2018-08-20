@@ -44,6 +44,8 @@ class Donation extends React.Component {
                       item={item}
                       imagesProp={'logo'}
                       onClick={() => setDonationOrg(item)}
+                      bordered={false}
+                      description={item.description}
                       active={donationOrg && donationOrg.id === item.id}
                       keyValue={ALPHABET[i]}
                     />
