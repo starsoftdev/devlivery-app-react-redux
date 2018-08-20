@@ -49,4 +49,8 @@ export default defineMessages({
     id: 'contacts.confirmRemoving',
     defaultMessage: 'Are you sure?',
   },
+  acceptRemoving: {
+    id: 'contactGroups.acceptRemoving',
+    defaultMessage: 'Yes',
+  },
 })
