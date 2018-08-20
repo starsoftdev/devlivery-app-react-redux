@@ -12,6 +12,7 @@ function action({store, route, intl}) {
     chunks: ['purchase'],
     title: intl.formatMessage(messages.title),
     header: null,
+    actions: null,
     component: <Purchase8 intl={intl}/>
   }
 }

@@ -68,9 +68,11 @@
 }
 
 .previewImage {
-  max-width: 100%;
-  height: auto;
   margin-bottom: 50px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  min-height: 250px;
 }
 
 /*TODO move to component styles*/
