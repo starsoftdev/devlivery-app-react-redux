@@ -737,7 +737,6 @@ export const submitGiftType = () => (dispatch, getState) => {
 }
 
 export const submitDonation = (donation) => (dispatch, getState) => {
-  console.log(donation)
   dispatch({type: SUBMIT_DONATION, donation})
   dispatch(submitGift())
 }

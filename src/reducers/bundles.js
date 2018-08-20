@@ -37,10 +37,7 @@ export const getBundles = (params = {}) => (dispatch, getState, {fetch}) => {
   })}`, {
     method: 'GET',
     token,
-    success: (res) => {
-      console.log(res)
-      dispatch({type: GET_BUNDLES_SUCCESS, res})
-    },
+    success: (res) => dispatch({type: GET_BUNDLES_SUCCESS, res}),
     failure: () => dispatch({type: GET_BUNDLES_FAILURE}),
   })
 }

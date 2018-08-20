@@ -55,7 +55,6 @@ class TeamExpandedRow extends React.Component {
 
   render() {
     const {record, roles, addBudget} = this.props
-    console.log(this.state.amountReduce)
     return (
       <Row className={s.container}>
         <Col md={12} className={s.column}>

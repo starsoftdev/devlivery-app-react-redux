@@ -42,7 +42,6 @@ class NewArrivals extends React.Component {
   }
 
   changeSlideIndex = (slideIndex) => {
-    console.log(slideIndex)
     this.setState({slideIndex})
     if (slideIndex === FOOD_GIFTS_INDEX) {
       this.getGifts({giftType: FOOD_TYPE})
