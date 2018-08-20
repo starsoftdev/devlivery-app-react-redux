@@ -1,3 +1,4 @@
+import { combineReducers } from 'redux'
 import global from './global'
 import user from './user'
 import login from './login'
@@ -20,7 +21,7 @@ import permission from './permissions'
 import pendingMembers from './pendingMembers'
 import intl from './intl'
 
-export default {
+export default combineReducers({
   global,
   user,
   login,
@@ -42,4 +43,4 @@ export default {
   intl,
   permission,
   pendingMembers,
-}
+})

@@ -1,11 +1,10 @@
 import {applyMiddleware, compose, createStore} from 'redux'
 import thunk from 'redux-thunk'
 import createHelpers from './createHelpers'
-import { loadState, saveState } from '../localStorage'
+import rootReducer from '../reducers'
+import {initialState as purchaseState} from '../reducers/purchase'
 
-const persistedState = loadState();
-
-export default function configureStore(rootReducer, initialState, helpersConfig) {
+export default function configureStore(initialState, helpersConfig) {
   const helpers = createHelpers(helpersConfig)
   const middleware = [
     thunk.withExtraArgument(helpers),
@@ -27,14 +26,13 @@ export default function configureStore(rootReducer, initialState, helpersConfig)
   } else {
     enhancer = applyMiddleware(...middleware)
   }
+
   // See https://github.com/rackt/redux/releases/tag/v3.1.0
-  var loadstate = initialState;
-  if(persistedState != undefined) 
-  {
-    loadstate = {...initialState, purchase:persistedState.purchase }
-  }
-  
-  const store = createStore(rootReducer, loadstate, enhancer)
+  const store = createStore(rootReducer, {
+    ...initialState,
+    // TODO make it generic
+    purchase: {...purchaseState, ...initialState.purchase}
+    }, enhancer)
 
   // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
   if (__DEV__ && module.hot) {

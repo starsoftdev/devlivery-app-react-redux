@@ -141,6 +141,14 @@ export const ADD_RECIPIENTS_REQUEST = 'Purchase.ADD_RECIPIENTS_REQUEST'
 export const ADD_RECIPIENTS_SUCCESS = 'Purchase.ADD_RECIPIENTS_SUCCESS'
 export const ADD_RECIPIENTS_FAILURE = 'Purchase.ADD_RECIPIENTS_FAILURE'
 
+export const GET_ORDER_DETAILS_REQUEST = 'Purchase.GET_ORDER_DETAILS_REQUEST'
+export const GET_ORDER_DETAILS_SUCCESS = 'Purchase.GET_ORDER_DETAILS_SUCCESS'
+export const GET_ORDER_DETAILS_FAILURE = 'Purchase.GET_ORDER_DETAILS_FAILURE'
+
+export const GET_BUNDLE_DETAILS_REQUEST = 'Purchase.GET_BUNDLE_DETAILS_REQUEST'
+export const GET_BUNDLE_DETAILS_SUCCESS = 'Purchase.GET_BUNDLE_DETAILS_SUCCESS'
+export const GET_BUNDLE_DETAILS_FAILURE = 'Purchase.GET_BUNDLE_DETAILS_FAILURE'
+
 export const CLEAR = 'Purchase.CLEAR'
 
 // ------------------------------------
@@ -236,7 +244,7 @@ export const getMessageTemplate = () => (dispatch, getState, {fetch}) => {
   return fetch(`/message-templates`, {
     method: 'GET',
     token,
-    success: (res) => dispatch({type: GET_TEMPLATE_SUCCESS, res}),
+    success: (templates) => dispatch({type: GET_TEMPLATE_SUCCESS, templates}),
     failure: () => dispatch({type: GET_TEMPLATE_FAILURE})
   })
 }
@@ -252,18 +260,20 @@ export const getRecipients = () => (dispatch, getState, {fetch}) => {
   })
 }
 
-export const addRecipientsOrder = () => (dispatch, getState, {fetch}) => {
+export const addRecipientsOrder = (orderId) => (dispatch, getState, {fetch}) => {
   dispatch({type: ADD_RECIPIENTS_REQUEST})
   const {token} = dispatch(getToken())
-  const {id} = getState().contacts.newContact
-  const order = getState().purchase.order ? getState().purchase.order.id : null
+  const {newContact} = getState().contacts
+  if (!newContact) {
+    return
+  }
   return fetch(`/order-recipients`, {
     method: 'POST',
     contentType: 'multipart/form-data',
     token,
     body: {
-      order_id: order,
-      contact_id: id,
+      order_id: orderId,
+      contact_id: newContact.id,
     },
     success: () => dispatch({type: ADD_RECIPIENTS_SUCCESS}),
     failure: () => dispatch({type: ADD_RECIPIENTS_FAILURE})
@@ -332,11 +342,11 @@ export const getGifts = (params = {}) => (dispatch, getState, {fetch}) => {
 export const submitShipping = (values) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   dispatch({type: SUBMIT_SHIPPING_REQUEST, values})
-  const {order, deliveryLocation, deliveryTime} = getState().purchase
+  const {orderId, deliveryLocation, deliveryTime} = getState().purchase
   return fetch(`/set-wheretosend`, {
     method: 'POST',
     body: {
-      order_id: order.id,
+      order_id: orderId,
       deliverable: deliveryLocation,
       schedule_date: deliveryTime,
     },
@@ -432,43 +442,43 @@ export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
 
 export const makeOrder = () => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  const {bundle} = getState().purchase
-  if (!bundle) {
-    return
+  const {bundleId, orderId} = getState().purchase
+  if (orderId) {
+    dispatch(getBundleDetails(bundleId))
+    dispatch(getOrderDetails(orderId))
+    dispatch(getDeliveryLocations(orderId))
+  } else {
+    dispatch({type: MAKE_ORDER_REQUEST})
+    return fetch(`/make-order-from-bundle`, {
+      method: 'POST',
+      contentType: 'application/x-www-form-urlencoded',
+      body: {
+        bundle_id: bundleId,
+      },
+      token,
+      success: (res) => {
+        const order = res.data
+        dispatch({type: MAKE_ORDER_SUCCESS, order})
+        dispatch(addCardBody(order.id))
+        dispatch(getDeliveryLocations(order.id))
+        dispatch(addRecipientsOrder(order.id))
+      },
+      failure: () => {
+        dispatch({type: MAKE_ORDER_FAILURE})
+      },
+    })
   }
-  dispatch({type: MAKE_ORDER_REQUEST})
-  return fetch(`/make-order-from-bundle`, {
-    method: 'POST',
-    contentType: 'application/x-www-form-urlencoded',
-    body: {
-      bundle_id: bundle.id,
-    },
-    token,
-    success: (res) => {
-      const order = res.data
-      // TODO check if we need this request
-      dispatch(addCardBody(order))
-      dispatch({type: MAKE_ORDER_SUCCESS, order})
-      dispatch(getDeliveryLocations(order))
-      dispatch(addRecipientsOrder())
-    },
-    failure: () => {
-      dispatch({type: MAKE_ORDER_FAILURE})
-    },
-  })
 }
 
-export const addCardBody = (order) => (dispatch, getState, {fetch}) => {
+export const addCardBody = (orderId) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   const {cardDetails} = getState().purchase
   dispatch({type: ADD_CARD_BODY_REQUEST})
   return fetch(`/order/add-htmls`, {
     method: 'POST',
     body: {
-      order_id: order.id,
+      order_id: orderId,
       html1: cardDetails.body,
-      // TODO check why we need this
-      html2: '.',
     },
     token,
     success: () => dispatch({type: ADD_CARD_BODY_SUCCESS}),
@@ -478,8 +488,8 @@ export const addCardBody = (order) => (dispatch, getState, {fetch}) => {
 
 export const makeStripePayment = (card) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  const {order} = getState().purchase
-  if (!order) {
+  const {orderId} = getState().purchase
+  if (!orderId) {
     return
   }
   dispatch({type: MAKE_STRIPE_PAYMENT_REQUEST})
@@ -505,7 +515,7 @@ export const makeStripePayment = (card) => (dispatch, getState, {fetch}) => {
     },
     token,
     success: (stripeToken) => {
-      return fetch(`/payments/stripe/charge/${order.id}`, {
+      return fetch(`/payments/stripe/charge/${orderId}`, {
         method: 'POST',
         contentType: 'application/x-www-form-urlencoded',
         body: {
@@ -533,18 +543,18 @@ const ORDER_ID_KEY = 'order_id'
 
 export const makePaypalPayment = () => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  const {order} = getState().purchase
-  if (!order) {
+  const {orderId} = getState().purchase
+  if (!orderId) {
     return
   }
 
   dispatch({type: MAKE_PAYPAL_PAYMENT_REQUEST})
-  return fetch(`/payments/paypal/charge/${order.id}`, {
+  return fetch(`/payments/paypal/charge/${orderId}`, {
     method: 'POST',
     token,
     success: (res) => {
       const {approval_url, transaction_id} = res.data
-      localStorage.setItem(ORDER_ID_KEY, order.id)
+      localStorage.setItem(ORDER_ID_KEY, orderId)
       localStorage.setItem(TRANSACTION_ID_KEY, transaction_id)
       window.location = approval_url
       dispatch({type: MAKE_PAYPAL_PAYMENT_SUCCESS})
@@ -626,12 +636,12 @@ export const cancelPaypalPayment = () => (dispatch, getState, {fetch, history}) 
 
 export const makeBitpayPayment = () => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  const {order} = getState().purchase
-  if (!order) {
+  const {orderId} = getState().purchase
+  if (!orderId) {
     return
   }
   dispatch({type: MAKE_BITPAY_PAYMENT_REQUEST})
-  return fetch(`/payments/bitpay/charge/${order.id}`, {
+  return fetch(`/payments/bitpay/charge/${orderId}`, {
     method: 'POST',
     token,
     success: (res) => {
@@ -706,12 +716,12 @@ export const submitDonation = (donation) => (dispatch, getState) => {
 export const submitVoucher = ({voucher, ...values}) => async (dispatch, getState, {fetch}) => {
   await dispatch(addBundle())
   const {token} = dispatch(getToken())
-  const {bundle} = getState().purchase
+  const {bundleId} = getState().purchase
   dispatch({type: SUBMIT_VOUCHER_REQUEST, values})
   return fetch(`/vouchers`, {
     method: 'POST',
     body: {
-      bundle_id: bundle.id,
+      bundle_id: bundleId,
       ...values,
       html: voucher,
     },
@@ -728,12 +738,12 @@ export const submitVoucher = ({voucher, ...values}) => async (dispatch, getState
 
 export const confirmDonation = () => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  const {donationOrg, bundle, donationAmount, hide_amount} = getState().purchase
+  const {donationOrg, bundleId, donationAmount, hide_amount} = getState().purchase
   dispatch({type: CONFIRM_DONATION_REQUEST})
   return fetch(`/donations`, {
     method: 'POST',
     body: {
-      bundle_id: bundle.id,
+      bundle_id: bundleId,
       organization_id: donationOrg.id,
       amount: +donationAmount,
       hide_amount,
@@ -766,10 +776,10 @@ export const getCardColors = () => (dispatch, getState, {fetch}) => {
   })
 }
 
-export const getDeliveryLocations = (order) => (dispatch, getState, {fetch}) => {
+export const getDeliveryLocations = (orderId) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   dispatch({type: GET_DELIVERY_LOCATIONS_REQUEST})
-  return fetch(`/order/${order.id}/get-deliverable-locations`, {
+  return fetch(`/order/${orderId}/get-deliverable-locations`, {
     method: 'GET',
     token,
     success: (res) => {
@@ -781,12 +791,42 @@ export const getDeliveryLocations = (order) => (dispatch, getState, {fetch}) => 
   })
 }
 
+export const getOrderDetails = (orderId) => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  if (!orderId) {
+    return
+  }
+  dispatch({type: GET_ORDER_DETAILS_REQUEST})
+  return fetch(`/order-confirmation?${qs.stringify({
+    order_id: orderId,
+  })}`, {
+    method: 'GET',
+    token,
+    success: (res) => dispatch({type: GET_ORDER_DETAILS_SUCCESS, order: res.data}),
+    failure: () => dispatch({type: GET_ORDER_DETAILS_FAILURE}),
+  })
+}
+
+export const getBundleDetails = (bundleId) => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_BUNDLE_DETAILS_REQUEST})
+  const {token} = dispatch(getToken())
+  return fetch(`/bundles?${qs.stringify({
+    filter_key: 'id',
+    filter_value: bundleId,
+  })}`, {
+    method: 'GET',
+    token,
+    success: (res) => dispatch({type: GET_BUNDLE_DETAILS_SUCCESS, bundle: res.data[0]}),
+    failure: () => dispatch({type: GET_BUNDLE_DETAILS_FAILURE}),
+  })
+}
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = {
+export const initialState = {
   loading: {
     occasions: false,
     donationOrgs: false,
@@ -811,7 +851,9 @@ const initialState = {
   flowIndex: null,
   occasionTypes: [],
   occasionType: undefined,
+  bundleId: null,
   bundle: null,
+  orderId: null,
   order: null,
   donationOrgs: [],
   donationOrg: null,
@@ -825,11 +867,14 @@ const initialState = {
   voucher: null,
   recipients: [],
   templates: null,
+  orderDetails: null
 }
 
 export default createReducer(initialState, {
   [SET_BUNDLE]: (state, {bundle, letteringTechnique, card, gift, giftType, cardSize, cardStyle}) => ({
+    // bundleId should be saved in cookies - bundle obj is too big
     bundle,
+    bundleId: bundle.id,
     letteringTechnique,
     card,
     gift,
@@ -937,9 +982,12 @@ export default createReducer(initialState, {
     paymentMethod,
   }),
   [ADD_BUNDLE_SUCCESS]: (state, {bundle}) => ({
+    bundleId: bundle.id,
     bundle,
   }),
   [MAKE_ORDER_SUCCESS]: (state, {order}) => ({
+    // orderId should be saved in cookies - order obj is too big
+    orderId: order.id,
     order,
   }),
   [SET_DONATION_ORG]: (state, {donationOrg}) => ({
@@ -1054,8 +1102,14 @@ export default createReducer(initialState, {
       recipients: false,
     },
   }),
-  [GET_TEMPLATE_SUCCESS]: (state, res) => ({
-    templates: res.res,
+  [GET_TEMPLATE_SUCCESS]: (state, {templates}) => ({
+    templates,
+  }),
+  [GET_ORDER_DETAILS_SUCCESS]: (state, {order}) => ({
+    order,
+  }),
+  [GET_BUNDLE_DETAILS_SUCCESS]: (state, {bundle}) => ({
+    bundle,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

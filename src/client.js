@@ -17,14 +17,11 @@ import {updateMeta} from './DOMUtils'
 import router from './router'
 import {setCurrentPathname} from './reducers/global'
 import {getIntl} from './reducers/intl'
-import UniversalCookie from 'universal-cookie'
+import Cookies from 'universal-cookie'
+import pick from 'lodash/pick'
+import {STATE_COOKIE} from './constants'
 
-import reducers from './reducers'
-import Cookies from 'js-cookie'
-import { combineReducers } from 'redux';
-import { loadState, saveState } from './localStorage';
-
-/* @intl-code-template addLocaleData(${lang}); */
+/* @intl-code-template addLocaleData(${lang}) */
 addLocaleData(en)
 addLocaleData(de)
 /* @intl-code-template-end */
@@ -33,28 +30,44 @@ addLocaleData(de)
 
 // Global (context) variables that can be easily accessed from any React component
 // https://facebook.github.io/react/docs/context.html
-const cookies = new UniversalCookie()
+const cookies = new Cookies()
 
 const whatwgFetch = createFetch(fetch, {
   apiUrl: window.App.apiUrl,
   cookies,
 })
 
-const persistedState = loadState();
-const store = configureStore(
-  combineReducers(reducers), 
-  window.App.state,//persistedState, 
-  {history, fetch: whatwgFetch, cookies},
-)
+const store = configureStore(window.App.state, {history, fetch: whatwgFetch, cookies})
 
 store.subscribe(() => {
-  //saveState(store.getState());
-  
-  saveState({
-    purchase: store.getState().purchase,
-  });
-  
-});
+  // pick values because cookie has limited size
+  const purchase = pick(store.getState().purchase, [
+    'occasion',
+    'letteringTechnique',
+    'flow',
+    'flowIndex',
+    'card',
+    'cardColor',
+    'cardStyle',
+    'cardSize',
+    'cardDetails',
+    'gift',
+    'giftType',
+    'bundleId',
+    'orderId',
+    'donationOrg',
+    'paymentMethod',
+    'occasionType',
+    'hide_amount',
+    'deliveryLocation',
+    'deliveryTime',
+    'voucher',
+  ])
+
+  // TODO make it generic
+  cookies.set(STATE_COOKIE, {purchase}, {path: '/'})
+})
+
 const {intl, antLocale} = store.dispatch(getIntl())
 
 const insertCss = (...styles) => {

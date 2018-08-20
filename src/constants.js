@@ -13,6 +13,7 @@ export const YEAR = 31536000
 
 export const TOKEN_COOKIE = 'token'
 export const LOCALE_COOKIE = 'locale'
+export const STATE_COOKIE = 'persisted_state'
 
 export const CARD_IMAGES_PROP = 'front_image'
 export const GIFT_IMAGES_PROP = 'image'
