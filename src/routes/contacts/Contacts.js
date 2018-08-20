@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Col, Input, Pagination, Popconfirm, Row, Select, Table, Modal} from 'antd'
+import {Col, Input, Pagination, Popconfirm, Row, Select, Table} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Contacts.css'
 import EditIcon from '../../static/edit.svg'
@@ -54,17 +54,8 @@ class Contacts extends React.Component {
     this.setState({showContactView: false, contactId: null})
   }
 
-  renderModal = () => {
-    const id = this.state.contactId
-    return <ContactDetail
-            closeDetailContactView={this.closeDetailContactView}
-            showContactView={this.state.showContactView}
-            contactId={id}
-           />
-  }
-
   render() {
-    const {view, search} = this.state
+    const {view, search, contactId, showContactView} = this.state
     // TODO add loading
     const {contactsCount, contacts, page, pageSize, loading, getContacts, removeContact, intl, ordering} = this.props
 
@@ -73,7 +64,11 @@ class Contacts extends React.Component {
         title: intl.formatMessage(messages.nameColumn),
         dataIndex: '',
         key: 'name',
-        render: (contact) => `${contact.first_name} ${contact.last_name}`
+        render: (contact) => (
+          <a onClick={() => this.showDetailContactView(contact.id)}>
+            {`${contact.first_name} ${contact.last_name}`}
+          </a>
+        )
       },
       {
         title: intl.formatMessage(messages.emailColumn),
@@ -153,7 +148,6 @@ class Contacts extends React.Component {
         </div>
         {view === GRID_VIEW ? (
           <React.Fragment>
-            {this.state.showContactView && this.renderModal()}
             <Row type='flex' gutter={20}>
               {contacts.map((contact) =>
                 <Col
@@ -161,10 +155,12 @@ class Contacts extends React.Component {
                   sm={12}
                   md={6}
                   key={contact.id}
-                  onClick={() => this.showDetailContactView(contact.id)}
                 >
                   <div className={s.contact}>
-                    <Link className={s.editBtn} to={{name: EDIT_CONTACT_ROUTE, params: {contactId: contact.id}}}>
+                    <Link
+                      className={s.editBtn}
+                      to={{name: EDIT_CONTACT_ROUTE, params: {contactId: contact.id}}}
+                    >
                       <EditIcon/>
                     </Link>
                     <Popconfirm
@@ -176,12 +172,14 @@ class Contacts extends React.Component {
                         <RemoveIcon/>
                       </a>
                     </Popconfirm>
-                    <p className={s.contactName}>{contact.first_name} {contact.last_name}</p>
-                    <a href={`tel:${contact.phone}`} className={s.contactPhone}>{contact.phone}</a>
-                    <a href={`mailto:${contact.email}`} className={s.contactEmail}>{contact.email}</a>
-                    {contact.dob && ordering.includes('dob') && (
-                      <div className={s.contactBirthday}>Birthday: {contact.dob}</div>
-                    )}
+                    <div className={s.contactContent} onClick={() => this.showDetailContactView(contact.id)}>
+                      <p className={s.contactName}>{contact.first_name} {contact.last_name}</p>
+                      <a href={`tel:${contact.phone}`} className={s.contactPhone}>{contact.phone}</a>
+                      <a href={`mailto:${contact.email}`} className={s.contactEmail}>{contact.email}</a>
+                      {contact.dob && ordering.includes('dob') && (
+                        <div className={s.contactBirthday}>Birthday: {contact.dob}</div>
+                      )}
+                    </div>
                   </div>
                 </Col>
               )}
@@ -215,6 +213,12 @@ class Contacts extends React.Component {
               itemRender: (current, type, el) => <PaginationItem type={type} el={el}/>,
               pageSizeOptions,
             }}
+          />
+        )}
+        {showContactView && (
+          <ContactDetail
+            closeDetailContactView={this.closeDetailContactView}
+            contactId={contactId}
           />
         )}
       </div>

@@ -16,7 +16,7 @@ class ContactDetail extends React.Component {
       <Modal
         className={s.contactDetailModal}
         title={`${first_name} ${last_name}`}
-        visible={this.props.showContactView}
+        visible
         onCancel={this.props.closeDetailContactView}
         footer={null}
       >
