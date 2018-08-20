@@ -35,7 +35,7 @@ class Purchase5 extends React.Component {
               {intl.formatMessage(messages.preview)}
             </Button>
           )}
-          <Layout.Content className={cn(s.contentWrapper, !previewCollapsed && s.withPreview)}>
+          <Layout.Content className={cn(s.contentWrapper, card && !previewCollapsed && s.withPreview)}>
             <Header className={s.layoutHeader}/>
             <div className={s.content}>
               <SectionHeader
