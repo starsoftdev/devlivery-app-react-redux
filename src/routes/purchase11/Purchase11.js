@@ -26,6 +26,7 @@ class Purchase11 extends React.Component {
   render() {
     const {flowIndex, bundle, order, occasion, intl, deliveryLocations, deliveryLocation, deliveryTime} = this.props
     const {getFieldDecorator} = this.props.form
+
     return order ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -77,7 +78,7 @@ class Purchase11 extends React.Component {
               <Col xs={24} sm={12}>
                 <section>
                   <h3 className={s.cardTitle}>{occasion && occasion.title}</h3>
-                  <div dangerouslySetInnerHTML={{__html: bundle.body}}/>
+                  {bundle && <div dangerouslySetInnerHTML={{__html: bundle.body}}/>}
                 </section>
               </Col>
               <Col xs={24} sm={12}>

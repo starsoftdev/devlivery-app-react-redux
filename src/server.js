@@ -18,20 +18,9 @@ import {setConfigVars, setCurrentPathname} from './reducers/global'
 import chunks from './chunk-manifest.json'
 import config from './config'
 import {setLocale} from './reducers/intl'
+import cookiesMiddleware from 'universal-cookie-express'
 import compression from 'compression'
-import {LOCALE_COOKIE} from './constants'
-
-import reducers from './reducers'
-import Cookies from 'cookies'
-import { combineReducers } from 'redux';
-
-const configurePersistor = async (store) => {
-  return new Promise((resolve) => {
-    const persistor = persistStore(store, {}, () => {
-      resolve(persistor)
-    })
-  })
-}
+import {LOCALE_COOKIE, STATE_COOKIE} from './constants'
 
 const app = express()
 
@@ -47,8 +36,7 @@ global.navigator.userAgent = global.navigator.userAgent || 'all'
 // -----------------------------------------------------------------------------
 app.use(compression())
 app.use(express.static(path.resolve(__dirname, 'public')))
-// TODO find a way to use universal-cookie-express for redux persist
-app.use(Cookies.express())
+app.use(cookiesMiddleware())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
@@ -57,7 +45,7 @@ app.use(bodyParser.json())
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
   try {
-    const cookies = new Cookies(req, res)
+    const cookies = req.universalCookies
 
     // Universal HTTP client
     const fetch = createFetch(nodeFetch, {
@@ -65,17 +53,14 @@ app.get('*', async (req, res, next) => {
       cookies,
     })
 
-    const initialState = {}
+    const initialState = cookies.get(STATE_COOKIE, {path: '/'}) || {}
 
-  
-    const store = configureStore(combineReducers(reducers), initialState, {
+    const store = configureStore(initialState, {
       fetch,
       cookies,
       // I should not use `history` on server.. but how I do redirection? follow universal-router
     })
 
-    // Wait until persistor has completed deserialization
-   
     store.dispatch(setCurrentPathname(req.path))
     store.dispatch(setConfigVars({
       apiUrl: config.api.url,
