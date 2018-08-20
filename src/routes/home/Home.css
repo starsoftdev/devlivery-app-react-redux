@@ -130,14 +130,10 @@
   margin-bottom: var(--margin-md);
 }
 
-.cardImageCircle {
-  height: 125px;
-  width: 125px;
-  background: linear-gradient(180deg, rgba(219, 240, 235, 0), #DBF0EB);
-  border-radius: 50%;
-}
-
 .cardImage {
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
 }
 
 .cardTitle {
