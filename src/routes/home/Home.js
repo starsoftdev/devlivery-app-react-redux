@@ -6,28 +6,21 @@ import DecorTopElement from '../../static/decor_element_top.svg'
 import PlusCircleIcon from '../../static/plus-circle.svg'
 import {Button, Carousel, Col, Input, Row} from 'antd'
 import DownArrow from '../../static/down_arrow.svg'
-import ChooseItImage from '../../static/choose_it.svg'
-import personalizeItImage from '../../static/personalize_it.png'
-import sendItImage from '../../static/send_it.png'
+import chooseItImage from '../../static/POSE_4.png'
+import personalizeItImage from '../../static/POSE_5.png'
+import sendItImage from '../../static/POSE_6.png'
 import AboutUsIcon from '../../static/decor_about.svg'
 import {animateScroll} from 'react-scroll'
 import {AUTH_PURCHASE_FLOW} from '../'
 import messages from './messages'
 import {setFlow} from '../../reducers/purchase'
 
-// imageHeight is needed as wrapper circle should have the same size
-const Card = ({number, image, imageHeight, title, description, svg}) =>
+const Card = ({number, image, title, description}) =>
   <div className={s.card}>
     <DecorTopElement className={s.cardTopElement}/>
     <span className={s.cardNumber}>{number}</span>
     <div className={s.cardImageWrapper}>
-      {svg ? (
-        <div className={s.cardImageCircle}>
-          {React.createElement(svg)}
-        </div>
-      ) : (
-        <img src={image} style={{height: imageHeight}} className={s.cardImage}/>
-      )}
+      <img src={image} className={s.cardImage}/>
     </div>
     <h6 className={s.cardTitle}>{title}</h6>
     <p className={s.cardDescription}>{description}</p>
@@ -61,7 +54,7 @@ class Home extends React.Component {
                 number={1}
                 title={intl.formatMessage(messages.chooseIt)}
                 description={intl.formatMessage(messages.chooseItDescription)}
-                svg={ChooseItImage}
+                image={chooseItImage}
               />
             </Col>
             <Col xs={24} md={8}>
@@ -70,7 +63,6 @@ class Home extends React.Component {
                 title={intl.formatMessage(messages.personalizeIt)}
                 description={intl.formatMessage(messages.personalizeItDescription)}
                 image={personalizeItImage}
-                imageHeight={125}
               />
             </Col>
             <Col xs={24} md={8}>
@@ -79,7 +71,6 @@ class Home extends React.Component {
                 title={intl.formatMessage(messages.sendIt)}
                 description={intl.formatMessage(messages.sendItDescription)}
                 image={sendItImage}
-                imageHeight={138}
               />
             </Col>
           </Row>
