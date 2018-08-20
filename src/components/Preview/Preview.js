@@ -6,9 +6,8 @@ import CloseIcon from '../../static/close.svg'
 
 class Preview extends React.Component {
   render() {
-    const {collapsed, onCollapse} = this.props
-
-    return (
+    const {collapsed, onCollapse, item, imagesProp, header} = this.props
+    return item ? (
       <Layout.Sider
         className={s.previewWrapper}
         breakpoint='xl'
@@ -23,7 +22,7 @@ class Preview extends React.Component {
             <CloseIcon/>
           </a>
           <h3 className={s.previewHeader}>
-            Card Preview
+            {header}
           </h3>
           <Carousel
             loop
@@ -33,23 +32,20 @@ class Preview extends React.Component {
               </div>
             )}
           >
-            <div>
-              <img src={'http://via.placeholder.com/450x250'} className={s.previewImage}/>
-            </div>
-            <div>
-              <img src={'http://via.placeholder.com/450x250'} className={s.previewImage}/>
-            </div>
-            <div>
-              <img src={'http://via.placeholder.com/450x250'} className={s.previewImage}/>
-            </div>
+            {item[imagesProp].map((image, i) =>
+              <div key={i}>
+                <div style={{backgroundImage: `url(${image.url})`}} className={s.previewImage}/>
+              </div>
+            )}
           </Carousel>
-          <p className={s.previewDescription}>
-            It has survived not only five centuries, but also the leap into electronic typesetting, remaining
-            essentially unchanged. It was popularised.
-          </p>
+          {item.description && (
+            <p className={s.previewDescription}>
+              {item.description}
+            </p>
+          )}
         </section>
       </Layout.Sider>
-    )
+    ) : null
   }
 }
 

@@ -13,4 +13,16 @@ export default defineMessages({
     id: 'purchase5.color',
     defaultMessage: 'Color',
   },
+  submit: {
+    id: 'purchase5.submit',
+    defaultMessage: 'Submit',
+  },
+  preview: {
+    id: 'purchase5.preview',
+    defaultMessage: 'Preview',
+  },
+  previewHeader: {
+    id: 'purchase5.previewHeader',
+    defaultMessage: 'Card Preview',
+  },
 })
