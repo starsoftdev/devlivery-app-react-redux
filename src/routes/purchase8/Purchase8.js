@@ -7,7 +7,7 @@ import s from './Purchase8.css'
 import {Card, Header, Preview, PurchaseActions, SectionHeader} from '../../components'
 import cn from 'classnames'
 import messages from './messages'
-import {GIFT_TYPES} from '../../constants'
+import {GIFT_IMAGES_PROP, GIFT_TYPES} from '../../constants'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 
 class Purchase8 extends React.Component {
@@ -61,7 +61,8 @@ class Purchase8 extends React.Component {
                   <Col key={item.id} className={s.itemWrapper}>
                     <Card
                       className={s.item}
-                      image={item.image[0] && item.image[0].url}
+                      item={item}
+                      imagesProp={GIFT_IMAGES_PROP}
                       title={
                         <React.Fragment>
                           {item.title}
@@ -87,7 +88,7 @@ class Purchase8 extends React.Component {
             collapsed={previewCollapsed}
             header={intl.formatMessage(messages.previewHeader)}
             item={gift}
-            imagesProp={'image'}
+            imagesProp={GIFT_IMAGES_PROP}
           />
         </div>
         <PurchaseActions>

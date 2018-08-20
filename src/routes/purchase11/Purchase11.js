@@ -9,8 +9,9 @@ import PlusGiftIcon from '../../static/plus_round.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
 import messages from './messages'
-import {DATE_FORMAT} from '../../constants'
+import {CARD_IMAGES_PROP, DATE_FORMAT, GIFT_IMAGES_PROP} from '../../constants'
 import moment from 'moment'
+import {getItemImage} from '../../utils'
 
 class Purchase11 extends React.Component {
   handleSubmit = (e) => {
@@ -35,9 +36,7 @@ class Purchase11 extends React.Component {
           />
           <div className={s.orderInfo}>
             <div className={s.cardWrapper}>
-              <div>
-                <img src={order.items.card.images[0].url} className={s.cardImage}/>
-              </div>
+              <div style={{backgroundImage: `url(${getItemImage(order.items.card, CARD_IMAGES_PROP)})`}} className={s.itemImage}/>
               {(order.items.gifts[0] || order.voucher) && (
                 <PlusGiftIcon className={s.plusIcon}/>
               )}
@@ -50,9 +49,7 @@ class Purchase11 extends React.Component {
             </div>
             {order.items.gifts[0] && (
               <div className={s.giftWrapper}>
-                <div>
-                  <img src={order.items.gifts[0].gift.image[0].url} className={s.giftImage}/>
-                </div>
+                <div style={{backgroundImage: `url(${getItemImage(order.items.gifts[0].gift, GIFT_IMAGES_PROP)})`}} className={s.itemImage}/>
                 <p className={s.cardInfo}>
                   <span className={s.cardType}>{order.items.gifts[0].gift.title}</span>
                   <br/>

@@ -8,6 +8,7 @@ import {Card, Header, PurchaseActions, SectionHeader, Preview} from '../../compo
 import cn from 'classnames'
 import messages from './messages'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
+import {CARD_IMAGES_PROP} from '../../constants'
 
 // TODO remove no cards label
 class Purchase5 extends React.Component {
@@ -63,7 +64,8 @@ class Purchase5 extends React.Component {
                     <Col key={item.id} className={s.itemWrapper}>
                       <Card
                         className={s.item}
-                        image={item.front_image[0] && item.front_image[0].url}
+                        item={item}
+                        imagesProp={CARD_IMAGES_PROP}
                         title={
                           <span className={s.price}>
                             {item.price}
@@ -88,7 +90,7 @@ class Purchase5 extends React.Component {
             collapsed={previewCollapsed}
             header={intl.formatMessage(messages.previewHeader)}
             item={card}
-            imagesProp={'images'}
+            imagesProp={CARD_IMAGES_PROP}
           />
         </div>
         <PurchaseActions>

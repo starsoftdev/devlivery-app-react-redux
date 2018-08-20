@@ -37,7 +37,8 @@ class Purchase1 extends React.Component {
               <Card
                 className={s.item}
                 title={item.title}
-                image={item.image.url}
+                item={item}
+                imagesProp={'image'}
                 onClick={() => {
                   setOccasion(item)
                   nextFlowStep()

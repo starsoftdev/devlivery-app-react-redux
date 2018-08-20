@@ -1,6 +1,7 @@
 import {DATE_FORMAT} from './constants'
 import get from 'lodash/get'
 import moment from 'moment'
+import isArray from 'lodash/isArray'
 
 export const getSuccessMessage = (res) => res && typeof res.data === 'string' ? res.data : null
 
@@ -67,3 +68,7 @@ export const loadFont = (font) => {
     head.appendChild(link)
   }
 }
+
+export const getItemImage = (item, imagesProp) =>
+  imagesProp ? (isArray(item[imagesProp]) ? item[imagesProp][0] && item[imagesProp][0].url : item[imagesProp].url) : null
+

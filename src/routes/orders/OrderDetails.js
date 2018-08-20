@@ -5,6 +5,8 @@ import {Col, Modal, Row, Table, Button} from 'antd'
 import {connect} from 'react-redux'
 import {closeOrderDetailsModal} from '../../reducers/orders'
 import messages from './messages'
+import {getItemImage} from '../../utils'
+import {CARD_IMAGES_PROP, GIFT_IMAGES_PROP} from '../../constants'
 
 const CARD_TYPE = 'card'
 const GIFT_TYPE = 'gift'
@@ -48,18 +50,14 @@ class OrderDetails extends React.Component {
             case CARD_TYPE:
               return (
                 <div className={s.product}>
-                  <div>
-                    <img src={item.images[0] && item.images[0].url} className={s.productImage}/>
-                  </div>
+                  <div style={{backgroundImage: `url(${getItemImage(item, CARD_IMAGES_PROP)})`}} className={s.productImage}/>
                   <div className={s.title}>{item.title}</div>
                 </div>
               )
             case GIFT_TYPE:
               return (
                 <div className={s.product}>
-                  <div>
-                    <img src={item.image[0] && item.image[0].url} className={s.productImage}/>
-                  </div>
+                  <div style={{backgroundImage: `url(${getItemImage(item, GIFT_IMAGES_PROP)})`}} className={s.productImage}/>
                   <div className={s.title}>{item.title}</div>
                 </div>
               )

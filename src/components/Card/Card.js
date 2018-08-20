@@ -4,6 +4,7 @@ import s from './Card.css'
 import CheckIcon from '../../static/card_checkmark.svg'
 import cn from 'classnames'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
+import {getItemImage} from '../../utils'
 
 class Card extends React.Component {
   static defaultProps = {
@@ -11,7 +12,10 @@ class Card extends React.Component {
   }
 
   render() {
-    const {title, image, active, onClick, keyValue, className, svg, extra, description, bordered, disabled} = this.props
+    const {title, active, onClick, keyValue, className, svg, extra, description, bordered, disabled, imagesProp, item} = this.props
+    const image = getItemImage(item, imagesProp)
+    const isSvg = image && image.includes('.svg')
+
     return (
       <div
         className={cn(
@@ -26,9 +30,15 @@ class Card extends React.Component {
       >
         {extra && <span className={s.extra}>{extra}</span>}
         {active && <CheckIcon className={s.checkIcon}/>}
-        <div className={s.imageWrapper}>
-          {image && <img src={image} className={s.image}/>}
-          {svg && React.createElement(svg, {className: s.icon})}
+        <div className={s.content} style={{alignItems: (isSvg || svg) ? 'flex-end': 'center'}}>
+          {image ?
+            isSvg ? (
+              <img src={image}/>
+            ) : (
+              <div className={s.image} style={{backgroundImage: `url(${image})`}}/>
+            )
+            : null}
+          {svg && React.createElement(svg)}
           {description && <div className={s.description}>{description}</div>}
         </div>
         {title && (

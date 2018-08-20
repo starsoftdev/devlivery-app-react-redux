@@ -4,7 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './GiftStore.css'
 import messages from './messages'
 import debounce from 'lodash/debounce'
-import {DEFAULT_DEBOUNCE_TIME, GIFT_TYPES} from '../../constants'
+import {DEFAULT_DEBOUNCE_TIME, GIFT_IMAGES_PROP, GIFT_TYPES} from '../../constants'
 import {clearFilters, getGifts, clear} from '../../reducers/gifts'
 import {Button, Col, Input, Pagination, Row} from 'antd'
 import {Card, PaginationItem} from '../../components'
@@ -72,7 +72,8 @@ class GiftStore extends React.Component {
               {gifts.map((item) =>
                 <Col key={item.id} xs={24} sm={12} md={8} lg={6} className={s.itemWrapper}>
                   <Card
-                    image={item.image[0] && item.image[0].url}
+                    item={item}
+                    imagesProp={GIFT_IMAGES_PROP}
                     title={
                       <React.Fragment>
                         {item.title}

@@ -9,10 +9,11 @@ import PlusIcon from '../../static/plus.svg'
 import {BundleDetails, PaginationItem} from '../../components'
 import debounce from 'lodash/debounce'
 import messages from './messages'
-import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
+import {CARD_IMAGES_PROP, DEFAULT_DEBOUNCE_TIME, GIFT_IMAGES_PROP} from '../../constants'
 import {EDIT_BUNDLE_FLOW} from '../'
 import {setBundle, setFlow} from '../../reducers/purchase'
 import RemoveIcon from '../../static/remove.svg'
+import {getItemImage} from '../../utils'
 
 class Bundles extends React.Component {
   changeSearch = (e) => {
@@ -64,18 +65,14 @@ class Bundles extends React.Component {
                 </a>
                 <a className={s.bundleContent} onClick={() => openBundleDetailsModal(bundle)}>
                   <div className={s.cardWrapper}>
-                    <div>
-                      <img src={bundle.bundle_card.card.images[0] && bundle.bundle_card.card.images[0].url} className={s.cardImage}/>
-                    </div>
+                    <div style={{backgroundImage: `url(${getItemImage(bundle.bundle_card.card, CARD_IMAGES_PROP)})`}} className={s.itemImage}/>
                     {bundle.bundle_gifts[0] && (
                       <PlusGiftIcon className={s.plusIcon}/>
                     )}
                   </div>
                   {bundle.bundle_gifts[0] && (
                     <div className={s.giftWrapper}>
-                      <div>
-                        <img src={bundle.bundle_gifts[0].gift.image[0] && bundle.bundle_gifts[0].gift.image[0].url} className={s.giftImage}/>
-                      </div>
+                      <div style={{backgroundImage: `url(${getItemImage(bundle.bundle_gifts[0].gift, GIFT_IMAGES_PROP)})`}} className={s.itemImage}/>
                     </div>
                   )}
                 </a>
