@@ -2,11 +2,9 @@ import createReducer, {RESET_STORE} from '../createReducer'
 import {loginSuccess} from './login'
 import {message} from 'antd'
 import {
-  CONFIRM_DONATION_ROUTE,
   DONATION_ROUTE,
   EDIT_BUNDLE_FLOW,
   ORDER_BUNDLE_FLOW,
-  PURCHASE11_ROUTE,
   PURCHASE8_ROUTE,
   PURCHASE_FLOW,
   VOUCHER_ROUTE,
@@ -104,12 +102,11 @@ export const GET_DONATION_ORGS_SUCCESS = 'Purchase.GET_DONATION_ORGS_SUCCESS'
 export const GET_DONATION_ORGS_FAILURE = 'Purchase.GET_DONATION_ORGS_FAILURE'
 
 export const SET_DONATION_ORG = 'Purchase.SET_DONATION_ORG'
+export const SUBMIT_DONATION = 'Purchase.SUBMIT_DONATION'
 
 export const CONFIRM_DONATION_REQUEST = 'Purchase.CONFIRM_DONATION_REQUEST'
 export const CONFIRM_DONATION_SUCCESS = 'Purchase.CONFIRM_DONATION_SUCCESS'
 export const CONFIRM_DONATION_FAILURE = 'Purchase.CONFIRM_DONATION_FAILURE'
-
-export const SUBMIT_DONATION = 'Purchase.SUBMIT_DONATION'
 
 export const GET_CARD_COLORS_REQUEST = 'Purchase.GET_CARD_COLORS_REQUEST'
 export const GET_CARD_COLORS_SUCCESS = 'Purchase.GET_CARD_COLORS_SUCCESS'
@@ -119,9 +116,11 @@ export const ADD_CARD_BODY_REQUEST = 'Purchase.ADD_CARD_BODY_REQUEST'
 export const ADD_CARD_BODY_SUCCESS = 'Purchase.ADD_CARD_BODY_SUCCESS'
 export const ADD_CARD_BODY_FAILURE = 'Purchase.ADD_CARD_BODY_FAILURE'
 
-export const SUBMIT_VOUCHER_REQUEST = 'Purchase.SUBMIT_VOUCHER_REQUEST'
-export const SUBMIT_VOUCHER_SUCCESS = 'Purchase.SUBMIT_VOUCHER_SUCCESS'
-export const SUBMIT_VOUCHER_FAILURE = 'Purchase.SUBMIT_VOUCHER_FAILURE'
+export const SUBMIT_VOUCHER = 'Purchase.SUBMIT_VOUCHER'
+
+export const CONFIRM_VOUCHER_REQUEST = 'Purchase.CONFIRM_VOUCHER_REQUEST'
+export const CONFIRM_VOUCHER_SUCCESS = 'Purchase.CONFIRM_VOUCHER_SUCCESS'
+export const CONFIRM_VOUCHER_FAILURE = 'Purchase.CONFIRM_VOUCHER_FAILURE'
 
 export const GET_DELIVERY_LOCATIONS_REQUEST = 'Purchase.GET_DELIVERY_LOCATIONS_REQUEST'
 export const GET_DELIVERY_LOCATIONS_SUCCESS = 'Purchase.GET_DELIVERY_LOCATIONS_SUCCESS'
@@ -312,7 +311,6 @@ export const setCardSize = (cardSize) => ({type: SET_CARD_SIZE, cardSize})
 export const submitCardDetails = (cardDetails) => (dispatch, getState) => {
   dispatch(nextFlowStep())
   dispatch({type: SET_CARD_DETAILS, cardDetails})
-  // dispatch(addRecipientsOrder())
 }
 
 export const setGiftType = (giftType) => ({type: SET_GIFT_TYPE, giftType})
@@ -390,7 +388,6 @@ export const continueWithoutGift = () => async (dispatch, getState) => {
   const {loggedIn} = getState().user
   const {flow} = getState().purchase
   dispatch(setGiftType(null))
-  // TODO fix it
   if (loggedIn && flow.key !== EDIT_BUNDLE_FLOW.key) {
     await dispatch(addBundle())
   }
@@ -399,14 +396,13 @@ export const continueWithoutGift = () => async (dispatch, getState) => {
 
 export const submitGift = () => async (dispatch, getState) => {
   const {flow} = getState().purchase
-  // TODO fix it
   if (flow.key !== EDIT_BUNDLE_FLOW.key) {
     await dispatch(addBundle())
   }
   dispatch(nextFlowStep())
 }
 
-export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
+export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   const {letteringTechnique, card, gift, flow, cardDetails} = getState().purchase
   dispatch({type: ADD_BUNDLE_REQUEST})
@@ -428,7 +424,9 @@ export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
     success: (res) => {
       dispatch({type: ADD_BUNDLE_SUCCESS, bundle: res.data})
       if (flow.key === EDIT_BUNDLE_FLOW.key) {
-        dispatch(nextFlowStep())
+        if (goToNext) {
+          dispatch(nextFlowStep())
+        }
         message.success('Bundle created.')
       }
     },
@@ -675,8 +673,6 @@ export const submitGiftType = () => (dispatch, getState) => {
       routes: flow.routes.map(item => {
         if (item === PURCHASE8_ROUTE || item === VOUCHER_ROUTE)
           return DONATION_ROUTE
-        if (item === PURCHASE11_ROUTE)
-          return CONFIRM_DONATION_ROUTE
         return item
       })
     }, false))
@@ -686,8 +682,6 @@ export const submitGiftType = () => (dispatch, getState) => {
       routes: flow.routes.map(item => {
         if (item === PURCHASE8_ROUTE || item === DONATION_ROUTE)
           return VOUCHER_ROUTE
-        if (item === CONFIRM_DONATION_ROUTE)
-          return PURCHASE11_ROUTE
         return item
       })
     }, false))
@@ -697,8 +691,6 @@ export const submitGiftType = () => (dispatch, getState) => {
       routes: flow.routes.map(item => {
         if (item === DONATION_ROUTE || item === VOUCHER_ROUTE)
           return PURCHASE8_ROUTE
-        if (item === CONFIRM_DONATION_ROUTE)
-          return PURCHASE11_ROUTE
         return item
       })
     }, false))
@@ -706,49 +698,64 @@ export const submitGiftType = () => (dispatch, getState) => {
   dispatch(nextFlowStep())
 }
 
-export const submitDonation = (donation) => (dispatch, getState) => {
-  dispatch({type: SUBMIT_DONATION, donation})
-  dispatch(submitGift())
+export const submitVoucher = (voucher) => async (dispatch, getState) => {
+  await dispatch({type: SUBMIT_VOUCHER, voucher})
+  const {flow} = getState().purchase
+  if (flow.key === EDIT_BUNDLE_FLOW.key) {
+    dispatch(nextFlowStep())
+  } else {
+    dispatch(confirmVoucher())
+  }
 }
 
-export const submitVoucher = ({voucher, ...values}) => async (dispatch, getState, {fetch}) => {
-  await dispatch(addBundle())
+export const confirmVoucher = (bundleValues) => async (dispatch, getState, {fetch}) => {
+  await dispatch(addBundle(bundleValues, false))
   const {token} = dispatch(getToken())
-  const {bundleId} = getState().purchase
-  dispatch({type: SUBMIT_VOUCHER_REQUEST, values})
+  const {bundleId, voucher: {html, ...values}} = getState().purchase
+  dispatch({type: CONFIRM_VOUCHER_REQUEST})
   return fetch(`/vouchers`, {
     method: 'POST',
     body: {
       bundle_id: bundleId,
       ...values,
-      html: voucher,
+      html,
     },
     token,
-    success: (res) => {
-      dispatch({type: SUBMIT_VOUCHER_SUCCESS})
+    success: () => {
+      dispatch({type: CONFIRM_VOUCHER_SUCCESS})
       dispatch(nextFlowStep())
     },
     failure: () => {
-      dispatch({type: SUBMIT_VOUCHER_FAILURE})
+      dispatch({type: CONFIRM_VOUCHER_FAILURE})
     },
   })
 }
 
-export const confirmDonation = () => (dispatch, getState, {fetch}) => {
+export const submitDonation = (donation) => async (dispatch, getState) => {
+  await dispatch({type: SUBMIT_DONATION, donation})
+  const {flow} = getState().purchase
+  if (flow.key === EDIT_BUNDLE_FLOW.key) {
+    dispatch(nextFlowStep())
+  } else {
+    dispatch(confirmDonation())
+  }
+}
+
+export const confirmDonation = (bundleValues) => async (dispatch, getState, {fetch}) => {
+  await dispatch(addBundle(bundleValues, false))
   const {token} = dispatch(getToken())
-  const {donationOrg, bundleId, donationAmount, hide_amount} = getState().purchase
+  const {donationOrg, bundleId, donationAmount, hideAmount} = getState().purchase
   dispatch({type: CONFIRM_DONATION_REQUEST})
   return fetch(`/donations`, {
     method: 'POST',
     body: {
       bundle_id: bundleId,
       organization_id: donationOrg.id,
-      amount: +donationAmount,
-      hide_amount,
+      amount: donationAmount,
+      hide_amount: hideAmount,
     },
     token,
-    success: (res) => {
-      // TODO save data for next steps
+    success: () => {
       dispatch({type: CONFIRM_DONATION_SUCCESS})
       dispatch(nextFlowStep())
     },
@@ -856,7 +863,7 @@ export const initialState = {
   donationOrgs: [],
   donationOrg: null,
   donationAmount: undefined,
-  hide_amount: false,
+  hideAmount: false,
   cardColors: [],
   cardColor: undefined,
   deliveryLocations: [],
@@ -1010,9 +1017,9 @@ export default createReducer(initialState, {
       donationOrgs: false,
     }
   }),
-  [SUBMIT_DONATION]: (state, action) => ({
-    donationAmount: action.donationAmount,
-    hide_amount: action.hide_amount,
+  [SUBMIT_DONATION]: (state, {donation}) => ({
+    donationAmount: +donation.donationAmount,
+    hideAmount: donation.hideAmount,
   }),
   [MAKE_STRIPE_PAYMENT_REQUEST]: (state, action) => ({
     loading: {
@@ -1078,8 +1085,8 @@ export default createReducer(initialState, {
     deliveryLocation: values.deliverable,
     deliveryTime: values.schedule_date ? values.schedule_date.format(DATE_FORMAT) : undefined,
   }),
-  [SUBMIT_VOUCHER_REQUEST]: (state, {values}) => ({
-    voucher: values,
+  [SUBMIT_VOUCHER]: (state, {voucher}) => ({
+    voucher,
   }),
   [GET_RECIPIENTS_REQUEST]: (state) => ({
     loading: {

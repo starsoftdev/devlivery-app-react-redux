@@ -13,6 +13,10 @@ export default defineMessages({
     id: 'addBundle.bundleName',
     defaultMessage: 'Bundle name',
   },
+  total: {
+    id: 'addBundle.total',
+    defaultMessage: 'Total:',
+  },
   subtotal: {
     id: 'addBundle.subtotal',
     defaultMessage: 'Subtotal:',

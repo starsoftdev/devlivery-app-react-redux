@@ -58,7 +58,7 @@ store.subscribe(() => {
     'donationOrg',
     'paymentMethod',
     'occasionType',
-    'hide_amount',
+    'hideAmount',
     'deliveryLocation',
     'deliveryTime',
     'voucher',

@@ -4,14 +4,12 @@ import {submitShipping} from '../../reducers/purchase'
 import {Button, Col, DatePicker, Form, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase11.css'
-import {PurchaseActions, SectionHeader} from '../../components'
-import PlusGiftIcon from '../../static/plus_round.svg'
+import {OrderItems, PurchaseActions, SectionHeader} from '../../components'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
 import messages from './messages'
-import {CARD_IMAGES_PROP, DATE_FORMAT, GIFT_IMAGES_PROP} from '../../constants'
+import {DATE_FORMAT} from '../../constants'
 import moment from 'moment'
-import {getItemImage} from '../../utils'
 
 class Purchase11 extends React.Component {
   handleSubmit = (e) => {
@@ -35,44 +33,7 @@ class Purchase11 extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
-          <div className={s.orderInfo}>
-            <div className={s.cardWrapper}>
-              <div style={{backgroundImage: `url(${getItemImage(order.items.card, CARD_IMAGES_PROP)})`}} className={s.itemImage}/>
-              {(order.items.gifts[0] || order.voucher) && (
-                <PlusGiftIcon className={s.plusIcon}/>
-              )}
-              <p className={s.cardInfo}>
-                <span className={s.cardType}>{order.items.card.title}</span>
-                <br/>
-                <span className={s.cardPrice}>{order.items.card.price}</span>
-                <span className={s.cardPriceCurrency}>{order.items.card.currency}</span>
-              </p>
-            </div>
-            {order.items.gifts[0] && (
-              <div className={s.giftWrapper}>
-                <div style={{backgroundImage: `url(${getItemImage(order.items.gifts[0].gift, GIFT_IMAGES_PROP)})`}} className={s.itemImage}/>
-                <p className={s.cardInfo}>
-                  <span className={s.cardType}>{order.items.gifts[0].gift.title}</span>
-                  <br/>
-                  <span className={s.cardPrice}>{order.items.gifts[0].gift.price}</span>
-                  <span className={s.cardPriceCurrency}>{order.items.gifts[0].gift.currency}</span>
-                </p>
-              </div>
-            )}
-            {order.voucher && (
-              <div className={s.giftWrapper}>
-                <div>
-                  <span className={s.cardType}>From: {order.voucher.from}</span><br/>
-                  <span className={s.cardType}>To: {order.voucher.to}</span>
-                </div>
-                <p className={s.cardInfo}>
-                  <span className={s.cardType}>{order.voucher.title}</span>
-                  <br/>
-                  <span className={s.cardPrice}>{order.voucher.price}</span>
-                </p>
-              </div>
-            )}
-          </div>
+          <OrderItems {...order} gift={order.items.gifts[0] && order.items.gifts[0].gift} card={order.items.card}/>
           <div className={s.orderDetails}>
             <Row type='flex' align='center' gutter={20}>
               <Col xs={24} sm={12}>
@@ -83,6 +44,7 @@ class Purchase11 extends React.Component {
               </Col>
               <Col xs={24} sm={12}>
                 {order.items.gifts[0] && order.items.gifts[0].gift.description}
+                {order.donation && order.donation.organization.description}
               </Col>
             </Row>
           </div>
@@ -91,8 +53,17 @@ class Purchase11 extends React.Component {
               <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.subtotal)}</h2>
             </Col>
             <Col xs={12}>
+              <span className={s.subtotalValue}>{order.subtotal}</span>
+              <span className={s.subtotalCurrency}>{'CHF'}</span>
+            </Col>
+          </Row>
+          <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+            <Col xs={12}>
+              <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.total)}</h2>
+            </Col>
+            <Col xs={12}>
               <span className={s.subtotalValue}>{order.total}</span>
-              <span className={s.subtotalCurrency}>CHF</span>
+              <span className={s.subtotalCurrency}>{'CHF'}</span>
             </Col>
           </Row>
           <section className={s.section}>

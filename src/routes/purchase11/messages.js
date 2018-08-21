@@ -21,6 +21,10 @@ export default defineMessages({
     id: 'purchase11.deliveryTime',
     defaultMessage: 'Delivery time',
   },
+  total: {
+    id: 'purchase11.total',
+    defaultMessage: 'Total:',
+  },
   subtotal: {
     id: 'purchase11.subtotal',
     defaultMessage: 'Subtotal:',
