@@ -17,6 +17,8 @@ import {getToken} from './user'
 import {CARD_SIZES, DATE_FORMAT, DONATION_TYPE, VOUCHER_TYPE} from '../constants'
 import has from 'lodash/has'
 import {getFormErrors} from '../utils'
+import pickBy from 'lodash/pickBy'
+import identity from 'lodash/identity'
 
 // ------------------------------------
 // Constants
@@ -404,11 +406,6 @@ export const submitGift = () => async (dispatch, getState) => {
   dispatch(nextFlowStep())
 }
 
-// TODO backend can't get undefined value
-export const getBundleValues = (values) => {
-  return Object.keys(values).forEach(key => values[key] === undefined && delete values[key])
-}
-
 export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   const {letteringTechnique, card, gift, flow, cardDetails} = getState().purchase
@@ -424,7 +421,8 @@ export const addBundle = (values = {}) => (dispatch, getState, {fetch}) => {
       } : {},
       // TODO check if we need to send card body here
       body: cardDetails && cardDetails.body,
-      ...getBundleValues(values),
+      // TODO backend can't get undefined value for title
+      ...pickBy(values, identity)
     },
     token,
     success: (res) => {
