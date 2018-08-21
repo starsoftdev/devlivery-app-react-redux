@@ -28,12 +28,12 @@ export const UPLOAD_AVATAR_FAILURE = 'User.UPLOAD_AVATAR_FAILURE'
 // Actions
 // ------------------------------------
 export const getToken = () => (dispatch, getState, {cookies}) => {
-  const token = cookies.get(TOKEN_COOKIE, {path: ''})
+  const token = cookies.get(TOKEN_COOKIE, {path: '/'})
   return {token}
 }
 
 export const logout = () => (dispatch, getState, {cookies}) => {
-  cookies.remove(TOKEN_COOKIE, {path: ''})
+  cookies.remove(TOKEN_COOKIE, {path: '/'})
   dispatch({type: LOGOUT_SUCCESS})
 }
 
@@ -50,7 +50,7 @@ export const getUser = () => (dispatch, getState, {fetch, cookies}) => {
       success: (res) => dispatch(getUserSuccess(res.data)),
       failure: () => {
         dispatch({type: GET_USER_FAILURE})
-        cookies.remove(TOKEN_COOKIE, {path: ''})
+        cookies.remove(TOKEN_COOKIE, {path: '/'})
       }
     })
   } else {
