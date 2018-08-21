@@ -1,0 +1,60 @@
+@import '../../styles/variables.css';
+
+.cardWrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.plusIcon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -34px;
+  z-index: 1;
+}
+
+.itemImage {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 200px;
+  width: 100%;
+}
+
+.orderInfo {
+  display: flex;
+  background-color: var(--white-color);
+  box-shadow: 0 1px 2px 0 rgba(0,39,36,0.1);
+  padding: var(--margin-sm);
+  margin-bottom: 75px;
+}
+
+.cardInfo {
+  position: absolute;
+  bottom: -85px;
+  text-align: center;
+}
+
+.cardType {
+  font-family: var(--font-family-secondary);
+  font-size: 12px;
+  letter-spacing: 2.1px;
+  text-transform: uppercase;
+  color: var(--dark-color);
+}
+
+.cardPrice {
+  font-family: var(--font-family-secondary);
+  font-size: 12px;
+  color: var(--dark-color);
+}
+
+.cardPriceCurrency {
+  font-family: var(--font-family-secondary);
+  font-size: 12px;
+  color: var(--muted-color);
+  margin-left: 4px;
+}

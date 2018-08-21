@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {submitDonation, setDonationOrg} from '../../reducers/purchase'
-import {Button, Col, Form, Input, Row, Checkbox, Tooltip} from 'antd'
+import {Button, Col, Form, Input, Row, Checkbox} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Donation.css'
 import {Actions, Card, SectionHeader} from '../../components'
@@ -21,7 +21,7 @@ class Donation extends React.Component {
   }
 
   render() {
-    const {donationOrg, setDonationOrg, donationOrgs, intl, flowIndex, loading, donationAmount, hide_amount} = this.props
+    const {donationOrg, setDonationOrg, donationOrgs, intl, flowIndex, loading, donationAmount, hideAmount} = this.props
     const {getFieldDecorator} = this.props.form
     // TODO make amount input as InputNumber field
     return (
@@ -37,24 +37,22 @@ class Donation extends React.Component {
             <Row className={s.items} gutter={20} type='flex' align='center'>
               {donationOrgs.map((item, i) =>
                 <Col key={item.id} className={s.itemWrapper}>
-                  <Tooltip placement="bottom" title={item.description}>
-                    <Card
-                      className={s.item}
-                      title={item.name}
-                      item={item}
-                      imagesProp={'logo'}
-                      onClick={() => setDonationOrg(item)}
-                      bordered={false}
-                      description={item.description}
-                      active={donationOrg && donationOrg.id === item.id}
-                      keyValue={ALPHABET[i]}
-                    />
-                  </Tooltip>
+                  <Card
+                    className={s.item}
+                    title={item.name}
+                    item={item}
+                    imagesProp={'logo'}
+                    onClick={() => setDonationOrg(item)}
+                    bordered={false}
+                    description={item.description}
+                    active={donationOrg && donationOrg.id === item.id}
+                    keyValue={ALPHABET[i]}
+                  />
                 </Col>
               )}
             </Row>
           ) : !loading.donationOrgs ? (
-            <div style={{textAlign: 'center'}}>No organizations.</div>
+            <div style={{textAlign: 'center'}}>{'No organizations.'}</div>
           ) : null}
           <Form>
             <Form.Item>
@@ -68,13 +66,10 @@ class Donation extends React.Component {
               )}
             </Form.Item>
             <Form.Item>
-              {getFieldDecorator('hide_amount', {
-                initialValue: hide_amount,
-                rules: [
-                  {required: false,}
-                ],
-                })(
-                  <Checkbox>Hide amount</Checkbox>
+              {getFieldDecorator('hideAmount', {
+                initialValue: hideAmount,
+              })(
+                <Checkbox>{'Hide amount'}</Checkbox>
               )}
             </Form.Item>
           </Form>
@@ -102,7 +97,7 @@ const mapState = state => ({
   donationOrgs: state.purchase.donationOrgs,
   donationOrg: state.purchase.donationOrg,
   donationAmount: state.purchase.donationAmount,
-  hide_amount: state.purchase.hide_amount,
+  hideAmount: state.purchase.hideAmount,
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
 })

@@ -5,7 +5,6 @@ import s from './PurchaseActions.css'
 import {Tooltip} from 'antd'
 import {
   ADD_BUNDLE_ROUTE,
-  CONFIRM_DONATION_ROUTE,
   DONATION_ROUTE,
   PURCHASE10_ROUTE,
   PURCHASE11_ROUTE,
@@ -49,7 +48,6 @@ class Purchase extends React.Component {
       [PURCHASE13_ROUTE]: intl.formatMessage(messages.purchase13),
       [ADD_BUNDLE_ROUTE]: intl.formatMessage(messages.addBundle),
       [DONATION_ROUTE]: intl.formatMessage(messages.donation),
-      [CONFIRM_DONATION_ROUTE]: intl.formatMessage(messages.confirmDonation),
       [VOUCHER_ROUTE]: intl.formatMessage(messages.voucher),
     }
 

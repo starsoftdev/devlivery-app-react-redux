@@ -98,7 +98,7 @@ class Voucher extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.props.submitVoucher({
-          voucher: this.voucher.outerHTML,
+          html: this.voucher.outerHTML,
           title: this.props.intl.formatMessage(messages.voucherHeader),
           ...values,
         })
