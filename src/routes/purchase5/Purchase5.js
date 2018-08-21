@@ -90,7 +90,7 @@ class Purchase5 extends React.Component {
             collapsed={previewCollapsed}
             header={intl.formatMessage(messages.previewHeader)}
             item={card}
-            imagesProp={CARD_IMAGES_PROP}
+            imagesProp={'images'}
           />
         </div>
         <PurchaseActions>
