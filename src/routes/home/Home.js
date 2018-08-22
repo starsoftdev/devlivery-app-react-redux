@@ -20,9 +20,7 @@ const Card = ({number, image, title, description}) =>
   <div className={s.card}>
     <DecorTopElement className={s.cardTopElement}/>
     <span className={s.cardNumber}>{number}</span>
-    <div className={s.cardImageWrapper}>
-      <img src={image} className={s.cardImage}/>
-    </div>
+    <div style={{backgroundImage: `url(${image})`}} className={s.cardImage}/>
     <h6 className={s.cardTitle}>{title}</h6>
     <p className={s.cardDescription}>{description}</p>
   </div>

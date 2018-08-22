@@ -122,18 +122,12 @@
   color: var(--primary-color);
 }
 
-.cardImageWrapper {
-  flex: 1;
-  display: flex;
-  align-items: flex-start;
-  margin-top: var(--margin-md);
-  margin-bottom: var(--margin-md);
-}
-
 .cardImage {
-  max-width: 100%;
-  height: auto;
-  max-height: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  flex: 1;
+  width: 100%;
 }
 
 .cardTitle {
