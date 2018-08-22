@@ -19,7 +19,7 @@ export default defineMessages({
   },
   deliveryTime: {
     id: 'purchase11.deliveryTime',
-    defaultMessage: 'Delivery time',
+    defaultMessage: 'Delivery date',
   },
   total: {
     id: 'purchase11.total',
