@@ -70,5 +70,5 @@ export const loadFont = (font) => {
 }
 
 export const getItemImage = (item, imagesProp) =>
-  imagesProp ? (isArray(item[imagesProp]) ? item[imagesProp][0] && item[imagesProp][0].url : item[imagesProp].url) : null
+  imagesProp && item && item[imagesProp] ? (isArray(item[imagesProp]) ? item[imagesProp][0] && item[imagesProp][0].url : item[imagesProp].url) : null
 
