@@ -529,7 +529,9 @@ export const makeStripePayment = (card) => (dispatch, getState, {fetch}) => {
     },
     failure: (error) => {
       dispatch({ type: MAKE_STRIPE_PAYMENT_FAILURE })
-      message.error(error.error.message)
+      if (error && error.error && error.error.message) {
+        message.error(error.error.message)
+      }
     }
   })
 }
@@ -557,7 +559,9 @@ export const makePaypalPayment = () => (dispatch, getState, {fetch}) => {
     },
     failure: (error) => {
       dispatch({type: MAKE_PAYPAL_PAYMENT_FAILURE})
-      message.error(error.error.message)
+      if (error && error.error && error.error.message) {
+        message.error(error.error.message)
+      }
     },
   })
 }
