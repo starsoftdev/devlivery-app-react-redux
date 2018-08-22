@@ -13,10 +13,36 @@ import moment from 'moment'
 
 const SALUTATIONS = ['Mr.', 'Ms.', 'Mrs.', 'Dr.']
 
+const RELATIONSHIP = [
+  'Mother',
+  'Father',
+  'Brother',
+  'Sister',
+  'Son',
+  'Daughter',
+  'Child',
+  'Friend',
+  'Spouse',
+  'Partner',
+  'Assistant',
+  'Manager',
+  'Other',
+]
+
 class ContactForm extends React.Component {
   state = {
     requiredAddress: 0,
+    relationshipName: null,
+    newRelationship: null,
   }
+
+  addRelationship = (relationshipName) => {
+    this.setState({
+      newRelationship: relationshipName,
+      relationshipName: null,
+    })
+  }
+
 
   // TODO find a better way to set at least one address required
   changeRequiredAddress = (index, value) => {
@@ -30,9 +56,15 @@ class ContactForm extends React.Component {
   }
 
   render() {
-    const {requiredAddress} = this.state
+    const {requiredAddress, relationshipName, newRelationship} = this.state
     const {intl, children, header, initialValues} = this.props
     const {getFieldDecorator} = this.props.form
+
+    let relationshipList = [...RELATIONSHIP]
+
+    if (newRelationship && !relationshipName) {
+      relationshipList = [newRelationship, ...RELATIONSHIP.filter(item => item !== newRelationship)]
+    }
 
     const contactSection = (
       <section className={s.section}>
@@ -103,9 +135,29 @@ class ContactForm extends React.Component {
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('contact.relationship', {
-            initialValue: initialValues && initialValues.relationship,
+            initialValue: initialValues && initialValues.relationship ? initialValues.relationship : undefined,
           })(
-            <Input placeholder={intl.formatMessage(messages.relationship)}/>
+            <Select
+              showSearch
+              allowClear
+              placeholder={intl.formatMessage(messages.relationship)}
+              filterOption={false}
+              onSearch={(search) => {
+                this.setState({relationshipName: search})
+              }}
+              onChange={(value, item) => {
+                if (item && +item.key === 0) {
+                  this.addRelationship(relationshipName)
+                }
+              }}
+            >
+              {relationshipName && !relationshipList.find(item => item === relationshipName) && (
+                <Select.Option key={0} value={relationshipName}>+ Add "{relationshipName}"</Select.Option>
+              )}
+              {relationshipList.map((item, i) =>
+                <Select.Option key={i + 1} value={item}>{item}</Select.Option>
+              )}
+            </Select>
           )}
         </Form.Item>
       </section>
