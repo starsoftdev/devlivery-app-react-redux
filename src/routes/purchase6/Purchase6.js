@@ -10,7 +10,6 @@ import messages from './messages'
 import {ContentState, EditorState, Modifier} from 'draft-js'
 import {Editor} from 'react-draft-wysiwyg'
 import htmlToDraft from 'html-to-draftjs'
-import draftWysiwygStyles from '../../styles/react-draft-wysiwyg.css'
 import createStyles from 'draft-js-custom-styles'
 import {stateToHTML} from 'draft-js-export-html'
 import EditorIcon from '../../static/editor_icon.svg'
@@ -20,6 +19,18 @@ import {loadFont} from '../../utils'
 const {styles, customStyleFn, exporter} = createStyles(['font-size', 'color', 'font-family', 'font-weight', 'text-alignment'])
 
 const FONTS = ['Amatic SC', 'Anonymous Pro', 'Caveat', 'Cinzel', 'Covered By Your Grace', 'Cutive Mono', 'Dancing Script', 'Gloria Hallelujah', 'Great Vibes', 'Italianno', 'Josefin Sans', 'Merienda', 'Montserrat', 'Nova Mono', 'Open Sans', 'PT Serif', 'Playfair Display', 'Playfair Display SC', 'Raleway', 'Sacramento', 'Shadows Into Light', 'Teko', 'Yellowtail']
+
+const GLOBAL_STYLES = `
+<style type='text/css'>
+  body {
+    margin: 0;
+    padding: 5px 10px;
+    line-height: 1;
+  }
+  p {
+    margin: 0.5rem 0;
+  }
+</style>`
 
 // TODO refactor code
 // TODO move font sizes/colors/etc to constants
@@ -56,8 +67,8 @@ class Purchase6 extends React.Component {
       if (!err) {
         const {editorState} = this.state
         const inlineStyles = exporter(editorState)
-        const body = stateToHTML(editorState.getCurrentContent(), {inlineStyles})
-        this.props.submitCardDetails({...values, body})
+        const html = stateToHTML(editorState.getCurrentContent(), {inlineStyles})
+        this.props.submitCardDetails({...values, body: `${GLOBAL_STYLES}${html}`})
       }
     })
   }
@@ -299,4 +310,4 @@ const mapDispatch = {
   submitCardDetails,
 }
 
-export default connect(mapState, mapDispatch)(Form.create()(withStyles(draftWysiwygStyles, s)(Purchase6)))
+export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Purchase6)))
