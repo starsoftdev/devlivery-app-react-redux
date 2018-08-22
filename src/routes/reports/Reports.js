@@ -7,7 +7,7 @@ import PlusIcon from '../../static/plus.svg'
 import {clear, exportReport, getOccasions, getReports} from '../../reducers/reports'
 import {PaginationItem} from '../../components'
 import debounce from 'lodash/debounce'
-import {DATE_FORMAT, DEFAULT_DEBOUNCE_TIME} from '../../constants'
+import {DATE_FORMAT, DEFAULT_DEBOUNCE_TIME, DISPLAYED_DATE_FORMAT} from '../../constants'
 import messages from './messages'
 
 class Reports extends React.Component {
@@ -120,7 +120,7 @@ class Reports extends React.Component {
             <Col>
               <DatePicker
                 disabledDate={this.disabledStartDate}
-                format={DATE_FORMAT}
+                format={DISPLAYED_DATE_FORMAT}
                 value={startValue}
                 placeholder={'Start date'}
                 onChange={this.onStartChange}

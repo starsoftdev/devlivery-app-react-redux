@@ -8,7 +8,7 @@ import {OrderItems, PurchaseActions, SectionHeader} from '../../components'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
 import messages from './messages'
-import {DATE_FORMAT} from '../../constants'
+import {DATE_FORMAT, DISPLAYED_DATE_FORMAT} from '../../constants'
 import moment from 'moment'
 
 class Purchase11 extends React.Component {
@@ -93,7 +93,7 @@ class Purchase11 extends React.Component {
                     <DatePicker
                       className={s.select}
                       placeholder={intl.formatMessage(messages.deliveryTime)}
-                      format={DATE_FORMAT}
+                      format={DISPLAYED_DATE_FORMAT}
                     />
                   )}
                 </Form.Item>

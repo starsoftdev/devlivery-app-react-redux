@@ -7,7 +7,7 @@ import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
 import {register} from '../../reducers/register'
 import messages from './messages'
-import {DATE_FORMAT} from '../../constants'
+import {DATE_FORMAT, DISPLAYED_DATE_FORMAT} from '../../constants'
 import {Actions, SectionHeader} from '../../components'
 
 class Register2 extends React.Component {
@@ -97,7 +97,7 @@ class Register2 extends React.Component {
               {getFieldDecorator('birthday', {
                 initialValue: individualDetails ? individualDetails.birthday : undefined,
               })(
-                <DatePicker className={s.birthday} format={DATE_FORMAT}/>
+                <DatePicker className={s.birthday} format={DISPLAYED_DATE_FORMAT}/>
               )}
             </Form.Item>
           </section>

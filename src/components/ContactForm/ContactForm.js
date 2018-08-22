@@ -3,7 +3,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './ContactForm.css'
 import {Col, DatePicker, Input, Row, Select, Form} from 'antd'
 import formMessages from '../../formMessages'
-import {DATE_FORMAT} from '../../constants'
+import {DATE_FORMAT, DISPLAYED_DATE_FORMAT} from '../../constants'
 import {Address} from '../../components'
 import messages from './messages'
 import {injectIntl} from 'react-intl'
@@ -118,7 +118,7 @@ class ContactForm extends React.Component {
           {getFieldDecorator('dob', {
             initialValue: initialValues && initialValues.dob ? moment(initialValues.dob, DATE_FORMAT) : undefined,
           })(
-            <DatePicker className={s.birthday} format={DATE_FORMAT}/>
+            <DatePicker className={s.birthday} format={DISPLAYED_DATE_FORMAT}/>
           )}
         </Form.Item>
       </section>
