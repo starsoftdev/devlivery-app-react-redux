@@ -6,7 +6,7 @@ import s from './User.css'
 import formMessages from '../../formMessages'
 import moment from 'moment'
 import PlusIcon from '../../static/plus.svg'
-import {DATE_FORMAT} from '../../constants'
+import {DATE_FORMAT, DISPLAYED_DATE_FORMAT} from '../../constants'
 import {ChangePasswordForm} from '../../components'
 import {updateUser} from '../../reducers/user'
 import messages from './messages'
@@ -102,7 +102,7 @@ class User extends React.Component {
                   {getFieldDecorator('birthday', {
                     initialValue: user && user.dob ? moment(user.dob, DATE_FORMAT) : undefined,
                   })(
-                    <DatePicker className={s.birthday} format={DATE_FORMAT}/>
+                    <DatePicker className={s.birthday} format={DISPLAYED_DATE_FORMAT}/>
                   )}
                 </Form.Item>
               </section>

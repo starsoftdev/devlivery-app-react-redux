@@ -3,7 +3,7 @@ import {Button, DatePicker, Form, Icon, Input, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Reminders.css'
 import PlusIcon from '../../static/plus.svg'
-import {DATE_FORMAT, DEFAULT_DEBOUNCE_TIME} from '../../constants'
+import {DATE_FORMAT, DEFAULT_DEBOUNCE_TIME, DISPLAYED_DATE_FORMAT} from '../../constants'
 import {connect} from 'react-redux'
 import {getOccasions} from '../../reducers/contacts'
 import debounce from 'lodash/debounce'
@@ -134,7 +134,7 @@ class Reminders extends React.Component {
               {getFieldDecorator(`reminders[${k}].date`, {
                 initialValue: initialValues && initialValues[k] ? moment(initialValues[k].date, DATE_FORMAT) : undefined,
               })(
-                <DatePicker className={s.date} format={DATE_FORMAT}/>
+                <DatePicker className={s.date} format={DISPLAYED_DATE_FORMAT}/>
               )}
             </Form.Item>
             <Form.Item>
