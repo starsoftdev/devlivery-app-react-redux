@@ -39,7 +39,7 @@ class Purchase11 extends React.Component {
               <Col xs={24} sm={12}>
                 <section>
                   <h3 className={s.cardTitle}>{occasion && occasion.title}</h3>
-                  {bundle && <div dangerouslySetInnerHTML={{__html: bundle.body}}/>}
+                  {bundle && <iframe className={s.cardPreview} srcDoc={bundle.body}/>}
                 </section>
               </Col>
               <Col xs={24} sm={12}>

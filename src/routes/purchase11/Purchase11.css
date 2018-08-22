@@ -64,6 +64,11 @@
   margin-bottom: var(--margin-md);
 }
 
+.cardPreview {
+  border: 1px solid rgba(64,77,95,0.1);
+  background: #F8F8F8;
+}
+
 .select {
   width: 100%;
 }

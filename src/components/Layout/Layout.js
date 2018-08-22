@@ -8,6 +8,7 @@ import gridStyles from 'antd/lib/grid/style/index.css'
 import formStyles from 'antd/lib/form/style/index.css'
 import alertStyles from 'antd/lib/alert/style/index.css'
 import messageStyles from 'antd/lib/message/style/index.css'
+import draftWysiwygStyles from '../../styles/react-draft-wysiwyg.css'
 import globalStyles from '../../styles/global.css'
 import {DASHBOARD_ROUTES, HOME_ROUTES} from '../../routes'
 
@@ -44,6 +45,7 @@ export default connect(mapState, mapDispatch)(withStyles(
   formStyles,
   alertStyles,
   messageStyles,
+  draftWysiwygStyles,
   globalStyles,
   s,
 )(AppLayout))
