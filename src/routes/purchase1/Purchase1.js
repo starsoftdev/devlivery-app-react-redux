@@ -10,7 +10,7 @@ import messages from './messages'
 
 class Purchase1 extends React.Component {
   render() {
-    const {occasions, occasion, setOccasion, intl, flowIndex, nextFlowStep, occasionTypes, getOccasions} = this.props
+    const {occasions, occasion, setOccasion, intl, flowIndex, nextFlowStep, occasionTypes, getOccasions, occasionType} = this.props
 
     return (
       <div className={s.content}>
@@ -24,6 +24,7 @@ class Purchase1 extends React.Component {
             className={s.occasionType}
             allowClear
             placeholder={intl.formatMessage(messages.filterByOccasionType)}
+            value={occasionType}
             onChange={(occasionType) => getOccasions({occasionType})}
           >
             {occasionTypes.map(item =>
@@ -56,6 +57,7 @@ class Purchase1 extends React.Component {
 
 const mapState = state => ({
   occasionTypes: state.purchase.occasionTypes,
+  occasionType: state.purchase.occasionType,
   occasions: state.purchase.occasions,
   occasion: state.purchase.occasion,
   loading: state.purchase.loading,

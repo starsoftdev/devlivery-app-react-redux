@@ -25,6 +25,8 @@ export const DEFAULT_DEBOUNCE_TIME = 800
 
 export const DATE_FORMAT = 'YYYY-MM-DD'
 
+export const DEFAULT_OCCASION_TYPE = 'Standard'
+
 export const ADDRESS_FIELDS = [
   'street',
 ]

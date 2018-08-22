@@ -12,7 +12,7 @@ import {
 import {generateUrl} from '../router'
 import qs from 'query-string'
 import {getToken} from './user'
-import {CARD_SIZES, DATE_FORMAT, DONATION_TYPE, VOUCHER_TYPE} from '../constants'
+import {CARD_SIZES, DATE_FORMAT, DEFAULT_OCCASION_TYPE, DONATION_TYPE, VOUCHER_TYPE} from '../constants'
 import has from 'lodash/has'
 import {getFormErrors} from '../utils'
 import pickBy from 'lodash/pickBy'
@@ -855,7 +855,7 @@ export const initialState = {
   flow: PURCHASE_FLOW,
   flowIndex: null,
   occasionTypes: [],
-  occasionType: undefined,
+  occasionType: DEFAULT_OCCASION_TYPE,
   bundleId: null,
   bundle: null,
   orderId: null,
@@ -897,7 +897,7 @@ export default createReducer(initialState, {
     occasion,
   }),
   [GET_OCCASIONS_REQUEST]: (state, {params}) => ({
-    occasionType: params.occasionType,
+    occasionType: has(params, 'occasionType') ? params.occasionType : state.occasionType,
     loading: {
       ...state.loading,
       occasions: true,
