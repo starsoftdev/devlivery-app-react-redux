@@ -2,12 +2,16 @@
 
 .actionsWrapper {
   background: var(--dark-color);
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 
 .actions {
   display: flex;
   align-items: center;
-  height: 90px;
+  height: var(--purchase-actions-height);
   max-width: 820px;
   margin-right: auto;
   margin-left: auto;
