@@ -70,7 +70,7 @@ class Orders extends React.Component {
         title: intl.formatMessage(messages.itemsColumn),
         dataIndex: 'items',
         key: 'items',
-        render: (items) => `${items.card}${items.gifts && items.gifts.length ? ` + ${items.gifts.join(', ')}` : ''}`
+        render: (items) => items ? `${items.card}${items.gifts && items.gifts.length ? ` + ${items.gifts.join(', ')}` : ''}` : ''
       },
       {
         title: intl.formatMessage(messages.statusColumn),
