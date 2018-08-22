@@ -12,6 +12,23 @@ import {DATE_FORMAT, DISPLAYED_DATE_FORMAT} from '../../constants'
 import moment from 'moment'
 
 class Purchase11 extends React.Component {
+  // TODO refactor and reuse code from OrderDetails.js
+  state = {
+    currentRecipient: 0,
+  }
+
+  prevRecipient = () => {
+    if(this.state.currentRecipient !== 0) {
+      this.setState({currentRecipient: this.state.currentRecipient - 1})
+    }
+  }
+
+  nextRecipient = () => {
+    if(this.state.currentRecipient !== this.props.order.recipients.length - 1) {
+      this.setState({currentRecipient: this.state.currentRecipient + 1})
+    }
+  }
+
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
@@ -22,6 +39,7 @@ class Purchase11 extends React.Component {
   }
 
   render() {
+    const {currentRecipient} = this.state
     const {flowIndex, bundle, order, occasion, intl, deliveryLocations, deliveryLocation, deliveryTime} = this.props
     const {getFieldDecorator} = this.props.form
 
@@ -99,6 +117,34 @@ class Purchase11 extends React.Component {
                 </Form.Item>
               </Col>
             </Row>
+            <div className={s.recipients}>
+              <div className={s.recipient}>
+                <div>{order.recipients[currentRecipient].contact.title}</div>
+                <div>{`${order.recipients[currentRecipient].contact.first_name} ${order.recipients[currentRecipient].contact.last_name}`}</div>
+                <div>{order.recipients[currentRecipient].receiving_address.address}</div>
+                <div>{`${order.recipients[currentRecipient].receiving_address.postal_code} ${order.recipients[currentRecipient].receiving_address.city}`}</div>
+                <div>{order.recipients[currentRecipient].receiving_address.country}</div>
+              </div>
+              {order.recipients.length > 1 && (
+                <div>
+                  <Button
+                    type='primary'
+                    onClick={this.prevRecipient}
+                    size='small'
+                    ghost
+                  >
+                    prev
+                  </Button>
+                  <Button
+                    type='primary'
+                    onClick={this.nextRecipient}
+                    size='small'
+                  >
+                    next
+                  </Button>
+                </div>
+              )}
+            </div>
           </section>
         </div>
         <PurchaseActions>
