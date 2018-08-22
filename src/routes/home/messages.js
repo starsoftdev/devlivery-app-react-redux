@@ -71,7 +71,7 @@ export default defineMessages({
   },
   checkItOut: {
     id: 'home.checkItOut',
-    defaultMessage: 'Check it outCheck it out',
+    defaultMessage: 'Check it out',
   },
   about: {
     id: 'home.about',

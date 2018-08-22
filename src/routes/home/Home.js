@@ -11,9 +11,10 @@ import personalizeItImage from '../../static/POSE_5.png'
 import sendItImage from '../../static/POSE_6.png'
 import AboutUsIcon from '../../static/decor_about.svg'
 import {animateScroll} from 'react-scroll'
-import {AUTH_PURCHASE_FLOW} from '../'
+import {AUTH_PURCHASE_FLOW, CARD_STORE_ROUTE} from '../'
 import messages from './messages'
 import {setFlow} from '../../reducers/purchase'
+import {Link} from '../../components'
 
 const Card = ({number, image, title, description}) =>
   <div className={s.card}>
@@ -88,10 +89,10 @@ class Home extends React.Component {
               <h3 className={s.cardsForEverythingHeader}>{intl.formatMessage(messages.cardsForEverything)}</h3>
               <p className={s.cardsForEverythingDescription}>
                 {intl.formatMessage(messages.cardsForEverythingDescription)}
-                <a className={s.sectionBtn}>
+                <Link to={CARD_STORE_ROUTE} className={s.sectionBtn}>
                   <PlusCircleIcon className={s.sectionBtnIcon}/>
                   <span className={s.sectionBtnLabel}>{intl.formatMessage(messages.allOurCards)}</span>
-                </a>
+                </Link>
               </p>
             </div>
           </div>
@@ -102,10 +103,10 @@ class Home extends React.Component {
               <h3 className={s.giftingHeader}>{intl.formatMessage(messages.gifting)}</h3>
               <p>
                 {intl.formatMessage(messages.giftingDescription)}
-                <a className={s.sectionBtn}>
+                <Link to={CARD_STORE_ROUTE} className={s.sectionBtn}>
                   <PlusCircleIcon className={s.sectionBtnIcon}/>
                   <span className={s.sectionBtnLabel}>{intl.formatMessage(messages.checkItOut)}</span>
-                </a>
+                </Link>
               </p>
             </div>
             <div>
