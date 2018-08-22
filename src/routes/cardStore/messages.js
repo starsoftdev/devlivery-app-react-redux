@@ -3,7 +3,7 @@ import {defineMessages} from 'react-intl'
 export default defineMessages({
   title: {
     id: 'cardStore.title',
-    defaultMessage: 'Gift Store',
+    defaultMessage: 'Card Store',
   },
   collections: {
     id: 'cardStore.collections',
