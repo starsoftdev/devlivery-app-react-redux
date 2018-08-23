@@ -1,5 +1,5 @@
 import createReducer, {RESET_STORE} from '../createReducer'
-import {TOKEN_COOKIE} from '../constants'
+import {STATE_COOKIE, TOKEN_COOKIE} from '../constants'
 import {getBirthday} from '../utils'
 import {message} from 'antd'
 
@@ -34,6 +34,7 @@ export const getToken = () => (dispatch, getState, {cookies}) => {
 
 export const logout = () => (dispatch, getState, {cookies}) => {
   cookies.remove(TOKEN_COOKIE, {path: '/'})
+  cookies.remove(STATE_COOKIE, {path: '/'})
   dispatch({type: LOGOUT_SUCCESS})
 }
 
@@ -51,6 +52,7 @@ export const getUser = () => (dispatch, getState, {fetch, cookies}) => {
       failure: () => {
         dispatch({type: GET_USER_FAILURE})
         cookies.remove(TOKEN_COOKIE, {path: '/'})
+        cookies.remove(STATE_COOKIE, {path: '/'})
       }
     })
   } else {
