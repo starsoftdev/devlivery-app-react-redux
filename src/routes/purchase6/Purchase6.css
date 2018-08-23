@@ -21,7 +21,7 @@
   }
   margin-right: auto;
   margin-left: auto;
-  max-width: var(--max-content-width);
+  max-width: 1250px;
   flex: auto;
 }
 
@@ -34,10 +34,14 @@
 
 .editorContainer {
   display: flex;
+  position: relative;
+  padding-right: 270px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .editorWrapper {
-  position: relative;
+  /*position: relative;*/
   background: var(--white-color);
   box-shadow: var(--card-box-shadow);
   padding: 45px;
@@ -55,9 +59,12 @@
 }
 
 .editorActions {
-  width: 260px;
-  padding-left: 40px;
-  flex-shrink: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 230px;
+  /*workaround for changing postion of custom option in toolbar - https://github.com/jpuri/react-draft-wysiwyg/issues/625*/
+  padding-top: 70px;
 }
 
 .editorBody {
