@@ -74,6 +74,7 @@ class FontSizePicker extends React.Component {
   render() {
     return (
       <Select
+        defaultValue={FONT_SIZES[0]}
         style={{width: '50%', paddingLeft: '5%', marginBottom: 20}}
         placeholder={'Font Size'}
         onChange={this.toggleFontSize}
@@ -95,6 +96,7 @@ class FontFamilyPicker extends React.Component {
   render() {
     return (
       <Select
+        defaultValue={FONTS[10]}
         style={{width: '100%', marginBottom: 20}}
         placeholder={'Font Family'}
         onChange={this.toggleFontFamily}
@@ -137,6 +139,7 @@ class TextAlignmentPicker extends React.Component {
   render() {
     return (
       <Select
+        defaultValue={TEXT_ALIGNMENT[0].value}
         style={{width: '100%', marginBottom: 20}}
         placeholder={'Text Align'}
         onChange={this.toggleTextAlignment}
@@ -158,6 +161,7 @@ class FontWeightPicker extends React.Component {
   render() {
     return (
       <Select
+        defaultValue={FONT_WEIGHT[0]}
         style={{width: '50%', paddingRight: '5%', marginBottom: 20}}
         placeholder={'Font Weight'}
         onChange={this.toggleFontWeight}
@@ -241,6 +245,9 @@ class Purchase6 extends React.Component {
     const {editorState, mounted} = this.state
     const {intl, flowIndex, cardSize, templates} = this.props
 
+    const cardWidth = cardSize ? cardSize.width : 100
+    const cardHeight = cardSize ? cardSize.height : 100
+
     return (
       <div className={s.form}>
         <div className={s.content}>
@@ -251,7 +258,7 @@ class Purchase6 extends React.Component {
           />
           <div className={s.editorContainer}>
             <div className={s.editorWrapper}>
-              <div className={s.editorIconWrapper}>
+              <div className={s.editorIconWrapper} style={{left: `${(cardWidth/2) + 3}mm`}}>
                 <EditorIcon/>
               </div>
               <div>
@@ -260,8 +267,8 @@ class Purchase6 extends React.Component {
                     editorRef={(editor) => this.editor = editor}
                     wrapperClassName={s.editor}
                     editorStyle={{
-                      width: `${cardSize ? cardSize.width : 100}mm`,
-                      height: `${cardSize ? cardSize.height : 100}mm`,
+                      width: `${cardWidth}mm`,
+                      height: `${cardHeight}mm`,
                       fontSize: FONT_SIZES[0],
                       color: COLORS[7],
                       fontFamily: FONTS[10],
