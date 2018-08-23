@@ -17,6 +17,7 @@ import has from 'lodash/has'
 import {getFormErrors} from '../utils'
 import pickBy from 'lodash/pickBy'
 import identity from 'lodash/identity'
+import uniq from 'lodash/uniq'
 
 // ------------------------------------
 // Constants
@@ -149,6 +150,8 @@ export const GET_ORDER_DETAILS_FAILURE = 'Purchase.GET_ORDER_DETAILS_FAILURE'
 export const GET_BUNDLE_DETAILS_REQUEST = 'Purchase.GET_BUNDLE_DETAILS_REQUEST'
 export const GET_BUNDLE_DETAILS_SUCCESS = 'Purchase.GET_BUNDLE_DETAILS_SUCCESS'
 export const GET_BUNDLE_DETAILS_FAILURE = 'Purchase.GET_BUNDLE_DETAILS_FAILURE'
+
+export const SET_FONT_FAMILIES = 'Purchase.SET_FONT_FAMILIES'
 
 export const CLEAR = 'Purchase.CLEAR'
 
@@ -830,6 +833,8 @@ export const getBundleDetails = (bundleId) => (dispatch, getState, {fetch}) => {
   })
 }
 
+export const setFontFamilies = (fontFamily) => ({type: SET_FONT_FAMILIES, fontFamily})
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -876,7 +881,8 @@ export const initialState = {
   voucher: null,
   recipients: [],
   templates: null,
-  orderDetails: null
+  orderDetails: null,
+  fontFamilies: [],
 }
 
 export default createReducer(initialState, {
@@ -1119,6 +1125,9 @@ export default createReducer(initialState, {
   }),
   [GET_BUNDLE_DETAILS_SUCCESS]: (state, {bundle}) => ({
     bundle,
+  }),
+  [SET_FONT_FAMILIES]: (state, {fontFamily}) => ({
+    fontFamilies: uniq([...state.fontFamilies, fontFamily]),
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
