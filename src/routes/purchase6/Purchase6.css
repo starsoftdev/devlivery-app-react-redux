@@ -41,7 +41,6 @@
 }
 
 .editorWrapper {
-  /*position: relative;*/
   background: var(--white-color);
   box-shadow: var(--card-box-shadow);
   padding: 45px;
@@ -49,8 +48,6 @@
 
 .editorIconWrapper {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
   background: var(--white-color);
   padding: 5px 15px;
   border: 1px solid rgba(64,77,95,0.1);
