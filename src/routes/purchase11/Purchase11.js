@@ -118,13 +118,15 @@ class Purchase11 extends React.Component {
               </Col>
             </Row>
             <div className={s.recipients}>
-              <div className={s.recipient}>
-                <div>{order.recipients[currentRecipient].contact.title}</div>
-                <div>{`${order.recipients[currentRecipient].contact.first_name} ${order.recipients[currentRecipient].contact.last_name}`}</div>
-                <div>{order.recipients[currentRecipient].receiving_address.address}</div>
-                <div>{`${order.recipients[currentRecipient].receiving_address.postal_code} ${order.recipients[currentRecipient].receiving_address.city}`}</div>
-                <div>{order.recipients[currentRecipient].receiving_address.country}</div>
-              </div>
+              {order.recipients[currentRecipient] && (
+                <div className={s.recipient}>
+                  <div>{order.recipients[currentRecipient].contact.title}</div>
+                  <div>{`${order.recipients[currentRecipient].contact.first_name} ${order.recipients[currentRecipient].contact.last_name}`}</div>
+                  <div>{order.recipients[currentRecipient].receiving_address.address}</div>
+                  <div>{`${order.recipients[currentRecipient].receiving_address.postal_code} ${order.recipients[currentRecipient].receiving_address.city}`}</div>
+                  <div>{order.recipients[currentRecipient].receiving_address.country}</div>
+                </div>
+              )}
               {order.recipients.length > 1 && (
                 <div>
                   <Button
