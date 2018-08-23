@@ -62,6 +62,7 @@ store.subscribe(() => {
     'deliveryLocation',
     'deliveryTime',
     'voucher',
+    'fontFamilies',
   ])
 
   // TODO make it generic

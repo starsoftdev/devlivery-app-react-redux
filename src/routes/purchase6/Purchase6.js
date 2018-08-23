@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getMessageTemplate, submitCardDetails} from '../../reducers/purchase'
+import {getMessageTemplate, submitCardDetails, setFontFamilies} from '../../reducers/purchase'
 import {Button, Form, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase6.css'
@@ -91,6 +91,7 @@ class FontFamilyPicker extends React.Component {
   toggleFontFamily = (fontFamily) => {
     loadFont(fontFamily)
     this.props.onChange(fontFamily)
+    this.props.setFontFamilies(fontFamily)
   }
 
   render() {
@@ -108,6 +109,10 @@ class FontFamilyPicker extends React.Component {
     )
   }
 }
+
+const ConnectedFontFamilyPicker = connect(null, {
+  setFontFamilies,
+})(FontFamilyPicker)
 
 class ColorPicker extends React.Component {
   toggleColor = (color) => {
@@ -219,6 +224,7 @@ class Purchase6 extends React.Component {
 
     // load default font
     loadFont(FONTS[10])
+    this.props.setFontFamilies(FONTS[10])
 
     const {cardDetails} = this.props
     // load editor only on client side (not server side)
@@ -237,8 +243,10 @@ class Purchase6 extends React.Component {
   handleSubmit = () => {
     const {editorState} = this.state
     const html = draftToHtml(convertToRaw(editorState.getCurrentContent()))
-
-    this.props.submitCardDetails({body: `${GLOBAL_STYLES}${html}`})
+    const fonts = this.props.fontFamilies.map(font =>
+      `<link id="${font}" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=${font}" media="all">`
+    ).join('')
+    this.props.submitCardDetails({body: `${GLOBAL_STYLES}${fonts}${html}`})
   }
 
   render() {
@@ -285,7 +293,7 @@ class Purchase6 extends React.Component {
                         component: FontSizePicker
                       },
                       fontFamily: {
-                        component: FontFamilyPicker
+                        component: ConnectedFontFamilyPicker
                       },
                       colorPicker: {
                         component: ColorPicker
@@ -326,11 +334,13 @@ const mapState = state => ({
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
   templates: state.purchase.templates,
+  fontFamilies: state.purchase.fontFamilies,
 })
 
 const mapDispatch = {
   getMessageTemplate,
   submitCardDetails,
+  setFontFamilies,
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Purchase6)))
