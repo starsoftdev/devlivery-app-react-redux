@@ -44,6 +44,7 @@ class ContactGroups extends React.Component {
                     <Popconfirm
                       title={intl.formatMessage(messages.confirmRemoving)}
                       onConfirm={() => removeContactGroup(group)}
+                      okText={intl.formatMessage(messages.acceptRemoving)}
                     >
                       <a className={s.removeBtn}>
                         <RemoveIcon/>
