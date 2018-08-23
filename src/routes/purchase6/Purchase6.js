@@ -1,24 +1,57 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {submitCardDetails, getMessageTemplate} from '../../reducers/purchase'
-import {Button, Col, Form, Row, Select} from 'antd'
+import {getMessageTemplate, submitCardDetails} from '../../reducers/purchase'
+import {Button, Form, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase6.css'
 import {PurchaseActions, SectionHeader} from '../../components'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
-import {ContentState, EditorState, Modifier} from 'draft-js'
+import {ContentState, EditorState, Modifier, convertToRaw} from 'draft-js'
 import {Editor} from 'react-draft-wysiwyg'
 import htmlToDraft from 'html-to-draftjs'
-import createStyles from 'draft-js-custom-styles'
-import {stateToHTML} from 'draft-js-export-html'
 import EditorIcon from '../../static/editor_icon.svg'
 import {loadFont} from '../../utils'
+import cn from 'classnames'
+import draftToHtml from 'draftjs-to-html'
 
-// TODO make text-alignment work
-const {styles, customStyleFn, exporter} = createStyles(['font-size', 'color', 'font-family', 'font-weight', 'text-alignment'])
-
+// TODO move font sizes/colors/etc to constants
 const FONTS = ['Amatic SC', 'Anonymous Pro', 'Caveat', 'Cinzel', 'Covered By Your Grace', 'Cutive Mono', 'Dancing Script', 'Gloria Hallelujah', 'Great Vibes', 'Italianno', 'Josefin Sans', 'Merienda', 'Montserrat', 'Nova Mono', 'Open Sans', 'PT Serif', 'Playfair Display', 'Playfair Display SC', 'Raleway', 'Sacramento', 'Shadows Into Light', 'Teko', 'Yellowtail']
+
+const COLORS = [
+  '#BF2828',
+  '#F5A623',
+  '#F8E71C',
+  '#8B572A',
+  '#50E3C2',
+  '#B8E986',
+  '#000000',
+  '#4A4A4A',
+  '#9B9B9B',
+  '#4A90E2',
+  '#BD10E0',
+  '#9013FE',
+  '#4E7321',
+  '#E0DFE5',
+  '#845932',
+  '#4A4A3A',
+]
+
+const FONT_WEIGHT = ['normal', 'bold']
+
+const FONT_SIZES = ['16px', '24px', '36px', '50px', '72px']
+
+const TEXT_ALIGNMENT = [
+  {
+    value: 'left', label: 'Left',
+  },
+  {
+    value: 'center', label: 'Center',
+  },
+  {
+    value: 'right', label: 'Right',
+  },
+]
 
 const GLOBAL_STYLES = `
 <style type='text/css'>
@@ -32,8 +65,141 @@ const GLOBAL_STYLES = `
   }
 </style>`
 
+// TODO use intl for custom pickers
+// TODO use classNames instead of inline styles on Select fields
+class FontSizePicker extends React.Component {
+  toggleFontSize = (fontSize) => {
+    this.props.onChange(fontSize)
+  }
+
+  render() {
+    return (
+      <Select
+        style={{width: '50%', paddingLeft: '5%', marginBottom: 20}}
+        placeholder={'Font Size'}
+        onChange={this.toggleFontSize}
+      >
+        {FONT_SIZES.map((item) =>
+          <Select.Option key={item} value={item}>{item}</Select.Option>
+        )}
+      </Select>
+    )
+  }
+}
+
+class FontFamilyPicker extends React.Component {
+  toggleFontFamily = (fontFamily) => {
+    loadFont(fontFamily)
+    this.props.onChange(fontFamily)
+  }
+
+  render() {
+    return (
+      <Select
+        style={{width: '100%', marginBottom: 20}}
+        placeholder={'Font Family'}
+        onChange={this.toggleFontFamily}
+      >
+        {FONTS.map((item) =>
+          <Select.Option key={item} value={item}>{item}</Select.Option>
+        )}
+      </Select>
+    )
+  }
+}
+
+class ColorPicker extends React.Component {
+  toggleColor = (color) => {
+    this.props.onChange('color', color)
+  }
+
+  render() {
+    return (
+      <div className={s.colors}>
+        {COLORS.map((item) =>
+          <div key={item} className={s.colorWrapper}>
+            <a
+              className={s.color}
+              style={{backgroundColor: item}}
+              onClick={() => this.toggleColor(item)}
+            />
+          </div>
+        )}
+      </div>
+    )
+  }
+}
+
+class TextAlignmentPicker extends React.Component {
+  toggleTextAlignment = (textAlignment) => {
+    this.props.onChange(textAlignment)
+  }
+
+  render() {
+    return (
+      <Select
+        style={{width: '100%', marginBottom: 20}}
+        placeholder={'Text Align'}
+        onChange={this.toggleTextAlignment}
+      >
+        {TEXT_ALIGNMENT.map((item) =>
+          <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>
+        )}
+      </Select>
+    )
+  }
+}
+
+class FontWeightPicker extends React.Component {
+  toggleFontWeight = (fontWeight) => {
+    // TODO workaround for toggling "bold" icon in editor - there is no option "normal"
+    this.props.onChange('bold')
+  }
+
+  render() {
+    return (
+      <Select
+        style={{width: '50%', paddingRight: '5%', marginBottom: 20}}
+        placeholder={'Font Weight'}
+        onChange={this.toggleFontWeight}
+      >
+        {FONT_WEIGHT.map((item) =>
+          <Select.Option key={item} value={item}>{item}</Select.Option>
+        )}
+      </Select>
+    )
+  }
+}
+
+class Template extends React.Component {
+  addTemplate = (value) => {
+    const {editorState, onChange} = this.props
+    const contentState = Modifier.replaceText(
+      editorState.getCurrentContent(),
+      editorState.getSelection(),
+      value,
+      editorState.getCurrentInlineStyle(),
+    )
+    onChange(EditorState.push(editorState, contentState, 'insert-characters'))
+  }
+
+  render() {
+    const {templates} = this.props
+    return (
+      <Select
+        style={{width: '100%', marginBottom: 20, position: 'absolute', top: 0}}
+        placeholder={'Recipient name'}
+        onChange={this.addTemplate}
+      >
+        {templates && templates.map((item) =>
+          <Select.Option key={item.name} value={item.template}>{item.name}</Select.Option>
+        )}
+      </Select>
+    )
+  }
+}
+
 // TODO refactor code
-// TODO move font sizes/colors/etc to constants
 class Purchase6 extends React.Component {
   constructor(props) {
     super(props)
@@ -47,6 +213,7 @@ class Purchase6 extends React.Component {
 
   componentDidMount() {
     this.props.getMessageTemplate()
+
     const {cardDetails} = this.props
     // load editor only on client side (not server side)
     const newState = {
@@ -61,79 +228,25 @@ class Purchase6 extends React.Component {
     this.setState(newState)
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault()
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        const {editorState} = this.state
-        const inlineStyles = exporter(editorState)
-        const html = stateToHTML(editorState.getCurrentContent(), {inlineStyles})
-        this.props.submitCardDetails({...values, body: `${GLOBAL_STYLES}${html}`})
-      }
-    })
-  }
-
-  toggleFontSize = (fontSize) => {
-    const newEditorState = styles.fontSize.toggle(this.state.editorState, fontSize)
-
-    return this.updateEditorState(newEditorState)
-  }
-
-  toggleColor = color => {
-    const newEditorState = styles.color.toggle(this.state.editorState, color)
-
-    return this.updateEditorState(newEditorState)
-  }
-
-  toggleFontFamily = (fontFamily) => {
-    const newEditorState = styles.fontFamily.toggle(this.state.editorState, fontFamily)
-    loadFont(fontFamily)
-    return this.updateEditorState(newEditorState)
-  }
-
-
-  toggleFontWeight = (fontWeight) => {
-    const newEditorState = styles.fontWeight.toggle(this.state.editorState, fontWeight)
-
-    return this.updateEditorState(newEditorState)
-  }
-
-
-  toggleTextAlignment = (textAlignment) => {
-    const newEditorState = styles.textAlignment.toggle(this.state.editorState, textAlignment)
-
-    return this.updateEditorState(newEditorState)
-  }
-
-  onTemplateChange = (value) => {
-    const { editorState } = this.state
-    const selection = editorState.getSelection()
-    const contentState = editorState.getCurrentContent()
-    let nextEditorState = EditorState.createEmpty()
-    if (selection.isCollapsed()) {
-      const nextContentState = Modifier.insertText(contentState, selection, value);
-      nextEditorState = EditorState.push(
-        editorState,
-        nextContentState,
-        'insert-characters'
-      );
-    } else {
-      const nextContentState = Modifier.replaceText(contentState, selection, value);
-      nextEditorState = EditorState.push(
-        editorState,
-        nextContentState,
-        'insert-characters'
-      );
-    }
-    this.setState({editorState: nextEditorState})
+  handleSubmit = () => {
+    const {editorState} = this.state
+    const html = draftToHtml(convertToRaw(editorState.getCurrentContent()))
+    this.props.submitCardDetails({body: `${GLOBAL_STYLES}${html}`})
   }
 
   render() {
     const {editorState, mounted} = this.state
-    const {cardDetails, intl, flowIndex, cardSize, templates} = this.props
-    const {getFieldDecorator} = this.props.form
+    const {intl, flowIndex, cardSize, templates} = this.props
+
+    // Editor allows to pass only className - not style
+    const editorStyles = <style>{`.editor {
+      width: ${cardSize ? cardSize.width : 100}mm;
+      height: ${cardSize ? cardSize.height : 100}mm;
+    }`}</style>
+
     return (
-      <Form onSubmit={this.handleSubmit} className={s.form}>
+      <div className={s.form}>
+        {editorStyles}
         <div className={s.content}>
           <SectionHeader
             header={intl.formatMessage(messages.header)}
@@ -145,135 +258,35 @@ class Purchase6 extends React.Component {
               <div className={s.editorIconWrapper}>
                 <EditorIcon/>
               </div>
-              <div
-                style={{
-                  width: `${cardSize ? cardSize.width : 100}mm`,
-                  height: `${cardSize ? cardSize.height : 100}mm`,
-                }}
-              >
+              <div>
                 {mounted && (
                   <Editor
                     editorRef={(editor) => this.editor = editor}
                     wrapperClassName={s.editor}
-                    toolbarHidden
-                    customStyleFn={customStyleFn}
-                    editorClassName={s.editorBody}
+                    toolbar={{
+                      options: ['fontFamily', 'inline', 'fontSize', 'textAlign', 'colorPicker'],
+                      textAlign: {
+                        component: TextAlignmentPicker
+                      },
+                      inline: {
+                        component: FontWeightPicker,
+                      },
+                      fontSize: {
+                        component: FontSizePicker
+                      },
+                      fontFamily: {
+                        component: FontFamilyPicker
+                      },
+                      colorPicker: {
+                        component: ColorPicker
+                      },
+                    }}
+                    editorClassName={cn(s.editorBody, 'editor')}
+                    toolbarClassName={s.editorActions}
                     editorState={editorState}
                     onEditorStateChange={this.updateEditorState}
+                    toolbarCustomButtons={[<Template templates={templates}/>]}
                   />
-                )}
-              </div>
-            </div>
-            <div className={s.editorActions}>
-              <Form.Item>
-                {getFieldDecorator('recipient', {
-                  initialValue: cardDetails ? cardDetails.recipient : undefined,
-                })(
-                  <Select onChange={this.onTemplateChange} placeholder={intl.formatMessage(messages.recipient)}>
-                    {templates && templates.map((item) =>
-                      <Select.Option key={item.name} value={item.template}>{item.name}</Select.Option>
-                    )}
-                  </Select>
-                )}
-              </Form.Item>
-              <Form.Item>
-                {getFieldDecorator('font_family', {
-                  initialValue: cardDetails ? cardDetails.font_family : undefined,
-                })(
-                  <Select
-                    placeholder={intl.formatMessage(messages.fontFamily)}
-                    onChange={this.toggleFontFamily}
-                  >
-                    {FONTS.map((item) =>
-                      <Select.Option key={item} value={item}>{item}</Select.Option>
-                    )}
-                  </Select>
-                )}
-              </Form.Item>
-              <Row gutter={20}>
-                <Col xs={24} sm={12}>
-                  <Form.Item>
-                    {getFieldDecorator('font_weight', {
-                      initialValue: cardDetails ? cardDetails.font_weight : undefined,
-                    })(
-                      <Select
-                        placeholder={intl.formatMessage(messages.fontWeight)}
-                        onChange={this.toggleFontWeight}
-                      >
-                        {['normal', 'bold'].map((item) =>
-                          <Select.Option key={item} value={item}>{item}</Select.Option>
-                        )}
-                      </Select>
-                    )}
-                  </Form.Item>
-                </Col>
-                <Col xs={24} sm={12}>
-                  <Form.Item>
-                    {getFieldDecorator('size', {
-                      initialValue: cardDetails ? cardDetails.size : undefined,
-                    })(
-                      <Select
-                        placeholder={intl.formatMessage(messages.size)}
-                        onChange={this.toggleFontSize}
-                      >
-                        {['12px', '24px', '36px', '50px', '72px'].map((item) =>
-                          <Select.Option key={item} value={item}>{item}</Select.Option>
-                        )}
-                      </Select>
-                    )}
-                  </Form.Item>
-                </Col>
-              </Row>
-              <Form.Item>
-                {getFieldDecorator('text_alignment', {
-                  initialValue: cardDetails ? cardDetails.text_alignment : undefined,
-                })(
-                  <Select
-                    placeholder={intl.formatMessage(messages.textAlignment)}
-                    onChange={this.toggleTextAlignment}
-                  >
-                    {[
-                      {
-                        value: 'left', label: 'Text align left',
-                      },
-                      {
-                        value: 'center', label: 'Text align center',
-                      },
-                      {
-                        value: 'right', label: 'Text align right',
-                      },
-                    ].map((item) =>
-                      <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>
-                    )}
-                  </Select>
-                )}
-              </Form.Item>
-              <div className={s.colors}>
-                {[
-                  '#BF2828',
-                  '#F5A623',
-                  '#F8E71C',
-                  '#8B572A',
-                  '#50E3C2',
-                  '#B8E986',
-                  '#000000',
-                  '#4A4A4A',
-                  '#9B9B9B',
-                  '#4A90E2',
-                  '#BD10E0',
-                  '#9013FE',
-                  '#4E7321',
-                  '#E0DFE5',
-                  '#845932',
-                  '#4A4A3A',
-                ].map((item) =>
-                  <div key={item} className={s.colorWrapper}>
-                    <a
-                      className={s.color}
-                      style={{backgroundColor: item}}
-                      onClick={() => this.toggleColor(item)}
-                    />
-                  </div>
                 )}
               </div>
             </div>
@@ -287,12 +300,12 @@ class Purchase6 extends React.Component {
           />
           <Button
             type='primary'
-            htmlType='submit'
+            onClick={this.handleSubmit}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
         </PurchaseActions>
-      </Form>
+      </div>
     )
   }
 }
