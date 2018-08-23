@@ -38,7 +38,7 @@ const COLORS = [
 
 const FONT_WEIGHT = ['normal', 'bold']
 
-const FONT_SIZES = ['16px', '24px', '36px', '50px', '72px']
+const FONT_SIZES = [16, 24, 36, 50, 72]
 
 const TEXT_ALIGNMENT = [
   {
@@ -51,6 +51,10 @@ const TEXT_ALIGNMENT = [
     value: 'right', label: 'Right',
   },
 ]
+
+const DEFAULT_FONT = FONTS[10]
+const DEFAULT_FONT_SIZE = FONT_SIZES[0]
+const DEFAULT_COLOR = COLORS[6]
 
 const GLOBAL_STYLES = `
 <style type='text/css'>
@@ -74,13 +78,13 @@ class FontSizePicker extends React.Component {
   render() {
     return (
       <Select
-        defaultValue={FONT_SIZES[0]}
         style={{width: '50%', paddingLeft: '5%', marginBottom: 20}}
         placeholder={'Font Size'}
         onChange={this.toggleFontSize}
+        value={this.props.currentState.fontSize}
       >
         {FONT_SIZES.map((item) =>
-          <Select.Option key={item} value={item}>{item}</Select.Option>
+          <Select.Option key={item} value={item}>{`${item}px`}</Select.Option>
         )}
       </Select>
     )
@@ -88,8 +92,11 @@ class FontSizePicker extends React.Component {
 }
 
 class FontFamilyPicker extends React.Component {
+  componentDidMount () {
+    this.props.setFontFamilies(DEFAULT_FONT)
+  }
+
   toggleFontFamily = (fontFamily) => {
-    loadFont(fontFamily)
     this.props.onChange(fontFamily)
     this.props.setFontFamilies(fontFamily)
   }
@@ -97,13 +104,13 @@ class FontFamilyPicker extends React.Component {
   render() {
     return (
       <Select
-        defaultValue={FONTS[10]}
-        style={{width: '100%', marginBottom: 20}}
+        style={{width: '100%', marginBottom: 20, fontFamily: this.props.currentState.fontFamily}}
         placeholder={'Font Family'}
         onChange={this.toggleFontFamily}
+        value={this.props.currentState.fontFamily}
       >
         {FONTS.map((item) =>
-          <Select.Option key={item} value={item}>{item}</Select.Option>
+          <Select.Option key={item} value={item} style={{fontFamily: item}}>{item}</Select.Option>
         )}
       </Select>
     )
@@ -170,6 +177,7 @@ class FontWeightPicker extends React.Component {
         style={{width: '50%', paddingRight: '5%', marginBottom: 20}}
         placeholder={'Font Weight'}
         onChange={this.toggleFontWeight}
+        value={this.props.currentState.bold ? FONT_WEIGHT[1] : FONT_WEIGHT[0]}
       >
         {FONT_WEIGHT.map((item) =>
           <Select.Option key={item} value={item}>{item}</Select.Option>
@@ -221,17 +229,15 @@ class Purchase6 extends React.Component {
 
   componentDidMount() {
     this.props.getMessageTemplate()
-
-    // load default font
-    loadFont(FONTS[10])
-    this.props.setFontFamilies(FONTS[10])
+    // load all fonts to show them on Select
+    FONTS.forEach(font => loadFont(font))
 
     const {cardDetails} = this.props
     // load editor only on client side (not server side)
     const newState = {
       mounted: true
     }
-    const html = cardDetails ? cardDetails.body : ''
+    const html = cardDetails ? cardDetails.body : `<span style="font-size: ${DEFAULT_FONT_SIZE}px; font-family: ${DEFAULT_FONT}; color: ${DEFAULT_COLOR};">&#8203;</span>`
     const contentBlock = htmlToDraft(html)
     if (contentBlock) {
       const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks)
@@ -277,9 +283,6 @@ class Purchase6 extends React.Component {
                     editorStyle={{
                       width: `${cardWidth}mm`,
                       height: `${cardHeight}mm`,
-                      fontSize: FONT_SIZES[0],
-                      color: COLORS[7],
-                      fontFamily: FONTS[10],
                     }}
                     toolbar={{
                       options: ['fontFamily', 'inline', 'fontSize', 'textAlign', 'colorPicker'],
