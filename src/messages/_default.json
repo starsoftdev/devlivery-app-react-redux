@@ -2391,6 +2391,7 @@
     "defaultMessage": "Yes",
     "message": "",
     "files": [
+      "src/routes/contactGroups/messages.js",
       "src/routes/contacts/messages.js"
     ]
   },
@@ -2404,7 +2405,7 @@
   },
   {
     "id": "contacts.confirmRemoving",
-    "defaultMessage": "Are you sure?",
+    "defaultMessage": "Are you sure you want to delete?",
     "message": "",
     "files": [
       "src/routes/contacts/messages.js"
