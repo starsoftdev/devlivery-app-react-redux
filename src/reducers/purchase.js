@@ -159,6 +159,9 @@ export const CLEAR = 'Purchase.CLEAR'
 // Actions
 // ------------------------------------
 export const setFlow = (flow, redirect = true) => (dispatch, getState, {history}) => {
+  if (redirect) {
+    dispatch(clear())
+  }
   dispatch({type: SET_FLOW, flow})
   if (redirect) {
     // TODO decide if flow key should be in url to fix issue when user goes back to purchase flow
