@@ -12,7 +12,6 @@ import {Editor} from 'react-draft-wysiwyg'
 import htmlToDraft from 'html-to-draftjs'
 import EditorIcon from '../../static/editor_icon.svg'
 import {loadFont} from '../../utils'
-import cn from 'classnames'
 import draftToHtml from 'draftjs-to-html'
 
 // TODO move font sizes/colors/etc to constants
@@ -214,6 +213,9 @@ class Purchase6 extends React.Component {
   componentDidMount() {
     this.props.getMessageTemplate()
 
+    // load default font
+    loadFont(FONTS[10])
+
     const {cardDetails} = this.props
     // load editor only on client side (not server side)
     const newState = {
@@ -231,6 +233,7 @@ class Purchase6 extends React.Component {
   handleSubmit = () => {
     const {editorState} = this.state
     const html = draftToHtml(convertToRaw(editorState.getCurrentContent()))
+
     this.props.submitCardDetails({body: `${GLOBAL_STYLES}${html}`})
   }
 
@@ -238,15 +241,8 @@ class Purchase6 extends React.Component {
     const {editorState, mounted} = this.state
     const {intl, flowIndex, cardSize, templates} = this.props
 
-    // Editor allows to pass only className - not style
-    const editorStyles = <style>{`.editor {
-      width: ${cardSize ? cardSize.width : 100}mm;
-      height: ${cardSize ? cardSize.height : 100}mm;
-    }`}</style>
-
     return (
       <div className={s.form}>
-        {editorStyles}
         <div className={s.content}>
           <SectionHeader
             header={intl.formatMessage(messages.header)}
@@ -263,6 +259,13 @@ class Purchase6 extends React.Component {
                   <Editor
                     editorRef={(editor) => this.editor = editor}
                     wrapperClassName={s.editor}
+                    editorStyle={{
+                      width: `${cardSize ? cardSize.width : 100}mm`,
+                      height: `${cardSize ? cardSize.height : 100}mm`,
+                      fontSize: FONT_SIZES[0],
+                      color: COLORS[7],
+                      fontFamily: FONTS[10],
+                    }}
                     toolbar={{
                       options: ['fontFamily', 'inline', 'fontSize', 'textAlign', 'colorPicker'],
                       textAlign: {
@@ -281,7 +284,7 @@ class Purchase6 extends React.Component {
                         component: ColorPicker
                       },
                     }}
-                    editorClassName={cn(s.editorBody, 'editor')}
+                    editorClassName={s.editorBody}
                     toolbarClassName={s.editorActions}
                     editorState={editorState}
                     onEditorStateChange={this.updateEditorState}
