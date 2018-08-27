@@ -70,7 +70,10 @@
   background: var(--body-background);
   overflow: hidden;
 }
-
+.editorBody p, 
+.editorBody span {
+  word-break: break-all;
+}
 .editor {
   height: 100%;
   width: 100%;

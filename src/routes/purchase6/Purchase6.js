@@ -65,6 +65,10 @@ const GLOBAL_STYLES = `
   }
   p {
     margin: 0.5rem 0;
+    word-break: break-all;
+  }
+  span {
+    word-break: break-all;
   }
 </style>`
 
