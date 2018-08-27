@@ -127,13 +127,21 @@ class Dashboard extends React.Component {
               className={s.breadcrumbs}
               breadcrumbs={[...BASE_DASHBOARD_BREADCRUMBS, ...breadcrumbs]}
             />
+            <div className={s.getStartedBtn}>
+            <h4 className={s.verifymsg}>{intl.formatMessage(messages.verifymsg)}</h4>
+            <a
+              className={s.resendBtn}
+              onClick={() => setFlow(AUTH_PURCHASE_FLOW)}
+            >
+              {intl.formatMessage(messages.resend)}
+            </a>
             <Button
               type='primary'
-              className={s.getStartedBtn}
               onClick={() => setFlow(AUTH_PURCHASE_FLOW)}
             >
               {intl.formatMessage(messages.getStarted)}
             </Button>
+            </div>
           </div>
           {children}
         </div>

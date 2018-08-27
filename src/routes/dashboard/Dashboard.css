@@ -114,3 +114,15 @@
 :global(.ant-menu-hidden) {
   display: none;
 }
+
+.verifymsg{
+  display: inline;
+  color:red;
+}
+.resendBtn{
+  color: green;
+  background-color: transparent;
+  margin: 5px 40px;
+  margin-left: 5px;
+  font-weight: bold;
+}
