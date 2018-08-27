@@ -696,6 +696,22 @@
     ]
   },
   {
+    "id": "dashboard.resend",
+    "defaultMessage": "Resend",
+    "message": "Erneut senden",
+    "files": [
+      "src/routes/dashboard/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.verifymsg",
+    "defaultMessage": "Please confirm your email. Resend confirmation email.",
+    "message": "Bitte bestätige deine Email. Bestätigungsmail erneut senden.",
+    "files": [
+      "src/routes/dashboard/messages.js"
+    ]
+  },
+  {
     "id": "home.getStarted",
     "defaultMessage": "Get Started",
     "message": "Los geht’s!",

@@ -514,6 +514,22 @@
     ]
   },
   {
+    "id": "dashboard.resend",
+    "defaultMessage": "Resend",
+    "message": "",
+    "files": [
+      "src/routes/dashboard/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.verifymsg",
+    "defaultMessage": "Please confirm your email. Resend confirmation email.",
+    "message": "",
+    "files": [
+      "src/routes/dashboard/messages.js"
+    ]
+  },
+  {
     "id": "dashboard.home",
     "defaultMessage": "Home",
     "message": "",

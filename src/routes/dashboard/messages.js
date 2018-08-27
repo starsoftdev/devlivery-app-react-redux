@@ -57,4 +57,12 @@ export default defineMessages({
     id: 'dashboard.getStarted',
     defaultMessage: 'Get Started',
   },
+  resend: {
+    id: 'dashboard.resend',
+    defaultMessage: 'Resend',
+  },
+  verifymsg: {
+    id: 'dashboard.verifymsg',
+    defaultMessage:'Please confirm your email. Resend confirmation email.'
+  }
 })
