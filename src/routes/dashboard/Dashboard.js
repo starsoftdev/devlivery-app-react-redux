@@ -27,10 +27,11 @@ import SettingsIcon from '../../static/settings.svg'
 import messages from './messages'
 import {setFlow} from '../../reducers/purchase'
 import {TEAM_ACCOUNT} from '../../reducers/register'
+import { resendVerify } from '../../reducers/login';
 
 class Dashboard extends React.Component {
   render() {
-    const {children, breadcrumbs, intl, setFlow, user} = this.props
+    const {children, breadcrumbs, intl, setFlow, user, resendVerify} = this.props
 
     const BASE_DASHBOARD_BREADCRUMBS = [
       {routeName: HOME_ROUTE, name: intl.formatMessage(messages.home)},
@@ -131,7 +132,7 @@ class Dashboard extends React.Component {
             <h4 className={s.verifymsg}>{intl.formatMessage(messages.verifymsg)}</h4>
             <a
               className={s.resendBtn}
-              onClick={() => setFlow(AUTH_PURCHASE_FLOW)}
+              onClick={() => resendVerify(user.id)}
             >
               {intl.formatMessage(messages.resend)}
             </a>
@@ -156,6 +157,7 @@ const mapState = state => ({
 
 const mapDispatch = {
   setFlow,
+  resendVerify
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Dashboard))
