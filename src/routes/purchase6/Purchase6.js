@@ -13,48 +13,9 @@ import htmlToDraft from 'html-to-draftjs'
 import EditorIcon from '../../static/editor_icon.svg'
 import {loadFont} from '../../utils'
 import draftToHtml from 'draftjs-to-html'
+import * as Contants from '../../constants';
 
 // TODO move font sizes/colors/etc to constants
-const FONTS = ['Amatic SC', 'Anonymous Pro', 'Caveat', 'Cinzel', 'Covered By Your Grace', 'Cutive Mono', 'Dancing Script', 'Gloria Hallelujah', 'Great Vibes', 'Italianno', 'Josefin Sans', 'Merienda', 'Montserrat', 'Nova Mono', 'Open Sans', 'PT Serif', 'Playfair Display', 'Playfair Display SC', 'Raleway', 'Sacramento', 'Shadows Into Light', 'Teko', 'Yellowtail']
-
-const COLORS = [
-  '#BF2828',
-  '#F5A623',
-  '#F8E71C',
-  '#8B572A',
-  '#50E3C2',
-  '#B8E986',
-  '#000000',
-  '#4A4A4A',
-  '#9B9B9B',
-  '#4A90E2',
-  '#BD10E0',
-  '#9013FE',
-  '#4E7321',
-  '#E0DFE5',
-  '#845932',
-  '#4A4A3A',
-]
-
-const FONT_WEIGHT = ['normal', 'bold']
-
-const FONT_SIZES = [16, 24, 36, 50, 72]
-
-const TEXT_ALIGNMENT = [
-  {
-    value: 'left', label: 'Left',
-  },
-  {
-    value: 'center', label: 'Center',
-  },
-  {
-    value: 'right', label: 'Right',
-  },
-]
-
-const DEFAULT_FONT = FONTS[10]
-const DEFAULT_FONT_SIZE = FONT_SIZES[0]
-const DEFAULT_COLOR = COLORS[6]
 
 const GLOBAL_STYLES = `
 <style type='text/css'>
@@ -87,7 +48,7 @@ class FontSizePicker extends React.Component {
         onChange={this.toggleFontSize}
         value={this.props.currentState.fontSize}
       >
-        {FONT_SIZES.map((item) =>
+        {Contants.FONT_SIZES.map((item) =>
           <Select.Option key={item} value={item}>{`${item}px`}</Select.Option>
         )}
       </Select>
@@ -97,7 +58,7 @@ class FontSizePicker extends React.Component {
 
 class FontFamilyPicker extends React.Component {
   componentDidMount () {
-    this.props.setFontFamilies(DEFAULT_FONT)
+    this.props.setFontFamilies(Contants.DEFAULT_FONT)
   }
 
   toggleFontFamily = (fontFamily) => {
@@ -113,7 +74,7 @@ class FontFamilyPicker extends React.Component {
         onChange={this.toggleFontFamily}
         value={this.props.currentState.fontFamily}
       >
-        {FONTS.map((item) =>
+        {Contants.FONTS.map((item) =>
           <Select.Option key={item} value={item} style={{fontFamily: item}}>{item}</Select.Option>
         )}
       </Select>
@@ -133,7 +94,7 @@ class ColorPicker extends React.Component {
   render() {
     return (
       <div className={s.colors}>
-        {COLORS.map((item) =>
+        {Contants.COLORS.map((item) =>
           <div key={item} className={s.colorWrapper}>
             <a
               className={s.color}
@@ -155,12 +116,12 @@ class TextAlignmentPicker extends React.Component {
   render() {
     return (
       <Select
-        defaultValue={TEXT_ALIGNMENT[0].value}
+        defaultValue={Contants.TEXT_ALIGNMENT[0].value}
         style={{width: '100%', marginBottom: 20}}
         placeholder={'Text Align'}
         onChange={this.toggleTextAlignment}
       >
-        {TEXT_ALIGNMENT.map((item) =>
+        {Contants.TEXT_ALIGNMENT.map((item) =>
           <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>
         )}
       </Select>
@@ -177,13 +138,13 @@ class FontWeightPicker extends React.Component {
   render() {
     return (
       <Select
-        defaultValue={FONT_WEIGHT[0]}
+        defaultValue={Contants.FONT_WEIGHT[0]}
         style={{width: '50%', paddingRight: '5%', marginBottom: 20}}
         placeholder={'Font Weight'}
         onChange={this.toggleFontWeight}
-        value={this.props.currentState.bold ? FONT_WEIGHT[1] : FONT_WEIGHT[0]}
+        value={this.props.currentState.bold ? Contants.FONT_WEIGHT[1] : Contants.FONT_WEIGHT[0]}
       >
-        {FONT_WEIGHT.map((item) =>
+        {Contants.FONT_WEIGHT.map((item) =>
           <Select.Option key={item} value={item}>{item}</Select.Option>
         )}
       </Select>
@@ -234,14 +195,14 @@ class Purchase6 extends React.Component {
   componentDidMount() {
     this.props.getMessageTemplate()
     // load all fonts to show them on Select
-    FONTS.forEach(font => loadFont(font))
+    Contants.FONTS.forEach(font => loadFont(font))
 
     const {cardDetails} = this.props
     // load editor only on client side (not server side)
     const newState = {
       mounted: true
     }
-    const html = cardDetails ? cardDetails.body : `<span style="font-size: ${DEFAULT_FONT_SIZE}px; font-family: ${DEFAULT_FONT}; color: ${DEFAULT_COLOR};">&#8203;</span>`
+    const html = cardDetails ? cardDetails.body : `<span style="font-size: ${Contants.DEFAULT_FONT_SIZE}px; font-family: ${Contants.DEFAULT_FONT}; color: ${Contants.DEFAULT_COLOR};">&#8203;</span>`
     const contentBlock = htmlToDraft(html)
     if (contentBlock) {
       const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks)

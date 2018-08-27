@@ -10,13 +10,41 @@ import formMessages from '../../formMessages'
 import messages from './messages'
 import {DATE_FORMAT, DISPLAYED_DATE_FORMAT} from '../../constants'
 import moment from 'moment'
+import {Editor} from 'react-draft-wysiwyg'
+import {ContentState, EditorState, Modifier, convertToRaw} from 'draft-js'
+import htmlToDraft from 'html-to-draftjs'
+import {DEFAULT_FONT,DEFAULT_FONT_SIZE,DEFAULT_COLOR} from '../../constants';
+
 
 class Purchase11 extends React.Component {
   // TODO refactor and reuse code from OrderDetails.js
-  state = {
-    currentRecipient: 0,
-  }
+  constructor(props) {
+    super(props)
+    this.state = {
+      currentRecipient: 0,
+      editorState: EditorState.createEmpty(),
+      mounted: false,
+    }
 
+    this.updateEditorState = (editorState) => this.setState({editorState})
+  }
+  
+  componentDidMount() {
+    // load all fonts to show them on Select
+    
+    const {cardDetails} = this.props
+    // load editor only on client side (not server side)
+    const newState = {
+      mounted: true
+    }
+    const html = cardDetails ? cardDetails.body : `<span style="font-size: ${DEFAULT_FONT_SIZE}px; font-family: ${DEFAULT_FONT}; color: ${DEFAULT_COLOR};">&#8203;</span>`
+    const contentBlock = htmlToDraft(html)
+    if (contentBlock) {
+      const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks)
+      newState.editorState = EditorState.createWithContent(contentState)
+    }
+    this.setState(newState)
+  }
   prevRecipient = () => {
     if(this.state.currentRecipient !== 0) {
       this.setState({currentRecipient: this.state.currentRecipient - 1})
@@ -40,9 +68,11 @@ class Purchase11 extends React.Component {
 
   render() {
     const {currentRecipient} = this.state
-    const {flowIndex, bundle, order, occasion, intl, deliveryLocations, deliveryLocation, deliveryTime} = this.props
+    const {flowIndex, bundle, order, occasion, intl, deliveryLocations, deliveryLocation, deliveryTime, cardSize} = this.props
     const {getFieldDecorator} = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
+    const cardWidth = cardSize ? cardSize.width : 100
+    const cardHeight = cardSize ? cardSize.height : 100
     return order ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -53,6 +83,32 @@ class Purchase11 extends React.Component {
           />
           <OrderItems {...order} gift={order.items.gifts[0] && order.items.gifts[0].gift} card={order.items.card}/>
           <div className={s.orderDetails}>
+            <h3 className={s.cardTitle}>{occasion && occasion.title}</h3>
+            {this.state.mounted && bundle && <Editor
+                    readOnly = {true}
+                    wrapperClassName={s.editor}
+                    editorStyle={{
+                      width: `${cardWidth}mm`,
+                      height: `${cardHeight}mm`,
+                    }}
+                    editorClassName={s.editorBody}
+                    toolbarClassName={s.editorActions}
+                    onEditorStateChange={this.updateEditorState}
+                    editorState={this.state.editorState}
+                  />
+            }
+            {
+              showDescription &&
+              <Row type='flex' align='center' gutter={20}>
+                <Col xs={24} sm={24}>
+                <section>
+                  <h3 className={s.cardTitle}>{order.items.gifts[0] && order.items.gifts[0].gift.description}</h3>
+                  {order.donation && order.donation.organization.description}
+                </section>
+                </Col>
+              </Row>
+            }
+            {/*
             <Row type='flex' align='center' gutter={20}>
               <Col xs={24} sm={showDescription ? 12: 24}>
                 <section>
@@ -68,6 +124,7 @@ class Purchase11 extends React.Component {
                 </Col>
               }
             </Row>
+            */}
           </div>
           <Row type='flex' align='center' gutter={20} className={s.subtotalSection}>
             <Col xs={12}>
@@ -179,6 +236,8 @@ const mapState = state => ({
   deliveryLocations: state.purchase.deliveryLocations,
   deliveryLocation: state.purchase.deliveryLocation,
   deliveryTime: state.purchase.deliveryTime,
+  cardSize: state.purchase.cardSize,
+  cardDetails: state.purchase.cardDetails,
 })
 
 const mapDispatch = {
