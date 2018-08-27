@@ -42,7 +42,7 @@ class Purchase11 extends React.Component {
     const {currentRecipient} = this.state
     const {flowIndex, bundle, order, occasion, intl, deliveryLocations, deliveryLocation, deliveryTime} = this.props
     const {getFieldDecorator} = this.props.form
-
+    const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
     return order ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -54,16 +54,19 @@ class Purchase11 extends React.Component {
           <OrderItems {...order} gift={order.items.gifts[0] && order.items.gifts[0].gift} card={order.items.card}/>
           <div className={s.orderDetails}>
             <Row type='flex' align='center' gutter={20}>
-              <Col xs={24} sm={12}>
+              <Col xs={24} sm={showDescription ? 12: 24}>
                 <section>
                   <h3 className={s.cardTitle}>{occasion && occasion.title}</h3>
-                  {bundle && <iframe className={s.cardPreview} srcDoc={bundle.body}/>}
+                  {bundle && <iframe className={showDescription? s.cardPreview: s.cardPreviewFull} srcDoc={bundle.body} />}
                 </section>
               </Col>
-              <Col xs={24} sm={12}>
-                {order.items.gifts[0] && order.items.gifts[0].gift.description}
-                {order.donation && order.donation.organization.description}
-              </Col>
+              { 
+                showDescription &&
+                <Col xs={24} sm={12}>
+                  {order.items.gifts[0] && order.items.gifts[0].gift.description}
+                  {order.donation && order.donation.organization.description}
+                </Col>
+              }
             </Row>
           </div>
           <Row type='flex' align='center' gutter={20} className={s.subtotalSection}>
