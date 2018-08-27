@@ -2,7 +2,7 @@ import createReducer, {RESET_STORE} from '../createReducer'
 import {getUserSuccess} from './user'
 import {DAY, TOKEN_COOKIE, YEAR} from '../constants'
 import {getErrorMessage} from '../utils'
-
+import {message} from 'antd'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -37,7 +37,21 @@ export const loginSuccess = (auth, redirectUrl) => (dispatch, getState, {history
     history.push(redirectUrl)
   }
 }
-
+export const resendVerify = (id, redirectUrl = '/') => (dispatch, getState, {fetch}) => {
+  return fetch(`/account/resend-activation-email`, {
+    method: 'POST',
+    contentType: 'application/x-www-form-urlencoded',
+    body: {
+      user_id: id,
+    },
+    success: ({data}) => {
+      message.success(data)
+    },
+    failure: (res) => {
+      message.error(res)
+    }
+  })
+}
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
