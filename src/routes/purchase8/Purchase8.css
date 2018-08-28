@@ -68,14 +68,6 @@
   }
 }
 
-.item {
-  height: 100%;
-
-  @media (--xs-up) {
-    /*to split by 4*/
-    width: 197px;
-  }
-}
 
 .price {
   letter-spacing: normal;

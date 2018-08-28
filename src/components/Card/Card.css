@@ -99,10 +99,14 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  min-height: 160px;
   width: 100%;
+  position: relative;
 }
-
+.image:after{
+  content:'';
+  display: block;
+  padding-bottom: 70%;
+}
 .svgImage {
 }
 

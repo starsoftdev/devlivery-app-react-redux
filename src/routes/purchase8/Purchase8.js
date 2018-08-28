@@ -58,9 +58,8 @@ class Purchase8 extends React.Component {
               </SectionHeader>
               <Row className={s.items} gutter={20} type='flex' align='center'>
                 {gifts.map((item) =>
-                  <Col key={item.id} className={s.itemWrapper}>
+                  <Col key={item.id} className={s.itemWrapper} xs={8}>
                     <Card
-                      className={s.item}
                       item={item}
                       imagesProp={GIFT_IMAGES_PROP}
                       title={
