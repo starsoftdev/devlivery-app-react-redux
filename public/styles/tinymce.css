@@ -1,0 +1,10 @@
+IFRAME {overflow:hidden;}
+.mceContentBody{
+    overflow-y:hidden !important;
+}
+span {
+    word-break: break-all;
+}
+p {
+    word-break: break-all;
+}

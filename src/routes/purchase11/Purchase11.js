@@ -10,11 +10,20 @@ import formMessages from '../../formMessages'
 import messages from './messages'
 import {DATE_FORMAT, DISPLAYED_DATE_FORMAT} from '../../constants'
 import moment from 'moment'
-import {Editor} from 'react-draft-wysiwyg'
-import {ContentState, EditorState, Modifier, convertToRaw} from 'draft-js'
-import htmlToDraft from 'html-to-draftjs'
-import {DEFAULT_FONT,DEFAULT_FONT_SIZE,DEFAULT_COLOR} from '../../constants';
 
+import { Editor } from '@tinymce/tinymce-react';
+import * as Contants from '../../constants';
+import { injectGlobal } from 'styled-components';
+
+injectGlobal`
+  .mce-notification-warning{
+    display: none !important;
+  }
+  iframe {overflow:hidden;}
+  .mceContentBody{
+    overflow-y:hidden !important;
+  }
+`
 
 class Purchase11 extends React.Component {
   // TODO refactor and reuse code from OrderDetails.js
@@ -22,13 +31,16 @@ class Purchase11 extends React.Component {
     super(props)
     this.state = {
       currentRecipient: 0,
-      editorState: EditorState.createEmpty(),
       mounted: false,
+      content:'',
+      fontlink:[]
     }
-
-    this.updateEditorState = (editorState) => this.setState({editorState})
+    this.handleEditorChange = this.handleEditorChange.bind(this);
   }
-  
+  componentWillReceiveProps(nextProps){
+    if(nextProps && nextProps.bundle && nextProps.bundle.body)
+      this.setState({content:nextProps.bundle.body});
+  }
   componentDidMount() {
     // load all fonts to show them on Select
     
@@ -37,12 +49,9 @@ class Purchase11 extends React.Component {
     const newState = {
       mounted: true
     }
-    const html = cardDetails ? cardDetails.body : `<span style="font-size: ${DEFAULT_FONT_SIZE}px; font-family: ${DEFAULT_FONT}; color: ${DEFAULT_COLOR};">&#8203;</span>`
-    const contentBlock = htmlToDraft(html)
-    if (contentBlock) {
-      const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks)
-      newState.editorState = EditorState.createWithContent(contentState)
-    }
+    this.state.fontlink = Contants.FONTS.map(font =>
+      `//fonts.googleapis.com/css?family=${font}`
+    )
     this.setState(newState)
   }
   prevRecipient = () => {
@@ -65,7 +74,9 @@ class Purchase11 extends React.Component {
       }
     })
   }
-
+  handleEditorChange(content) {
+    this.setState({ content });
+  }
   render() {
     const {currentRecipient} = this.state
     const {flowIndex, bundle, order, occasion, intl, deliveryLocations, deliveryLocation, deliveryTime, cardSize} = this.props
@@ -85,16 +96,17 @@ class Purchase11 extends React.Component {
           <div className={s.orderDetails}>
             <h3 className={s.cardTitle}>{occasion && occasion.title}</h3>
             {this.state.mounted && bundle && <Editor
-                    readOnly = {true}
-                    wrapperClassName={s.editor}
-                    editorStyle={{
+                    value={this.state.content} 
+                    init={{
+                      toolbar: false,
+                      menubar:false,
+                      statusbar: false,
                       width: `${cardWidth}mm`,
                       height: `${cardHeight}mm`,
+                      content_css : [...this.state.fontlink, '/styles/tinymce.css'],
+                      readonly: true
                     }}
-                    editorClassName={s.editorBody}
-                    toolbarClassName={s.editorActions}
-                    onEditorStateChange={this.updateEditorState}
-                    editorState={this.state.editorState}
+                    onEditorChange={this.handleEditorChange} 
                   />
             }
             {
