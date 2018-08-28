@@ -1,4 +1,7 @@
 IFRAME {overflow:hidden;}
+body{
+    overflow-y:hidden !important;
+}
 .mceContentBody{
     overflow-y:hidden !important;
 }
