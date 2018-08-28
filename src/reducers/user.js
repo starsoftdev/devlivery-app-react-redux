@@ -85,7 +85,8 @@ export const updateUser = ({user, birthday, preference, ...values}) => (dispatch
         dob: getBirthday(birthday),
       },
       preference: {
-        ...preference,
+        notify_on_reminders: preference.notify_on_reminders ? preference.notify_on_reminders : false,
+        receive_promotional_emails: preference.receive_promotional_emails ? preference.receive_promotional_emails : false,
         remind: preference.remind || 0,
       },
     },
