@@ -53,6 +53,7 @@
   border: 1px solid rgba(64,77,95,0.1);
   display: flex;
   top: 27px;
+  z-index: 999;
 }
 
 .editorActions {
@@ -60,7 +61,6 @@
   top: 0;
   right: 0;
   width: 230px;
-  /*workaround for changing postion of custom option in toolbar - https://github.com/jpuri/react-draft-wysiwyg/issues/625*/
   padding-top: 70px;
 }
 

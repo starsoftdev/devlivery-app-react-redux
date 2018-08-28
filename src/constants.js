@@ -92,7 +92,7 @@ export const ADDITIONAL_GIFT_TYPES = (intl) => [
   {key: VOUCHER_TYPE, title: 'Voucher', svg: VoucherImage},
 ]
 
-//Draft Editor Constants
+//TinyCME Editor Constants
 export const FONTS = ['Amatic SC', 'Anonymous Pro', 'Caveat', 'Cinzel', 'Covered By Your Grace', 'Cutive Mono', 'Dancing Script', 'Gloria Hallelujah', 'Great Vibes', 'Italianno', 'Josefin Sans', 'Merienda', 'Montserrat', 'Nova Mono', 'Open Sans', 'PT Serif', 'Playfair Display', 'Playfair Display SC', 'Raleway', 'Sacramento', 'Shadows Into Light', 'Teko', 'Yellowtail']
 
 export const COLORS = [
@@ -120,13 +120,13 @@ export const FONT_SIZES = [16, 24, 36, 50, 72]
 
 export const TEXT_ALIGNMENT = [
   {
-    value: 'left', label: 'Left',
+    value: 'JustifyLeft', label: 'Left',
   },
   {
-    value: 'center', label: 'Center',
+    value: 'JustifyCenter', label: 'Center',
   },
   {
-    value: 'right', label: 'Right',
+    value: 'JustifyRight', label: 'Right',
   },
 ]
 
