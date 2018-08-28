@@ -61,9 +61,8 @@ class Purchase5 extends React.Component {
               {!!cards.length ? (
                 <Row className={s.items} gutter={20} type='flex' align='center'>
                   {cards.map((item) =>
-                    <Col key={item.id} className={s.itemWrapper}>
+                    <Col key={item.id} className={s.itemWrapper} xs={8}>
                       <Card
-                        className={s.item}
                         item={item}
                         imagesProp={CARD_IMAGES_PROP}
                         title={
