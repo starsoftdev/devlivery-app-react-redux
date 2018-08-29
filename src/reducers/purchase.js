@@ -455,7 +455,7 @@ export const makeOrder = () => (dispatch, getState, {fetch}) => {
       method: 'POST',
       contentType: 'application/x-www-form-urlencoded',
       body: {
-        bundle_id: bundleId,
+        bundle_id: parseInt(bundleId),
       },
       token,
       success: (res) => {
@@ -726,7 +726,7 @@ export const confirmVoucher = (bundleValues) => async (dispatch, getState, {fetc
   return fetch(`/vouchers`, {
     method: 'POST',
     body: {
-      bundle_id: bundleId,
+      bundle_id: parseInt(bundleId),
       ...values,
       html,
     },
@@ -759,7 +759,7 @@ export const confirmDonation = (bundleValues) => async (dispatch, getState, {fet
   return fetch(`/donations`, {
     method: 'POST',
     body: {
-      bundle_id: bundleId,
+      bundle_id: parseInt(bundleId),
       organization_id: donationOrg.id,
       amount: donationAmount,
       hide_amount: hideAmount,
