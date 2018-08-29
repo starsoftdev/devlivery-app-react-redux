@@ -27,9 +27,9 @@ class AddContact extends React.Component {
   }
 
   render() {
-    const {flowIndex, intl} = this.props
+    const {flowIndex, intl, selectedContact} = this.props
     return (
-      <ContactForm form={this.props.form} header={null}>
+      <ContactForm initialValues = {selectedContact} form={this.props.form} header={null}>
         {({
             contactSection,
             birthdaySection,
