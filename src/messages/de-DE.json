@@ -2151,6 +2151,38 @@
     ]
   },
   {
+    "id": "contactForm.salt_mr",
+    "defaultMessage": "Mr.",
+    "message": "Herr",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.salt_ms",
+    "defaultMessage": "Ms.",
+    "message": "Frau",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.salt_mrs",
+    "defaultMessage": "Mrs.",
+    "message": "Frau",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.salt_dr",
+    "defaultMessage": "Dr.",
+    "message": "Dr",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
     "id": "header.dashboard",
     "defaultMessage": "Dashboard",
     "message": "",
@@ -2161,7 +2193,7 @@
   {
     "id": "purchaseActions.addBundle",
     "defaultMessage": "Bundle Confirmation",
-    "message": "",
+    "message": "Bundle Confirmation",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2177,7 +2209,7 @@
   {
     "id": "purchaseActions.donation",
     "defaultMessage": "Donation",
-    "message": "",
+    "message": "Donation",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2185,7 +2217,7 @@
   {
     "id": "purchaseActions.purchase1",
     "defaultMessage": "Select Occasion",
-    "message": "",
+    "message": "Select Occasion",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2193,7 +2225,7 @@
   {
     "id": "purchaseActions.purchase10",
     "defaultMessage": "Add your Contact(s)",
-    "message": "",
+    "message": "Add your Contact(s)",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2201,7 +2233,7 @@
   {
     "id": "purchaseActions.purchase11",
     "defaultMessage": "Order Confirmation",
-    "message": "",
+    "message": "Order Confirmation",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2209,7 +2241,7 @@
   {
     "id": "purchaseActions.purchase12",
     "defaultMessage": "Select Payment Method",
-    "message": "",
+    "message": "Select Payment Method",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2217,7 +2249,7 @@
   {
     "id": "purchaseActions.purchase13",
     "defaultMessage": "Credit Card Information",
-    "message": "",
+    "message": "Credit Card Information",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2225,7 +2257,7 @@
   {
     "id": "purchaseActions.purchase2",
     "defaultMessage": "Lettering Technique",
-    "message": "",
+    "message": "Lettering Technique",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2233,7 +2265,7 @@
   {
     "id": "purchaseActions.purchase3",
     "defaultMessage": "Select Style",
-    "message": "",
+    "message": "Select Style",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2241,7 +2273,7 @@
   {
     "id": "purchaseActions.purchase4",
     "defaultMessage": "Choose the Format",
-    "message": "",
+    "message": "Choose the Format",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2249,7 +2281,7 @@
   {
     "id": "purchaseActions.purchase5",
     "defaultMessage": "Choose Card",
-    "message": "",
+    "message": "Choose Card",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2257,7 +2289,7 @@
   {
     "id": "purchaseActions.purchase6",
     "defaultMessage": "Personalize Card",
-    "message": "",
+    "message": "Personalize Card",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2265,7 +2297,7 @@
   {
     "id": "purchaseActions.purchase7",
     "defaultMessage": "Add Gift?",
-    "message": "",
+    "message": "Add Gift?",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2273,7 +2305,7 @@
   {
     "id": "purchaseActions.purchase8",
     "defaultMessage": "Select Gift",
-    "message": "",
+    "message": "Select Gift",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2281,7 +2313,7 @@
   {
     "id": "purchaseActions.purchase9",
     "defaultMessage": "Create Account",
-    "message": "",
+    "message": "Create Account",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2289,7 +2321,7 @@
   {
     "id": "purchaseActions.voucher",
     "defaultMessage": "Voucher",
-    "message": "",
+    "message": "Voucher",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]

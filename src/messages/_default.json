@@ -2011,6 +2011,38 @@
     ]
   },
   {
+    "id": "contactForm.salt_mr",
+    "defaultMessage": "Mr.",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.salt_ms",
+    "defaultMessage": "Ms.",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.salt_mrs",
+    "defaultMessage": "Mrs.",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.salt_dr",
+    "defaultMessage": "Dr.",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
     "id": "header.dashboard",
     "defaultMessage": "Dashboard",
     "message": "",
