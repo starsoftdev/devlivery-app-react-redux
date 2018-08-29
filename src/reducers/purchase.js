@@ -159,9 +159,10 @@ export const CLEAR = 'Purchase.CLEAR'
 // Actions
 // ------------------------------------
 export const setFlow = (flow, redirect = true) => (dispatch, getState, {history}) => {
-  if (redirect) {
+  if (redirect && flow.key != ORDER_BUNDLE_FLOW.key) {
     dispatch(clear())
   }
+  
   dispatch({type: SET_FLOW, flow})
   if (redirect) {
     // TODO decide if flow key should be in url to fix issue when user goes back to purchase flow
@@ -904,7 +905,8 @@ export const initialState = {
 }
 
 export default createReducer(initialState, {
-  [SET_BUNDLE]: (state, {bundle, letteringTechnique, card, gift, giftType, cardSize, cardStyle}) => ({
+  [SET_BUNDLE]: (state, {bundle, letteringTechnique, card, gift, giftType, cardSize, cardStyle}) => {
+    return {
     // bundleId should be saved in cookies - bundle obj is too big
     bundle,
     bundleId: bundle.id,
@@ -914,7 +916,16 @@ export default createReducer(initialState, {
     giftType,
     cardSize,
     cardStyle,
-  }),
+    cardDetails: {body:bundle.body},
+    /*
+    order: {
+      items:{
+        card:bundle.bundle_card,
+        gifts:bundle.bundle_gifts
+      }
+    }
+    */
+  }},
   [SET_FLOW]: (state, {flow}) => ({
     flow,
   }),
