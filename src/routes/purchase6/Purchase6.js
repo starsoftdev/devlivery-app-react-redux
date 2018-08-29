@@ -210,7 +210,12 @@ class Purchase6 extends React.Component {
     this.execTinyCommand = this.execTinyCommand.bind(this);
     this.insertConent = this.insertConent.bind(this);
   }
-
+  componentWillReceiveProps(nextProps){
+    if(nextProps && nextProps.cardDetails)
+    {
+      this.setState({content:nextProps.cardDetails.body});
+    }
+  }
   componentDidMount() {
     this.props.getMessageTemplate()
     // load all fonts to show them on Select
