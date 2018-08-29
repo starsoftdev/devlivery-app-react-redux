@@ -32,12 +32,11 @@ import { resendVerify } from '../../reducers/login';
 class Dashboard extends React.Component {
   render() {
     const {children, breadcrumbs, intl, setFlow, user, resendVerify} = this.props
-
     const BASE_DASHBOARD_BREADCRUMBS = [
       {routeName: HOME_ROUTE, name: intl.formatMessage(messages.home)},
       {name: intl.formatMessage(messages.dashboard)}
     ]
-
+    const verified = user && user.verified;
     return (
       <div className={s.container}>
         <Menu className={s.menu} mode='inline'>
@@ -129,13 +128,18 @@ class Dashboard extends React.Component {
               breadcrumbs={[...BASE_DASHBOARD_BREADCRUMBS, ...breadcrumbs]}
             />
             <div className={s.getStartedBtn}>
-            <h4 className={s.verifymsg}>{intl.formatMessage(messages.verifymsg)}</h4>
-            <a
-              className={s.resendBtn}
-              onClick={() => resendVerify(user.id)}
-            >
-              {intl.formatMessage(messages.resend)}
-            </a>
+            {
+              verified !== 1 && <h4 className={s.verifymsg}>{intl.formatMessage(messages.verifymsg)}</h4>
+            }
+            {
+              verified !== 1 &&
+              <a
+                className={s.resendBtn}
+                onClick={() => resendVerify(user.id)}
+              >
+                {intl.formatMessage(messages.resend)}
+              </a>
+            }
             <Button
               type='primary'
               onClick={() => setFlow(AUTH_PURCHASE_FLOW)}

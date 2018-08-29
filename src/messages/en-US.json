@@ -858,6 +858,22 @@
     ]
   },
   {
+    "id": "login.verify",
+    "defaultMessage": "Verification Completes!",
+    "message": "",
+    "files": [
+      "src/routes/verify/messages.js"
+    ]
+  },
+  {
+    "id": "login.verifysubmit",
+    "defaultMessage": "Done",
+    "message": "",
+    "files": [
+      "src/routes/verify/messages.js"
+    ]
+  },
+  {
     "id": "manageTeam.accountManagementColumn",
     "defaultMessage": "Account Management",
     "message": "",

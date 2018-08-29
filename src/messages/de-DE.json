@@ -680,6 +680,22 @@
     ]
   },
   {
+    "id": "login.verify",
+    "defaultMessage": "Verification Completes!",
+    "message": "",
+    "files": [
+      "src/routes/verify/messages.js"
+    ]
+  },
+  {
+    "id": "login.verifysubmit",
+    "defaultMessage": "Done",
+    "message": "",
+    "files": [
+      "src/routes/verify/messages.js"
+    ]
+  },
+  {
     "id": "purchase13.name",
     "defaultMessage": "Full Name",
     "message": "Vollständiger Name",

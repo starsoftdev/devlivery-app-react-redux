@@ -58,6 +58,7 @@ export const DASHBOARD_ROUTES = [
 ]
 
 export const LOGOUT_ROUTE = 'logout'
+export const ACCOUNT_VERIFY = 'verify'
 
 export const PURCHASE1_ROUTE = 'purchase1'
 export const PURCHASE2_ROUTE = 'purchase2'
@@ -292,6 +293,11 @@ const routes = {
       path: '/contact-us',
       name: CONTACT_US_ROUTE,
       load: () => import(/* webpackChunkName: 'contactUs' */ './contactUs'),
+    },
+    {
+      path: '/account/verify/:token',
+      name: ACCOUNT_VERIFY,
+      load: () => import(/* webpackChunkName: 'dashboard' */ './verify'),
     },
     {
       path: '/login',
