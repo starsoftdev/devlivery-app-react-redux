@@ -69,4 +69,20 @@ export default defineMessages({
     id: 'contactForm.repeat',
     defaultMessage: 'Repeat',
   },
+  salt_mr:{
+    id: 'contactForm.salt_mr',
+    defaultMessage: 'Mr.',
+  },
+  salt_ms:{
+    id: 'contactForm.salt_ms',
+    defaultMessage: 'Ms.',
+  },
+  salt_mrs:{
+    id: 'contactForm.salt_mrs',
+    defaultMessage: 'Mrs.',
+  },
+  salt_dr:{
+    id: 'contactForm.salt_dr',
+    defaultMessage: 'Dr.',
+  },
 })

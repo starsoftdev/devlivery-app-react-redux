@@ -80,7 +80,6 @@ class Reminders extends React.Component {
     if (newOccasion && !occasionTitle) {
       occasionsList = [{title: newOccasion}, ...occasions.filter(item => item.title !== newOccasion)]
     }
-
     const keys = getFieldValue('reminderKeys')
     return (
       <React.Fragment>

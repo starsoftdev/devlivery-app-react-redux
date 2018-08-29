@@ -75,7 +75,7 @@ class ContactForm extends React.Component {
           })(
             <Select placeholder={intl.formatMessage(messages.salutation)}>
               {SALUTATIONS.map((item) =>
-                <Select.Option key={item} value={item}>{item}</Select.Option>
+                <Select.Option key={item} value={item}>{intl.formatMessage(messages['salt_'+item.toLowerCase().substring(0,item.length-1)])}</Select.Option>
               )}
             </Select>
           )}
