@@ -61,7 +61,21 @@ const initialState = {
   loading: false,
   error: null,
 }
-
+export const verify = (token) => (dispatch, getState, {fetch,history}) => {
+  
+  return fetch(`/account/verify/${token}`, {
+    method: 'POST',
+    contentType: 'application/x-www-form-urlencoded',
+    success: ({data}) => {
+      message.success(data)
+      history.push('/login');
+    },
+    failure: (res) => {
+      message.error(res)
+    }
+  })
+  
+}
 export default createReducer(initialState, {
   [LOGIN_REQUEST]: (state, action) => ({
     loading: true,
