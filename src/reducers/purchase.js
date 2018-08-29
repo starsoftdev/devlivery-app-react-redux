@@ -450,25 +450,30 @@ export const makeOrder = () => (dispatch, getState, {fetch}) => {
     dispatch(getOrderDetails(orderId))
     dispatch(getDeliveryLocations(orderId))
   } else {
+    if(bundleId === null)
+    {
+      message.error('Bundle is incorrect.');
+      return;
+    }
     dispatch({type: MAKE_ORDER_REQUEST})
-    return fetch(`/make-order-from-bundle`, {
-      method: 'POST',
-      contentType: 'application/x-www-form-urlencoded',
-      body: {
-        bundle_id: parseInt(bundleId),
-      },
-      token,
-      success: (res) => {
-        const order = res.data
-        dispatch({type: MAKE_ORDER_SUCCESS, order})
-        dispatch(addCardBody(order.id))
-        dispatch(getDeliveryLocations(order.id))
-        dispatch(addRecipientsOrder(order.id))
-      },
-      failure: () => {
-        dispatch({type: MAKE_ORDER_FAILURE})
-      },
-    })
+      return fetch(`/make-order-from-bundle`, {
+        method: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+        body: {
+          bundle_id: parseInt(bundleId),
+        },
+        token,
+        success: (res) => {
+          const order = res.data
+          dispatch({type: MAKE_ORDER_SUCCESS, order})
+          dispatch(addCardBody(order.id))
+          dispatch(getDeliveryLocations(order.id))
+          dispatch(addRecipientsOrder(order.id))
+        },
+        failure: () => {
+          dispatch({type: MAKE_ORDER_FAILURE})
+        },
+      })
   }
 }
 
@@ -722,6 +727,11 @@ export const confirmVoucher = (bundleValues) => async (dispatch, getState, {fetc
   await dispatch(addBundle(bundleValues, false))
   const {token} = dispatch(getToken())
   const {bundleId, voucher: {html, ...values}} = getState().purchase
+  if(bundleId === null)
+  {
+    message.error('Bundle is incorrect.');
+    return;
+  }
   dispatch({type: CONFIRM_VOUCHER_REQUEST})
   return fetch(`/vouchers`, {
     method: 'POST',
@@ -755,6 +765,11 @@ export const confirmDonation = (bundleValues) => async (dispatch, getState, {fet
   await dispatch(addBundle(bundleValues, false))
   const {token} = dispatch(getToken())
   const {donationOrg, bundleId, donationAmount, hideAmount} = getState().purchase
+  if(bundleId === null)
+  {
+    message.error('Bundle is incorrect.');
+    return;
+  }
   dispatch({type: CONFIRM_DONATION_REQUEST})
   return fetch(`/donations`, {
     method: 'POST',
