@@ -65,7 +65,7 @@ class ContactForm extends React.Component {
     if (newRelationship && !relationshipName) {
       relationshipList = [newRelationship, ...RELATIONSHIP.filter(item => item !== newRelationship)]
     }
-
+    
     const contactSection = (
       <section className={s.section}>
         {header && <h1 className={s.header}>{header}</h1>}
@@ -185,7 +185,7 @@ class ContactForm extends React.Component {
         getFieldDecorator={getFieldDecorator}
         index={0}
         intl={intl}
-        initialValues={initialValues ? initialValues.addresses.find(item => item.title === 'home' || item.title === null) : null}
+        initialValues={initialValues && initialValues.addresses? initialValues.addresses.find(item => item.title === 'home' || item.title === null) : null}
       />
     )
 
@@ -198,7 +198,7 @@ class ContactForm extends React.Component {
         getFieldDecorator={getFieldDecorator}
         index={1}
         intl={intl}
-        initialValues={initialValues ? initialValues.addresses.find(item => item.title === 'office') : null}
+        initialValues={initialValues && initialValues.addresses? initialValues.addresses.find(item => item.title === 'office') : null}
       />
     )
 

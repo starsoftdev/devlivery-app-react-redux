@@ -10,23 +10,27 @@ import ImportContactsIcon from '../../static/import_contacts.svg'
 import ImportContacts from './ImportContacts'
 import AddContact from './AddContact'
 import messages from './messages'
+import Contacts from '../../routes/contacts/Contacts';
 
 class Purchase10 extends React.Component {
   state = {
     addingContactMode: null,
+    selectedContact: null
   }
 
   setAddingContactsMode = (addingContactMode) => {
     this.setState({addingContactMode})
   }
-
+  selectExistingContact(selectedContact){
+    this.setState({addingContactMode:ADD_CONTACT_MANUALLY,selectedContact});
+  }
   render() {
     const {addingContactMode} = this.state
     const {flowIndex, intl} = this.props
     return (
       <React.Fragment>
         {addingContactMode === ADD_CONTACT_MANUALLY ? (
-          <AddContact intl={intl}/>
+          <AddContact intl={intl} selectedContact={this.state.selectedContact}/>
         ) : addingContactMode === IMPORT_CONTACTS ? (
           <ImportContacts intl={intl}/>
         ) : (
@@ -59,6 +63,7 @@ class Purchase10 extends React.Component {
                   />
                 </Col>
               </Row>
+              <Contacts {...this.props} intl={intl} selectExistingContact ={this.selectExistingContact.bind(this)}/>
             </div>
             <PurchaseActions/>
           </React.Fragment>

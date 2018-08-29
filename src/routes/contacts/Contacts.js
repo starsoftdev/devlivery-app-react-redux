@@ -172,7 +172,12 @@ class Contacts extends React.Component {
                         <RemoveIcon/>
                       </a>
                     </Popconfirm>
-                    <div className={s.contactContent} onClick={() => this.showDetailContactView(contact.id)}>
+                    <div className={s.contactContent} onClick={() => {
+                        if(this.props.selectExistingContact)
+                          this.props.selectExistingContact(contact);
+                        else
+                          this.showDetailContactView(contact.id)
+                      }}>
                       <p className={s.contactName}>{contact.first_name} {contact.last_name}</p>
                       <a href={`tel:${contact.phone}`} className={s.contactPhone}>{contact.phone}</a>
                       <a href={`mailto:${contact.email}`} className={s.contactEmail}>{contact.email}</a>

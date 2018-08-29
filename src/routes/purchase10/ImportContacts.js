@@ -56,12 +56,15 @@ class ImportContacts extends React.Component {
                 keyCode={13}
                 onKeyHandle={() => nextFlowStep()}
               />
-              <Button
-                onClick={() => nextFlowStep()}
-                type='primary'
-              >
-                {intl.formatMessage(messages.submit)}
-              </Button>
+              {
+                mappingColumns &&
+                <Button
+                  onClick={() => nextFlowStep()}
+                  type='primary'
+                >
+                  {intl.formatMessage(messages.submit)}
+                </Button>
+              }
             </PurchaseActions>
           </React.Fragment>
         }
