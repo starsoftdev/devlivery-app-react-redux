@@ -9,9 +9,20 @@ import {ALPHABET} from '../../constants'
 import messages from './messages'
 
 class Purchase1 extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      occasionType: props.occasionType
+    }
+    this.selectSeasonal = this.selectSeasonal.bind(this);
+  }
+  selectSeasonal(occasionType){
+    this.setState({occasionType});
+    this.props.getOccasions({occasionType});
+  }
   render() {
-    const {occasions, occasion, setOccasion, intl, flowIndex, nextFlowStep, occasionTypes, getOccasions, occasionType} = this.props
-
+    const {occasions, occasion, setOccasion, intl, flowIndex, nextFlowStep, occasionTypes, getOccasions} = this.props
+    
     return (
       <div className={s.content}>
         <SectionHeader
@@ -24,8 +35,8 @@ class Purchase1 extends React.Component {
             className={s.occasionType}
             allowClear
             placeholder={intl.formatMessage(messages.filterByOccasionType)}
-            value={occasionType}
-            onChange={(occasionType) => getOccasions({occasionType})}
+            value={this.state.occasionType}
+            onChange={(occasionType) => this.selectSeasonal(occasionType)}
           >
             {occasionTypes.map(item =>
               <Select.Option key={item} value={item}>{item}</Select.Option>
@@ -41,8 +52,12 @@ class Purchase1 extends React.Component {
                 item={item}
                 imagesProp={'image'}
                 onClick={() => {
-                  setOccasion(item)
-                  nextFlowStep()
+                  if(item.title.toLowerCase() == 'seasonal')
+                    this.selectSeasonal('Seasonal');
+                  else{
+                    setOccasion(item)
+                    nextFlowStep()
+                  }
                 }}
                 active={occasion && occasion.id === item.id}
                 keyValue={ALPHABET[i]}
