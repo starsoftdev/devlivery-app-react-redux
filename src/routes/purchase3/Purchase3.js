@@ -32,6 +32,7 @@ class Purchase3 extends React.Component {
                 }}
                 active={item.title === cardStyle}
                 keyValue={ALPHABET[i]}
+                imageStyle ={{'backgroundSize':'auto'}}
               />
             </Col>
           )}

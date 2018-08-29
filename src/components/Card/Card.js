@@ -12,7 +12,7 @@ class Card extends React.Component {
   }
 
   render() {
-    const {title, active, onClick, keyValue, className, svg, extra, description, bordered, disabled, imagesProp, item} = this.props
+    const {title, active, onClick, keyValue, className, svg, extra, description, bordered, disabled, imagesProp, item, imageStyle} = this.props
     const image = getItemImage(item, imagesProp)
     const isSvg = image && image.includes('.svg')
 
@@ -35,7 +35,7 @@ class Card extends React.Component {
             isSvg ? (
               <img src={image}/>
             ) : (
-              <div className={s.image} style={{backgroundImage: `url(${image})`}}/>
+              <div className={s.image} style={{backgroundImage: `url(${image})`,...imageStyle}}/>
             )
             : null}
           {svg && React.createElement(svg)}
