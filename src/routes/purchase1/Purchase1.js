@@ -52,7 +52,7 @@ class Purchase1 extends React.Component {
                 item={item}
                 imagesProp={'image'}
                 onClick={() => {
-                  if(item.title.toLowerCase() == 'seasonal')
+                  if(item.id == 11)
                     this.selectSeasonal('Seasonal');
                   else{
                     setOccasion(item)
