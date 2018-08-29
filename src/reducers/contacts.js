@@ -292,11 +292,21 @@ export const importContacts = (columnsMapping, callback) => (dispatch, getState,
       contacts,
     },
     token,
-    success: () => {
+    success: (res) => {
       dispatch({type: IMPORT_CONTACTS_SUCCESS})
       callback()
     },
-    failure: () => dispatch({type: IMPORT_CONTACTS_FAILURE}),
+    failure: (err) => {
+      if(err.errors && err.errors.validation)
+      {
+        for (var key in err.errors.validation) {
+          message.error(err.errors.validation[key])
+        }
+      }
+      if(err.message)
+        message.error(err.message)
+      dispatch({type: IMPORT_CONTACTS_FAILURE})
+    },
   })
 }
 
