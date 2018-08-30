@@ -859,7 +859,7 @@
   },
   {
     "id": "login.verify",
-    "defaultMessage": "Verification Completes!",
+    "defaultMessage": "Verification Complete!",
     "message": "",
     "files": [
       "src/routes/verify/messages.js"
