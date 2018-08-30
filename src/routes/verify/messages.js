@@ -7,7 +7,7 @@ export default defineMessages({
   },
   verify: {
     id: 'login.verify',
-    defaultMessage: 'Verification Completes!',
+    defaultMessage: 'Verification Complete!',
   },
   verifysubmit: {
     id: 'login.verifysubmit',

@@ -50,7 +50,7 @@
   {
     "id": "purchase2.printedDescription",
     "defaultMessage": "* Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an took a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-    "message": "",
+    "message": "* Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an took a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
     "files": [
       "src/routes/purchase2/messages.js"
     ]
@@ -58,7 +58,7 @@
   {
     "id": "register1.teamDescription",
     "defaultMessage": "* Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-    "message": "",
+    "message": "* Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
     "files": [
       "src/routes/register1/messages.js"
     ]
@@ -66,7 +66,7 @@
   {
     "id": "purchase2.handwrittenDescription",
     "defaultMessage": "* Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-    "message": "",
+    "message": "* Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
     "files": [
       "src/routes/purchase2/messages.js"
     ]
@@ -74,7 +74,7 @@
   {
     "id": "register1.individualDescription",
     "defaultMessage": "* Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an took a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-    "message": "",
+    "message": "* Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an took a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
     "files": [
       "src/routes/register1/messages.js"
     ]
@@ -681,8 +681,8 @@
   },
   {
     "id": "login.verify",
-    "defaultMessage": "Verification Completes!",
-    "message": "",
+    "defaultMessage": "Verification Complete!",
+    "message": "Verification Complete!",
     "files": [
       "src/routes/verify/messages.js"
     ]
@@ -690,7 +690,7 @@
   {
     "id": "login.verifysubmit",
     "defaultMessage": "Done",
-    "message": "",
+    "message": "Done",
     "files": [
       "src/routes/verify/messages.js"
     ]
@@ -880,7 +880,7 @@
   {
     "id": "home.aboutDescription",
     "defaultMessage": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
-    "message": "",
+    "message": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -986,7 +986,7 @@
   {
     "id": "contactGroups.description",
     "defaultMessage": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, electronic typesetting, remaining essentially unchanged remaining.",
-    "message": "",
+    "message": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, electronic typesetting, remaining essentially unchanged remaining.",
     "files": [
       "src/routes/contactGroups/messages.js"
     ]
@@ -1666,7 +1666,7 @@
   {
     "id": "home.signUp",
     "defaultMessage": "Sign up to get first access, curated notes about new styles, sales and events.",
-    "message": "",
+    "message": "Sign up to get first access, curated notes about new styles, sales and events.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -1937,7 +1937,7 @@
   {
     "id": "home.sendItDescription",
     "defaultMessage": "We'll print, stuff, stamp and mail everything for you.",
-    "message": "",
+    "message": "We'll print, stuff, stamp and mail everything for you.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -1945,7 +1945,7 @@
   {
     "id": "home.giftingDescription",
     "defaultMessage": "Whether you know exactly what you want or need some brilliant ideas; whether you need one gift or thirty - we'll take care of it - every last detail. Express your gratitude to customers, staff and everyone in between who keep your company thriving.",
-    "message": "",
+    "message": "Whether you know exactly what you want or need some brilliant ideas; whether you need one gift or thirty - we'll take care of it - every last detail. Express your gratitude to customers, staff and everyone in between who keep your company thriving.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -1969,7 +1969,7 @@
   {
     "id": "columnsMappingForm.notInFile",
     "defaultMessage": "Not in File",
-    "message": "",
+    "message": "Not in File",
     "files": [
       "src/components/ColumnsMappingForm/messages.js"
     ]
@@ -1977,7 +1977,7 @@
   {
     "id": "uploadedContacts.header",
     "defaultMessage": "Select Contacts",
-    "message": "",
+    "message": "Select Contacts",
     "files": [
       "src/components/UploadedContacts/messages.js"
     ]
@@ -1985,7 +1985,7 @@
   {
     "id": "importContacts.breadcrumb",
     "defaultMessage": "Import Contacts",
-    "message": "",
+    "message": "Import Contacts",
     "files": [
       "src/routes/importContacts/messages.js"
     ]
@@ -1993,7 +1993,7 @@
   {
     "id": "importContacts.header",
     "defaultMessage": "Import Contacts",
-    "message": "",
+    "message": "Import Contacts",
     "files": [
       "src/routes/importContacts/messages.js"
     ]
@@ -2001,7 +2001,7 @@
   {
     "id": "importContacts.selectContacts",
     "defaultMessage": "Select Contacts",
-    "message": "",
+    "message": "Select Contacts",
     "files": [
       "src/routes/importContacts/messages.js"
     ]
@@ -2009,7 +2009,7 @@
   {
     "id": "importContacts.subHeader",
     "defaultMessage": "Match the labels below with the corresponding options in the dropdown select field.",
-    "message": "",
+    "message": "Match the labels below with the corresponding options in the dropdown select field.",
     "files": [
       "src/routes/importContacts/messages.js"
     ]
@@ -2017,7 +2017,7 @@
   {
     "id": "importContacts.submit",
     "defaultMessage": "Save Contacts",
-    "message": "",
+    "message": "Save Contacts",
     "files": [
       "src/routes/importContacts/messages.js"
     ]
@@ -2025,7 +2025,7 @@
   {
     "id": "importContacts.title",
     "defaultMessage": "Import Contacts",
-    "message": "",
+    "message": "Import Contacts",
     "files": [
       "src/routes/importContacts/messages.js"
     ]
@@ -2033,7 +2033,7 @@
   {
     "id": "purchase1.filterByOccasionType",
     "defaultMessage": "Filter by Occasion Type",
-    "message": "",
+    "message": "Filter by Occasion Type",
     "files": [
       "src/routes/purchase1/messages.js"
     ]
@@ -2041,7 +2041,7 @@
   {
     "id": "purchase10.addContactManually",
     "defaultMessage": "Add contacts manually",
-    "message": "",
+    "message": "Add contacts manually",
     "files": [
       "src/routes/purchase10/messages.js"
     ]
@@ -2049,7 +2049,7 @@
   {
     "id": "purchase10.header",
     "defaultMessage": "Add Contact(s)",
-    "message": "",
+    "message": "Add Contact(s)",
     "files": [
       "src/routes/purchase10/messages.js"
     ]
@@ -2057,7 +2057,7 @@
   {
     "id": "purchase10.importContacts",
     "defaultMessage": "Import contacts",
-    "message": "",
+    "message": "Import contacts",
     "files": [
       "src/routes/purchase10/messages.js"
     ]
@@ -2065,7 +2065,7 @@
   {
     "id": "purchase10.selectContacts",
     "defaultMessage": "Select Contacts",
-    "message": "",
+    "message": "Select Contacts",
     "files": [
       "src/routes/purchase10/messages.js"
     ]
@@ -2073,7 +2073,7 @@
   {
     "id": "purchase10.submit",
     "defaultMessage": "Submit",
-    "message": "",
+    "message": "Submit",
     "files": [
       "src/routes/purchase10/messages.js"
     ]
@@ -2081,7 +2081,7 @@
   {
     "id": "purchase10.title",
     "defaultMessage": "Purchase",
-    "message": "",
+    "message": "Purchase",
     "files": [
       "src/routes/purchase10/messages.js"
     ]
@@ -2089,7 +2089,7 @@
   {
     "id": "address.address",
     "defaultMessage": "Address",
-    "message": "",
+    "message": "Address",
     "files": [
       "src/components/Address/messages.js"
     ]
@@ -2097,7 +2097,7 @@
   {
     "id": "address.city",
     "defaultMessage": "City",
-    "message": "",
+    "message": "City",
     "files": [
       "src/components/Address/messages.js"
     ]
@@ -2105,7 +2105,7 @@
   {
     "id": "address.country",
     "defaultMessage": "Country",
-    "message": "",
+    "message": "Country",
     "files": [
       "src/components/Address/messages.js"
     ]
@@ -2113,7 +2113,7 @@
   {
     "id": "address.postalCode",
     "defaultMessage": "Postal Code",
-    "message": "",
+    "message": "Postal Code",
     "files": [
       "src/components/Address/messages.js"
     ]
@@ -2121,7 +2121,7 @@
   {
     "id": "address.state",
     "defaultMessage": "State",
-    "message": "",
+    "message": "State",
     "files": [
       "src/components/Address/messages.js"
     ]
@@ -2129,7 +2129,7 @@
   {
     "id": "contactForm.email",
     "defaultMessage": "Email",
-    "message": "",
+    "message": "Email",
     "files": [
       "src/components/ContactForm/messages.js"
     ]
@@ -2137,7 +2137,7 @@
   {
     "id": "contactForm.phone",
     "defaultMessage": "Phone",
-    "message": "",
+    "message": "Phone",
     "files": [
       "src/components/ContactForm/messages.js"
     ]
@@ -2145,7 +2145,7 @@
   {
     "id": "contactForm.repeat",
     "defaultMessage": "Repeat",
-    "message": "",
+    "message": "Repeat",
     "files": [
       "src/components/ContactForm/messages.js"
     ]
@@ -2185,7 +2185,7 @@
   {
     "id": "header.dashboard",
     "defaultMessage": "Dashboard",
-    "message": "",
+    "message": "Dashboard",
     "files": [
       "src/components/Header/messages.js"
     ]
@@ -2201,7 +2201,7 @@
   {
     "id": "purchaseActions.confirmDonation",
     "defaultMessage": "Order Confirmation",
-    "message": "",
+    "message": "Order Confirmation",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2329,7 +2329,7 @@
   {
     "id": "form.minLength",
     "defaultMessage": "The field must be at least {length} characters.",
-    "message": "",
+    "message": "The field must be at least {length} characters.",
     "files": [
       "src/formMessages.js"
     ]
@@ -2337,7 +2337,7 @@
   {
     "id": "about.about",
     "defaultMessage": "About Us",
-    "message": "",
+    "message": "About Us",
     "files": [
       "src/routes/about/messages.js"
     ]
@@ -2345,7 +2345,7 @@
   {
     "id": "about.aboutDescription",
     "defaultMessage": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
-    "message": "",
+    "message": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     "files": [
       "src/routes/about/messages.js"
     ]
@@ -2353,7 +2353,7 @@
   {
     "id": "about.email",
     "defaultMessage": "Enter your email address",
-    "message": "",
+    "message": "Enter your email address",
     "files": [
       "src/routes/about/messages.js"
     ]
@@ -2361,7 +2361,7 @@
   {
     "id": "about.signUp",
     "defaultMessage": "Sign up to get first access, curated notes about new styles, sales and events.",
-    "message": "",
+    "message": "Sign up to get first access, curated notes about new styles, sales and events.",
     "files": [
       "src/routes/about/messages.js"
     ]
@@ -2369,7 +2369,7 @@
   {
     "id": "about.submit",
     "defaultMessage": "Submit",
-    "message": "",
+    "message": "Submit",
     "files": [
       "src/routes/about/messages.js"
     ]
@@ -2377,7 +2377,7 @@
   {
     "id": "about.title",
     "defaultMessage": "ByZumi",
-    "message": "",
+    "message": "ByZumi",
     "files": [
       "src/routes/about/messages.js"
     ]
@@ -2385,7 +2385,7 @@
   {
     "id": "addBundle.bundleName",
     "defaultMessage": "Bundle name",
-    "message": "",
+    "message": "Bundle name",
     "files": [
       "src/routes/addBundle/messages.js"
     ]
@@ -2393,7 +2393,7 @@
   {
     "id": "addBundle.header",
     "defaultMessage": "Bundle Confirmation",
-    "message": "",
+    "message": "Bundle Confirmation",
     "files": [
       "src/routes/addBundle/messages.js"
     ]
@@ -2401,7 +2401,7 @@
   {
     "id": "addBundle.submit",
     "defaultMessage": "Save bundle",
-    "message": "",
+    "message": "Save bundle",
     "files": [
       "src/routes/addBundle/messages.js"
     ]
@@ -2409,7 +2409,7 @@
   {
     "id": "addBundle.subtotal",
     "defaultMessage": "Subtotal:",
-    "message": "",
+    "message": "Subtotal:",
     "files": [
       "src/routes/addBundle/messages.js"
     ]
@@ -2417,7 +2417,7 @@
   {
     "id": "addBundle.title",
     "defaultMessage": "Purchase",
-    "message": "",
+    "message": "Purchase",
     "files": [
       "src/routes/addBundle/messages.js"
     ]
@@ -2425,7 +2425,7 @@
   {
     "id": "addBundle.total",
     "defaultMessage": "Total:",
-    "message": "",
+    "message": "Total:",
     "files": [
       "src/routes/addBundle/messages.js"
     ]
@@ -2433,7 +2433,7 @@
   {
     "id": "cardStore.clearFilters",
     "defaultMessage": "Clear filters",
-    "message": "",
+    "message": "Clear filters",
     "files": [
       "src/routes/cardStore/messages.js"
     ]
@@ -2441,7 +2441,7 @@
   {
     "id": "cardStore.collections",
     "defaultMessage": "Collections",
-    "message": "",
+    "message": "Collections",
     "files": [
       "src/routes/cardStore/messages.js"
     ]
@@ -2449,7 +2449,7 @@
   {
     "id": "cardStore.noData",
     "defaultMessage": "No data.",
-    "message": "",
+    "message": "No data.",
     "files": [
       "src/routes/cardStore/messages.js"
     ]
@@ -2457,7 +2457,7 @@
   {
     "id": "cardStore.occasion",
     "defaultMessage": "Occasion",
-    "message": "",
+    "message": "Occasion",
     "files": [
       "src/routes/cardStore/messages.js"
     ]
@@ -2465,7 +2465,7 @@
   {
     "id": "cardStore.occasionType",
     "defaultMessage": "Occasion Type",
-    "message": "",
+    "message": "Occasion Type",
     "files": [
       "src/routes/cardStore/messages.js"
     ]
@@ -2473,7 +2473,7 @@
   {
     "id": "cardStore.search",
     "defaultMessage": "Search",
-    "message": "",
+    "message": "Search",
     "files": [
       "src/routes/cardStore/messages.js"
     ]
@@ -2481,7 +2481,7 @@
   {
     "id": "cardStore.size",
     "defaultMessage": "Size",
-    "message": "",
+    "message": "Size",
     "files": [
       "src/routes/cardStore/messages.js"
     ]
@@ -2489,7 +2489,7 @@
   {
     "id": "cardStore.style",
     "defaultMessage": "Style",
-    "message": "",
+    "message": "Style",
     "files": [
       "src/routes/cardStore/messages.js"
     ]
@@ -2497,7 +2497,7 @@
   {
     "id": "cardStore.title",
     "defaultMessage": "Card Store",
-    "message": "",
+    "message": "Card Store",
     "files": [
       "src/routes/cardStore/messages.js"
     ]
@@ -2505,7 +2505,7 @@
   {
     "id": "contactGroup.birthdayColumn",
     "defaultMessage": "Birthday",
-    "message": "",
+    "message": "Birthday",
     "files": [
       "src/routes/contactGroup/messages.js"
     ]
@@ -2513,7 +2513,7 @@
   {
     "id": "contactGroup.breadcrumb",
     "defaultMessage": "Contact Group",
-    "message": "",
+    "message": "Contact Group",
     "files": [
       "src/routes/contactGroup/messages.js"
     ]
@@ -2521,7 +2521,7 @@
   {
     "id": "contactGroup.emailColumn",
     "defaultMessage": "Email",
-    "message": "",
+    "message": "Email",
     "files": [
       "src/routes/contactGroup/messages.js"
     ]
@@ -2529,7 +2529,7 @@
   {
     "id": "contactGroup.groupName",
     "defaultMessage": "Group name",
-    "message": "",
+    "message": "Group name",
     "files": [
       "src/routes/contactGroup/messages.js"
     ]
@@ -2537,7 +2537,7 @@
   {
     "id": "contactGroup.header",
     "defaultMessage": "Contact Group",
-    "message": "",
+    "message": "Contact Group",
     "files": [
       "src/routes/contactGroup/messages.js"
     ]
@@ -2545,7 +2545,7 @@
   {
     "id": "contactGroup.nameColumn",
     "defaultMessage": "Name",
-    "message": "",
+    "message": "Name",
     "files": [
       "src/routes/contactGroup/messages.js"
     ]
@@ -2553,7 +2553,7 @@
   {
     "id": "contactGroup.phoneColumn",
     "defaultMessage": "Phone",
-    "message": "",
+    "message": "Phone",
     "files": [
       "src/routes/contactGroup/messages.js"
     ]
@@ -2561,7 +2561,7 @@
   {
     "id": "contactGroup.submit",
     "defaultMessage": "Save group",
-    "message": "",
+    "message": "Save group",
     "files": [
       "src/routes/contactGroup/messages.js"
     ]
@@ -2569,7 +2569,7 @@
   {
     "id": "contactGroup.tableItems",
     "defaultMessage": "{range0}-{range1} of {total} items",
-    "message": "",
+    "message": "{range0}-{range1} of {total} items",
     "files": [
       "src/routes/contactGroup/messages.js"
     ]
@@ -2577,7 +2577,7 @@
   {
     "id": "contactGroup.title",
     "defaultMessage": "Contact Group",
-    "message": "",
+    "message": "Contact Group",
     "files": [
       "src/routes/contactGroup/messages.js"
     ]
@@ -2585,7 +2585,7 @@
   {
     "id": "contactGroups.confirmRemoving",
     "defaultMessage": "Are you sure you want to delete?",
-    "message": "",
+    "message": "Are you sure you want to delete?",
     "files": [
       "src/routes/contactGroups/messages.js"
     ]
@@ -2593,7 +2593,7 @@
   {
     "id": "contactGroups.acceptRemoving",
     "defaultMessage": "Yes",
-    "message": "",
+    "message": "Yes",
     "files": [
       "src/routes/contactGroups/messages.js",
       "src/routes/contacts/messages.js"
@@ -2602,7 +2602,7 @@
   {
     "id": "contacts.birthdayColumn",
     "defaultMessage": "Birthday",
-    "message": "",
+    "message": "Birthday",
     "files": [
       "src/routes/contacts/messages.js"
     ]
@@ -2610,7 +2610,7 @@
   {
     "id": "contacts.confirmRemoving",
     "defaultMessage": "Are you sure you want to delete?",
-    "message": "",
+    "message": "Are you sure you want to delete?",
     "files": [
       "src/routes/contacts/messages.js"
     ]
@@ -2618,7 +2618,7 @@
   {
     "id": "contacts.phoneColumn",
     "defaultMessage": "Phone",
-    "message": "",
+    "message": "Phone",
     "files": [
       "src/routes/contacts/messages.js"
     ]
@@ -2626,7 +2626,7 @@
   {
     "id": "contactUs.attachmentButton",
     "defaultMessage": "Attachment",
-    "message": "",
+    "message": "Attachment",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
@@ -2634,7 +2634,7 @@
   {
     "id": "contactUs.breadcrumb",
     "defaultMessage": "Contact Us",
-    "message": "",
+    "message": "Contact Us",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
@@ -2642,7 +2642,7 @@
   {
     "id": "contactUs.emailInput",
     "defaultMessage": "Email",
-    "message": "",
+    "message": "Email",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
@@ -2650,7 +2650,7 @@
   {
     "id": "contactUs.header",
     "defaultMessage": "Contact Us",
-    "message": "",
+    "message": "Contact Us",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
@@ -2658,7 +2658,7 @@
   {
     "id": "contactUs.messageInput",
     "defaultMessage": "Message",
-    "message": "",
+    "message": "Message",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
@@ -2666,7 +2666,7 @@
   {
     "id": "contactUs.nameInput",
     "defaultMessage": "Name",
-    "message": "",
+    "message": "Name",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
@@ -2674,7 +2674,7 @@
   {
     "id": "contactUs.phoneInput",
     "defaultMessage": "Phone",
-    "message": "",
+    "message": "Phone",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
@@ -2682,7 +2682,7 @@
   {
     "id": "contactUs.subjectInput",
     "defaultMessage": "Subject",
-    "message": "",
+    "message": "Subject",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
@@ -2690,7 +2690,7 @@
   {
     "id": "contactUs.submit",
     "defaultMessage": "submit",
-    "message": "",
+    "message": "submit",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
@@ -2698,7 +2698,7 @@
   {
     "id": "contactUs.title",
     "defaultMessage": "Contact Us",
-    "message": "",
+    "message": "Contact Us",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
@@ -2706,7 +2706,7 @@
   {
     "id": "dashboard.permissionGroup",
     "defaultMessage": "permission groups",
-    "message": "",
+    "message": "permission groups",
     "files": [
       "src/routes/dashboard/messages.js"
     ]
@@ -2714,7 +2714,7 @@
   {
     "id": "donation.amount",
     "defaultMessage": "Amount (CHF)",
-    "message": "",
+    "message": "Amount (CHF)",
     "files": [
       "src/routes/donation/messages.js"
     ]
@@ -2722,7 +2722,7 @@
   {
     "id": "donation.description",
     "defaultMessage": "Description on how donation works. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,  electronic typesetting, remaining essentially unchanged remaining.",
-    "message": "",
+    "message": "Description on how donation works. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,  electronic typesetting, remaining essentially unchanged remaining.",
     "files": [
       "src/routes/donation/messages.js"
     ]
@@ -2730,7 +2730,7 @@
   {
     "id": "donation.header",
     "defaultMessage": "Donation",
-    "message": "",
+    "message": "Donation",
     "files": [
       "src/routes/donation/messages.js"
     ]
@@ -2738,7 +2738,7 @@
   {
     "id": "donation.submit",
     "defaultMessage": "Submit",
-    "message": "",
+    "message": "Submit",
     "files": [
       "src/routes/donation/messages.js"
     ]
@@ -2746,7 +2746,7 @@
   {
     "id": "donation.title",
     "defaultMessage": "Purchase",
-    "message": "",
+    "message": "Purchase",
     "files": [
       "src/routes/donation/messages.js"
     ]
@@ -2754,7 +2754,7 @@
   {
     "id": "giftStore.clearFilters",
     "defaultMessage": "Clear filters",
-    "message": "",
+    "message": "Clear filters",
     "files": [
       "src/routes/giftStore/messages.js"
     ]
@@ -2762,7 +2762,7 @@
   {
     "id": "giftStore.collections",
     "defaultMessage": "Collections",
-    "message": "",
+    "message": "Collections",
     "files": [
       "src/routes/giftStore/messages.js"
     ]
@@ -2770,7 +2770,7 @@
   {
     "id": "giftStore.noData",
     "defaultMessage": "No data.",
-    "message": "",
+    "message": "No data.",
     "files": [
       "src/routes/giftStore/messages.js"
     ]
@@ -2778,7 +2778,7 @@
   {
     "id": "giftStore.search",
     "defaultMessage": "Search",
-    "message": "",
+    "message": "Search",
     "files": [
       "src/routes/giftStore/messages.js"
     ]
@@ -2786,7 +2786,7 @@
   {
     "id": "giftStore.title",
     "defaultMessage": "Gift Store",
-    "message": "",
+    "message": "Gift Store",
     "files": [
       "src/routes/giftStore/messages.js"
     ]
@@ -2794,7 +2794,7 @@
   {
     "id": "contactGroups.deleteGroup",
     "defaultMessage": "Delete Group",
-    "message": "",
+    "message": "Delete Group",
     "files": [
       "src/routes/groupPermissions/messages.js"
     ]
@@ -2802,7 +2802,7 @@
   {
     "id": "contactGroups.editPermissions",
     "defaultMessage": "Edit Permissions",
-    "message": "",
+    "message": "Edit Permissions",
     "files": [
       "src/routes/groupPermissions/messages.js"
     ]
@@ -2810,7 +2810,7 @@
   {
     "id": "contactGroups.savePermissions",
     "defaultMessage": "Save Permissions",
-    "message": "",
+    "message": "Save Permissions",
     "files": [
       "src/routes/groupPermissions/messages.js"
     ]
@@ -2818,7 +2818,7 @@
   {
     "id": "permissionGroups.breadcrumb",
     "defaultMessage": "Permission Groups",
-    "message": "",
+    "message": "Permission Groups",
     "files": [
       "src/routes/groupPermissions/messages.js"
     ]
@@ -2826,7 +2826,7 @@
   {
     "id": "permissionGroups.header",
     "defaultMessage": "Permission Groups",
-    "message": "",
+    "message": "Permission Groups",
     "files": [
       "src/routes/groupPermissions/messages.js"
     ]
@@ -2834,7 +2834,7 @@
   {
     "id": "permissionGroups.nameColumn",
     "defaultMessage": "Group Name",
-    "message": "",
+    "message": "Group Name",
     "files": [
       "src/routes/groupPermissions/messages.js"
     ]
@@ -2842,7 +2842,7 @@
   {
     "id": "permissionGroups.permissionColumn",
     "defaultMessage": "Permission Control",
-    "message": "",
+    "message": "Permission Control",
     "files": [
       "src/routes/groupPermissions/messages.js"
     ]
@@ -2850,7 +2850,7 @@
   {
     "id": "permissionGroups.title",
     "defaultMessage": "Permission Groups",
-    "message": "",
+    "message": "Permission Groups",
     "files": [
       "src/routes/groupPermissions/messages.js"
     ]
@@ -2858,7 +2858,7 @@
   {
     "id": "manageTeam.budgetColumn",
     "defaultMessage": "Budget",
-    "message": "",
+    "message": "Budget",
     "files": [
       "src/routes/manageTeam/messages.js"
     ]
@@ -2866,7 +2866,7 @@
   {
     "id": "manageTeam.emailColumn",
     "defaultMessage": "Email",
-    "message": "",
+    "message": "Email",
     "files": [
       "src/routes/manageTeam/messages.js"
     ]
@@ -2874,7 +2874,7 @@
   {
     "id": "manageTeam.pendingTableTitle",
     "defaultMessage": "Manage Pending Team Members",
-    "message": "",
+    "message": "Manage Pending Team Members",
     "files": [
       "src/routes/manageTeam/messages.js"
     ]
@@ -2882,7 +2882,7 @@
   {
     "id": "manageTeam.senderFirstName",
     "defaultMessage": "Sender first name",
-    "message": "",
+    "message": "Sender first name",
     "files": [
       "src/routes/manageTeam/messages.js"
     ]
@@ -2890,7 +2890,7 @@
   {
     "id": "manageTeam.senderLastName",
     "defaultMessage": "Sender last name",
-    "message": "",
+    "message": "Sender last name",
     "files": [
       "src/routes/manageTeam/messages.js"
     ]
@@ -2898,7 +2898,7 @@
   {
     "id": "newArrivals.noData",
     "defaultMessage": "No data.",
-    "message": "",
+    "message": "No data.",
     "files": [
       "src/routes/newArrivals/messages.js"
     ]
@@ -2906,7 +2906,7 @@
   {
     "id": "newArrivals.search",
     "defaultMessage": "Search",
-    "message": "",
+    "message": "Search",
     "files": [
       "src/routes/newArrivals/messages.js"
     ]
@@ -2914,7 +2914,7 @@
   {
     "id": "newArrivals.title",
     "defaultMessage": "New Arrivals",
-    "message": "",
+    "message": "New Arrivals",
     "files": [
       "src/routes/newArrivals/messages.js"
     ]
@@ -2922,7 +2922,7 @@
   {
     "id": "orders.orderDetailsHeader",
     "defaultMessage": "Order Details",
-    "message": "",
+    "message": "Order Details",
     "files": [
       "src/routes/orders/messages.js"
     ]
@@ -2930,7 +2930,7 @@
   {
     "id": "orders.priceColumn",
     "defaultMessage": "Price",
-    "message": "",
+    "message": "Price",
     "files": [
       "src/routes/orders/messages.js"
     ]
@@ -2938,7 +2938,7 @@
   {
     "id": "orders.productColumn",
     "defaultMessage": "Product",
-    "message": "",
+    "message": "Product",
     "files": [
       "src/routes/orders/messages.js"
     ]
@@ -2946,7 +2946,7 @@
   {
     "id": "orders.quantityColumn",
     "defaultMessage": "Quantity",
-    "message": "",
+    "message": "Quantity",
     "files": [
       "src/routes/orders/messages.js"
     ]
@@ -2954,7 +2954,7 @@
   {
     "id": "orders.summary",
     "defaultMessage": "Order Summary",
-    "message": "",
+    "message": "Order Summary",
     "files": [
       "src/routes/orders/messages.js"
     ]
@@ -2962,7 +2962,7 @@
   {
     "id": "orders.summaryShipping",
     "defaultMessage": "Shipping",
-    "message": "",
+    "message": "Shipping",
     "files": [
       "src/routes/orders/messages.js"
     ]
@@ -2970,7 +2970,7 @@
   {
     "id": "orders.summarySubtotal",
     "defaultMessage": "Subtotal",
-    "message": "",
+    "message": "Subtotal",
     "files": [
       "src/routes/orders/messages.js"
     ]
@@ -2978,7 +2978,7 @@
   {
     "id": "orders.summaryTaxes",
     "defaultMessage": "Taxes",
-    "message": "",
+    "message": "Taxes",
     "files": [
       "src/routes/orders/messages.js"
     ]
@@ -2986,7 +2986,7 @@
   {
     "id": "orders.summaryTotal",
     "defaultMessage": "Total",
-    "message": "",
+    "message": "Total",
     "files": [
       "src/routes/orders/messages.js"
     ]
@@ -2994,7 +2994,7 @@
   {
     "id": "purchase11.deliveryPlace",
     "defaultMessage": "Where to send",
-    "message": "",
+    "message": "Where to send",
     "files": [
       "src/routes/purchase11/messages.js"
     ]
@@ -3002,7 +3002,7 @@
   {
     "id": "purchase11.deliveryTime",
     "defaultMessage": "Delivery date",
-    "message": "",
+    "message": "Delivery date",
     "files": [
       "src/routes/purchase11/messages.js"
     ]
@@ -3010,7 +3010,7 @@
   {
     "id": "purchase11.header",
     "defaultMessage": "Order Confirmation",
-    "message": "",
+    "message": "Order Confirmation",
     "files": [
       "src/routes/purchase11/messages.js"
     ]
@@ -3018,7 +3018,7 @@
   {
     "id": "purchase11.shipping",
     "defaultMessage": "Shipping",
-    "message": "",
+    "message": "Shipping",
     "files": [
       "src/routes/purchase11/messages.js"
     ]
@@ -3026,7 +3026,7 @@
   {
     "id": "purchase11.submit",
     "defaultMessage": "Proceed to checkout",
-    "message": "",
+    "message": "Proceed to checkout",
     "files": [
       "src/routes/purchase11/messages.js"
     ]
@@ -3034,7 +3034,7 @@
   {
     "id": "purchase11.subtotal",
     "defaultMessage": "Subtotal:",
-    "message": "",
+    "message": "Subtotal:",
     "files": [
       "src/routes/purchase11/messages.js"
     ]
@@ -3042,7 +3042,7 @@
   {
     "id": "purchase11.title",
     "defaultMessage": "Purchase",
-    "message": "",
+    "message": "Purchase",
     "files": [
       "src/routes/purchase11/messages.js"
     ]
@@ -3050,7 +3050,7 @@
   {
     "id": "purchase11.total",
     "defaultMessage": "Total:",
-    "message": "",
+    "message": "Total:",
     "files": [
       "src/routes/purchase11/messages.js"
     ]
@@ -3058,7 +3058,7 @@
   {
     "id": "purchase2.handwrittenDisabled",
     "defaultMessage": "If you're interested in activating this option please contact {email}",
-    "message": "",
+    "message": "If you're interested in activating this option please contact {email}",
     "files": [
       "src/routes/purchase2/messages.js"
     ]
@@ -3066,7 +3066,7 @@
   {
     "id": "purchase5.color",
     "defaultMessage": "Color",
-    "message": "",
+    "message": "Color",
     "files": [
       "src/routes/purchase5/messages.js"
     ]
@@ -3074,7 +3074,7 @@
   {
     "id": "purchase5.preview",
     "defaultMessage": "Preview",
-    "message": "",
+    "message": "Preview",
     "files": [
       "src/routes/purchase5/messages.js"
     ]
@@ -3082,7 +3082,7 @@
   {
     "id": "purchase5.previewHeader",
     "defaultMessage": "Card Preview",
-    "message": "",
+    "message": "Card Preview",
     "files": [
       "src/routes/purchase5/messages.js"
     ]
@@ -3090,7 +3090,7 @@
   {
     "id": "purchase6.textAlignment",
     "defaultMessage": "Text align",
-    "message": "",
+    "message": "Text align",
     "files": [
       "src/routes/purchase6/messages.js"
     ]
@@ -3098,7 +3098,7 @@
   {
     "id": "purchase8.filterByGiftType",
     "defaultMessage": "Filter by Type",
-    "message": "",
+    "message": "Filter by Type",
     "files": [
       "src/routes/purchase8/messages.js"
     ]
@@ -3106,7 +3106,7 @@
   {
     "id": "purchase8.preview",
     "defaultMessage": "Preview",
-    "message": "",
+    "message": "Preview",
     "files": [
       "src/routes/purchase8/messages.js"
     ]
@@ -3114,7 +3114,7 @@
   {
     "id": "purchase8.previewHeader",
     "defaultMessage": "Gift Preview",
-    "message": "",
+    "message": "Gift Preview",
     "files": [
       "src/routes/purchase8/messages.js"
     ]
@@ -3122,7 +3122,7 @@
   {
     "id": "register3.name",
     "defaultMessage": "Name",
-    "message": "",
+    "message": "Name",
     "files": [
       "src/routes/register3/messages.js"
     ]
@@ -3130,7 +3130,7 @@
   {
     "id": "register4.skip",
     "defaultMessage": "skip",
-    "message": "",
+    "message": "skip",
     "files": [
       "src/routes/register4/messages.js"
     ]
@@ -3138,7 +3138,7 @@
   {
     "id": "user.address",
     "defaultMessage": "Address",
-    "message": "",
+    "message": "Address",
     "files": [
       "src/routes/user/messages.js"
     ]
@@ -3146,7 +3146,7 @@
   {
     "id": "user.city",
     "defaultMessage": "City",
-    "message": "",
+    "message": "City",
     "files": [
       "src/routes/user/messages.js"
     ]
@@ -3154,7 +3154,7 @@
   {
     "id": "user.company",
     "defaultMessage": "Company",
-    "message": "",
+    "message": "Company",
     "files": [
       "src/routes/user/messages.js"
     ]
@@ -3162,7 +3162,7 @@
   {
     "id": "user.country",
     "defaultMessage": "Country",
-    "message": "",
+    "message": "Country",
     "files": [
       "src/routes/user/messages.js"
     ]
@@ -3170,7 +3170,7 @@
   {
     "id": "user.postalCode",
     "defaultMessage": "Postal Code",
-    "message": "",
+    "message": "Postal Code",
     "files": [
       "src/routes/user/messages.js"
     ]
@@ -3178,7 +3178,7 @@
   {
     "id": "user.state",
     "defaultMessage": "State",
-    "message": "",
+    "message": "State",
     "files": [
       "src/routes/user/messages.js"
     ]
@@ -3186,7 +3186,7 @@
   {
     "id": "voucher.description",
     "defaultMessage": "Description on how donation works. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,  electronic typesetting, remaining essentially unchanged remaining.",
-    "message": "",
+    "message": "Description on how donation works. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,  electronic typesetting, remaining essentially unchanged remaining.",
     "files": [
       "src/routes/voucher/messages.js"
     ]
@@ -3194,7 +3194,7 @@
   {
     "id": "voucher.freeText",
     "defaultMessage": "Free Text",
-    "message": "",
+    "message": "Free Text",
     "files": [
       "src/routes/voucher/messages.js"
     ]
@@ -3202,7 +3202,7 @@
   {
     "id": "voucher.giver",
     "defaultMessage": "Giver",
-    "message": "",
+    "message": "Giver",
     "files": [
       "src/routes/voucher/messages.js"
     ]
@@ -3210,7 +3210,7 @@
   {
     "id": "voucher.header",
     "defaultMessage": "Voucher",
-    "message": "",
+    "message": "Voucher",
     "files": [
       "src/routes/voucher/messages.js"
     ]
@@ -3218,7 +3218,7 @@
   {
     "id": "voucher.receiver",
     "defaultMessage": "Receiver",
-    "message": "",
+    "message": "Receiver",
     "files": [
       "src/routes/voucher/messages.js"
     ]
@@ -3226,7 +3226,7 @@
   {
     "id": "voucher.submit",
     "defaultMessage": "Submit",
-    "message": "",
+    "message": "Submit",
     "files": [
       "src/routes/voucher/messages.js"
     ]
@@ -3234,7 +3234,7 @@
   {
     "id": "voucher.title",
     "defaultMessage": "Purchase",
-    "message": "",
+    "message": "Purchase",
     "files": [
       "src/routes/voucher/messages.js"
     ]
@@ -3242,7 +3242,7 @@
   {
     "id": "voucher.voucherHeader",
     "defaultMessage": "Voucher",
-    "message": "",
+    "message": "Voucher",
     "files": [
       "src/routes/voucher/messages.js"
     ]
