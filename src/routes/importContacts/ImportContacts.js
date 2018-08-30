@@ -74,7 +74,7 @@ class ImportContacts extends React.Component {
                 <Row type='flex' gutter={20}>
                   <Col xs={24} md={12}>
                     <section>
-                      <h1 className={s.sectionHeader}>How To Export Contacts</h1>
+                      <h1 className={s.sectionHeader}>How To Import Contacts</h1>
                       {exportGoogleContacts}
                       {exportOutlookContacts}
                       {exportCardContacts}
