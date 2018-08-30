@@ -129,7 +129,7 @@ class CardStore extends React.Component {
           {!!cards.length ? (
             <Row gutter={20} type='flex'>
               {cards.map((item) =>
-                <Col key={item.id} xs={24} sm={12} md={8} lg={6} className={s.itemWrapper}>
+                <Col key={item.id} xs={24} sm={12} md={8} className={s.itemWrapper}>
                   <Card
                     item={item}
                     imagesProp={CARD_IMAGES_PROP}
