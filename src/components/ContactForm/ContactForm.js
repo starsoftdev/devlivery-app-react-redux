@@ -30,12 +30,25 @@ const RELATIONSHIP = [
 ]
 
 class ContactForm extends React.Component {
-  state = {
-    requiredAddress: 0,
-    relationshipName: null,
-    newRelationship: null,
-  }
+  constructor(props)
+  {
+    super(props)
+    var salutations_list = SALUTATIONS.map(item => {
+      return {
+        id:item, 
+        value:props.intl.formatMessage(messages['salt_'+item.toLowerCase().substring(0,item.length-1)])
+      }
+    });
+    if(salutations_list[1].value === salutations_list[2].value)
+      delete salutations_list[2];
 
+    this.state = {
+      requiredAddress: 0,
+      relationshipName: null,
+      newRelationship: null,
+      salutations_list
+    }
+  }
   addRelationship = (relationshipName) => {
     this.setState({
       newRelationship: relationshipName,
@@ -74,8 +87,8 @@ class ContactForm extends React.Component {
             initialValue: initialValues && initialValues.title ? initialValues.title : undefined,
           })(
             <Select placeholder={intl.formatMessage(messages.salutation)}>
-              {SALUTATIONS.map((item) =>
-                <Select.Option key={item} value={item}>{intl.formatMessage(messages['salt_'+item.toLowerCase().substring(0,item.length-1)])}</Select.Option>
+              {this.state.salutations_list.map((item) =>
+                <Select.Option key={item.id} value={item.id}>{item.value}</Select.Option>
               )}
             </Select>
           )}
