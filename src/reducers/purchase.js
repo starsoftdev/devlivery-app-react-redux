@@ -181,6 +181,7 @@ export const setBundle = (bundle) => (dispatch, getState) => {
     giftType: bundle.bundle_gifts[0] && bundle.bundle_gifts[0].gift.type,
     cardSize: CARD_SIZES().find(item => item.key === bundle.bundle_card.card.size),
     cardStyle: bundle.bundle_card.card.style,
+    orderId : null
   })
   dispatch(setFlow(ORDER_BUNDLE_FLOW))
 }
@@ -450,6 +451,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
 export const makeOrder = () => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   const {bundleId, orderId} = getState().purchase
+  
   if (orderId) {
     dispatch(getBundleDetails(bundleId))
     dispatch(getOrderDetails(orderId))
@@ -474,8 +476,9 @@ export const makeOrder = () => (dispatch, getState, {fetch}) => {
           dispatch(addCardBody(order.id))
           dispatch(getDeliveryLocations(order.id))
           dispatch(addRecipientsOrder(order.id))
+          dispatch({type: GET_BUNDLE_DETAILS_SUCCESS, bundle: getState().purchase.cardDetails});
         },
-        failure: () => {
+        failure: (err) => {
           dispatch({type: MAKE_ORDER_FAILURE})
         },
       })
@@ -909,7 +912,7 @@ export const initialState = {
 }
 
 export default createReducer(initialState, {
-  [SET_BUNDLE]: (state, {bundle, letteringTechnique, card, gift, giftType, cardSize, cardStyle}) => {
+  [SET_BUNDLE]: (state, {bundle, letteringTechnique, card, gift, giftType, cardSize, cardStyle, orderId}) => {
     return {
     // bundleId should be saved in cookies - bundle obj is too big
     bundle,
@@ -921,6 +924,7 @@ export default createReducer(initialState, {
     cardSize,
     cardStyle,
     cardDetails: {body:bundle.body},
+    orderId
     /*
     order: {
       items:{
