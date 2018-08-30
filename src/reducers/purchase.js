@@ -358,11 +358,15 @@ export const submitShipping = (values) => (dispatch, getState, {fetch}) => {
       schedule_date: deliveryTime,
     },
     token,
-    success: () => {
+    success: (res) => {
       dispatch({type: SUBMIT_SHIPPING_SUCCESS})
       dispatch(nextFlowStep())
     },
-    failure: () => dispatch({type: SUBMIT_SHIPPING_FAILURE}),
+    failure: (err) => {
+      if(err.errors && err.errors[0])
+        message.error(err.errors[0]);
+      dispatch({type: SUBMIT_SHIPPING_FAILURE})
+    },
   })
 }
 
