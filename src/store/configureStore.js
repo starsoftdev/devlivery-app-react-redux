@@ -3,6 +3,7 @@ import thunk from 'redux-thunk'
 import createHelpers from './createHelpers'
 import rootReducer from '../reducers'
 import {initialState as purchaseState} from '../reducers/purchase'
+import { createLogger } from 'redux-logger'
 
 export default function configureStore(initialState, helpersConfig) {
   const helpers = createHelpers(helpersConfig)
@@ -18,10 +19,13 @@ export default function configureStore(initialState, helpersConfig) {
     if (process.env.BROWSER && window.devToolsExtension) {
       devToolsExtension = window.devToolsExtension()
     }
-
+    const logger = createLogger({
+      collapsed : true
+    });
     enhancer = compose(
       applyMiddleware(...middleware),
       devToolsExtension,
+      applyMiddleware(logger)
     )
   } else {
     enhancer = applyMiddleware(...middleware)

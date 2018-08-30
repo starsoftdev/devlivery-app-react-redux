@@ -33,18 +33,16 @@ class Purchase11 extends React.Component {
       currentRecipient: 0,
       mounted: false,
       content:'',
-      fontlink:[]
+      fontlink:[],
+      order: props.order
     }
     this.handleEditorChange = this.handleEditorChange.bind(this);
   }
   componentWillReceiveProps(nextProps){
     if(nextProps && nextProps.bundle && nextProps.bundle.body)
-      this.setState({content:nextProps.bundle.body});
+      this.setState({content:nextProps.bundle.body, order:nextProps.order});
   }
   componentDidMount() {
-    // load all fonts to show them on Select
-    
-    const {cardDetails} = this.props
     // load editor only on client side (not server side)
     const newState = {
       mounted: true
@@ -78,8 +76,8 @@ class Purchase11 extends React.Component {
     this.setState({ content });
   }
   render() {
-    const {currentRecipient} = this.state
-    const {flowIndex, bundle, order, occasion, intl, deliveryLocations, deliveryLocation, deliveryTime, cardSize} = this.props
+    const {currentRecipient,order} = this.state
+    const {flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryTime, cardSize} = this.props
     const {getFieldDecorator} = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
     const cardWidth = cardSize ? cardSize.width : 100
