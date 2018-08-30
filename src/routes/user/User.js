@@ -24,8 +24,8 @@ class User extends React.Component {
   render() {
     const {user, intl} = this.props
     const {getFieldDecorator} = this.props.form
-
-    const address = user && user.addresses && user.addresses.find(item => item.default)
+    
+    const address = user && user.addresses && user.addresses.find(item => item.default !== null)
 
     const reminderTimes = [
       {value: 0, label: 'Same Day'},
@@ -43,7 +43,7 @@ class User extends React.Component {
                 <h1 className={s.header}>Personal Information</h1>
                 <Form.Item>
                   {getFieldDecorator('user.nickname', {
-                    initialValue: user && user.nickname,
+                    initialValue: user && user.nickname ?user.nickname:'',
                   })(
                     <Input placeholder={'Nickname'}/>
                   )}
