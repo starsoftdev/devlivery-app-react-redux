@@ -70,7 +70,7 @@ class GiftStore extends React.Component {
           {!!gifts.length ? (
             <Row gutter={20} type='flex'>
               {gifts.map((item) =>
-                <Col key={item.id} xs={24} sm={12} md={8} lg={6} className={s.itemWrapper}>
+                <Col key={item.id} xs={24} sm={12} md={8} className={s.itemWrapper}>
                   <Card
                     item={item}
                     imagesProp={GIFT_IMAGES_PROP}
