@@ -26,6 +26,8 @@ export const GET_PERMISSIONS_REQUEST = 'Permission.GET_PERMISSIONS_REQUEST'
 export const GET_PERMISSIONS_SUCCESS = 'Permission.GET_PERMISSIONS_SUCCESS'
 export const GET_PERMISSIONS_FAILURE = 'Permission.GET_PERMISSIONS_FAILURE'
 
+export const GET_PERMISSIONS_SPECIALROLE_SUCCESS = 'Permission.GET_PERMISSIONS_SPECIALROLE_SUCCESS'
+
 export const SET_PERMISSIONS_REQUEST = 'Permission.SET_PERMISSIONS_REQUEST'
 export const SET_PERMISSIONS_SUCCESS = 'Permission.SET_PERMISSIONS_SUCCESS'
 export const SET_PERMISSIONS_FAILURE = 'Permission.SET_PERMISSIONS_FAILURE'
@@ -115,10 +117,28 @@ export const setPermissions = (role_id, pickedPermissions) => (dispatch, getStat
       dispatch({type: SET_PERMISSIONS_SUCCESS})
       dispatch(getContactGroups())
     },
-    failure: () => dispatch({type: SET_PERMISSIONS_FAILURE}),
+    failure: (err) => {
+      dispatch({type: SET_PERMISSIONS_FAILURE})
+    },
   })
 }
-
+export const getPermissionsOfSpecialRole = (role_id) => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  
+  return fetch(`/role/permissions`, {
+    method: 'POST',
+    token,
+    body: {
+      role_id,
+    },
+    success: (res) => {
+      dispatch({type: GET_PERMISSIONS_SPECIALROLE_SUCCESS,res:{id: role_id, data:res.data}});
+    },
+    failure: (err) => {
+      
+    },
+  })
+}
 export const changeNewRoleGroup = (newRoleGroup) => ({type: CHANGE_NEW_ROLE_GROUP, newRoleGroup})
 
 export const clear = () => ({type: CLEAR})
@@ -142,6 +162,9 @@ const initialState = {
 }
 
 export default createReducer(initialState, {
+  [GET_PERMISSIONS_SPECIALROLE_SUCCESS]: (state, action) => ({
+    specialPermissions: action.res,
+  }),
   [GET_ROLE_GROUP_REQUEST]: (state, {params}) => ({
     page: params.pagination ? params.pagination.current : 1,
     pageSize: params.pagination ? params.pagination.pageSize : DEFAULT_PAGE_SIZE,

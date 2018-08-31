@@ -8,6 +8,8 @@ import RemoveIcon from '../../static/remove.svg'
 import EditIcon from '../../static/edit.svg'
 import _ from 'lodash'
 import groupby from 'lodash.groupby'
+import {connect} from 'react-redux'
+import {getPermissionsOfSpecialRole} from '../../reducers/permissions'
 
 const CheckboxGroup = Checkbox.Group;
 
@@ -19,18 +21,35 @@ class PermissionsTable extends React.Component {
       pickedPermissions: {},
     }
   }
-
+  componentWillReceiveProps(nextProps){
+    if(nextProps && nextProps.selectedPermissions && nextProps.selectedPermissions.id === this.state.showEditForm){
+      var pickedPermissions = {};
+      var p_data = nextProps.selectedPermissions.data;
+      for(var key in p_data)
+      {
+        var each_permission = [];
+        p_data[key].map(item => {
+          each_permission.push(item.id);
+        });
+        pickedPermissions[key.toLowerCase()] = each_permission;
+      }
+      this.setState({pickedPermissions});
+    }
+  }
   editGroup = (id) => {
     this.setState({showEditForm: id})
+    this.props.getPermissionsOfSpecialRole(id);
   }
 
   submitGroup = () => {
     const permissions = _.flatten(Object.values(this.state.pickedPermissions))
+    
     this.props.setPermissions(this.state.showEditForm, permissions)
     this.setState({
       showEditForm: null,
       pickedPermissions: []
     })
+    
   }
 
   pickPermission = (group) => (permissions) => {
@@ -99,23 +118,23 @@ class PermissionsTable extends React.Component {
               <Row className={s.permissionRow}>
                 <Col md={4}>
                   <h1>Contacts</h1>
-                  <CheckboxGroup onChange={this.pickPermission('contacts')} className={s.checkBox} options={options.contacts}/>
+                  <CheckboxGroup value = {this.state.pickedPermissions['contacts']} onChange={this.pickPermission('contacts')} className={s.checkBox} options={options.contacts}/>
                 </Col>
                 <Col md={4}>
                   <h1>Groups</h1>
-                  <CheckboxGroup onChange={this.pickPermission('groups')} options={options.groups}/>
+                  <CheckboxGroup value = {this.state.pickedPermissions['groups']} onChange={this.pickPermission('groups')} options={options.groups}/>
                 </Col>
                 <Col md={5}>
                   <h1>Team</h1>
-                  <CheckboxGroup onChange={this.pickPermission('team')} options={options.team}/>
+                  <CheckboxGroup value = {this.state.pickedPermissions['team']} onChange={this.pickPermission('team')} options={options.team}/>
                 </Col>
                 <Col md={4}>
                   <h1>Purchase</h1>
-                  <CheckboxGroup onChange={this.pickPermission('purchase')} options={options.purchase}/>
+                  <CheckboxGroup value = {this.state.pickedPermissions['purchase']} onChange={this.pickPermission('purchase')} options={options.purchase}/>
                 </Col>
                 <Col md={4}>
                   <h1>Payments</h1>
-                  <CheckboxGroup onChange={this.pickPermission('payments')} options={options.payments}/>
+                  <CheckboxGroup value = {this.state.pickedPermissions['payments']} onChange={this.pickPermission('payments')} options={options.payments}/>
                 </Col>
               </Row>}
             </div>
@@ -125,5 +144,11 @@ class PermissionsTable extends React.Component {
     )
   }
 }
+const mapState = state => ({
+  selectedPermissions: state.permission.specialPermissions,
+})
 
-export default withStyles(s)(PermissionsTable)
+const mapDispatch = {
+  getPermissionsOfSpecialRole,
+}
+export default connect(mapState, mapDispatch)(withStyles(s)(PermissionsTable))
