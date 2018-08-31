@@ -78,3 +78,6 @@
   display: flex;
   justify-content: flex-end;
 }
+.cursorpoint {
+  cursor: pointer;
+}
