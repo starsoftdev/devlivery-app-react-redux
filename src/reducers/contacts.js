@@ -221,7 +221,7 @@ export const editContact = (values, form, redrict) => (dispatch, getState, {fetc
         dispatch(navigateToNextRouteName(redrict));
       }
       else{
-        history.push(generateUrl(CONTACTS_ROUTE))
+        dispatch(navigateToNextRouteName(generateUrl(CONTACTS_ROUTE)));
       }
     },
     failure: (res) => {
