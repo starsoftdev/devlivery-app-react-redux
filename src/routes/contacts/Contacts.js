@@ -43,7 +43,8 @@ class Contacts extends React.Component {
   }
 
   changeView = (view) => {
-    this.setState({view})
+    if(this.props.readonly !== true)
+      this.setState({view})
   }
 
   showDetailContactView = (id) => {
@@ -57,7 +58,7 @@ class Contacts extends React.Component {
   render() {
     const {view, search, contactId, showContactView} = this.state
     // TODO add loading
-    const {contactsCount, contacts, page, pageSize, loading, getContacts, removeContact, intl, ordering} = this.props
+    const {contactsCount, contacts, page, pageSize, loading, getContacts, removeContact, intl, ordering, readonly} = this.props
 
     const columns = [
       {
@@ -117,35 +118,38 @@ class Contacts extends React.Component {
       {value: '-created_at', label: 'Creation Date'},
       {value: '-dob', label: 'Upcoming birthdays'},
     ]
-
+    
     return (
       <div className={s.container}>
-        <div className={s.actions}>
-          <Input.Search
-            className={s.search}
-            placeholder={intl.formatMessage(messages.search)}
-            value={search}
-            onChange={this.changeSearch}
-          />
-          <Select
-            className={s.sortBy}
-            placeholder={intl.formatMessage(messages.sortBy)}
-            onChange={(ordering) => getContacts({ordering})}
-            value={ordering}
-          >
-            {contactSortBy.map(item =>
-              <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>
-            )}
-          </Select>
-          <div className={s.views}>
-            <a className={s.viewBtn} onClick={() => this.changeView(GRID_VIEW)}>
-              <GridIcon/>
-            </a>
-            <a className={s.viewBtn} onClick={() => this.changeView(LIST_VIEW)}>
-              <ListIcon/>
-            </a>
+        {
+          readonly !== true &&
+          <div className={s.actions}>
+            <Input.Search
+              className={s.search}
+              placeholder={intl.formatMessage(messages.search)}
+              value={search}
+              onChange={this.changeSearch}
+            />
+            <Select
+              className={s.sortBy}
+              placeholder={intl.formatMessage(messages.sortBy)}
+              onChange={(ordering) => getContacts({ordering})}
+              value={ordering}
+            >
+              {contactSortBy.map(item =>
+                <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>
+              )}
+            </Select>
+            <div className={s.views}>
+              <a className={s.viewBtn} onClick={() => this.changeView(GRID_VIEW)}>
+                <GridIcon/>
+              </a>
+              <a className={s.viewBtn} onClick={() => this.changeView(LIST_VIEW)}>
+                <ListIcon/>
+              </a>
+            </div>
           </div>
-        </div>
+        }
         {view === GRID_VIEW ? (
           <React.Fragment>
             <Row type='flex' gutter={20}>
@@ -188,20 +192,27 @@ class Contacts extends React.Component {
                   </div>
                 </Col>
               )}
+              {
+                contacts.length <= 0 &&
+                <div>No Contact</div>
+              }
             </Row>
-            <div className={s.footer}>
-              <Pagination
-                current={page}
-                total={contactsCount}
-                showTotal={(total, range) => intl.formatMessage(messages.tableItems, {range0: range[0], range1: range[1], total})}
-                pageSize={pageSize}
-                showSizeChanger
-                onChange={(current, pageSize) => getContacts({pagination: {current, pageSize}})}
-                onShowSizeChange={(current, pageSize) => getContacts({pagination: {current, pageSize}})}
-                itemRender={(current, type, el) => <PaginationItem type={type} el={el}/>}
-                pageSizeOptions={pageSizeOptions}
-              />
-            </div>
+            {
+              readonly !== true &&
+              <div className={s.footer}>
+                <Pagination
+                  current={page}
+                  total={contactsCount}
+                  showTotal={(total, range) => intl.formatMessage(messages.tableItems, {range0: range[0], range1: range[1], total})}
+                  pageSize={pageSize}
+                  showSizeChanger
+                  onChange={(current, pageSize) => getContacts({pagination: {current, pageSize}})}
+                  onShowSizeChange={(current, pageSize) => getContacts({pagination: {current, pageSize}})}
+                  itemRender={(current, type, el) => <PaginationItem type={type} el={el}/>}
+                  pageSizeOptions={pageSizeOptions}
+                />
+              </div>
+            }
           </React.Fragment>
         ) : (
           <Table

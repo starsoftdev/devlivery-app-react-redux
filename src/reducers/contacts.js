@@ -16,6 +16,10 @@ export const GET_CONTACTS_REQUEST = 'Contacts.GET_CONTACTS_REQUEST'
 export const GET_CONTACTS_SUCCESS = 'Contacts.GET_CONTACTS_SUCCESS'
 export const GET_CONTACTS_FAILURE = 'Contacts.GET_CONTACTS_FAILURE'
 
+export const GET_CONTACTSBYNAME_REQUEST = 'Contacts.GET_CONTACTS_REQUEST'
+export const GET_CONTACTSBYNAME_SUCCESS = 'Contacts.GET_CONTACTSBYNAME_SUCCESS'
+export const GET_CONTACTSBYNAME_FAILURE = 'Contacts.GET_CONTACTSBYNAME_FAILURE'
+
 export const GET_CONTACT_REQUEST = 'Contacts.GET_CONTACT_REQUEST'
 export const GET_CONTACT_SUCCESS = 'Contacts.GET_CONTACT_SUCCESS'
 export const GET_CONTACT_FAILURE = 'Contacts.GET_CONTACT_FAILURE'
@@ -83,7 +87,19 @@ export const getContacts = (params = {}) => (dispatch, getState, {fetch}) => {
     failure: () => dispatch({type: GET_CONTACTS_FAILURE}),
   })
 }
-
+export const getContactsByName = (title) => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_CONTACTSBYNAME_REQUEST, title})
+  const {token} = dispatch(getToken())
+  return fetch(`/contacts-by-group?${qs.stringify({
+    title,
+    take: 1000,
+  })}`, {
+    method: 'GET',
+    token,
+    success: (res) => dispatch({type: GET_CONTACTSBYNAME_SUCCESS, res}),
+    failure: () => dispatch({type: GET_CONTACTSBYNAME_FAILURE}),
+  })
+}
 export const getContact = (contactId) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_CONTACT_REQUEST})
   const {token} = dispatch(getToken())
@@ -380,6 +396,26 @@ export default createReducer(initialState, {
     loading: {
       ...state.loading,
       contacts: false,
+    },
+  }),
+  [GET_CONTACTSBYNAME_REQUEST]: (state, {params}) => ({
+    loading: {
+      ...state.loading,
+      contactsByname: true,
+    },
+  }),
+  [GET_CONTACTSBYNAME_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
+    contacts: data,
+    contactsCount: total,
+    loading: {
+      ...state.loading,
+      contactsByname: false,
+    },
+  }),
+  [GET_CONTACTSBYNAME_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      contactsByname: false,
     },
   }),
   [GET_CONTACT_REQUEST]: (state, action) => ({

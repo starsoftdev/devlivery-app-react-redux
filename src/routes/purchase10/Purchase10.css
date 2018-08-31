@@ -48,3 +48,29 @@
     width: 314px;
   }
 }
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  @media (--sm-down) {
+    flex-direction: column;
+  }
+}
+
+.header {
+  margin-bottom: 0;
+
+  @media (--md-up) {
+    font-size: 15px;
+  }
+  @media (--md-down) {
+    font-size: 10px;
+  }
+}
+.contactView{
+  border: 1px solid #ADA39B;
+  padding: 15px;
+}
+

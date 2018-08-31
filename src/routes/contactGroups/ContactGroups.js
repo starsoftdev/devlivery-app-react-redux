@@ -10,6 +10,7 @@ import {clear, getContactGroups, removeContactGroup} from '../../reducers/contac
 import {Link, PaginationItem} from '../../components'
 import messages from './messages'
 import {ADD_CONTACT_GROUP_ROUTE, EDIT_CONTACT_GROUP_ROUTE} from '../'
+import cn from 'classnames'
 
 class ContactGroups extends React.Component {
   componentWillUnmount() {
@@ -27,16 +28,18 @@ class ContactGroups extends React.Component {
       loading,
       getContactGroups,
       intl,
+      readonly,
+      selectGroup
     } = this.props
 
     return (
       <div className={s.container}>
         <Row type='flex' gutter={20}>
-          <Col xs={24} sm={16}>
+          <Col xs={24} sm={readonly !== true ? 16:24}>
             <Row type='flex' gutter={20}>
               {contactGroups.map((group) =>
                 <Col key={group.id} xs={24} sm={12}>
-                  <div className={s.group}>
+                  <div className={cn(s.group, readonly && s.cursorpoint)} onClick={()=>selectGroup && selectGroup(group.title)}>
                     <Link className={s.editBtn}
                           to={{name: EDIT_CONTACT_GROUP_ROUTE, params: {groupId: group.id, title: group.title}}}>
                       <EditIcon/>
@@ -54,6 +57,10 @@ class ContactGroups extends React.Component {
                   </div>
                 </Col>
               )}
+              {
+                contactGroups.length <= 0 &&
+                <div>No Group</div>
+              }
             </Row>
             <div className={s.footer}>
               <Pagination
@@ -72,17 +79,20 @@ class ContactGroups extends React.Component {
               />
             </div>
           </Col>
-          <Col xs={24} sm={8}>
-            <Link to={ADD_CONTACT_GROUP_ROUTE}>
-              <Button type='primary' ghost>
-                <PlusIcon className={s.addIcon}/>
-                {intl.formatMessage(messages.addGroup)}
-              </Button>
-            </Link>
-            <p className={s.description}>
-              {intl.formatMessage(messages.description)}
-            </p>
-          </Col>
+          {
+            readonly !== true &&
+            <Col xs={24} sm={8}>
+              <Link to={ADD_CONTACT_GROUP_ROUTE}>
+                <Button type='primary' ghost>
+                  <PlusIcon className={s.addIcon}/>
+                  {intl.formatMessage(messages.addGroup)}
+                </Button>
+              </Link>
+              <p className={s.description}>
+                {intl.formatMessage(messages.description)}
+              </p>
+            </Col>
+          }
         </Row>
       </div>
     )
