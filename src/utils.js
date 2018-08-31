@@ -5,7 +5,7 @@ import isArray from 'lodash/isArray'
 
 export const getSuccessMessage = (res) => res && typeof res.data === 'string' ? res.data : null
 
-export const getErrorMessage = (res) => res && typeof res.data === 'string' ? res.data : 'Something went wrong. Please try again.'
+export const getErrorMessage = (res) => res && (typeof res.data === 'string' || typeof res.errors === 'string') ? res.data||res.errors : 'Something went wrong. Please try again.'
 
 export const getFormErrors = ({values, errors}) => {
   if (errors.validation) {
