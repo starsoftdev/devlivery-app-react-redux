@@ -1,6 +1,7 @@
 import React from 'react'
 import {generateUrl} from '../router'
 import {getUser, getUserDetails, logout} from '../reducers/user'
+import {isLeaveEditContactPage,setNextRouteName} from '../reducers/global';
 
 export const HOME_ROUTE = 'home'
 export const GIFT_STORE_ROUTE = 'gift-store'
@@ -444,18 +445,25 @@ const routes = {
     },
   ],
 
-  async action({next, store}) {
-    await store.dispatch(getUser())
+  async action(context) {
+    
+    var prevPathName = context.store.getState().global.prevPathname;
+    var curPathName = context.store.getState().global.currentPathname;
+    if(isLeaveEditContactPage(prevPathName) && curPathName !== prevPathName)
+    {
+      await context.store.dispatch(setNextRouteName(curPathName));
+      return { redirect: prevPathName }
+    }
+    
+    await context.store.dispatch(getUser())
     // Execute each child route until one of them return the result
-    const route = await next()
+    const route = await context.next()
 
     // Provide default values for title, description etc.
     route.title = `${route.title || ''}`
     route.description = route.description || ''
-
     return route
   },
-
 }
 
 // The error page is available by permanent url for development mode

@@ -8,7 +8,7 @@ import {CONTACTS_ROUTE} from '../routes'
 import mapValues from 'lodash/mapValues'
 import has from 'lodash/has'
 import {getBirthday, getFormErrors, getOrdering} from '../utils'
-
+import { navigateToNextRouteName } from './global';
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -191,7 +191,7 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
   })
 }
 
-export const editContact = (values, form) => (dispatch, getState, {fetch, history}) => {
+export const editContact = (values, form, redrict) => (dispatch, getState, {fetch, history}) => {
   dispatch({type: EDIT_CONTACT_REQUEST})
   const {token} = dispatch(getToken())
   const {contact} = getState().contacts
@@ -214,8 +214,15 @@ export const editContact = (values, form) => (dispatch, getState, {fetch, histor
     token,
     success: () => {
       dispatch({type: EDIT_CONTACT_SUCCESS})
-      message.success('Contact was successfully updated')
-      history.push(generateUrl(CONTACTS_ROUTE))
+      message.success('Contact was successfully updated',redrict)
+      if(redrict)
+      {
+        //on Edit Contact Page
+        dispatch(navigateToNextRouteName(redrict));
+      }
+      else{
+        history.push(generateUrl(CONTACTS_ROUTE))
+      }
     },
     failure: (res) => {
       dispatch({type: EDIT_CONTACT_FAILURE})

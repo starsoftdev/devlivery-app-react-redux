@@ -8,6 +8,7 @@ export const SET_CURRENT_ROUTE_NAME = 'Global.SET_CURRENT_ROUTE_NAME'
 
 export const SET_CONFIG_VARS = 'Global.SET_CONFIG_VARS'
 
+export const SET_NEXT_ROUTE_NAME = 'Global.SET_NEXT_ROUTE_NAME';
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -22,6 +23,27 @@ export const setCurrentPathname = (currentPathname) => ({type: SET_CURRENT_PATHN
 
 export const setCurrentRouteName = (currentRouteName) => ({type: SET_CURRENT_ROUTE_NAME, currentRouteName})
 
+export const setNextRouteName = (nextPathname) => ({type: SET_NEXT_ROUTE_NAME,nextPathname})
+
+export const isLeaveEditContactPage = (path) => {
+  const absoultePath = '/dashboard/contacts/';
+  if(path === null || typeof path === 'object')
+    return false;
+  var splits = path.split(absoultePath);
+  if(splits.length !== 2 || splits[0] != "")
+    return false;
+  
+  if(!isNaN(splits[1]))
+  {
+    return true;
+  }
+  return false;
+}
+
+export const navigateToNextRouteName = (routeName) => (dispatch, getState, {fetch, history}) => {
+  dispatch(setCurrentPathname(null));
+  history.push(routeName)
+}
 // ------------------------------------
 // Reducer
 // ------------------------------------
@@ -34,7 +56,11 @@ const initialState = {
 }
 
 export default createReducer(initialState, {
+  [SET_NEXT_ROUTE_NAME]:(state,{nextPathname}) =>({
+    nextPathname,
+  }),
   [SET_CURRENT_PATHNAME]: (state, {currentPathname}) => ({
+    prevPathname:state.currentPathname,
     currentPathname,
   }),
   [SET_CURRENT_ROUTE_NAME]: (state, {currentRouteName}) => ({
