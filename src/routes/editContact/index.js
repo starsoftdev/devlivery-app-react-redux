@@ -6,7 +6,8 @@ import {getContact} from '../../reducers/contacts'
 
 function action({params, store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
-  store.dispatch(getContact(params.contactId))
+  if(store.getState().global.nextPathname == null)
+    store.dispatch(getContact(params.contactId))
 
   return {
     chunks: ['contacts'],
