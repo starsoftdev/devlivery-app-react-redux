@@ -4,6 +4,17 @@ import {getContact} from '../../reducers/contacts'
 import {connect} from "react-redux";
 import s from './ContactDetail.css'
 import withStyles from "isomorphic-style-loader/lib/withStyles";
+import {EDIT_CONTACT_ROUTE} from '../../routes'
+import {Link} from '../';
+import {defineMessages} from 'react-intl'
+
+const messages = defineMessages({
+  editbutton: {
+    id: 'editContact.breadcrumb',
+    defaultMessage: 'Edit Contact',
+  },
+})
+
 
 class ContactDetail extends React.Component {
   componentDidMount() {
@@ -11,7 +22,7 @@ class ContactDetail extends React.Component {
   }
 
   render() {
-    const {last_name, first_name, email, phone, nickname, relationship, addresses} = this.props
+    const {intl,last_name, first_name, email, phone, nickname, relationship, addresses,contactId} = this.props
     return (
       <Modal
         className={s.contactDetailModal}
@@ -52,6 +63,13 @@ class ContactDetail extends React.Component {
               <span className={s.contactDetail}>{address.country}</span><br/>
             </Col>
           )}
+        </Row>
+        <Row>
+          <Link to={{name: EDIT_CONTACT_ROUTE, params: {contactId}}} >
+            <div className={s.editbutton}>
+            {intl.formatMessage(messages.editbutton)}
+            </div>
+          </Link>
         </Row>
       </Modal>
     )

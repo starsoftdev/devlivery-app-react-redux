@@ -27,3 +27,10 @@
 .ant-modal-title {
   font-size: 30px;
 }
+.editbutton {
+  background-color: var(--primary-color);
+  float: right;
+  margin-bottom: 25px;
+  padding: 5px 15px;
+  color: white;
+}

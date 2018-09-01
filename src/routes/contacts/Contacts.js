@@ -227,6 +227,7 @@ class Contacts extends React.Component {
           <ContactDetail
             closeDetailContactView={this.closeDetailContactView}
             contactId={contactId}
+            intl = {intl}
           />
         )}
       </div>
