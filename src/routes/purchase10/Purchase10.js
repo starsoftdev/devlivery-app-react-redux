@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {ADD_CONTACT_MANUALLY, IMPORT_CONTACTS} from '../../reducers/purchase'
+import {ADD_CONTACT_MANUALLY, IMPORT_CONTACTS,nextFlowStep} from '../../reducers/purchase'
 import {Button,Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase10.css'
@@ -14,25 +14,30 @@ import Contacts from '../../routes/contacts/Contacts';
 import ContactGroups from '../../routes/contactGroups/ContactGroups';
 import {getContactsByName} from '../../reducers/contacts'
 import {getContactGroups} from '../../reducers/contactGroups'
+import KeyHandler, {KEYPRESS} from 'react-key-handler'
+import {message} from 'antd'
 
 class Purchase10 extends React.Component {
   state = {
     addingContactMode: null,
     selectedContact: null,
     selectedGroupName:'',
-    selectMode: 'group'
+    selectMode: 'group',
+    isFirstSubmit:false,
   }
   constructor(props){
     super(props);
     this.selectExistingContact = this.selectExistingContact.bind(this);
     this.selectGroup = this.selectGroup.bind(this);
     this.backToGroup = this.backToGroup.bind(this);
+    
+    this.ref_addcontact = React.createRef();
   }
   setAddingContactsMode = (addingContactMode) => {
     this.setState({addingContactMode})
   }
   selectExistingContact(selectedContact){
-    this.setState({addingContactMode:ADD_CONTACT_MANUALLY,selectedContact});
+    this.setState({isFirstSubmit:true,addingContactMode:ADD_CONTACT_MANUALLY,selectedContact});
   }
   selectGroup(group_name){
     this.props.getContactsByName(group_name);
@@ -42,10 +47,32 @@ class Purchase10 extends React.Component {
     this.props.getContactGroups();
     this.setState({selectMode:'group',selectedGroupName:''})
   }
+  onSubmit(){
+    const {isFirstSubmit,addingContactMode} = this.state;
+    if(!isFirstSubmit)
+    {
+      this.setState({isFirstSubmit: true});
+      return;
+    }
+    if(addingContactMode === ADD_CONTACT_MANUALLY)
+    {
+      if(this.ref_addcontact)
+        this.ref_addcontact.handleSubmit();
+    }
+    if(addingContactMode === IMPORT_CONTACTS && this.ref_importcontact)
+    {
+      if(this.ref_importcontact.props.mappingColumns)
+      {
+        if(this.ref_importcontact)
+          this.ref_importcontact.handleSubmit();
+      }
+      else{
+        message.error("Please upload contact file.");
+      }
+    }
+  }
   renderGroupView(){
-    return(
-      <ContactGroups {...this.props} intl={this.props.intl} readonly = {true} selectGroup = {this.selectGroup}/>
-    );
+    return(<ContactGroups {...this.props} intl={this.props.intl} readonly = {true} selectGroup = {this.selectGroup}/>);
   }
   renderContactView(){
     return(
@@ -61,14 +88,14 @@ class Purchase10 extends React.Component {
     )
   }
   render() {
-    const {addingContactMode,selectMode} = this.state
+    const {addingContactMode,selectMode,isFirstSubmit} = this.state
     const {flowIndex, intl} = this.props
     return (
       <React.Fragment>
-        {addingContactMode === ADD_CONTACT_MANUALLY ? (
-          <AddContact intl={intl} selectedContact={this.state.selectedContact}/>
-        ) : addingContactMode === IMPORT_CONTACTS ? (
-          <ImportContacts intl={intl}/>
+        {addingContactMode === ADD_CONTACT_MANUALLY && isFirstSubmit? (
+          <AddContact intl={intl} selectedContact={this.state.selectedContact} onRef={ref => (this.ref_addcontact = ref)} />
+        ) : addingContactMode === IMPORT_CONTACTS && isFirstSubmit? (
+          <ImportContacts intl={intl} onRef={ref => (this.ref_importcontact = ref)}/>
         ) : (
           <React.Fragment>
             <div className={s.content}>
@@ -102,9 +129,22 @@ class Purchase10 extends React.Component {
               { selectMode === 'group' && this.renderGroupView() }
               { selectMode === 'contact' && this.renderContactView() }
             </div>
-            <PurchaseActions/>
           </React.Fragment>
         )}
+        <PurchaseActions>
+          <KeyHandler
+            keyEventName={KEYPRESS}
+            keyCode={13}
+            onKeyHandle={() => addingContactMode && this.onSubmit()}
+          />
+          <Button
+            type='primary'
+            disabled={!addingContactMode}
+            onClick={() => this.onSubmit()}
+          >
+            {intl.formatMessage(messages.submit)}
+          </Button>
+        </PurchaseActions>
       </React.Fragment>
     )
   }
@@ -114,6 +154,6 @@ const mapState = state => ({
   flowIndex: state.purchase.flowIndex,
 })
 
-const mapDispatch = {getContactsByName,getContactGroups}
+const mapDispatch = {getContactsByName,getContactGroups,nextFlowStep}
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase10))

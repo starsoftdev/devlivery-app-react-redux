@@ -6,16 +6,25 @@ import s from './ImportContacts.css'
 import {PurchaseActions, ContactsImporting, SectionHeader} from '../../components'
 import cn from 'classnames'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
-import {nextFlowStep} from '../../reducers/purchase'
 import messages from './messages'
 import ColumnsMapping from './ColumnsMapping'
 
 class ImportContacts extends React.Component {
+  componentDidMount() {
+    this.props.onRef(this)
+  }
+  componentWillUnmount() {
+    this.props.onRef(undefined)
+  }
+  handleSubmit(){
+    if(this.ref_mapping)
+      this.ref_mapping.handleSubmit();
+  }
   render() {
-    const {mappingColumns, flowIndex, nextFlowStep, intl} = this.props
-
+    const {mappingColumns, flowIndex, intl} = this.props
+    
     return mappingColumns ? (
-      <ColumnsMapping/>
+      <ColumnsMapping onRef={ref => (this.ref_mapping = ref)}/>
     ) : (
       <ContactsImporting>
         {({
@@ -50,6 +59,7 @@ class ImportContacts extends React.Component {
                 </Col>
               </Row>
             </div>
+            {/*
             <PurchaseActions>
               <KeyHandler
                 keyEventName={KEYPRESS}
@@ -66,6 +76,7 @@ class ImportContacts extends React.Component {
                 </Button>
               }
             </PurchaseActions>
+            */}
           </React.Fragment>
         }
       </ContactsImporting>
@@ -79,7 +90,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = {
-  nextFlowStep,
+  
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(ImportContacts))
