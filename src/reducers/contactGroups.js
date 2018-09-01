@@ -2,6 +2,7 @@ import createReducer, {RESET_STORE} from '../createReducer'
 import qs from 'query-string'
 import {getToken} from './user'
 import {DEFAULT_PAGE_SIZE} from '../constants'
+import { generateUrl } from '../router';
 
 // ------------------------------------
 // Constants
@@ -36,15 +37,16 @@ export const getContactGroups = (params = {}) => (dispatch, getState, {fetch}) =
   })
 }
 
-export const removeContactGroup = (group) => (dispatch, getState, {fetch}) => {
+export const removeContactGroup = (group) => (dispatch, getState, {fetch,history}) => {
   dispatch({type: REMOVE_CONTACT_GROUP_REQUEST})
   const {token} = dispatch(getToken())
   return fetch(`/contact-groups/${group.id}`, {
     method: 'DELETE',
     token,
-    success: () => {
+    success: (res) => {
       dispatch({type: REMOVE_CONTACT_GROUP_SUCCESS})
       dispatch(getContactGroups())
+      history.push('/dashboard/contacts/groups')
     },
     failure: () => dispatch({type: REMOVE_CONTACT_GROUP_FAILURE}),
   })

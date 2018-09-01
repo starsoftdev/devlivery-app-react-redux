@@ -6,7 +6,7 @@ import s from './ContactGroups.css'
 import EditIcon from '../../static/edit.svg'
 import RemoveIcon from '../../static/remove.svg'
 import PlusIcon from '../../static/plus.svg'
-import {clear, getContactGroups, removeContactGroup} from '../../reducers/contactGroups'
+import {clear, getContactGroups} from '../../reducers/contactGroups'
 import {Link, PaginationItem} from '../../components'
 import messages from './messages'
 import {ADD_CONTACT_GROUP_ROUTE, EDIT_CONTACT_GROUP_ROUTE} from '../'
@@ -22,7 +22,6 @@ class ContactGroups extends React.Component {
     const {
       contactGroups,
       contactGroupsCount,
-      removeContactGroup,
       page,
       pageSize,
       loading,
@@ -31,7 +30,6 @@ class ContactGroups extends React.Component {
       readonly,
       selectGroup
     } = this.props
-
     return (
       <div className={s.container}>
         <Row type='flex' gutter={20}>
@@ -95,7 +93,6 @@ const mapState = state => ({
 })
 
 const mapDispatch = {
-  removeContactGroup,
   getContactGroups,
   clear,
 }

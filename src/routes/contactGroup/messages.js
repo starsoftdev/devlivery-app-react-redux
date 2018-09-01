@@ -41,4 +41,16 @@ export default defineMessages({
     id: 'contactGroup.submit',
     defaultMessage: 'Save group',
   },
+  delete: {
+    id: 'contactGroup.delete',
+    defaultMessage: 'Delete group',
+  },
+  confirmRemoving: {
+    id: 'contactGroups.confirmRemoving',
+    defaultMessage: 'Are you sure you want to delete?',
+  },
+  acceptRemoving: {
+    id: 'contactGroups.acceptRemoving',
+    defaultMessage: 'Yes',
+  },
 })

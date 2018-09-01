@@ -1,19 +1,21 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button, Form, Input, Table} from 'antd'
+import {Button, Form, Input, Table, Popconfirm} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './ContactGroup.css'
 import {PaginationItem} from '../../components'
 import messages from './messages'
+import RemoveIcon from '../../static/remove.svg'
 import {
   addContactGroup,
   changeSelectedContacts,
   clear,
   editContactGroup,
-  getContacts,
+  getContacts
 } from '../../reducers/contactGroup'
 import PlusIcon from '../../static/plus.svg'
 import formMessages from '../../formMessages'
+import {removeContactGroup} from '../../reducers/contactGroups'
 
 class ContactGroup extends React.Component {
   componentWillUnmount() {
@@ -35,9 +37,9 @@ class ContactGroup extends React.Component {
 
   render() {
     // TODO add loading
-    const {contactsCount, groupContacts, page, pageSize, loading, intl, changeSelectedContacts, contacts, getContacts, title} = this.props
+    const {contactsCount, groupContacts, page, pageSize, loading, intl, changeSelectedContacts, contacts, getContacts, title, removeContactGroup, currentGroup} = this.props
     const {getFieldDecorator} = this.props.form
-
+    
     const columns = [
       {
         title: intl.formatMessage(messages.nameColumn),
@@ -111,6 +113,16 @@ class ContactGroup extends React.Component {
               <PlusIcon/>
               {intl.formatMessage(messages.submit)}
             </Button>
+            <Popconfirm
+              title={intl.formatMessage(messages.confirmRemoving)}
+              onConfirm={() => removeContactGroup(currentGroup)}
+              okText={intl.formatMessage(messages.acceptRemoving)}
+            >
+              <Button type='danger' type='primary' ghost style={{float:'right'}}>
+                <RemoveIcon/>
+                {intl.formatMessage(messages.delete)}
+              </Button>
+            </Popconfirm>
           </div>
         </div>
       </React.Fragment>
@@ -128,6 +140,7 @@ const mapDispatch = {
   editContactGroup,
   changeSelectedContacts,
   clear,
+  removeContactGroup
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(ContactGroup)))
