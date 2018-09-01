@@ -4,7 +4,7 @@ import {submitDonation, setDonationOrg} from '../../reducers/purchase'
 import {Button, Col, Form, Input, Row, Checkbox} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Donation.css'
-import {Actions, Card, SectionHeader} from '../../components'
+import {Actions, Card, PurchaseActions, SectionHeader} from '../../components'
 import {ALPHABET} from '../../constants'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
@@ -74,7 +74,7 @@ class Donation extends React.Component {
             </Form.Item>
           </Form>
         </div>
-        <Actions>
+        <PurchaseActions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -87,7 +87,7 @@ class Donation extends React.Component {
           >
             {intl.formatMessage(messages.submit)}
           </Button>
-        </Actions>
+        </PurchaseActions>
       </React.Fragment>
     )
   }

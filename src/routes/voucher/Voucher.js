@@ -4,7 +4,7 @@ import {submitVoucher} from '../../reducers/purchase'
 import {Button, Form} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Voucher.css'
-import {Actions, SectionHeader} from '../../components'
+import {Actions,PurchaseActions, SectionHeader} from '../../components'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
 import {VOUCHER_TEMPLATE} from '../../constants'
@@ -155,7 +155,7 @@ class Voucher extends React.Component {
             </div>
           </div>
         </div>
-        <Actions>
+        <PurchaseActions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -167,7 +167,7 @@ class Voucher extends React.Component {
           >
             {intl.formatMessage(messages.submit)}
           </Button>
-        </Actions>
+        </PurchaseActions>
       </React.Fragment>
     )
   }
