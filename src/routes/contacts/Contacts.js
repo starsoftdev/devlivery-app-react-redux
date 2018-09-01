@@ -161,21 +161,13 @@ class Contacts extends React.Component {
                   key={contact.id}
                 >
                   <div className={s.contact}>
+                    
                     <Link
-                      className={s.editBtn}
+                      className={s.gridEditBtn}
                       to={{name: EDIT_CONTACT_ROUTE, params: {contactId: contact.id}}}
                     >
                       <EditIcon/>
                     </Link>
-                    <Popconfirm
-                      title={intl.formatMessage(messages.confirmRemoving)}
-                      onConfirm={() => removeContact(contact)}
-                      okText={intl.formatMessage(messages.acceptRemoving)}
-                    >
-                      <a className={s.removeBtn}>
-                        <RemoveIcon/>
-                      </a>
-                    </Popconfirm>
                     <div className={s.contactContent} onClick={() => {
                         if(this.props.selectExistingContact)
                           this.props.selectExistingContact(contact);
