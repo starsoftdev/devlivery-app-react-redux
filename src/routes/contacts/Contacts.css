@@ -43,6 +43,7 @@
     border: 2px solid #D0CCC9;
 
     .editBtn,
+    .gridEditBtn,
     .removeBtn {
       visibility: visible;
     }
@@ -90,7 +91,15 @@
   top: 0;
   z-index: 1;
 }
-
+.gridEditBtn{
+  visibility: hidden;
+  display: flex;
+  position: absolute;
+  padding: 10px;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
 .search {
   margin-right: var(--margin-md);
   max-width: 600px;
