@@ -11,8 +11,14 @@ import {importContacts, openUploadedContactsModal} from '../../reducers/contacts
 import {nextFlowStep} from '../../reducers/purchase'
 
 class ColumnsMapping extends React.Component {
-  handleSubmit = (e) => {
-    e.preventDefault()
+  componentDidMount() {
+    this.props.onRef(this)
+  }
+  componentWillUnmount() {
+    this.props.onRef(undefined)
+  }
+  handleSubmit = () => {
+    //e.preventDefault()
     this.columnsMappingForm.validateFields((err, values) => {
       if (!err) {
         this.props.importContacts(values, () => this.props.nextFlowStep())

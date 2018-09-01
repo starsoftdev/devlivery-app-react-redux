@@ -16,9 +16,14 @@ class AddContact extends React.Component {
       this.props.form.setFieldsValue(this.props.fields)
     }
   }
-
-  handleSubmit = (e) => {
-    e.preventDefault()
+  componentDidMount() {
+    this.props.onRef(this)
+  }
+  componentWillUnmount() {
+    this.props.onRef(undefined)
+  }
+  handleSubmit = () => {
+    //e.preventDefault()
     this.props.form.validateFields({force: true}, (err, values) => {
       if (!err) {
         this.props.addContact(values, this.props.form, () => this.props.nextFlowStep())
@@ -52,6 +57,7 @@ class AddContact extends React.Component {
               {remindersSection}
               {groupsSection}
             </div>
+            {/*
             <PurchaseActions>
               <KeyHandler
                 keyEventName={KEYPRESS}
@@ -65,6 +71,7 @@ class AddContact extends React.Component {
                 {intl.formatMessage(messages.submit)}
               </Button>
             </PurchaseActions>
+            */}
           </Form>
         )}
       </ContactForm>
