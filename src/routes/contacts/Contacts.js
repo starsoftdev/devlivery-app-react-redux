@@ -161,13 +161,14 @@ class Contacts extends React.Component {
                   key={contact.id}
                 >
                   <div className={s.contact}>
-                    
-                    <Link
-                      className={s.gridEditBtn}
-                      to={{name: EDIT_CONTACT_ROUTE, params: {contactId: contact.id}}}
-                    >
-                      <EditIcon/>
-                    </Link>
+                    {readonly !== true &&
+                      <Link
+                        className={s.gridEditBtn}
+                        to={{name: EDIT_CONTACT_ROUTE, params: {contactId: contact.id}}}
+                      >
+                        <EditIcon/>
+                      </Link>
+                    }
                     <div className={s.contactContent} onClick={() => {
                         if(this.props.selectExistingContact)
                           this.props.selectExistingContact(contact);
