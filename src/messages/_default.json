@@ -602,6 +602,14 @@
     ]
   },
   {
+    "id": "editContact.delete",
+    "defaultMessage": "Delete Contact",
+    "message": "",
+    "files": [
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
     "id": "editContact.title",
     "defaultMessage": "Edit Contact",
     "message": "",

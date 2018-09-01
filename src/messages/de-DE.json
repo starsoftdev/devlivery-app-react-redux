@@ -1486,6 +1486,14 @@
   {
     "id": "editContact.submit",
     "defaultMessage": "Save Contact",
+    "message": "Kontakt löschen",
+    "files": [
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
+    "id": "editContact.delete",
+    "defaultMessage": "Delete Contact",
     "message": "Kontakt speichern",
     "files": [
       "src/routes/editContact/messages.js"
