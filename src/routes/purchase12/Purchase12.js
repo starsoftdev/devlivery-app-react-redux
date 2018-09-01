@@ -1,21 +1,22 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {BITPAY, CREDIT_CARD, nextFlowStep, PAYPAL, setPaymentMethod} from '../../reducers/purchase'
-import {Col, Row} from 'antd'
+import {Col, Row, Button} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase12.css'
-import {Card, SectionHeader} from '../../components'
+import {Card, SectionHeader, PurchaseActions} from '../../components'
 import PayPalIcon from '../../static/paypal.svg'
 import CreditCardIcon from '../../static/credit_card.svg'
+import KeyHandler, {KEYPRESS} from 'react-key-handler'
+import messages from './messages'
 
 class Purchase12 extends React.Component {
   setPaymentMethod = (paymentMethod) => {
     this.props.setPaymentMethod(paymentMethod)
-    this.props.nextFlowStep()
   }
 
   render() {
-    const {paymentMethod, flowIndex} = this.props
+    const {paymentMethod, flowIndex,intl} = this.props
     return (
       <div className={s.content}>
         <SectionHeader
@@ -55,6 +56,20 @@ class Purchase12 extends React.Component {
             />
           </Col>
         </Row>
+        <PurchaseActions>
+          <KeyHandler
+            keyEventName={KEYPRESS}
+            keyCode={13}
+            onKeyHandle={() => paymentMethod && this.props.nextFlowStep()}
+          />
+          <Button
+            type='primary'
+            disabled={!paymentMethod}
+            onClick={() => this.props.nextFlowStep()}
+          >
+            {intl.formatMessage(messages.submit)}
+          </Button>
+        </PurchaseActions>
       </div>
     )
   }
