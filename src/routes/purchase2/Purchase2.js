@@ -1,20 +1,20 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {HANDWRITTEN, nextFlowStep, PRINTED, setLetteringTechnique} from '../../reducers/purchase'
-import {Col, Row} from 'antd'
+import {Col, Row, Button} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase2.css'
-import {Card, SectionHeader} from '../../components'
+import {Card, SectionHeader, PurchaseActions} from '../../components'
 import HandwrittenIcon from '../../static/handwritten.svg'
 import PrintedIcon from '../../static/printed.svg'
 import messages from './messages'
 import {FormattedMessage} from 'react-intl'
+import KeyHandler, {KEYPRESS} from 'react-key-handler'
 
 class Purchase2 extends React.Component {
 
   setLetteringTechnique = (letteringTechnique) => {
     this.props.setLetteringTechnique(letteringTechnique)
-    this.props.nextFlowStep()
   }
 
   render() {
@@ -68,6 +68,20 @@ class Purchase2 extends React.Component {
             </p>
           </Col>
         </Row>
+        <PurchaseActions>
+          <KeyHandler
+            keyEventName={KEYPRESS}
+            keyCode={13}
+            onKeyHandle={() => letteringTechnique && this.props.nextFlowStep()}
+          />
+          <Button
+            type='primary'
+            disabled={!letteringTechnique}
+            onClick={() => this.props.nextFlowStep()}
+          >
+            {intl.formatMessage(messages.submit)}
+          </Button>
+        </PurchaseActions>
       </div>
     )
   }

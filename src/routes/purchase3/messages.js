@@ -9,4 +9,8 @@ export default defineMessages({
     id: 'purchase3.header',
     defaultMessage: 'Select Style',
   },
+  submit: {
+    id: 'purchase5.submit',
+    defaultMessage: 'Submit',
+  },
 })

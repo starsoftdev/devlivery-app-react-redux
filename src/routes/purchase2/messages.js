@@ -29,4 +29,8 @@ export default defineMessages({
     id: 'purchase2.handwrittenDisabled',
     defaultMessage: 'If you\'re interested in activating this option please contact {email}',
   },
+  submit: {
+    id: 'purchase5.submit',
+    defaultMessage: 'Submit',
+  },
 })

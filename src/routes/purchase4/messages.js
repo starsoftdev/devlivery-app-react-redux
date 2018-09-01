@@ -21,4 +21,8 @@ export default defineMessages({
     id: 'purchase4.foldedCardWithoutPanel',
     defaultMessage: 'Folded Card without Panel',
   },
+  submit: {
+    id: 'purchase5.submit',
+    defaultMessage: 'Submit',
+  },
 })
