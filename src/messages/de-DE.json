@@ -2569,7 +2569,15 @@
   {
     "id": "contactGroup.submit",
     "defaultMessage": "Save group",
-    "message": "Save group",
+    "message": "Gruppe speichern",
+    "files": [
+      "src/routes/contactGroup/messages.js"
+    ]
+  },
+  {
+    "id": "contactGroup.delete",
+    "defaultMessage": "Delete group",
+    "message": "Gruppe löschen",
     "files": [
       "src/routes/contactGroup/messages.js"
     ]

@@ -2435,6 +2435,14 @@
     ]
   },
   {
+    "id": "contactGroup.delete",
+    "defaultMessage": "Delete group",
+    "message": "",
+    "files": [
+      "src/routes/contactGroup/messages.js"
+    ]
+  },
+  {
     "id": "contactGroup.tableItems",
     "defaultMessage": "{range0}-{range1} of {total} items",
     "message": "",

@@ -10,14 +10,14 @@ function action({store, route, intl, query, params}) {
   if (params.groupId) {
     store.dispatch(getGroupContacts({...params, ...query}))
   }
-
+  
   return {
     chunks: ['contacts'],
     title: intl.formatMessage(messages.title),
     breadcrumbs: [
       {name: intl.formatMessage(messages.breadcrumb)},
     ],
-    component: <ContactGroup intl={intl}/>,
+    component: <ContactGroup intl={intl} currentGroup = {{id:params.groupId}}/>,
   }
 }
 
