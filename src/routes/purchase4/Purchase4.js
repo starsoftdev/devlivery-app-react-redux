@@ -1,12 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {nextFlowStep, setCardSize} from '../../reducers/purchase'
-import {Col, Row} from 'antd'
+import {Col, Row, Button} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase4.css'
-import {Card, SectionHeader} from '../../components'
+import {Card, SectionHeader, PurchaseActions} from '../../components'
 import {ALPHABET, CARD_SIZES} from '../../constants'
 import messages from './messages'
+import KeyHandler, {KEYPRESS} from 'react-key-handler'
 
 class Purchase4 extends React.Component {
   render() {
@@ -28,7 +29,6 @@ class Purchase4 extends React.Component {
                 svg={item.svg}
                 onClick={() => {
                   setCardSize(item)
-                  nextFlowStep()
                 }}
                 active={cardSize && cardSize.key === item.key}
                 keyValue={ALPHABET[i]}
@@ -37,6 +37,20 @@ class Purchase4 extends React.Component {
             </Col>
           )}
         </Row>
+        <PurchaseActions>
+          <KeyHandler
+            keyEventName={KEYPRESS}
+            keyCode={13}
+            onKeyHandle={() => cardSize && nextFlowStep()}
+          />
+          <Button
+            type='primary'
+            disabled={!cardSize}
+            onClick={() => nextFlowStep()}
+          >
+            {intl.formatMessage(messages.submit)}
+          </Button>
+        </PurchaseActions>
       </div>
     )
   }

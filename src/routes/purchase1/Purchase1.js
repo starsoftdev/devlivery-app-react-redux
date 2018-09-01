@@ -1,12 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getOccasions, nextFlowStep, setOccasion} from '../../reducers/purchase'
-import {Col, Row, Select} from 'antd'
+import {Col, Row, Select, Button} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase1.css'
-import {Card, SectionHeader} from '../../components'
+import {Card, SectionHeader, PurchaseActions} from '../../components'
 import {ALPHABET} from '../../constants'
 import messages from './messages'
+import KeyHandler, {KEYPRESS} from 'react-key-handler'
 
 class Purchase1 extends React.Component {
   constructor(props){
@@ -56,7 +57,6 @@ class Purchase1 extends React.Component {
                     this.selectSeasonal('Seasonal');
                   else{
                     setOccasion(item)
-                    nextFlowStep()
                   }
                 }}
                 active={occasion && occasion.id === item.id}
@@ -65,6 +65,20 @@ class Purchase1 extends React.Component {
             </Col>
           )}
         </Row>
+        <PurchaseActions>
+          <KeyHandler
+            keyEventName={KEYPRESS}
+            keyCode={13}
+            onKeyHandle={() => occasion && nextFlowStep()}
+          />
+          <Button
+            type='primary'
+            disabled={!occasion}
+            onClick={() => nextFlowStep()}
+          >
+            {intl.formatMessage(messages.submit)}
+          </Button>
+        </PurchaseActions>
       </div>
     )
   }
