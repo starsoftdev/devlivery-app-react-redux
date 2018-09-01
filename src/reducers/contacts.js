@@ -244,6 +244,7 @@ export const removeContact = (contact) => (dispatch, getState, {fetch}) => {
     success: () => {
       dispatch({type: REMOVE_CONTACT_SUCCESS})
       dispatch(getContacts())
+      dispatch(navigateToNextRouteName(generateUrl(CONTACTS_ROUTE)));
     },
     failure: () => dispatch({type: REMOVE_CONTACT_FAILURE}),
   })

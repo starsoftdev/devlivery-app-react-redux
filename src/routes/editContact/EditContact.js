@@ -1,10 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button, Col, Form, Row, Modal} from 'antd'
+import {Button, Col, Form, Row, Modal,Popconfirm} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './EditContact.css'
 import PlusIcon from '../../static/plus.svg'
-import {editContact, clear} from '../../reducers/contacts'
+import RemoveIcon from '../../static/remove.svg'
+import {editContact, clear, removeContact} from '../../reducers/contacts'
 import {ContactForm} from '../../components'
 import messages from './messages'
 import { setNextRouteName,navigateToNextRouteName } from '../../reducers/global';
@@ -51,7 +52,7 @@ class EditContact extends React.Component {
   }
 
   render() {
-    const {intl, contact} = this.props
+    const {intl, contact,removeContact} = this.props
     
     return contact ? (
       <div>
@@ -95,6 +96,16 @@ class EditContact extends React.Component {
                     <PlusIcon/>
                     {intl.formatMessage(messages.submit)}
                   </Button>
+                  <Popconfirm
+                    title={intl.formatMessage(messages.confirmRemoving)}
+                    onConfirm={() => removeContact(contact)}
+                    okText={intl.formatMessage(messages.acceptRemoving)}
+                  >
+                    <Button type='danger' type='primary' ghost style={{float:'right'}}>
+                      <RemoveIcon/>
+                      {intl.formatMessage(messages.delete)}
+                    </Button>
+                  </Popconfirm>
                 </div>
               </div>
             </Form>
@@ -115,7 +126,8 @@ const mapDispatch = {
   editContact,
   clear,
   setNextRouteName,
-  navigateToNextRouteName
+  navigateToNextRouteName,
+  removeContact
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(EditContact)))
