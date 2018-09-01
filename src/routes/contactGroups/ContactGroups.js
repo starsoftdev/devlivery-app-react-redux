@@ -38,10 +38,12 @@ class ContactGroups extends React.Component {
               {contactGroups.map((group) =>
                 <Col key={group.id} xs={24} sm={12}>
                   <div className={cn(s.group, readonly && s.cursorpoint)} onClick={()=>selectGroup && selectGroup(group.title)}>
-                    <Link className={s.removeBtn}
-                          to={{name: EDIT_CONTACT_GROUP_ROUTE, params: {groupId: group.id, title: group.title}}}>
-                      <EditIcon/>
-                    </Link>
+                    { readonly !== true &&
+                      <Link className={s.removeBtn}
+                            to={{name: EDIT_CONTACT_GROUP_ROUTE, params: {groupId: group.id, title: group.title}}}>
+                        <EditIcon/>
+                      </Link>
+                    }
                     <p className={s.groupName}>{group.title}</p>
                   </div>
                 </Col>
