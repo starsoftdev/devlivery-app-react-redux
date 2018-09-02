@@ -9,7 +9,6 @@ export const getSuccessMessage = (res) => res && typeof res.data === 'string' ? 
 export const getErrorMessage = (res) => res && (typeof res.data === 'string' || typeof res.errors === 'string') ? res.data||res.errors : 'Something went wrong. Please try again.'
 
 export const showErrorMessage = (res) => {
-  console.log("err",res);
   if(res)
   {
     if(res.errors.validation)

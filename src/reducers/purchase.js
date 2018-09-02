@@ -16,10 +16,11 @@ import qs from 'query-string'
 import {getToken} from './user'
 import {CARD_SIZES, DATE_FORMAT, DEFAULT_OCCASION_TYPE, DONATION_TYPE, VOUCHER_TYPE} from '../constants'
 import has from 'lodash/has'
-import {getFormErrors} from '../utils'
+import {getFormErrors,showErrorMessage} from '../utils'
 import pickBy from 'lodash/pickBy'
 import identity from 'lodash/identity'
 import uniq from 'lodash/uniq'
+
 
 // ------------------------------------
 // Constants
@@ -190,14 +191,14 @@ export const setBundle = (bundle) => (dispatch, getState) => {
   dispatch(setFlow(ORDER_BUNDLE_FLOW))
 }
 export const setFlowFromSelectCard = (card) => (dispatch, getState) => {
+  dispatch(setFlow(AUTH_PURCHASE_FLOW))
   const occasion =  {id:card.occasion_id};
   dispatch({type: SET_OCCASION, occasion})
-  const letteringTechnique = 'printed';
-  dispatch({type: SET_LETTERING_TECHNIQUE, letteringTechnique})
+  
   const cardStyle = card.style;
   dispatch({type: SET_CARD_STYLE, cardStyle})
   dispatch({type: SET_CARD, card})
-  dispatch(setFlow(ORDER_CARD_FLOW))
+  //dispatch(setFlow(ORDER_CARD_FLOW))
 }
 export const setFlowFromSelectGift = (gift) => (dispatch, getState) => {
   dispatch(setFlow(AUTH_PURCHASE_FLOW))
@@ -389,8 +390,7 @@ export const submitShipping = (values) => (dispatch, getState, {fetch}) => {
       dispatch(nextFlowStep())
     },
     failure: (err) => {
-      if(err.errors && err.errors[0])
-        message.error(err.errors[0]);
+      showErrorMessage(err);
       dispatch({type: SUBMIT_SHIPPING_FAILURE})
     },
   })
