@@ -157,6 +157,8 @@ export const SET_FONT_FAMILIES = 'Purchase.SET_FONT_FAMILIES'
 
 export const CLEAR = 'Purchase.CLEAR'
 
+export const SET_NEW_RECIPIENT = 'Purchase.SET_NEW_RECIPIENT'
+
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -367,13 +369,19 @@ export const getGifts = (params = {}) => (dispatch, getState, {fetch}) => {
 export const submitShipping = (values) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   dispatch({type: SUBMIT_SHIPPING_REQUEST, values})
-  const {orderId, deliveryLocation, deliveryTime} = getState().purchase
+  const {orderId, deliveryLocation, deliveryTime, occasion,newrecipient} = getState().purchase
+  const deliverOpt = {};
+  if(deliveryTime)
+    deliverOpt['delivery_date'] = deliveryTime;
+  else deliverOpt['delivery_occasion'] = occasion.id;
+
   return fetch(`/set-wheretosend`, {
     method: 'POST',
     body: {
       order_id: orderId,
       deliverable: deliveryLocation,
-      schedule_date: deliveryTime,
+      contact_id: newrecipient && newrecipient.id,
+      ...deliverOpt
     },
     token,
     success: (res) => {
@@ -1182,6 +1190,9 @@ export default createReducer(initialState, {
   }),
   [SET_FONT_FAMILIES]: (state, {fontFamily}) => ({
     fontFamilies: uniq([...state.fontFamilies, fontFamily]),
+  }),
+  [SET_NEW_RECIPIENT]:(state, {newrecipient}) => ({
+    newrecipient,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
