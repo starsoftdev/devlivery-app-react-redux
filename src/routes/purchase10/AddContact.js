@@ -47,8 +47,11 @@ class AddContact extends React.Component {
           this.props.editContact({...values,...additional}, this.props.form, () => this.props.nextFlowStep())
         }
         else this.props.addContact(values, this.props.form, () => this.props.nextFlowStep())
+        return true;
       }
+      return false;
     })
+    return false;
   }
 
   render() {

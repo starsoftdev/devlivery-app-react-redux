@@ -61,7 +61,10 @@ class Purchase10 extends React.Component {
       if(this.ref_addcontact)
       {
         this.setState({disableButton:true});
-        this.ref_addcontact.handleSubmit();
+        if(!this.ref_addcontact.handleSubmit())
+        {
+          this.setState({disableButton:false});
+        }
       }
     }
     if(addingContactMode === IMPORT_CONTACTS && this.ref_importcontact)
@@ -71,7 +74,10 @@ class Purchase10 extends React.Component {
         if(this.ref_importcontact)
         {
           this.setState({disableButton:true});
-          this.ref_importcontact.handleSubmit();
+          if(!this.ref_importcontact.handleSubmit())
+          {
+            this.setState({disableButton:false});
+          }
         }
       }
       else{

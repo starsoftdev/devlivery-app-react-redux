@@ -18,7 +18,8 @@ class ImportContacts extends React.Component {
   }
   handleSubmit(){
     if(this.ref_mapping)
-      this.ref_mapping.handleSubmit();
+      return this.ref_mapping.handleSubmit();
+    return false;
   }
   render() {
     const {mappingColumns, flowIndex, intl} = this.props
