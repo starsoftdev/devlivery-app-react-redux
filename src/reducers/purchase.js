@@ -2,6 +2,7 @@ import createReducer, {RESET_STORE} from '../createReducer'
 import {loginSuccess} from './login'
 import {message} from 'antd'
 import {
+  AUTH_PURCHASE_FLOW,
   DONATION_ROUTE,
   EDIT_BUNDLE_FLOW,
   ORDER_BUNDLE_FLOW,
@@ -196,7 +197,12 @@ export const setFlowFromSelectCard = (card) => (dispatch, getState) => {
   dispatch({type: SET_CARD, card})
   dispatch(setFlow(ORDER_CARD_FLOW))
 }
-
+export const setFlowFromSelectGift = (gift) => (dispatch, getState) => {
+  dispatch(setFlow(AUTH_PURCHASE_FLOW))
+  const giftType = gift.type;
+  dispatch({type: SET_GIFT_TYPE, giftType})
+  dispatch({type: SET_GIFT, gift})
+}
 export const setFlowIndex = () => (dispatch, getState) => {
   const {currentRouteName} = getState().global
   const {flow} = getState().purchase
