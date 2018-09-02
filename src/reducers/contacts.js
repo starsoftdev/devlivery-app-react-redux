@@ -9,6 +9,7 @@ import mapValues from 'lodash/mapValues'
 import has from 'lodash/has'
 import {getBirthday, getFormErrors, getOrdering} from '../utils'
 import { navigateToNextRouteName } from './global';
+import { SET_NEW_RECIPIENT } from './purchase';
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -182,6 +183,8 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
       dispatch({type: ADD_CONTACT_SUCCESS, res})
       if (form) form.resetFields()
       if (callback) callback()
+      var newrecipient = res.data;
+      dispatch({type:SET_NEW_RECIPIENT,newrecipient})
     },
     failure: (res) => {
       dispatch({type: ADD_CONTACT_FAILURE})
@@ -215,8 +218,10 @@ export const editContact = (values, form, redrict) => (dispatch, getState, {fetc
       groups: getGroupsArray(groups),
     },
     token,
-    success: () => {
+    success: (res) => {
       dispatch({type: EDIT_CONTACT_SUCCESS})
+      var newrecipient = res.data;
+      dispatch({type:SET_NEW_RECIPIENT,newrecipient})
       message.success('Contact was successfully updated',redrict)
       if(redrict)
       {
@@ -329,6 +334,8 @@ export const importContacts = (columnsMapping, callback) => (dispatch, getState,
     token,
     success: (res) => {
       dispatch({type: IMPORT_CONTACTS_SUCCESS})
+      var newrecipient = res.data;
+      dispatch({type:SET_NEW_RECIPIENT,newrecipient})
       callback()
     },
     failure: (err) => {
