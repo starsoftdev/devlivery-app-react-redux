@@ -24,6 +24,7 @@ class Purchase10 extends React.Component {
     selectedGroupName:'',
     selectMode: 'group',
     isFirstSubmit:false,
+    disableButton:false
   }
   constructor(props){
     super(props);
@@ -54,17 +55,24 @@ class Purchase10 extends React.Component {
       this.setState({isFirstSubmit: true});
       return;
     }
+
     if(addingContactMode === ADD_CONTACT_MANUALLY)
     {
       if(this.ref_addcontact)
+      {
+        this.setState({disableButton:true});
         this.ref_addcontact.handleSubmit();
+      }
     }
     if(addingContactMode === IMPORT_CONTACTS && this.ref_importcontact)
     {
       if(this.ref_importcontact.props.mappingColumns)
       {
         if(this.ref_importcontact)
+        {
+          this.setState({disableButton:true});
           this.ref_importcontact.handleSubmit();
+        }
       }
       else{
         message.error("Please upload contact file.");
@@ -88,7 +96,7 @@ class Purchase10 extends React.Component {
     )
   }
   render() {
-    const {addingContactMode,selectMode,isFirstSubmit} = this.state
+    const {addingContactMode,selectMode,isFirstSubmit,disableButton} = this.state
     const {flowIndex, intl} = this.props
     return (
       <React.Fragment>
@@ -139,7 +147,7 @@ class Purchase10 extends React.Component {
           />
           <Button
             type='primary'
-            disabled={!addingContactMode}
+            disabled={!addingContactMode || disableButton}
             onClick={() => this.onSubmit()}
           >
             {intl.formatMessage(messages.submit)}

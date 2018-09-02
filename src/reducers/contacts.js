@@ -116,7 +116,10 @@ export const getContact = (contactId) => (dispatch, getState, {fetch}) => {
     failure: () => dispatch({type: GET_CONTACT_FAILURE})
   })
 }
-
+export const setContact = (contact) => (dispatch, getState, {fetch}) => {
+  if(contact && contact.id)
+    dispatch({type: GET_CONTACT_SUCCESS, contact})
+}
 export const getRemindersArray = (reminders) => {
   return reminders.filter(item => {
     // if one of the property undefined/null - don't send item
@@ -197,7 +200,7 @@ export const editContact = (values, form, redrict) => (dispatch, getState, {fetc
   const {contact} = getState().contacts
 
   const {dob, reminders, groups, addresses, ...otherValues} = values
-
+  
   return fetch(`/edit-contact`, {
     method: 'POST',
     body: {
