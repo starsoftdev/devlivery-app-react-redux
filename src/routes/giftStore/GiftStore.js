@@ -9,6 +9,7 @@ import {clearFilters, getGifts, clear} from '../../reducers/gifts'
 import {Button, Col, Input, Pagination, Row} from 'antd'
 import {Card, PaginationItem} from '../../components'
 import cn from 'classnames'
+import {setFlowFromSelectGift} from '../../reducers/purchase';
 
 class GiftStore extends React.Component {
   constructor(props) {
@@ -33,7 +34,8 @@ class GiftStore extends React.Component {
 
   render() {
     const {search} = this.state
-    const {gifts, giftsCount, getGifts, intl, page, pageSize, loading, clearFilters, giftType} = this.props
+    const {gifts, giftsCount, getGifts, intl, page, pageSize, loading, clearFilters, giftType, setFlowFromSelectGift} = this.props
+    
     return (
       <div className={s.container}>
         <div className={s.filters}>
@@ -86,6 +88,9 @@ class GiftStore extends React.Component {
                     }
                     bordered={false}
                     description={item.description}
+                    onClick={() => {
+                      setFlowFromSelectGift(item);
+                    }}
                   />
                 </Col>
               )}
@@ -119,6 +124,7 @@ const mapDispatch = {
   getGifts,
   clearFilters,
   clear,
+  setFlowFromSelectGift
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(GiftStore))
