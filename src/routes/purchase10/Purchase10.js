@@ -35,7 +35,7 @@ class Purchase10 extends React.Component {
     this.ref_addcontact = React.createRef();
   }
   setAddingContactsMode = (addingContactMode) => {
-    this.setState({addingContactMode})
+    this.setState({addingContactMode,selectedContact:null})
   }
   selectExistingContact(selectedContact){
     this.setState({isFirstSubmit:true,addingContactMode:ADD_CONTACT_MANUALLY,selectedContact});

@@ -28,7 +28,7 @@ export const showErrorMessage = (res) => {
 }
 
 export const getFormErrors = ({values, errors}) => {
-  if (errors.validation) {
+  if (typeof errors === 'object' && errors.validation) {
     // errors on form fields
     const formErrors = {}
     const fields = Object.keys(errors.validation)
