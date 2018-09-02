@@ -2772,6 +2772,14 @@
     ]
   },
   {
+    "id": "manageTeam.addTeamMember",
+    "defaultMessage": "Add Team Member",
+    "message": "",
+    "files": [
+      "src/routes/manageTeam/messages.js"
+    ]
+  },
+  {
     "id": "newArrivals.noData",
     "defaultMessage": "No data.",
     "message": "",

@@ -1,14 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Table} from 'antd'
+import {Table, Button} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './ManageTeam.css'
 import EditIcon from '../../static/edit.svg'
 import PlusIcon from '../../static/plus.svg'
 import {clear, getTeam} from '../../reducers/team'
 import {getPendingTeam} from '../../reducers/pendingMembers'
-import {PaginationItem, TeamExpandedRow, PendingTeamExpandedRow} from '../../components'
+import {PaginationItem, TeamExpandedRow, PendingTeamExpandedRow, Link} from '../../components'
 import messages from './messages'
+import { REGISTER4_ROUTE } from '../../routes';
 
 class ManageTeam extends React.Component {
   constructor(props) {
@@ -48,7 +49,7 @@ class ManageTeam extends React.Component {
       pendingMembers,
       getPendingTeam,
     } = this.props
-
+    
     const columns = [
       {
         title: intl.formatMessage(messages.nameColumn),
@@ -170,6 +171,12 @@ class ManageTeam extends React.Component {
             itemRender: (current, type, el) => <PaginationItem type={type} el={el}/>
           }}
         />
+        <Link className={s.addteam} to={{name: REGISTER4_ROUTE}}>
+          <Button type='primary' ghost>
+            <PlusIcon/>
+            {intl.formatMessage(messages.addTeamMember)}
+          </Button>
+        </Link>
       </div>
     )
   }

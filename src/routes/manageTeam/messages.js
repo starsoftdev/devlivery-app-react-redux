@@ -57,4 +57,8 @@ export default defineMessages({
     id: 'manageTeam.senderLastName',
     defaultMessage: 'Sender last name',
   },
+  addTeamMember: {
+    id: 'manageTeam.addTeamMember',
+    defaultMessage: 'Add Team Member',
+  },
 })
