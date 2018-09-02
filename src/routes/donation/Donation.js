@@ -36,9 +36,9 @@ class Donation extends React.Component {
           {donationOrgs.length ? (
             <Row className={s.items} gutter={20} type='flex' align='center'>
               {donationOrgs.map((item, i) =>
-                <Col key={item.id} className={s.itemWrapper}>
+                <Col key={item.id} className={s.itemWrapper} xs={8}>
                   <Card
-                    className={s.item}
+                    //className={s.item}
                     title={item.name}
                     item={item}
                     imagesProp={'logo'}
