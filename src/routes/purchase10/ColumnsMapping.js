@@ -22,8 +22,11 @@ class ColumnsMapping extends React.Component {
     this.columnsMappingForm.validateFields((err, values) => {
       if (!err) {
         this.props.importContacts(values, () => this.props.nextFlowStep())
+        return true;
       }
+      return false;
     })
+    return false;
   }
 
   render() {

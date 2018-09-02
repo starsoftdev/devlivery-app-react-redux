@@ -112,33 +112,18 @@ class Purchase11 extends React.Component {
                   />
             }
             {
+              /*
               showDescription &&
               <Row type='flex' align='center' gutter={20}>
                 <Col xs={24} sm={24}>
                 <section>
-                  <h3 className={s.cardTitle}>{order.items.gifts[0] && order.items.gifts[0].gift.description}</h3>
+                  <h5 className={s.cardTitle} style={{'margin-top':20}}>{order.items.gifts[0] && order.items.gifts[0].gift.description}</h5>
                   {order.donation && order.donation.organization.description}
                 </section>
                 </Col>
               </Row>
+              */
             }
-            {/*
-            <Row type='flex' align='center' gutter={20}>
-              <Col xs={24} sm={showDescription ? 12: 24}>
-                <section>
-                  <h3 className={s.cardTitle}>{occasion && occasion.title}</h3>
-                  {bundle && <iframe className={showDescription? s.cardPreview: s.cardPreviewFull} srcDoc={bundle.body} />}
-                </section>
-              </Col>
-              { 
-                showDescription &&
-                <Col xs={24} sm={12}>
-                  {order.items.gifts[0] && order.items.gifts[0].gift.description}
-                  {order.donation && order.donation.organization.description}
-                </Col>
-              }
-            </Row>
-            */}
           </div>
           <Row type='flex' align='center' gutter={20} className={s.subtotalSection}>
             <Col xs={12}>
