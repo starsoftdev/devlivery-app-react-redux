@@ -6,6 +6,7 @@ import messages from './messages'
 import debounce from 'lodash/debounce'
 import {CARD_IMAGES_PROP, CARD_SIZES, DEFAULT_DEBOUNCE_TIME} from '../../constants'
 import {clearFilters, getCards, getOccasions, clear} from '../../reducers/cards'
+import {setFlowFromSelectCard} from '../../reducers/purchase';
 import {Button, Col, Input, Pagination, Row, Select} from 'antd'
 import {Card, PaginationItem} from '../../components'
 import cn from 'classnames'
@@ -49,6 +50,7 @@ class CardStore extends React.Component {
       occasion,
       cardSize,
       cardStyle,
+      setFlowFromSelectCard
     } = this.props
 
     return (
@@ -145,6 +147,9 @@ class CardStore extends React.Component {
                     }
                     bordered={false}
                     description={item.description}
+                    onClick={() => {
+                      setFlowFromSelectCard(item);
+                    }}
                   />
                 </Col>
               )}
@@ -179,6 +184,7 @@ const mapDispatch = {
   getOccasions,
   clearFilters,
   clear,
+  setFlowFromSelectCard
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(CardStore))

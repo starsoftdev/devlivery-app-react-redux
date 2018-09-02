@@ -148,7 +148,19 @@ export const ORDER_BUNDLE_FLOW = {
     PURCHASE_COMPLETED_ROUTE,
   ]
 }
-
+export const ORDER_CARD_FLOW = {
+  key: 'order-card-flow',
+  routes: [
+    PURCHASE5_ROUTE,
+    PURCHASE6_ROUTE,
+    PURCHASE7_ROUTE,
+    PURCHASE8_ROUTE,
+    PURCHASE11_ROUTE,
+    PURCHASE12_ROUTE,
+    PURCHASE13_ROUTE,
+    PURCHASE_COMPLETED_ROUTE,
+  ]
+}
 export const EDIT_BUNDLE_FLOW = {
   key: 'edit-bundle-flow',
   routes: [
