@@ -34,7 +34,8 @@ class Purchase11 extends React.Component {
       mounted: false,
       content:'',
       fontlink:[],
-      order: props.order
+      order: props.order,
+      disableSubmit:false
     }
     this.handleEditorChange = this.handleEditorChange.bind(this);
   }
@@ -66,9 +67,12 @@ class Purchase11 extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+    this.setState({disableSubmit:true})
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.props.submitShipping(values)
+      }else{
+        this.setState({disableSubmit:false})
       }
     })
   }
@@ -76,7 +80,7 @@ class Purchase11 extends React.Component {
     this.setState({ content });
   }
   render() {
-    const {currentRecipient,order} = this.state
+    const {currentRecipient,order,disableSubmit} = this.state
     const {flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryTime, cardSize} = this.props
     const {getFieldDecorator} = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
@@ -223,11 +227,12 @@ class Purchase11 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={this.handleSubmit}
+            onKeyHandle={() => {!disableSubmit && this.handleSubmit}}
           />
           <Button
             type='primary'
             htmlType='submit'
+            disabled={disableSubmit}
           >
             {intl.formatMessage(messages.submit)}
           </Button>

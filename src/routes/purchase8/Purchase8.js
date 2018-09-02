@@ -13,6 +13,7 @@ import KeyHandler, {KEYPRESS} from 'react-key-handler'
 class Purchase8 extends React.Component {
   state = {
     previewCollapsed: false,
+    disableSubmit:false
   }
 
   onPreviewCollapse = (previewCollapsed) => {
@@ -20,7 +21,7 @@ class Purchase8 extends React.Component {
   }
 
   render() {
-    const {previewCollapsed} = this.state
+    const {previewCollapsed,disableSubmit} = this.state
     const {gift, setGift, submitGift, intl, flowIndex, gifts, getGifts, giftType} = this.props
 
     return (
@@ -94,12 +95,21 @@ class Purchase8 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={() => gift && submitGift()}
+            onKeyHandle={() => {
+              if(gift || !disableSubmit) 
+              {
+                this.setState({disableSubmit:true});
+                submitGift()
+              }
+            }}
           />
           <Button
             type='primary'
-            disabled={!gift}
-            onClick={() => submitGift()}
+            disabled={!gift || disableSubmit}
+            onClick={() => {
+              this.setState({disableSubmit:true});
+              submitGift()
+            }}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
