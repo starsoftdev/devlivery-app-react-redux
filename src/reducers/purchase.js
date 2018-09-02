@@ -5,7 +5,8 @@ import {
   DONATION_ROUTE,
   EDIT_BUNDLE_FLOW,
   ORDER_BUNDLE_FLOW,
-  PURCHASE8_ROUTE,
+  ORDER_CARD_FLOW,
+  PURCHASE8_ROUTE,//Select Gift
   PURCHASE_FLOW,
   VOUCHER_ROUTE,
 } from '../routes'
@@ -159,7 +160,7 @@ export const CLEAR = 'Purchase.CLEAR'
 // Actions
 // ------------------------------------
 export const setFlow = (flow, redirect = true) => (dispatch, getState, {history}) => {
-  if (redirect && flow.key != ORDER_BUNDLE_FLOW.key) {
+  if (redirect && flow.key != ORDER_BUNDLE_FLOW.key && flow.key != ORDER_CARD_FLOW.key) {
     dispatch(clear())
   }
   
@@ -184,6 +185,16 @@ export const setBundle = (bundle) => (dispatch, getState) => {
     orderId : null
   })
   dispatch(setFlow(ORDER_BUNDLE_FLOW))
+}
+export const setFlowFromSelectCard = (card) => (dispatch, getState) => {
+  const occasion =  {id:card.occasion_id};
+  dispatch({type: SET_OCCASION, occasion})
+  const letteringTechnique = 'printed';
+  dispatch({type: SET_LETTERING_TECHNIQUE, letteringTechnique})
+  const cardStyle = card.style;
+  dispatch({type: SET_CARD_STYLE, cardStyle})
+  dispatch({type: SET_CARD, card})
+  dispatch(setFlow(ORDER_CARD_FLOW))
 }
 
 export const setFlowIndex = () => (dispatch, getState) => {
@@ -442,7 +453,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
         message.success('Bundle created.')
       }
     },
-    failure: () => {
+    failure: (err) => {
       dispatch({type: ADD_BUNDLE_FAILURE})
     },
   })
