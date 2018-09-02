@@ -43,7 +43,7 @@ export const REQUIRED_FIELDS = [
 // width/height in mm
 export const CARD_SIZES = (intl) => [
   {
-    key: '4" x 5"',
+    key: '4" X 5"',
     title: intl && intl.formatMessage(messages.foldedCard),
     svg: FoldedCardImage,
     extra: '4" × 5"',
@@ -51,7 +51,7 @@ export const CARD_SIZES = (intl) => [
     width: 103,
   },
   {
-    key: '5" x 7"',
+    key: '5" X 7"',
     title: intl && intl.formatMessage(messages.postcard),
     svg: PostcardImage,
     extra: '5" × 7"',
@@ -59,7 +59,7 @@ export const CARD_SIZES = (intl) => [
     width: 182,
   },
   {
-    key: '6" x 6"',
+    key: '6" X 6"',
     title: intl && intl.formatMessage(messages.foldedCardWithoutPanel),
     svg: FoldedCardWithoutPanelImage,
     extra: '6" × 6"',
@@ -67,7 +67,7 @@ export const CARD_SIZES = (intl) => [
     width: 144,
   },
   {
-    key: '4" x 9"',
+    key: '4" X 9"',
     title: intl && intl.formatMessage(messages.foldedCard),
     svg: BigFoldedCardImage,
     extra: '4" × 9"',
