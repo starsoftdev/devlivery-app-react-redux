@@ -5,12 +5,24 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './AddContact.css'
 import {ContactForm, PurchaseActions, SectionHeader} from '../../components'
 import {nextFlowStep} from '../../reducers/purchase'
-import {addContact, saveFields} from '../../reducers/contacts'
+import {addContact, editContact,saveFields,getContact,setContact } from '../../reducers/contacts'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
 import isEmpty from 'lodash/isEmpty'
 
 class AddContact extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      contact: null
+    }
+    if(props.selectedContact && props.selectedContact.id)
+      props.getContact(props.selectedContact.id);
+  }
+  componentWillReceiveProps(nextProps){
+    if(nextProps && nextProps.contact)
+      this.setState({contact: nextProps.contact});
+  }
   componentDidMount () {
     if (!isEmpty(this.props.fields)) {
       this.props.form.setFieldsValue(this.props.fields)
@@ -26,13 +38,22 @@ class AddContact extends React.Component {
     //e.preventDefault()
     this.props.form.validateFields({force: true}, (err, values) => {
       if (!err) {
-        this.props.addContact(values, this.props.form, () => this.props.nextFlowStep())
+        if(this.props.selectedContact && this.props.selectedContact.id)
+        {
+          this.props.setContact(this.props.selectedContact);
+          var additional = {
+            groups: this.state.contact.groups? this.state.contact.groups :[]
+          }
+          this.props.editContact({...values,...additional}, this.props.form, () => this.props.nextFlowStep())
+        }
+        else this.props.addContact(values, this.props.form, () => this.props.nextFlowStep())
       }
     })
   }
 
   render() {
     const {flowIndex, intl, selectedContact} = this.props
+    
     return (
       <ContactForm initialValues = {selectedContact} form={this.props.form} header={null}>
         {({
@@ -57,21 +78,7 @@ class AddContact extends React.Component {
               {remindersSection}
               {groupsSection}
             </div>
-            {/*
-            <PurchaseActions>
-              <KeyHandler
-                keyEventName={KEYPRESS}
-                keyCode={13}
-                onKeyHandle={this.handleSubmit}
-              />
-              <Button
-                htmlType='submit'
-                type='primary'
-              >
-                {intl.formatMessage(messages.submit)}
-              </Button>
-            </PurchaseActions>
-            */}
+            
           </Form>
         )}
       </ContactForm>
@@ -82,12 +89,16 @@ class AddContact extends React.Component {
 const mapState = state => ({
   flowIndex: state.purchase.flowIndex,
   fields: state.contacts.fields,
+  contact: state.contacts.contact
 })
 
 const mapDispatch = {
   addContact,
   nextFlowStep,
   saveFields,
+  editContact,
+  getContact,
+  setContact
 }
 
 export default connect(mapState, mapDispatch)(Form.create({
