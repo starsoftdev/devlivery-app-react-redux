@@ -20,7 +20,7 @@ class AddContact extends React.Component {
       props.getContact(props.selectedContact.id);
   }
   componentWillReceiveProps(nextProps){
-    if(nextProps && nextProps.contact)
+    if(nextProps && nextProps.contact && this.props.selectedContact && this.props.selectedContact.id)
       this.setState({contact: nextProps.contact});
   }
   componentDidMount () {
@@ -40,11 +40,7 @@ class AddContact extends React.Component {
       if (!err) {
         if(this.props.selectedContact && this.props.selectedContact.id)
         {
-          this.props.setContact(this.props.selectedContact);
-          var additional = {
-            groups: this.state.contact.groups? this.state.contact.groups :[]
-          }
-          this.props.editContact({...values,...additional}, this.props.form, () => this.props.nextFlowStep())
+          this.props.editContact(values, this.props.form, () => this.props.nextFlowStep())
         }
         else this.props.addContact(values, this.props.form, () => this.props.nextFlowStep())
         return true;
@@ -55,10 +51,10 @@ class AddContact extends React.Component {
   }
 
   render() {
-    const {flowIndex, intl, selectedContact} = this.props
+    const {flowIndex, intl} = this.props
     
     return (
-      <ContactForm initialValues = {selectedContact} form={this.props.form} header={null}>
+      <ContactForm initialValues = {this.state.contact} form={this.props.form} header={null}>
         {({
             contactSection,
             birthdaySection,
