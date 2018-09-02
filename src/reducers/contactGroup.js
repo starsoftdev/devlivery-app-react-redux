@@ -3,7 +3,7 @@ import qs from 'query-string'
 import {getToken} from './user'
 import {message} from 'antd'
 import has from 'lodash/has'
-
+import {showErrorMessage} from '../utils'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -78,7 +78,10 @@ export const addContactGroup = (values) => (dispatch, getState, {fetch, history}
       dispatch({type: ADD_CONTACT_GROUP_SUCCESS})
       history.push('/dashboard/contacts/groups')
     },
-    failure: () => dispatch({type: ADD_CONTACT_GROUP_FAILURE}),
+    failure: (err) => {
+      showErrorMessage(err)
+      dispatch({type: ADD_CONTACT_GROUP_FAILURE})
+    },
   })
 }
 

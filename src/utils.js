@@ -2,10 +2,31 @@ import {DATE_FORMAT} from './constants'
 import get from 'lodash/get'
 import moment from 'moment'
 import isArray from 'lodash/isArray'
+import {message} from 'antd'
 
 export const getSuccessMessage = (res) => res && typeof res.data === 'string' ? res.data : null
 
 export const getErrorMessage = (res) => res && (typeof res.data === 'string' || typeof res.errors === 'string') ? res.data||res.errors : 'Something went wrong. Please try again.'
+
+export const showErrorMessage = (res) => {
+  console.log("err",res);
+  if(res)
+  {
+    if(res.errors.validation)
+    {
+      for(var key in res.errors.validation)
+        message.error(res.errors.validation[key]);
+      return;
+    }
+    if(typeof res.errors === 'string')
+    {
+      message.error(res.errors);
+      return;
+    }
+    message.error(res.errors);
+  }
+  message.error('Something went wrong. Please try again.');
+}
 
 export const getFormErrors = ({values, errors}) => {
   if (errors.validation) {
