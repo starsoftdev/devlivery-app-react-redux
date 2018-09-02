@@ -191,13 +191,16 @@ export const setBundle = (bundle) => (dispatch, getState) => {
   dispatch(setFlow(ORDER_BUNDLE_FLOW))
 }
 export const setFlowFromSelectCard = (card) => (dispatch, getState) => {
+  
   dispatch(setFlow(AUTH_PURCHASE_FLOW))
   const occasion =  {id:card.occasion_id};
   dispatch({type: SET_OCCASION, occasion})
-  
   const cardStyle = card.style;
   dispatch({type: SET_CARD_STYLE, cardStyle})
+  const cardSize = CARD_SIZES().find(item => item.key === card.size)
+  dispatch({type: SET_CARD_SIZE, cardSize})
   dispatch({type: SET_CARD, card})
+
   //dispatch(setFlow(ORDER_CARD_FLOW))
 }
 export const setFlowFromSelectGift = (gift) => (dispatch, getState) => {
