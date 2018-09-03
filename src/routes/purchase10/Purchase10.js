@@ -17,6 +17,7 @@ import {getContactGroups} from '../../reducers/contactGroups'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import {message} from 'antd'
 
+
 class Purchase10 extends React.Component {
   state = {
     addingContactMode: null,
@@ -31,7 +32,7 @@ class Purchase10 extends React.Component {
     this.selectExistingContact = this.selectExistingContact.bind(this);
     this.selectGroup = this.selectGroup.bind(this);
     this.backToGroup = this.backToGroup.bind(this);
-    
+    this.refreshPage = this.refreshPage.bind(this);
     this.ref_addcontact = React.createRef();
   }
   setAddingContactsMode = (addingContactMode) => {
@@ -47,6 +48,17 @@ class Purchase10 extends React.Component {
   backToGroup(){
     this.props.getContactGroups();
     this.setState({selectMode:'group',selectedGroupName:''})
+  }
+  refreshPage(){
+    this.setState({
+      addingContactMode: null,
+      selectedContact: null,
+      selectedGroupName:'',
+      selectMode: 'group',
+      isFirstSubmit:false,
+      disableButton:false
+    })
+    this.props.getContactGroups();
   }
   onSubmit(){
     const {isFirstSubmit,addingContactMode} = this.state;
@@ -109,7 +121,7 @@ class Purchase10 extends React.Component {
         {addingContactMode === ADD_CONTACT_MANUALLY && isFirstSubmit? (
           <AddContact intl={intl} selectedContact={this.state.selectedContact} onRef={ref => (this.ref_addcontact = ref)} />
         ) : addingContactMode === IMPORT_CONTACTS && isFirstSubmit? (
-          <ImportContacts intl={intl} onRef={ref => (this.ref_importcontact = ref)}/>
+          <ImportContacts intl={intl} onRef={ref => (this.ref_importcontact = ref)} refreshPage={this.refreshPage}/>
         ) : (
           <React.Fragment>
             <div className={s.content}>
