@@ -1696,6 +1696,14 @@
     ]
   },
   {
+    "id": "contacts.groupBy",
+    "defaultMessage": "Group",
+    "message": "Gruppe",
+    "files": [
+      "src/routes/contacts/messages.js"
+    ]
+  },
+  {
     "id": "contactForm.state",
     "defaultMessage": "State",
     "message": "Kanton"
