@@ -85,4 +85,8 @@ export default defineMessages({
     id: 'contactForm.salt_dr',
     defaultMessage: 'Dr.',
   },
+  salt_famil:{
+    id: 'contactForm.salt_famil',
+    defaultMessage: 'Family',
+  },
 })

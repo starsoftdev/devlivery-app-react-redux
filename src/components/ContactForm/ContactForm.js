@@ -11,7 +11,7 @@ import Reminders from './Reminders'
 import Groups from './Groups'
 import moment from 'moment'
 
-const SALUTATIONS = ['Mr.', 'Ms.', 'Mrs.', 'Dr.']
+const SALUTATIONS = ['Mr.', 'Ms.', 'Mrs.', 'Dr.','Family']
 
 const RELATIONSHIP = [
   'Mother',
