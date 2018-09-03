@@ -64,7 +64,7 @@ class EditContact extends React.Component {
           okText="Yes"
           cancelText="No"
         >
-          <h2>Do you wanna save the information you've edited?</h2>
+          <h2>Do you wish save the information you've edited?</h2>
         </Modal>
         <ContactForm initialValues={contact} form={this.props.form} header={intl.formatMessage(messages.header)}>
           {({
