@@ -21,6 +21,10 @@ export default defineMessages({
     id: 'contacts.sortBy',
     defaultMessage: 'Sort by',
   },
+  groupBy: {
+    id: 'contacts.groupBy',
+    defaultMessage: 'Group',
+  },
   tableItems: {
     id: 'contacts.tableItems',
     defaultMessage: '{range0}-{range1} of {total} items',

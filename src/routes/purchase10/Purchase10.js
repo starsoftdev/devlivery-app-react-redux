@@ -16,22 +16,19 @@ import {getContactsByName} from '../../reducers/contacts'
 import {getContactGroups} from '../../reducers/contactGroups'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import {message} from 'antd'
-
+import {getContacts} from '../../reducers/contacts'
 
 class Purchase10 extends React.Component {
   state = {
     addingContactMode: null,
     selectedContact: null,
     selectedGroupName:'',
-    selectMode: 'group',
     isFirstSubmit:false,
     disableButton:false
   }
   constructor(props){
     super(props);
     this.selectExistingContact = this.selectExistingContact.bind(this);
-    this.selectGroup = this.selectGroup.bind(this);
-    this.backToGroup = this.backToGroup.bind(this);
     this.refreshPage = this.refreshPage.bind(this);
     this.ref_addcontact = React.createRef();
   }
@@ -41,24 +38,18 @@ class Purchase10 extends React.Component {
   selectExistingContact(selectedContact){
     this.setState({isFirstSubmit:true,addingContactMode:ADD_CONTACT_MANUALLY,selectedContact});
   }
-  selectGroup(group_name){
-    this.props.getContactsByName(group_name);
-    this.setState({selectMode:'contact',selectedGroupName:group_name})
-  }
-  backToGroup(){
-    this.props.getContactGroups();
-    this.setState({selectMode:'group',selectedGroupName:''})
-  }
+  
+  
   refreshPage(){
     this.setState({
       addingContactMode: null,
       selectedContact: null,
       selectedGroupName:'',
-      selectMode: 'group',
       isFirstSubmit:false,
       disableButton:false
     })
     this.props.getContactGroups();
+    this.props.getContacts();
   }
   onSubmit(){
     const {isFirstSubmit,addingContactMode} = this.state;
@@ -97,24 +88,9 @@ class Purchase10 extends React.Component {
       }
     }
   }
-  renderGroupView(){
-    return(<ContactGroups {...this.props} intl={this.props.intl} readonly = {true} selectGroup = {this.selectGroup}/>);
-  }
-  renderContactView(){
-    return(
-      <div className = {s.contactView}>
-        <div className={s.actions}>
-          <h3 className={s.header}>Selected Group Name: <strong>{this.state.selectedGroupName}</strong></h3>
-          <Button type='primary' ghost onClick={this.backToGroup} size={'small'}>
-            {'Group'}
-          </Button>
-        </div>
-        <Contacts {...this.props} intl={this.props.intl} readonly = {true} selectExistingContact ={this.selectExistingContact}/>
-      </div>
-    )
-  }
+  
   render() {
-    const {addingContactMode,selectMode,isFirstSubmit,disableButton} = this.state
+    const {addingContactMode,isFirstSubmit,disableButton} = this.state
     const {flowIndex, intl} = this.props
     return (
       <React.Fragment>
@@ -152,8 +128,7 @@ class Purchase10 extends React.Component {
                   />
                 </Col>
               </Row>
-              { selectMode === 'group' && this.renderGroupView() }
-              { selectMode === 'contact' && this.renderContactView() }
+              <Contacts {...this.props} selectExistingContact ={this.selectExistingContact} withSearchGroup = {true}/>
             </div>
           </React.Fragment>
         )}
@@ -180,6 +155,6 @@ const mapState = state => ({
   flowIndex: state.purchase.flowIndex,
 })
 
-const mapDispatch = {getContactsByName,getContactGroups,nextFlowStep}
+const mapDispatch = {getContactsByName,getContactGroups,nextFlowStep,getContacts}
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase10))

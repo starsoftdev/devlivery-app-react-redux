@@ -69,8 +69,9 @@ export const CLEAR = 'Contacts.CLEAR'
 export const getContacts = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_CONTACTS_REQUEST, params})
   const {token} = dispatch(getToken())
-  const {search, page, pageSize, ordering} = getState().contacts
-
+  const {search} = params;
+  const { page, pageSize, ordering} = getState().contacts
+  
   return fetch(`/view-contacts?${qs.stringify({
     ...search ? {
       name: search
@@ -85,7 +86,7 @@ export const getContacts = (params = {}) => (dispatch, getState, {fetch}) => {
     method: 'GET',
     token,
     success: (res) => dispatch({type: GET_CONTACTS_SUCCESS, res}),
-    failure: () => dispatch({type: GET_CONTACTS_FAILURE}),
+    failure: (err) => dispatch({type: GET_CONTACTS_FAILURE}),
   })
 }
 export const getContactsByName = (title) => (dispatch, getState, {fetch}) => {
@@ -97,8 +98,8 @@ export const getContactsByName = (title) => (dispatch, getState, {fetch}) => {
   })}`, {
     method: 'GET',
     token,
-    success: (res) => dispatch({type: GET_CONTACTSBYNAME_SUCCESS, res}),
-    failure: () => dispatch({type: GET_CONTACTSBYNAME_FAILURE}),
+    success: (res) => dispatch({type: GET_CONTACTS_SUCCESS, res}),
+    failure: () => dispatch({type: GET_CONTACTS_FAILURE}),
   })
 }
 export const getContact = (contactId) => (dispatch, getState, {fetch}) => {

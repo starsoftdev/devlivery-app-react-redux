@@ -8,7 +8,7 @@ import RemoveIcon from '../../static/remove.svg'
 import GridIcon from '../../static/view_card.svg'
 import ListIcon from '../../static/view_list.svg'
 import {Link, PaginationItem, ContactDetail} from '../../components'
-import {clear, getContacts, removeContact} from '../../reducers/contacts'
+import {clear, getContacts, removeContact, getContactsByName} from '../../reducers/contacts'
 import debounce from 'lodash/debounce'
 import messages from './messages'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
@@ -43,8 +43,7 @@ class Contacts extends React.Component {
   }
 
   changeView = (view) => {
-    if(this.props.readonly !== true)
-      this.setState({view})
+    this.setState({view})
   }
 
   showDetailContactView = (id) => {
@@ -58,15 +57,19 @@ class Contacts extends React.Component {
   render() {
     const {view, search, contactId, showContactView} = this.state
     // TODO add loading
-    const {contactsCount, contacts, page, pageSize, loading, getContacts, removeContact, intl, ordering, readonly} = this.props
-
-    const columns = [
+    const {contactsCount, contacts, page, pageSize, loading, getContacts, removeContact, intl, ordering, withSearchGroup, contactGroups, getContactsByName} = this.props
+    var columns = [
       {
         title: intl.formatMessage(messages.nameColumn),
         dataIndex: '',
         key: 'name',
         render: (contact) => (
-          <a onClick={() => this.showDetailContactView(contact.id)}>
+          <a onClick={() => {
+              if(this.props.selectExistingContact)
+                this.props.selectExistingContact(contact);
+              else
+                this.showDetailContactView(contact.id)
+            }}>
             {`${contact.first_name} ${contact.last_name}`}
           </a>
         )
@@ -110,7 +113,10 @@ class Contacts extends React.Component {
         }
       },
     ]
-
+    if(withSearchGroup)
+    {
+      columns = columns.slice(0,columns.length-2);
+    }
     const contactSortBy = [
       {value: 'first_name', label: 'A-Z'},
       {value: '-first_name', label: 'Z-A'},
@@ -122,24 +128,44 @@ class Contacts extends React.Component {
     return (
       <div className={s.container}>
         {
-          readonly !== true &&
           <div className={s.actions}>
-            <Input.Search
-              className={s.search}
-              placeholder={intl.formatMessage(messages.search)}
-              value={search}
-              onChange={this.changeSearch}
-            />
-            <Select
-              className={s.sortBy}
-              placeholder={intl.formatMessage(messages.sortBy)}
-              onChange={(ordering) => getContacts({ordering})}
-              value={ordering}
-            >
-              {contactSortBy.map(item =>
-                <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>
-              )}
-            </Select>
+            {
+              withSearchGroup!==true &&
+              <Input.Search
+                className={s.search}
+                placeholder={intl.formatMessage(messages.search)}
+                value={search}
+                onChange={this.changeSearch}
+              />
+            }
+            {
+              withSearchGroup ?
+              <Select
+                className={s.search}
+                placeholder={intl.formatMessage(messages.groupBy)}
+                onChange={(groupname) => {
+                  if(groupname)
+                    getContactsByName(groupname)
+                  else getContacts()
+                }}
+                allowClear
+              >
+                {contactGroups.map(item =>
+                  <Select.Option key={item.id} value={item.title}>{item.title}</Select.Option>
+                )}
+              </Select> 
+              :
+              <Select
+                className={s.sortBy}
+                placeholder={intl.formatMessage(messages.sortBy)}
+                onChange={(ordering) => getContacts({ordering})}
+                value={ordering}
+              >
+                {contactSortBy.map(item =>
+                  <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>
+                )}
+              </Select>
+            }
             <div className={s.views}>
               <a className={s.viewBtn} onClick={() => this.changeView(GRID_VIEW)}>
                 <GridIcon/>
@@ -161,7 +187,8 @@ class Contacts extends React.Component {
                   key={contact.id}
                 >
                   <div className={s.contact}>
-                    {readonly !== true &&
+                    {
+                      withSearchGroup !== true &&
                       <Link
                         className={s.gridEditBtn}
                         to={{name: EDIT_CONTACT_ROUTE, params: {contactId: contact.id}}}
@@ -191,7 +218,6 @@ class Contacts extends React.Component {
               }
             </Row>
             {
-              readonly !== true &&
               <div className={s.footer}>
                 <Pagination
                   current={page}
@@ -238,12 +264,14 @@ class Contacts extends React.Component {
 
 const mapState = state => ({
   ...state.contacts,
+  ...state.contactGroups
 })
 
 const mapDispatch = {
   getContacts,
   removeContact,
   clear,
+  getContactsByName
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Contacts))
