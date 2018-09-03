@@ -25,9 +25,9 @@ class ImportContacts extends React.Component {
     const {mappingColumns, flowIndex, intl} = this.props
     
     return mappingColumns ? (
-      <ColumnsMapping onRef={ref => (this.ref_mapping = ref)}/>
+      <ColumnsMapping onRef={ref => (this.ref_mapping = ref)} refreshPage={this.props.refreshPage}/>
     ) : (
-      <ContactsImporting>
+      <ContactsImporting >
         {({
             exportGoogleContacts,
             exportOutlookContacts,
@@ -60,24 +60,6 @@ class ImportContacts extends React.Component {
                 </Col>
               </Row>
             </div>
-            {/*
-            <PurchaseActions>
-              <KeyHandler
-                keyEventName={KEYPRESS}
-                keyCode={13}
-                onKeyHandle={() => nextFlowStep()}
-              />
-              {
-                mappingColumns &&
-                <Button
-                  onClick={() => nextFlowStep()}
-                  type='primary'
-                >
-                  {intl.formatMessage(messages.submit)}
-                </Button>
-              }
-            </PurchaseActions>
-            */}
           </React.Fragment>
         }
       </ContactsImporting>

@@ -8,7 +8,6 @@ import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
 import {injectIntl} from 'react-intl'
 import {importContacts, openUploadedContactsModal} from '../../reducers/contacts'
-import {nextFlowStep} from '../../reducers/purchase'
 
 class ColumnsMapping extends React.Component {
   componentDidMount() {
@@ -21,7 +20,7 @@ class ColumnsMapping extends React.Component {
     //e.preventDefault()
     this.columnsMappingForm.validateFields((err, values) => {
       if (!err) {
-        this.props.importContacts(values, () => this.props.nextFlowStep())
+        this.props.importContacts(values, () => this.props.refreshPage())
         return true;
       }
       return false;
@@ -83,7 +82,6 @@ const mapState = state => ({
 const mapDispatch = {
   openUploadedContactsModal,
   importContacts,
-  nextFlowStep,
 }
 
 export default injectIntl(connect(mapState, mapDispatch)(withStyles(s)(ColumnsMapping)))
