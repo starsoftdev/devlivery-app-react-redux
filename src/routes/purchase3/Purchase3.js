@@ -12,6 +12,7 @@ import KeyHandler, {KEYPRESS} from 'react-key-handler'
 class Purchase3 extends React.Component {
   render() {
     const {cardStyle, setCardStyle, cardStyles, intl, flowIndex, nextFlowStep} = this.props
+    console.log("---",cardStyles);
     return (
       <div className={s.content}>
         <SectionHeader
