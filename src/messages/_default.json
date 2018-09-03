@@ -1979,6 +1979,14 @@
     ]
   },
   {
+    "id": "address.companyname",
+    "defaultMessage": "Company Name",
+    "message": "",
+    "files": [
+      "src/components/Address/messages.js"
+    ]
+  },
+  {
     "id": "address.postalCode",
     "defaultMessage": "Postal Code",
     "message": "",

@@ -2119,6 +2119,14 @@
     ]
   },
   {
+    "id": "address.companyname",
+    "defaultMessage": "Company Name",
+    "message": "Name der Firma",
+    "files": [
+      "src/components/Address/messages.js"
+    ]
+  },
+  {
     "id": "address.postalCode",
     "defaultMessage": "Postal Code",
     "message": "Postal Code",

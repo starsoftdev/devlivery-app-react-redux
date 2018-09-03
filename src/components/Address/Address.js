@@ -31,7 +31,7 @@ const Address = ({getFieldDecorator, index, header, intl, initialValues, require
             {min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})}
           ],
         })(
-          <Input placeholder={intl.formatMessage(messages.address)} onChange={(e) => onAddressChange(e.target.value)}/>
+          <Input placeholder={intl.formatMessage(index==1 ? messages.companyname: messages.address)} onChange={(e) => onAddressChange(e.target.value)}/>
         )}
       </Form.Item>
       <Form.Item>
