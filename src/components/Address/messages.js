@@ -21,4 +21,8 @@ export default defineMessages({
     id: 'address.country',
     defaultMessage: 'Country',
   },
+  companyname: {
+    id: 'address.companyname',
+    defaultMessage: 'Company Name',
+  },
 })

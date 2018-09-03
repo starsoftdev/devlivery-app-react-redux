@@ -145,19 +145,24 @@ export const getGroupsArray = (groups) => {
 export const getAddressesArray = (addresses) => {
   // if 'address' is empty - don't send item
   var result = addresses.filter(item => !!item.address).map(({address2, ...item}) => {
-    return address2 ? {
-      ...item,
-      address: `${item.address}\n${address2}`
-    } : item
-  })
-  return result.map(item =>{
-    if(item.title === 'office' && item.address)
-      return {
-        ...item,
-        company_name: item.address
+    if(address2)
+    {
+      if(item.title === 'office' && item.address)
+      {
+        return {
+          ...item,
+          address: `${item.address}\n${address2}`,
+          company_name: item.address
+        }
       }
-    return item;
-  });
+      else return {
+          ...item,
+          address: `${item.address}\n${address2}`,
+        }
+    }
+    return item
+  })
+  return result;
 }
 
 export const addContact = (values, form, callback) => (dispatch, getState, {fetch}) => {
