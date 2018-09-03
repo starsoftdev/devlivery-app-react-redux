@@ -2191,6 +2191,14 @@
     ]
   },
   {
+    "id": "contactForm.salt_famil",
+    "defaultMessage": "Family",
+    "message": "Familie",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
     "id": "header.dashboard",
     "defaultMessage": "Dashboard",
     "message": "Dashboard",
