@@ -6,7 +6,7 @@ import messages from './messages'
 
 function action({store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
-  store.dispatch(getOccasions())
+  store.dispatch(getOccasions(intl))
   store.dispatch(getOccasionTypes())
 
   return {
