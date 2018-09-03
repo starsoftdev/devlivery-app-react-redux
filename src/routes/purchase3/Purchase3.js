@@ -12,6 +12,7 @@ import KeyHandler, {KEYPRESS} from 'react-key-handler'
 class Purchase3 extends React.Component {
   render() {
     const {cardStyle, setCardStyle, cardStyles, intl, flowIndex, nextFlowStep} = this.props
+    console.log("---",cardStyles);
     return (
       <div className={s.content}>
         <SectionHeader
@@ -20,7 +21,7 @@ class Purchase3 extends React.Component {
           prefixClassName={s.headerPrefix}
         />
         <Row className={s.items} gutter={20} type='flex' align='center'>
-          {cardStyles.map((item, i) =>
+          {cardStyles.sort((a,b) => a.sequence>b.sequence).map((item, i) =>
             <Col key={item.title} className={s.itemWrapper}>
               <Card
                 className={s.item}

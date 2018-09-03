@@ -233,7 +233,7 @@ export const getOccasions = (params = {}) => (dispatch, getState, {fetch}) => {
   const {occasionType} = getState().purchase
   return fetch(`/occasions?${qs.stringify({
     take: 100,
-    order_by: params && params.locale != params.defaultLocale ? 'title': 'german_title',
+    order_by: params && params.locale == params.defaultLocale ? 'title': 'german_title',
     ...occasionType ? {
       filter_key: 'type',
       filter_value: occasionType,
