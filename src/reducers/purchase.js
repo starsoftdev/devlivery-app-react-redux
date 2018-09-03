@@ -295,20 +295,30 @@ export const getRecipients = () => (dispatch, getState, {fetch}) => {
 export const addRecipientsOrder = (orderId) => (dispatch, getState, {fetch}) => {
   dispatch({type: ADD_RECIPIENTS_REQUEST})
   const {token} = dispatch(getToken())
-  const {newContact} = getState().contacts
-  if (!newContact) {
+  const {newrecipient} = getState().purchase
+  if (!newrecipient) {
+    console.log("no recipient");
     return
   }
+  console.log(`/order-recipients`,{
+    order_id: orderId,
+    contact_id: newrecipient.id,
+  });
   return fetch(`/order-recipients`, {
     method: 'POST',
     contentType: 'multipart/form-data',
     token,
     body: {
       order_id: orderId,
-      contact_id: newContact.id,
+      contact_id: newrecipient.id,
     },
-    success: () => dispatch({type: ADD_RECIPIENTS_SUCCESS}),
-    failure: () => dispatch({type: ADD_RECIPIENTS_FAILURE})
+    success: (res) => {
+      dispatch(getOrderDetails(orderId));
+      dispatch({type: ADD_RECIPIENTS_SUCCESS})
+    },
+    failure: (err) => {
+      dispatch({type: ADD_RECIPIENTS_FAILURE})
+    }
   })
 }
 
@@ -868,8 +878,12 @@ export const getOrderDetails = (orderId) => (dispatch, getState, {fetch}) => {
   })}`, {
     method: 'GET',
     token,
-    success: (res) => dispatch({type: GET_ORDER_DETAILS_SUCCESS, order: res.data}),
-    failure: () => dispatch({type: GET_ORDER_DETAILS_FAILURE}),
+    success: (res) => {
+      dispatch({type: GET_ORDER_DETAILS_SUCCESS, order: res.data})
+    },
+    failure: () => {
+      dispatch({type: GET_ORDER_DETAILS_FAILURE})
+    },
   })
 }
 
