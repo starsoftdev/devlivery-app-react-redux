@@ -55,9 +55,9 @@ class Footer extends React.Component {
           </ul>
         </div>
         <div className={s.companyInfo}>
-          <p>Anckargripsgatan 3, 211 19 Zurich, Switzerland</p>
-          <a href='tel:0406309000'>040-630 90 00</a>
-          <a href='mailto:info@example.ch'>info@example.ch</a>
+          <p>by Zumi, Sonnhaldenstrasse 10, 8903 Birmensdorf</p>
+          {/*<a href='tel:0406309000'>040-630 90 00</a>*/} 
+          <a href='mailto:info@byzumi.com'>info@byzumi.com</a>
         </div>
         <p className={s.copyright}>© Copyright 2018, ByZumi</p>
       </footer>
