@@ -13,9 +13,26 @@
   display: flex;
   align-items: center;
   height: var(--purchase-actions-height);
-  max-width: 820px;
   margin-right: auto;
   margin-left: auto;
+  
+  padding-bottom: var(--margin-md);
+  padding-right: var(--margin-md);
+  padding-left: var(--margin-md);
+  flex: auto;
+
+  @media (--md-down) {
+    padding-top: var(--margin-md);
+  }
+  @media (--md-up) {
+    padding-top: var(--margin-xl);
+  }
+  @media (min-width: 821px) {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 680px;
+    width: 100%;
+  }
 }
 
 .steps {
