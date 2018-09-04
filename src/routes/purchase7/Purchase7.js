@@ -12,6 +12,7 @@ import messages from './messages'
 class Purchase7 extends React.Component {
   render() {
     const {giftType, setGiftType, submitGiftType, intl, flowIndex, continueWithoutGift} = this.props
+    console.log("submitGiftType",giftType);
     return (
       <React.Fragment>
         <div className={s.content}>
@@ -29,6 +30,7 @@ class Purchase7 extends React.Component {
                   svg={item.svg}
                   onClick={() => {
                     setGiftType(item.key)
+                    submitGiftType()
                   }}
                   active={item.key === giftType}
                   keyValue={ALPHABET[i]}
@@ -39,11 +41,13 @@ class Purchase7 extends React.Component {
           </Row>
         </div>
         <PurchaseActions>
+          {/*
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
             onKeyHandle={() => giftType && submitGiftType()}
           />
+          */}
           <Button
             type='primary'
             ghost
@@ -51,6 +55,7 @@ class Purchase7 extends React.Component {
           >
             {intl.formatMessage(messages.continueWithoutGift)}
           </Button>
+          {/*
           <Button
             type='primary'
             disabled={!giftType}
@@ -58,6 +63,7 @@ class Purchase7 extends React.Component {
           >
             {intl.formatMessage(messages.submit)}
           </Button>
+          */}
         </PurchaseActions>
       </React.Fragment>
     )

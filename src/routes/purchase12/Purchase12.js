@@ -13,6 +13,7 @@ import messages from './messages'
 class Purchase12 extends React.Component {
   setPaymentMethod = (paymentMethod) => {
     this.props.setPaymentMethod(paymentMethod)
+    this.props.nextFlowStep()
   }
 
   render() {
@@ -57,6 +58,7 @@ class Purchase12 extends React.Component {
           </Col>
         </Row>
         <PurchaseActions>
+          {/*
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -69,6 +71,7 @@ class Purchase12 extends React.Component {
           >
             {intl.formatMessage(messages.submit)}
           </Button>
+          */}
         </PurchaseActions>
       </div>
     )

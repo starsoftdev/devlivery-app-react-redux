@@ -57,6 +57,7 @@ class Purchase1 extends React.Component {
                     this.selectSeasonal('Seasonal');
                   else{
                     setOccasion(item)
+                    nextFlowStep()
                   }
                 }}
                 active={occasion && occasion.id === item.id}
@@ -65,7 +66,9 @@ class Purchase1 extends React.Component {
             </Col>
           )}
         </Row>
+        
         <PurchaseActions>
+          {/*
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -78,6 +81,7 @@ class Purchase1 extends React.Component {
           >
             {intl.formatMessage(messages.submit)}
           </Button>
+          */}
         </PurchaseActions>
       </div>
     )
