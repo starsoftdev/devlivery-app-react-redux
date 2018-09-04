@@ -83,11 +83,14 @@ class Purchase11 extends React.Component {
   }
   render() {
     const {currentRecipient,order,disableSubmit} = this.state
-    const {flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryTime, cardSize} = this.props
+    const {flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryTime, cardSize, newrecipient} = this.props
     const {getFieldDecorator} = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
     const cardWidth = cardSize ? cardSize.width : 100
     const cardHeight = cardSize ? cardSize.height : 100
+
+    const specialDate = deliveryTime || (newrecipient && newrecipient.dob);
+    
     return order ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -167,7 +170,7 @@ class Purchase11 extends React.Component {
               <Col xs={24} sm={12}>
                 <Form.Item>
                   {getFieldDecorator('schedule_date', {
-                    initialValue: deliveryTime ? moment(deliveryTime, DATE_FORMAT) : undefined,
+                    initialValue: specialDate ? moment(specialDate, DATE_FORMAT) : undefined,
                   })(
                     <DatePicker
                       className={s.select}
@@ -240,6 +243,7 @@ const mapState = state => ({
   deliveryTime: state.purchase.deliveryTime,
   cardSize: state.purchase.cardSize,
   cardDetails: state.purchase.cardDetails,
+  newrecipient: state.purchase.newrecipient
 })
 
 const mapDispatch = {
