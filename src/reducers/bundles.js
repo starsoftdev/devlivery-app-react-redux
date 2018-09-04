@@ -3,7 +3,7 @@ import qs from 'query-string'
 import {getToken} from './user'
 import {DEFAULT_PAGE_SIZE} from '../constants'
 import has from 'lodash/has'
-
+import {message} from 'antd'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -48,11 +48,12 @@ export const removeBundle = (bundle) => (dispatch, getState, {fetch}) => {
   return fetch(`/bundles/${bundle.id}`, {
     method: 'DELETE',
     token,
-    success: () => {
+    success: (res) => {
+      message.success("Bundle is successfully removed.");
       dispatch({type: REMOVE_BUNDLE_SUCCESS})
       dispatch(getBundles())
     },
-    failure: () => dispatch({type: REMOVE_BUNDLE_FAILURE}),
+    failure: (err) => {dispatch({type: REMOVE_BUNDLE_FAILURE})},
   })
 }
 
