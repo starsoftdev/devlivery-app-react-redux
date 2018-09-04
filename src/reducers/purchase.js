@@ -159,7 +159,7 @@ export const SET_FONT_FAMILIES = 'Purchase.SET_FONT_FAMILIES'
 export const CLEAR = 'Purchase.CLEAR'
 
 export const SET_NEW_RECIPIENT = 'Purchase.SET_NEW_RECIPIENT'
-
+export const UPDATE_BUNDLE_BODY = 'Purchase.UPDATE_BUNDLE_BODY'
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -301,10 +301,6 @@ export const addRecipientsOrder = (orderId) => (dispatch, getState, {fetch}) => 
     console.log("no recipient");
     return
   }
-  console.log(`/order-recipients`,{
-    order_id: orderId,
-    contact_id: newrecipient.id,
-  });
   return fetch(`/order-recipients`, {
     method: 'POST',
     contentType: 'multipart/form-data',
@@ -353,6 +349,9 @@ export const setCardSize = (cardSize) => ({type: SET_CARD_SIZE, cardSize})
 export const submitCardDetails = (cardDetails) => (dispatch, getState) => {
   dispatch(nextFlowStep())
   dispatch({type: SET_CARD_DETAILS, cardDetails})
+  const {bundle} =getState().purchase;
+  if(bundle && bundle.id)
+    dispatch({type: UPDATE_BUNDLE_BODY, cardDetails})
 }
 
 export const setGiftType = (giftType) => ({type: SET_GIFT_TYPE, giftType})
@@ -384,12 +383,13 @@ export const getGifts = (params = {}) => (dispatch, getState, {fetch}) => {
 export const submitShipping = (values) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   dispatch({type: SUBMIT_SHIPPING_REQUEST, values})
-  const {orderId, deliveryLocation, deliveryTime, occasion,newrecipient} = getState().purchase
+  const {orderId, deliveryLocation, deliveryTime, occasion,newrecipient, bundle} = getState().purchase
   const deliverOpt = {};
-  if(deliveryTime)
+  if(deliveryTime !== undefined && deliveryTime)
     deliverOpt['delivery_date'] = deliveryTime;
-  else deliverOpt['delivery_occasion'] = occasion.id;
-
+  else {
+    deliverOpt['delivery_occasion'] = occasion?occasion.id: bundle.bundle_card.card.occasion_id;
+  }
   return fetch(`/set-wheretosend`, {
     method: 'POST',
     body: {
@@ -467,7 +467,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
         gift_id: gift.id,
       } : {},
       // TODO check if we need to send card body here
-      body: cardDetails && cardDetails.body,
+      body: cardDetails && cardDetails.body && cardDetails.body.length > 0 ? cardDetails.body:'<p></p>',
       // TODO backend can't get undefined value for title
       ...pickBy(values, identity)
     },
@@ -487,7 +487,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
   })
 }
 
-export const makeOrder = () => (dispatch, getState, {fetch}) => {
+export const makeOrder = () => (dispatch, getState, {fetch,history}) => {
   const {token} = dispatch(getToken())
   const {bundleId, orderId} = getState().purchase
   
@@ -496,11 +496,7 @@ export const makeOrder = () => (dispatch, getState, {fetch}) => {
     dispatch(getOrderDetails(orderId))
     dispatch(getDeliveryLocations(orderId))
   } else {
-    if(bundleId === null)
-    {
-      message.error('Bundle is incorrect.');
-      return;
-    }
+    
     dispatch({type: MAKE_ORDER_REQUEST})
       return fetch(`/make-order-from-bundle`, {
         method: 'POST',
@@ -515,9 +511,10 @@ export const makeOrder = () => (dispatch, getState, {fetch}) => {
           dispatch(addCardBody(order.id))
           dispatch(getDeliveryLocations(order.id))
           dispatch(addRecipientsOrder(order.id))
-          dispatch({type: GET_BUNDLE_DETAILS_SUCCESS, bundle: getState().purchase.cardDetails});
+          //dispatch({type: GET_BUNDLE_DETAILS_SUCCESS, bundle: getState().purchase.cardDetails});
         },
         failure: (err) => {
+          history.goBack();
           dispatch({type: MAKE_ORDER_FAILURE})
         },
       })
@@ -532,7 +529,7 @@ export const addCardBody = (orderId) => (dispatch, getState, {fetch}) => {
     method: 'POST',
     body: {
       order_id: orderId,
-      html1: cardDetails.body,
+      html1: cardDetails && cardDetails.body && cardDetails.body.length > 0 ? cardDetails.body:'<p></p>',
     },
     token,
     success: () => dispatch({type: ADD_CARD_BODY_SUCCESS}),
@@ -1205,6 +1202,12 @@ export default createReducer(initialState, {
   }),
   [GET_BUNDLE_DETAILS_SUCCESS]: (state, {bundle}) => ({
     bundle,
+  }),
+  [UPDATE_BUNDLE_BODY]: (state, {cardDetails}) => ({
+    bundle:{
+      ...state.bundle,
+      ...cardDetails
+    }
   }),
   [SET_FONT_FAMILIES]: (state, {fontFamily}) => ({
     fontFamilies: uniq([...state.fontFamilies, fontFamily]),

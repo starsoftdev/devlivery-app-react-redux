@@ -142,6 +142,7 @@ export const ORDER_BUNDLE_FLOW = {
   key: 'order-bundle-flow',
   routes: [
     PURCHASE6_ROUTE,
+    PURCHASE10_ROUTE,
     PURCHASE11_ROUTE,
     PURCHASE12_ROUTE,
     PURCHASE13_ROUTE,
