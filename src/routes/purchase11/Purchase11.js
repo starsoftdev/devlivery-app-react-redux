@@ -40,8 +40,10 @@ class Purchase11 extends React.Component {
     this.handleEditorChange = this.handleEditorChange.bind(this);
   }
   componentWillReceiveProps(nextProps){
-    if(nextProps && nextProps.bundle && nextProps.bundle.body)
-      this.setState({content:nextProps.bundle.body, order:nextProps.order});
+    if(nextProps && nextProps.bundle)
+    {
+      this.setState({content:nextProps.bundle.body ?nextProps.bundle.body:'', order:nextProps.order});
+    }
   }
   componentDidMount() {
     // load editor only on client side (not server side)
