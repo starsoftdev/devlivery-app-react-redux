@@ -72,7 +72,6 @@ class FontFamilyPicker extends React.Component {
   state ={
     fontFamily:Contants.FONTS[0]
   }
-
   toggleFontFamily = (fontFamily) => {
     this.setState({fontFamily});
     this.props.execCommand("FontName",false,fontFamily);
@@ -279,6 +278,11 @@ class Purchase6 extends React.Component {
                       width: `${cardWidth}mm`,
                       height: `${cardHeight}mm`,
                       content_css : [...this.state.fontlink, '/styles/tinymce.css'],
+                      setup: function (ed) {
+                        ed.on('init', function (e) {
+                          ed.execCommand("fontName", false, Contants.FONTS[0]);
+                        });
+                      }
                     }}
                     onEditorChange={this.handleEditorChange} 
                   />
