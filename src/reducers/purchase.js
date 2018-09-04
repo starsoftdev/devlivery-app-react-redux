@@ -192,7 +192,7 @@ export const setBundle = (bundle) => (dispatch, getState) => {
 }
 export const setFlowFromSelectCard = (card) => (dispatch, getState) => {
   
-  dispatch(setFlow(AUTH_PURCHASE_FLOW))
+  
   const occasion =  {id:card.occasion_id};
   dispatch({type: SET_OCCASION, occasion})
   const cardStyle = card.style;
@@ -201,7 +201,7 @@ export const setFlowFromSelectCard = (card) => (dispatch, getState) => {
   dispatch({type: SET_CARD_SIZE, cardSize})
   dispatch({type: SET_CARD, card})
 
-  //dispatch(setFlow(ORDER_CARD_FLOW))
+  dispatch(setFlow(ORDER_CARD_FLOW))
 }
 export const setFlowFromSelectGift = (gift) => (dispatch, getState) => {
   dispatch(setFlow(AUTH_PURCHASE_FLOW))
@@ -949,6 +949,7 @@ export const initialState = {
   templates: null,
   orderDetails: null,
   fontFamilies: [],
+  newrecipient: null
 }
 
 export default createReducer(initialState, {
@@ -1213,7 +1214,7 @@ export default createReducer(initialState, {
     fontFamilies: uniq([...state.fontFamilies, fontFamily]),
   }),
   [SET_NEW_RECIPIENT]:(state, {newrecipient}) => ({
-    newrecipient,
+    newrecipient:newrecipient && {id:newrecipient.id},
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
