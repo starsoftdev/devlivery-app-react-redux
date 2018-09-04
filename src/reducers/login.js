@@ -1,7 +1,7 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {getUserSuccess} from './user'
 import {DAY, TOKEN_COOKIE, YEAR} from '../constants'
-import {getErrorMessage} from '../utils'
+import {getErrorMessage,showErrorMessage} from '../utils'
 import {message} from 'antd'
 // ------------------------------------
 // Constants
@@ -48,7 +48,7 @@ export const resendVerify = (id, redirectUrl = '/') => (dispatch, getState, {fet
       message.success(data)
     },
     failure: (res) => {
-      message.error(res)
+      showErrorMessage(res)
     }
   })
 }
@@ -62,19 +62,19 @@ const initialState = {
   error: null,
 }
 export const verify = (token) => (dispatch, getState, {fetch,history}) => {
-  
   return fetch(`/account/verify/${token}`, {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
     success: ({data}) => {
       message.success(data)
-      history.push('/login');
     },
     failure: (res) => {
-      message.error(res)
+      history.push('/login');
     }
   })
-  
+}
+export const navigateToLogin = () => (dispatch, getState, {fetch,history}) => {
+  history.push('/login');
 }
 export default createReducer(initialState, {
   [LOGIN_REQUEST]: (state, action) => ({

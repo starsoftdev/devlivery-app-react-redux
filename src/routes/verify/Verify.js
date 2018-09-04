@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from '../../components'
-import {clear, verify} from '../../reducers/login'
+import {clear, verify, navigateToLogin} from '../../reducers/login'
 import {Alert, Button, Col, Form, Input, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Verify.css'
@@ -13,13 +13,15 @@ class Verify extends React.Component {
   componentWillUnmount() {
     this.props.clear()
   }
-
-  handleSubmit = (e) => {
-    e.preventDefault()
+  componentWillMount(){
     var fullPath = window.location.pathname;
     var last_pos = fullPath.lastIndexOf('/')+1;
     var token = fullPath.substr(last_pos, fullPath.length);
     this.props.verify(token);
+  }
+  handleSubmit = (e) => {
+    e.preventDefault()
+    this.props.navigateToLogin();
   }
 
   render() {
@@ -48,6 +50,7 @@ const mapState = state => ({
 const mapDispatch = {
   verify,
   clear,
+  navigateToLogin
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Verify)))
