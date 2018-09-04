@@ -203,7 +203,7 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
   })
 }
 
-export const editContact = (values, form, redrict) => (dispatch, getState, {fetch, history}) => {
+export const editContact = (values, form, redrict,callback) => (dispatch, getState, {fetch, history}) => {
   dispatch({type: EDIT_CONTACT_REQUEST})
   const {token} = dispatch(getToken())
   const {contact} = getState().contacts
@@ -228,14 +228,17 @@ export const editContact = (values, form, redrict) => (dispatch, getState, {fetc
       dispatch({type: EDIT_CONTACT_SUCCESS})
       var newrecipient = res.data;
       dispatch({type:SET_NEW_RECIPIENT,newrecipient})
-      message.success('Contact was successfully updated',redrict)
+      if(callback == null)
+        message.success('Contact was successfully updated',redrict)
       if(redrict)
       {
         //on Edit Contact Page
         dispatch(navigateToNextRouteName(redrict));
       }
       else{
-        dispatch(navigateToNextRouteName(generateUrl(CONTACTS_ROUTE)));
+        if(callback)
+          callback();
+        else dispatch(navigateToNextRouteName(generateUrl(CONTACTS_ROUTE)));
       }
     },
     failure: (res) => {

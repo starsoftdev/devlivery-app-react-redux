@@ -40,7 +40,7 @@ class AddContact extends React.Component {
       if (!err) {
         if(this.props.selectedContact && this.props.selectedContact.id)
         {
-          this.props.editContact(values, this.props.form, () => this.props.nextFlowStep())
+          this.props.editContact(values, this.props.form,null, () => this.props.nextFlowStep())
         }
         else this.props.addContact(values, this.props.form, () => this.props.nextFlowStep())
         return true;
