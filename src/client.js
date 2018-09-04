@@ -65,7 +65,6 @@ store.subscribe(() => {
     'fontFamilies',
     'newrecipient'
   ])
-
   // TODO make it generic
   cookies.set(STATE_COOKIE, {purchase}, {path: '/'})
 })
