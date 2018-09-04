@@ -15,6 +15,7 @@ class Purchase2 extends React.Component {
 
   setLetteringTechnique = (letteringTechnique) => {
     this.props.setLetteringTechnique(letteringTechnique)
+    this.props.nextFlowStep()
   }
 
   render() {
@@ -69,6 +70,7 @@ class Purchase2 extends React.Component {
           </Col>
         </Row>
         <PurchaseActions>
+          {/*}
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -81,6 +83,7 @@ class Purchase2 extends React.Component {
           >
             {intl.formatMessage(messages.submit)}
           </Button>
+          */}
         </PurchaseActions>
       </div>
     )

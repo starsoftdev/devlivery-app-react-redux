@@ -29,6 +29,7 @@ class Purchase3 extends React.Component {
                 imagesProp={'image'}
                 onClick={() => {
                   setCardStyle(item.title)
+                  nextFlowStep()
                 }}
                 active={item.title === cardStyle}
                 keyValue={ALPHABET[i]}
@@ -38,6 +39,7 @@ class Purchase3 extends React.Component {
           )}
         </Row>
         <PurchaseActions>
+          {/*
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -50,6 +52,7 @@ class Purchase3 extends React.Component {
           >
             {intl.formatMessage(messages.submit)}
           </Button>
+          */}
         </PurchaseActions>
       </div>
     )

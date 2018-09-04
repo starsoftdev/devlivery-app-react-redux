@@ -34,6 +34,7 @@ class Purchase10 extends React.Component {
   }
   setAddingContactsMode = (addingContactMode) => {
     this.setState({addingContactMode,selectedContact:null})
+    this.onSubmit();
   }
   selectExistingContact(selectedContact){
     this.setState({isFirstSubmit:true,addingContactMode:ADD_CONTACT_MANUALLY,selectedContact});
@@ -133,18 +134,23 @@ class Purchase10 extends React.Component {
           </React.Fragment>
         )}
         <PurchaseActions>
-          <KeyHandler
-            keyEventName={KEYPRESS}
-            keyCode={13}
-            onKeyHandle={() => addingContactMode && this.onSubmit()}
-          />
-          <Button
-            type='primary'
-            disabled={!addingContactMode || disableButton}
-            onClick={() => this.onSubmit()}
-          >
-            {intl.formatMessage(messages.submit)}
-          </Button>
+          {
+            addingContactMode &&
+            <div>
+              <KeyHandler
+                keyEventName={KEYPRESS}
+                keyCode={13}
+                onKeyHandle={() => addingContactMode && this.onSubmit()}
+              />
+              <Button
+                type='primary'
+                disabled={!addingContactMode || disableButton}
+                onClick={() => this.onSubmit()}
+              >
+                {intl.formatMessage(messages.submit)}
+              </Button>
+            </div>
+          }
         </PurchaseActions>
       </React.Fragment>
     )

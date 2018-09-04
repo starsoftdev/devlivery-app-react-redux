@@ -29,6 +29,7 @@ class Purchase4 extends React.Component {
                 svg={item.svg}
                 onClick={() => {
                   setCardSize(item)
+                  nextFlowStep()
                 }}
                 active={cardSize && cardSize.key === item.key}
                 keyValue={ALPHABET[i]}
@@ -38,6 +39,7 @@ class Purchase4 extends React.Component {
           )}
         </Row>
         <PurchaseActions>
+          {/*
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
@@ -50,6 +52,7 @@ class Purchase4 extends React.Component {
           >
             {intl.formatMessage(messages.submit)}
           </Button>
+          */}
         </PurchaseActions>
       </div>
     )
