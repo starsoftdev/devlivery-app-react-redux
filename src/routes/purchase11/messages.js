@@ -17,6 +17,10 @@ export default defineMessages({
     id: 'purchase11.deliveryPlace',
     defaultMessage: 'Where to send',
   },
+  deliveryOccasion: {
+    id: 'purchase11.deliveryOccasion',
+    defaultMessage: 'Delivery Occasion'
+  },
   deliveryTime: {
     id: 'purchase11.deliveryTime',
     defaultMessage: 'Delivery date',

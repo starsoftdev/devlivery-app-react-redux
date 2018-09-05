@@ -130,6 +130,10 @@ export const GET_DELIVERY_LOCATIONS_REQUEST = 'Purchase.GET_DELIVERY_LOCATIONS_R
 export const GET_DELIVERY_LOCATIONS_SUCCESS = 'Purchase.GET_DELIVERY_LOCATIONS_SUCCESS'
 export const GET_DELIVERY_LOCATIONS_FAILURE = 'Purchase.GET_DELIVERY_LOCATIONS_FAILURE'
 
+export const GET_DELIVERY_OCCASIONS_REQUEST = 'Purchase.GET_DELIVERY_OCCASIONS_REQUEST'
+export const GET_DELIVERY_OCCASIONS_SUCCESS = 'Purchase.GET_DELIVERY_OCCASIONS_SUCCESS'
+export const GET_DELIVERY_OCCASIONS_FAILURE = 'Purchase.GET_DELIVERY_OCCASIONS_FAILURE'
+
 export const SUBMIT_SHIPPING_REQUEST = 'Purchase.SUBMIT_SHIPPING_REQUEST'
 export const SUBMIT_SHIPPING_SUCCESS = 'Purchase.SUBMIT_SHIPPING_SUCCESS'
 export const SUBMIT_SHIPPING_FAILURE = 'Purchase.SUBMIT_SHIPPING_FAILURE'
@@ -383,18 +387,26 @@ export const getGifts = (params = {}) => (dispatch, getState, {fetch}) => {
 export const submitShipping = (values) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   dispatch({type: SUBMIT_SHIPPING_REQUEST, values})
-  const {orderId, deliveryLocation, deliveryTime, occasion,newrecipient, bundle} = getState().purchase
+  const {deliverable, delivery_occasion, schedule_date} = values;
+  const {orderId, deliveryTime, occasion,newrecipient, bundle} = getState().purchase
   const deliverOpt = {};
-  if(deliveryTime !== undefined && deliveryTime)
-    deliverOpt['delivery_date'] = deliveryTime;
-  else {
-    deliverOpt['delivery_occasion'] = occasion?occasion.id: bundle.bundle_card.card.occasion_id;
-  }
+  if(schedule_date !== undefined && schedule_date)
+    deliverOpt['delivery_date'] = schedule_date;
+  
+  deliverOpt['delivery_occasion'] = delivery_occasion;
+
+  console.log("set-wheretosend",{
+    order_id: orderId,
+    deliverable: deliverable,
+    contact_id: newrecipient && newrecipient.id,
+    ...deliverOpt
+  });
+
   return fetch(`/set-wheretosend`, {
     method: 'POST',
     body: {
       order_id: orderId,
-      deliverable: deliveryLocation,
+      deliverable: deliverable,
       contact_id: newrecipient && newrecipient.id,
       ...deliverOpt
     },
@@ -510,6 +522,7 @@ export const makeOrder = () => (dispatch, getState, {fetch,history}) => {
           dispatch({type: MAKE_ORDER_SUCCESS, order})
           dispatch(addCardBody(order.id))
           dispatch(getDeliveryLocations(order.id))
+          dispatch(getDeliveryOccasions(order.id))
           dispatch(addRecipientsOrder(order.id))
           //dispatch({type: GET_BUNDLE_DETAILS_SUCCESS, bundle: getState().purchase.cardDetails});
         },
@@ -864,7 +877,20 @@ export const getDeliveryLocations = (orderId) => (dispatch, getState, {fetch}) =
     }
   })
 }
-
+export const getDeliveryOccasions = (orderId) => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  dispatch({type: GET_DELIVERY_OCCASIONS_REQUEST})
+  return fetch(`/order/${orderId}/get-delivery-occasions`, {
+    method: 'GET',
+    token,
+    success: (res) => {
+      dispatch({type: GET_DELIVERY_OCCASIONS_SUCCESS, deliveryOccations: res})
+    },
+    failure: (err) => {
+      dispatch({type: GET_DELIVERY_OCCASIONS_FAILURE})
+    }
+  })
+}
 export const getOrderDetails = (orderId) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   if (!orderId) {
@@ -1169,8 +1195,12 @@ export default createReducer(initialState, {
   [GET_DELIVERY_LOCATIONS_SUCCESS]: (state, {deliveryLocations}) => ({
     deliveryLocations,
   }),
+  [GET_DELIVERY_OCCASIONS_SUCCESS]: (state, {deliveryOccations}) => ({
+    deliveryOccations,
+  }),
   [SUBMIT_SHIPPING_REQUEST]: (state, {values}) => ({
     deliveryLocation: values.deliverable,
+    deliveryOccasion: values.delivery_occasion,
     deliveryTime: values.schedule_date ? values.schedule_date.format(DATE_FORMAT) : undefined,
   }),
   [SUBMIT_VOUCHER]: (state, {voucher}) => ({
