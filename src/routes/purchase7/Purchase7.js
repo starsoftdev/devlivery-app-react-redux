@@ -12,7 +12,6 @@ import messages from './messages'
 class Purchase7 extends React.Component {
   render() {
     const {giftType, setGiftType, submitGiftType, intl, flowIndex, continueWithoutGift} = this.props
-    console.log("submitGiftType",giftType);
     return (
       <React.Fragment>
         <div className={s.content}>
