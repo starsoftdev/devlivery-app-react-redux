@@ -23,7 +23,7 @@ class Purchase1 extends React.Component {
   }
   render() {
     const {occasions, occasion, setOccasion, intl, flowIndex, nextFlowStep, occasionTypes, getOccasions} = this.props
-    
+   
     return (
       <div className={s.content}>
         <SectionHeader
@@ -45,7 +45,7 @@ class Purchase1 extends React.Component {
           </Select>
         </SectionHeader>
         <Row className={s.items} gutter={20} type='flex' align='center'>
-          {occasions.map((item, i) =>
+          {occasions.sort((a,b)=>a.id > b.id).map((item, i) =>
             <Col key={item.id} className={s.itemWrapper}>
               <Card
                 className={s.item}
@@ -61,7 +61,7 @@ class Purchase1 extends React.Component {
                   }
                 }}
                 active={occasion && occasion.id === item.id}
-                keyValue={ALPHABET[i]}
+                //keyValue={ALPHABET[i]}
               />
             </Col>
           )}
