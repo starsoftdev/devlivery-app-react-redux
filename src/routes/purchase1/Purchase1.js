@@ -8,6 +8,7 @@ import {Card, SectionHeader, PurchaseActions} from '../../components'
 import {ALPHABET} from '../../constants'
 import messages from './messages'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
+const SEASONALID = 25;
 
 class Purchase1 extends React.Component {
   constructor(props){
@@ -53,7 +54,7 @@ class Purchase1 extends React.Component {
                 item={item}
                 imagesProp={'image'}
                 onClick={() => {
-                  if(item.id == 11)
+                  if(item.id == SEASONALID)
                     this.selectSeasonal('Seasonal');
                   else{
                     setOccasion(item)
