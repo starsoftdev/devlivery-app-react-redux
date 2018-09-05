@@ -83,13 +83,13 @@ class Purchase11 extends React.Component {
   }
   render() {
     const {currentRecipient,order,disableSubmit} = this.state
-    const {flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryTime, cardSize, newrecipient} = this.props
+    const {flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient} = this.props
     const {getFieldDecorator} = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
     const cardWidth = cardSize ? cardSize.width : 100
     const cardHeight = cardSize ? cardSize.height : 100
 
-    const specialDate = deliveryTime || (newrecipient && newrecipient.dob);
+    const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
     
     return order ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
@@ -151,7 +151,7 @@ class Purchase11 extends React.Component {
           <section className={s.section}>
             <h2 className={s.sectionHeader}>{intl.formatMessage(messages.shipping)}</h2>
             <Row gutter={20} type='flex' align='center'>
-              <Col xs={24} sm={12}>
+              <Col xs={24} sm={8}>
                 <Form.Item>
                   {getFieldDecorator('deliverable', {
                     initialValue: deliveryLocation,
@@ -160,14 +160,30 @@ class Purchase11 extends React.Component {
                     ],
                   })(
                     <Select placeholder={intl.formatMessage(messages.deliveryPlace)} className={s.select}>
-                      {deliveryLocations.map((item) =>
+                      {deliveryOccations && deliveryLocations.map((item) =>
                         <Select.Option key={item.value} value={item.value}>{item.title}</Select.Option>
                       )}
                     </Select>
                   )}
                 </Form.Item>
               </Col>
-              <Col xs={24} sm={12}>
+              <Col xs={24} sm={8}>
+                <Form.Item>
+                  {getFieldDecorator('delivery_occasion', {
+                    initialValue: undefined,
+                    rules: [
+                      {required: true, message: intl.formatMessage(formMessages.required)},
+                    ],
+                  })(
+                    <Select placeholder={intl.formatMessage(messages.deliveryOccasion)} className={s.select}>
+                      {deliveryOccations && deliveryOccations.map((item) =>
+                        <Select.Option key={item} value={item}>{item}</Select.Option>
+                      )}
+                    </Select>
+                  )}
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={8}>
                 <Form.Item>
                   {getFieldDecorator('schedule_date', {
                     initialValue: specialDate ? moment(specialDate, DATE_FORMAT) : undefined,
@@ -243,7 +259,8 @@ const mapState = state => ({
   deliveryTime: state.purchase.deliveryTime,
   cardSize: state.purchase.cardSize,
   cardDetails: state.purchase.cardDetails,
-  newrecipient: state.purchase.newrecipient
+  newrecipient: state.purchase.newrecipient,
+  deliveryOccations: state.purchase.deliveryOccations
 })
 
 const mapDispatch = {
