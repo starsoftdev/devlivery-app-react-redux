@@ -392,8 +392,8 @@ export const submitShipping = (values) => (dispatch, getState, {fetch}) => {
   const deliverOpt = {};
   if(schedule_date !== undefined && schedule_date)
     deliverOpt['delivery_date'] = schedule_date;
-  
-  deliverOpt['delivery_occasion'] = delivery_occasion;
+  else 
+    deliverOpt['delivery_occasion'] = delivery_occasion;
 
   console.log("set-wheretosend",{
     order_id: orderId,
