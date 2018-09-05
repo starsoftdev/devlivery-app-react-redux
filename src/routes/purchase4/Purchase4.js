@@ -26,6 +26,7 @@ class Purchase4 extends React.Component {
               <Card
                 className={s.item}
                 title={item.title}
+                subtitle={item.subtitle}
                 svg={item.svg}
                 onClick={() => {
                   setCardSize(item)
