@@ -12,7 +12,7 @@ class Card extends React.Component {
   }
 
   render() {
-    const {title, active, onClick, keyValue, className, svg, extra, description, bordered, disabled, imagesProp, item, imageStyle} = this.props
+    const {title,subtitle, active, onClick, keyValue, className, svg, extra, description, bordered, disabled, imagesProp, item, imageStyle} = this.props
     const image = getItemImage(item, imagesProp)
     const isSvg = image && image.includes('.svg')
 
@@ -52,6 +52,10 @@ class Card extends React.Component {
               </React.Fragment>
             )}
             <span className={s.title}>{title}</span>
+            {
+              subtitle &&
+              <span className={s.title}>{subtitle}</span>
+            }
           </h3>
         )}
       </div>
