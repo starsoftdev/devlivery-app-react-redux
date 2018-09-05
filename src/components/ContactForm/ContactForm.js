@@ -11,7 +11,7 @@ import Reminders from './Reminders'
 import Groups from './Groups'
 import moment from 'moment'
 
-const SALUTATIONS = ['Mr.', 'Ms.', 'Mrs.', 'Dr.','Family']
+const SALUTATIONS = ['Mr.', 'Ms.', 'Dr.','Family']
 
 const RELATIONSHIP = [
   'Mother',
@@ -39,8 +39,8 @@ class ContactForm extends React.Component {
         value:props.intl.formatMessage(messages['salt_'+item.toLowerCase().substring(0,item.length-1)])
       }
     });
-    if(salutations_list[1].value === salutations_list[2].value)
-      delete salutations_list[2];
+    //if(salutations_list[1].value === salutations_list[2].value)
+      //delete salutations_list[2];
 
     this.state = {
       requiredAddress: 0,
