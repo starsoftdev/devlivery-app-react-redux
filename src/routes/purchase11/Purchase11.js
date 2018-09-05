@@ -192,6 +192,11 @@ class Purchase11 extends React.Component {
                       className={s.select}
                       placeholder={intl.formatMessage(messages.deliveryTime)}
                       format={DISPLAYED_DATE_FORMAT}
+                      disabledDate ={current =>{
+                        var date = new Date();
+                        date.setDate(date.getDate() - 1);
+                        return current && current.valueOf() < (date)
+                      }}
                     />
                   )}
                 </Form.Item>
