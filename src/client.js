@@ -42,16 +42,16 @@ const store = configureStore(window.App.state, {history, fetch: whatwgFetch, coo
 store.subscribe(() => {
   // pick values because cookie has limited size
   const purchase = pick(store.getState().purchase, [
-    'occasion',
+    //'occasion',
     'letteringTechnique',
     'flow',
     'flowIndex',
-    'card',
+    //'card',
     'cardColor',
     'cardStyle',
     'cardSize',
-    'cardDetails',
-    'gift',
+    //'cardDetails',
+    //'gift',
     'giftType',
     'bundleId',
     'orderId',
@@ -62,8 +62,8 @@ store.subscribe(() => {
     'deliveryLocation',
     'deliveryTime',
     'voucher',
-    'fontFamilies',
-    'newrecipient'
+    //'fontFamilies',
+    //'newrecipient'
   ])
   // TODO make it generic
   cookies.set(STATE_COOKIE, {purchase}, {path: '/'})
