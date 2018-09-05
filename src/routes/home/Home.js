@@ -11,7 +11,7 @@ import personalizeItImage from '../../static/POSE_5.png'
 import sendItImage from '../../static/POSE_6.png'
 import AboutUsIcon from '../../static/decor_about.svg'
 import {animateScroll} from 'react-scroll'
-import {AUTH_PURCHASE_FLOW, CARD_STORE_ROUTE} from '../'
+import {AUTH_PURCHASE_FLOW, CARD_STORE_ROUTE,NEW_ARRIVALS_ROUTE} from '../'
 import messages from './messages'
 import {setFlow} from '../../reducers/purchase'
 import {Link} from '../../components'
@@ -101,7 +101,7 @@ class Home extends React.Component {
               <h3 className={s.giftingHeader}>{intl.formatMessage(messages.gifting)}</h3>
               <p>
                 {intl.formatMessage(messages.giftingDescription)}
-                <Link to={CARD_STORE_ROUTE} className={s.sectionBtn}>
+                <Link to={NEW_ARRIVALS_ROUTE} className={s.sectionBtn}>
                   <PlusCircleIcon className={s.sectionBtnIcon}/>
                   <span className={s.sectionBtnLabel}>{intl.formatMessage(messages.checkItOut)}</span>
                 </Link>
