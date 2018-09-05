@@ -160,7 +160,7 @@ class Purchase11 extends React.Component {
                     ],
                   })(
                     <Select placeholder={intl.formatMessage(messages.deliveryPlace)} className={s.select}>
-                      {deliveryOccations && deliveryLocations.map((item) =>
+                      {deliveryLocations && deliveryLocations.map((item) =>
                         <Select.Option key={item.value} value={item.value}>{item.title}</Select.Option>
                       )}
                     </Select>
