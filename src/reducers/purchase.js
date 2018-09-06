@@ -395,13 +395,7 @@ export const submitShipping = (values) => (dispatch, getState, {fetch}) => {
   else 
     deliverOpt['delivery_occasion'] = delivery_occasion;
 
-  console.log("set-wheretosend",{
-    order_id: orderId,
-    deliverable: deliverable,
-    contact_id: newrecipient && newrecipient.id,
-    ...deliverOpt
-  });
-
+  
   return fetch(`/set-wheretosend`, {
     method: 'POST',
     body: {
@@ -511,7 +505,7 @@ export const makeOrder = () => (dispatch, getState, {fetch,history}) => {
   } else {
     
     //dispatch({type: MAKE_ORDER_REQUEST})
-    console.log(`/make-order-from-bundle`);
+    
       return fetch(`/make-order-from-bundle`, {
         method: 'POST',
         contentType: 'application/x-www-form-urlencoded',
@@ -520,7 +514,7 @@ export const makeOrder = () => (dispatch, getState, {fetch,history}) => {
         },
         token,
         success: (res) => {
-          console.log(`/make-order-from-bundle`,res);
+          
           const order = res.data
           dispatch({type: MAKE_ORDER_SUCCESS, order})
           dispatch(addCardBody(order.id))
@@ -870,16 +864,14 @@ export const getCardColors = () => (dispatch, getState, {fetch}) => {
 export const getDeliveryLocations = (orderId) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   dispatch({type: GET_DELIVERY_LOCATIONS_REQUEST})
-  console.log(`/order/${orderId}/get-deliverable-locations`);
+  
   return fetch(`/order/${orderId}/get-deliverable-locations`, {
     method: 'GET',
     token,
     success: (res) => {
-      console.log("res",res);
       dispatch({type: GET_DELIVERY_LOCATIONS_SUCCESS, deliveryLocations: res.data})
     },
     failure: (err) => {
-      console.log("err",err);
       dispatch({type: GET_DELIVERY_LOCATIONS_FAILURE})
     }
   })
@@ -887,16 +879,13 @@ export const getDeliveryLocations = (orderId) => (dispatch, getState, {fetch}) =
 export const getDeliveryOccasions = (orderId) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   //dispatch({type: GET_DELIVERY_OCCASIONS_REQUEST})
-  console.log(`/order/${orderId}/get-delivery-occasions`);
   return fetch(`/order/${orderId}/get-delivery-occasions`, {
     method: 'GET',
     token,
     success: (res) => {
-      console.log("res",res);
       dispatch({type: GET_DELIVERY_OCCASIONS_SUCCESS, deliveryOccations: res})
     },
     failure: (err) => {
-      console.log("err",err);
       //dispatch({type: GET_DELIVERY_OCCASIONS_FAILURE})
     }
   })
