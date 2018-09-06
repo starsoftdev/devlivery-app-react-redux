@@ -196,7 +196,7 @@ export const setBundle = (bundle) => (dispatch, getState) => {
 }
 export const setFlowFromSelectCard = (card) => (dispatch, getState) => {
   
-  
+  dispatch(clear())
   const occasion =  {id:card.occasion_id};
   dispatch({type: SET_OCCASION, occasion})
   const cardStyle = card.style;
@@ -462,14 +462,15 @@ export const submitGift = () => async (dispatch, getState) => {
 
 export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  const {letteringTechnique, card, gift, flow, cardDetails} = getState().purchase
+  const {letteringTechnique, cardId, gift, flow, cardDetails} = getState().purchase
   dispatch({type: ADD_BUNDLE_REQUEST})
+  
   return fetch(`/create-bundle`, {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
     body: {
       lettering: letteringTechnique,
-      card_id: card && card.id,
+      card_id: cardId,
       ...gift ? {
         gift_id: gift.id,
       } : {},
@@ -496,11 +497,16 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
 
 export const makeOrder = () => (dispatch, getState, {fetch,history}) => {
   const {token} = dispatch(getToken())
-  const {bundleId, orderId} = getState().purchase
+  const {bundleId, orderId, newrecipient} = getState().purchase
   
   if (orderId) {
     dispatch(getBundleDetails(bundleId))
-    dispatch(getOrderDetails(orderId))
+    const {newrecipient} = getState().purchase
+    if (!newrecipient) {
+      dispatch(getOrderDetails(orderId))
+    }
+    else dispatch(addRecipientsOrder(orderId))
+    
     dispatch(getDeliveryLocations(orderId))
     dispatch(getDeliveryOccasions(orderId))
   } else {
@@ -1071,6 +1077,7 @@ export default createReducer(initialState, {
   }),
   [SET_CARD]: (state, {card}) => ({
     card,
+    cardId:card && card.id
   }),
   [SET_CARD_DETAILS]: (state, {cardDetails}) => ({
     cardDetails,

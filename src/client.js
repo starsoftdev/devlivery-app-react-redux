@@ -47,6 +47,7 @@ store.subscribe(() => {
     'flow',
     'flowIndex',
     //'card',
+    'cardId',
     'cardColor',
     'cardStyle',
     'cardSize',
