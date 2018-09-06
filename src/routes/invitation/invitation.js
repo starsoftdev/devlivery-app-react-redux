@@ -1,12 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {clear, acceptInvitation} from '../../reducers/login'
+import {clear,acceptInvitation} from '../../reducers/register'
 
 class Invitation extends React.Component {
   componentWillUnmount() {
-    this.props.clear()
+    //this.props.clear()
   }
   componentDidMount(){
+    this.props.clear()
     this.props.acceptInvitation(this.props.token);
   }
   render() {

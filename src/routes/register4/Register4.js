@@ -40,7 +40,7 @@ class Register4 extends React.Component {
     const {intl, roles,fromdashboard} = this.props
     const {getFieldDecorator, getFieldValue} = this.props.form
     this.props.form.getFieldDecorator('keys', {initialValue: [0]})
-
+    
     const keys = getFieldValue('keys')
 
     return (
@@ -64,14 +64,14 @@ class Register4 extends React.Component {
                 )}
               </Form.Item>
               <Form.Item>
-                {getFieldDecorator(`people[${k}].role`, {})(
+                {getFieldDecorator(`people[${k}].roles`, {})(
                   <Select
                     allowClear
                     //mode='multiple'
                     placeholder={intl.formatMessage(messages.role)}
                   >
                     {roles.map(item =>
-                      <Select.Option key={item.id} value={item.name}>{item.name}</Select.Option>
+                      <Select.Option key={item.id} value={item.id+''}>{item.name}</Select.Option>
                     )}
                   </Select>
                 )}

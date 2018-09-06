@@ -79,24 +79,7 @@ export const verify = (token) => (dispatch, getState, {fetch,history}) => {
 export const navigateToLogin = () => (dispatch, getState, {fetch,history}) => {
   history && history.push('/login');
 }
-export const acceptInvitation = (token) => (dispatch, getState, {fetch,history}) => {
-  if(token)
-  {
-    console.log(`/invitation/signup/${token}`);
-    return fetch(`/invitation/signup/${token}`, {
-      method: 'POST',
-      contentType: 'application/x-www-form-urlencoded',
-      success: ({data}) => {
-        console.log("invitation",data);
-        history && history.push('/register');
-      },
-      failure: (res) => {
-        console.log("error",res);
-        history && history.push('/login');
-      }
-    })
-  }
-}
+
 export default createReducer(initialState, {
   [LOGIN_REQUEST]: (state, action) => ({
     loading: true,

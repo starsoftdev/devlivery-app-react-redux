@@ -16,6 +16,7 @@ export const REGISTER_SUCCESS = 'Register.REGISTER_SUCCESS'
 export const REGISTER_FAILURE = 'Register.REGISTER_FAILURE'
 
 export const SET_ACCOUNT_TYPE = 'Register.SET_ACCOUNT_TYPE'
+export const SET_INVITE_TOKEN = 'Register.SET_INVITE_TOKEN'
 
 export const GET_ROLES_REQUEST = 'Register.GET_ROLES_REQUEST'
 export const GET_ROLES_SUCCESS = 'Register.GET_ROLES_SUCCESS'
@@ -36,7 +37,8 @@ export const CLEAR = 'Register.CLEAR'
 // ------------------------------------
 export const register = (values, form) => (dispatch, getState, {fetch, history}) => {
   dispatch({type: REGISTER_REQUEST, individualDetails: values})
-  const {accountType, individualDetails: {birthday, ...otherDetails}} = getState().register
+  const {accountType, individualDetails: {birthday, ...otherDetails},inviteToken} = getState().register
+    
   return fetch(`/signup`, {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
@@ -46,8 +48,13 @@ export const register = (values, form) => (dispatch, getState, {fetch, history})
       ...birthday ? {
         dob: birthday.format(DATE_FORMAT)
       } : {},
+      ...inviteToken ?{
+        invitation_token:inviteToken
+      } : {}
     },
     success: (res) => {
+      let inviteToken = null;
+      dispatch({type:SET_INVITE_TOKEN,inviteToken})
       dispatch({type: REGISTER_SUCCESS})
       dispatch(loginSuccess(res.data))
       if (accountType === TEAM_ACCOUNT) {
@@ -67,6 +74,7 @@ export const register = (values, form) => (dispatch, getState, {fetch, history})
         message.error('Something went wrong. Please try again.')
     },
   })
+  
 }
 
 export const setAccountType = (accountType) => ({type: SET_ACCOUNT_TYPE, accountType})
@@ -126,8 +134,15 @@ export const invitePeople = (people) => (dispatch, getState, {fetch, history}) =
       message.error('Something went wrong. Please try again.')
     },
   })
+  
 }
-
+export const acceptInvitation = (inviteToken) => (dispatch, getState, {fetch,history}) => {
+  if(inviteToken)
+  {
+    dispatch({type:SET_INVITE_TOKEN,inviteToken});
+    history && history.push('/register');
+  }
+}
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -205,6 +220,9 @@ export default createReducer(initialState, {
   }),
   [SET_ACCOUNT_TYPE]: (state, {accountType}) => ({
     accountType,
+  }),
+  [SET_INVITE_TOKEN]: (state, {inviteToken}) => ({
+    inviteToken,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
