@@ -171,7 +171,7 @@ class ManageTeam extends React.Component {
             itemRender: (current, type, el) => <PaginationItem type={type} el={el}/>
           }}
         />
-        <Link className={s.addteam} to={{name: REGISTER4_ROUTE}}>
+        <Link className={s.addteam} to={{name: REGISTER4_ROUTE,params: {fromdashboard:true}}}>
           <Button type='primary' ghost>
             <PlusIcon/>
             {intl.formatMessage(messages.addTeamMember)}

@@ -37,7 +37,7 @@ class Register4 extends React.Component {
   }
 
   render() {
-    const {intl, roles} = this.props
+    const {intl, roles,fromdashboard} = this.props
     const {getFieldDecorator, getFieldValue} = this.props.form
     this.props.form.getFieldDecorator('keys', {initialValue: [0]})
 
@@ -48,7 +48,7 @@ class Register4 extends React.Component {
         <div className={s.content}>
           <SectionHeader
             header={intl.formatMessage(messages.header)}
-            number={4}
+            number={fromdashboard === "true" ? null : 4}
             prefixClassName={s.headerPrefix}
           />
           {keys.map((k, i) =>
@@ -94,14 +94,17 @@ class Register4 extends React.Component {
             keyCode={13}
             onKeyHandle={this.handleSubmit}
           />
-          <Link to={ORDERS_ROUTE}>
-            <Button
-              type='primary'
-              ghost
-            >
-              {intl.formatMessage(messages.skip)}
-            </Button>
-          </Link>
+          {
+            fromdashboard !== "true" &&
+            <Link to={ORDERS_ROUTE}>
+              <Button
+                type='primary'
+                ghost
+              >
+                {intl.formatMessage(messages.skip)}
+              </Button>
+            </Link>
+          }
           <Button htmlType='submit' type='primary'>
             {intl.formatMessage(messages.submit)}
           </Button>

@@ -97,7 +97,7 @@ export const addTeam = (values) => (dispatch, getState, {fetch, history}) => {
     token,
     success: () => {
       dispatch({type: ADD_TEAM_SUCCESS})
-      history.push('/register/invite-people')
+      history.push('/register/invite-people/false')
     },
     failure: () => {
       dispatch({type: ADD_TEAM_FAILURE})

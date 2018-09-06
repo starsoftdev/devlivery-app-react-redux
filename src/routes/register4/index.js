@@ -5,14 +5,14 @@ import {setCurrentRouteName} from '../../reducers/global'
 import messages from './messages'
 import {getRoles} from '../../reducers/register'
 
-function action({store, route, intl}) {
+function action({params,store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
   store.dispatch(getRoles())
-
+  
   return {
     chunks: ['register'],
     title: intl.formatMessage(messages.title),
-    component: <AppLayout><Register4 intl={intl}/></AppLayout>
+    component: <AppLayout><Register4 intl={intl} fromdashboard={params.fromdashboard}/></AppLayout>
   }
 }
 
