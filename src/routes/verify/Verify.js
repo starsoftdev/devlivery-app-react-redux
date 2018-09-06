@@ -14,10 +14,7 @@ class Verify extends React.Component {
     this.props.clear()
   }
   componentWillMount(){
-    var fullPath = window.location.pathname;
-    var last_pos = fullPath.lastIndexOf('/')+1;
-    var token = fullPath.substr(last_pos, fullPath.length);
-    this.props.verify(token);
+    this.props.verify(this.props.token);
   }
   handleSubmit = (e) => {
     e.preventDefault()

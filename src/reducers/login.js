@@ -62,19 +62,40 @@ const initialState = {
   error: null,
 }
 export const verify = (token) => (dispatch, getState, {fetch,history}) => {
-  return fetch(`/account/verify/${token}`, {
-    method: 'POST',
-    contentType: 'application/x-www-form-urlencoded',
-    success: ({data}) => {
-      message.success(data)
-    },
-    failure: (res) => {
-      history.push('/login');
-    }
-  })
+  if(token)
+  {
+    return fetch(`/account/verify/${token}`, {
+      method: 'POST',
+      contentType: 'application/x-www-form-urlencoded',
+      success: ({data}) => {
+        message.success(data)
+      },
+      failure: (res) => {
+        history.push('/login');
+      }
+    })
+  }
 }
 export const navigateToLogin = () => (dispatch, getState, {fetch,history}) => {
-  history.push('/login');
+  history && history.push('/login');
+}
+export const acceptInvitation = (token) => (dispatch, getState, {fetch,history}) => {
+  if(token)
+  {
+    console.log(`/invitation/signup/${token}`);
+    return fetch(`/invitation/signup/${token}`, {
+      method: 'POST',
+      contentType: 'application/x-www-form-urlencoded',
+      success: ({data}) => {
+        console.log("invitation",data);
+        history && history.push('/register');
+      },
+      failure: (res) => {
+        console.log("error",res);
+        history && history.push('/login');
+      }
+    })
+  }
 }
 export default createReducer(initialState, {
   [LOGIN_REQUEST]: (state, action) => ({
