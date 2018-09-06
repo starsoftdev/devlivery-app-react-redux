@@ -27,7 +27,6 @@ export const showErrorMessage = (res) => {
       message.error(res.errors);
       return;
     }
-    message.error(res.errors);
   }
   message.error('Something went wrong. Please try again.');
 }

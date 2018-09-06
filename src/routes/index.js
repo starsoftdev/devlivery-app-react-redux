@@ -335,7 +335,7 @@ const routes = {
       load: () => import(/* webpackChunkName: 'register' */ './register3'),
     },
     {
-      path: '/register/invite-people',
+      path: '/register/invite-people/:fromdashboard',
       name: REGISTER4_ROUTE,
       load: () => import(/* webpackChunkName: 'register' */ './register4'),
     },
