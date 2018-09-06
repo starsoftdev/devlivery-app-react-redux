@@ -264,7 +264,7 @@ class Contacts extends React.Component {
 
 const mapState = state => ({
   ...state.contacts,
-  ...state.contactGroups
+  contactGroups:state.contactGroups.contactGroups
 })
 
 const mapDispatch = {
