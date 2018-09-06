@@ -100,6 +100,15 @@ class ManageTeam extends React.Component {
         title: intl.formatMessage(messages.groupColumn),
         dataIndex: 'groups',
         key: 'groups',
+        render: (groups) => {
+          if(typeof groups === 'string')
+            return groups;
+          if(groups === null)
+            return;
+          var groupstr = '';
+          groups.map(item => groupstr += item.name+" ");
+          return groupstr;
+        }
       },
       {
         title: intl.formatMessage(messages.senderFirstName),
