@@ -60,6 +60,7 @@ export const DASHBOARD_ROUTES = [
 
 export const LOGOUT_ROUTE = 'logout'
 export const ACCOUNT_VERIFY = 'verify'
+export const ACCOUNT_INVITATION = 'invitation'
 
 export const PURCHASE1_ROUTE = 'purchase1'
 export const PURCHASE2_ROUTE = 'purchase2'
@@ -350,6 +351,11 @@ const routes = {
       load: () => import(/* webpackChunkName: 'setPassword' */ './setPassword'),
     },
     {
+      path: '/invitation/signup/:token',
+      name: ACCOUNT_INVITATION,
+      load: () => import(/* webpackChunkName: 'dashboard' */ './invitation'),
+    },
+    {
       path: '/purchase/completed',
       name: PURCHASE_COMPLETED_ROUTE,
       load: () => import(/* webpackChunkName: 'purchase' */ './purchaseCompleted'),
@@ -468,7 +474,6 @@ const routes = {
       await context.store.dispatch(setNextRouteName(curPathName));
       return { redirect: prevPathName }
     }
-    
     await context.store.dispatch(getUser())
     // Execute each child route until one of them return the result
     const route = await context.next()

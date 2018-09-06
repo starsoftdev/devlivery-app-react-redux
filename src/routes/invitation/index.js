@@ -1,18 +1,15 @@
 import React from 'react'
 import {AppLayout} from '../../components'
-import Login from './Verify'
+import Invitation from './invitation'
 import {setCurrentRouteName} from '../../reducers/global'
-import messages from './messages'
 
-function action({params, query, store, route, intl}) {
+function action({params,query, store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
-
   return {
-    chunks: ['login'],
-    title: intl.formatMessage(messages.title),
+    chunks: ['register'],
     component: (
       <AppLayout>
-        <Login redirectUrl={query.next} intl={intl} token={params.token}/>
+        <Invitation redirectUrl={query.next} intl={intl} token={params.token}/>
       </AppLayout>
     ),
   }
