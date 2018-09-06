@@ -11,7 +11,12 @@ export const getErrorMessage = (res) => res && (typeof res.data === 'string' || 
 export const showErrorMessage = (res) => {
   if(res)
   {
-    if(res.errors.validation)
+    if(res.message)
+    {
+      message.error('Something went wrong. Please try again.');
+      return;
+    }
+    if(res.errors && res.errors.validation)
     {
       for(var key in res.errors.validation)
         message.error(res.errors.validation[key]);

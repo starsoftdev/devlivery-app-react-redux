@@ -20,7 +20,7 @@ import {getFormErrors,showErrorMessage} from '../utils'
 import pickBy from 'lodash/pickBy'
 import identity from 'lodash/identity'
 import uniq from 'lodash/uniq'
-
+import moment from 'moment'
 
 // ------------------------------------
 // Constants
@@ -391,7 +391,7 @@ export const submitShipping = (values) => (dispatch, getState, {fetch}) => {
   const {orderId, deliveryTime, occasion,newrecipient, bundle} = getState().purchase
   const deliverOpt = {};
   if(schedule_date !== undefined && schedule_date)
-    deliverOpt['delivery_date'] = schedule_date;
+    deliverOpt['delivery_date'] = moment(schedule_date).format('YYYY-MM-DD');
   else 
     deliverOpt['delivery_occasion'] = delivery_occasion;
 
@@ -410,6 +410,7 @@ export const submitShipping = (values) => (dispatch, getState, {fetch}) => {
       dispatch(nextFlowStep())
     },
     failure: (err) => {
+      console.log("err",err);
       showErrorMessage(err);
       dispatch({type: SUBMIT_SHIPPING_FAILURE})
     },
