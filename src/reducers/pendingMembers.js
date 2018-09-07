@@ -29,7 +29,10 @@ export const getPendingTeam = (params = {}) => (dispatch, getState, {fetch}) => 
   })}`, {
     method: 'GET',
     token,
-    success: (res) => dispatch({type: GET_PENDING_TEAM_SUCCESS, res}),
+    success: (res) => {
+      console.log("/invitations?filter_key=accepted&filter_value=0:",res);
+      dispatch({type: GET_PENDING_TEAM_SUCCESS, res})
+    },
     failure: () => dispatch({type: GET_PENDING_TEAM_FAILURE}),
   })
 }
@@ -37,17 +40,24 @@ export const getPendingTeam = (params = {}) => (dispatch, getState, {fetch}) => 
 export const updatePendingTeamMemberRole = (id, roles) => (dispatch, getState, {fetch}) => {
   dispatch({type: EDIT_PENDING_TEAM_MEMBER_ROLE_REQUEST})
   const {token} = dispatch(getToken())
+  console.log(`/invitations/${id}: roles=`,roles);
+  
   return fetch(`/invitations/${id}`, {
     method: 'PUT',
     token,
     contentType: 'multipart/form-data',
     body: roles,
-    success: () => {
+    success: (res) => {
+      console.log("res",res);
       dispatch({type: EDIT_PENDING_TEAM_MEMBER_ROLE_SUCCESS})
-      dispatch(getTeam())
+      dispatch(getPendingTeam())
     },
-    failure: () => dispatch({type: EDIT_PENDING_TEAM_MEMBER_ROLE_FAILURE}),
+    failure: (err) => {
+      console.log("err",err);
+      dispatch({type: EDIT_PENDING_TEAM_MEMBER_ROLE_FAILURE})
+    },
   })
+  
 }
 
 export const clear = () => ({type: CLEAR})

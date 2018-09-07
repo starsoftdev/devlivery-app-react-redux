@@ -23,7 +23,7 @@ class TeamExpandedRow extends React.Component {
 
   selectChange = (value) => {
     this.setState({picked: value})
-    this.props.updateTeamMemberRole(this.props.record.id ,value)
+    this.props.updateTeamMemberRole(this.props.record.id ,value.join(',')+'')
   }
 
   budgetInput = (e) => {
