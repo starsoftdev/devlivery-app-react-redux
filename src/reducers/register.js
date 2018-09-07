@@ -139,8 +139,9 @@ export const invitePeople = (people) => (dispatch, getState, {fetch, history}) =
 export const acceptInvitation = (inviteToken) => (dispatch, getState, {fetch,history}) => {
   if(inviteToken)
   {
+    dispatch(setAccountType(INDIVIDUAL_ACCOUNT));
     dispatch({type:SET_INVITE_TOKEN,inviteToken});
-    history && history.push('/register');
+    history && history.push('/register/individual-details');
   }
 }
 export const clear = () => ({type: CLEAR})
