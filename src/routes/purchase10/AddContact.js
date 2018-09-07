@@ -72,9 +72,9 @@ class AddContact extends React.Component {
               />
               {contactSection}
               {birthdaySection}
+              {remindersSection}
               {homeAddressSection}
               {companyAddressSection}
-              {remindersSection}
               {groupsSection}
             </div>
             
