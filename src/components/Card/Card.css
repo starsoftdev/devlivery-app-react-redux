@@ -54,10 +54,10 @@
 }
 
 .title {
-  letter-spacing: 1.5px;
-  padding-right: 10px;
-  padding-left: 10px;
-  white-space: nowrap;
+  letter-spacing: 0.7px;
+  /*padding-right: 10px;*/
+  /*padding-left: 10px;*/
+  /*white-space: nowrap;*/
 }
 
 .checkIcon {
