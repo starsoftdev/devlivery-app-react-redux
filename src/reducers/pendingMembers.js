@@ -23,7 +23,7 @@ export const getPendingTeam = (params = {}) => (dispatch, getState, {fetch}) => 
   dispatch({type: GET_PENDING_TEAM_REQUEST, params})
   const {token} = dispatch(getToken())
   const {page, pageSize} = getState().team
-  return fetch(`/invitations?${qs.stringify({
+  return fetch(`/invitations?filter_key=accepted&filter_value=0&${qs.stringify({
     page,
     per_page: pageSize,
   })}`, {
