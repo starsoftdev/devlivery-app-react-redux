@@ -327,12 +327,12 @@ export const setCardStyle = (cardStyle) => ({type: SET_CARD_STYLE, cardStyle})
 
 export const getCards = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_CARDS_REQUEST, params})
-  const {occasion, cardStyle, cardColor} = getState().purchase
+  const {occasionId, cardStyle, cardColor, cardSizeKey} = getState().purchase
   return fetch(`/cards?${qs.stringify({
     take: 100,
     filters: JSON.stringify({
-      ...occasion ? {
-        occasion_id: occasion.id,
+      ...occasionId ? {
+        occasion_id: occasionId,
       } : {},
       ...cardColor ? {
         color: cardColor,
@@ -340,6 +340,9 @@ export const getCards = (params = {}) => (dispatch, getState, {fetch}) => {
       ...cardStyle ? {
         style: cardStyle,
       } : {},
+      ...cardSizeKey ? {
+        size: cardSizeKey
+      } : {}
     })
   })}`, {
     method: 'GET',
@@ -1015,6 +1018,7 @@ export default createReducer(initialState, {
   }),
   [SET_OCCASION]: (state, {occasion}) => ({
     occasion,
+    occasionId:occasion.id
   }),
   [GET_OCCASIONS_REQUEST]: (state, {params}) => ({
     occasionType: has(params, 'occasionType') ? params.occasionType : state.occasionType,
@@ -1074,6 +1078,7 @@ export default createReducer(initialState, {
   }),
   [SET_CARD_SIZE]: (state, {cardSize}) => ({
     cardSize,
+    cardSizeKey:cardSize.key
   }),
   [SET_CARD]: (state, {card}) => ({
     card,

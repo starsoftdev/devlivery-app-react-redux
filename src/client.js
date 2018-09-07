@@ -43,6 +43,7 @@ store.subscribe(() => {
   // pick values because cookie has limited size
   const purchase = pick(store.getState().purchase, [
     //'occasion',
+    'occasionId',
     'letteringTechnique',
     'flow',
     'flowIndex',
@@ -51,6 +52,7 @@ store.subscribe(() => {
     'cardColor',
     'cardStyle',
     'cardSize',
+    'cardSizeKey',
     //'cardDetails',
     //'gift',
     'giftType',
