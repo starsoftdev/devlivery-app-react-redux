@@ -53,8 +53,8 @@ class ManageTeam extends React.Component {
     const columns = [
       {
         title: intl.formatMessage(messages.nameColumn),
-        dataIndex: 'name',
-        key: 'name',
+        dataIndex: 'email',
+        key: 'email',
       },
       {
         title: intl.formatMessage(messages.groupColumn),

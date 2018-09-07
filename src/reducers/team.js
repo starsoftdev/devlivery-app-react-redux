@@ -39,14 +39,18 @@ export const getTeam = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_TEAM_REQUEST, params})
   const {token} = dispatch(getToken())
   const {page, pageSize} = getState().team
-  return fetch(`/teams?${qs.stringify({
+  return fetch(`/invitations?filter_key=accepted&filter_value=1&${qs.stringify({
     page,
     per_page: pageSize,
   })}`, {
     method: 'GET',
     token,
-    success: (res) => dispatch({type: GET_TEAM_SUCCESS, res}),
-    failure: () => dispatch({type: GET_TEAM_FAILURE}),
+    success: (res) => {
+      dispatch({type: GET_TEAM_SUCCESS, res})
+    },
+    failure: (err) => {
+      dispatch({type: GET_TEAM_FAILURE})
+    },
   })
 }
 
