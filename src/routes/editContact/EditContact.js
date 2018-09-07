@@ -5,7 +5,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './EditContact.css'
 import PlusIcon from '../../static/plus.svg'
 import RemoveIcon from '../../static/remove.svg'
-import {editContact, clear, removeContact} from '../../reducers/contacts'
+import {editContact, clear, removeContact, setChangingStatusEditForm} from '../../reducers/contacts'
 import {ContactForm} from '../../components'
 import messages from './messages'
 import { setNextRouteName,navigateToNextRouteName } from '../../reducers/global';
@@ -15,7 +15,8 @@ class EditContact extends React.Component {
     super(props)
     this.state = {
       visible: false,
-      nextPathname: null
+      nextPathname: null,
+      isChanged : false
     }
     this.onOk = this.onOk.bind(this);
     this.onCancel = this.onCancel.bind(this);
@@ -127,7 +128,12 @@ const mapDispatch = {
   clear,
   setNextRouteName,
   navigateToNextRouteName,
-  removeContact
+  removeContact,
+  setChangingStatusEditForm
 }
 
-export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(EditContact)))
+export default connect(mapState, mapDispatch)(Form.create({
+  onValuesChange(props, fields, values) {
+    props.setChangingStatusEditForm(true);
+  },
+})(withStyles(s)(EditContact)))
