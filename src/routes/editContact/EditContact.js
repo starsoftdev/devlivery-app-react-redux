@@ -24,8 +24,16 @@ class EditContact extends React.Component {
   componentWillReceiveProps(nextProps){
     if(nextProps.global && nextProps.global.nextPathname && !this.state.visible)
     {
-      this.setState({visible:true, nextPathname:nextProps.global.nextPathname});
-      this.props.setNextRouteName(null);
+      console.log("changedform",nextProps.changedForm);
+      if(nextProps.changedForm)
+      {
+        this.setState({visible:true, nextPathname:nextProps.global.nextPathname});
+        this.props.setNextRouteName(null);
+      }
+      else{
+        this.props.setNextRouteName(null);
+        this.props.navigateToNextRouteName(nextProps.global.nextPathname);
+      }
     }
   }
   onOk(){
@@ -120,7 +128,8 @@ class EditContact extends React.Component {
 const mapState = state => ({
   loading: state.contacts.loading,
   contact: state.contacts.contact,
-  global: state.global
+  global: state.global,
+  changedForm: state.contacts.changedForm
 })
 
 const mapDispatch = {
