@@ -1,7 +1,7 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {loginSuccess} from './login'
 import {message} from 'antd'
-import {getToken} from './user'
+import {getToken,updateUser} from './user'
 import {DATE_FORMAT} from '../constants'
 import {getFormErrors} from '../utils'
 
@@ -51,13 +51,53 @@ export const register = (values, form) => (dispatch, getState, {fetch, history})
       ...inviteToken ?{
         invitation_token:inviteToken
       } : {},
-      address: otherDetails.company+otherDetails.address ? " "+otherDetails.address:""
+      //address: otherDetails.company+otherDetails.address ? " "+otherDetails.address:""
     },
     success: (res) => {
       let inviteToken = null;
       dispatch({type:SET_INVITE_TOKEN,inviteToken})
       dispatch({type: REGISTER_SUCCESS})
       dispatch(loginSuccess(res.data))
+      
+      dispatch(updateUser({
+        address:{
+          address: otherDetails.company+otherDetails.address ? " "+otherDetails.address:"",
+          city: otherDetails.city,
+          company: otherDetails.company,
+          country: otherDetails.country,
+          first_name: null,
+          //id: 310,
+          last_name: null,
+          postal_code: otherDetails.postal_code,
+          state: otherDetails.state,
+        },
+
+        billing:
+        {
+          card_number: null,
+          cvv: null,
+          expiry_month: null,
+          expiry_year: null,
+          name_on_card: null,
+        },
+
+        preference:
+        {
+          notify_on_reminders: false,
+          receive_promotional_emails: false,
+          remind: 0
+        },
+
+        user:{
+          dob: birthday ? birthday.format(DATE_FORMAT):null,
+          email: otherDetails.email,
+          first_name: otherDetails.first_name,
+          last_name: otherDetails.last_name,
+          nickname: "",
+          phone: otherDetails.phone,
+        }
+
+      }))
       if (accountType === TEAM_ACCOUNT) {
         history.push('/register/team-details')
       } else {
