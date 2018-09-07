@@ -3194,7 +3194,15 @@
   {
     "id": "user.address",
     "defaultMessage": "Address",
-    "message": "Address",
+    "message": "Adresse",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.shipAddress",
+    "defaultMessage": "Shipping Address",
+    "message": "Lieferanschrift",
     "files": [
       "src/routes/user/messages.js"
     ]
@@ -3202,7 +3210,7 @@
   {
     "id": "user.city",
     "defaultMessage": "City",
-    "message": "City",
+    "message": "Stadt",
     "files": [
       "src/routes/user/messages.js"
     ]
@@ -3210,7 +3218,7 @@
   {
     "id": "user.company",
     "defaultMessage": "Company",
-    "message": "Company",
+    "message": "Unternehmen",
     "files": [
       "src/routes/user/messages.js"
     ]
@@ -3218,7 +3226,7 @@
   {
     "id": "user.country",
     "defaultMessage": "Country",
-    "message": "Country",
+    "message": "Land",
     "files": [
       "src/routes/user/messages.js"
     ]
@@ -3226,7 +3234,7 @@
   {
     "id": "user.postalCode",
     "defaultMessage": "Postal Code",
-    "message": "Postal Code",
+    "message": "Postleitzahl",
     "files": [
       "src/routes/user/messages.js"
     ]
@@ -3234,7 +3242,7 @@
   {
     "id": "user.state",
     "defaultMessage": "State",
-    "message": "State",
+    "message": "Zustand",
     "files": [
       "src/routes/user/messages.js"
     ]

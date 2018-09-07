@@ -3060,6 +3060,14 @@
     ]
   },
   {
+    "id": "user.shipAddress",
+    "defaultMessage": "Shipping Address",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
     "id": "user.city",
     "defaultMessage": "City",
     "message": "",
