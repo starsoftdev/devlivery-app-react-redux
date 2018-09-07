@@ -37,6 +37,10 @@ export default defineMessages({
     id: 'register2.submit',
     defaultMessage: 'Submit',
   },
+  shipAddress: {
+    id: 'user.shipAddress',
+    defaultMessage: 'Shipping Address',
+  },
   address: {
     id: 'user.address',
     defaultMessage: 'Address',

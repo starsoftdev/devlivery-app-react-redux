@@ -103,7 +103,7 @@ class Register2 extends React.Component {
           </section>
          
           <section className={s.section}>
-            <h1 className={s.sectionHeader}>{'Shipping Address'}</h1>
+            <h1 className={s.sectionHeader}>{intl.formatMessage(messages.shipAddress)}</h1>
             <Form.Item>
               {getFieldDecorator(`address.company`, {
                 initialValue: individualDetails && individualDetails.company,
