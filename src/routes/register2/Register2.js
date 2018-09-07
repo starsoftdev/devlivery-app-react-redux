@@ -101,6 +101,83 @@ class Register2 extends React.Component {
               )}
             </Form.Item>
           </section>
+         
+          <section className={s.section}>
+            <h1 className={s.sectionHeader}>{'Shipping Address'}</h1>
+            <Form.Item>
+              {getFieldDecorator(`address.company`, {
+                initialValue: individualDetails && individualDetails.company,
+                rules: [
+                  {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                ],
+              })(
+                <Input placeholder={intl.formatMessage(messages.company)}/>
+              )}
+            </Form.Item>
+            <Form.Item>
+              {getFieldDecorator(`address.address`, {
+                initialValue: individualDetails && individualDetails.address,
+                rules: [
+                  {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                ],
+              })(
+                <Input placeholder={intl.formatMessage(messages.address)}/>
+              )}
+            </Form.Item>
+            <Row gutter={20}>
+              <Col xs={24} sm={12}>
+                <Form.Item>
+                  {getFieldDecorator(`address.city`, {
+                    initialValue: individualDetails && individualDetails.city,
+                    rules: [
+                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                    ],
+                  })(
+                    <Input placeholder={intl.formatMessage(messages.city)}/>
+                  )}
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={12}>
+                <Form.Item>
+                  {getFieldDecorator(`address.state`, {
+                    initialValue: individualDetails && individualDetails.state,
+                    rules: [
+                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                    ],
+                  })(
+                    <Input placeholder={intl.formatMessage(messages.state)}/>
+                  )}
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row gutter={20}>
+              <Col xs={24} sm={12}>
+                <Form.Item>
+                  {getFieldDecorator(`address.postal_code`, {
+                    initialValue: individualDetails && individualDetails.postal_code,
+                    rules: [
+                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                    ],
+                  })(
+                    <Input placeholder={intl.formatMessage(messages.postalCode)}/>
+                  )}
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={12}>
+                <Form.Item>
+                  {getFieldDecorator(`address.country`, {
+                    initialValue: individualDetails && individualDetails.country,
+                    rules: [
+                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                    ],
+                  })(
+                    <Input placeholder={intl.formatMessage(messages.country)}/>
+                  )}
+                </Form.Item>
+              </Col>
+            </Row>
+          </section>
+              
         </div>
         <Actions>
           <KeyHandler
