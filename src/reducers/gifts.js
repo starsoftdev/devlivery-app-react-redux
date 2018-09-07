@@ -56,7 +56,7 @@ const initialState = {
   gifts: [],
   giftsCount: 0,
   page: 1,
-  pageSize: 16,
+  pageSize: 15,
   search: undefined,
   giftType: undefined,
 }
