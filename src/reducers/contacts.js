@@ -61,6 +61,8 @@ export const CHANGE_SELECTED_CONTACTS = 'Contacts.CHANGE_SELECTED_CONTACTS'
 
 export const SAVE_FIELDS = 'Contacts.SAVE_FIELDS'
 
+export const SET_CHANGE_EDITFORM = "Contacts.SET_CHANGE_EDITFORM"
+
 export const CLEAR = 'Contacts.CLEAR'
 
 // ------------------------------------
@@ -202,7 +204,9 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
     }
   })
 }
-
+export const setChangingStatusEditForm = (changedForm) => (dispatch, getState, {fetch, history}) => {
+  dispatch({type:SET_CHANGE_EDITFORM,changedForm});
+}
 export const editContact = (values, form, redrict,callback) => (dispatch, getState, {fetch, history}) => {
   dispatch({type: EDIT_CONTACT_REQUEST})
   const {token} = dispatch(getToken())
@@ -226,10 +230,17 @@ export const editContact = (values, form, redrict,callback) => (dispatch, getSta
     token,
     success: (res) => {
       dispatch({type: EDIT_CONTACT_SUCCESS})
+      
       var newrecipient = res.data;
       dispatch({type:SET_NEW_RECIPIENT,newrecipient})
-      if(callback == null)
+      if(callback == null && getState().contacts.changedForm === true)
+      {
         message.success('Contact was successfully updated',redrict)
+      }
+
+      const changedForm = false;
+      dispatch({type:SET_CHANGE_EDITFORM,changedForm});
+
       if(redrict)
       {
         //on Edit Contact Page
@@ -240,6 +251,7 @@ export const editContact = (values, form, redrict,callback) => (dispatch, getSta
           callback();
         else dispatch(navigateToNextRouteName(generateUrl(CONTACTS_ROUTE)));
       }
+      
     },
     failure: (res) => {
       dispatch({type: EDIT_CONTACT_FAILURE})
@@ -584,6 +596,9 @@ export default createReducer(initialState, {
       ...state.fields,
       ...fields,
     },
+  }),
+  [SET_CHANGE_EDITFORM]: (state, {changedForm}) => ({
+    changedForm,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
