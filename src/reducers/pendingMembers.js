@@ -40,20 +40,20 @@ export const getPendingTeam = (params = {}) => (dispatch, getState, {fetch}) => 
 export const updatePendingTeamMemberRole = (id, roles) => (dispatch, getState, {fetch}) => {
   dispatch({type: EDIT_PENDING_TEAM_MEMBER_ROLE_REQUEST})
   const {token} = dispatch(getToken())
-  console.log(`/invitations/${id}: roles=`,roles);
   
   return fetch(`/invitations/${id}`, {
-    method: 'PUT',
+    method: 'POST',
     token,
     contentType: 'multipart/form-data',
-    body: roles,
+    body: {
+      roles,
+      _method:'PUT'
+    },
     success: (res) => {
-      console.log("res",res);
       dispatch({type: EDIT_PENDING_TEAM_MEMBER_ROLE_SUCCESS})
       dispatch(getPendingTeam())
     },
     failure: (err) => {
-      console.log("err",err);
       dispatch({type: EDIT_PENDING_TEAM_MEMBER_ROLE_FAILURE})
     },
   })

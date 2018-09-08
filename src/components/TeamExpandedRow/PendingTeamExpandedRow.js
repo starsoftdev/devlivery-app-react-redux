@@ -10,10 +10,17 @@ class TeamExpandedRow extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      load:false,
       picked: [],
     }
   }
-
+  componentWillReceiveProps(nextprops){
+    if(!this.state.load && nextprops.record)
+      this.setState({
+        load:true,
+        picked:nextprops.record.groups ? nextprops.record.groups.map(item=>item.id+"") :[]
+      })
+  }
   componentDidMount() {
     this.props.getRole()
   }
@@ -31,6 +38,7 @@ class TeamExpandedRow extends React.Component {
         placeholder='Select groups'
         style={{width: '100%'}}
         onChange={this.selectChange}
+        value={this.state.picked}
       >
         {roles && roles.map((role) => <Select.Option className={s.multiple} key={role.id} title={role.name}>{role.name}</Select.Option>)}
       </Select>
