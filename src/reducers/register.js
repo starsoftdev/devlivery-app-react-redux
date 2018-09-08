@@ -106,6 +106,7 @@ export const register = (values, form) => (dispatch, getState, {fetch, history})
       }
     },
     failure: (res) => {
+      console.log("signup err",res);
       dispatch({type: REGISTER_FAILURE})
       const {formErrors} = getFormErrors({...res, values})
       if (formErrors)

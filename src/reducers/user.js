@@ -95,7 +95,8 @@ export const updateUser = ({user, birthday, preference, ...values}) => (dispatch
       message.success('User updated.')
       dispatch(getUserDetails())
     },
-    failure: () => {
+    failure: (err) => {
+      console.log("edit-setting err",err);
       dispatch({type: UPDATE_USER_FAILURE})
       message.error('Something went wrong. Please try again.')
     }
