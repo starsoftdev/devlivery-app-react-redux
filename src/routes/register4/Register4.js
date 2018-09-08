@@ -64,7 +64,12 @@ class Register4 extends React.Component {
                 )}
               </Form.Item>
               <Form.Item>
-                {getFieldDecorator(`people[${k}].roles`, {})(
+                {getFieldDecorator(`people[${k}].roles`, {
+                  initialValue: roles.length > 0 ? roles[0].id+'' :undefined,
+                    rules: [
+                      {required: true, message: intl.formatMessage(formMessages.required)},
+                    ],
+                  })(
                   <Select
                     allowClear
                     //mode='multiple'

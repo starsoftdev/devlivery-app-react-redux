@@ -66,7 +66,7 @@ class TeamExpandedRow extends React.Component {
         <Col md={12} className={s.column}>
           <div className={s.leftInputRow}>
             <Select
-              mode='multiple'
+              //mode='multiple'
               placeholder='Select groups'
               style={{width: '100%'}}
               onChange={this.selectChange}
