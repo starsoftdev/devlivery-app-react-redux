@@ -43,7 +43,7 @@ class ContactForm extends React.Component {
       //delete salutations_list[2];
 
     this.state = {
-      requiredAddress: 0,
+      requiredAddress: props.initRequiredAddress?props.initRequiredAddress:-1,
       relationshipName: null,
       newRelationship: null,
       salutations_list
@@ -102,7 +102,7 @@ class ContactForm extends React.Component {
                   {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                 ],
               })(
-                <Input placeholder={intl.formatMessage(messages.firstName)}/>
+                <Input placeholder={intl.formatMessage(messages.firstName)+ " *"}/>
               )}
             </Form.Item>
           </Col>
@@ -114,7 +114,7 @@ class ContactForm extends React.Component {
                   {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                 ],
               })(
-                <Input placeholder={intl.formatMessage(messages.lastName)}/>
+                <Input placeholder={intl.formatMessage(messages.lastName)+ " *"}/>
               )}
             </Form.Item>
           </Col>
@@ -126,7 +126,7 @@ class ContactForm extends React.Component {
               {required: true, message: intl.formatMessage(formMessages.required)},
             ],
           })(
-            <Input placeholder={intl.formatMessage(messages.email)}/>
+            <Input placeholder={intl.formatMessage(messages.email)+ " *"}/>
           )}
         </Form.Item>
         <Form.Item>
@@ -136,7 +136,7 @@ class ContactForm extends React.Component {
               {required: true, message: intl.formatMessage(formMessages.required)},
             ],
           })(
-            <Input placeholder={intl.formatMessage(messages.phone)}/>
+            <Input placeholder={intl.formatMessage(messages.phone)+ " *"}/>
           )}
         </Form.Item>
         <Form.Item>

@@ -1,7 +1,7 @@
 @import '../../styles/variables.css';
 
 .header {
-  margin-bottom: 0;
+  /*margin-bottom: 0;*/
 
   @media (--md-up) {
     font-size: 40px;
@@ -17,4 +17,13 @@
 
 .birthday {
   width: 100%;
+}
+.hidden {
+  display: none;
+}
+.show {
+  display: block;
+}
+.required {
+  color:black
 }
