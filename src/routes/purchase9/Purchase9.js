@@ -143,6 +143,75 @@ class Purchase9 extends React.Component {
               </Form.Item>
             </Col>
           </Row>
+          <section className={s.section}>
+            <h1 className={s.sectionHeader}>{intl.formatMessage(messages.shipAddress)}</h1>
+            <Form.Item>
+              {getFieldDecorator(`company`, {
+                rules: [
+                  {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                ],
+              })(
+                <Input placeholder={intl.formatMessage(messages.company)}/>
+              )}
+            </Form.Item>
+            <Form.Item>
+              {getFieldDecorator(`address`, {
+                rules: [
+                  {required: false, message: intl.formatMessage(formMessages.required), whitespace: true},
+                ],
+              })(
+                <Input placeholder={intl.formatMessage(messages.address)}/>
+              )}
+            </Form.Item>
+            <Row gutter={20}>
+              <Col xs={24} sm={12}>
+                <Form.Item>
+                  {getFieldDecorator(`city`, {
+                    rules: [
+                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                    ],
+                  })(
+                    <Input placeholder={intl.formatMessage(messages.city)}/>
+                  )}
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={12}>
+                <Form.Item>
+                  {getFieldDecorator(`state`, {
+                    rules: [
+                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                    ],
+                  })(
+                    <Input placeholder={intl.formatMessage(messages.state)}/>
+                  )}
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row gutter={20}>
+              <Col xs={24} sm={12}>
+                <Form.Item>
+                  {getFieldDecorator(`postal_code`, {
+                    rules: [
+                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                    ],
+                  })(
+                    <Input placeholder={intl.formatMessage(messages.postalCode)}/>
+                  )}
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={12}>
+                <Form.Item>
+                  {getFieldDecorator(`country`, {
+                    rules: [
+                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                    ],
+                  })(
+                    <Input placeholder={intl.formatMessage(messages.country)}/>
+                  )}
+                </Form.Item>
+              </Col>
+            </Row>
+          </section>
         </div>
         <PurchaseActions>
           <KeyHandler
