@@ -45,6 +45,20 @@ export const getRole = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_ROLE_GROUP_REQUEST, params})
   const {token} = dispatch(getToken())
   const {page, pageSize} = getState().permission
+  return fetch(`/user-roles?${qs.stringify({
+    page,
+    per_page: pageSize,
+  })}`, {
+    method: 'GET',
+    token,
+    success: (res) => dispatch({type: GET_ROLE_GROUP_SUCCESS, res}),
+    failure: () => dispatch({type: GET_ROLE_GROUP_FAILURE}),
+  })
+}
+export const getTeamRole = (params = {}) => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_ROLE_GROUP_REQUEST, params})
+  const {token} = dispatch(getToken())
+  const {page, pageSize} = getState().permission
   return fetch(`/team-roles?${qs.stringify({
     page,
     per_page: pageSize,
@@ -55,7 +69,6 @@ export const getRole = (params = {}) => (dispatch, getState, {fetch}) => {
     failure: () => dispatch({type: GET_ROLE_GROUP_FAILURE}),
   })
 }
-
 export const getPermissions = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_PERMISSIONS_REQUEST, params})
   const {token} = dispatch(getToken())

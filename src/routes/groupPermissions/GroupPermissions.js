@@ -6,13 +6,13 @@ import {PaginationItem} from '../../components'
 import {Input, Table, Row, Col} from 'antd'
 import messages from './messages'
 import {TablePermission} from '../../components'
-import {getRole, getPermissions, changeNewRoleGroup, addGroup, removeGroup, setPermissions} from '../../reducers/permissions'
+import {getTeamRole, getPermissions, changeNewRoleGroup, addGroup, removeGroup, setPermissions} from '../../reducers/permissions'
 import PlusIcon from '../../static/plus.svg'
 
 class GroupPermissions extends React.Component {
 
   componentDidMount() {
-    this.props.getRole()
+    this.props.getTeamRole()
     this.props.getPermissions()
   }
 
@@ -59,7 +59,7 @@ const mapState = state => ({
 const mapDispatch = {
   addGroup,
   changeNewRoleGroup,
-  getRole,
+  getTeamRole,
   getPermissions,
   removeGroup,
   setPermissions,
