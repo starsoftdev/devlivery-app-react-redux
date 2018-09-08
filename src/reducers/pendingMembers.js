@@ -30,7 +30,6 @@ export const getPendingTeam = (params = {}) => (dispatch, getState, {fetch}) => 
     method: 'GET',
     token,
     success: (res) => {
-      console.log("/invitations?filter_key=accepted&filter_value=0:",res);
       dispatch({type: GET_PENDING_TEAM_SUCCESS, res})
     },
     failure: () => dispatch({type: GET_PENDING_TEAM_FAILURE}),
