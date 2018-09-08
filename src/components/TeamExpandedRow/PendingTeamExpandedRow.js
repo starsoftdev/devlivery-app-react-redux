@@ -27,14 +27,14 @@ class TeamExpandedRow extends React.Component {
 
   selectChange = (value) => {
     this.setState({picked: value})
-    this.props.updatePendingTeamMemberRole(this.props.record.id ,value.join(',')+'')
+    this.props.updatePendingTeamMemberRole(this.props.record.id ,value)
   }
 
   render() {
     const {roles} = this.props
     return (
       <Select
-        mode='multiple'
+        //mode='multiple'
         placeholder='Select groups'
         style={{width: '100%'}}
         onChange={this.selectChange}
