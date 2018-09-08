@@ -112,6 +112,10 @@ export const reduceAmountBudget = (budget_id, amount) => (dispatch, getState, {f
 export const updateTeamMemberRole = (id, roles) => (dispatch, getState, {fetch}) => {
   dispatch({type: EDIT_TEAM_MEMBER_ROLE_REQUEST})
   const {token} = dispatch(getToken())
+  console.log(`/role/assign`,{
+    user_id: id,
+    role_ids: roles,
+  });
   return fetch(`/role/assign`, {
     method: 'POST',
     token,
@@ -119,11 +123,15 @@ export const updateTeamMemberRole = (id, roles) => (dispatch, getState, {fetch})
       user_id: id,
       role_ids: roles,
     },
-    success: () => {
+    success: (res) => {
+      console.log("assgin res",res);
       dispatch({type: EDIT_TEAM_MEMBER_ROLE_SUCCESS})
       dispatch(getTeam())
     },
-    failure: () => dispatch({type: EDIT_TEAM_MEMBER_ROLE_FAILURE}),
+    failure: (err) => {
+      console.log("assgin err",err);
+      dispatch({type: EDIT_TEAM_MEMBER_ROLE_FAILURE})
+    },
   })
 }
 

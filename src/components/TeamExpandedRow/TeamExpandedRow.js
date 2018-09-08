@@ -16,14 +16,20 @@ class TeamExpandedRow extends React.Component {
       amountReduce: '',
     }
   }
-
+  componentWillReceiveProps(nextprops){
+    if(!this.state.load && nextprops.record)
+      this.setState({
+        load:true,
+        picked:nextprops.record.groups ? nextprops.record.groups.map(item=>item.id+"") :[]
+      })
+  }
   componentDidMount() {
     this.props.getRole()
   }
 
   selectChange = (value) => {
     this.setState({picked: value})
-    this.props.updateTeamMemberRole(this.props.record.id ,value.join(',')+'')
+    this.props.updateTeamMemberRole(this.props.record.id ,value)
   }
 
   budgetInput = (e) => {
@@ -64,6 +70,7 @@ class TeamExpandedRow extends React.Component {
               placeholder='Select groups'
               style={{width: '100%'}}
               onChange={this.selectChange}
+              value={this.state.picked}
             >
               {roles && roles.map((role) =>
                 <Select.Option className={s.multiple} key={role.id} title={role.name}>
