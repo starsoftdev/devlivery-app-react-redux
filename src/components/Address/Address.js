@@ -11,10 +11,21 @@ import cn from 'classnames'
 class Address extends React.Component {
   constructor(props){
     super(props);
-    //this.onExpand = this.onExpand.bind(this);
+    this.onPressEnter = this.onPressEnter.bind(this);
   }
-  onExpand(index){
-    this.props.onExpand(index);
+  onPressEnter(){
+    this.props.form.validateFields((err, values) => {
+      if(hasOwnProperty.call(err, "addresses"))
+      {
+        var errArray = err["addresses"][this.props.index+''];
+        var invalidate = false;
+        if(errArray == null || !hasOwnProperty.call(errArray, "address"))
+        {
+          this.props.onExpand(this.props.index,true);
+        }
+      }
+      else this.props.onExpand(this.props.index,true);
+    })
   }
   render() {
     const {getFieldDecorator, index, header, intl, initialValues, required, onAddressChange, title, collapseActiveIndex} = this.props
@@ -88,7 +99,7 @@ class Address extends React.Component {
                   initialValue: initialValues && initialValues.country,
                   rules,
                 })(
-                  <Input placeholder={intl.formatMessage(messages.country)+ (required?" *":'')}/>
+                  <Input placeholder={intl.formatMessage(messages.country)+ (required?" *":'')} onPressEnter={this.onPressEnter}/>
                 )}
               </Form.Item>
             </Col>

@@ -57,10 +57,14 @@ class ContactForm extends React.Component {
       relationshipName: null,
     })
   }
-  onExpand(index){
+  onExpand(index,keyevent){
     if(index !== null)
     {
-      this.setState({collapseActiveIndex:index !== this.state.collapseActiveIndex?index:null});
+      if(keyevent)
+      {
+        this.setState({collapseActiveIndex:index ===0 ? 1:null});
+      }
+      else this.setState({collapseActiveIndex:index !== this.state.collapseActiveIndex?index:null});
     }
   }
 
@@ -202,6 +206,7 @@ class ContactForm extends React.Component {
         required={requiredAddress === 0}
         onAddressChange={(value) => this.changeRequiredAddress(0, value)}
         header={intl.formatMessage(messages.homeAddress)}
+        form = {this.props.form}
         getFieldDecorator={getFieldDecorator}
         index={0}
         intl={intl}
@@ -217,6 +222,7 @@ class ContactForm extends React.Component {
         required={requiredAddress === 1}
         onAddressChange={(value) => this.changeRequiredAddress(1, value)}
         header={intl.formatMessage(messages.companyAddress)}
+        form = {this.props.form}
         getFieldDecorator={getFieldDecorator}
         index={1}
         intl={intl}
