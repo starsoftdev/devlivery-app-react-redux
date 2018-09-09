@@ -46,8 +46,10 @@ class ContactForm extends React.Component {
       requiredAddress: props.initRequiredAddress?props.initRequiredAddress:-1,
       relationshipName: null,
       newRelationship: null,
-      salutations_list
+      salutations_list,
+      collapseActiveIndex:null
     }
+    this.onExpand = this.onExpand.bind(this);
   }
   addRelationship = (relationshipName) => {
     this.setState({
@@ -55,7 +57,12 @@ class ContactForm extends React.Component {
       relationshipName: null,
     })
   }
-
+  onExpand(index){
+    if(index !== null)
+    {
+      this.setState({collapseActiveIndex:index !== this.state.collapseActiveIndex?index:null});
+    }
+  }
 
   // TODO find a better way to set at least one address required
   changeRequiredAddress = (index, value) => {
@@ -199,6 +206,8 @@ class ContactForm extends React.Component {
         index={0}
         intl={intl}
         initialValues={initialValues && initialValues.addresses? initialValues.addresses.find(item => item.title === 'home' || item.title === null) : null}
+        collapseActiveIndex = {this.state.collapseActiveIndex}
+        onExpand = {this.onExpand}
       />
     )
 
@@ -212,6 +221,8 @@ class ContactForm extends React.Component {
         index={1}
         intl={intl}
         initialValues={initialValues && initialValues.addresses? initialValues.addresses.find(item => item.title === 'office') : null}
+        collapseActiveIndex = {this.state.collapseActiveIndex}
+        onExpand = {this.onExpand}
       />
     )
 

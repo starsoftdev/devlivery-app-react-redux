@@ -9,30 +9,32 @@ import g from '../../styles/global.css';
 import cn from 'classnames'
 
 class Address extends React.Component {
-  state ={
-    expand: false,
+  constructor(props){
+    super(props);
+    //this.onExpand = this.onExpand.bind(this);
   }
-  onExpand(){
-    this.setState({expand: !this.state.expand})
+  onExpand(index){
+    this.props.onExpand(index);
   }
   render() {
-    const {getFieldDecorator, index, header, intl, initialValues, required, onAddressChange, title} = this.props
+    const {getFieldDecorator, index, header, intl, initialValues, required, onAddressChange, title, collapseActiveIndex} = this.props
     const rules = [
       {required, message: intl.formatMessage(formMessages.required)}
     ]
+    const expand = collapseActiveIndex === index ? true : false;
     
     return (
       <section className={s.section}>
         {/*<h1 className={s.header}>{header}</h1>*/}
-        <a onClick={this.onExpand.bind(this)}>
-            <h1 className={cn(s.header,g.collapseButton)}>{header}<Icon type={this.state.expand?"up":"down"} className={g.collapseIcon}/></h1>
+        <a onClick={()=>this.props.onExpand(index)}>
+            <h1 className={cn(s.header,g.collapseButton)}>{header}<Icon type={expand?"up":"down"} className={g.collapseIcon}/></h1>
         </a>
         {
           required &&
           <h4 className={s.required}>{(index==1 ? "Company address": "Home address")+" is required."}</h4>
         }
         {
-          <div className={this.state.expand ? s.show: s.hidden}>
+          <div className={expand ? s.show: s.hidden}>
           {initialValues && initialValues.id && getFieldDecorator(`addresses[${index}].id`, {
             initialValue: initialValues.id,
           })(

@@ -96,7 +96,7 @@ export const addGroup = () => (dispatch, getState, {fetch}) => {
     },
     success: () => {
       dispatch({type: ADD_ROLE_GROUP_SUCCESS})
-      dispatch(getRole())
+      dispatch(getTeamRole())
     },
     failure: () => dispatch({type: ADD_ROLE_GROUP_FAILURE}),
   })
