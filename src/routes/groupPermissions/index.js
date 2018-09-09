@@ -7,7 +7,7 @@ import {TEAM_ACCOUNT} from '../../reducers/register'
 
 function action({store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
-  store.dispatch(getTeam())
+  //store.dispatch(getTeam())
 
   const {user} = store.getState().user
 
