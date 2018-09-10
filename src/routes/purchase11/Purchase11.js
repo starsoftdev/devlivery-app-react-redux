@@ -35,7 +35,9 @@ class Purchase11 extends React.Component {
       content:'',
       fontlink:[],
       order: props.order,
-      disableSubmit:false
+      disableSubmit:false,
+      selectedLocation:'shipping',
+      contact:null
     }
     this.handleEditorChange = this.handleEditorChange.bind(this);
   }
@@ -55,15 +57,34 @@ class Purchase11 extends React.Component {
     )
     this.setState(newState)
   }
+  onSelectLocation = (value) =>{
+    const {order,currentRecipient,selectedLocation} = this.state;
+    if(order && order.recipients && order.recipients[currentRecipient])
+    {
+      var selRecipient = order.recipients[currentRecipient];
+      const filter_contact =  selRecipient.contact.addresses.filter(item => item.title === value);
+      
+      
+      if(filter_contact)
+      {
+        const contact = filter_contact.length > 0 ? filter_contact[0]: null;
+        this.setState({selectedLocation:value, contact});
+      }
+      else this.setState({selectedLocation:value, contact:null});
+    }
+    else this.setState({...this.state});
+  }
   prevRecipient = () => {
     if(this.state.currentRecipient !== 0) {
-      this.setState({currentRecipient: this.state.currentRecipient - 1})
+      this.state.currentRecipient = this.state.currentRecipient - 1;
+      this.onSelectLocation(this.state.selectedLocation);
     }
   }
 
   nextRecipient = () => {
     if(this.state.currentRecipient !== this.props.order.recipients.length - 1) {
-      this.setState({currentRecipient: this.state.currentRecipient + 1})
+      this.state.currentRecipient = this.state.currentRecipient + 1;
+      this.onSelectLocation(this.state.selectedLocation);
     }
   }
 
@@ -82,13 +103,13 @@ class Purchase11 extends React.Component {
     this.setState({ content });
   }
   render() {
-    const {currentRecipient,order,disableSubmit} = this.state
+    const {currentRecipient,order,disableSubmit, contact} = this.state
     const {flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient} = this.props
     const {getFieldDecorator} = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
     const cardWidth = cardSize ? cardSize.width : 100
     const cardHeight = cardSize ? cardSize.height : 100
-
+    
     const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
     
     return order ? (
@@ -159,7 +180,11 @@ class Purchase11 extends React.Component {
                       {required: true, message: intl.formatMessage(formMessages.required)},
                     ],
                   })(
-                    <Select placeholder={intl.formatMessage(messages.deliveryPlace)} className={s.select}>
+                    <Select 
+                      placeholder={intl.formatMessage(messages.deliveryPlace)} 
+                      className={s.select}
+                      onChange ={this.onSelectLocation}
+                      >
                       {deliveryLocations && deliveryLocations.map((item) =>
                         <Select.Option key={item.value} value={item.value}>{item.title}</Select.Option>
                       )}
@@ -207,9 +232,9 @@ class Purchase11 extends React.Component {
                 <div className={s.recipient}>
                   <div>{order.recipients[currentRecipient].contact.title}</div>
                   <div>{`${order.recipients[currentRecipient].contact.first_name} ${order.recipients[currentRecipient].contact.last_name}`}</div>
-                  <div>{order.recipients[currentRecipient].receiving_address.address}</div>
-                  <div>{`${order.recipients[currentRecipient].receiving_address.postal_code} ${order.recipients[currentRecipient].receiving_address.city}`}</div>
-                  <div>{order.recipients[currentRecipient].receiving_address.country}</div>
+                  <div>{contact? contact.address :""/*order.recipients[currentRecipient].receiving_address.address*/}</div>
+                  <div>{`${contact? contact.postal_code :""/*order.recipients[currentRecipient].receiving_address.postal_code*/} ${contact? contact.city :""/*order.recipients[currentRecipient].receiving_address.city*/}`}</div>
+                  <div>{contact? contact.country :""/*order.recipients[currentRecipient].receiving_address.country*/}</div>
                 </div>
               )}
               {order.recipients.length > 1 && (
