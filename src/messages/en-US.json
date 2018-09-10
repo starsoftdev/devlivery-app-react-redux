@@ -1202,6 +1202,14 @@
     ]
   },
   {
+    "id": "purchase4.foldedCardWithInlay",
+    "defaultMessage": "Folded Card with inlay",
+    "message": "",
+    "files": [
+      "src/routes/purchase4/messages.js"
+    ]
+  },
+  {
     "id": "purchase4.header",
     "defaultMessage": "Choose the Format",
     "message": "",

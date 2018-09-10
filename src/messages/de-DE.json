@@ -656,6 +656,14 @@
     ]
   },
   {
+    "id": "purchase4.foldedCardWithInlay",
+    "defaultMessage": "Folded Card with inlay",
+    "message": "Gefaltete Karte mit Einleger",
+    "files": [
+      "src/routes/purchase4/messages.js"
+    ]
+  },
+  {
     "id": "purchase6.fontFamily",
     "defaultMessage": "Font Family",
     "message": "Schriftart",
