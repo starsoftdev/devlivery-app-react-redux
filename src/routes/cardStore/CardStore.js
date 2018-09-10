@@ -7,7 +7,7 @@ import debounce from 'lodash/debounce'
 import {CARD_IMAGES_PROP, CARD_SIZES, DEFAULT_DEBOUNCE_TIME} from '../../constants'
 import {clearFilters, getCards, getOccasions, clear} from '../../reducers/cards'
 import {setFlowFromSelectCard} from '../../reducers/purchase';
-import {Button, Col, Input, Pagination, Row, Select, Modal} from 'antd'
+import {Button, Col, Input, Pagination, Row, Select, Modal, Carousel} from 'antd'
 import {Card, PaginationItem} from '../../components'
 import cn from 'classnames'
 import {getItemImage} from '../../utils'
@@ -185,7 +185,21 @@ class CardStore extends React.Component {
               footer={null}
             >
               <Row className={s.detailRow}>
-                <div style={{backgroundImage: `url(${cardDetails.front_image[0] && cardDetails.front_image[0].url})`}} className={s.itemImage}/>
+                <Carousel
+                  loop
+                  customPaging={() => (
+                    <div className={s.dotWrapper}>
+                      <div className={s.dot}/>
+                    </div>
+                  )}
+                >
+                  {cardDetails.images.map((image, i) => image.url ? (
+                    <div key={i}>
+                      <div style={{backgroundImage: `url(${image.url})`}} className={s.previewImage}/>
+                    </div>
+                    ) : null
+                  )}
+                </Carousel>
               </Row>
               <Row className={s.detailRow}>
                 <Col md={12}>

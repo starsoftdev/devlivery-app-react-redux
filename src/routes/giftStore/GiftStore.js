@@ -6,7 +6,7 @@ import messages from './messages'
 import debounce from 'lodash/debounce'
 import {DEFAULT_DEBOUNCE_TIME, GIFT_IMAGES_PROP, GIFT_TYPES} from '../../constants'
 import {clearFilters, getGifts, clear} from '../../reducers/gifts'
-import {Button, Col, Input, Pagination, Row, Modal} from 'antd'
+import {Button, Col, Input, Pagination, Row, Modal, Carousel} from 'antd'
 import {Card, PaginationItem} from '../../components'
 import cn from 'classnames'
 import {setFlowFromSelectGift} from '../../reducers/purchase';
@@ -126,7 +126,21 @@ class GiftStore extends React.Component {
               footer={null}
             >
               <Row className={s.detailRow}>
-                <div style={{backgroundImage: `url(${giftDetails.image[0] && giftDetails.image[0].url})`}} className={s.itemImage}/>
+                <Carousel
+                  loop
+                  customPaging={() => (
+                    <div className={s.dotWrapper}>
+                      <div className={s.dot}/>
+                    </div>
+                  )}
+                >
+                  {giftDetails.image.map((image, i) => image.url ? (
+                    <div key={i}>
+                      <div style={{backgroundImage: `url(${image.url})`}} className={s.previewImage}/>
+                    </div>
+                    ) : null
+                  )}
+                </Carousel>
               </Row>
               <Row className={s.detailRow}>
                 <Col md={24}>
