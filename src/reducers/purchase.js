@@ -889,13 +889,16 @@ export const getDeliveryLocations = (orderId) => (dispatch, getState, {fetch}) =
 export const getDeliveryOccasions = (orderId) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   //dispatch({type: GET_DELIVERY_OCCASIONS_REQUEST})
+  console.log(`/order/${orderId}/get-delivery-occasions`);
   return fetch(`/order/${orderId}/get-delivery-occasions`, {
     method: 'GET',
     token,
     success: (res) => {
+      console.log("res",res);
       dispatch({type: GET_DELIVERY_OCCASIONS_SUCCESS, deliveryOccations: res})
     },
     failure: (err) => {
+      console.log("err",err);
       //dispatch({type: GET_DELIVERY_OCCASIONS_FAILURE})
     }
   })

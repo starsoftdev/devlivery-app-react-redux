@@ -37,6 +37,7 @@ class Purchase11 extends React.Component {
       order: props.order,
       disableSubmit:false,
       selectedLocation:'shipping',
+      selOccasion:null,
       contact:null
     }
     this.handleEditorChange = this.handleEditorChange.bind(this);
@@ -74,6 +75,15 @@ class Purchase11 extends React.Component {
     }
     else this.setState({...this.state});
   }
+  onSelectOccasion = (value) =>{
+    this.setState({selOccasion:value});
+    if(value !== undefined)
+    {
+      this.props.form.setFieldsValue({
+        schedule_date: null,
+      }, () => console.log('after'));
+    }
+  }
   prevRecipient = () => {
     if(this.state.currentRecipient !== 0) {
       this.state.currentRecipient = this.state.currentRecipient - 1;
@@ -103,7 +113,7 @@ class Purchase11 extends React.Component {
     this.setState({ content });
   }
   render() {
-    const {currentRecipient,order,disableSubmit, contact} = this.state
+    const {currentRecipient,order,disableSubmit, contact, selOccasion} = this.state
     const {flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient} = this.props
     const {getFieldDecorator} = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
@@ -197,10 +207,14 @@ class Purchase11 extends React.Component {
                   {getFieldDecorator('delivery_occasion', {
                     initialValue: undefined,
                     rules: [
-                      {required: true, message: intl.formatMessage(formMessages.required)},
+                      {required: false, message: intl.formatMessage(formMessages.required)},
                     ],
                   })(
-                    <Select placeholder={intl.formatMessage(messages.deliveryOccasion)} className={s.select}>
+                    <Select 
+                      allowClear ={true} 
+                      placeholder={intl.formatMessage(messages.deliveryOccasion)} 
+                      className={s.select}
+                      onChange ={this.onSelectOccasion}>
                       {deliveryOccations && deliveryOccations.map((item) =>
                         <Select.Option key={item} value={item}>{item}</Select.Option>
                       )}
@@ -214,9 +228,11 @@ class Purchase11 extends React.Component {
                     initialValue: specialDate ? moment(specialDate, DATE_FORMAT) : undefined,
                   })(
                     <DatePicker
+                      ref ={ref =>this.datePicker = ref}
                       className={s.select}
                       placeholder={intl.formatMessage(messages.deliveryTime)}
                       format={DISPLAYED_DATE_FORMAT}
+                      disabled = {selOccasion && selOccasion.length > 0 ? true : false}
                       disabledDate ={current =>{
                         var date = new Date();
                         date.setDate(date.getDate() - 1);
