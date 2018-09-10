@@ -21,4 +21,8 @@ export default defineMessages({
     id: 'giftStore.clearFilters',
     defaultMessage: 'Clear filters',
   },
+  makeOrder: {
+    id: 'bundles.makeOrder',
+    defaultMessage: 'Make an Order',
+  },
 })

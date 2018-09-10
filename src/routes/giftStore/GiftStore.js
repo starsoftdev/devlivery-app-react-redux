@@ -6,10 +6,12 @@ import messages from './messages'
 import debounce from 'lodash/debounce'
 import {DEFAULT_DEBOUNCE_TIME, GIFT_IMAGES_PROP, GIFT_TYPES} from '../../constants'
 import {clearFilters, getGifts, clear} from '../../reducers/gifts'
-import {Button, Col, Input, Pagination, Row} from 'antd'
+import {Button, Col, Input, Pagination, Row, Modal} from 'antd'
 import {Card, PaginationItem} from '../../components'
 import cn from 'classnames'
 import {setFlowFromSelectGift} from '../../reducers/purchase';
+import {getItemImage} from '../../utils'
+import PlusIcon from '../../static/plus.svg'
 
 class GiftStore extends React.Component {
   constructor(props) {
@@ -17,6 +19,8 @@ class GiftStore extends React.Component {
 
     this.state = {
       search: undefined,
+      showGiftDetails: false,
+      giftDetails:null
     }
 
     this.getGifts = debounce(this.props.getGifts, DEFAULT_DEBOUNCE_TIME)
@@ -33,7 +37,7 @@ class GiftStore extends React.Component {
   }
 
   render() {
-    const {search} = this.state
+    const {search,giftDetails} = this.state
     const {gifts, giftsCount, getGifts, intl, page, pageSize, loading, clearFilters, giftType, setFlowFromSelectGift} = this.props
     
     return (
@@ -89,7 +93,8 @@ class GiftStore extends React.Component {
                     bordered={false}
                     description={item.description}
                     onClick={() => {
-                      setFlowFromSelectGift(item);
+                      //setFlowFromSelectGift(item);
+                      this.setState({showGiftDetails: true,giftDetails:item});
                     }}
                   />
                 </Col>
@@ -111,6 +116,39 @@ class GiftStore extends React.Component {
             </div>
           )}
         </div>
+        {
+          this.state.showGiftDetails && giftDetails &&
+          <Modal
+              className={s.DetailModal}
+              title={`${giftDetails.title}`}
+              visible = {this.state.showGiftDetails}
+              onCancel={()=>this.setState({showGiftDetails:false})}
+              footer={null}
+            >
+              <Row className={s.detailRow}>
+                <div style={{backgroundImage: `url(${giftDetails.image[0] && giftDetails.image[0].url})`}} className={s.itemImage}/>
+              </Row>
+              <Row className={s.detailRow}>
+                <Col md={24}>
+                  <span className={s.DetailTitle}>Description</span><br/>
+                  <span className={s.Detail}>{giftDetails.description}</span>
+                </Col>
+              </Row>
+              <Row className={s.detailRow}>
+                <Col md={12}>
+                  <span className={s.DetailTitle}>Price</span><br/>
+                  <span className={s.Detail}>{giftDetails.price +" "+giftDetails.currency}</span>
+                </Col>
+              </Row>
+              
+              <Row>
+                <Button type='primary' style={{float:'right'}} ghost onClick={() => setFlowFromSelectGift(giftDetails)}>
+                  <PlusIcon/>
+                  {intl.formatMessage(messages.makeOrder)}
+                </Button>
+              </Row>
+            </Modal>
+        }
       </div>
     )
   }
