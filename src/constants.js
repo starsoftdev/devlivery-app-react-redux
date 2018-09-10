@@ -44,7 +44,7 @@ export const REQUIRED_FIELDS = [
 export const CARD_SIZES = (intl) => [
   {
     key: '4" X 5"',
-    title: intl && intl.formatMessage(messages.foldedCard),
+    title: intl && intl.formatMessage(messages.foldedCardWithInlay),
     subtitle:'CHF 5.00',
     svg: FoldedCardImage,
     extra: 'Format 4" × 5"',
@@ -53,7 +53,7 @@ export const CARD_SIZES = (intl) => [
   },
   {
     key: '5" X 7"',
-    title: intl && intl.formatMessage(messages.postcard),
+    title: intl && intl.formatMessage(messages.foldedCardWithInlay),
     subtitle:'CHF 6.50',
     svg: PostcardImage,
     extra: 'Format 5" × 7"',
@@ -62,7 +62,7 @@ export const CARD_SIZES = (intl) => [
   },
   {
     key: '6" X 6"',
-    title: intl && intl.formatMessage(messages.foldedCardWithoutPanel),
+    title: intl && intl.formatMessage(messages.foldedCardWithInlay),
     subtitle:'CHF 6.50',
     svg: FoldedCardWithoutPanelImage,
     extra: 'Format 6" × 6"',
@@ -71,7 +71,7 @@ export const CARD_SIZES = (intl) => [
   },
   {
     key: '4" X 9"',
-    title: intl && intl.formatMessage(messages.foldedCard),
+    title: intl && intl.formatMessage(messages.foldedCardWithInlay),
     subtitle:'CHF 7.50',
     svg: BigFoldedCardImage,
     extra: 'Format 4" × 9"',
