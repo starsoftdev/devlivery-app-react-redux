@@ -15,7 +15,7 @@ class Address extends React.Component {
   }
   onPressEnter(){
     this.props.form.validateFields((err, values) => {
-      if(hasOwnProperty.call(err, "addresses"))
+      if(err && hasOwnProperty.call(err, "addresses"))
       {
         var errArray = err["addresses"][this.props.index+''];
         var invalidate = false;
