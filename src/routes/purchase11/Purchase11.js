@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {submitShipping} from '../../reducers/purchase'
-import {Button, Col, DatePicker, Form, Row, Select} from 'antd'
+import {Button, Col, DatePicker, Form, Row, Select, message} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase11.css'
 import {OrderItems, PurchaseActions, SectionHeader} from '../../components'
@@ -38,6 +38,7 @@ class Purchase11 extends React.Component {
       disableSubmit:false,
       selectedLocation:'shipping',
       selOccasion:null,
+      selDate:(props.newrecipient && props.newrecipient.dob) || props.deliveryTime,
       contact:null
     }
     this.handleEditorChange = this.handleEditorChange.bind(this);
@@ -79,10 +80,14 @@ class Purchase11 extends React.Component {
     this.setState({selOccasion:value});
     if(value !== undefined)
     {
+      this.state.selDate = null;
       this.props.form.setFieldsValue({
         schedule_date: null,
       }, () => console.log('after'));
     }
+  }
+  onChangeDatePicker = (value) =>{
+    this.state.selDate = value;
   }
   prevRecipient = () => {
     if(this.state.currentRecipient !== 0) {
@@ -102,9 +107,11 @@ class Purchase11 extends React.Component {
     e.preventDefault()
     this.setState({disableSubmit:true})
     this.props.form.validateFields((err, values) => {
-      if (!err) {
+      if (!err && (this.state.selDate != null || this.state.selOccasion != null)) {
         this.props.submitShipping(values)
       }else{
+        if((this.state.selDate === null || this.state.selOccasion === null))
+          message.error("Please choose Delivery Occasion or Date.");
         this.setState({disableSubmit:false})
       }
     })
@@ -238,6 +245,7 @@ class Purchase11 extends React.Component {
                         date.setDate(date.getDate() - 1);
                         return current && current.valueOf() < (date)
                       }}
+                      onChange = {this.onChangeDatePicker}
                     />
                   )}
                 </Form.Item>
