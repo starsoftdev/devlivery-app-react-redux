@@ -98,3 +98,31 @@
 .selected {
   font-weight: 600;
 }
+.DetailModal {
+  :global(.ant-modal-title) {
+    font-size: 36px;
+    line-height: 36px;
+  }
+  :global(.ant-modal-header) {
+    padding: 61px 24px 18px 24px;
+  }
+}
+.detailRow {
+  margin-bottom: 20px;
+}
+.Detail {
+  color: var(--dark-color);
+  font-family: var(--font-family-secondary);
+}
+
+.DetailTitle {
+  margin-bottom: 15px;
+  color: color-mod(var(--dark-color) a(70%));
+}
+.itemImage {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 314px;
+  width: 100%;
+}
