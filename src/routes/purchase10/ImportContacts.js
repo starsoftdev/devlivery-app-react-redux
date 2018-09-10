@@ -34,6 +34,7 @@ class ImportContacts extends React.Component {
             exportCardContacts,
             csvUploadButton,
             xlsUploadButton,
+            xlsxUploadButton,
             vcfUploadButton,
           }) =>
           <React.Fragment>
@@ -50,6 +51,7 @@ class ImportContacts extends React.Component {
                 <Col xs={24} sm={12} className={cn(s.section, s.actionsSection)}>
                   {csvUploadButton}
                   {xlsUploadButton}
+                  {xlsxUploadButton}
                   {vcfUploadButton}
                 </Col>
                 <Col xs={24} sm={12} className={s.section}>
