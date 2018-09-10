@@ -125,7 +125,7 @@ class Register2 extends React.Component {
               )}
             </Form.Item>
             <Row gutter={20}>
-              <Col xs={24} sm={12}>
+              <Col xs={24} sm={24}>
                 <Form.Item>
                   {getFieldDecorator(`city`, {
                     initialValue: individualDetails && individualDetails.city,
@@ -134,18 +134,6 @@ class Register2 extends React.Component {
                     ],
                   })(
                     <Input placeholder={intl.formatMessage(messages.city)}/>
-                  )}
-                </Form.Item>
-              </Col>
-              <Col xs={24} sm={12}>
-                <Form.Item>
-                  {getFieldDecorator(`state`, {
-                    initialValue: individualDetails && individualDetails.state,
-                    rules: [
-                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
-                    ],
-                  })(
-                    <Input placeholder={intl.formatMessage(messages.state)}/>
                   )}
                 </Form.Item>
               </Col>
