@@ -37,4 +37,8 @@ export default defineMessages({
     id: 'cardStore.clearFilters',
     defaultMessage: 'Clear filters',
   },
+  makeOrder: {
+    id: 'bundles.makeOrder',
+    defaultMessage: 'Make an Order',
+  },
 })
