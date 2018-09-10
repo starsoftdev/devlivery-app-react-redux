@@ -78,7 +78,7 @@
     color: var(--white-color);
     font-family: var(--font-family-secondary);
     font-size: var(--font-size-sm);
-    letter-spacing: 2.1px;
+    letter-spacing: 1.0px;
     text-transform: uppercase;
     display: flex;
     flex-direction: column;
