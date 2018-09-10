@@ -78,7 +78,22 @@ class ContactsImporting extends React.Component {
         </Button>
       </Upload>
     )
-
+    const xlsxUploadButton = (
+      <Upload
+        className={s.importBtnWrapper}
+        accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        beforeUpload={(file) => {
+          uploadContacts(file, 'xlsx')
+          return false
+        }}
+        fileList={[]}
+      >
+        <Button type='primary' ghost className={s.importBtn}>
+          <PlusIcon/>
+          .XLSX
+        </Button>
+      </Upload>
+    )
     const vcfUploadButton = (
       <Upload
         className={s.importBtnWrapper}
@@ -109,6 +124,7 @@ class ContactsImporting extends React.Component {
       exportCardContacts,
       csvUploadButton,
       xlsUploadButton,
+      xlsxUploadButton,
       vcfUploadButton,
       googleConnectButton,
     })
