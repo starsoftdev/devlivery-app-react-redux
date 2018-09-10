@@ -72,6 +72,7 @@ class AddContact extends React.Component {
               />
               {contactSection}
               {birthdaySection}
+              <h4>{"Home address or Company address is required."}</h4>
               {homeAddressSection}
               {companyAddressSection}
               {remindersSection}
