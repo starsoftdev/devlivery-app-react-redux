@@ -41,10 +41,6 @@ class Address extends React.Component {
             <h1 className={cn(s.header,g.collapseButton)}>{header}<Icon type={expand?"up":"down"} className={g.collapseIcon}/></h1>
         </a>
         {
-          required &&
-          <h4 className={s.required}>{(index==1 ? "Company address": "Home address")+" is required."}</h4>
-        }
-        {
           <div className={expand ? s.show: s.hidden}>
           {initialValues && initialValues.id && getFieldDecorator(`addresses[${index}].id`, {
             initialValue: initialValues.id,
