@@ -7,9 +7,11 @@ import debounce from 'lodash/debounce'
 import {CARD_IMAGES_PROP, CARD_SIZES, DEFAULT_DEBOUNCE_TIME} from '../../constants'
 import {clearFilters, getCards, getOccasions, clear} from '../../reducers/cards'
 import {setFlowFromSelectCard} from '../../reducers/purchase';
-import {Button, Col, Input, Pagination, Row, Select} from 'antd'
+import {Button, Col, Input, Pagination, Row, Select, Modal} from 'antd'
 import {Card, PaginationItem} from '../../components'
 import cn from 'classnames'
+import {getItemImage} from '../../utils'
+import PlusIcon from '../../static/plus.svg'
 
 class CardStore extends React.Component {
   constructor(props) {
@@ -17,6 +19,8 @@ class CardStore extends React.Component {
 
     this.state = {
       search: undefined,
+      showCardDetails: false,
+      cardDetails:null
     }
 
     this.getCards = debounce(this.props.getCards, DEFAULT_DEBOUNCE_TIME)
@@ -33,7 +37,7 @@ class CardStore extends React.Component {
   }
 
   render() {
-    const {search} = this.state
+    const {search, cardDetails} = this.state
     const {
       cards,
       cardsCount,
@@ -148,7 +152,8 @@ class CardStore extends React.Component {
                     bordered={false}
                     description={item.description}
                     onClick={() => {
-                      setFlowFromSelectCard(item);
+                      //setFlowFromSelectCard(item);
+                      this.setState({showCardDetails: true,cardDetails:item});
                     }}
                   />
                 </Col>
@@ -170,6 +175,47 @@ class CardStore extends React.Component {
             </div>
           )}
         </div>
+        {
+          this.state.showCardDetails && cardDetails &&
+          <Modal
+              className={s.DetailModal}
+              title={`${cardDetails.title}`}
+              visible = {this.state.showCardDetails}
+              onCancel={()=>this.setState({showCardDetails:false})}
+              footer={null}
+            >
+              <Row className={s.detailRow}>
+                <div style={{backgroundImage: `url(${cardDetails.front_image[0] && cardDetails.front_image[0].url})`}} className={s.itemImage}/>
+              </Row>
+              <Row className={s.detailRow}>
+                <Col md={12}>
+                  <span className={s.DetailTitle}>Style</span><br/>
+                  <span className={s.Detail}>{cardDetails.style}</span>
+                </Col>
+                <Col md={12}>
+                  <span className={s.DetailTitle}>Color</span><br/>
+                  <span className={s.Detail}>{cardDetails.color}</span>
+                </Col>
+              </Row>
+              <Row className={s.detailRow}>
+                <Col md={12}>
+                  <span className={s.DetailTitle}>Size</span><br/>
+                  <span className={s.Detail}>{cardDetails.size}</span>
+                </Col>
+                <Col md={12}>
+                  <span className={s.DetailTitle}>Price</span><br/>
+                  <span className={s.Detail}>{cardDetails.price +" "+cardDetails.currency}</span>
+                </Col>
+              </Row>
+              
+              <Row>
+                <Button type='primary' style={{float:'right'}} ghost onClick={() => setFlowFromSelectCard(cardDetails)}>
+                  <PlusIcon/>
+                  {intl.formatMessage(messages.makeOrder)}
+                </Button>
+              </Row>
+            </Modal>
+        }
       </div>
     )
   }
