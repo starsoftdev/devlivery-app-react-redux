@@ -3057,8 +3057,8 @@
   },
   {
     "id": "purchase11.deliveryTime",
-    "defaultMessage": "Delivery date",
-    "message": "Delivery date",
+    "defaultMessage": "Delivery Date",
+    "message": "Delivery Date",
     "files": [
       "src/routes/purchase11/messages.js"
     ]
