@@ -27,7 +27,7 @@ export const getBundles = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_BUNDLES_REQUEST, params})
   const {token} = dispatch(getToken())
   const {search, page, pageSize} = getState().bundles
-  return fetch(`/bundles?${qs.stringify({
+  return fetch(`/bundles?filter_key=saved&filter_value=1&${qs.stringify({
     ...search ? {
       filter_key: 'title',
       filter_value: search,
