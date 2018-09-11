@@ -346,7 +346,7 @@ export const importContacts = (columnsMapping, callback) => (dispatch, getState,
       const addresses = [{address: street, city, country, state, postal_code}]
       return {...otherFields, addresses}
     })
-
+  
   return fetch(`/contact/import-final`, {
     method: 'POST',
     body: {
