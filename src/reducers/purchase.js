@@ -190,7 +190,8 @@ export const setBundle = (bundle) => (dispatch, getState) => {
     giftType: bundle.bundle_gifts[0] && bundle.bundle_gifts[0].gift.type,
     cardSize: CARD_SIZES().find(item => item.key === bundle.bundle_card.card.size),
     cardStyle: bundle.bundle_card.card.style,
-    orderId : null
+    orderId : null,
+    saved: 0
   })
   dispatch(setFlow(ORDER_BUNDLE_FLOW))
 }
@@ -465,7 +466,7 @@ export const submitGift = () => async (dispatch, getState) => {
 
 export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  const {letteringTechnique, cardId, gift, flow, cardDetails} = getState().purchase
+  const {letteringTechnique, cardId, gift, flow, cardDetails,saved} = getState().purchase
   dispatch({type: ADD_BUNDLE_REQUEST})
   
   return fetch(`/create-bundle`, {
@@ -480,7 +481,8 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
       // TODO check if we need to send card body here
       body: cardDetails && cardDetails.body && cardDetails.body.length > 0 ? cardDetails.body:'<p></p>',
       // TODO backend can't get undefined value for title
-      ...pickBy(values, identity)
+      ...pickBy(values, identity),
+      saved
     },
     token,
     success: (res) => {
@@ -493,6 +495,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
       }
     },
     failure: (err) => {
+      showErrorMessage(err);
       dispatch({type: ADD_BUNDLE_FAILURE})
     },
   })
@@ -987,7 +990,8 @@ export const initialState = {
   templates: null,
   orderDetails: null,
   fontFamilies: [],
-  newrecipient: null
+  newrecipient: null,
+  saved:1
 }
 
 export default createReducer(initialState, {
