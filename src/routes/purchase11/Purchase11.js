@@ -121,11 +121,9 @@ class Purchase11 extends React.Component {
     e.preventDefault()
     this.setState({disableSubmit:true})
     this.props.form.validateFields((err, values) => {
-      if (!err && (this.state.selDate != null || this.state.selOccasion != null)) {
+      if (!err) {
         this.props.submitShipping(values)
       }else{
-        if((this.state.selDate === null && this.state.selOccasion === null))
-          message.error("Please choose Delivery Occasion or Date.");
         this.setState({disableSubmit:false})
       }
     })
@@ -312,7 +310,7 @@ class Purchase11 extends React.Component {
                     {getFieldDecorator('title', {
                       initialValue: '',
                       rules: [
-                        {required: this.state.checkSave === 1 ? true : false, message: intl.formatMessage(formMessages.required)},
+                        {required: this.state.checkSave === 1 ? true : false, min: this.state.checkSave === 1 ? 5:0, message: intl.formatMessage(formMessages.minLength, {length: 5})},
                       ],
                     })(
                       <Input placeholder={'Bundle Name *'}/>
