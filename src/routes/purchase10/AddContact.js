@@ -14,7 +14,8 @@ class AddContact extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      contact: null
+      contact: null,
+      requirAddress:false
     }
     if(props.selectedContact && props.selectedContact.id)
       props.getContact(props.selectedContact.id);
@@ -38,18 +39,37 @@ class AddContact extends React.Component {
     //e.preventDefault()
     this.props.form.validateFields({force: true}, (err, values) => {
       if (!err) {
-        if(this.props.selectedContact && this.props.selectedContact.id)
+        var addresses = this.props.form.getFieldValue('addresses')
+        if(addresses === null)
         {
-          this.props.editContact(values, this.props.form,null, () => this.props.nextFlowStep())
+          this.onNextSubmit(values);
+          return true;
+        }else{
+          var validate = false;
+          addresses.map(item =>{
+            if(item.address != undefined && item.address != null && item.address !== '')
+              validate = true;
+          });
+          if(validate)
+          {
+            this.onNextSubmit(values);
+            return true;
+          }
+          this.setState({requirAddress:true});
+          return false;
         }
-        else this.props.addContact(values, this.props.form, () => this.props.nextFlowStep())
-        return true;
       }
       return false;
     })
     return false;
   }
-
+  onNextSubmit(values){
+    if(this.props.selectedContact && this.props.selectedContact.id)
+    {
+      this.props.editContact(values, this.props.form,null, () => this.props.nextFlowStep())
+    }
+    else this.props.addContact(values, this.props.form, () => this.props.nextFlowStep())
+  }
   render() {
     const {flowIndex, intl} = this.props
     
@@ -72,7 +92,9 @@ class AddContact extends React.Component {
               />
               {contactSection}
               {birthdaySection}
-              <h4>{"Home address or Company address is required."}</h4>
+              {
+                <h4 className={this.state.requirAddress ? s.requirAddress: s.norequirAddress}>{"Home address or Company address is required."}</h4>
+              }
               {homeAddressSection}
               {companyAddressSection}
               {remindersSection}
