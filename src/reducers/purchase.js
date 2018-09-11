@@ -394,15 +394,15 @@ export const getGifts = (params = {}) => (dispatch, getState, {fetch}) => {
 export const submitShipping = (values) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   dispatch({type: SUBMIT_SHIPPING_REQUEST, values})
-  const {deliverable, delivery_occasion, schedule_date} = values;
+  const {deliverable, delivery_occasion, schedule_date, title} = values;
   const {orderId, deliveryTime, occasion,newrecipient, bundle} = getState().purchase
   const deliverOpt = {};
   if(schedule_date !== undefined && schedule_date)
     deliverOpt['delivery_date'] = moment(schedule_date).format('YYYY-MM-DD');
   else 
     deliverOpt['delivery_occasion'] = delivery_occasion;
-
-  
+  const saved = values.saved ? 1 :0;
+  dispatch({type:SET_SAVED_VALUE,saved});
   return fetch(`/set-wheretosend`, {
     method: 'POST',
     body: {
@@ -414,6 +414,15 @@ export const submitShipping = (values) => (dispatch, getState, {fetch}) => {
     token,
     success: (res) => {
       dispatch({type: SUBMIT_SHIPPING_SUCCESS})
+      if(saved ===1)
+      {
+        const param = {
+          _method:'PUT',
+          title,
+          saved
+        }
+        dispatch(updateBundle(param));
+      }
       dispatch(nextFlowStep())
     },
     failure: (err) => {
@@ -423,7 +432,19 @@ export const submitShipping = (values) => (dispatch, getState, {fetch}) => {
     },
   })
 }
-
+export const updateBundle = (param) => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  return fetch(`/bundles/${getState().purchase.bundleId}`, {
+    method: 'POST',
+    token,
+    body: param,
+    success: (res) => {
+      const saved = 0;
+      dispatch({type:SET_SAVED_VALUE,saved})
+    },
+    failure: (err) => {console.log("error",err);},
+  })
+}
 export const setPaymentMethod = (paymentMethod) => ({type: SET_PAYMENT_METHOD, paymentMethod})
 
 export const register = (values, form) => (dispatch, getState, {fetch}) => {

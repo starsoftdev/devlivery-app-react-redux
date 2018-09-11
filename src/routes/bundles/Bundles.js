@@ -40,7 +40,7 @@ class Bundles extends React.Component {
     const {search} = this.state
     // TODO add loading
     const {bundlesCount, bundles, page, pageSize, loading, getBundles, intl, setBundle, setFlow, setSavedValue, removeBundle, openBundleDetailsModal, bundleDetailsModalOpened} = this.props
-
+    
     return (
       <div className={s.container}>
         <div className={s.actions}>

@@ -40,10 +40,10 @@ class Purchase11 extends React.Component {
       selOccasion:null,
       selDate:(props.newrecipient && props.newrecipient.dob) || props.deliveryTime,
       contact:null,
-      
+      checkSave: props.saved || 0
     }
     this.handleEditorChange = this.handleEditorChange.bind(this);
-    
+    this.onCheckSaved = this.onCheckSaved.bind(this);
   }
   componentWillReceiveProps(nextProps){
     if(nextProps && nextProps.bundle)
@@ -67,6 +67,7 @@ class Purchase11 extends React.Component {
     {
       const {user} = this.props;
       const address = user && user.addresses && user.addresses.find(item => item.default !== null)
+      
       this.setState({selectedLocation:value, contact:address});
       return ;
     }
@@ -95,6 +96,10 @@ class Purchase11 extends React.Component {
       }, () => console.log('after'));
     }
   }
+  onCheckSaved = (e) => {
+    var checkSave = e.target.checked ? 1:0;
+    this.setState({checkSave});
+  }
   onChangeDatePicker = (value) =>{
     this.state.selDate = value;
   }
@@ -119,7 +124,7 @@ class Purchase11 extends React.Component {
       if (!err && (this.state.selDate != null || this.state.selOccasion != null)) {
         this.props.submitShipping(values)
       }else{
-        if((this.state.selDate === null || this.state.selOccasion === null))
+        if((this.state.selDate === null && this.state.selOccasion === null))
           message.error("Please choose Delivery Occasion or Date.");
         this.setState({disableSubmit:false})
       }
@@ -201,7 +206,7 @@ class Purchase11 extends React.Component {
               <Col xs={24} sm={8}>
                 <Form.Item>
                   {getFieldDecorator('deliverable', {
-                    initialValue: deliveryLocation,
+                    initialValue: undefined,
                     rules: [
                       {required: true, message: intl.formatMessage(formMessages.required)},
                     ],
@@ -260,36 +265,63 @@ class Purchase11 extends React.Component {
                 </Form.Item>
               </Col>
             </Row>
-            <div className={s.recipients}>
-              {order.recipients[currentRecipient] && (
-                <div className={s.recipient}>
-                  <div>{order.recipients[currentRecipient].contact.title}</div>
-                  <div>{`${order.recipients[currentRecipient].contact.first_name} ${order.recipients[currentRecipient].contact.last_name}`}</div>
-                  <div>{contact? contact.address :""/*order.recipients[currentRecipient].receiving_address.address*/}</div>
-                  <div>{`${contact? contact.postal_code :""/*order.recipients[currentRecipient].receiving_address.postal_code*/} ${contact? contact.city :""/*order.recipients[currentRecipient].receiving_address.city*/}`}</div>
-                  <div>{contact? contact.country :""/*order.recipients[currentRecipient].receiving_address.country*/}</div>
+            <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+              <Col xs={12}>
+                <div className={s.recipients}>
+                  {order.recipients[currentRecipient] && (
+                    <div className={s.recipient}>
+                      <div>{order.recipients[currentRecipient].contact.title}</div>
+                      <div>{`${order.recipients[currentRecipient].contact.first_name} ${order.recipients[currentRecipient].contact.last_name}`}</div>
+                      <div>{contact? contact.address :""/*order.recipients[currentRecipient].receiving_address.address*/}</div>
+                      <div>{`${contact && contact.postal_code? contact.postal_code :""/*order.recipients[currentRecipient].receiving_address.postal_code*/} ${contact && contact.city? contact.city :""/*order.recipients[currentRecipient].receiving_address.city*/}`}</div>
+                      <div>{contact? contact.country :""/*order.recipients[currentRecipient].receiving_address.country*/}</div>
+                    </div>
+                  )}
+                  {order.recipients.length > 1 && (
+                    <div>
+                      <Button
+                        type='primary'
+                        onClick={this.prevRecipient}
+                        size='small'
+                        ghost
+                      >
+                        prev
+                      </Button>
+                      <Button
+                        type='primary'
+                        onClick={this.nextRecipient}
+                        size='small'
+                      >
+                        next
+                      </Button>
+                    </div>
+                  )}
                 </div>
-              )}
-              {order.recipients.length > 1 && (
-                <div>
-                  <Button
-                    type='primary'
-                    onClick={this.prevRecipient}
-                    size='small'
-                    ghost
-                  >
-                    prev
-                  </Button>
-                  <Button
-                    type='primary'
-                    onClick={this.nextRecipient}
-                    size='small'
-                  >
-                    next
-                  </Button>
-                </div>
-              )}
-            </div>
+              </Col>
+              <Col xs={12}>
+                <Form.Item>
+                  {getFieldDecorator('saved', {
+                    initialValue: saved,
+                  })(
+                    <Checkbox onChange={this.onCheckSaved}>Save order as bundle</Checkbox>
+                  )}
+                </Form.Item>
+                {
+                  this.state.checkSave === 1 &&
+                  <Form.Item>
+                    {getFieldDecorator('title', {
+                      initialValue: '',
+                      rules: [
+                        {required: this.state.checkSave === 1 ? true : false, message: intl.formatMessage(formMessages.required)},
+                      ],
+                    })(
+                      <Input placeholder={'Bundle Name *'}/>
+                    )}
+                  </Form.Item>
+                }
+              </Col>
+            </Row>
+            
           </section>
         </div>
         <PurchaseActions>
