@@ -10,7 +10,7 @@ import ImportContactsIcon from '../../static/import_contacts.svg'
 import ImportContacts from './ImportContacts'
 import AddContact from './AddContact'
 import messages from './messages'
-import Contacts from '../../routes/contacts/Contacts';
+import Contacts from '../../routes/contacts_mulitple/Contacts';
 import ContactGroups from '../../routes/contactGroups/ContactGroups';
 import {getContactsByName} from '../../reducers/contacts'
 import {getContactGroups} from '../../reducers/contactGroups'

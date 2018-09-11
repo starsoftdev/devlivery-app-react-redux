@@ -396,13 +396,17 @@ export const submitShipping = (values) => (dispatch, getState, {fetch}) => {
   dispatch({type: SUBMIT_SHIPPING_REQUEST, values})
   const {deliverable, delivery_occasion, schedule_date, title} = values;
   const {orderId, deliveryTime, occasion,newrecipient, bundle} = getState().purchase
+  
   const deliverOpt = {};
+  
   if(schedule_date !== undefined && schedule_date)
     deliverOpt['delivery_date'] = moment(schedule_date).format('YYYY-MM-DD');
-  else 
+  else if(delivery_occasion !== undefined && delivery_occasion)
     deliverOpt['delivery_occasion'] = delivery_occasion;
+    
   const saved = values.saved ? 1 :0;
   dispatch({type:SET_SAVED_VALUE,saved});
+  
   return fetch(`/set-wheretosend`, {
     method: 'POST',
     body: {
