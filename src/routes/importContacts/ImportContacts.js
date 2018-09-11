@@ -68,6 +68,7 @@ class ImportContacts extends React.Component {
                 exportCardContacts,
                 csvUploadButton,
                 xlsUploadButton,
+                xlsxUploadButton,
                 vcfUploadButton,
               }) =>
               <div className={s.content}>
@@ -85,6 +86,7 @@ class ImportContacts extends React.Component {
                       <h1 className={s.sectionHeader}>Upload</h1>
                       {csvUploadButton}
                       {xlsUploadButton}
+                      {xlsxUploadButton}
                       {vcfUploadButton}
                     </section>
                   </Col>
