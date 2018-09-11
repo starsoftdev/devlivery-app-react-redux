@@ -70,13 +70,17 @@ class ContactForm extends React.Component {
 
   // TODO find a better way to set at least one address required
   changeRequiredAddress = (index, value) => {
+    
     let requiredAddress = index
+    /*
     if (!value && index === 1) {
       requiredAddress = 0
     } else if (!value && index === 0) {
       requiredAddress = 1
     }
-    this.setState({requiredAddress})
+    */
+    if(value)
+      this.setState({requiredAddress})
   }
 
   render() {
