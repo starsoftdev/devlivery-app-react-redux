@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {submitShipping} from '../../reducers/purchase'
-import {Button, Col, DatePicker, Form, Row, Select, message} from 'antd'
+import {Button, Col, DatePicker, Form, Row, Select, message, Checkbox, Input} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase11.css'
 import {OrderItems, PurchaseActions, SectionHeader} from '../../components'
@@ -39,9 +39,11 @@ class Purchase11 extends React.Component {
       selectedLocation:'shipping',
       selOccasion:null,
       selDate:(props.newrecipient && props.newrecipient.dob) || props.deliveryTime,
-      contact:null
+      contact:null,
+      
     }
     this.handleEditorChange = this.handleEditorChange.bind(this);
+    
   }
   componentWillReceiveProps(nextProps){
     if(nextProps && nextProps.bundle)
@@ -61,7 +63,14 @@ class Purchase11 extends React.Component {
   }
   onSelectLocation = (value) =>{
     const {order,currentRecipient,selectedLocation} = this.state;
-    if(order && order.recipients && order.recipients[currentRecipient])
+    if(value === 'shipping')
+    {
+      const {user} = this.props;
+      const address = user && user.addresses && user.addresses.find(item => item.default !== null)
+      this.setState({selectedLocation:value, contact:address});
+      return ;
+    }
+    else if(order && order.recipients && order.recipients[currentRecipient])
     {
       var selRecipient = order.recipients[currentRecipient];
       const filter_contact =  selRecipient.contact.addresses.filter(item => item.title === value);
@@ -120,8 +129,8 @@ class Purchase11 extends React.Component {
     this.setState({ content });
   }
   render() {
-    const {currentRecipient,order,disableSubmit, contact, selOccasion} = this.state
-    const {flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient} = this.props
+    const {currentRecipient,order,disableSubmit, contact, selOccasion,checkSave} = this.state
+    const {flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved} = this.props
     const {getFieldDecorator} = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
     const cardWidth = cardSize ? cardSize.width : 100
@@ -314,7 +323,8 @@ const mapState = state => ({
   cardSize: state.purchase.cardSize,
   cardDetails: state.purchase.cardDetails,
   newrecipient: state.purchase.newrecipient,
-  deliveryOccations: state.purchase.deliveryOccations
+  deliveryOccations: state.purchase.deliveryOccations,
+  user: state.user.user
 })
 
 const mapDispatch = {

@@ -164,6 +164,8 @@ export const CLEAR = 'Purchase.CLEAR'
 
 export const SET_NEW_RECIPIENT = 'Purchase.SET_NEW_RECIPIENT'
 export const UPDATE_BUNDLE_BODY = 'Purchase.UPDATE_BUNDLE_BODY'
+
+export const SET_SAVED_VALUE = 'Purchase.SET_SAVED_VALUE'
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -191,7 +193,6 @@ export const setBundle = (bundle) => (dispatch, getState) => {
     cardSize: CARD_SIZES().find(item => item.key === bundle.bundle_card.card.size),
     cardStyle: bundle.bundle_card.card.style,
     orderId : null,
-    saved: 0
   })
   dispatch(setFlow(ORDER_BUNDLE_FLOW))
 }
@@ -230,6 +231,8 @@ export const nextFlowStep = (step = 0) => (dispatch, getState, {history}) => {
     dispatch(clear())
   }
 }
+
+export const setSavedValue = (saved) => ({type:SET_SAVED_VALUE,saved})
 
 export const setOccasion = (occasion) => ({type: SET_OCCASION, occasion})
 
@@ -991,7 +994,7 @@ export const initialState = {
   orderDetails: null,
   fontFamilies: [],
   newrecipient: null,
-  saved:1
+  saved: 0
 }
 
 export default createReducer(initialState, {
@@ -1264,6 +1267,9 @@ export default createReducer(initialState, {
   }),
   [SET_NEW_RECIPIENT]:(state, {newrecipient}) => ({
     newrecipient:newrecipient && {id:newrecipient.id},
+  }),
+  [SET_SAVED_VALUE]:(state, {saved}) => ({
+    saved
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

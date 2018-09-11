@@ -11,7 +11,7 @@ import debounce from 'lodash/debounce'
 import messages from './messages'
 import {CARD_IMAGES_PROP, DEFAULT_DEBOUNCE_TIME, GIFT_IMAGES_PROP} from '../../constants'
 import {EDIT_BUNDLE_FLOW} from '../'
-import {setBundle, setFlow} from '../../reducers/purchase'
+import {setBundle, setFlow, setSavedValue} from '../../reducers/purchase'
 import RemoveIcon from '../../static/remove.svg'
 import {getItemImage} from '../../utils'
 
@@ -39,7 +39,7 @@ class Bundles extends React.Component {
   render() {
     const {search} = this.state
     // TODO add loading
-    const {bundlesCount, bundles, page, pageSize, loading, getBundles, intl, setBundle, setFlow, removeBundle, openBundleDetailsModal, bundleDetailsModalOpened} = this.props
+    const {bundlesCount, bundles, page, pageSize, loading, getBundles, intl, setBundle, setFlow, setSavedValue, removeBundle, openBundleDetailsModal, bundleDetailsModalOpened} = this.props
 
     return (
       <div className={s.container}>
@@ -51,7 +51,10 @@ class Bundles extends React.Component {
             value={search}
             onChange={this.changeSearch}
           />
-          <Button type='primary' ghost onClick={() => setFlow(EDIT_BUNDLE_FLOW)}>
+          <Button type='primary' ghost onClick={() => {
+            setFlow(EDIT_BUNDLE_FLOW)
+            setSavedValue(1);
+          }}>
             <PlusIcon/>
             {intl.formatMessage(messages.addBundle)}
           </Button>
@@ -127,6 +130,7 @@ const mapDispatch = {
   removeBundle,
   openBundleDetailsModal,
   clear,
+  setSavedValue
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Bundles))
