@@ -68,7 +68,7 @@ class Purchase11 extends React.Component {
       const {user} = this.props;
       const address = user && user.addresses && user.addresses.find(item => item.default !== null)
       
-      this.setState({selectedLocation:value, contact:address});
+      this.setState({selectedLocation:value, contact:{...address,...user}});
       return ;
     }
     else if(order && order.recipients && order.recipients[currentRecipient])
@@ -80,7 +80,7 @@ class Purchase11 extends React.Component {
       if(filter_contact)
       {
         const contact = filter_contact.length > 0 ? filter_contact[0]: null;
-        this.setState({selectedLocation:value, contact});
+        this.setState({selectedLocation:value, contact:{...contact, ...selRecipient.contact}});
       }
       else this.setState({selectedLocation:value, contact:null});
     }
@@ -270,8 +270,8 @@ class Purchase11 extends React.Component {
                 <div className={s.recipients}>
                   {order.recipients[currentRecipient] && (
                     <div className={s.recipient}>
-                      <div>{order.recipients[currentRecipient].contact.title}</div>
-                      <div>{`${order.recipients[currentRecipient].contact.first_name} ${order.recipients[currentRecipient].contact.last_name}`}</div>
+                      <div>{contact && contact.title ? contact.title :''}</div>
+                      <div>{`${contact && contact.first_name ? contact.first_name:''} ${contact && contact.last_name ? contact.last_name:''}`}</div>
                       <div>{contact? contact.address :""/*order.recipients[currentRecipient].receiving_address.address*/}</div>
                       <div>{`${contact && contact.postal_code? contact.postal_code :""/*order.recipients[currentRecipient].receiving_address.postal_code*/} ${contact && contact.city? contact.city :""/*order.recipients[currentRecipient].receiving_address.city*/}`}</div>
                       <div>{contact? contact.country :""/*order.recipients[currentRecipient].receiving_address.country*/}</div>
