@@ -231,7 +231,9 @@ export const nextFlowStep = (step = 0) => (dispatch, getState, {history}) => {
     dispatch(clear())
   }
 }
-
+export const toAddContactFlowStep = () => (dispatch, getState, {history}) => {
+  history.push(generateUrl('purchase10'));
+}
 export const setSavedValue = (saved) => ({type:SET_SAVED_VALUE,saved})
 
 export const setOccasion = (occasion) => ({type: SET_OCCASION, occasion})
@@ -302,31 +304,55 @@ export const getRecipients = () => (dispatch, getState, {fetch}) => {
 }
 
 export const addRecipientsOrder = (orderId) => (dispatch, getState, {fetch}) => {
-  dispatch({type: ADD_RECIPIENTS_REQUEST})
+  //dispatch({type: ADD_RECIPIENTS_REQUEST})
   const {token} = dispatch(getToken())
   const {newrecipient} = getState().purchase
-  if (!newrecipient) {
+  if (newrecipient.length <= 0) {
     console.log("no recipient");
     return
   }
+  
   return fetch(`/order-recipients`, {
+    method: 'POST',
+    contentType: 'application/json',
+    token,
+    body: {
+      order_id: orderId,
+      contacts: newrecipient,
+    },
+    success: (res) => {
+      console.log("/order-recipients res",res);
+      dispatch(getOrderDetails(orderId));
+      //dispatch({type: ADD_RECIPIENTS_SUCCESS})
+    },
+    failure: (err) => {
+      console.log("/order-recipients err",err);
+      //dispatch({type: ADD_RECIPIENTS_FAILURE})
+    }
+  })
+}
+export const removeRecipientsOrder = (repId) => (dispatch, getState, {fetch}) => {
+  //dispatch({type: ADD_RECIPIENTS_REQUEST})
+  const {token} = dispatch(getToken())
+  const { orderId } = getState().purchase
+  return fetch(`/order-recipients/${repId}`, {
     method: 'POST',
     contentType: 'multipart/form-data',
     token,
     body: {
-      order_id: orderId,
-      contact_id: newrecipient.id,
+      _method: 'DELETE',
     },
     success: (res) => {
       dispatch(getOrderDetails(orderId));
-      dispatch({type: ADD_RECIPIENTS_SUCCESS})
+      //dispatch({type: ADD_RECIPIENTS_SUCCESS})
     },
     failure: (err) => {
-      dispatch({type: ADD_RECIPIENTS_FAILURE})
+      console.log("delete err",err);
+      //dispatch({type: ADD_RECIPIENTS_FAILURE})
+      showErrorMessage(err);
     }
   })
 }
-
 export const setCardStyle = (cardStyle) => ({type: SET_CARD_STYLE, cardStyle})
 
 export const getCards = (params = {}) => (dispatch, getState, {fetch}) => {
@@ -536,7 +562,7 @@ export const makeOrder = () => (dispatch, getState, {fetch,history}) => {
   if (orderId) {
     dispatch(getBundleDetails(bundleId))
     const {newrecipient} = getState().purchase
-    if (!newrecipient) {
+    if (newrecipient.length <= 0) {
       dispatch(getOrderDetails(orderId))
     }
     else dispatch(addRecipientsOrder(orderId))
@@ -970,6 +996,8 @@ export const getBundleDetails = (bundleId) => (dispatch, getState, {fetch}) => {
 
 export const setFontFamilies = (fontFamily) => ({type: SET_FONT_FAMILIES, fontFamily})
 
+export const setNewRecipients = (newrecipient) => ({type:SET_NEW_RECIPIENT, newrecipient})
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -1018,7 +1046,7 @@ export const initialState = {
   templates: null,
   orderDetails: null,
   fontFamilies: [],
-  newrecipient: null,
+  newrecipient: [],
   saved: 0
 }
 
@@ -1291,7 +1319,7 @@ export default createReducer(initialState, {
     fontFamilies: uniq([...state.fontFamilies, fontFamily]),
   }),
   [SET_NEW_RECIPIENT]:(state, {newrecipient}) => ({
-    newrecipient:newrecipient && {id:newrecipient.id},
+    newrecipient,
   }),
   [SET_SAVED_VALUE]:(state, {saved}) => ({
     saved
