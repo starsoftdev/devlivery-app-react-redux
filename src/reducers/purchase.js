@@ -421,7 +421,7 @@ export const submitShipping = (values) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   dispatch({type: SUBMIT_SHIPPING_REQUEST, values})
   const {deliverable, delivery_occasion, schedule_date, title} = values;
-  const {orderId, deliveryTime, occasion,newrecipient, bundle} = getState().purchase
+  const {orderId, deliveryTime, occasion, bundle} = getState().purchase
   
   const deliverOpt = {};
   
@@ -438,7 +438,6 @@ export const submitShipping = (values) => (dispatch, getState, {fetch}) => {
     body: {
       order_id: orderId,
       deliverable: deliverable,
-      contact_id: newrecipient && newrecipient.id,
       ...deliverOpt
     },
     token,
