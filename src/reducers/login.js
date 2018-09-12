@@ -15,7 +15,7 @@ export const CLEAR = 'Login.CLEAR'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const login = (values, redirectUrl = '/') => (dispatch, getState, {fetch}) => {
+export const login = (values, redirectUrl = '/',callback) => (dispatch, getState, {fetch}) => {
   dispatch({type: LOGIN_REQUEST})
   return fetch(`/login`, {
     method: 'POST',
@@ -24,7 +24,11 @@ export const login = (values, redirectUrl = '/') => (dispatch, getState, {fetch}
       email: values.email,
       password: values.password,
     },
-    success: ({data}) => dispatch(loginSuccess(data, redirectUrl)),
+    success: ({data}) => {
+      dispatch(loginSuccess(data, redirectUrl))
+      if(callback)
+        callback();
+    },
     failure: (res) => dispatch({type: LOGIN_FAILURE, error: getErrorMessage(res)})
   })
 }
