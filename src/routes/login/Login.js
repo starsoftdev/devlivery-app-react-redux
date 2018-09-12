@@ -8,6 +8,7 @@ import s from './Login.css'
 import {RESET_PASSWORD_ROUTE, REGISTER1_ROUTE} from '../'
 import messages from './messages'
 import formMessages from '../../formMessages'
+import {nextFlowStep} from '../../reducers/purchase';
 
 class Login extends React.Component {
   componentWillUnmount() {
@@ -18,7 +19,12 @@ class Login extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.login(values, this.props.redirectUrl)
+        this.props.login(values, this.props.redirectUrl, ()=>{
+          if(this.props.inpurchase)
+          {
+            this.props.nextFlowStep();
+          }
+        })
       }
     })
   }
@@ -88,6 +94,7 @@ const mapState = state => ({
 const mapDispatch = {
   login,
   clear,
+  nextFlowStep
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Login)))

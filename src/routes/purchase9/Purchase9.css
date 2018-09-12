@@ -34,3 +34,8 @@
     right: 100%;
   }
 }
+.loginbutton{
+  color:var(--primary-color);
+  float:right;
+  font-style: italic;
+}

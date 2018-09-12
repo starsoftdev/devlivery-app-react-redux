@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Button, Col, Form, Input, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase9.css'
-import {PurchaseActions, SectionHeader} from '../../components'
+import {PurchaseActions, SectionHeader, Link} from '../../components'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
 import {INDIVIDUAL_ACCOUNT, TEAM_ACCOUNT} from '../../reducers/register'
@@ -201,6 +201,9 @@ class Purchase9 extends React.Component {
               </Col>
             </Row>
           </section>
+          <Link to={{name:"login", params: {inpurchase: true}}}>
+              <h4 className={s.loginbutton}>I HAVE AN ACCOUNT</h4>
+          </Link>
         </div>
         <PurchaseActions>
           <KeyHandler
@@ -212,7 +215,7 @@ class Purchase9 extends React.Component {
             type='primary'
             htmlType='submit'
           >
-            {intl.formatMessage(messages.submit)}
+            {intl.formatMessage(messages.header)}
           </Button>
         </PurchaseActions>
       </Form>
