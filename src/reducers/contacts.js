@@ -91,16 +91,21 @@ export const getContacts = (params = {}) => (dispatch, getState, {fetch}) => {
     failure: (err) => dispatch({type: GET_CONTACTS_FAILURE}),
   })
 }
-export const getContactsByName = (title) => (dispatch, getState, {fetch}) => {
+export const getContactsByName = (title,callback) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_CONTACTSBYNAME_REQUEST, title})
   const {token} = dispatch(getToken())
+  
   return fetch(`/contacts-by-group?${qs.stringify({
     title,
     take: 1000,
   })}`, {
     method: 'GET',
     token,
-    success: (res) => dispatch({type: GET_CONTACTS_SUCCESS, res}),
+    success: (res) => {
+      dispatch({type: GET_CONTACTS_SUCCESS, res})
+      if(callback)
+        callback(res.data);
+    },
     failure: () => dispatch({type: GET_CONTACTS_FAILURE}),
   })
 }

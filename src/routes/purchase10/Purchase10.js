@@ -28,38 +28,33 @@ class Purchase10 extends React.Component {
   }
   constructor(props){
     super(props);
-    this.selectExistingContact = this.selectExistingContact.bind(this);
+    this.setDisableButton = this.setDisableButton.bind(this);
     this.refreshPage = this.refreshPage.bind(this);
     this.ref_addcontact = React.createRef();
+    this.ref_contacts = React.createRef();
+    this.ref_importcontact = React.createRef();
   }
   setAddingContactsMode = (addingContactMode) => {
     this.setState({addingContactMode,selectedContact:null})
     this.onSubmit();
   }
-  selectExistingContact(selectedContact){
-    this.setState({isFirstSubmit:true,addingContactMode:ADD_CONTACT_MANUALLY,selectedContact});
+    
+  setDisableButton(disableButton){
+    this.setState({disableButton});
   }
-  
-  
   refreshPage(){
     this.setState({
       addingContactMode: null,
       selectedContact: null,
       selectedGroupName:'',
-      isFirstSubmit:false,
       disableButton:false
     })
     this.props.getContactGroups();
     this.props.getContacts();
   }
   onSubmit(){
-    const {isFirstSubmit,addingContactMode} = this.state;
-    if(!isFirstSubmit)
-    {
-      this.setState({isFirstSubmit: true});
-      return;
-    }
-
+    const {addingContactMode} = this.state;
+    
     if(addingContactMode === ADD_CONTACT_MANUALLY)
     {
       if(this.ref_addcontact)
@@ -70,6 +65,7 @@ class Purchase10 extends React.Component {
           this.setState({disableButton:false});
         }
       }
+      return;
     }
     if(addingContactMode === IMPORT_CONTACTS && this.ref_importcontact)
     {
@@ -87,17 +83,26 @@ class Purchase10 extends React.Component {
       else{
         message.error("Please upload contact file.");
       }
+      return;
+    }
+    if(this.ref_contacts)
+    {
+      this.setState({disableButton:true});
+      if(!this.ref_contacts.handleSubmit())
+      {
+        this.setState({disableButton:false});
+      }
     }
   }
   
   render() {
-    const {addingContactMode,isFirstSubmit,disableButton} = this.state
+    const {addingContactMode,disableButton} = this.state
     const {flowIndex, intl} = this.props
     return (
       <React.Fragment>
-        {addingContactMode === ADD_CONTACT_MANUALLY && isFirstSubmit? (
+        {addingContactMode === ADD_CONTACT_MANUALLY ? (
           <AddContact intl={intl} selectedContact={this.state.selectedContact} onRef={ref => (this.ref_addcontact = ref)} />
-        ) : addingContactMode === IMPORT_CONTACTS && isFirstSubmit? (
+        ) : addingContactMode === IMPORT_CONTACTS ? (
           <ImportContacts intl={intl} onRef={ref => (this.ref_importcontact = ref)} refreshPage={this.refreshPage}/>
         ) : (
           <React.Fragment>
@@ -129,22 +134,21 @@ class Purchase10 extends React.Component {
                   />
                 </Col>
               </Row>
-              <Contacts {...this.props} selectExistingContact ={this.selectExistingContact} withSearchGroup = {true}/>
+              <Contacts {...this.props} onRef={ref => (this.ref_contacts = ref)} setDisableButton={this.setDisableButton}/>
             </div>
           </React.Fragment>
         )}
         <PurchaseActions>
           {
-            addingContactMode &&
             <div>
               <KeyHandler
                 keyEventName={KEYPRESS}
                 keyCode={13}
-                onKeyHandle={() => addingContactMode && this.onSubmit()}
+                onKeyHandle={() => this.onSubmit()}
               />
               <Button
                 type='primary'
-                disabled={!addingContactMode || disableButton}
+                disabled={disableButton}
                 onClick={() => this.onSubmit()}
               >
                 {intl.formatMessage(messages.submit)}
