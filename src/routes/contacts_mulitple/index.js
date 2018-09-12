@@ -1,12 +1,12 @@
 import React from 'react'
 import Contacts from './Contacts'
 import {setCurrentRouteName} from '../../reducers/global'
-import {getContacts} from '../../reducers/contacts'
+import {getContactGroups} from '../../reducers/contactGroups'
 import messages from './messages'
 
 function action({store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
-  store.dispatch(getContacts())
+  store.dispatch(getContactGroups())
 
   return {
     chunks: ['contacts'],

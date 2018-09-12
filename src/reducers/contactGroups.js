@@ -26,9 +26,10 @@ export const getContactGroups = (params = {}) => (dispatch, getState, {fetch}) =
   dispatch({type: GET_CONTACT_GROUPS_REQUEST, params})
   const {token} = dispatch(getToken())
   const {page, pageSize} = getState().contactGroups
+  
   return fetch(`/contact-groups?${qs.stringify({
-    page,
-    per_page: pageSize,
+    page: params && params.pagination && params.pagination.current || page,
+    per_page: params && params.pagination && params.pagination.pageSize ||pageSize,
   })}`, {
     method: 'GET',
     token,
@@ -64,7 +65,7 @@ const initialState = {
   contactGroups: [],
   contactGroupsCount: 0,
   page: 1,
-  pageSize: DEFAULT_PAGE_SIZE,
+  pageSize: 12,
   newContactGroup: '',
 }
 

@@ -38,7 +38,7 @@
   padding: var(--margin-sm);
   position: relative;
   margin-bottom: 20px;
-
+  cursor: pointer;
   &:--hover {
     border: 2px solid #D0CCC9;
 
@@ -132,4 +132,10 @@
 
 .removeIcon {
   margin-left: var(--margin-xs);
+}
+.checkIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
 }

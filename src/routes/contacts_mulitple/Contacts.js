@@ -1,22 +1,27 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Col, Input, Pagination, Popconfirm, Row, Select, Table} from 'antd'
+import {Col, Input, Pagination, Popconfirm, Row, Select, Table, Checkbox, message} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Contacts.css'
 import EditIcon from '../../static/edit.svg'
 import RemoveIcon from '../../static/remove.svg'
 import GridIcon from '../../static/view_card.svg'
 import ListIcon from '../../static/view_list.svg'
-import {Link, PaginationItem, ContactDetail} from '../../components'
-import {clear, getContacts, removeContact, getContactsByName} from '../../reducers/contacts'
+import {Link, PaginationItem} from '../../components'
+import {clear, getContacts, removeContact,getContactsByName } from '../../reducers/contacts'
 import debounce from 'lodash/debounce'
 import messages from './messages'
 import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
-import {EDIT_CONTACT_ROUTE} from '../'
+import {EDIT_CONTACT_ROUTE,EDIT_CONTACT_GROUP_ROUTE} from '../'
+import {getContactGroups,removeContactGroup} from '../../reducers/contactGroups'
+import {setNewRecipients} from '../../reducers/purchase'
+import CheckIcon from '../../static/card_checkmark.svg'
+import { updateTeamMemberRole } from '../../reducers/team';
 
 const GRID_VIEW = 'grid'
 const LIST_VIEW = 'list'
 const pageSizeOptions = ['12', '24', '36', '48']
+const category = ['Groups','Contacts'];
 
 class Contacts extends React.Component {
   constructor(props) {
@@ -25,83 +30,228 @@ class Contacts extends React.Component {
     this.state = {
       view: GRID_VIEW,
       search: undefined,
-      showContactView: false,
       contactId: null,
+      type:category[0],
+      dataEntry:[],
+      datacount:0,
+      page: 1,
+      pageSize: 12,
+      selGroupId: null,
+      selContactIds:[]
     }
 
     this.getContacts = debounce(this.props.getContacts, DEFAULT_DEBOUNCE_TIME)
+    this.selectCell = this.selectCell.bind(this);
   }
-
+  componentWillReceiveProps(nextProps){
+    const { contacts,contactsCount, contactGroups,contactGroupsCount } = nextProps
+    const {type, dataEntry, datacount} = this.state;
+    
+    if(nextProps)
+    {
+      var srcData = type === category[0] ? contactGroups: contacts;
+      var count = type === category[0] ? contactGroupsCount: contactsCount;
+      var maps = srcData.map(item => {return {...item,...{checked:false}}});
+      if(maps !== dataEntry || datacount !== count)
+      {
+        this.setState({
+          dataEntry:maps.map(item =>{
+            var active =false;
+            if(this.state.type === category[0])
+            {
+              if(item.id === this.state.selGroupId)
+                active = true;
+            } else {
+              if(this.state.selContactIds.includes(item.id))
+                active = true;
+            }
+            return {...item,...{checked:active}}
+          }), 
+          datacount:count,
+        });
+        //this.updateTable();
+      }
+    }
+  }
+  componentDidMount() {
+    this.props.onRef(this)
+  }
   componentWillUnmount() {
+    this.props.onRef(undefined)
     this.props.clear()
-  }
-
-  changeSearch = (e) => {
-    const search = e.target.value
-    this.setState({search})
-    this.getContacts({search})
   }
 
   changeView = (view) => {
     this.setState({view})
   }
-
-  showDetailContactView = (id) => {
-    this.setState({showContactView: true, contactId: id})
-  }
-
-  closeDetailContactView = () => {
-    this.setState({showContactView: false, contactId: null})
-  }
-
-  render() {
-    const {view, search, contactId, showContactView} = this.state
-    // TODO add loading
-    const {contactsCount, contacts, page, pageSize, loading, getContacts, removeContact, intl, ordering, withSearchGroup, contactGroups, getContactsByName} = this.props
-    var columns = [
+  selectCell(id){
+    if(this.state.type === category[0])
+      this.state.selGroupId = id;
+    else {
+      if(this.state.selContactIds.includes(id))
       {
-        title: intl.formatMessage(messages.nameColumn),
-        dataIndex: '',
-        key: 'name',
-        render: (contact) => (
-          <a onClick={() => {
-              if(this.props.selectExistingContact)
-                this.props.selectExistingContact(contact);
-              else
-                this.showDetailContactView(contact.id)
-            }}>
-            {`${contact.first_name} ${contact.last_name}`}
-          </a>
+        var index = this.state.selContactIds.indexOf(id);
+        this.state.selContactIds.splice(index,1);
+      }
+      else {
+        this.state.selContactIds.push(id);
+      }
+    }
+    this.updateTable();
+  }
+  updateTable(){
+    this.setState({
+      dataEntry : this.state.dataEntry.map(item =>{
+        var active =false;
+        if(this.state.type === category[0])
+        {
+          if(item.id === this.state.selGroupId)
+            active = true;
+        } else {
+          if(this.state.selContactIds.includes(item.id))
+            active = true;
+        }
+        return {...item,...{checked:active}}
+      })
+    });
+  }
+  handleSubmit(){
+    if(this.state.type === category[0])
+    {
+      if(this.state.selGroupId === null)
+      {
+        message.info("please choose one group.");
+        return false;
+      }
+      var filter = this.state.dataEntry.filter(item => item.id === this.state.selGroupId);
+      if(filter && filter.length > 0)
+      {
+        this.props.getContactsByName(filter[0].title, 
+          (data)=>{
+            if(data && data.length > 0)
+            {
+              this.props.setNewRecipients(data.map(item=>item.id));
+              this.props.nextFlowStep();
+              return true;
+            }
+            else this.props.setDisableButton(false);
+          });
+        return true;
+      }
+      else return false;
+    }
+    else{
+      if(this.state.selContactIds.length <= 0)
+      {
+        message.info("please choose contacts.");
+        return false;
+      }
+      this.props.setNewRecipients(this.state.selContactIds);
+      this.props.nextFlowStep();
+      return true;
+    }
+  }
+  render() {
+    const {view, search, contactId, type, dataEntry, datacount,page, pageSize,selGroupId, selContactIds} = this.state
+    // TODO add loading
+    const {contacts, loading, getContacts, removeContact, intl, ordering, withSearchGroup, contactGroups, getContactGroups,removeContactGroup} = this.props
+    var columns = [];
+    
+    if(type === category[1])
+      columns = [
+        {
+          title:'',
+          dataIndex:'',
+          key:'id',
+          render: (data) => (
+            <Checkbox checked = {data.checked} onChange={()=>this.selectCell(data.id)}/>
+          )
+        },
+        {
+          title: intl.formatMessage(messages.nameColumn),
+          dataIndex: '',
+          key: 'name',
+          render: (contact) => (
+            <a onClick={() => {
+                
+              }}>
+              {`${contact.first_name} ${contact.last_name}`}
+            </a>
+          )
+        },
+        {
+          title: intl.formatMessage(messages.emailColumn),
+          dataIndex: 'email',
+          key: 'email',
+        },
+        {
+          title: intl.formatMessage(messages.phoneColumn),
+          dataIndex: 'phone',
+          key: 'phone',
+        },
+        {
+          title: intl.formatMessage(messages.birthdayColumn),
+          dataIndex: 'dob',
+          key: 'dob',
+        },
+        {
+          title: intl.formatMessage(messages.actionsColumn),
+          dataIndex: '',
+          key: 'actions',
+          render: (contact) => {
+            return (
+              <React.Fragment>
+                <Link to={{name: EDIT_CONTACT_ROUTE, params: {contactId: contact.id}}}>
+                  <EditIcon/>
+                </Link>
+                <Popconfirm
+                  title={intl.formatMessage(messages.confirmRemoving)}
+                  onConfirm={() => removeContact(contact)}
+                  okText={intl.formatMessage(messages.acceptRemoving)}
+                >
+                  <a className={s.removeIcon}>
+                    <RemoveIcon/>
+                  </a>
+                </Popconfirm>
+              </React.Fragment>
+            )
+          }
+        },
+      ];
+    //Group
+    else columns = [
+      {
+        title:'',
+        dataIndex:'',
+        key:'id',
+        render: (data) => (
+          <Checkbox checked = {data.checked} onChange={()=>this.selectCell(data.id)}/>
         )
       },
       {
-        title: intl.formatMessage(messages.emailColumn),
-        dataIndex: 'email',
-        key: 'email',
-      },
-      {
-        title: intl.formatMessage(messages.phoneColumn),
-        dataIndex: 'phone',
-        key: 'phone',
-      },
-      {
-        title: intl.formatMessage(messages.birthdayColumn),
-        dataIndex: 'dob',
-        key: 'dob',
+        title: intl.formatMessage(messages.nameColumn),
+        dataIndex: '',
+        key: 'title',
+        render: (data) => (
+          <a onClick={() => {
+            }}>
+            {`${data.title}`}
+          </a>
+        )
       },
       {
         title: intl.formatMessage(messages.actionsColumn),
         dataIndex: '',
         key: 'actions',
-        render: (contact) => {
+        render: (data) => {
           return (
             <React.Fragment>
-              <Link to={{name: EDIT_CONTACT_ROUTE, params: {contactId: contact.id}}}>
+              <Link to={{name: EDIT_CONTACT_GROUP_ROUTE, params: {groupId: data.id, title: data.title}}}>
                 <EditIcon/>
               </Link>
               <Popconfirm
                 title={intl.formatMessage(messages.confirmRemoving)}
-                onConfirm={() => removeContact(contact)}
+                onConfirm={() => removeContactGroup(data)}
                 okText={intl.formatMessage(messages.acceptRemoving)}
               >
                 <a className={s.removeIcon}>
@@ -112,11 +262,8 @@ class Contacts extends React.Component {
           )
         }
       },
-    ]
-    if(withSearchGroup)
-    {
-      columns = columns.slice(0,columns.length-2);
-    }
+    ];
+
     const contactSortBy = [
       {value: 'first_name', label: 'A-Z'},
       {value: '-first_name', label: 'Z-A'},
@@ -130,41 +277,25 @@ class Contacts extends React.Component {
         {
           <div className={s.actions}>
             {
-              withSearchGroup!==true &&
-              <Input.Search
-                className={s.search}
-                placeholder={intl.formatMessage(messages.search)}
-                value={search}
-                onChange={this.changeSearch}
-              />
-            }
-            {
-              withSearchGroup ?
               <Select
                 className={s.search}
                 placeholder={intl.formatMessage(messages.groupBy)}
-                onChange={(groupname) => {
-                  if(groupname)
-                    getContactsByName(groupname)
-                  else getContacts()
+                onChange={(type) => {
+                  if(type === category[0])
+                    getContactGroups(
+                      {page: 1,
+                      pageSize: 12});
+                  else getContacts(
+                    {page: 1,
+                    pageSize: 12});  
+                  this.setState({type, dataEntry:[], datacount:0, page: 1, pageSize: 12, selGroupId: null,selContactIds:[]});
                 }}
-                allowClear
+                value = {this.state.type}
               >
-                {contactGroups.map(item =>
-                  <Select.Option key={item.id} value={item.title}>{item.title}</Select.Option>
+                {category.map(item =>
+                  <Select.Option key={item} value={item}>{item}</Select.Option>
                 )}
               </Select> 
-              :
-              <Select
-                className={s.sortBy}
-                placeholder={intl.formatMessage(messages.sortBy)}
-                onChange={(ordering) => getContacts({ordering})}
-                value={ordering}
-              >
-                {contactSortBy.map(item =>
-                  <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>
-                )}
-              </Select>
             }
             <div className={s.views}>
               <a className={s.viewBtn} onClick={() => this.changeView(GRID_VIEW)}>
@@ -179,54 +310,79 @@ class Contacts extends React.Component {
         {view === GRID_VIEW ? (
           <React.Fragment>
             <Row type='flex' gutter={20}>
-              {contacts.map((contact) =>
-                <Col
-                  xs={24}
-                  sm={12}
-                  md={6}
-                  key={contact.id}
-                >
-                  <div className={s.contact}>
-                    {
-                      withSearchGroup !== true &&
-                      <Link
-                        className={s.gridEditBtn}
-                        to={{name: EDIT_CONTACT_ROUTE, params: {contactId: contact.id}}}
-                      >
-                        <EditIcon/>
-                      </Link>
-                    }
-                    <div className={s.contactContent} onClick={() => {
-                        if(this.props.selectExistingContact)
-                          this.props.selectExistingContact(contact);
-                        else
-                          this.showDetailContactView(contact.id)
-                      }}>
-                      <p className={s.contactName}>{contact.first_name} {contact.last_name}</p>
-                      <a href={`tel:${contact.phone}`} className={s.contactPhone}>{contact.phone}</a>
-                      <a href={`mailto:${contact.email}`} className={s.contactEmail}>{contact.email}</a>
-                      {contact.dob && ordering.includes('dob') && (
-                        <div className={s.contactBirthday}>Birthday: {contact.dob}</div>
-                      )}
-                    </div>
-                  </div>
-                </Col>
+              {
+                dataEntry.map((data) => {
+                  return (
+                    <Col
+                      xs={24}
+                      sm={12}
+                      md={6}
+                      key={data.id}
+                    >
+                      <div className={s.contact} onClick={() => {this.selectCell(data.id)}}>
+                        {data.checked && <CheckIcon className={s.checkIcon}/>}
+                        {
+                          /*
+                          type === category[0] ?
+                          <Link
+                            className={s.gridEditBtn}
+                            to={{name: EDIT_CONTACT_GROUP_ROUTE, params: {groupId: data.id, title: data.title}}}>
+                          >
+                            <EditIcon/>
+                          </Link>
+                          :
+                          <Link
+                            className={s.gridEditBtn}
+                            to={{name: EDIT_CONTACT_ROUTE, params: {contactId: data.id}}}
+                          >
+                            <EditIcon/>
+                          </Link>
+                          */
+                        }
+                        {
+                          type === category[0] ?  //group
+                          <div className={s.contactContent}>
+                            <p className={s.contactName}>{data.title}</p>
+                          </div>
+                          : //contacts
+                          <div className={s.contactContent} >
+                            <p className={s.contactName}>{data.first_name} {data.last_name}</p>
+                            <p className={s.contactPhone}>{data.phone}</p>
+                            <p className={s.contactEmail}>{data.email}</p>
+                            {data.dob && ordering.includes('dob') && (
+                              <div className={s.contactBirthday}>Birthday: {data.dob}</div>
+                            )}
+                          </div>
+                        }
+                      </div>
+                    </Col>
+                  )}
               )}
               {
-                contacts.length <= 0 &&
-                <div>No Contact</div>
+                dataEntry.length <= 0 &&
+                <div>No item</div>
               }
             </Row>
             {
               <div className={s.footer}>
                 <Pagination
                   current={page}
-                  total={contactsCount}
+                  total={datacount}
                   showTotal={(total, range) => intl.formatMessage(messages.tableItems, {range0: range[0], range1: range[1], total})}
                   pageSize={pageSize}
                   showSizeChanger
-                  onChange={(current, pageSize) => getContacts({pagination: {current, pageSize}})}
-                  onShowSizeChange={(current, pageSize) => getContacts({pagination: {current, pageSize}})}
+                  onChange={(current, pageSize) => {
+                    this.setState({page:current,pageSize});
+                    type === category[0] ?
+                    getContactGroups({pagination: {current, pageSize}}) :
+                    getContacts({pagination: {current, pageSize}})
+                  }}
+                  onShowSizeChange={(current, pageSize) => {
+                    this.setState({page:current,pageSize});
+                    type === category[0] ?
+                    getContactGroups({pagination: {current, pageSize}}) :
+                    getContacts({pagination: {current, pageSize}})
+                  }}
                   itemRender={(current, type, el) => <PaginationItem type={type} el={el}/>}
                   pageSizeOptions={pageSizeOptions}
                 />
@@ -236,12 +392,17 @@ class Contacts extends React.Component {
         ) : (
           <Table
             columns={columns}
-            dataSource={contacts}
+            dataSource={dataEntry}
             rowKey={record => record.id}
-            onChange={(pagination, filters, sorter) => getContacts({pagination, filters, sorter})}
+            onChange={(pagination, filters, sorter) => {
+              this.setState({page:pagination.current,pageSize:pagination.pageSize});
+              type === category[0] ?
+              getContactGroups({pagination: {current:pagination.current,pageSize:pagination.pageSize}}) :
+              getContacts({pagination: {current:pagination.current,pageSize:pagination.pageSize}})
+            }}
             pagination={{
               current: page,
-              total: contactsCount,
+              total: datacount,
               showTotal: (total, range) => intl.formatMessage(messages.tableItems, {range0: range[0], range1: range[1], total}),
               pageSize,
               showSizeChanger: true,
@@ -250,27 +411,25 @@ class Contacts extends React.Component {
             }}
           />
         )}
-        {showContactView && (
-          <ContactDetail
-            closeDetailContactView={this.closeDetailContactView}
-            contactId={contactId}
-            intl = {intl}
-          />
-        )}
       </div>
     )
   }
+
 }
 
 const mapState = state => ({
   ...state.contacts,
-  contactGroups:state.contactGroups.contactGroups
+  contactGroups:state.contactGroups.contactGroups,
+  contactGroupsCount: state.contactGroups.contactGroupsCount
 })
 
 const mapDispatch = {
   getContacts,
   removeContact,
   clear,
+  getContactGroups,
+  removeContactGroup,
+  setNewRecipients,
   getContactsByName
 }
 
