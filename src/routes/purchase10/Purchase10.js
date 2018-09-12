@@ -21,8 +21,6 @@ import {getContacts} from '../../reducers/contacts'
 class Purchase10 extends React.Component {
   state = {
     addingContactMode: null,
-    selectedContact: null,
-    selectedGroupName:'',
     isFirstSubmit:false,
     disableButton:false
   }
@@ -35,8 +33,7 @@ class Purchase10 extends React.Component {
     this.ref_importcontact = React.createRef();
   }
   setAddingContactsMode = (addingContactMode) => {
-    this.setState({addingContactMode,selectedContact:null})
-    this.onSubmit();
+    this.setState({addingContactMode})
   }
     
   setDisableButton(disableButton){
@@ -45,8 +42,6 @@ class Purchase10 extends React.Component {
   refreshPage(){
     this.setState({
       addingContactMode: null,
-      selectedContact: null,
-      selectedGroupName:'',
       disableButton:false
     })
     this.props.getContactGroups();
@@ -101,7 +96,7 @@ class Purchase10 extends React.Component {
     return (
       <React.Fragment>
         {addingContactMode === ADD_CONTACT_MANUALLY ? (
-          <AddContact intl={intl} selectedContact={this.state.selectedContact} onRef={ref => (this.ref_addcontact = ref)} />
+          <AddContact intl={intl} onRef={ref => (this.ref_addcontact = ref)} />
         ) : addingContactMode === IMPORT_CONTACTS ? (
           <ImportContacts intl={intl} onRef={ref => (this.ref_importcontact = ref)} refreshPage={this.refreshPage}/>
         ) : (
