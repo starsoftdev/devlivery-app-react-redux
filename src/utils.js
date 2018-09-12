@@ -27,6 +27,11 @@ export const showErrorMessage = (res) => {
       message.error(res.errors);
       return;
     }
+    if(res.errors && Array.isArray(res.errors))
+    {
+      message.error(res.errors[0]);
+      return;
+    }
   }
   message.error('Something went wrong. Please try again.');
 }

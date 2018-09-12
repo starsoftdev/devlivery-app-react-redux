@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {submitShipping} from '../../reducers/purchase'
-import {Button, Col, DatePicker, Form, Row, Select, message, Checkbox, Input} from 'antd'
+import {submitShipping,removeRecipientsOrder,toAddContactFlowStep} from '../../reducers/purchase'
+import {Button, Col, DatePicker, Form, Row, Select, message, Checkbox, Input, Popconfirm} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase11.css'
 import {OrderItems, PurchaseActions, SectionHeader} from '../../components'
@@ -14,7 +14,8 @@ import moment from 'moment'
 import { Editor } from '@tinymce/tinymce-react';
 import * as Contants from '../../constants';
 import { injectGlobal } from 'styled-components';
-
+import PlusIcon from '../../static/plus.svg'
+import RemoveIcon from '../../static/remove.svg'
 injectGlobal`
   .mce-notification-warning{
     display: none !important;
@@ -48,7 +49,17 @@ class Purchase11 extends React.Component {
   componentWillReceiveProps(nextProps){
     if(nextProps && nextProps.bundle)
     {
-      this.setState({content:nextProps.bundle.body ?nextProps.bundle.body:'', order:nextProps.order});
+      this.setState({content:nextProps.bundle.body ?nextProps.bundle.body:''});
+      
+    }
+    if(nextProps && nextProps.order !== this.state.order)
+    {
+      
+      if(this.state.contact)
+      {
+        this.state.order = nextProps.order;
+        this.onSelectLocation(this.state.selectedLocation);
+      }else this.setState({order:nextProps.order});
     }
   }
   componentDidMount() {
@@ -132,8 +143,8 @@ class Purchase11 extends React.Component {
     this.setState({ content });
   }
   render() {
-    const {currentRecipient,order,disableSubmit, contact, selOccasion,checkSave} = this.state
-    const {flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved} = this.props
+    const {currentRecipient,order,disableSubmit, contact, selOccasion,checkSave, selectedLocation} = this.state
+    const {flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder} = this.props
     const {getFieldDecorator} = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
     const cardWidth = cardSize ? cardSize.width : 100
@@ -268,15 +279,15 @@ class Purchase11 extends React.Component {
                 <div className={s.recipients}>
                   {order.recipients[currentRecipient] && (
                     <div className={s.recipient}>
-                      <div>{contact && contact.title ? contact.title :''}</div>
-                      <div>{`${contact && contact.first_name ? contact.first_name:''} ${contact && contact.last_name ? contact.last_name:''}`}</div>
-                      <div>{contact? contact.address :""/*order.recipients[currentRecipient].receiving_address.address*/}</div>
-                      <div>{`${contact && contact.postal_code? contact.postal_code :""/*order.recipients[currentRecipient].receiving_address.postal_code*/} ${contact && contact.city? contact.city :""/*order.recipients[currentRecipient].receiving_address.city*/}`}</div>
-                      <div>{contact? contact.country :""/*order.recipients[currentRecipient].receiving_address.country*/}</div>
+                      <div>{contact && contact.title ? contact.title :' '}</div>
+                      <div>{`${contact && contact.first_name ? contact.first_name:' '} ${contact && contact.last_name ? contact.last_name:' '}`}</div>
+                      <div>{contact? contact.address :" "/*order.recipients[currentRecipient].receiving_address.address*/}</div>
+                      <div>{`${contact && contact.postal_code? contact.postal_code :" "/*order.recipients[currentRecipient].receiving_address.postal_code*/} ${contact && contact.city? contact.city :" "/*order.recipients[currentRecipient].receiving_address.city*/}`}</div>
+                      <div>{contact? contact.country :" "/*order.recipients[currentRecipient].receiving_address.country*/}</div>
                     </div>
                   )}
-                  {order.recipients.length > 1 && (
-                    <div>
+                  {selectedLocation !== 'shipping' && order.recipients.length > 1 && (
+                    <div style={{marginTop:10}}>
                       <Button
                         type='primary'
                         onClick={this.prevRecipient}
@@ -292,9 +303,35 @@ class Purchase11 extends React.Component {
                       >
                         next
                       </Button>
+                      
                     </div>
                   )}
                 </div>
+                {
+                  selectedLocation !== 'shipping' &&
+                    <div style={{marginTop:20}}>
+                      <Button type='primary' size='small' style={{marginRight:10}} ghost onClick={() => {
+                          this.props.toAddContactFlowStep();
+                      }}>
+                        <PlusIcon/>
+                        {'Add'}
+                      </Button>
+                      
+                      <Popconfirm
+                        title={intl.formatMessage(messages.confirmRemoving)}
+                        onConfirm={() => {
+                          removeRecipientsOrder(order.recipients[currentRecipient].id)
+                          this.setState({currentRecipient:0});
+                        }}
+                        okText={intl.formatMessage(messages.acceptRemoving)}
+                      >
+                        <Button type='primary' size='small' ghost >
+                          <RemoveIcon/>
+                          {'Remove'}
+                        </Button>
+                      </Popconfirm>
+                  </div>
+                }
               </Col>
               <Col xs={12}>
                 <Form.Item>
@@ -359,6 +396,8 @@ const mapState = state => ({
 
 const mapDispatch = {
   submitShipping,
+  removeRecipientsOrder,
+  toAddContactFlowStep
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Purchase11)))
