@@ -311,7 +311,10 @@ export const addRecipientsOrder = (orderId) => (dispatch, getState, {fetch}) => 
     console.log("no recipient");
     return
   }
-  
+  console.log('/order-recipients',{
+    order_id: orderId,
+    contacts: newrecipient,
+  });
   return fetch(`/order-recipients`, {
     method: 'POST',
     contentType: 'application/json',

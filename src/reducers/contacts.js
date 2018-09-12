@@ -196,8 +196,7 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
       dispatch({type: ADD_CONTACT_SUCCESS, res})
       if (form) form.resetFields()
       if (callback) callback()
-      var newrecipient = res.data;
-      console.log("newrecipient",res.data);
+      var newrecipient = [res.data.id];
       dispatch({type:SET_NEW_RECIPIENT,newrecipient})
     },
     failure: (res) => {
@@ -237,8 +236,6 @@ export const editContact = (values, form, redrict,callback) => (dispatch, getSta
     success: (res) => {
       dispatch({type: EDIT_CONTACT_SUCCESS})
       
-      var newrecipient = res.data;
-      dispatch({type:SET_NEW_RECIPIENT,newrecipient})
       if(callback == null && getState().contacts.changedForm === true)
       {
         message.success('Contact was successfully updated',redrict)
@@ -361,7 +358,7 @@ export const importContacts = (columnsMapping, callback) => (dispatch, getState,
     token,
     success: (res) => {
       dispatch({type: IMPORT_CONTACTS_SUCCESS})
-      var newrecipient = res.data;
+      var newrecipient = res.data.map(item => item.id);
       dispatch({type:SET_NEW_RECIPIENT,newrecipient})
       callback()
     },
