@@ -71,7 +71,7 @@ store.subscribe(() => {
     'hideAmount',
     'deliveryLocation',
     'deliveryTime',
-    'voucher',
+    //'voucher',
     //'fontFamilies',
     //'newrecipient'
     'saved'
