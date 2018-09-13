@@ -873,7 +873,8 @@ export const confirmVoucher = (bundleValues) => async (dispatch, getState, {fetc
       dispatch({type: CONFIRM_VOUCHER_SUCCESS})
       dispatch(nextFlowStep())
     },
-    failure: () => {
+    failure: (err) => {
+      showErrorMessage(err);
       dispatch({type: CONFIRM_VOUCHER_FAILURE})
     },
   })
