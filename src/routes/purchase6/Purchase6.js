@@ -233,7 +233,7 @@ class Purchase6 extends React.Component {
   }
 
   handleSubmit = () => {
-    this.props.submitCardDetails({body: this.tinymce.editor.getContent()})
+    this.props.submitCardDetails({body: this.tinymce.editor && this.tinymce.editor.getContent()})
   }
   handleEditorChange(content) {
     this.setState({ content });

@@ -70,6 +70,13 @@ class OrderDetails extends React.Component {
                   <div className={s.title}>{item.title}</div>
                 </div>
               )
+            case DONATION_TYPE:
+              return (
+                <div className={s.product}>
+                  <div style={{backgroundImage: `url(${getItemImage(item, 'logo')})`}} className={s.productImage}/>
+                  <div className={s.title}>{item.name}</div>
+                </div>
+              )
             default:
               return null
           }
@@ -81,7 +88,7 @@ class OrderDetails extends React.Component {
         key: 'quantity',
         className: s.quantityColumn,
         render: (item) => {
-          let quantity = null
+          let quantity = ''
 
           if (item.productType === CARD_TYPE) {
             quantity = 1
@@ -89,8 +96,10 @@ class OrderDetails extends React.Component {
             quantity = item.quantity
           } else if (item.productType === VOUCHER_TYPE) {
             quantity = 1
+          } else if (item.productType === DONATION_TYPE) {
+            quantity = item.amount
           }
-
+          
           return (
            <div>{quantity}</div>
           )
@@ -105,13 +114,38 @@ class OrderDetails extends React.Component {
           return (
             <React.Fragment>
               {item.price}
-              <span className={s.currency}>{item.currency}</span>
+              <span className={s.currency}>{item.currency?item.currency:''}</span>
             </React.Fragment>
           )
         }
       },
     ]
-
+    var dataSource = orderDetails ? [
+      {
+        ...orderDetails.items.card,
+        productType: CARD_TYPE
+      },
+      ...orderDetails.items.gifts.map(item => ({
+        ...item.gift,
+        quantity: item.quantity,
+        productType: GIFT_TYPE
+      })),
+    ] : [];
+    if(orderDetails && orderDetails.donation && orderDetails.donation.organization)
+    {
+      dataSource.push({
+        ...orderDetails.donation.organization,
+        productType: DONATION_TYPE,
+        amount:orderDetails.donation.amount
+      });
+    }
+    if(orderDetails && orderDetails.voucher)
+    {
+      dataSource.push({
+        ...orderDetails.voucher,
+        productType: VOUCHER_TYPE,
+      });
+    }
     // TODO add shipping price/info
     return (
       <Modal
@@ -132,21 +166,7 @@ class OrderDetails extends React.Component {
               <Col xs={24} sm={16}>
                 <Table
                   columns={columns}
-                  dataSource={[
-                    {
-                      ...orderDetails.items.card,
-                      productType: CARD_TYPE
-                    },
-                    ...orderDetails.items.gifts.map(item => ({
-                      ...item.gift,
-                      quantity: item.quantity,
-                      productType: GIFT_TYPE
-                    })),
-                    {
-                      ...orderDetails.voucher,
-                      productType: VOUCHER_TYPE,
-                    },
-                  ]}
+                  dataSource={dataSource}
                   rowKey={record => record.id}
                   pagination={false}
                 />
