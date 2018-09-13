@@ -6,9 +6,11 @@ import {LocaleProvider} from 'antd'
 import Raven from 'raven-js';
 
 Raven
-    .config('https://0905932c6d084f0482d4ea11b0bc40b8@sentry.io/1272883')
+    .config('https://0905932c6d084f0482d4ea11b0bc40b8@sentry.io/1272883',{
+      release: '28d432cab74611e88f564201c0a8d039'
+    })
     .install();
-    
+
 const ContextType = {
   // Enables critical path CSS rendering
   // https://github.com/kriasoft/isomorphic-style-loader
