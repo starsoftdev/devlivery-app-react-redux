@@ -3,7 +3,12 @@ import PropTypes from 'prop-types'
 import {Provider as ReduxProvider} from 'react-redux'
 import {IntlProvider} from 'react-intl'
 import {LocaleProvider} from 'antd'
+import Raven from 'raven-js';
 
+Raven
+    .config('https://0905932c6d084f0482d4ea11b0bc40b8@sentry.io/1272883')
+    .install();
+    
 const ContextType = {
   // Enables critical path CSS rendering
   // https://github.com/kriasoft/isomorphic-style-loader
@@ -52,7 +57,12 @@ class App extends React.PureComponent {
   }
 
   static childContextTypes = ContextType
-
+  constructor(props)
+  {
+    super(props)
+    
+    
+  }
   getChildContext() {
     return this.props.context
   }

@@ -21,6 +21,11 @@ import {setLocale} from './reducers/intl'
 import cookiesMiddleware from 'universal-cookie-express'
 import compression from 'compression'
 import {LOCALE_COOKIE, STATE_COOKIE} from './constants'
+import Raven from 'raven-js';
+
+Raven
+    .config('https://0905932c6d084f0482d4ea11b0bc40b8@sentry.io/1272883')
+    .install();
 
 const app = express()
 
@@ -34,6 +39,24 @@ global.navigator.userAgent = global.navigator.userAgent || 'all'
 //
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
+app.use(Raven.requestHandler());
+app.get('/', function mainHandler(req, res) {
+  throw new Error('Broke!');
+});
+
+// The error handler must be before any other error middleware
+app.use(Raven.errorHandler());
+
+// Optional fallthrough error handler
+app.use(function onError(err, req, res, next) {
+  // The error id is attached to `res.sentry` to be returned
+  // and optionally displayed to the user for support.
+  res.statusCode = 500;
+  res.end(res.sentry + '\n');
+});
+
+app.listen(3000);
+
 app.use(compression())
 app.use(express.static(path.resolve(__dirname, 'public')))
 app.use(cookiesMiddleware())
