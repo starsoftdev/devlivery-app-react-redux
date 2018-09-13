@@ -39,6 +39,10 @@
   min-height: 100px;
   width: 150px;
   margin-right: var(--margin-md);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  word-break: break-all;
 }
 
 .product {
