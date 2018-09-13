@@ -64,7 +64,8 @@ class OrderDetails extends React.Component {
             case VOUCHER_TYPE:
               return (
                 <div className={s.product}>
-                  <div className={s.voucher_details}>
+                  <div className={s.productImage}>
+                    <span className={s.title}>{item.text}</span><br/>
                   </div>
                   <div className={s.title}>{item.title}</div>
                 </div>
