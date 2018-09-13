@@ -7,6 +7,17 @@ import CloseIcon from '../../static/close.svg'
 class Preview extends React.Component {
   render() {
     const {collapsed, onCollapse, item, imagesProp, header} = this.props
+    var images =[];
+    if(item)
+    {
+      if(Array.isArray(imagesProp))
+      {
+        imagesProp.map(name => {
+          images = [...images,...item[name]];
+        });
+      }
+      else images = item[imagesProp];
+    }
     return item ? (
       <Layout.Sider
         className={s.previewWrapper}
@@ -32,7 +43,7 @@ class Preview extends React.Component {
               </div>
             )}
           >
-            {item[imagesProp].map((image, i) => image.url ? (
+            {images.map((image, i) => image.url ? (
               <div key={i}>
                 <div style={{backgroundImage: `url(${image.url})`}} className={s.previewImage}/>
               </div>

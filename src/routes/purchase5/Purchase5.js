@@ -23,7 +23,7 @@ class Purchase5 extends React.Component {
   render() {
     const {previewCollapsed} = this.state
     const {cards, card, setCard, nextFlowStep, intl, flowIndex, loading, getCards, cardColors, cardColor} = this.props
-
+    
     return (
       <React.Fragment>
         <div className={s.container}>
@@ -89,7 +89,7 @@ class Purchase5 extends React.Component {
             collapsed={previewCollapsed}
             header={intl.formatMessage(messages.previewHeader)}
             item={card}
-            imagesProp={'images'}
+            imagesProp={['front_image','images']}
           />
         </div>
         <PurchaseActions>
