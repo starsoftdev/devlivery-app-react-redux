@@ -144,11 +144,16 @@ class Purchase11 extends React.Component {
   }
   render() {
     const {currentRecipient,order,disableSubmit, contact, selOccasion,checkSave, selectedLocation} = this.state
-    const {flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder} = this.props
+    const {flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation} = this.props
     const {getFieldDecorator} = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
-    const cardWidth = cardSize ? cardSize.width : 100
-    const cardHeight = cardSize ? cardSize.height : 100
+    
+    const w = cardSize ? cardSize.width : 100
+    const h = cardSize ? cardSize.height : 100
+
+    const cardWidth = orientation && orientation =='l' ? h : w;
+    const cardHeight = orientation && orientation =='l' ? w : h;
+
     
     const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
     
@@ -391,7 +396,8 @@ const mapState = state => ({
   cardDetails: state.purchase.cardDetails,
   newrecipient: state.purchase.newrecipient,
   deliveryOccations: state.purchase.deliveryOccations,
-  user: state.user.user
+  user: state.user.user,
+  orientation: state.purchase.orientation
 })
 
 const mapDispatch = {

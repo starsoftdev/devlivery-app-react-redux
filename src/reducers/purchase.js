@@ -166,6 +166,7 @@ export const SET_NEW_RECIPIENT = 'Purchase.SET_NEW_RECIPIENT'
 export const UPDATE_BUNDLE_BODY = 'Purchase.UPDATE_BUNDLE_BODY'
 
 export const SET_SAVED_VALUE = 'Purchase.SET_SAVED_VALUE'
+export const SET_ORIENTATION = 'Purchase.SET_ORIENTATION'
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -192,6 +193,7 @@ export const setBundle = (bundle) => (dispatch, getState) => {
     giftType: bundle.bundle_gifts[0] && bundle.bundle_gifts[0].gift.type,
     cardSize: CARD_SIZES().find(item => item.key === bundle.bundle_card.card.size),
     cardStyle: bundle.bundle_card.card.style,
+    orientation:bundle.bundle_card.card.orientation,
     orderId : null,
   })
   dispatch(setFlow(ORDER_BUNDLE_FLOW))
@@ -590,6 +592,8 @@ export const makeOrder = () => (dispatch, getState, {fetch,history}) => {
           dispatch(getDeliveryLocations(order.id))
           dispatch(getDeliveryOccasions(order.id))
           dispatch(addRecipientsOrder(order.id))
+          
+          dispatch({type:SET_ORIENTATION,orientation:order.print_orientation});
           //dispatch({type: GET_BUNDLE_DETAILS_SUCCESS, bundle: getState().purchase.cardDetails});
         },
         failure: (err) => {
@@ -1049,7 +1053,8 @@ export const initialState = {
   orderDetails: null,
   fontFamilies: [],
   newrecipient: [],
-  saved: 0
+  saved: 0,
+  orientation:null
 }
 
 export default createReducer(initialState, {
@@ -1147,7 +1152,8 @@ export default createReducer(initialState, {
   }),
   [SET_CARD]: (state, {card}) => ({
     card,
-    cardId:card && card.id
+    cardId:card && card.id,
+    orientation: card && card.orientation
   }),
   [SET_CARD_DETAILS]: (state, {cardDetails}) => ({
     cardDetails,
@@ -1325,6 +1331,9 @@ export default createReducer(initialState, {
   }),
   [SET_SAVED_VALUE]:(state, {saved}) => ({
     saved
+  }),
+  [SET_ORIENTATION]:(state, {orientation}) => ({
+    orientation
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
