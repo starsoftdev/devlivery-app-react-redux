@@ -248,10 +248,13 @@ class Purchase6 extends React.Component {
   }
   render() {
     const {mounted} = this.state
-    const {intl, flowIndex, cardSize, templates} = this.props
+    const {intl, flowIndex, cardSize, templates, orientation} = this.props
 
-    const cardWidth = cardSize ? cardSize.width : 100
-    const cardHeight = cardSize ? cardSize.height : 100
+    const w = cardSize ? cardSize.width : 100
+    const h = cardSize ? cardSize.height : 100
+
+    const cardWidth = orientation && orientation =='l' ? h : w;
+    const cardHeight = orientation && orientation =='l' ? w : h;
 
     return (
       <div className={s.form}>
@@ -325,6 +328,7 @@ const mapState = state => ({
   flowIndex: state.purchase.flowIndex,
   templates: state.purchase.templates,
   fontFamilies: state.purchase.fontFamilies,
+  orientation: state.purchase.orientation
 })
 
 const mapDispatch = {

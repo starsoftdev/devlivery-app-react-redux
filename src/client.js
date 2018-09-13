@@ -53,6 +53,7 @@ store.subscribe(() => {
     'cardStyle',
     'cardSize',
     'cardSizeKey',
+    'orientation',
     //'cardDetails',
     //'gift',
     'giftType',
