@@ -21,7 +21,7 @@ export default class FloatingLabel extends React.Component {
 
   onBlur(event) {
     this.setState({hasValue: Boolean(event.currentTarget.value)});
-    this.props.onBlur && this.props.onBlur();
+    this.props.onBlur && this.props.onBlur(event);
   }
 
   onChange(event) {
