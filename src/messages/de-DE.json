@@ -1755,7 +1755,7 @@
   {
     "id": "purchase5.submit",
     "defaultMessage": "Next",
-    "message": "Nächster",
+    "message": "nächste",
     "files": [
       "src/routes/purchase5/messages.js",
       "src/routes/purchase8/messages.js"
@@ -1764,7 +1764,7 @@
   {
     "id": "purchase6.submit",
     "defaultMessage": "Next",
-    "message": "Nächster",
+    "message": "nächste",
     "files": [
       "src/routes/purchase6/messages.js"
     ]
@@ -2097,7 +2097,7 @@
   {
     "id": "purchase10.submit",
     "defaultMessage": "Next",
-    "message": "Nächster",
+    "message": "nächste",
     "files": [
       "src/routes/purchase10/messages.js"
     ]
@@ -3298,7 +3298,7 @@
   {
     "id": "voucher.submit",
     "defaultMessage": "Next",
-    "message": "Nächster",
+    "message": "nächste",
     "files": [
       "src/routes/voucher/messages.js"
     ]
