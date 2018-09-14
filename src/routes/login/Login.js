@@ -9,6 +9,7 @@ import {RESET_PASSWORD_ROUTE, REGISTER1_ROUTE} from '../'
 import messages from './messages'
 import formMessages from '../../formMessages'
 import {nextFlowStep} from '../../reducers/purchase';
+import {FloatingLabel} from '../../components';
 
 class Login extends React.Component {
   componentWillUnmount() {
@@ -51,7 +52,7 @@ class Login extends React.Component {
                 {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
               ],
             })(
-              <Input placeholder={intl.formatMessage(messages.email)}/>
+              <FloatingLabel placeholder={intl.formatMessage(messages.email)}/>
             )}
           </Form.Item>
           <Form.Item>
@@ -60,7 +61,7 @@ class Login extends React.Component {
                 {required: true, message: intl.formatMessage(formMessages.required)},
               ],
             })(
-              <Input type='password' placeholder={intl.formatMessage(messages.password)}/>
+              <FloatingLabel type='password' placeholder={intl.formatMessage(messages.password)}/>
             )}
           </Form.Item>
           <Row gutter={16} type='flex' justify='space-between'>
