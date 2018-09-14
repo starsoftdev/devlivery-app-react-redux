@@ -55,6 +55,7 @@
   flex-direction: column;
   justify-content: center;
   cursor: pointer;
+  width: 100%;
 }
 
 .contactName {
@@ -70,6 +71,9 @@
   color: var(--dark-color);
   font-size: var(--font-size-sm);
   font-family: var(--font-family-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .editBtn {
