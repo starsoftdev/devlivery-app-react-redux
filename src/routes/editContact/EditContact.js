@@ -24,7 +24,6 @@ class EditContact extends React.Component {
   componentWillReceiveProps(nextProps){
     if(nextProps.global && nextProps.global.nextPathname && !this.state.visible)
     {
-      console.log("changedform",nextProps.changedForm);
       if(nextProps.changedForm)
       {
         this.setState({visible:true, nextPathname:nextProps.global.nextPathname});

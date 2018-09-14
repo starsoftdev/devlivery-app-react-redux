@@ -310,13 +310,9 @@ export const addRecipientsOrder = (orderId) => (dispatch, getState, {fetch}) => 
   const {token} = dispatch(getToken())
   const {newrecipient} = getState().purchase
   if (newrecipient.length <= 0) {
-    console.log("no recipient");
     return
   }
-  console.log('/order-recipients',{
-    order_id: orderId,
-    contacts: newrecipient,
-  });
+  
   return fetch(`/order-recipients`, {
     method: 'POST',
     contentType: 'application/json',
@@ -326,12 +322,10 @@ export const addRecipientsOrder = (orderId) => (dispatch, getState, {fetch}) => 
       contacts: newrecipient,
     },
     success: (res) => {
-      console.log("/order-recipients res",res);
       dispatch(getOrderDetails(orderId));
       //dispatch({type: ADD_RECIPIENTS_SUCCESS})
     },
     failure: (err) => {
-      console.log("/order-recipients err",err);
       //dispatch({type: ADD_RECIPIENTS_FAILURE})
     }
   })
@@ -352,7 +346,6 @@ export const removeRecipientsOrder = (repId) => (dispatch, getState, {fetch}) =>
       //dispatch({type: ADD_RECIPIENTS_SUCCESS})
     },
     failure: (err) => {
-      console.log("delete err",err);
       //dispatch({type: ADD_RECIPIENTS_FAILURE})
       showErrorMessage(err);
     }
@@ -460,7 +453,6 @@ export const submitShipping = (values) => (dispatch, getState, {fetch}) => {
       dispatch(nextFlowStep())
     },
     failure: (err) => {
-      console.log("err",err);
       showErrorMessage(err);
       dispatch({type: SUBMIT_SHIPPING_FAILURE})
     },
@@ -476,7 +468,7 @@ export const updateBundle = (param) => (dispatch, getState, {fetch}) => {
       const saved = 0;
       dispatch({type:SET_SAVED_VALUE,saved})
     },
-    failure: (err) => {console.log("error",err);},
+    failure: (err) => {},
   })
 }
 export const setPaymentMethod = (paymentMethod) => ({type: SET_PAYMENT_METHOD, paymentMethod})
@@ -597,7 +589,6 @@ export const makeOrder = () => (dispatch, getState, {fetch,history}) => {
           //dispatch({type: GET_BUNDLE_DETAILS_SUCCESS, bundle: getState().purchase.cardDetails});
         },
         failure: (err) => {
-          console.log(`/make-order-from-bundle`,err);
           history.goBack();
           //dispatch({type: MAKE_ORDER_FAILURE})
         },
@@ -953,16 +944,13 @@ export const getDeliveryLocations = (orderId) => (dispatch, getState, {fetch}) =
 export const getDeliveryOccasions = (orderId) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   //dispatch({type: GET_DELIVERY_OCCASIONS_REQUEST})
-  console.log(`/order/${orderId}/get-delivery-occasions`);
   return fetch(`/order/${orderId}/get-delivery-occasions`, {
     method: 'GET',
     token,
     success: (res) => {
-      console.log("res",res);
       dispatch({type: GET_DELIVERY_OCCASIONS_SUCCESS, deliveryOccations: res})
     },
     failure: (err) => {
-      console.log("err",err);
       //dispatch({type: GET_DELIVERY_OCCASIONS_FAILURE})
     }
   })
