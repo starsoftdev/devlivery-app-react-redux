@@ -7,6 +7,7 @@ import {injectIntl} from 'react-intl'
 import messages from './messages'
 import g from '../../styles/global.css';
 import cn from 'classnames'
+import {FloatingLabel} from '../../components';
 
 class Address extends React.Component {
   constructor(props){
@@ -60,14 +61,14 @@ class Address extends React.Component {
                 {min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})}
               ],
             })(
-              <Input placeholder={intl.formatMessage(index==1 ? messages.companyname: messages.address)+(required?" *":"")} onChange={(e) => onAddressChange(e.target.value)}/>
+              <FloatingLabel placeholder={intl.formatMessage(index==1 ? messages.companyname: messages.address)+(required?" *":"")} onChange={(e) => onAddressChange(e.target.value)}/>
             )}
           </Form.Item>
           <Form.Item>
             {getFieldDecorator(`addresses[${index}].address2`, {
               initialValue: initialValues && initialValues.address ? (typeof initialValues.address === 'string' ? initialValues.address : initialValues.address[1]) : undefined,
             })(
-              <Input placeholder={intl.formatMessage(messages.address)}/>
+              <FloatingLabel placeholder={intl.formatMessage(messages.address)}/>
             )}
           </Form.Item>
           <Form.Item>
@@ -75,7 +76,7 @@ class Address extends React.Component {
               initialValue: initialValues && initialValues.city,
               rules,
             })(
-              <Input placeholder={intl.formatMessage(messages.city)+ (required?" *":'')}/>
+              <FloatingLabel placeholder={intl.formatMessage(messages.city)+ (required?" *":'')}/>
             )}
           </Form.Item>
           <Row gutter={20}>
@@ -85,7 +86,7 @@ class Address extends React.Component {
                   initialValue: initialValues && initialValues.postal_code,
                   rules,
                 })(
-                  <Input placeholder={intl.formatMessage(messages.postalCode)+ (required?" *":'')}/>
+                  <FloatingLabel placeholder={intl.formatMessage(messages.postalCode)+ (required?" *":'')}/>
                 )}
               </Form.Item>
             </Col>
@@ -95,7 +96,7 @@ class Address extends React.Component {
                   initialValue: initialValues && initialValues.country,
                   rules,
                 })(
-                  <Input placeholder={intl.formatMessage(messages.country)+ (required?" *":'')} onPressEnter={this.onPressEnter}/>
+                  <FloatingLabel placeholder={intl.formatMessage(messages.country)+ (required?" *":'')} onPressEnter={this.onPressEnter}/>
                 )}
               </Form.Item>
             </Col>

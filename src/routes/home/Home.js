@@ -15,6 +15,7 @@ import {AUTH_PURCHASE_FLOW, CARD_STORE_ROUTE,NEW_ARRIVALS_ROUTE} from '../'
 import messages from './messages'
 import {setFlow} from '../../reducers/purchase'
 import {Link} from '../../components'
+import {FloatingLabel} from '../../components';
 
 const Card = ({number, image, title, description}) =>
   <div className={s.card}>
@@ -168,7 +169,7 @@ class Home extends React.Component {
             {intl.formatMessage(messages.signUp)}
           </h3>
           <div className={s.signUpInputWrapper}>
-            <Input type='text' placeholder={intl.formatMessage(messages.email)} className={s.signUpInput}/>
+            <FloatingLabel type='text' placeholder={intl.formatMessage(messages.email)} className={s.signUpInput}/>
             <Button type='primary' className={s.signUpBtn}>{intl.formatMessage(messages.submit)}</Button>
           </div>
         </section>

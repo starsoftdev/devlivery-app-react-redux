@@ -10,6 +10,7 @@ import {DATE_FORMAT, DISPLAYED_DATE_FORMAT} from '../../constants'
 import {ChangePasswordForm} from '../../components'
 import {updateUser} from '../../reducers/user'
 import messages from './messages'
+import {FloatingLabel} from '../../components';
 
 class User extends React.Component {
   handleSubmit = (e) => {
@@ -45,7 +46,7 @@ class User extends React.Component {
                   {getFieldDecorator('user.nickname', {
                     initialValue: user && user.nickname ?user.nickname:'',
                   })(
-                    <Input placeholder={'Nickname'}/>
+                    <FloatingLabel placeholder={'Nickname'}/>
                   )}
                 </Form.Item>
                 <Row gutter={20}>
@@ -57,7 +58,7 @@ class User extends React.Component {
                           {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                         ],
                       })(
-                        <Input placeholder={'First Name'}/>
+                        <FloatingLabel placeholder={'First Name'}/>
                       )}
                     </Form.Item>
                   </Col>
@@ -69,7 +70,7 @@ class User extends React.Component {
                           {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                         ],
                       })(
-                        <Input placeholder={'Last Name'}/>
+                        <FloatingLabel placeholder={'Last Name'}/>
                       )}
                     </Form.Item>
                   </Col>
@@ -82,7 +83,7 @@ class User extends React.Component {
                       {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
                     ],
                   })(
-                    <Input placeholder={'Email'}/>
+                    <FloatingLabel placeholder={'Email'}/>
                   )}
                 </Form.Item>
                 <Form.Item>
@@ -92,7 +93,7 @@ class User extends React.Component {
                       {required: true, message: formMessages.required},
                     ],
                   })(
-                    <Input placeholder={'Phone'}/>
+                    <FloatingLabel placeholder={'Phone'}/>
                   )}
                 </Form.Item>
               </section>
@@ -112,14 +113,14 @@ class User extends React.Component {
                   {getFieldDecorator('billing.card_number', {
                     initialValue: user && user.billing && user.billing.card_number,
                   })(
-                    <Input placeholder={'Card Number'}/>
+                    <FloatingLabel placeholder={'Card Number'}/>
                   )}
                 </Form.Item>
                 <Form.Item>
                   {getFieldDecorator('billing.name_on_card', {
                     initialValue: user && user.billing && user.billing.name_on_card,
                   })(
-                    <Input placeholder={'Card Name'}/>
+                    <FloatingLabel placeholder={'Card Name'}/>
                   )}
                 </Form.Item>
                 <Row gutter={20}>
@@ -128,7 +129,7 @@ class User extends React.Component {
                       {getFieldDecorator('billing.expiry_month', {
                         initialValue: user && user.billing && user.billing.expiry_month,
                       })(
-                        <Input placeholder={'MM'}/>
+                        <FloatingLabel placeholder={'MM'}/>
                       )}
                     </Form.Item>
                   </Col>
@@ -137,7 +138,7 @@ class User extends React.Component {
                       {getFieldDecorator('billing.expiry_year', {
                         initialValue: user && user.billing && user.billing.expiry_year,
                       })(
-                        <Input placeholder={'YYYY'}/>
+                        <FloatingLabel placeholder={'YYYY'}/>
                       )}
                     </Form.Item>
                   </Col>
@@ -146,7 +147,7 @@ class User extends React.Component {
                       {getFieldDecorator('billing.cvv', {
                         initialValue: user && user.billing && user.billing.cvv,
                       })(
-                        <Input placeholder={'CVV'}/>
+                        <FloatingLabel placeholder={'CVV'}/>
                       )}
                     </Form.Item>
                   </Col>
@@ -202,7 +203,7 @@ class User extends React.Component {
                       {getFieldDecorator('address.first_name', {
                         initialValue: address && address.first_name,
                       })(
-                        <Input placeholder={'First Name'}/>
+                        <FloatingLabel placeholder={'First Name'}/>
                       )}
                     </Form.Item>
                   </Col>
@@ -211,7 +212,7 @@ class User extends React.Component {
                       {getFieldDecorator('address.last_name', {
                         initialValue: address && address.last_name,
                       })(
-                        <Input placeholder={'Last Name'}/>
+                        <FloatingLabel placeholder={'Last Name'}/>
                       )}
                     </Form.Item>
                   </Col>
@@ -223,7 +224,7 @@ class User extends React.Component {
                       {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                     ],
                   })(
-                    <Input placeholder={intl.formatMessage(messages.company)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.company)}/>
                   )}
                 </Form.Item>
                 <Form.Item>
@@ -233,7 +234,7 @@ class User extends React.Component {
                       {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                     ],
                   })(
-                    <Input placeholder={intl.formatMessage(messages.address)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.address)}/>
                   )}
                 </Form.Item>
                 <Row gutter={20}>
@@ -245,7 +246,7 @@ class User extends React.Component {
                           {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                         ],
                       })(
-                        <Input placeholder={intl.formatMessage(messages.city)}/>
+                        <FloatingLabel placeholder={intl.formatMessage(messages.city)}/>
                       )}
                     </Form.Item>
                   </Col>
@@ -259,7 +260,7 @@ class User extends React.Component {
                           {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                         ],
                       })(
-                        <Input placeholder={intl.formatMessage(messages.postalCode)}/>
+                        <FloatingLabel placeholder={intl.formatMessage(messages.postalCode)}/>
                       )}
                     </Form.Item>
                   </Col>
@@ -271,7 +272,7 @@ class User extends React.Component {
                           {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                         ],
                       })(
-                        <Input placeholder={intl.formatMessage(messages.country)}/>
+                        <FloatingLabel placeholder={intl.formatMessage(messages.country)}/>
                       )}
                     </Form.Item>
                   </Col>

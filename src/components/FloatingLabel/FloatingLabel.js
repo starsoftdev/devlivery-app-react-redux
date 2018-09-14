@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import classNames from 'classnames';
 import {Input} from 'antd'
 
+
 export default class FloatingLabel extends React.Component {
   static propTypes: {
     autoComplete: PropTypes.bool,
@@ -20,6 +21,7 @@ export default class FloatingLabel extends React.Component {
 
   onBlur(event) {
     this.setState({hasValue: Boolean(event.currentTarget.value)});
+    this.props.onBlur && this.props.onBlur();
   }
 
   onChange(event) {
@@ -28,6 +30,7 @@ export default class FloatingLabel extends React.Component {
       hasError: !pattern.test(event.currentTarget.value),
       hasValue: Boolean(event.currentTarget.value)
     });
+    
   }
 
   render () {
@@ -43,6 +46,7 @@ export default class FloatingLabel extends React.Component {
           disabled={isDisabled}
           onBlur={this.onBlur.bind(this)}
           onChange={this.props.onChange}
+          onFocus = {this.props.onFocus}
           type={type}/>
         <label className='fl-input-label' htmlFor={id}>{placeholder}</label>
         <span className='fl-input-bar'></span>

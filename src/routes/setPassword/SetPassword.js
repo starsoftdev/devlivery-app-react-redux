@@ -6,6 +6,7 @@ import {Alert, Button, Form, Input} from 'antd'
 import s from './SetPassword.css'
 import formMessages from '../../formMessages'
 import messages from './messages'
+import {FloatingLabel} from '../../components';
 
 class SetPassword extends React.Component {
   componentWillUnmount() {
@@ -43,7 +44,7 @@ class SetPassword extends React.Component {
                 {required: true, message: intl.formatMessage(formMessages.required)},
               ],
             })(
-              <Input
+              <FloatingLabel
                 type='password'
                 placeholder={intl.formatMessage(messages.password)}
               />

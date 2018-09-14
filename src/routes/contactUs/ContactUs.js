@@ -7,6 +7,8 @@ import {Form, Row, Col, Input, Button} from 'antd'
 import PlusIcon from '../../static/plus.svg'
 import messages from './messages'
 import {sendEnquiries} from '../../reducers/contactUs'
+import {FloatingLabel} from '../../components';
+
 const {TextArea} = Input;
 
 class ContactUs extends React.Component {
@@ -60,14 +62,14 @@ class ContactUs extends React.Component {
           <Form onSubmit={this.handleSubmit} className={s.formContainer}>
             <Row gutter={40} type='flex'>
               <Col md={12}>
-                <Input
+                <FloatingLabel
                   className={s.contactInput}
                   value={this.state.name}
                   placeholder={intl.formatMessage(messages.nameInput)}
                   onChange={(e) => this.handleChangeInput('name', e)}
                   required
                 />
-                <Input
+                <FloatingLabel
                   className={s.contactInput}
                   value={this.state.email}
                   placeholder={intl.formatMessage(messages.emailInput)}
@@ -77,14 +79,14 @@ class ContactUs extends React.Component {
                 />
               </Col>
               <Col md={12}>
-                <Input
+                <FloatingLabel
                   className={s.contactInput}
                   value={this.state.phone}
                   placeholder={intl.formatMessage(messages.phoneInput)}
                   onChange={(e) => this.handleChangeInput('phone', e)}
                   type='tel'
                 />
-                <Input
+                <FloatingLabel
                   className={s.contactInput}
                   value={this.state.subject}
                   placeholder={intl.formatMessage(messages.subjectInput)}
@@ -103,7 +105,7 @@ class ContactUs extends React.Component {
                   required
                 />
                 <label className={s.attachBtn}>
-                  <input type='file' onChange={this.addAttachment}/>
+                  <FloatingLabel type='file' onChange={this.addAttachment}/>
                   <PlusIcon/>
                   {intl.formatMessage(messages.attachmentButton)}
                 </label>

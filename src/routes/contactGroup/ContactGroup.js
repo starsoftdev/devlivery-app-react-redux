@@ -16,6 +16,7 @@ import {
 import PlusIcon from '../../static/plus.svg'
 import formMessages from '../../formMessages'
 import {removeContactGroup} from '../../reducers/contactGroups'
+import {FloatingLabel} from '../../components';
 
 class ContactGroup extends React.Component {
   componentWillUnmount() {
@@ -74,7 +75,7 @@ class ContactGroup extends React.Component {
                 {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
               ],
             })(
-              <Input
+              <FloatingLabel
                 className={s.groupName}
                 placeholder={intl.formatMessage(messages.groupName)}
               />

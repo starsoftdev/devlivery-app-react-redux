@@ -6,6 +6,7 @@ import formMessages from '../../formMessages'
 import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
 import {updatePassword} from '../../reducers/user'
+import {FloatingLabel} from '../../components';
 
 class ChangePasswordForm extends React.Component {
   state = {
@@ -59,7 +60,7 @@ class ChangePasswordForm extends React.Component {
                   {required: true, message: intl.formatMessage(formMessages.required)},
                 ],
               })(
-                <Input placeholder={'Old Password'} type='password'/>
+                <FloatingLabel placeholder={'Old Password'} type='password'/>
               )}
             </Form.Item>
           </Col>
@@ -71,7 +72,7 @@ class ChangePasswordForm extends React.Component {
                   {validator: this.validateToNextPassword},
                 ],
               })(
-                <Input placeholder={'New Password'} type='password'/>
+                <FloatingLabel placeholder={'New Password'} type='password'/>
               )}
             </Form.Item>
           </Col>
@@ -83,7 +84,7 @@ class ChangePasswordForm extends React.Component {
               {validator: this.compareToFirstPassword},
             ],
           })(
-            <Input type='password' placeholder={'Password Confirmation'} onBlur={this.handleConfirmBlur}/>
+            <FloatingLabel type='password' placeholder={'Password Confirmation'} onBlur={this.handleConfirmBlur}/>
           )}
         </Form.Item>
         <Form.Item>

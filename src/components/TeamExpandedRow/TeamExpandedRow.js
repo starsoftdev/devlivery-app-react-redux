@@ -5,6 +5,7 @@ import {addBudget, reduceAmountBudget, addAmountBudget, deleteBudget, updateTeam
 import {connect} from 'react-redux'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './TeamExpandedRow.css'
+import {FloatingLabel} from '../../components';
 
 class TeamExpandedRow extends React.Component {
   constructor(props) {
@@ -79,7 +80,7 @@ class TeamExpandedRow extends React.Component {
             </Select>
           </div>
           {!record.budget && <div className={s.leftInputRow}>
-            <Input
+            <FloatingLabel
               className={s.amountInput}
               onChange={this.budgetInput}
               value={this.state.budget}
@@ -98,7 +99,7 @@ class TeamExpandedRow extends React.Component {
           {record.budget &&
           <React.Fragment>
             <div className={s.leftInputRow}>
-              <Input
+              <FloatingLabel
                 className={s.amountInput}
                 onChange={this.addAmountInput}
                 value={this.state.amountAdd}
@@ -113,7 +114,7 @@ class TeamExpandedRow extends React.Component {
               </Button>
             </div>
             <div className={s.leftInputRow}>
-              <Input
+              <FloatingLabel
                 className={s.amountInput}
                 onChange={this.reduceAmountInput}
                 type='text'

@@ -4,6 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './About.css'
 import {Button, Col, Input, Row} from 'antd'
 import messages from './messages'
+import {FloatingLabel} from '../../components';
 
 class About extends React.Component {
   render() {
@@ -66,7 +67,7 @@ class About extends React.Component {
             {intl.formatMessage(messages.signUp)}
           </h3>
           <div className={s.signUpInputWrapper}>
-            <Input type='text' placeholder={intl.formatMessage(messages.email)} className={s.signUpInput}/>
+            <FloatingLabel type='text' placeholder={intl.formatMessage(messages.email)} className={s.signUpInput}/>
             <Button type='primary' className={s.signUpBtn}>{intl.formatMessage(messages.submit)}</Button>
           </div>
         </section>

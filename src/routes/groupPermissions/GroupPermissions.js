@@ -8,6 +8,7 @@ import messages from './messages'
 import {TablePermission} from '../../components'
 import {getTeamRole, getPermissions, changeNewRoleGroup, addGroup, removeGroup, setPermissions} from '../../reducers/permissions'
 import PlusIcon from '../../static/plus.svg'
+import {FloatingLabel} from '../../components';
 
 class GroupPermissions extends React.Component {
 
@@ -27,7 +28,7 @@ class GroupPermissions extends React.Component {
           <div className={s.titleWrapper}>
             <h1 className={s.header}>{intl.formatMessage(messages.header)}</h1>
             <div className={s.newGroupNameWrapper}>
-              <Input
+              <FloatingLabel
                 className={s.newGroupName}
                 placeholder={intl.formatMessage(messages.groupName)}
                 value={newRoleGroup}
