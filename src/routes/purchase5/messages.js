@@ -15,7 +15,7 @@ export default defineMessages({
   },
   submit: {
     id: 'purchase5.submit',
-    defaultMessage: 'Submit',
+    defaultMessage: 'Next',
   },
   preview: {
     id: 'purchase5.preview',

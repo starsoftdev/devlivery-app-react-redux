@@ -11,7 +11,7 @@ export default defineMessages({
   },
   submit: {
     id: 'purchase6.submit',
-    defaultMessage: 'Submit',
+    defaultMessage: 'Next',
   },
   recipient: {
     id: 'purchase6.recipient',
