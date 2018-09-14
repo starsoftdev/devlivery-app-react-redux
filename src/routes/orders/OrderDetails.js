@@ -120,31 +120,42 @@ class OrderDetails extends React.Component {
         }
       },
     ]
+    var key = 0;
     var dataSource = orderDetails ? [
       {
         ...orderDetails.items.card,
-        productType: CARD_TYPE
+        productType: CARD_TYPE,
+        key
       },
-      ...orderDetails.items.gifts.map(item => ({
-        ...item.gift,
-        quantity: item.quantity,
-        productType: GIFT_TYPE
-      })),
+      ...orderDetails.items.gifts.map(item => {
+        key++;
+        return {
+          ...item.gift,
+          quantity: item.quantity,
+          productType: GIFT_TYPE,
+          key
+        }
+    }),
     ] : [];
+    key++;
     if(orderDetails && orderDetails.donation && orderDetails.donation.organization)
     {
       dataSource.push({
         ...orderDetails.donation.organization,
         productType: DONATION_TYPE,
-        amount:orderDetails.donation.amount
+        amount:orderDetails.donation.amount,
+        key
       });
+      key++;
     }
     if(orderDetails && orderDetails.voucher)
     {
       dataSource.push({
         ...orderDetails.voucher,
         productType: VOUCHER_TYPE,
+        key
       });
+      key++;
     }
     // TODO add shipping price/info
     return (
@@ -167,7 +178,7 @@ class OrderDetails extends React.Component {
                 <Table
                   columns={columns}
                   dataSource={dataSource}
-                  rowKey={record => record.id}
+                  rowKey={record => record.key}
                   pagination={false}
                 />
               </Col>
