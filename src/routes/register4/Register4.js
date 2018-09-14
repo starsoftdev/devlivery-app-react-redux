@@ -10,6 +10,7 @@ import {invitePeople} from '../../reducers/register'
 import messages from './messages'
 import {Actions, Link, SectionHeader} from '../../components'
 import {ORDERS_ROUTE} from '../'
+import {FloatingLabel} from '../../components';
 
 class Register4 extends React.Component {
   uuid = 1
@@ -60,7 +61,7 @@ class Register4 extends React.Component {
                     {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
                   ],
                 })(
-                  <Input placeholder={intl.formatMessage(messages.email)}/>
+                  <FloatingLabel placeholder={intl.formatMessage(messages.email)}/>
                 )}
               </Form.Item>
               <Form.Item>

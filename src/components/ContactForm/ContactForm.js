@@ -10,6 +10,7 @@ import {injectIntl} from 'react-intl'
 import Reminders from './Reminders'
 import Groups from './Groups'
 import moment from 'moment'
+import {FloatingLabel} from '../../components';
 
 const SALUTATIONS = ['Mr.', 'Ms.', 'Dr.','Family']
 
@@ -117,7 +118,7 @@ class ContactForm extends React.Component {
                   {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                 ],
               })(
-                <Input placeholder={intl.formatMessage(messages.firstName)+ " *"}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.firstName)+ " *"}/>
               )}
             </Form.Item>
           </Col>
@@ -129,7 +130,7 @@ class ContactForm extends React.Component {
                   {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                 ],
               })(
-                <Input placeholder={intl.formatMessage(messages.lastName)+ " *"}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.lastName)+ " *"}/>
               )}
             </Form.Item>
           </Col>
@@ -141,7 +142,7 @@ class ContactForm extends React.Component {
               {required: true, message: intl.formatMessage(formMessages.required)},
             ],
           })(
-            <Input placeholder={intl.formatMessage(messages.email)+ " *"}/>
+            <FloatingLabel placeholder={intl.formatMessage(messages.email)+ " *"}/>
           )}
         </Form.Item>
         <Form.Item>
@@ -151,14 +152,14 @@ class ContactForm extends React.Component {
               {required: true, message: intl.formatMessage(formMessages.required)},
             ],
           })(
-            <Input placeholder={intl.formatMessage(messages.phone)+ " *"}/>
+            <FloatingLabel placeholder={intl.formatMessage(messages.phone)+ " *"}/>
           )}
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('contact.nickname', {
             initialValue: initialValues && initialValues.nickname,
           })(
-            <Input placeholder={intl.formatMessage(messages.nickname)}/>
+            <FloatingLabel placeholder={intl.formatMessage(messages.nickname)}/>
           )}
         </Form.Item>
         <Form.Item>

@@ -16,6 +16,8 @@ import * as Contants from '../../constants';
 import { injectGlobal } from 'styled-components';
 import PlusIcon from '../../static/plus.svg'
 import RemoveIcon from '../../static/remove.svg'
+import {FloatingLabel} from '../../components';
+
 injectGlobal`
   .mce-notification-warning{
     display: none !important;
@@ -355,7 +357,7 @@ class Purchase11 extends React.Component {
                         {required: this.state.checkSave === 1 ? true : false, min: this.state.checkSave === 1 ? 5:0, message: intl.formatMessage(formMessages.minLength, {length: 5})},
                       ],
                     })(
-                      <Input placeholder={'Bundle Name *'}/>
+                      <FloatingLabel placeholder={'Bundle Name *'}/>
                     )}
                   </Form.Item>
                 }

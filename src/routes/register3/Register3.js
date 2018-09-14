@@ -8,6 +8,7 @@ import formMessages from '../../formMessages'
 import {addTeam} from '../../reducers/register'
 import messages from './messages'
 import {Actions, SectionHeader} from '../../components'
+import {FloatingLabel} from '../../components';
 
 class Register3 extends React.Component {
   handleSubmit = (e) => {
@@ -37,7 +38,7 @@ class Register3 extends React.Component {
                 {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
               ],
             })(
-              <Input placeholder={intl.formatMessage(messages.name)}/>
+              <FloatingLabel placeholder={intl.formatMessage(messages.name)}/>
             )}
           </Form.Item>
           <Form.Item>

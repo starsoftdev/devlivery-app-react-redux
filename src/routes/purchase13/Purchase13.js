@@ -17,6 +17,7 @@ import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import ReactCreditCard from 'react-credit-cards'
 import creditCardStyles from 'react-credit-cards/es/styles-compiled.css'
 import messages from './messages'
+import {FloatingLabel} from '../../components';
 
 // TODO add validation for cards 'payment' library
 class Purchase13 extends React.Component {
@@ -145,7 +146,7 @@ class Purchase13 extends React.Component {
                 >
                   {getFieldDecorator('number', {
                   })(
-                    <Input
+                    <FloatingLabel
                       placeholder={intl.formatMessage(messages.number)}
                       onChange={(e) => this.handleInputChange(e, 'number')}
                       onFocus={(e) => this.handleInputFocus(e, 'number')}
@@ -156,7 +157,7 @@ class Purchase13 extends React.Component {
                 <Form.Item>
                   {getFieldDecorator('name', {
                   })(
-                    <Input
+                    <FloatingLabel
                       placeholder={intl.formatMessage(messages.name)}
                       onChange={(e) => this.handleInputChange(e, 'name')}
                       onFocus={(e) => this.handleInputFocus(e, 'name')}
@@ -170,7 +171,7 @@ class Purchase13 extends React.Component {
                     >
                       {getFieldDecorator('expiry', {
                       })(
-                        <Input
+                        <FloatingLabel
                           placeholder={intl.formatMessage(messages.expiry)}
                           onChange={(e) => this.handleInputChange(e, 'expiry')}
                           onFocus={(e) => this.handleInputFocus(e, 'expiry')}
@@ -185,7 +186,7 @@ class Purchase13 extends React.Component {
                     >
                       {getFieldDecorator('cvc', {
                       })(
-                        <Input
+                        <FloatingLabel
                           placeholder={intl.formatMessage(messages.cvc)}
                           onChange={(e) => this.handleInputChange(e, 'cvc')}
                           onFocus={(e) => this.handleInputFocus(e, 'cvc')}

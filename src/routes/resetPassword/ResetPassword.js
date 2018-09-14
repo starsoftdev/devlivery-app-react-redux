@@ -6,6 +6,7 @@ import {Alert, Button, Form, Input} from 'antd'
 import s from './ResetPassword.css'
 import formMessages from '../../formMessages'
 import messages from './messages'
+import {FloatingLabel} from '../../components';
 
 class ResetPassword extends React.Component {
   componentWillUnmount() {
@@ -52,7 +53,7 @@ class ResetPassword extends React.Component {
                 {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
               ],
             })(
-              <Input placeholder={intl.formatMessage(messages.email)}/>
+              <FloatingLabel placeholder={intl.formatMessage(messages.email)}/>
             )}
           </Form.Item>
         </div>

@@ -9,6 +9,7 @@ import {register} from '../../reducers/register'
 import messages from './messages'
 import {DATE_FORMAT, DISPLAYED_DATE_FORMAT} from '../../constants'
 import {Actions, SectionHeader} from '../../components'
+import {FloatingLabel} from '../../components';
 
 class Register2 extends React.Component {
   handleSubmit = (e) => {
@@ -41,7 +42,7 @@ class Register2 extends React.Component {
                       {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                     ],
                   })(
-                    <Input placeholder={intl.formatMessage(messages.firstName)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.firstName)}/>
                   )}
                 </Form.Item>
               </Col>
@@ -53,7 +54,7 @@ class Register2 extends React.Component {
                       {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                     ],
                   })(
-                    <Input placeholder={intl.formatMessage(messages.lastName)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.lastName)}/>
                   )}
                 </Form.Item>
               </Col>
@@ -66,7 +67,7 @@ class Register2 extends React.Component {
                   {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
                 ],
               })(
-                <Input placeholder={intl.formatMessage(messages.email)}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.email)}/>
               )}
             </Form.Item>
             <Form.Item>
@@ -76,7 +77,7 @@ class Register2 extends React.Component {
                   {required: true, message: intl.formatMessage(formMessages.required)},
                 ],
               })(
-                <Input placeholder={intl.formatMessage(messages.phone)}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.phone)}/>
               )}
             </Form.Item>
             <Form.Item>
@@ -85,7 +86,7 @@ class Register2 extends React.Component {
                   {required: true, message: intl.formatMessage(formMessages.required)},
                 ],
               })(
-                <Input type='password' placeholder={intl.formatMessage(messages.password)}/>
+                <FloatingLabel type='password' placeholder={intl.formatMessage(messages.password)}/>
               )}
             </Form.Item>
           </section>
@@ -111,7 +112,7 @@ class Register2 extends React.Component {
                   {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                 ],
               })(
-                <Input placeholder={intl.formatMessage(messages.company)}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.company)}/>
               )}
             </Form.Item>
             <Form.Item>
@@ -121,7 +122,7 @@ class Register2 extends React.Component {
                   {required: false, message: intl.formatMessage(formMessages.required), whitespace: true},
                 ],
               })(
-                <Input placeholder={intl.formatMessage(messages.address)}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.address)}/>
               )}
             </Form.Item>
             <Row gutter={20}>
@@ -133,7 +134,7 @@ class Register2 extends React.Component {
                       {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                     ],
                   })(
-                    <Input placeholder={intl.formatMessage(messages.city)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.city)}/>
                   )}
                 </Form.Item>
               </Col>
@@ -147,7 +148,7 @@ class Register2 extends React.Component {
                       {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                     ],
                   })(
-                    <Input placeholder={intl.formatMessage(messages.postalCode)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.postalCode)}/>
                   )}
                 </Form.Item>
               </Col>
@@ -159,7 +160,7 @@ class Register2 extends React.Component {
                       {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                     ],
                   })(
-                    <Input placeholder={intl.formatMessage(messages.country)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.country)}/>
                   )}
                 </Form.Item>
               </Col>

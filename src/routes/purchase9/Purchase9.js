@@ -9,6 +9,7 @@ import formMessages from '../../formMessages'
 import {INDIVIDUAL_ACCOUNT, TEAM_ACCOUNT} from '../../reducers/register'
 import {register} from '../../reducers/purchase'
 import messages from './messages'
+import {FloatingLabel} from '../../components';
 
 class Purchase9 extends React.Component {
   state = {
@@ -81,7 +82,7 @@ class Purchase9 extends React.Component {
                 {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
               ],
             })(
-              <Input placeholder={intl.formatMessage(messages.email)}/>
+              <FloatingLabel placeholder={intl.formatMessage(messages.email)}/>
             )}
           </Form.Item>
           <Form.Item>
@@ -90,7 +91,7 @@ class Purchase9 extends React.Component {
                 {required: true, message: intl.formatMessage(formMessages.required)},
               ],
             })(
-              <Input placeholder={intl.formatMessage(messages.phone)}/>
+              <FloatingLabel placeholder={intl.formatMessage(messages.phone)}/>
             )}
           </Form.Item>
           <Row gutter={20}>
@@ -102,7 +103,7 @@ class Purchase9 extends React.Component {
                     {validator: this.validateToNextPassword},
                   ],
                 })(
-                  <Input type='password' placeholder={intl.formatMessage(messages.password)}/>
+                  <FloatingLabel type='password' placeholder={intl.formatMessage(messages.password)}/>
                 )}
               </Form.Item>
             </Col>
@@ -114,7 +115,7 @@ class Purchase9 extends React.Component {
                     {validator: this.compareToFirstPassword},
                   ],
                 })(
-                  <Input type='password' placeholder={intl.formatMessage(messages.passwordAgain)} onBlur={this.handleConfirmBlur}/>
+                  <FloatingLabel type='password' placeholder={intl.formatMessage(messages.passwordAgain)} onBlur={this.handleConfirmBlur}/>
                 )}
               </Form.Item>
             </Col>
@@ -127,7 +128,7 @@ class Purchase9 extends React.Component {
                     {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                   ],
                 })(
-                  <Input placeholder={intl.formatMessage(messages.firstName)}/>
+                  <FloatingLabel placeholder={intl.formatMessage(messages.firstName)}/>
                 )}
               </Form.Item>
             </Col>
@@ -138,7 +139,7 @@ class Purchase9 extends React.Component {
                     {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                   ],
                 })(
-                  <Input placeholder={intl.formatMessage(messages.lastName)}/>
+                  <FloatingLabel placeholder={intl.formatMessage(messages.lastName)}/>
                 )}
               </Form.Item>
             </Col>
@@ -151,7 +152,7 @@ class Purchase9 extends React.Component {
                   {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                 ],
               })(
-                <Input placeholder={intl.formatMessage(messages.company)}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.company)}/>
               )}
             </Form.Item>
             <Form.Item>
@@ -160,7 +161,7 @@ class Purchase9 extends React.Component {
                   {required: false, message: intl.formatMessage(formMessages.required), whitespace: true},
                 ],
               })(
-                <Input placeholder={intl.formatMessage(messages.address)}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.address)}/>
               )}
             </Form.Item>
             <Row gutter={20}>
@@ -171,7 +172,7 @@ class Purchase9 extends React.Component {
                       {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                     ],
                   })(
-                    <Input placeholder={intl.formatMessage(messages.city)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.city)}/>
                   )}
                 </Form.Item>
               </Col>
@@ -184,7 +185,7 @@ class Purchase9 extends React.Component {
                       {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                     ],
                   })(
-                    <Input placeholder={intl.formatMessage(messages.postalCode)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.postalCode)}/>
                   )}
                 </Form.Item>
               </Col>
@@ -195,7 +196,7 @@ class Purchase9 extends React.Component {
                       {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                     ],
                   })(
-                    <Input placeholder={intl.formatMessage(messages.country)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.country)}/>
                   )}
                 </Form.Item>
               </Col>

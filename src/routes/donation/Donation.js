@@ -9,6 +9,7 @@ import {ALPHABET} from '../../constants'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
 import formMessages from '../../formMessages'
+import {FloatingLabel} from '../../components';
 
 class Donation extends React.Component {
   handleSubmit = (e) => {
@@ -62,7 +63,7 @@ class Donation extends React.Component {
                   {required: true, message: intl.formatMessage(formMessages.required)},
                 ],
               })(
-                <Input placeholder={intl.formatMessage(messages.amount)} className={s.amount}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.amount)} className={s.amount}/>
               )}
             </Form.Item>
             <Form.Item>

@@ -4,6 +4,7 @@ import {injectIntl} from 'react-intl'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './AvatarEditModal.css'
 import {Button, Input, Upload, message} from 'antd'
+import {FloatingLabel} from '../../components';
 
 class AvatarEditModal extends React.Component {
   constructor(props) {
@@ -64,7 +65,7 @@ class AvatarEditModal extends React.Component {
         />
         <div className={s.modalContainer}>
           <span>zoom</span>
-          <Input name='zoom' type='range' min='0.1' max='2' step='0.1' onChange={this.setZoom}/>
+          <FloatingLabel name='zoom' type='range' min='0.1' max='2' step='0.1' onChange={this.setZoom}/>
         </div>
         <div className={s.modalContainer}>
           <Upload
