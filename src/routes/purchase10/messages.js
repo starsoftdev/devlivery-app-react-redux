@@ -11,7 +11,7 @@ export default defineMessages({
   },
   submit: {
     id: 'purchase10.submit',
-    defaultMessage: 'Submit',
+    defaultMessage: 'Next',
   },
   addContactManually: {
     id: 'purchase10.addContactManually',

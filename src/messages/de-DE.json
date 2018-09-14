@@ -1754,8 +1754,8 @@
   },
   {
     "id": "purchase5.submit",
-    "defaultMessage": "Submit",
-    "message": "weiter",
+    "defaultMessage": "Next",
+    "message": "Nächster",
     "files": [
       "src/routes/purchase5/messages.js",
       "src/routes/purchase8/messages.js"
@@ -1763,8 +1763,8 @@
   },
   {
     "id": "purchase6.submit",
-    "defaultMessage": "Submit",
-    "message": "weiter",
+    "defaultMessage": "Next",
+    "message": "Nächster",
     "files": [
       "src/routes/purchase6/messages.js"
     ]
@@ -2096,8 +2096,8 @@
   },
   {
     "id": "purchase10.submit",
-    "defaultMessage": "Submit",
-    "message": "Submit",
+    "defaultMessage": "Next",
+    "message": "Nächster",
     "files": [
       "src/routes/purchase10/messages.js"
     ]
@@ -3297,8 +3297,8 @@
   },
   {
     "id": "voucher.submit",
-    "defaultMessage": "Submit",
-    "message": "Submit",
+    "defaultMessage": "Next",
+    "message": "Nächster",
     "files": [
       "src/routes/voucher/messages.js"
     ]
