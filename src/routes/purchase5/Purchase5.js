@@ -66,10 +66,12 @@ class Purchase5 extends React.Component {
                         item={item}
                         imagesProp={CARD_IMAGES_PROP}
                         title={
-                          <span className={s.price}>
-                            {item.price}
-                            <span className={s.currency}>{item.currency}</span>
-                          </span>
+                          <React.Fragment>
+                            
+                            <span className={s.price}>
+                              {item.title}
+                            </span>
+                          </React.Fragment>
                         }
                         bordered={false}
                         description={item.description}
