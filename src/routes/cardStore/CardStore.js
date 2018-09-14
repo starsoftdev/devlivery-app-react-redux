@@ -193,7 +193,7 @@ class CardStore extends React.Component {
                     </div>
                   )}
                 >
-                  {cardDetails.images.map((image, i) => image.url ? (
+                  {[...cardDetails.front_image,...cardDetails.images].map((image, i) => image.url ? (
                     <div key={i}>
                       <div style={{backgroundImage: `url(${image.url})`}} className={s.previewImage}/>
                     </div>
