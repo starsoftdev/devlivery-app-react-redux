@@ -104,7 +104,7 @@ class Purchase11 extends React.Component {
       this.state.selDate = null;
       this.props.form.setFieldsValue({
         schedule_date: null,
-      }, () => console.log('after'));
+      }, () => console.log(''));
     }
   }
   onCheckSaved = (e) => {

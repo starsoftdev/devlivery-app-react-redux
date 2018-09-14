@@ -43,7 +43,6 @@ export const getTeam = (params = {}) => (dispatch, getState, {fetch}) => {
     method: 'GET',
     token,
     success: (res) => {
-      console.log("/teams",res);
       dispatch({type: GET_TEAM_SUCCESS, res})
     },
     failure: (err) => {
@@ -55,10 +54,6 @@ export const getTeam = (params = {}) => (dispatch, getState, {fetch}) => {
 export const addBudget = (member_id, budget) => (dispatch, getState, {fetch}) => {
   dispatch({type: ADD_NEW_BUDGET_REQUEST})
   const {token} = dispatch(getToken())
-  console.log(`/budgets/add`,{
-    member_id,
-    budget,
-  });
   return fetch(`/budgets/add`, {
     method: 'POST',
     contentType: 'multipart/form-data',
@@ -68,12 +63,10 @@ export const addBudget = (member_id, budget) => (dispatch, getState, {fetch}) =>
       budget,
     },
     success: (res) => {
-      console.log("res",res);
       dispatch({type: ADD_NEW_BUDGET_SUCCESS})
       dispatch(getTeam())
     },
     failure: (err) =>{
-      console.log("err",err);
       dispatch({type: ADD_NEW_BUDGET_FAILURE})
     },
   })
@@ -127,12 +120,10 @@ export const updateTeamMemberRole = (id, roles) => (dispatch, getState, {fetch})
       role_id: roles,
     },
     success: (res) => {
-      console.log("assgin res",res);
       dispatch({type: EDIT_TEAM_MEMBER_ROLE_SUCCESS})
       dispatch(getTeam())
     },
     failure: (err) => {
-      console.log("assgin err",err);
       dispatch({type: EDIT_TEAM_MEMBER_ROLE_FAILURE})
     },
   })
