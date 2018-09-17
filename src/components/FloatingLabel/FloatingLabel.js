@@ -18,7 +18,12 @@ export default class FloatingLabel extends React.Component {
     super(props)
     this.state = {hasValue: false, hasError: false};
   }
-
+  componentWillReceiveProps(nexprops){
+    if(nexprops && nexprops.value)
+    {
+      this.setState({hasValue: true});
+    }
+  }
   onBlur(event) {
     this.setState({hasValue: Boolean(event.currentTarget.value)});
     this.props.onBlur && this.props.onBlur(event);
@@ -34,7 +39,7 @@ export default class FloatingLabel extends React.Component {
   }
 
   render () {
-    const {autoComplete, errorMsg, id, isDisabled, pattern, placeholder, type, value} = this.props;
+    const {autoComplete, errorMsg, id, isDisabled, pattern, placeholder, type, value, defaultValue} = this.props;
     const {hasValue, hasError} = this.state;
     const inputClasses = classNames('fl-input', {'fl-valid': hasValue && !hasError}, {'fl-invalid': hasValue && hasError});
     
@@ -47,6 +52,8 @@ export default class FloatingLabel extends React.Component {
           onBlur={this.onBlur.bind(this)}
           onChange={this.props.onChange}
           onFocus = {this.props.onFocus}
+          defaultValue = {defaultValue}
+          value = {value}
           type={type}/>
         <label className='fl-input-label' htmlFor={id}>{placeholder}</label>
         <span className='fl-input-bar'></span>
