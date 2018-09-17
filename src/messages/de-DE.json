@@ -3090,7 +3090,7 @@
   {
     "id": "purchase11.submit",
     "defaultMessage": "Proceed to checkout",
-    "message": "Proceed to checkout",
+    "message": "Bestellung abschliessen",
     "files": [
       "src/routes/purchase11/messages.js"
     ]
