@@ -61,6 +61,7 @@ class Register2 extends React.Component {
             </Row>
             <Form.Item>
               {getFieldDecorator('email', {
+                validateTrigger: 'onSubmit',//'onBlur'
                 initialValue: individualDetails && individualDetails.email,
                 rules: [
                   {required: true, message: intl.formatMessage(formMessages.required)},

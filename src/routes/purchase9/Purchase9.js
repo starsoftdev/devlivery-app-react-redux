@@ -77,6 +77,7 @@ class Purchase9 extends React.Component {
           </Form.Item>
           <Form.Item>
             {getFieldDecorator('email', {
+              validateTrigger: 'onSubmit',//'onBlur'
               rules: [
                 {required: true, message: intl.formatMessage(formMessages.required)},
                 {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
