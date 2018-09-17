@@ -241,7 +241,7 @@
     -webkit-order: 2;
     border: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-    color: #000;
+    color: #var(--input-color);
     flex: 1 1 auto;
     order: 2;
   }
