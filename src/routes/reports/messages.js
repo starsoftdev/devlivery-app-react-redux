@@ -7,7 +7,7 @@ export default defineMessages({
   },
   header: {
     id: 'reports.header',
-    defaultMessage: 'Schedule',
+    defaultMessage: 'Scheduled',
   },
   breadcrumb: {
     id: 'reports.breadcrumb',

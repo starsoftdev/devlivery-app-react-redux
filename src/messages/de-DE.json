@@ -1509,7 +1509,7 @@
   },
   {
     "id": "reports.header",
-    "defaultMessage": "Schedule",
+    "defaultMessage": "Scheduled",
     "message": "Kalender",
     "files": [
       "src/routes/reports/messages.js"
