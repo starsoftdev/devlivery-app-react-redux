@@ -169,7 +169,7 @@ class Home extends React.Component {
             {intl.formatMessage(messages.signUp)}
           </h3>
           <div className={s.signUpInputWrapper}>
-            <FloatingLabel type='text' placeholder={intl.formatMessage(messages.email)} className={s.signUpInput}/>
+            <Input type='text' placeholder={intl.formatMessage(messages.email)} className={s.signUpInput}/>
             <Button type='primary' className={s.signUpBtn}>{intl.formatMessage(messages.submit)}</Button>
           </div>
         </section>
