@@ -183,7 +183,7 @@ class Template extends React.Component {
     return (
       <Select
         style={{width: '100%', marginBottom: 20, position: 'absolute', top: 0}}
-        placeholder={'Recipient name'}
+        placeholder={'Recipient details'}
         onSelect={this.addTemplate}
       >
         {templates && templates.map((item) =>
