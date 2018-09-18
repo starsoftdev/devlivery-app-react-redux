@@ -81,7 +81,7 @@ class Purchase11 extends React.Component {
       const {user} = this.props;
       const address = user && user.addresses && user.addresses.find(item => item.default !== null)
       
-      this.setState({selectedLocation:value, contact:{...address,...user}});
+      this.setState({selectedLocation:value, contact:{...address,...user, title:' '}});
       return ;
     }
     else if(order && order.recipients && order.recipients[currentRecipient])
