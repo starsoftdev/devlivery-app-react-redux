@@ -8,7 +8,7 @@ import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
 import {injectIntl} from 'react-intl'
 import {importContacts, openUploadedContactsModal} from '../../reducers/contacts'
-import {nextFlowStep} from '../../reducers/purchase'
+import {nextFlowStep,GROUP_ID_KEY, CONTACT_IDS_KEY} from '../../reducers/purchase'
 
 class ColumnsMapping extends React.Component {
   componentDidMount() {
@@ -22,10 +22,12 @@ class ColumnsMapping extends React.Component {
     this.columnsMappingForm.validateFields((err, values) => {
       if (!err) {
         this.props.importContacts(values, (newrecipient) =>{
+          localStorage.removeItem(GROUP_ID_KEY)
+          localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(newrecipient))
           if(newrecipient)
             this.props.nextFlowStep();
           else this.props.refreshPage();
-        } )
+        })
         return true;
       }
       return false;

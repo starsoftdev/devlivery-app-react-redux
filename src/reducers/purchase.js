@@ -318,7 +318,22 @@ export const addRecipientsOrder = (orderId) => (dispatch, getState, { fetch }) =
     return
   }
   localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(newrecipient));
-
+  return fetch(`/order/${orderId}/update-recipients`, {
+    method: 'POST',
+    contentType: 'application/json',
+    token,
+    body: {
+      contacts: newrecipient,
+    },
+    success: (res) => {
+      dispatch(getOrderDetails(orderId));
+      //dispatch({type: ADD_RECIPIENTS_SUCCESS})
+    },
+    failure: (err) => {
+      //dispatch({type: ADD_RECIPIENTS_FAILURE})
+    }
+  })
+  /*
   return fetch(`/order-recipients`, {
     method: 'POST',
     contentType: 'application/json',
@@ -335,6 +350,7 @@ export const addRecipientsOrder = (orderId) => (dispatch, getState, { fetch }) =
       //dispatch({type: ADD_RECIPIENTS_FAILURE})
     }
   })
+  */
 }
 export const removeRecipientsOrder = (repId) => (dispatch, getState, { fetch }) => {
   //dispatch({type: ADD_RECIPIENTS_REQUEST})
