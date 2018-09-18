@@ -209,6 +209,15 @@ class Purchase11 extends React.Component {
           </Row>
           <Row type='flex' align='center' gutter={20} className={s.totalSection}>
             <Col xs={12}>
+              <h2 className={s.subtotalHeader}>{'Tax'}</h2>
+            </Col>
+            <Col xs={12}>
+              <span className={s.subtotalValue}>{(order.total-order.subtotal).toFixed(2)}</span>
+              <span className={s.subtotalCurrency}>{'CHF'}</span>
+            </Col>
+          </Row>
+          <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+            <Col xs={12}>
               <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.total)}</h2>
             </Col>
             <Col xs={12}>
