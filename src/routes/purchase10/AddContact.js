@@ -4,7 +4,7 @@ import {Button, Form} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './AddContact.css'
 import {ContactForm, PurchaseActions, SectionHeader} from '../../components'
-import {nextFlowStep} from '../../reducers/purchase'
+import {nextFlowStep,GROUP_ID_KEY,CONTACT_IDS_KEY} from '../../reducers/purchase'
 import {addContact, editContact,saveFields,getContact,setContact } from '../../reducers/contacts'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
@@ -68,7 +68,11 @@ class AddContact extends React.Component {
     {
       this.props.editContact(values, this.props.form,null, () => this.props.nextFlowStep())
     }
-    else this.props.addContact(values, this.props.form, () => this.props.nextFlowStep())
+    else this.props.addContact(values, this.props.form, (contact) => {
+      localStorage.removeItem(GROUP_ID_KEY)
+      localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify([contact.id]))
+      this.props.nextFlowStep()
+    })
   }
   render() {
     const {flowIndex, intl} = this.props

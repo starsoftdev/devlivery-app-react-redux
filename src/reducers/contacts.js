@@ -195,7 +195,7 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
     success: (res) => {
       dispatch({type: ADD_CONTACT_SUCCESS, res})
       if (form) form.resetFields()
-      if (callback) callback()
+      if (callback) callback(res.data)
       var newrecipient = [res.data.id];
       dispatch({type:SET_NEW_RECIPIENT,newrecipient})
     },
