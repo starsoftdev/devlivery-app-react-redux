@@ -56,14 +56,14 @@ class Donation extends React.Component {
             <div style={{textAlign: 'center'}}>{'No organizations.'}</div>
           ) : null}
           <Form>
-            <Form.Item>
+            <Form.Item className={s.amount}>
               {getFieldDecorator('donationAmount', {
                 initialValue: donationAmount,
                 rules: [
                   {required: true, message: intl.formatMessage(formMessages.required)},
                 ],
               })(
-                <FloatingLabel placeholder={intl.formatMessage(messages.amount)} className={s.amount}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.amount)}/>
               )}
             </Form.Item>
             <Form.Item>
