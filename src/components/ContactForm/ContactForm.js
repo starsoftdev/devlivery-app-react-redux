@@ -137,6 +137,7 @@ class ContactForm extends React.Component {
         </Row>
         <Form.Item>
           {getFieldDecorator('contact.email', {
+            validateTrigger: 'onSubmit',//'onBlur'
             initialValue: initialValues && initialValues.email,
             rules: [
               {required: true, message: intl.formatMessage(formMessages.required)},
