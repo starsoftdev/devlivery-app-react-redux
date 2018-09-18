@@ -346,7 +346,7 @@ export const importContacts = (columnsMapping, callback) => (dispatch, getState,
     .filter((contact, i) => selectedContacts.includes(i))
     .map(contact => {
       const {street, city, country, state, postal_code, ...otherFields} = mapValues(columnsMapping, (value) => contact[value])
-      const addresses = [{address: street, city, country, state, postal_code}]
+      const addresses = [{address: street, city, country, state, postal_code, title:'home'}]
       return {...otherFields, addresses}
     })
   
@@ -358,11 +358,17 @@ export const importContacts = (columnsMapping, callback) => (dispatch, getState,
     token,
     success: (res) => {
       dispatch({type: IMPORT_CONTACTS_SUCCESS})
-      var newrecipient = res.data.map(item => item.id);
+
+      var newrecipient = res.data
+      .map(item => item.id);
+
       dispatch({type:SET_NEW_RECIPIENT,newrecipient})
-      callback()
+      if(callback)
+        callback(newrecipient)
     },
     failure: (err) => {
+      if(callback)
+        callback(null);
       if(err.errors && err.errors.validation)
       {
         for (var key in err.errors.validation) {
