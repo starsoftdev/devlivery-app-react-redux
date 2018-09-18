@@ -61,16 +61,14 @@ class ContactUs extends React.Component {
           </div>
           <Form onSubmit={this.handleSubmit} className={s.formContainer}>
             <Row gutter={40} type='flex'>
-              <Col md={12}>
+              <Col md={12} className={s.contactInput}>
                 <FloatingLabel
-                  className={s.contactInput}
                   value={this.state.name}
                   placeholder={intl.formatMessage(messages.nameInput)}
                   onChange={(e) => this.handleChangeInput('name', e)}
                   required
                 />
                 <FloatingLabel
-                  className={s.contactInput}
                   value={this.state.email}
                   placeholder={intl.formatMessage(messages.emailInput)}
                   onChange={(e) => this.handleChangeInput('email', e)}
@@ -78,16 +76,14 @@ class ContactUs extends React.Component {
                   required
                 />
               </Col>
-              <Col md={12}>
+              <Col md={12} className={s.contactInput}>
                 <FloatingLabel
-                  className={s.contactInput}
                   value={this.state.phone}
                   placeholder={intl.formatMessage(messages.phoneInput)}
                   onChange={(e) => this.handleChangeInput('phone', e)}
                   type='tel'
                 />
                 <FloatingLabel
-                  className={s.contactInput}
                   value={this.state.subject}
                   placeholder={intl.formatMessage(messages.subjectInput)}
                   onChange={(e) => this.handleChangeInput('subject', e)}

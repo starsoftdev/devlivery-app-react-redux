@@ -68,7 +68,7 @@ class ContactGroup extends React.Component {
     return (
       <React.Fragment>
         <div className={s.container}>
-          <Form.Item>
+          <Form.Item className={s.groupName}>
             {getFieldDecorator(`title`, {
               initialValue: title,
               rules: [
@@ -76,7 +76,6 @@ class ContactGroup extends React.Component {
               ],
             })(
               <FloatingLabel
-                className={s.groupName}
                 placeholder={intl.formatMessage(messages.groupName)}
               />
             )}
