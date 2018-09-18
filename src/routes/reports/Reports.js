@@ -137,7 +137,7 @@ class Reports extends React.Component {
             <Col>
               <DatePicker
                 disabledDate={this.disabledEndDate}
-                format={DATE_FORMAT}
+                format={DISPLAYED_DATE_FORMAT}
                 value={endValue}
                 placeholder={'End date'}
                 onChange={this.onEndChange}
