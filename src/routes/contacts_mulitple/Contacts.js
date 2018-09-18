@@ -194,6 +194,7 @@ class Contacts extends React.Component {
           dataIndex: 'dob',
           key: 'dob',
         },
+        /*
         {
           title: intl.formatMessage(messages.actionsColumn),
           dataIndex: '',
@@ -217,6 +218,7 @@ class Contacts extends React.Component {
             )
           }
         },
+        */
       ];
     //Group
     else columns = [
