@@ -1716,7 +1716,7 @@
   },
   {
     "id": "reports.header",
-    "defaultMessage": "Schedule",
+    "defaultMessage": "Scheduled",
     "message": "",
     "files": [
       "src/routes/reports/messages.js"
