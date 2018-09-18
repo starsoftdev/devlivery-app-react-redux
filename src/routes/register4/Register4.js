@@ -56,6 +56,7 @@ class Register4 extends React.Component {
             <section key={k} className={s.person}>
               <Form.Item>
                 {getFieldDecorator(`people[${k}].email`, {
+                  validateTrigger: 'onSubmit',//'onBlur'
                   rules: [
                     {required: true, message: intl.formatMessage(formMessages.required)},
                     {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},

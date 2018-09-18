@@ -110,7 +110,7 @@ export const removeGroup = (id) => (dispatch, getState, {fetch}) => {
     token,
     success: () => {
       dispatch({type: DELETE_ROLE_GROUP_SUCCESS})
-      dispatch(getRole())
+      dispatch(getTeamRole())
     },
     failure: () => dispatch({type: DELETE_ROLE_GROUP_FAILURE}),
   })
