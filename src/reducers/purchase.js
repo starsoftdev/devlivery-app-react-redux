@@ -502,6 +502,7 @@ export const continueWithoutGift = () => async (dispatch, getState) => {
   dispatch(setGiftType(null))
   if (loggedIn && flow.key !== EDIT_BUNDLE_FLOW.key) {
     await dispatch(addBundle())
+    await dispatch({type:MAKE_ORDER_SUCCESS,order:null})
   }
   dispatch(nextFlowStep(1))
 }
@@ -510,6 +511,7 @@ export const submitGift = () => async (dispatch, getState) => {
   const {flow} = getState().purchase
   if (flow.key !== EDIT_BUNDLE_FLOW.key) {
     await dispatch(addBundle())
+    await dispatch({type:MAKE_ORDER_SUCCESS,order:null})
   }
   dispatch(nextFlowStep())
 }
@@ -1178,7 +1180,7 @@ export default createReducer(initialState, {
   }),
   [MAKE_ORDER_SUCCESS]: (state, {order}) => ({
     // orderId should be saved in cookies - order obj is too big
-    orderId: order.id,
+    orderId: order && order.id,
     order,
   }),
   [SET_DONATION_ORG]: (state, {donationOrg}) => ({
