@@ -39,7 +39,7 @@ export default class FloatingLabel extends React.Component {
   }
 
   render () {
-    const {autoComplete, errorMsg, id, isDisabled, pattern, placeholder, type, value, defaultValue} = this.props;
+    const {autoComplete, errorMsg, id, isDisabled, pattern, placeholder, type, value, defaultValue,maxLength} = this.props;
     const {hasValue, hasError} = this.state;
     const inputClasses = classNames('fl-input', {'fl-valid': hasValue && !hasError}, {'fl-invalid': hasValue && hasError});
     
@@ -54,7 +54,9 @@ export default class FloatingLabel extends React.Component {
           onFocus = {this.props.onFocus}
           defaultValue = {defaultValue}
           value = {value}
-          type={type}/>
+          type={type}
+          maxLength={maxLength}
+          />
         <label className='fl-input-label' htmlFor={id}>{placeholder}</label>
         <span className='fl-input-bar'></span>
       </div>
