@@ -41,6 +41,7 @@ class Register3 extends React.Component {
               <FloatingLabel placeholder={intl.formatMessage(messages.name)}/>
             )}
           </Form.Item>
+          
           <Form.Item>
             {getFieldDecorator('role_id', {
               initialValue: teamDetails ? teamDetails.role_id : roles.length > 0 ? roles[0].id :undefined,
@@ -51,6 +52,7 @@ class Register3 extends React.Component {
               <Select
                 allowClear
                 placeholder={intl.formatMessage(messages.role)}
+                disabled
               >
                 {roles.map(item =>
                   <Select.Option key={item.id} value={item.id}>{item.name}</Select.Option>
@@ -58,6 +60,7 @@ class Register3 extends React.Component {
               </Select>
             )}
           </Form.Item>
+          
         </div>
         <Actions>
           <KeyHandler

@@ -137,6 +137,7 @@ export const addTeam = (values) => (dispatch, getState, {fetch, history}) => {
   const {user} = getState().user
   const {token} = dispatch(getToken())
   dispatch({type: ADD_TEAM_REQUEST, teamDetails: values})
+  
   return fetch(`/teams`, {
     method: 'POST',
     body: {
@@ -153,6 +154,7 @@ export const addTeam = (values) => (dispatch, getState, {fetch, history}) => {
       message.error('Something went wrong. Please try again.')
     },
   })
+  
 }
 
 export const invitePeople = (people) => (dispatch, getState, {fetch, history}) => {
