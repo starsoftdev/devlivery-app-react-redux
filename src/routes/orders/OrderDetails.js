@@ -226,26 +226,29 @@ class OrderDetails extends React.Component {
                         <span>{orderDetails.recipients[currentShipping].contact.title}</span><br/>
                         <span>{orderDetails.recipients[currentShipping].contact.first_name + ' ' + orderDetails.recipients[currentShipping].contact.last_name}</span><br/>
                         <span>{orderDetails.recipients[currentShipping].receiving_address.address}</span><br/>
-                        <span>{orderDetails.recipients[currentShipping].receiving_address.postal_code + ' ' + orderDetails.recipients[currentShipping].receiving_address.city}</span><br/>
-                        <span>{orderDetails.recipients[currentShipping].receiving_address.country}</span><br/>
+                        <span>{orderDetails.recipients[currentShipping].receiving_address.postal_code ? orderDetails.recipients[currentShipping].receiving_address.postal_code:'' + ' ' + orderDetails.recipients[currentShipping].receiving_address.city?orderDetails.recipients[currentShipping].receiving_address.city:''}</span><br/>
+                        <span>{orderDetails.recipients[currentShipping].receiving_address.country ? orderDetails.recipients[currentShipping].receiving_address.country :''}</span><br/>
                       </div>
-                      <div className={s.shippingButtons}>
-                        <Button
-                          type='primary'
-                          onClick={this.prevShipping}
-                          size='small'
-                          ghost
-                        >
-                          Prev
-                        </Button>
-                        <Button
-                          type='primary'
-                          onClick={this.nextShipping}
-                          size='small'
-                        >
-                          next
-                        </Button>
-                      </div>
+                      {
+                        orderDetails.recipients.length > 1 && 
+                        <div className={s.shippingButtons}>
+                          <Button
+                            type='primary'
+                            onClick={this.prevShipping}
+                            size='small'
+                            ghost
+                          >
+                            Prev
+                          </Button>
+                          <Button
+                            type='primary'
+                            onClick={this.nextShipping}
+                            size='small'
+                          >
+                            next
+                          </Button>
+                        </div>
+                      }
                     </React.Fragment>
                   )}
                 </section>
