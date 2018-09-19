@@ -360,8 +360,9 @@ export const importContacts = (columnsMapping, callback) => (dispatch, getState,
       dispatch({type: IMPORT_CONTACTS_SUCCESS})
 
       var newrecipient = res.data
+      .filter(item => item.imported)
       .map(item => item.id);
-
+      
       dispatch({type:SET_NEW_RECIPIENT,newrecipient})
       if(callback)
         callback(newrecipient)
