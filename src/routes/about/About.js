@@ -40,14 +40,12 @@ class About extends React.Component {
               <Col xs={24} sm={12}>
                 <div>
                   <p className={s.feedback}>
-                    “ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                    the industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it
-                    to make a type specimen book. ”
+                    {intl.formatMessage(messages.quote)}
                     <br/>
                     <b>- Adam Smith</b>
                   </p>
                   <p className={s.info}>
-                    {intl.formatMessage(messages.aboutDescription)}
+                    {intl.formatMessage(messages.aboutDescription1)}
                   </p>
                 </div>
               </Col>
