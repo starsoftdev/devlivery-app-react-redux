@@ -13,6 +13,10 @@ export default defineMessages({
     id: 'purchase2.handwritten',
     defaultMessage: 'Handwritten',
   },
+  handwrittenHeader: {
+    id: 'purchase2.handwrittenHeader',
+    defaultMessage: "Von Hand ...",
+  },
   handwrittenDescription: {
     id: 'purchase2.handwrittenDescription',
     defaultMessage: '* Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
@@ -20,6 +24,10 @@ export default defineMessages({
   printed: {
     id: 'purchase2.printed',
     defaultMessage: 'Printed',
+  },
+  printedHeader: {
+    id: 'purchase2.printedHeader',
+    defaultMessage: '... oder'
   },
   printedDescription: {
     id: 'purchase2.printedDescription',

@@ -52,6 +52,8 @@ class Purchase2 extends React.Component {
                   <br/>
                 </React.Fragment>
               )}
+              {intl.locale === "de-DE" && intl.formatMessage(messages.handwrittenHeader)}
+              {intl.locale === "de-DE" && <br/>}
               {intl.formatMessage(messages.handwrittenDescription)}
             </p>
           </Col>
@@ -65,6 +67,8 @@ class Purchase2 extends React.Component {
               svg={PrintedIcon}
             />
             <p className={s.description}>
+              {intl.locale === "de-DE" && intl.formatMessage(messages.printedHeader)}
+              {intl.locale === "de-DE" && <br/>}
               {intl.formatMessage(messages.printedDescription)}
             </p>
           </Col>
