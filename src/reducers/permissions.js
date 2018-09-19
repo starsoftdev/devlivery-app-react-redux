@@ -36,6 +36,14 @@ export const DELETE_ROLE_GROUP_REQUEST = 'Permission.DELETE_ROLE_GROUP_REQUEST'
 export const DELETE_ROLE_GROUP_SUCCESS = 'Permission.DELETE_ROLE_GROUP_SUCCESS'
 export const DELETE_ROLE_GROUP_FAILURE = 'Permission.DELETE_ROLE_GROUP_FAILURE'
 
+export const GET_USER_PERMISSIONS_REQUEST = 'Permission.GET_USER_PERMISSIONS_REQUEST'
+export const GET_USER_PERMISSIONS_SUCCESS = 'Permission.GET_USER_PERMISSIONS_SUCCESS'
+export const GET_USER_PERMISSIONS_FAILURE = 'Permission.GET_USER_PERMISSIONS_FAILURE'
+
+export const GET_ANY_PERMISSIONS_REQUEST = 'Permission.GET_USER_PERMISSIONS_REQUEST'
+export const GET_ANY_PERMISSIONS_SUCCESS = 'Permission.GET_USER_PERMISSIONS_SUCCESS'
+export const GET_ANY_PERMISSIONS_FAILURE = 'Permission.GET_USER_PERMISSIONS_FAILURE'
+
 export const CLEAR = 'Team.CLEAR'
 
 // ------------------------------------
@@ -71,6 +79,40 @@ export const getTeamRole = (params = {}) => (dispatch, getState, {fetch}) => {
       dispatch({type: GET_ROLE_GROUP_SUCCESS, res})
     },
     failure: () => dispatch({type: GET_ROLE_GROUP_FAILURE}),
+  })
+}
+export const getUserPermission = () => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  return fetch(`/user-permissions`, {
+    method: 'GET',
+    token,
+    success: (res) => {
+      console.log('/user-permissions',res);
+      dispatch({type: GET_USER_PERMISSIONS_SUCCESS, res})
+    },
+    failure: () => dispatch({type: GET_USER_PERMISSIONS_FAILURE}),
+  })
+}
+export const hasAnyPermission = (permissions) => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  console.log('/has-any-permission',{
+    permissions,
+  });
+  return fetch(`/has-any-permission`, {
+    method: 'POST',
+    contentType: 'application/json',
+    token,
+    body: {
+      permissions,
+    },
+    success: (res) => {
+      console.log('/has-any-permission',res);
+      dispatch({type: GET_ANY_PERMISSIONS_SUCCESS, res})
+    },
+    failure: (err) => {
+      console.log('/has-any-permission',err);
+      dispatch({type: GET_ANY_PERMISSIONS_FAILURE})
+    },
   })
 }
 export const getPermissions = (params = {}) => (dispatch, getState, {fetch}) => {
@@ -201,6 +243,19 @@ export default createReducer(initialState, {
     loading: {
       ...state.loading,
       groups: false,
+    },
+  }),
+  [GET_USER_PERMISSIONS_SUCCESS]: (state, action) => ({
+    user_permissions: action.res.data,
+    loading: {
+      ...state.loading,
+      user_permissions: false,
+    },
+  }),
+  [GET_USER_PERMISSIONS_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      user_permissions: false,
     },
   }),
   [GET_PERMISSIONS_REQUEST]: (state, {params}) => ({
