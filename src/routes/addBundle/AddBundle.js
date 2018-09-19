@@ -9,6 +9,7 @@ import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import {Form} from 'antd'
 import messages from './messages'
 import {FloatingLabel} from '../../components';
+import formMessages from '../../formMessages'
 
 // TODO calculate bundle price correctly
 class AddBundle extends React.Component {
@@ -83,6 +84,10 @@ class AddBundle extends React.Component {
           <div className={s.orderDetails}>
             <Form.Item>
               {getFieldDecorator('title', {
+                initialValue: '',
+                rules: [
+                  {required: true , min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})},
+                ],
               })(
                 <FloatingLabel placeholder={intl.formatMessage(messages.bundleName)}/>
               )}

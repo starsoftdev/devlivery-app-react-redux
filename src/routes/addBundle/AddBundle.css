@@ -63,7 +63,7 @@
 
 .orderDetails {
   border-top: 2px solid color-mod(var(--dark-color) a(10%));
-  border-bottom: 2px solid color-mod(var(--dark-color) a(10%));
+  /*border-bottom: 2px solid color-mod(var(--dark-color) a(10%));*/
   padding-top: var(--margin-md);
   padding-bottom: var(--margin-md);
 }
