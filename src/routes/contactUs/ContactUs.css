@@ -25,12 +25,12 @@
 }
 
 .subtitle{
-  text-align: center;
-  width: 100%;
+  text-align: left;
   font-size: 15px;
   font-family: "Adobe Garamond Pro";
   line-height: 24px;
-  margin-bottom: 45px;
+  margin-bottom: 20px;
+  width: 430px;
 }
 
 .messageTitle {
@@ -80,4 +80,13 @@
 
 .attachBtn input {
   display: none!important;
+}
+.cardImage {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  flex: 1;
+  width: 200px;
+  height: 220px;
+  margin-bottom: 30px;
 }
