@@ -98,7 +98,7 @@
   {
     "id": "home.cardsForEverythingDescription",
     "defaultMessage": "Access our ever-growing card catalog with ease on your desktop. Gifts connect people, make memories and transform relationship. That's why we create gifts of purpose for the moments that matter delivered with simplicity & ease. \n\nSend meaningful cards effortlessly for any occasion.",
-    "message": "Nutze unseren Kartenkatalog einfach von deinem Desktop. Geschenke verbinden Kontakte, bringen grossartige Erinnerungen und festigen die Beziehungen. Das ist der Grund wieso wir diesen Servicen anbieten - um Menschen eine Freude zu machen.",
+    "message": "Lassen Sie wichtige Menschen Ihren Herzschlag fühlen. Eine schöne Karte, ein treffendes Wort und erst recht ein Geschenk festigt jede Beziehung. Und das alles geht für Sie ganz einfach, mit viel Spass. Denn Zumi bietet Ihnen besten Rundum-Service.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -178,7 +178,7 @@
   {
     "id": "home.allOurCards",
     "defaultMessage": "All our cards",
-    "message": "Kartenübersicht",
+    "message": "KARTEN-selektion",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -274,7 +274,7 @@
   {
     "id": "home.cardsForEverything",
     "defaultMessage": "Cards for Everything",
-    "message": "Karten für alle Gelegenheiten",
+    "message": "Für jeden Moment die richtige Karte",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -282,7 +282,7 @@
   {
     "id": "home.checkItOut",
     "defaultMessage": "Check it out",
-    "message": "Probier' es aus!",
+    "message": "Jetzt AUSPROBIEREN!",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -303,7 +303,7 @@
   {
     "id": "home.chooseIt",
     "defaultMessage": "Choose it",
-    "message": "Wähl' es aus.",
+    "message": "Modell wählen.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -912,7 +912,7 @@
   {
     "id": "home.header",
     "defaultMessage": "Keep in Touch with Your Contacts",
-    "message": "Betreuung Ihres Netzwerkes leicht gemacht",
+    "message": "Wecken Sie grosse Emotionen – mit kleinem Aufwand.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -1183,7 +1183,7 @@
   {
     "id": "home.gifting",
     "defaultMessage": "Organizational Gifting",
-    "message": "Geschenke für Organisationen.",
+    "message": "Geschenke für Organisationen",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -1265,7 +1265,7 @@
   {
     "id": "home.personalizeIt",
     "defaultMessage": "Personalize it",
-    "message": "Personalisiere deine Erfahrung.",
+    "message": "Persönlich werden.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -1558,7 +1558,7 @@
   {
     "id": "home.chooseItDescription",
     "defaultMessage": "Select a card from out exclusive online catalog",
-    "message": "Wähle eine Karte aus unserem exklusiven Katalog aus.",
+    "message": "Kreieren Sie grosse Emotionen: Wählen Sie die passende Karte aus unserem exklusiven Sortiment, gestaltet von Künstlern.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -1618,7 +1618,7 @@
   {
     "id": "home.sendIt",
     "defaultMessage": "Send it",
-    "message": "Senden",
+    "message": "Ab die Post!",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -1953,7 +1953,7 @@
   {
     "id": "home.subHeader",
     "defaultMessage": "We make it easy and seamless to",
-    "message": "Wir vereinfachen es.",
+    "message": "Verblüffen Sie Ihre Kunden und Partner.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -1961,7 +1961,7 @@
   {
     "id": "home.sendItDescription",
     "defaultMessage": "We'll print, stuff, stamp and mail everything for you.",
-    "message": "We'll print, stuff, stamp and mail everything for you.",
+    "message": "Das war es schon für Sie – um alles Weitere kümmern wir uns. Wir drucken Ihre Karten, besorgen die Geschenke und bringen alles auf die Post.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -1969,7 +1969,7 @@
   {
     "id": "home.giftingDescription",
     "defaultMessage": "Whether you know exactly what you want or need some brilliant ideas; whether you need one gift or thirty - we'll take care of it - every last detail. Express your gratitude to customers, staff and everyone in between who keep your company thriving.",
-    "message": "Whether you know exactly what you want or need some brilliant ideas; whether you need one gift or thirty - we'll take care of it - every last detail. Express your gratitude to customers, staff and everyone in between who keep your company thriving.",
+    "message": "Bringen Sie die Augen Ihrer Kunden, Mitarbeitenden und Partnern zum Leuchten: Drücken Sie Ihre Dankbarkeit mit einem passenden Geschenk aus. Haben Sie schon konkrete Vorstellungen oder wünschen Sie sich frische Ideen von uns? Wir kümmern uns um alles, bis zum letzten Detail. Egal, ob wir von einem Paket oder einhundert Paketen sprechen.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -1977,7 +1977,7 @@
   {
     "id": "home.personalizeItDescription",
     "defaultMessage": "Write a personal message, add pictures and even attach a gift",
-    "message": "Schreib eine persönliche Nachricht, füge Bilder hinzu und verbinde dies mit einem Geschenk.",
+    "message": "Schaffen Sie ein Unikat. Passen Sie das Design einfach Ihrer Corporate Identity an. Schreiben Sie ein paar persönliche Worte– und legen Sie ein geschmackvolles Geschenk bei.",
     "files": [
       "src/routes/home/messages.js"
     ]

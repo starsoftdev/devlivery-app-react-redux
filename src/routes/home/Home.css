@@ -129,7 +129,9 @@
   flex: 1;
   width: 100%;
 }
-
+.cardImage_de {
+  max-height: 132px;
+}
 .cardTitle {
   font-family: var(--font-family-secondary);
   font-weight: 300;
@@ -238,7 +240,23 @@
     font-size: 32px;
   }
 }
-
+.giftingHeader_de{
+  margin-bottom: 0;
+  @media (--md-up) {
+    font-size: 30px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
+}
+.subgiftingHeader {
+  @media (--md-up) {
+    font-size: 20px;
+  }
+  @media (--md-down) {
+    font-size: 18px;
+  }
+}
 .giftingSection {
   background-color: var(--white-color);
   min-height: 440px;
