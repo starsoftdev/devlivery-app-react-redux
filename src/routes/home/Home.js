@@ -16,12 +16,13 @@ import messages from './messages'
 import {setFlow} from '../../reducers/purchase'
 import {Link} from '../../components'
 import {FloatingLabel} from '../../components';
+import cn from 'classnames';
 
-const Card = ({number, image, title, description}) =>
+const Card = ({number, image, title, description,intl = {intl}}) =>
   <div className={s.card}>
     <DecorTopElement className={s.cardTopElement}/>
     <span className={s.cardNumber}>{number}</span>
-    <div style={{backgroundImage: `url(${image})`}} className={s.cardImage}/>
+    <div style={{backgroundImage: `url(${image})`}} className={cn(s.cardImage,intl.locale === "de-DE" &&s.cardImage_de)}/>
     <h6 className={s.cardTitle}>{title}</h6>
     <p className={s.cardDescription}>{description}</p>
   </div>
@@ -30,9 +31,9 @@ class Home extends React.Component {
   scrollToFirstSection = () => {
     animateScroll.scrollTo(this.firstSection.offsetTop)
   }
-
   render() {
     const {intl, setFlow} = this.props
+    
     return (
       <React.Fragment>
         <section className={s.heroSection}>
@@ -55,6 +56,7 @@ class Home extends React.Component {
                 title={intl.formatMessage(messages.chooseIt)}
                 description={intl.formatMessage(messages.chooseItDescription)}
                 image={chooseItImage}
+                intl = {intl}
               />
             </Col>
             <Col xs={24} md={8}>
@@ -63,6 +65,7 @@ class Home extends React.Component {
                 title={intl.formatMessage(messages.personalizeIt)}
                 description={intl.formatMessage(messages.personalizeItDescription)}
                 image={personalizeItImage}
+                intl = {intl}
               />
             </Col>
             <Col xs={24} md={8}>
@@ -71,6 +74,7 @@ class Home extends React.Component {
                 title={intl.formatMessage(messages.sendIt)}
                 description={intl.formatMessage(messages.sendItDescription)}
                 image={sendItImage}
+                intl = {intl}
               />
             </Col>
           </Row>
@@ -99,7 +103,19 @@ class Home extends React.Component {
         <section className={s.giftingSection}>
           <div className={s.giftingBackground}>
             <div className={s.giftingContent}>
-              <h3 className={s.giftingHeader}>{intl.formatMessage(messages.gifting)}</h3>
+              <h3 
+                className={cn(
+                  s.giftingHeader,
+                  intl.locale === "de-DE" &&
+                  s.giftingHeader_de
+                )}
+                >
+                {intl.formatMessage(messages.gifting)}
+              </h3>
+              {
+                intl.locale === "de-DE" &&
+                <h5 className={s.subgiftingHeader}>{'(Ein überraschendes Geschenk im richtigen Augenblick)'}</h5>
+              }
               <p>
                 {intl.formatMessage(messages.giftingDescription)}
                 <Link to={NEW_ARRIVALS_ROUTE} className={s.sectionBtn}>
