@@ -51,7 +51,9 @@ export const getRole = (params = {}) => (dispatch, getState, {fetch}) => {
   })}`, {
     method: 'GET',
     token,
-    success: (res) => dispatch({type: GET_ROLE_GROUP_SUCCESS, res}),
+    success: (res) => {
+      dispatch({type: GET_ROLE_GROUP_SUCCESS, res})
+    },
     failure: () => dispatch({type: GET_ROLE_GROUP_FAILURE}),
   })
 }
@@ -65,7 +67,9 @@ export const getTeamRole = (params = {}) => (dispatch, getState, {fetch}) => {
   })}`, {
     method: 'GET',
     token,
-    success: (res) => dispatch({type: GET_ROLE_GROUP_SUCCESS, res}),
+    success: (res) => {
+      dispatch({type: GET_ROLE_GROUP_SUCCESS, res})
+    },
     failure: () => dispatch({type: GET_ROLE_GROUP_FAILURE}),
   })
 }
@@ -96,7 +100,7 @@ export const addGroup = () => (dispatch, getState, {fetch}) => {
     },
     success: () => {
       dispatch({type: ADD_ROLE_GROUP_SUCCESS})
-      dispatch(getTeamRole())
+      dispatch(getRole())
     },
     failure: () => dispatch({type: ADD_ROLE_GROUP_FAILURE}),
   })
@@ -110,7 +114,7 @@ export const removeGroup = (id) => (dispatch, getState, {fetch}) => {
     token,
     success: () => {
       dispatch({type: DELETE_ROLE_GROUP_SUCCESS})
-      dispatch(getTeamRole())
+      dispatch(getRole())
     },
     failure: () => dispatch({type: DELETE_ROLE_GROUP_FAILURE}),
   })
