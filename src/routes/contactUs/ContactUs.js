@@ -8,6 +8,7 @@ import PlusIcon from '../../static/plus.svg'
 import messages from './messages'
 import {sendEnquiries} from '../../reducers/contactUs'
 import {FloatingLabel} from '../../components';
+import contactusImage from '../../static/POSE_7.png'
 
 const {TextArea} = Input;
 
@@ -54,11 +55,23 @@ class ContactUs extends React.Component {
     return (
       <div className={s.wrapper}>
         <div className={s.container}>
-          <h1 className={s.header}>{intl.formatMessage(messages.header)}</h1>
-          <div className={s.subtitle}>
-            Thank you for your interest in "by Zumi".<br/>
-            Use the form below to send your comment or questions.
-          </div>
+          {/*<h1 className={s.header}>{intl.formatMessage(messages.header)}</h1>*/}
+          <div style={{backgroundImage: `url(${contactusImage})`}} className={s.cardImage}/>
+          {
+            intl.locale === "de-DE" &&
+            <div className={s.subtitle}>
+              Kundenverblüffung leicht gemacht<br/>
+              Wir unterstützen Sie von A bis Z bei der Betreuung Ihrer Kunden und Partner: Wir bedrucken, verpacken, frankieren und versenden Karten zu unterschiedlichsten Ereignissen auf Bestellung. Auf Wunsch organisieren wir auch ein passendes Geschenk dazu – zum Beispiel einen Gutschein oder einen Wein. Besonders praktisch: Sobald Ihre Kontakte einmal erfasst sind, kümmern wir uns automatisch um Anlässe wie Geburtstage. Dabei informieren wir Sie jeweils über bevorstehende Ereignisse Ihrer Kontakte. Sie entscheiden dann, was in der jeweiligen Situation angebracht ist.<br/><br/>
+              Kurz: Zumi ist Ihr virtuelle Assistentin, die stets voraus denkt und Ihnen in allen Aspekten der Kundenpflege zur Seite steht.
+            </div>
+          }
+          {
+            intl.locale !== "de-DE" &&
+            <div className={s.subtitle}>
+              Thank you for your interest in "by Zumi".<br/>
+              Use the form below to send your comment or questions.
+            </div>
+          }
           <Form onSubmit={this.handleSubmit} className={s.formContainer}>
             <Row gutter={40} type='flex'>
               <Col md={12} className={s.contactInput}>
