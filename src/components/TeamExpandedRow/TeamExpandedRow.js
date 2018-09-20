@@ -75,7 +75,7 @@ class TeamExpandedRow extends React.Component {
   }
 
   render() {
-    const {record, roles, addBudget, user_permissions} = this.props
+    const {record, roles, addBudget, user_permissions,user} = this.props
     const {payment_permission} = this.state;
     
     return (
@@ -88,6 +88,7 @@ class TeamExpandedRow extends React.Component {
               style={{width: '100%'}}
               onChange={this.selectChange}
               value={this.state.picked}
+              disabled = {user.id === record.id}
             >
               {roles && roles.map((role) =>
                 <Select.Option className={s.multiple} key={role.id} title={role.name}>
@@ -160,7 +161,8 @@ class TeamExpandedRow extends React.Component {
 
 const mapState = state => ({
   roles: state.permission.groups,
-  user_permissions: state.permission.user_permissions
+  user_permissions: state.permission.user_permissions,
+  user: state.user.user
 })
 
 const mapDispatch = {
