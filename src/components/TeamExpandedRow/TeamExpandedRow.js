@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './TeamExpandedRow.css'
 import {FloatingLabel} from '../../components';
+import {getUserPermission,hasAnyPermission} from '../../reducers/permissions'
 
 class TeamExpandedRow extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class TeamExpandedRow extends React.Component {
       budget: this.props.record.budget ? this.props.record.budget.budget : '',
       amountAdd: '',
       amountReduce: '',
+      payment_permission: null
     }
   }
   componentWillReceiveProps(nextprops){
@@ -23,8 +25,20 @@ class TeamExpandedRow extends React.Component {
         load:true,
         picked:nextprops.record.groups ? nextprops.record.groups.map(item=>item.id+"") :[]
       })
+    
+    if(nextprops && nextprops.user_permissions)
+    {
+      if(nextprops.user_permissions.hasOwnProperty('Payments'))
+      {
+        var subPermission =  nextprops.user_permissions['Payments'].filter(item => item.name === 'Can pay' || item.name === 'Can pay with budget');
+        if(subPermission.length > 0)
+          this.setState({payment_permission: true});
+        return;
+      }
+    }
   }
   componentDidMount() {
+    this.props.getUserPermission();
     this.props.getRole()
   }
 
@@ -61,7 +75,9 @@ class TeamExpandedRow extends React.Component {
   }
 
   render() {
-    const {record, roles, addBudget} = this.props
+    const {record, roles, addBudget, user_permissions} = this.props
+    const {payment_permission} = this.state;
+    
     return (
       <Row className={s.container}>
         <Col md={12} className={s.column}>
@@ -79,7 +95,7 @@ class TeamExpandedRow extends React.Component {
                   </Select.Option>)}
             </Select>
           </div>
-          {!record.budget && <div className={s.leftInputRow}>
+          {!record.budget && payment_permission && <div className={s.leftInputRow}>
             <FloatingLabel
               className={s.amountInput}
               onChange={this.budgetInput}
@@ -96,7 +112,7 @@ class TeamExpandedRow extends React.Component {
           </div>}
         </Col>
         <Col md={12} className={s.column}>
-          {record.budget &&
+          {record.budget && payment_permission &&
           <React.Fragment>
             <div className={s.leftInputRow}>
               <FloatingLabel
@@ -144,6 +160,7 @@ class TeamExpandedRow extends React.Component {
 
 const mapState = state => ({
   roles: state.permission.groups,
+  user_permissions: state.permission.user_permissions
 })
 
 const mapDispatch = {
@@ -153,6 +170,7 @@ const mapDispatch = {
   reduceAmountBudget,
   deleteBudget,
   getRole,
+  getUserPermission
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(TeamExpandedRow))

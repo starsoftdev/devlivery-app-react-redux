@@ -83,11 +83,11 @@ export const getTeamRole = (params = {}) => (dispatch, getState, {fetch}) => {
 }
 export const getUserPermission = () => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  return fetch(`/user-permissions?all`, {
+  return fetch(`/user-permissions`, {
     method: 'GET',
     token,
     success: (res) => {
-      console.log('/user-permissions?all',res);
+      console.log('/user-permissions',res);
       dispatch({type: GET_USER_PERMISSIONS_SUCCESS, res})
     },
     failure: () => dispatch({type: GET_USER_PERMISSIONS_FAILURE}),
@@ -218,6 +218,7 @@ const initialState = {
   page: 1,
   pageSize: DEFAULT_PAGE_SIZE,
   newRoleGroup: '',
+  user_permissions: null
 }
 
 export default createReducer(initialState, {
