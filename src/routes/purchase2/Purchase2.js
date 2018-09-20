@@ -67,8 +67,6 @@ class Purchase2 extends React.Component {
               svg={PrintedIcon}
             />
             <p className={s.description}>
-              {intl.locale === "de-DE" && intl.formatMessage(messages.printedHeader)}
-              {intl.locale === "de-DE" && <br/>}
               {intl.formatMessage(messages.printedDescription)}
             </p>
           </Col>
