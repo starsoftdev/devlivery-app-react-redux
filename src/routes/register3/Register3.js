@@ -50,9 +50,9 @@ class Register3 extends React.Component {
               ],
             })(
               <Select
-                allowClear
                 placeholder={intl.formatMessage(messages.role)}
                 disabled
+                showArrow = {false}
               >
                 {roles.map(item =>
                   <Select.Option key={item.id} value={item.id}>{item.name}</Select.Option>
