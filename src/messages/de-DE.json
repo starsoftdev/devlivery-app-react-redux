@@ -58,7 +58,7 @@
   {
     "id": "purchase2.printedDescription",
     "defaultMessage": "* Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an took a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-    "message": "getippt Soll Ihre Karte klassisch, modern, verträumt, witzig oder gar avantgardistisch wirken? Die Wahl der Schrift, die Typografie, sagt so viel wie die Worte. Entdecken Sie den passenden Stil für den richtigen Anlass – und unterstreichen Sie Ihre Botschaft.",
+    "message": "... oder getippt Soll Ihre Karte klassisch, modern, verträumt, witzig oder gar avantgardistisch wirken? Die Wahl der Schrift, die Typografie, sagt so viel wie die Worte. Entdecken Sie den passenden Stil für den richtigen Anlass – und unterstreichen Sie Ihre Botschaft.",
     "files": [
       "src/routes/purchase2/messages.js"
     ]
