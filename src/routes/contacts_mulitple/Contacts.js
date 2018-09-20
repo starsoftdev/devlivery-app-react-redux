@@ -77,14 +77,14 @@ class Contacts extends React.Component {
     this.props.onRef(this)
   }
 
-  async  loadLocalStorage() {
+  async loadLocalStorage() {
     this.state.selGroupId = await localStorage.getItem(GROUP_ID_KEY);
     this.state.selContactIds = await localStorage.getItem(CONTACT_IDS_KEY);
 
     if (this.state.selContactIds === null) this.state.selContactIds = [];
     else this.state.selContactIds = JSON.parse(this.state.selContactIds);
 
-    if (this.state.selGroupId === null && this.state.selContactIds.length > 0) {
+    if (this.state.selGroupId === null && this.state.selContactIds && this.state.selContactIds.length > 0) {
       this.setState({ type: category[1] });
     } else this.setState({ type: category[0] });
   }
