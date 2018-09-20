@@ -185,6 +185,8 @@ export const setFlow = (flow, redirect = true) => (dispatch, getState, { history
 }
 
 export const setBundle = (bundle) => (dispatch, getState) => {
+  localStorage.removeItem(GROUP_ID_KEY)
+  localStorage.removeItem(CONTACT_IDS_KEY)
   dispatch({
     type: SET_BUNDLE,
     bundle,
@@ -200,7 +202,8 @@ export const setBundle = (bundle) => (dispatch, getState) => {
   dispatch(setFlow(ORDER_BUNDLE_FLOW))
 }
 export const setFlowFromSelectCard = (card) => (dispatch, getState) => {
-
+  localStorage.removeItem(GROUP_ID_KEY)
+  localStorage.removeItem(CONTACT_IDS_KEY)
   dispatch(clear())
   const occasion = { id: card.occasion_id };
   dispatch({ type: SET_OCCASION, occasion })
@@ -213,6 +216,8 @@ export const setFlowFromSelectCard = (card) => (dispatch, getState) => {
   dispatch(setFlow(ORDER_CARD_FLOW))
 }
 export const setFlowFromSelectGift = (gift) => (dispatch, getState) => {
+  localStorage.removeItem(GROUP_ID_KEY)
+  localStorage.removeItem(CONTACT_IDS_KEY)
   dispatch(setFlow(AUTH_PURCHASE_FLOW))
   const giftType = gift.type;
   dispatch({ type: SET_GIFT_TYPE, giftType })
@@ -1084,7 +1089,7 @@ export default createReducer(initialState, {
       giftType,
       cardSize,
       cardStyle,
-      cardDetails: { body: bundle.body },
+      cardDetails: { body: '' },
       orderId
       /*
       order: {
