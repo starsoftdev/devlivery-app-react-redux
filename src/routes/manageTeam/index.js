@@ -11,6 +11,7 @@ function action({store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
   store.dispatch(getTeam())
   store.dispatch(getPendingTeam())
+  store.dispatch(getUserPermission());
   //store.dispatch(hasAnyPermission(["Can pay"]))
   
   const {user} = store.getState().user
