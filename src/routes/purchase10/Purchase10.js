@@ -41,7 +41,7 @@ class Purchase10 extends React.Component {
   }
   refreshPage(){
     this.setState({
-      addingContactMode: null,
+      //addingContactMode: null,
       disableButton:false
     })
     this.props.getContactGroups();
