@@ -41,10 +41,12 @@ class PermissionsTable extends React.Component {
     this.props.getPermissionsOfSpecialRole(id);
   }
 
-  submitGroup = () => {
-    const permissions = _.flatten(Object.values(this.state.pickedPermissions))
-    
-    this.props.setPermissions(this.state.showEditForm, permissions)
+  submitGroup = (group) => {
+    if(group.editable)
+    {
+      const permissions = _.flatten(Object.values(this.state.pickedPermissions))
+      this.props.setPermissions(this.state.showEditForm, permissions)
+    }
     this.setState({
       showEditForm: null,
       pickedPermissions: []
@@ -98,7 +100,7 @@ class PermissionsTable extends React.Component {
                   <div className={s.tableItemWrapper}>
                     {
                       (this.state.showEditForm === group.id) ?
-                        <a className={s.tableBtn} onClick={this.submitGroup}>
+                        <a className={s.tableBtn} onClick={()=>this.submitGroup(group)}>
                           <PlusIcon/>
                           <span>{intl.formatMessage(messages.savePermissions)}</span>
                         </a> :

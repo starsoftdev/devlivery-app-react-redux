@@ -6,6 +6,7 @@ import {
   DONATION_ROUTE,
   EDIT_BUNDLE_FLOW,
   ORDER_BUNDLE_FLOW,
+  ORDER_VOUCHER_FLOW,
   ORDER_CARD_FLOW,
   PURCHASE8_ROUTE,//Select Gift
   PURCHASE_FLOW,
@@ -172,7 +173,10 @@ export const SET_ORIENTATION = 'Purchase.SET_ORIENTATION'
 // Actions
 // ------------------------------------
 export const setFlow = (flow, redirect = true) => (dispatch, getState, { history }) => {
-  if (redirect && flow.key != ORDER_BUNDLE_FLOW.key && flow.key != ORDER_CARD_FLOW.key) {
+  if (redirect && 
+    flow.key != ORDER_BUNDLE_FLOW.key && 
+    flow.key != ORDER_CARD_FLOW.key &&
+    flow.key != ORDER_VOUCHER_FLOW.key) {
     dispatch(clear())
   }
 
@@ -193,13 +197,15 @@ export const setBundle = (bundle) => (dispatch, getState) => {
     letteringTechnique: bundle.lettering,
     card: bundle.bundle_card.card,
     gift: bundle.bundle_gifts[0] && bundle.bundle_gifts[0].gift,
-    giftType: bundle.bundle_gifts[0] && bundle.bundle_gifts[0].gift.type,
+    giftType: bundle.voucher ? VOUCHER_TYPE : bundle.bundle_gifts[0] && bundle.bundle_gifts[0].gift.type,
     cardSize: CARD_SIZES().find(item => item.key === bundle.bundle_card.card.size),
     cardStyle: bundle.bundle_card.card.style,
     orientation: bundle.bundle_card.card.orientation,
     orderId: null,
   })
-  dispatch(setFlow(ORDER_BUNDLE_FLOW))
+  if(bundle.voucher)
+    dispatch(setFlow(ORDER_VOUCHER_FLOW))
+  else dispatch(setFlow(ORDER_BUNDLE_FLOW))
 }
 export const setFlowFromSelectCard = (card) => (dispatch, getState) => {
   localStorage.removeItem(GROUP_ID_KEY)
@@ -546,7 +552,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
   const { token } = dispatch(getToken())
   const { letteringTechnique, cardId, gift, flow, cardDetails, saved } = getState().purchase
   dispatch({ type: ADD_BUNDLE_REQUEST })
-
+  
   return fetch(`/create-bundle`, {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
@@ -1085,12 +1091,14 @@ export default createReducer(initialState, {
       bundleId: bundle.id,
       letteringTechnique,
       card,
+      cardId: card.id,
       gift,
       giftType,
       cardSize,
       cardStyle,
       cardDetails: { body: '' },
-      orderId
+      orderId,
+      voucher: bundle.voucher
       /*
       order: {
         items:{
