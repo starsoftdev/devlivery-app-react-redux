@@ -107,10 +107,14 @@ class PermissionsTable extends React.Component {
                           <span>{intl.formatMessage(messages.editPermissions)}</span>
                         </a>
                     }
-                    <a className={s.tableBtn} onClick={() => removeGroup(group.id)}>
-                      <RemoveIcon/>
-                      <span>{intl.formatMessage(messages.deleteGroup)}</span>
-                    </a>
+                    {
+                      group.editable ?
+                      <a className={s.tableBtn} onClick={() => removeGroup(group.id)}>
+                        <RemoveIcon/>
+                        <span>{intl.formatMessage(messages.deleteGroup)}</span>
+                      </a> :
+                      <div style={{width:'115px'}}/>
+                    }
                   </div>
                 </Col>
               </Row>
