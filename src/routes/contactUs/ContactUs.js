@@ -114,7 +114,7 @@ class ContactUs extends React.Component {
                   required
                 />
                 <label className={s.attachBtn}>
-                  <FloatingLabel type='file' onChange={this.addAttachment}/>
+                  <Input type='file' onChange={this.addAttachment}/>
                   <PlusIcon/>
                   {intl.formatMessage(messages.attachmentButton)}
                 </label>
