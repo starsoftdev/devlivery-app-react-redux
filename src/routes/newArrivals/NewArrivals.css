@@ -159,3 +159,39 @@
     font-size: 28px;
   }
 }
+.header_de {
+  color: var(--white-color);
+  text-align: center;
+  line-height: 1;
+  @media (--md-up) {
+    font-size: 38px;
+  }
+  @media (--md-down) {
+    font-size: 26px;
+  }
+  @media (--sm-down) {
+    font-size: 24px;
+  }
+}
+.content {
+  color: var(--white-color);
+  text-align: left;
+
+  @media (--md-up) {
+    font-size: 24px;
+  }
+  @media (--md-down) {
+    line-height: 1;
+    font-size: 20px;
+  }
+  @media (--sm-down) {
+    line-height: 1;
+    font-size: 20px;
+  }
+}
+.sliderContent {
+  width:90%;
+  @media (--md-down) {
+    width:80%;
+  }
+}
