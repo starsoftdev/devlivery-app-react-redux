@@ -50,9 +50,9 @@ class Preview extends React.Component {
               ) : null
             )}
           </Carousel>
-          {item.description && (
+          {item.title && (
             <p className={s.previewDescription}>
-              {item.description}
+              {item.title}
             </p>
           )}
         </section>
