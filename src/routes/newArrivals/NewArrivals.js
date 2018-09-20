@@ -76,7 +76,14 @@ class NewArrivals extends React.Component {
               <div>
                 <div style={{backgroundImage: `url(${require('../../static/slider_bg.jpg')})`}}
                      className={s.carouselItem}>
-                  <h1 className={s.header}>{'Fresh Tulips Arrival'}</h1>
+                  {intl.locale !== "de-DE" &&<h1 className={s.header}>{'Fresh Tulips Arrival'}</h1>}
+                  {
+                    intl.locale === "de-DE" &&
+                    <div className={s.sliderContent}>
+                      <h1 className={s.header_de}>Frisch aus dem Künstler-Atelier<br/>Jetzt anschauen!</h1>
+                      <p className={s.content}><strong>Zumi weiss:<br/></strong> Kunden zu gewinnen, ist schwer – sie zu halten, noch mehr. Trotzdem vernachlässigen viele Unternehmen ihre Kunden, weil ihnen Zeit und Ressourcen fehlen. Damit vergeben sie viele Geschäftschancen. Das muss nicht mehr sein: Dafür ist unser Service da!</p>
+                    </div>
+                  }
                   <Link to={PURCHASE1_ROUTE}>
                     <Button type='primary'>{'Shop now'}</Button>
                   </Link>
@@ -85,7 +92,14 @@ class NewArrivals extends React.Component {
               <div>
                 <div style={{backgroundImage: `url(${require('../../static/slider_bg.jpg')})`}}
                      className={s.carouselItem}>
-                  <h1 className={s.header}>{'Fresh Tulips Arrival'}</h1>
+                  {intl.locale !== "de-DE" &&<h1 className={s.header}>{'Fresh Tulips Arrival'}</h1>}
+                  {
+                    intl.locale === "de-DE" &&
+                    <div className={s.sliderContent}>
+                      <h1 className={s.header_de}>Frisch aus dem Künstler-Atelier<br/>Jetzt anschauen!</h1>
+                      <p className={s.content}><strong>Zumi empfiehlt:<br/></strong> Wie gut kennen Sie Ihre Kunden und Partner? Zeigen Sie Empathie. Nehmen Sie Anteil an ihren grossen Momenten – und investieren Sie in Beziehungen: Mit einer passenden Karte und einem Geschenk im richtigen Augenblick wecken Sie positive Erinnerungen.</p>
+                    </div>
+                  }
                   <Link to={PURCHASE1_ROUTE}>
                     <Button type='primary'>{'Shop now'}</Button>
                   </Link>
@@ -94,7 +108,14 @@ class NewArrivals extends React.Component {
               <div>
                 <div style={{backgroundImage: `url(${require('../../static/slider_bg.jpg')})`}}
                      className={s.carouselItem}>
-                  <h1 className={s.header}>{'Fresh Tulips Arrival'}</h1>
+                  {intl.locale !== "de-DE" &&<h1 className={s.header}>{'Fresh Tulips Arrival'}</h1>}
+                  {
+                    intl.locale === "de-DE" &&
+                    <div className={s.sliderContent}>
+                      <h1 className={s.header_de}>Frisch aus dem Künstler-Atelier<br/>Jetzt anschauen!</h1>
+                      <p className={s.content}><strong>Zumi rät:<br/></strong> «Kleine Geschenke erhalten die Freundschaft», sagt das Sprichwort. Das gilt erst recht, wenn das Geschenk überraschend eintrifft – und Sie etwas schenken, das Sie am liebsten selbst erhalten würden.</p>
+                    </div>
+                  }
                   <Link to={PURCHASE1_ROUTE}>
                     <Button type='primary'>{'Shop now'}</Button>
                   </Link>
