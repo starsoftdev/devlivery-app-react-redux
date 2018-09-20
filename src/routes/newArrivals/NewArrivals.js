@@ -20,14 +20,36 @@ class NewArrivals extends React.Component {
     super(props)
 
     this.state = {
+      initLoad:false,
       search: undefined,
-      slideIndex: FOOD_GIFTS_INDEX,
+      slideIndex: 0,
+      slideMap: [
+        {key:FOOD_GIFTS_INDEX, callback:this.renderFoodSliderView.bind(this)},
+        {key:NON_FOOD_GIFTS_INDEX, callback:this.renderNonFoodSliderView.bind(this)},
+        {key:CARDS_INDEX, callback:this.renderCardSliderView.bind(this)},
+      ]
     }
 
     this.getCards = debounce(this.props.getCards, DEFAULT_DEBOUNCE_TIME)
     this.getGifts = debounce(this.props.getGifts, DEFAULT_DEBOUNCE_TIME)
   }
+  componentWillReceiveProps(nextProps){
+    const {loading, foods, nonfoods, cards} = nextProps
+    if(!loading.foods && !loading.nonfoods && !loading.cards && !this.state.initLoad)
+    {
+      let slideMap = [];
+      if(foods.length > 0)
+          slideMap.push({key:FOOD_GIFTS_INDEX, callback:this.renderFoodSliderView.bind(this)});
 
+      if(nonfoods.length > 0)
+        slideMap.push({key:NON_FOOD_GIFTS_INDEX, callback:this.renderNonFoodSliderView.bind(this)});
+    
+      if(cards.length > 0)
+        slideMap.push({key:CARDS_INDEX, callback:this.renderCardSliderView.bind(this)});
+        
+      this.setState({initLoad:true, slideMap, slideIndex: 0});
+    }
+  }
   changeSearch = (e) => {
     const {slideIndex} = this.state
     const search = e.target.value
@@ -42,20 +64,89 @@ class NewArrivals extends React.Component {
   }
 
   changeSlideIndex = (slideIndex) => {
+    
+    const {slideMap} = this.state;
+    const keyIndex = slideMap[slideIndex].key;
     this.setState({slideIndex})
-    if (slideIndex === FOOD_GIFTS_INDEX) {
+    
+    if ( keyIndex === FOOD_GIFTS_INDEX) {
       this.getGifts({giftType: FOOD_TYPE})
-    } else if (slideIndex === NON_FOOD_GIFTS_INDEX) {
+    } else if (keyIndex === NON_FOOD_GIFTS_INDEX) {
       this.getGifts({giftType: NON_FOOD_TYPE})
-    } else if (slideIndex === CARDS_INDEX) {
+    } else if (keyIndex === CARDS_INDEX) {
       this.getCards()
     }
   }
-
-  render() {
+  renderFoodSliderView(){
     const {search, slideIndex} = this.state
     const {intl, cards, loading, gifts} = this.props
+    return(
+      <div key= 'food'>
+        <div style={{backgroundImage: `url(${require('../../static/slider_bg.jpg')})`}}
+              className={s.carouselItem}>
+          {intl.locale !== "de-DE" &&<h1 className={s.header}>{'Fresh Tulips Arrival'}</h1>}
+          {
+            intl.locale === "de-DE" &&
+            <div className={s.sliderContent}>
+              <h1 className={s.header_de}>Frisch aus dem Künstler-Atelier<br/>Jetzt anschauen!</h1>
+              <p className={s.content}><strong>Zumi weiss:<br/></strong> Kunden zu gewinnen, ist schwer – sie zu halten, noch mehr. Trotzdem vernachlässigen viele Unternehmen ihre Kunden, weil ihnen Zeit und Ressourcen fehlen. Damit vergeben sie viele Geschäftschancen. Das muss nicht mehr sein: Dafür ist unser Service da!</p>
+            </div>
+          }
+          <Link to={PURCHASE1_ROUTE}>
+            <Button type='primary'>{'Shop now'}</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+  renderNonFoodSliderView(){
+    const {intl, cards, loading, gifts} = this.props
+    return(
+      <div key= 'nonfood'>
+        <div style={{backgroundImage: `url(${require('../../static/slider_bg.jpg')})`}}
+              className={s.carouselItem}>
+          {intl.locale !== "de-DE" &&<h1 className={s.header}>{'Fresh Tulips Arrival'}</h1>}
+          {
+            intl.locale === "de-DE" &&
+            <div className={s.sliderContent}>
+              <h1 className={s.header_de}>Frisch aus dem Künstler-Atelier<br/>Jetzt anschauen!</h1>
+              <p className={s.content}><strong>Zumi empfiehlt:<br/></strong> Wie gut kennen Sie Ihre Kunden und Partner? Zeigen Sie Empathie. Nehmen Sie Anteil an ihren grossen Momenten – und investieren Sie in Beziehungen: Mit einer passenden Karte und einem Geschenk im richtigen Augenblick wecken Sie positive Erinnerungen.</p>
+            </div>
+          }
+          <Link to={PURCHASE1_ROUTE}>
+            <Button type='primary'>{'Shop now'}</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+  renderCardSliderView(){
+    const {intl, cards, loading, gifts} = this.props
+    return (
+      <div key= 'card'>
+        <div style={{backgroundImage: `url(${require('../../static/slider_bg.jpg')})`}}
+              className={s.carouselItem}>
+          {intl.locale !== "de-DE" &&<h1 className={s.header}>{'Fresh Tulips Arrival'}</h1>}
+          {
+            intl.locale === "de-DE" &&
+            <div className={s.sliderContent}>
+              <h1 className={s.header_de}>Frisch aus dem Künstler-Atelier<br/>Jetzt anschauen!</h1>
+              <p className={s.content}><strong>Zumi rät:<br/></strong> «Kleine Geschenke erhalten die Freundschaft», sagt das Sprichwort. Das gilt erst recht, wenn das Geschenk überraschend eintrifft – und Sie etwas schenken, das Sie am liebsten selbst erhalten würden.</p>
+            </div>
+          }
+          <Link to={PURCHASE1_ROUTE}>
+            <Button type='primary'>{'Shop now'}</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+  render() {
+    const {search, slideIndex,slideMap} = this.state
+    const {intl, foods,nonfoods, cards, loading} = this.props
 
+    const slideKey = slideMap[slideIndex].key;
+    const gifts = slideKey === FOOD_GIFTS_INDEX ? foods:nonfoods;
     // TODO add setFlow on PURCHASE1_ROUTE link
     return (
       <div className={s.container}>
@@ -73,54 +164,7 @@ class NewArrivals extends React.Component {
               customPaging={() => <div/>}
               afterChange={(index) => this.changeSlideIndex(index)}
             >
-              <div>
-                <div style={{backgroundImage: `url(${require('../../static/slider_bg.jpg')})`}}
-                     className={s.carouselItem}>
-                  {intl.locale !== "de-DE" &&<h1 className={s.header}>{'Fresh Tulips Arrival'}</h1>}
-                  {
-                    intl.locale === "de-DE" &&
-                    <div className={s.sliderContent}>
-                      <h1 className={s.header_de}>Frisch aus dem Künstler-Atelier<br/>Jetzt anschauen!</h1>
-                      <p className={s.content}><strong>Zumi weiss:<br/></strong> Kunden zu gewinnen, ist schwer – sie zu halten, noch mehr. Trotzdem vernachlässigen viele Unternehmen ihre Kunden, weil ihnen Zeit und Ressourcen fehlen. Damit vergeben sie viele Geschäftschancen. Das muss nicht mehr sein: Dafür ist unser Service da!</p>
-                    </div>
-                  }
-                  <Link to={PURCHASE1_ROUTE}>
-                    <Button type='primary'>{'Shop now'}</Button>
-                  </Link>
-                </div>
-              </div>
-              <div>
-                <div style={{backgroundImage: `url(${require('../../static/slider_bg.jpg')})`}}
-                     className={s.carouselItem}>
-                  {intl.locale !== "de-DE" &&<h1 className={s.header}>{'Fresh Tulips Arrival'}</h1>}
-                  {
-                    intl.locale === "de-DE" &&
-                    <div className={s.sliderContent}>
-                      <h1 className={s.header_de}>Frisch aus dem Künstler-Atelier<br/>Jetzt anschauen!</h1>
-                      <p className={s.content}><strong>Zumi empfiehlt:<br/></strong> Wie gut kennen Sie Ihre Kunden und Partner? Zeigen Sie Empathie. Nehmen Sie Anteil an ihren grossen Momenten – und investieren Sie in Beziehungen: Mit einer passenden Karte und einem Geschenk im richtigen Augenblick wecken Sie positive Erinnerungen.</p>
-                    </div>
-                  }
-                  <Link to={PURCHASE1_ROUTE}>
-                    <Button type='primary'>{'Shop now'}</Button>
-                  </Link>
-                </div>
-              </div>
-              <div>
-                <div style={{backgroundImage: `url(${require('../../static/slider_bg.jpg')})`}}
-                     className={s.carouselItem}>
-                  {intl.locale !== "de-DE" &&<h1 className={s.header}>{'Fresh Tulips Arrival'}</h1>}
-                  {
-                    intl.locale === "de-DE" &&
-                    <div className={s.sliderContent}>
-                      <h1 className={s.header_de}>Frisch aus dem Künstler-Atelier<br/>Jetzt anschauen!</h1>
-                      <p className={s.content}><strong>Zumi rät:<br/></strong> «Kleine Geschenke erhalten die Freundschaft», sagt das Sprichwort. Das gilt erst recht, wenn das Geschenk überraschend eintrifft – und Sie etwas schenken, das Sie am liebsten selbst erhalten würden.</p>
-                    </div>
-                  }
-                  <Link to={PURCHASE1_ROUTE}>
-                    <Button type='primary'>{'Shop now'}</Button>
-                  </Link>
-                </div>
-              </div>
+              {slideMap.map(item => item.callback())}
             </Carousel>
           </div>
           <Input.Search
@@ -129,7 +173,7 @@ class NewArrivals extends React.Component {
             value={search}
             onChange={this.changeSearch}
           />
-          {slideIndex === CARDS_INDEX ? (
+          {slideKey === CARDS_INDEX ? (
             !!cards.length ? (
               <Row gutter={20} type='flex'>
                 {cards.map((item) =>
