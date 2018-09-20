@@ -61,6 +61,7 @@ class ContactDetail extends React.Component {
               <br/>
               <span className={s.contactDetail}>{address.city}</span><br/>
               <span className={s.contactDetail}>{address.country}</span><br/>
+              <span className={s.contactDetail}>{address.postal_code}</span><br/>
             </Col>
           )}
         </Row>
