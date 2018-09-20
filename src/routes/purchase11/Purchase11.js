@@ -18,6 +18,10 @@ import PlusIcon from '../../static/plus.svg'
 import RemoveIcon from '../../static/remove.svg'
 import {FloatingLabel} from '../../components';
 
+import {
+  ORDER_BUNDLE_FLOW,
+} from '../../routes'
+
 injectGlobal`
   .mce-notification-warning{
     display: none !important;
@@ -52,7 +56,6 @@ class Purchase11 extends React.Component {
     if(nextProps && nextProps.bundle)
     {
       this.setState({content:nextProps.bundle.body ?nextProps.bundle.body:''});
-      
     }
     if(nextProps && nextProps.order !== this.state.order)
     {
@@ -146,7 +149,7 @@ class Purchase11 extends React.Component {
   }
   render() {
     const {currentRecipient,order,disableSubmit, contact, selOccasion,checkSave, selectedLocation} = this.state
-    const {flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation} = this.props
+    const {flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation, flow} = this.props
     const {getFieldDecorator} = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
     
@@ -350,26 +353,31 @@ class Purchase11 extends React.Component {
                 }
               </Col>
               <Col xs={12}>
-                <Form.Item>
-                  {getFieldDecorator('saved', {
-                    initialValue: saved,
-                  })(
-                    <Checkbox onChange={this.onCheckSaved}>Save order as bundle</Checkbox>
-                  )}
-                </Form.Item>
-                {
-                  this.state.checkSave === 1 &&
+              {
+                flow.key !== ORDER_BUNDLE_FLOW.key &&
+                <div>
                   <Form.Item>
-                    {getFieldDecorator('title', {
-                      initialValue: '',
-                      rules: [
-                        {required: this.state.checkSave === 1 ? true : false, min: this.state.checkSave === 1 ? 5:0, message: intl.formatMessage(formMessages.minLength, {length: 5})},
-                      ],
+                    {getFieldDecorator('saved', {
+                      initialValue: saved,
                     })(
-                      <FloatingLabel placeholder={'Bundle Name *'}/>
+                      <Checkbox onChange={this.onCheckSaved}>Save order as bundle</Checkbox>
                     )}
                   </Form.Item>
-                }
+                  {
+                    this.state.checkSave === 1 &&
+                    <Form.Item>
+                      {getFieldDecorator('title', {
+                        initialValue: '',
+                        rules: [
+                          {required: this.state.checkSave === 1 ? true : false, min: this.state.checkSave === 1 ? 5:0, message: intl.formatMessage(formMessages.minLength, {length: 5})},
+                        ],
+                      })(
+                        <FloatingLabel placeholder={'Bundle Name *'}/>
+                      )}
+                    </Form.Item>
+                  }
+                </div>
+              }
               </Col>
             </Row>
             
@@ -396,6 +404,7 @@ class Purchase11 extends React.Component {
 
 const mapState = state => ({
   loading: state.purchase.loading,
+  flow: state.purchase.flow,
   flowIndex: state.purchase.flowIndex,
   bundle: state.purchase.bundle,
   order: state.purchase.order,
