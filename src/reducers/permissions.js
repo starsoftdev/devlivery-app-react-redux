@@ -83,11 +83,11 @@ export const getTeamRole = (params = {}) => (dispatch, getState, {fetch}) => {
 }
 export const getUserPermission = () => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  return fetch(`/user-permissions`, {
+  return fetch(`/user-permissions?all`, {
     method: 'GET',
     token,
     success: (res) => {
-      console.log('/user-permissions',res);
+      console.log('/user-permissions?all',res);
       dispatch({type: GET_USER_PERMISSIONS_SUCCESS, res})
     },
     failure: () => dispatch({type: GET_USER_PERMISSIONS_FAILURE}),
