@@ -44,6 +44,7 @@
   letter-spacing: 2.1px;
   text-transform: uppercase;
   color: var(--dark-color);
+  word-break: break-all;
 }
 
 .cardPrice {

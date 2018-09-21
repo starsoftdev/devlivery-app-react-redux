@@ -40,11 +40,14 @@
   width: 150px;
   margin-right: var(--margin-md);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   word-break: break-all;
 }
-
+.voucherContain{
+  justify-content: flex-start
+}
 .product {
   display: flex;
   align-items: center;
@@ -55,12 +58,12 @@
   font-size: var(--font-size-sm);
   color: var(--dark-color);
   text-transform: uppercase;
+  word-break: break-all;
 }
 
 .title {
   letter-spacing: 2.1px;
 }
-
 .currency {
   color: var(--muted-color);
   margin-left: 4px;
