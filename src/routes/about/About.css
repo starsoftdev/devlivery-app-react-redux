@@ -28,7 +28,7 @@
 .aboutUsSectionWrapper {
   padding-top: var(--margin-xl);
   background: var(--white-color);
-  padding-bottom: 0px;
+  padding-bottom: 60px;
   background: url('../../static/testemonials_bg.jpg');
   background-repeat: no-repeat;
   background-size: cover;
