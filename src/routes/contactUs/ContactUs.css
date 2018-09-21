@@ -13,10 +13,20 @@
   justify-content: space-between;
   align-items: center;
 }
-
+.contentContainer{
+  width: 528px;
+}
+.contentContainer_de{
+  width: 720px;
+}
+.titleContainer {
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
 .textArea {
   border: 1px solid rgba(64,77,95,0.1);
-  margin-top: ;
+  /*margin-top: ;*/
 }
 
 .header {
@@ -30,7 +40,6 @@
   font-family: "Adobe Garamond Pro";
   line-height: 24px;
   margin-bottom: 20px;
-  width: 430px;
 }
 
 .messageTitle {
@@ -86,6 +95,6 @@
   background-size: contain;
   background-position: center;
   flex: 1;
-  width: 200px;
-  height: 220px;
+  width: 270px;
+  height: 300px;
 }
