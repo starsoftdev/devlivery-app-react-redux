@@ -144,7 +144,9 @@
     width: 195px;
   }
 }
-
+.errorstyle {
+  border-color: red;
+}
 .signUpBtn {
   @media (--md-up) {
     width: 190px;

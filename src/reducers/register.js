@@ -187,6 +187,25 @@ export const acceptInvitation = (inviteToken) => (dispatch, getState, {fetch,his
     history && history.push('/register/individual-details');
   }
 }
+
+export const registerMailChimp = (param) => (dispatch, getState, {fetch}) => {
+  const {token} = dispatch(getToken())
+  return fetch(`/mailchimp/subscribe`, {
+    method: 'POST',
+    contentType: 'application/json',
+    token,
+    body: {
+      email:param.email,
+    },
+    success: (res) => {
+      message.success('successfully subscribed');
+    },
+    failure: (err) => {
+      message.err('failed your subscribe');
+    },
+  })
+}
+
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------

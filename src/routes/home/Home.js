@@ -4,7 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Home.css'
 import DecorTopElement from '../../static/decor_element_top.svg'
 import PlusCircleIcon from '../../static/plus-circle.svg'
-import {Button, Carousel, Col, Input, Row} from 'antd'
+import {Button, Carousel, Col, Input, Row, Form} from 'antd'
 import DownArrow from '../../static/down_arrow.svg'
 import chooseItImage from '../../static/POSE_4.png'
 import personalizeItImage from '../../static/POSE_5.png'
@@ -17,6 +17,8 @@ import {setFlow} from '../../reducers/purchase'
 import {Link} from '../../components'
 import {FloatingLabel} from '../../components';
 import cn from 'classnames';
+import formMessages from '../../formMessages'
+import {registerMailChimp} from '../../reducers/register';
 
 const Card = ({number, image, title, description,intl = {intl}}) =>
   <div className={s.card}>
@@ -28,11 +30,27 @@ const Card = ({number, image, title, description,intl = {intl}}) =>
   </div>
 
 class Home extends React.Component {
+  state = {
+    emailError : false
+  }
   scrollToFirstSection = () => {
     animateScroll.scrollTo(this.firstSection.offsetTop)
   }
+  handleSubmit = (e) => {
+    e.preventDefault()
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        this.setState({emailError:false});
+        this.props.registerMailChimp(values)
+      }
+      else {
+        this.setState({emailError:true});
+      }
+    })
+  }
   render() {
     const {intl, setFlow} = this.props
+    const {getFieldDecorator} = this.props.form
     
     return (
       <React.Fragment>
@@ -184,10 +202,21 @@ class Home extends React.Component {
           <h3 className={s.signUpHeader}>
             {intl.formatMessage(messages.signUp)}
           </h3>
-          <div className={s.signUpInputWrapper}>
-            <Input type='text' placeholder={intl.formatMessage(messages.email)} className={s.signUpInput}/>
-            <Button type='primary' className={s.signUpBtn}>{intl.formatMessage(messages.submit)}</Button>
-          </div>
+          <Form onSubmit={this.handleSubmit} className={s.signUpInputWrapper}>
+            {getFieldDecorator('email', {
+              validateTrigger: 'onSubmit',//'onBlur'
+              rules: [
+                {required: true, message: intl.formatMessage(formMessages.required)},
+                {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
+              ],
+            })(
+              <Input 
+                type='text' 
+                placeholder={intl.formatMessage(messages.email)} 
+                className={cn(s.signUpInput, this.state.emailError && s.errorstyle)}/>
+            )}
+            <Button type='primary' htmlType='submit' className={s.signUpBtn}>{intl.formatMessage(messages.submit)}</Button>
+          </Form>
         </section>
       </React.Fragment>
     )
@@ -198,6 +227,7 @@ const mapState = state => ({})
 
 const mapDispatch = {
   setFlow,
+  registerMailChimp
 }
 
-export default connect(mapState, mapDispatch)(withStyles(s)(Home))
+export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Home)))
