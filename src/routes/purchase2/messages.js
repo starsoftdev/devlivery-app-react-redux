@@ -27,7 +27,7 @@ export default defineMessages({
   },
   printedHeader: {
     id: 'purchase2.printedHeader',
-    defaultMessage: '... oder'
+    defaultMessage: '... oder getippt'
   },
   printedDescription: {
     id: 'purchase2.printedDescription',
