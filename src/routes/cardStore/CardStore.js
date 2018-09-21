@@ -56,7 +56,9 @@ class CardStore extends React.Component {
       cardStyle,
       setFlowFromSelectCard
     } = this.props
-
+    var occasionByCardId = null;
+    if(cardDetails && occasions)
+      occasionByCardId = occasions.filter(item => item.id === cardDetails.occasion_id);
     return (
       <div className={s.container}>
         <div className={s.filters}>
@@ -207,8 +209,8 @@ class CardStore extends React.Component {
                   <span className={s.Detail}>{cardDetails.style}</span>
                 </Col>
                 <Col md={12}>
-                  <span className={s.DetailTitle}>Color</span><br/>
-                  <span className={s.Detail}>{cardDetails.color}</span>
+                  <span className={s.DetailTitle}>Occasion</span><br/>
+                  <span className={s.Detail}>{occasionByCardId && occasionByCardId.length > 0 && occasionByCardId[0].title}</span>
                 </Col>
               </Row>
               <Row className={s.detailRow}>
