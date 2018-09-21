@@ -56,7 +56,6 @@ class ContactUs extends React.Component {
       <div className={s.wrapper}>
         <div className={s.container}>
           {/*<h1 className={s.header}>{intl.formatMessage(messages.header)}</h1>*/}
-          <div style={{backgroundImage: `url(${contactusImage})`}} className={s.cardImage}/>
           {
             intl.locale === "de-DE" &&
             <div className={s.subtitle}>
@@ -72,6 +71,8 @@ class ContactUs extends React.Component {
               Use the form below to send your comment or questions.
             </div>
           }
+          <div style={{backgroundImage: `url(${contactusImage})`}} className={s.cardImage}/>
+          
           <Form onSubmit={this.handleSubmit} className={s.formContainer}>
             <Row gutter={40} type='flex'>
               <Col md={12} className={s.contactInput}>
