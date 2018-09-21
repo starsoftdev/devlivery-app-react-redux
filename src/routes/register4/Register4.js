@@ -1,12 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button, Form, Icon, Input, Select} from 'antd'
+import {Button, Form, Icon, Input, Select, Modal} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Register4.css'
 import PlusIcon from '../../static/plus.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
-import {invitePeople} from '../../reducers/register'
+import {invitePeople,hasInvited} from '../../reducers/register'
 import messages from './messages'
 import {Actions, Link, SectionHeader} from '../../components'
 import {ORDERS_ROUTE} from '../'
@@ -14,16 +14,40 @@ import {FloatingLabel} from '../../components';
 
 class Register4 extends React.Component {
   uuid = 1
-
+  state = {
+    visible:false,
+    resendEmail:[],
+    peoples : []
+  }
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.invitePeople(values.people)
+        Promise.all(values.people.map(item => this.props.hasInvited(item.email)))
+        .then(result =>{
+          var resendEmail = result.filter(item => item && item.invited === true);
+          if(resendEmail.length <= 0)
+          {
+            this.props.invitePeople(values.people)
+            return;
+          }
+          this.setState({visible:true, resendEmail, peoples:values.people});
+        })
       }
     })
   }
+  handleOk = (e) => {
+    this.props.invitePeople(this.state.peoples)
+    this.setState({
+      visible: false,
+    });
+  }
 
+  handleCancel = (e) => {
+    this.setState({
+      visible: false,
+    });
+  }
   removeItem = (k) => {
     const keys = this.props.form.getFieldValue('keys')
     const newKeys = keys.filter(key => key !== k)
@@ -95,6 +119,18 @@ class Register4 extends React.Component {
             </Button>
           </div>
         </div>
+        <Modal
+          title="You've already invited this person. Do you wish to resend your invite?"
+          visible={this.state.visible}
+          okText = {"Resend"}
+          cancelText = {"Cancel"}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+        >
+          {
+            this.state.resendEmail.map(item =>(<p>{item.email}</p>))
+          }
+        </Modal>
         <Actions>
           <KeyHandler
             keyEventName={KEYPRESS}
@@ -127,6 +163,7 @@ const mapState = state => ({
 
 const mapDispatch = {
   invitePeople,
+  hasInvited
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Register4)))

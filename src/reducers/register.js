@@ -156,6 +156,24 @@ export const addTeam = (values) => (dispatch, getState, {fetch, history}) => {
   })
   
 }
+export const hasInvited = (email) => (dispatch, getState, {fetch, history}) => {
+  const {token} = dispatch(getToken())
+  
+  return fetch(`/has-invited`, {
+    method: 'POST',
+    body: {
+      email,
+    },
+    token,
+    success: (res) => {
+      return {email,...res.data};
+    },
+    failure: (err) => {
+      return null;
+    },
+  })
+  
+}
 
 export const invitePeople = (people) => (dispatch, getState, {fetch, history}) => {
   const {token} = dispatch(getToken())
