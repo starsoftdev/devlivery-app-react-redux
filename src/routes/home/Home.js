@@ -172,9 +172,9 @@ class Home extends React.Component {
           </Carousel>
         </section>
         <section className={s.aboutUsSection}>
-          <div className={s.aboutUsContent}>
+          <div className={intl.locale === "de-DE" ? s.aboutUsContent_de: s.aboutUsContent}>
             <AboutUsIcon className={s.aboutUsIcon}/>
-            <h3 className={s.aboutUsHeader}>{intl.formatMessage(messages.about)}</h3>
+            <h3 className={intl.locale === "de-DE" ? s.aboutUsHeader_de:s.aboutUsHeader}>{intl.formatMessage(messages.about)}</h3>
             <p>
               {intl.formatMessage(messages.aboutDescription)}
             </p>
