@@ -5,6 +5,7 @@ import s from './About.css'
 import {Button, Col, Input, Row} from 'antd'
 import messages from './messages'
 import {FloatingLabel} from '../../components';
+import pose8Image from '../../static/POSE_8.png'
 
 class About extends React.Component {
   render() {
@@ -19,47 +20,36 @@ class About extends React.Component {
         <section className={s.aboutUsSectionWrapper}>
           <div className={s.aboutUsSection}>
             <Row gutter={40} type='flex'>
-              <Col xs={24} sm={12}>
+              <Col xs={24} sm={24}>
                 <div className={s.aboutUsContent}>
                   <h3 className={s.aboutUsHeader}>{intl.formatMessage(messages.about)}</h3>
-                  <p>
+                  <p className={s.aboutDescription}>
                     {intl.formatMessage(messages.aboutDescription)}
                   </p>
                 </div>
+                <Row gutter={40} type='flex'>
+                  <Col xs={16} sm={16} className={s.quoteCotainer}>
+                    <p className={s.feedback}>
+                      {intl.formatMessage(messages.quote)}
+                      <br/>
+                      <b>- Adam Smith</b>
+                    </p>
+                  </Col>
+                  <Col xs={8} sm={8}  className={s.quoteImageCotanier}>
+                    <div className={s.poseImageContainer}>
+                      <img src={require('../../static/POSE_8.png')} className={s.poseImage}/>
+                    </div>
+                  </Col>
+                </Row>
                 <div>
-                  <img src={require('../../static/hands_wrapping_gift.jpg')} className={s.sectionImage}/>
-                </div>
-              </Col>
-              <Col xs={24} sm={12}>
-                <div>
-                  <img src={require('../../static/girl_wrapping_gift.jpg')} className={s.sectionImage}/>
-                </div>
-              </Col>
-            </Row>
-            <Row gutter={40} type='flex'>
-              <Col xs={24} sm={12}>
-                <div>
-                  <p className={s.feedback}>
-                    {intl.formatMessage(messages.quote)}
-                    <br/>
-                    <b>- Adam Smith</b>
-                  </p>
                   <p className={s.info}>
                     {intl.formatMessage(messages.aboutDescription1)}
                   </p>
                 </div>
               </Col>
-              <Col xs={24} sm={12}>
-                <div>
-                  <img src={require('../../static/paper.jpg')} className={s.sectionImage}/>
-                </div>
-              </Col>
             </Row>
           </div>
         </section>
-        <div>
-          <img src={require('../../static/bottom_bg.jpg')} className={s.sectionImage}/>
-        </div>
         <section className={s.signUpSection}>
           <h3 className={s.signUpHeader}>
             {intl.formatMessage(messages.signUp)}
