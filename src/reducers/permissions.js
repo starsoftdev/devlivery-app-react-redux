@@ -16,6 +16,10 @@ export const GET_ROLE_GROUP_REQUEST = 'Permission.GET_ROLE_GROUP_REQUEST'
 export const GET_ROLE_GROUP_SUCCESS = 'Permission.GET_ROLE_GROUP_SUCCESS'
 export const GET_ROLE_GROUP_FAILURE = 'Permission.GET_ROLE_GROUP_FAILURE'
 
+export const GET_USER_CREATED_ROLE_REQUEST = 'Permission.GET_USER_CREATED_ROLE_REQUEST'
+export const GET_USER_CREATED_ROLE_SUCCESS = 'Permission.GET_USER_CREATED_ROLE_SUCCESS'
+export const GET_USER_CREATED_ROLE_FAILURE = 'Permission.GET_USER_CREATED_ROLE_FAILURE'
+
 export const CHANGE_NEW_ROLE_GROUP = 'Permission.CHANGE_NEW_ROLE_GROUP'
 
 export const ADD_ROLE_GROUP_REQUEST = 'Permission.ADD_ROLE_GROUP_REQUEST'
@@ -65,6 +69,22 @@ export const getRole = (params = {}) => (dispatch, getState, {fetch}) => {
     failure: () => dispatch({type: GET_ROLE_GROUP_FAILURE}),
   })
 }
+export const getUserCreatedRoles = (params = {}) => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_USER_CREATED_ROLE_REQUEST, params})
+  const {token} = dispatch(getToken())
+  const {page, pageSize} = getState().permission
+  return fetch(`/user-created-roles?${qs.stringify({
+    page,
+    per_page: pageSize,
+  })}`, {
+    method: 'GET',
+    token,
+    success: (res) => {
+      dispatch({type: GET_USER_CREATED_ROLE_SUCCESS, res})
+    },
+    failure: () => dispatch({type: GET_USER_CREATED_ROLE_FAILURE}),
+  })
+}
 export const getTeamRole = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_ROLE_GROUP_REQUEST, params})
   const {token} = dispatch(getToken())
@@ -87,7 +107,6 @@ export const getUserPermission = () => (dispatch, getState, {fetch}) => {
     method: 'GET',
     token,
     success: (res) => {
-      console.log('/user-permissions',res);
       dispatch({type: GET_USER_PERMISSIONS_SUCCESS, res})
     },
     failure: () => dispatch({type: GET_USER_PERMISSIONS_FAILURE}),
@@ -95,9 +114,6 @@ export const getUserPermission = () => (dispatch, getState, {fetch}) => {
 }
 export const hasAnyPermission = (permissions) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
-  console.log('/has-any-permission',{
-    permissions,
-  });
   return fetch(`/has-any-permission`, {
     method: 'POST',
     contentType: 'application/json',
@@ -106,11 +122,9 @@ export const hasAnyPermission = (permissions) => (dispatch, getState, {fetch}) =
       permissions,
     },
     success: (res) => {
-      console.log('/has-any-permission',res);
       dispatch({type: GET_ANY_PERMISSIONS_SUCCESS, res})
     },
     failure: (err) => {
-      console.log('/has-any-permission',err);
       dispatch({type: GET_ANY_PERMISSIONS_FAILURE})
     },
   })
@@ -142,7 +156,7 @@ export const addGroup = () => (dispatch, getState, {fetch}) => {
     },
     success: () => {
       dispatch({type: ADD_ROLE_GROUP_SUCCESS})
-      dispatch(getRole())
+      dispatch(getUserCreatedRoles())
     },
     failure: () => dispatch({type: ADD_ROLE_GROUP_FAILURE}),
   })
@@ -156,7 +170,7 @@ export const removeGroup = (id) => (dispatch, getState, {fetch}) => {
     token,
     success: () => {
       dispatch({type: DELETE_ROLE_GROUP_SUCCESS})
-      dispatch(getRole())
+      dispatch(getUserCreatedRoles())
     },
     failure: () => dispatch({type: DELETE_ROLE_GROUP_FAILURE}),
   })
@@ -213,6 +227,7 @@ const initialState = {
     settingPermissions: false,
   },
   groups: [],
+  user_created_roles:[],
   permissions: [],
   pickedPermissions: [],
   page: 1,
@@ -246,6 +261,29 @@ export default createReducer(initialState, {
       groups: false,
     },
   }),
+  
+  [GET_USER_CREATED_ROLE_REQUEST]: (state, {params}) => ({
+    page: params.pagination ? params.pagination.current : 1,
+    pageSize: params.pagination ? params.pagination.pageSize : DEFAULT_PAGE_SIZE,
+    loading: {
+      ...state.loading,
+      user_created_roles: true,
+    },
+  }),
+  [GET_USER_CREATED_ROLE_SUCCESS]: (state, action) => ({
+    user_created_roles: action.res.data,
+    loading: {
+      ...state.loading,
+      user_created_roles: false,
+    },
+  }),
+  [GET_USER_CREATED_ROLE_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      user_created_roles: false,
+    },
+  }),
+
   [GET_USER_PERMISSIONS_SUCCESS]: (state, action) => ({
     user_permissions: action.res.data,
     loading: {
