@@ -75,8 +75,8 @@ class Reports extends React.Component {
       },
       {
         title: intl.formatMessage(messages.scheduledAtColumn),
-        dataIndex: 'scheduled_at',
-        key: 'scheduled_at',
+        dataIndex: 'delivery_date',
+        key: 'delivery_date',
       },
       {
         title: intl.formatMessage(messages.itemsColumn),
