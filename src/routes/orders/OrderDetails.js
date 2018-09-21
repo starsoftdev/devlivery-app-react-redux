@@ -65,7 +65,17 @@ class OrderDetails extends React.Component {
               return (
                 <div className={s.product}>
                   <div className={s.productImage}>
-                    <span className={s.title}>{item.text}</span><br/>
+                    <div className={s.voucherContain}>
+                      <span className={s.title}>
+                      <strong>FROM:</strong>
+                      {" "+item.from}
+                      </span>
+                      <br/>
+                      <span className={s.title}>
+                      <strong>TO:</strong>
+                      {" "+item.to}
+                      </span>
+                    </div>
                   </div>
                   <div className={s.title}>{item.title}</div>
                 </div>
@@ -157,6 +167,7 @@ class OrderDetails extends React.Component {
       });
       key++;
     }
+    console.log("orderDetails",orderDetails);
     // TODO add shipping price/info
     return (
       <Modal
