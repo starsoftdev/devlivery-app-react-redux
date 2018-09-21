@@ -2,14 +2,33 @@ import React from 'react'
 import {connect} from 'react-redux'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './About.css'
-import {Button, Col, Input, Row} from 'antd'
+import {Button, Col, Input, Row, Form} from 'antd'
 import messages from './messages'
 import {FloatingLabel} from '../../components';
 import pose8Image from '../../static/POSE_8.png'
+import {registerMailChimp} from '../../reducers/register';
+import formMessages from '../../formMessages'
+import cn from 'classnames';
 
 class About extends React.Component {
+  state = {
+    emailError : false
+  }
+  handleSubmit = (e) => {
+    e.preventDefault()
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        this.setState({emailError:false});
+        this.props.registerMailChimp(values)
+      }
+      else {
+        this.setState({emailError:true});
+      }
+    })
+  }
   render() {
     const {intl} = this.props
+    const {getFieldDecorator} = this.props.form
     return (
       <React.Fragment>
         <div className={s.bannerSectionWrapper}>
@@ -54,10 +73,21 @@ class About extends React.Component {
           <h3 className={s.signUpHeader}>
             {intl.formatMessage(messages.signUp)}
           </h3>
-          <div className={s.signUpInputWrapper}>
-            <Input type='text' placeholder={intl.formatMessage(messages.email)} className={s.signUpInput}/>
-            <Button type='primary' className={s.signUpBtn}>{intl.formatMessage(messages.submit)}</Button>
-          </div>
+          <Form onSubmit={this.handleSubmit} className={s.signUpInputWrapper}>
+            {getFieldDecorator('email', {
+              validateTrigger: 'onSubmit',//'onBlur'
+              rules: [
+                {required: true, message: intl.formatMessage(formMessages.required)},
+                {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
+              ],
+            })(
+              <Input 
+                type='text' 
+                placeholder={intl.formatMessage(messages.email)} 
+                className={cn(s.signUpInput, this.state.emailError && s.errorstyle)}/>
+            )}
+            <Button type='primary' htmlType='submit' className={s.signUpBtn}>{intl.formatMessage(messages.submit)}</Button>
+          </Form>
         </section>
       </React.Fragment>
     )
@@ -66,6 +96,6 @@ class About extends React.Component {
 
 const mapState = state => ({})
 
-const mapDispatch = {}
+const mapDispatch = {registerMailChimp}
 
-export default connect(mapState, mapDispatch)(withStyles(s)(About))
+export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(About)))
