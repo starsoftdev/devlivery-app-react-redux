@@ -5,19 +5,30 @@
   padding-top: 36px;
   padding-bottom: 60px;
 }
-
 .container {
+  max-width: var(--max-content-width);
+  margin-right: auto;
+  margin-left: auto;
   display: flex;
-  margin: 0 auto;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  width: 100%;
+
+  @media (--md-up) {
+    padding: var(--margin-xl) var(--margin-md);
+    padding-top: 0;
+  }
+  @media (--md-down) {
+    padding: var(--margin-md);
+    padding-top: 0;
+  }
 }
+
 .contentContainer{
-  width: 528px;
+  width:555px;
+  align-self: center;
 }
 .contentContainer_de{
-  width: 720px;
+  width:100%;
 }
 .titleContainer {
   display: flex;
@@ -32,6 +43,7 @@
 .header {
   font-size: 40px;
   font-family: "Adobe Garamond Pro";
+  text-align: center;
 }
 
 .subtitle{
@@ -53,7 +65,8 @@
 }
 
 .formContainer {
-  width: 430px;
+  width: 555px;
+  align-self: center;
 }
 
 .contactInput {
@@ -95,6 +108,7 @@
   background-size: contain;
   background-position: center;
   flex: 1;
-  width: 270px;
-  height: 300px;
+  width: auto;
+  height: 420px;
+  background-position: right;
 }

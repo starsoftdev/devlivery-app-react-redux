@@ -2714,7 +2714,7 @@
   {
     "id": "contactUs.breadcrumb",
     "defaultMessage": "Contact Us",
-    "message": "Contact Us",
+    "message": "Kontaktiere uns",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
@@ -2730,7 +2730,7 @@
   {
     "id": "contactUs.header",
     "defaultMessage": "Contact Us",
-    "message": "Contact Us",
+    "message": "Kontaktiere uns",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
