@@ -381,7 +381,15 @@
   }
   text-align: center;
 }
-
+.aboutUsHeader_de {
+  @media (--md-up) {
+    font-size: 26px;
+  }
+  @media (--md-down) {
+    font-size: 20px;
+  }
+  text-align: center;
+}
 .aboutUsSection {
   min-height: 490px;
   background: url('../../static/creative-floral.jpg');
@@ -409,7 +417,22 @@
     padding: var(--margin-md);
   }
 }
-
+.aboutUsContent_de {
+  background-color: var(--white-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  
+  @media (--md-up) {
+    width: 445px;
+    padding: 45px;
+    padding-bottom: 0px;
+  }
+  @media (--md-down) {
+    padding: var(--margin-md);
+  }
+}
 .aboutUsIcon {
   position: absolute;
   top: -40px;
