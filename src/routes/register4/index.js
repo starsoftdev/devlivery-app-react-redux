@@ -3,11 +3,11 @@ import {AppLayout} from '../../components'
 import Register4 from './Register4'
 import {setCurrentRouteName} from '../../reducers/global'
 import messages from './messages'
-import {getRoles} from '../../reducers/register'
+import {getUserCreatedRoles} from '../../reducers/permissions'
 
 function action({params,store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
-  store.dispatch(getRoles())
+  store.dispatch(getUserCreatedRoles())
   
   return {
     chunks: ['register'],

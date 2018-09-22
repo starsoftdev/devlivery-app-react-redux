@@ -1,6 +1,6 @@
 import React from 'react'
 import {Select, Row, Col, Input, Button} from 'antd'
-import {getRole} from '../../reducers/permissions'
+import {getUserCreatedRoles} from '../../reducers/permissions'
 import {updatePendingTeamMemberRole} from '../../reducers/pendingMembers'
 import {connect} from 'react-redux'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
@@ -22,7 +22,7 @@ class TeamExpandedRow extends React.Component {
       })
   }
   componentDidMount() {
-    this.props.getRole()
+    this.props.getUserCreatedRoles()
   }
 
   selectChange = (value) => {
@@ -36,7 +36,7 @@ class TeamExpandedRow extends React.Component {
       <Select
         //mode='multiple'
         placeholder='Select groups'
-        style={{width: '100%'}}
+        style={{width: '30%', minWidth: 300}}
         onChange={this.selectChange}
         value={this.state.picked}
       >
@@ -47,13 +47,13 @@ class TeamExpandedRow extends React.Component {
 }
 
 const mapState = state => ({
-  roles: state.permission.groups,
+  roles: state.permission.user_created_roles,
   user: state.user,
 })
 
 const mapDispatch = {
   updatePendingTeamMemberRole,
-  getRole,
+  getUserCreatedRoles,
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(TeamExpandedRow))
