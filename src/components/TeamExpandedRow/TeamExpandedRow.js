@@ -1,6 +1,6 @@
 import React from 'react'
 import {Select, Row, Col, Input, Button} from 'antd'
-import {getRole} from '../../reducers/permissions'
+import {getUserCreatedRoles} from '../../reducers/permissions'
 import {addBudget, reduceAmountBudget, addAmountBudget, deleteBudget, updateTeamMemberRole} from '../../reducers/team'
 import {connect} from 'react-redux'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
@@ -39,7 +39,7 @@ class TeamExpandedRow extends React.Component {
   }
   componentDidMount() {
     this.props.getUserPermission();
-    this.props.getRole()
+    this.props.getUserCreatedRoles()
   }
 
   selectChange = (value) => {
@@ -160,7 +160,7 @@ class TeamExpandedRow extends React.Component {
 }
 
 const mapState = state => ({
-  roles: state.permission.groups,
+  roles: state.permission.user_created_roles,
   user_permissions: state.permission.user_permissions,
   user: state.user.user
 })
@@ -171,7 +171,7 @@ const mapDispatch = {
   addAmountBudget,
   reduceAmountBudget,
   deleteBudget,
-  getRole,
+  getUserCreatedRoles,
   getUserPermission
 }
 

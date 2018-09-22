@@ -62,12 +62,12 @@ class Register4 extends React.Component {
   }
 
   render() {
-    const {intl, roles,fromdashboard} = this.props
+    const {intl, user_created_roles,fromdashboard} = this.props
     const {getFieldDecorator, getFieldValue} = this.props.form
     this.props.form.getFieldDecorator('keys', {initialValue: [0]})
     
     const keys = getFieldValue('keys')
-
+    const roles = user_created_roles
     return (
       <Form onSubmit={this.handleSubmit} className={s.container}>
         <div className={s.content}>
@@ -158,7 +158,7 @@ class Register4 extends React.Component {
 }
 
 const mapState = state => ({
-  roles: state.register.roles,
+  user_created_roles: state.permission.user_created_roles,
 })
 
 const mapDispatch = {
