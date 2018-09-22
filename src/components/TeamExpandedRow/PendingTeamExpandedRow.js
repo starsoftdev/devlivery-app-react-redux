@@ -18,7 +18,7 @@ class TeamExpandedRow extends React.Component {
     if(!this.state.load && nextprops.record)
       this.setState({
         load:true,
-        picked:nextprops.record.groups ? nextprops.record.groups.map(item=>item.id+"") :[]
+        //picked:nextprops.record.groups ? nextprops.record.groups.map(item=>item.id+"") :[]
       })
   }
   componentDidMount() {
