@@ -206,7 +206,7 @@ export const acceptInvitation = (inviteToken) => (dispatch, getState, {fetch,his
   }
 }
 
-export const registerMailChimp = (param) => (dispatch, getState, {fetch}) => {
+export const registerMailChimp = (param,callback) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   return fetch(`/mailchimp/subscribe`, {
     method: 'POST',
@@ -217,9 +217,11 @@ export const registerMailChimp = (param) => (dispatch, getState, {fetch}) => {
     },
     success: (res) => {
       message.success('successfully subscribed');
+      if(callback)
+        callback();
     },
     failure: (err) => {
-      message.err('failed your subscribe');
+      message.warn(err.errors ? err.errors: 'failed your subscribe');
     },
   })
 }

@@ -19,7 +19,11 @@ class About extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.setState({emailError:false});
-        this.props.registerMailChimp(values)
+        this.props.registerMailChimp(values,()=>{
+          this.props.form.setFieldsValue({
+            email: null
+          });
+        })
       }
       else {
         this.setState({emailError:true});
