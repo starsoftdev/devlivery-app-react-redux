@@ -42,6 +42,11 @@ class Purchase2 extends React.Component {
               disabled={handwrittenDisabled}
             />
             <p className={s.description}>
+              {intl.locale === "de-DE" && intl.formatMessage(messages.handwrittenHeader)}
+              {intl.locale === "de-DE" && <br/>}
+              {intl.formatMessage(messages.handwrittenDescription)}
+              <br/>
+              <br/>
               {handwrittenDisabled && (
                 <React.Fragment>
                   <FormattedMessage
@@ -52,9 +57,6 @@ class Purchase2 extends React.Component {
                   <br/>
                 </React.Fragment>
               )}
-              {intl.locale === "de-DE" && intl.formatMessage(messages.handwrittenHeader)}
-              {intl.locale === "de-DE" && <br/>}
-              {intl.formatMessage(messages.handwrittenDescription)}
             </p>
           </Col>
           <Col className={s.itemWrapper}>
