@@ -31,7 +31,7 @@ const Card = ({number, image, title, description,intl = {intl}}) =>
 
 class Home extends React.Component {
   state = {
-    emailError : false
+    emailError : false,
   }
   scrollToFirstSection = () => {
     animateScroll.scrollTo(this.firstSection.offsetTop)
@@ -41,7 +41,11 @@ class Home extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.setState({emailError:false});
-        this.props.registerMailChimp(values)
+        this.props.registerMailChimp(values,()=>{
+          this.props.form.setFieldsValue({
+            email: null
+          });
+        })
       }
       else {
         this.setState({emailError:true});
