@@ -2129,7 +2129,7 @@
   {
     "id": "address.address",
     "defaultMessage": "Address",
-    "message": "Address",
+    "message": "Adresse",
     "files": [
       "src/components/Address/messages.js"
     ]
@@ -2137,7 +2137,7 @@
   {
     "id": "address.city",
     "defaultMessage": "City",
-    "message": "City",
+    "message": "Stadt",
     "files": [
       "src/components/Address/messages.js"
     ]
@@ -2145,7 +2145,7 @@
   {
     "id": "address.country",
     "defaultMessage": "Country",
-    "message": "Country",
+    "message": "Land",
     "files": [
       "src/components/Address/messages.js"
     ]
@@ -2161,7 +2161,7 @@
   {
     "id": "address.postalCode",
     "defaultMessage": "Postal Code",
-    "message": "Postal Code",
+    "message": "Postleitzahl",
     "files": [
       "src/components/Address/messages.js"
     ]
