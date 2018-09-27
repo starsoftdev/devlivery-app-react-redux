@@ -1146,7 +1146,7 @@
   {
     "id": "purchase.purchase11",
     "defaultMessage": "Order Confirmation",
-    "message": "Bestellbestätigung"
+    "message": "Bestellübersicht"
   },
   {
     "id": "orders.dateColumn",
@@ -2257,7 +2257,7 @@
   {
     "id": "purchaseActions.confirmDonation",
     "defaultMessage": "Order Confirmation",
-    "message": "Order Confirmation",
+    "message": "Bestellübersicht",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2289,7 +2289,7 @@
   {
     "id": "purchaseActions.purchase11",
     "defaultMessage": "Order Confirmation",
-    "message": "Order Confirmation",
+    "message": "Bestellübersicht",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2481,7 +2481,7 @@
   {
     "id": "addBundle.subtotal",
     "defaultMessage": "Subtotal:",
-    "message": "Subtotal:",
+    "message": "Netto:",
     "files": [
       "src/routes/addBundle/messages.js"
     ]
@@ -3050,7 +3050,7 @@
   {
     "id": "orders.summaryShipping",
     "defaultMessage": "Shipping",
-    "message": "Shipping",
+    "message": "Versand",
     "files": [
       "src/routes/orders/messages.js"
     ]
@@ -3058,7 +3058,7 @@
   {
     "id": "orders.summarySubtotal",
     "defaultMessage": "Subtotal",
-    "message": "Subtotal",
+    "message": "Netto",
     "files": [
       "src/routes/orders/messages.js"
     ]
@@ -3082,7 +3082,7 @@
   {
     "id": "purchase11.deliveryPlace",
     "defaultMessage": "Where to send",
-    "message": "Where to send",
+    "message": "Senden an",
     "files": [
       "src/routes/purchase11/messages.js"
     ]
@@ -3090,7 +3090,7 @@
   {
     "id": "purchase11.deliveryOccasion",
     "defaultMessage": "Delivery Occasion",
-    "message": "Delivery Occasion",
+    "message": "Anlass der Lieferung",
     "files": [
       "src/routes/purchase11/messages.js"
     ]
@@ -3098,7 +3098,15 @@
   {
     "id": "purchase11.deliveryTime",
     "defaultMessage": "Delivery Date",
-    "message": "Delivery Date",
+    "message": "Liefertermin",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.saveasbundle",
+    "defaultMessage": "Save order as bundle",
+    "message": "Geschenkkombination speichern",
     "files": [
       "src/routes/purchase11/messages.js"
     ]
@@ -3106,7 +3114,7 @@
   {
     "id": "purchase11.header",
     "defaultMessage": "Order Confirmation",
-    "message": "Order Confirmation",
+    "message": "Bestellübersicht",
     "files": [
       "src/routes/purchase11/messages.js"
     ]
@@ -3114,7 +3122,23 @@
   {
     "id": "purchase11.shipping",
     "defaultMessage": "Shipping",
-    "message": "Shipping",
+    "message": "Versand",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.add",
+    "defaultMessage": "Add",
+    "message": "Hinzufügen",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.remove",
+    "defaultMessage": "Remove",
+    "message": "Entfernen",
     "files": [
       "src/routes/purchase11/messages.js"
     ]
@@ -3130,7 +3154,15 @@
   {
     "id": "purchase11.subtotal",
     "defaultMessage": "Subtotal:",
-    "message": "Subtotal:",
+    "message": "Netto:",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.tax",
+    "defaultMessage": "Tax:",
+    "message": "Mwst:",
     "files": [
       "src/routes/purchase11/messages.js"
     ]

@@ -2964,6 +2964,14 @@
     ]
   },
   {
+    "id": "purchase11.saveasbundle",
+    "defaultMessage": "Save order as bundle",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
     "id": "purchase11.header",
     "defaultMessage": "Order Confirmation",
     "message": "",
@@ -2980,6 +2988,22 @@
     ]
   },
   {
+    "id": "purchase11.add",
+    "defaultMessage": "Add",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.remove",
+    "defaultMessage": "Remove",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
     "id": "purchase11.submit",
     "defaultMessage": "Proceed to checkout",
     "message": "",
@@ -2990,6 +3014,14 @@
   {
     "id": "purchase11.subtotal",
     "defaultMessage": "Subtotal:",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.tax",
+    "defaultMessage": "Tax:",
     "message": "",
     "files": [
       "src/routes/purchase11/messages.js"
