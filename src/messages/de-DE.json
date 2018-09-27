@@ -996,7 +996,8 @@
     "defaultMessage": "Login",
     "message": "Login",
     "files": [
-      "src/routes/login/messages.js"
+      "src/routes/login/messages.js",
+      "src/routes/verify/messages.js"
     ]
   },
   {
@@ -1020,7 +1021,9 @@
     "defaultMessage": "Make an Order",
     "message": "Bestellung aufgeben",
     "files": [
-      "src/routes/bundles/messages.js"
+      "src/routes/bundles/messages.js",
+      "src/routes/cardStore/messages.js",
+      "src/routes/giftStore/messages.js"
     ]
   },
   {
@@ -1773,8 +1776,13 @@
     "defaultMessage": "Next",
     "message": "weiter",
     "files": [
+      "src/routes/purchase1/messages.js",
+      "src/routes/purchase2/messages.js",
+      "src/routes/purchase3/messages.js",
+      "src/routes/purchase4/messages.js",
       "src/routes/purchase5/messages.js",
-      "src/routes/purchase8/messages.js"
+      "src/routes/purchase8/messages.js",
+      "src/routes/purchase12/messages.js"
     ]
   },
   {
@@ -2675,8 +2683,12 @@
     "defaultMessage": "Yes",
     "message": "Yes",
     "files": [
+      "src/routes/contactGroup/messages.js",
       "src/routes/contactGroups/messages.js",
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js",
+      "src/routes/editContact/messages.js",
+      "src/routes/purchase11/messages.js"
     ]
   },
   {
@@ -2692,7 +2704,10 @@
     "defaultMessage": "Are you sure you want to delete?",
     "message": "Are you sure you want to delete?",
     "files": [
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js",
+      "src/routes/editContact/messages.js",
+      "src/routes/purchase11/messages.js"
     ]
   },
   {
@@ -3268,7 +3283,9 @@
     "defaultMessage": "Address",
     "message": "Adresse",
     "files": [
-      "src/routes/user/messages.js"
+      "src/routes/user/messages.js",
+      "src/routes/purchase9/messages.js",
+      "src/routes/register2/messages.js"
     ]
   },
   {
@@ -3276,7 +3293,8 @@
     "defaultMessage": "Shipping Address",
     "message": "Lieferanschrift",
     "files": [
-      "src/routes/user/messages.js"
+      "src/routes/user/messages.js",
+      "src/routes/purchase9/messages.js"
     ]
   },
   {
@@ -3284,7 +3302,9 @@
     "defaultMessage": "City",
     "message": "Stadt",
     "files": [
-      "src/routes/user/messages.js"
+      "src/routes/user/messages.js",
+      "src/routes/purchase9/messages.js",
+      "src/routes/register2/messages.js"
     ]
   },
   {
@@ -3292,7 +3312,9 @@
     "defaultMessage": "Company",
     "message": "Unternehmen",
     "files": [
-      "src/routes/user/messages.js"
+      "src/routes/user/messages.js",
+      "src/routes/purchase9/messages.js",
+      "src/routes/register2/messages.js"
     ]
   },
   {
@@ -3300,7 +3322,9 @@
     "defaultMessage": "Country",
     "message": "Land",
     "files": [
-      "src/routes/user/messages.js"
+      "src/routes/user/messages.js",
+      "src/routes/purchase9/messages.js",
+      "src/routes/register2/messages.js"
     ]
   },
   {
@@ -3308,7 +3332,9 @@
     "defaultMessage": "Postal Code",
     "message": "Postleitzahl",
     "files": [
-      "src/routes/user/messages.js"
+      "src/routes/user/messages.js",
+      "src/routes/purchase9/messages.js",
+      "src/routes/register2/messages.js"
     ]
   },
   {
@@ -3316,7 +3342,9 @@
     "defaultMessage": "State",
     "message": "Zustand",
     "files": [
-      "src/routes/user/messages.js"
+      "src/routes/user/messages.js",
+      "src/routes/purchase9/messages.js",
+      "src/routes/register2/messages.js"
     ]
   },
   {
