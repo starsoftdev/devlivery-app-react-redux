@@ -25,6 +25,10 @@ export default defineMessages({
     id: 'purchase11.deliveryTime',
     defaultMessage: 'Delivery Date',
   },
+  saveasbundle: {
+    id: 'purchase11.saveasbundle',
+    defaultMessage: 'Save order as bundle',
+  },
   total: {
     id: 'purchase11.total',
     defaultMessage: 'Total:',
@@ -33,9 +37,21 @@ export default defineMessages({
     id: 'purchase11.subtotal',
     defaultMessage: 'Subtotal:',
   },
+  tax: {
+    id: 'purchase11.tax',
+    defaultMessage: 'Tax:',
+  },
   shipping: {
     id: 'purchase11.shipping',
     defaultMessage: 'Shipping',
+  },
+  add: {
+    id: 'purchase11.add',
+    defaultMessage: 'Add',
+  },
+  remove: {
+    id: 'purchase11.remove',
+    defaultMessage: 'Remove',
   },
   confirmRemoving: {
     id: 'contacts.confirmRemoving',

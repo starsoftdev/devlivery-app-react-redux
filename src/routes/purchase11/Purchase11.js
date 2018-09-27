@@ -213,7 +213,7 @@ class Purchase11 extends React.Component {
           </Row>
           <Row type='flex' align='center' gutter={20} className={s.totalSection}>
             <Col xs={12}>
-              <h2 className={s.subtotalHeader}>{'Tax'}</h2>
+              <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.tax)}</h2>
             </Col>
             <Col xs={12}>
               <span className={s.subtotalValue}>{(order.total-order.subtotal).toFixed(2)}</span>
@@ -334,7 +334,7 @@ class Purchase11 extends React.Component {
                           this.props.toAddContactFlowStep();
                       }}>
                         <PlusIcon/>
-                        {'Add'}
+                        {intl.formatMessage(messages.add)}
                       </Button>
                       
                       <Popconfirm
@@ -347,7 +347,7 @@ class Purchase11 extends React.Component {
                       >
                         <Button type='primary' size='small' ghost >
                           <RemoveIcon/>
-                          {'Remove'}
+                          {intl.formatMessage(messages.remove)}
                         </Button>
                       </Popconfirm>
                   </div>
@@ -361,7 +361,7 @@ class Purchase11 extends React.Component {
                     {getFieldDecorator('saved', {
                       initialValue: saved,
                     })(
-                      <Checkbox onChange={this.onCheckSaved}>Save order as bundle</Checkbox>
+                      <Checkbox onChange={this.onCheckSaved}>{intl.formatMessage(messages.saveasbundle)}</Checkbox>
                     )}
                   </Form.Item>
                   {
