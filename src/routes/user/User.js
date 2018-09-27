@@ -27,7 +27,7 @@ class User extends React.Component {
     const {getFieldDecorator} = this.props.form
     
     const address = user && user.addresses && user.addresses.find(item => item.default !== null)
-
+    
     const reminderTimes = [
       {value: 0, label: 'Same Day'},
       {value: 1, label: 'Day Before'},
@@ -230,7 +230,7 @@ class User extends React.Component {
                 </Form.Item>
                 <Form.Item>
                   {getFieldDecorator(`address.address`, {
-                    initialValue: address && address.address,
+                    initialValue: address && address.address[0],
                     rules: [
                       {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                     ],
