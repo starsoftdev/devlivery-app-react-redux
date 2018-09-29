@@ -1417,7 +1417,7 @@
   {
     "id": "purchase6.recipient",
     "defaultMessage": "Recipient name",
-    "message": "Name des Empfängers",
+    "message": "Empfänger",
     "files": [
       "src/routes/purchase6/messages.js"
     ]
