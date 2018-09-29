@@ -12,12 +12,34 @@ import {generateUrl} from '../../router'
 import {CONTACTS_ROUTE} from '../'
 
 class AddContact extends React.Component {
+  state = {
+    requirAddress:false
+  }
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields({force: true}, (err, values) => {
       if (!err) {
-        this.props.addContact(values, this.props.form, () => history.push(generateUrl(CONTACTS_ROUTE)))
+        var addresses = this.props.form.getFieldValue('addresses')
+        if(addresses === null)
+        {
+          this.props.addContact(values, this.props.form, () => history.push(generateUrl(CONTACTS_ROUTE)))
+          return true;
+        }else{
+          var validate = false;
+          addresses.map(item =>{
+            if(item.address != undefined && item.address != null && item.address !== '')
+              validate = true;
+          });
+          if(validate)
+          {
+            this.props.addContact(values, this.props.form, () => history.push(generateUrl(CONTACTS_ROUTE)))
+            return true;
+          }
+          this.setState({requirAddress:true});
+          return false;
+        }
       }
+      return false;
     })
   }
 
@@ -39,6 +61,9 @@ class AddContact extends React.Component {
                 <Col xs={24} md={12} className={s.leftColumn}>
                   {contactSection}
                   {birthdaySection}
+                  {
+                    <h4 className={this.state.requirAddress ? s.requirAddress: s.norequirAddress}>{"Home address or Company address is required."}</h4>
+                  }
                   {homeAddressSection}
                   {companyAddressSection}
                 </Col>

@@ -140,7 +140,7 @@ class ContactForm extends React.Component {
             validateTrigger: 'onSubmit',//'onBlur'
             initialValue: initialValues && initialValues.email,
             rules: [
-              {required: true, message: intl.formatMessage(formMessages.required)},
+              {required: false, message: intl.formatMessage(formMessages.required)},
             ],
           })(
             <FloatingLabel placeholder={intl.formatMessage(messages.email)+ " *"}/>
@@ -150,7 +150,7 @@ class ContactForm extends React.Component {
           {getFieldDecorator('contact.phone', {
             initialValue: initialValues && initialValues.phone,
             rules: [
-              {required: true, message: intl.formatMessage(formMessages.required)},
+              {required: false, message: intl.formatMessage(formMessages.required)},
             ],
           })(
             <FloatingLabel placeholder={intl.formatMessage(messages.phone)+ " *"}/>
