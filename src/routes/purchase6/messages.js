@@ -15,7 +15,7 @@ export default defineMessages({
   },
   recipient: {
     id: 'purchase6.recipient',
-    defaultMessage: 'Recipient name',
+    defaultMessage: 'Recipient details',
   },
   fontWeight: {
     id: 'purchase6.fontWeight',

@@ -183,7 +183,7 @@ class Template extends React.Component {
     return (
       <Select
         style={{width: '100%', marginBottom: 20, position: 'absolute', top: 0}}
-        placeholder={'Recipient details'}
+        placeholder={this.props.intl.formatMessage(messages.recipient)}
         onSelect={this.addTemplate}
       >
         {templates && templates.map((item) =>
@@ -292,7 +292,7 @@ class Purchase6 extends React.Component {
                 )}
               </div>
               <div className={s.editorActions}>
-                <Template templates={templates} execCommand={this.insertConent}/>
+                <Template templates={templates} execCommand={this.insertConent} intl={intl}/>
                 <FontFamilyPicker execCommand={this.execTinyCommand}/>
                 <FontWeightPicker execCommand={this.execTinyCommand}/>
                 <FontSizePicker execCommand={this.execTinyCommand}/>
