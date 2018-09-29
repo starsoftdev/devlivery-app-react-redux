@@ -3,13 +3,15 @@ import {connect} from 'react-redux'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './NewArrivals.css'
 import messages from './messages'
-import {Button, Carousel, Col, Input, Row} from 'antd'
+import {Button, Carousel, Col, Input, Row, Modal} from 'antd'
 import {Card, Link} from '../../components'
 import debounce from 'lodash/debounce'
 import {CARD_IMAGES_PROP, DEFAULT_DEBOUNCE_TIME, FOOD_TYPE, GIFT_IMAGES_PROP, NON_FOOD_TYPE} from '../../constants'
 import {getCards, getGifts} from '../../reducers/newArrivals'
 import ArrowIcon from '../../static/decor_arrow.svg'
 import {PURCHASE1_ROUTE} from '../'
+import PlusIcon from '../../static/plus.svg'
+import {setFlowFromSelectGift,setFlowFromSelectCard} from '../../reducers/purchase';
 
 const FOOD_GIFTS_INDEX = 0
 const NON_FOOD_GIFTS_INDEX = 1
@@ -27,7 +29,11 @@ class NewArrivals extends React.Component {
         {key:FOOD_GIFTS_INDEX, callback:this.renderFoodSliderView.bind(this)},
         {key:NON_FOOD_GIFTS_INDEX, callback:this.renderNonFoodSliderView.bind(this)},
         {key:CARDS_INDEX, callback:this.renderCardSliderView.bind(this)},
-      ]
+      ],
+      showGiftDetails: false,
+      giftDetails:null,
+      showCardDetails: false,
+      cardDetails:null
     }
 
     this.getCards = debounce(this.props.getCards, DEFAULT_DEBOUNCE_TIME)
@@ -142,11 +148,15 @@ class NewArrivals extends React.Component {
     );
   }
   render() {
-    const {search, slideIndex,slideMap} = this.state
-    const {intl, foods,nonfoods, cards, loading} = this.props
+    const {search, slideIndex,slideMap, giftDetails,cardDetails} = this.state
+    const {intl, foods,nonfoods, cards, loading, setFlowFromSelectGift, setFlowFromSelectCard, occasions} = this.props
 
     const slideKey = slideMap[slideIndex].key;
     const gifts = slideKey === FOOD_GIFTS_INDEX ? foods:nonfoods;
+    var occasionByCardId = null;
+    if(cardDetails && occasions)
+      occasionByCardId = occasions.filter(item => item.id === cardDetails.occasion_id);
+    
     // TODO add setFlow on PURCHASE1_ROUTE link
     return (
       <div className={s.container}>
@@ -193,6 +203,9 @@ class NewArrivals extends React.Component {
                       }
                       bordered={false}
                       description={item.description}
+                      onClick={() => {
+                        this.setState({showCardDetails: true,cardDetails:item});
+                      }}
                     />
                   </Col>
                 )}
@@ -220,6 +233,9 @@ class NewArrivals extends React.Component {
                       }
                       bordered={false}
                       description={item.description}
+                      onClick={() => {
+                        this.setState({showGiftDetails: true,giftDetails:item});
+                      }}
                     />
                   </Col>
                 )}
@@ -230,6 +246,108 @@ class NewArrivals extends React.Component {
           )
           }
         </div>
+        {
+          this.state.showGiftDetails && giftDetails &&
+          <Modal
+              className={s.DetailModal}
+              title={`${giftDetails.title}`}
+              visible = {this.state.showGiftDetails}
+              onCancel={()=>this.setState({showGiftDetails:false})}
+              footer={null}
+            >
+              <Row className={s.detailRow}>
+                <Carousel
+                  loop
+                  customPaging={() => (
+                    <div className={s.dotWrapper}>
+                      <div className={s.dot}/>
+                    </div>
+                  )}
+                >
+                  {giftDetails.image.map((image, i) => image.url ? (
+                    <div key={i}>
+                      <div style={{backgroundImage: `url(${image.url})`}} className={s.previewImage}/>
+                    </div>
+                    ) : null
+                  )}
+                </Carousel>
+              </Row>
+              <Row className={s.detailRow}>
+                <Col md={24}>
+                  <span className={s.DetailTitle}>Description</span><br/>
+                  <span className={s.Detail}>{giftDetails.description}</span>
+                </Col>
+              </Row>
+              <Row className={s.detailRow}>
+                <Col md={12}>
+                  <span className={s.DetailTitle}>Price</span><br/>
+                  <span className={s.Detail}>{giftDetails.price +" "+giftDetails.currency}</span>
+                </Col>
+              </Row>
+              
+              <Row>
+                <Button type='primary' style={{float:'right'}} ghost onClick={() => setFlowFromSelectGift(giftDetails)}>
+                  <PlusIcon/>
+                  {intl.formatMessage(messages.makeOrder)}
+                </Button>
+              </Row>
+            </Modal>
+        }
+        {
+          this.state.showCardDetails && cardDetails &&
+          <Modal
+              className={s.DetailModal}
+              title={`${cardDetails.title}`}
+              visible = {this.state.showCardDetails}
+              onCancel={()=>this.setState({showCardDetails:false})}
+              footer={null}
+            >
+              <Row className={s.detailRow}>
+                <Carousel
+                  loop
+                  customPaging={() => (
+                    <div className={s.dotWrapper}>
+                      <div className={s.dot}/>
+                    </div>
+                  )}
+                >
+                  {[...cardDetails.front_image,...cardDetails.images].map((image, i) => image.url ? (
+                    <div key={i}>
+                      <div style={{backgroundImage: `url(${image.url})`}} className={s.previewImage}/>
+                    </div>
+                    ) : null
+                  )}
+                </Carousel>
+              </Row>
+              <Row className={s.detailRow}>
+                <Col md={12}>
+                  <span className={s.DetailTitle}>Style</span><br/>
+                  <span className={s.Detail}>{cardDetails.style}</span>
+                </Col>
+                <Col md={12}>
+                  <span className={s.DetailTitle}>Occasion</span><br/>
+                  <span className={s.Detail}>{occasionByCardId && occasionByCardId.length > 0 && occasionByCardId[0].title}</span>
+                </Col>
+              </Row>
+              <Row className={s.detailRow}>
+                <Col md={12}>
+                  <span className={s.DetailTitle}>Size</span><br/>
+                  <span className={s.Detail}>{cardDetails.size}</span>
+                </Col>
+                <Col md={12}>
+                  <span className={s.DetailTitle}>Price</span><br/>
+                  <span className={s.Detail}>{cardDetails.price +" "+cardDetails.currency}</span>
+                </Col>
+              </Row>
+              
+              <Row>
+                <Button type='primary' style={{float:'right'}} ghost onClick={() => setFlowFromSelectCard(cardDetails)}>
+                  <PlusIcon/>
+                  {intl.formatMessage(messages.makeOrder)}
+                </Button>
+              </Row>
+            </Modal>
+        }
       </div>
     )
   }
@@ -237,11 +355,14 @@ class NewArrivals extends React.Component {
 
 const mapState = state => ({
   ...state.newArrivals,
+  occasions: state.cards.occasions
 })
 
 const mapDispatch = {
   getCards,
   getGifts,
+  setFlowFromSelectGift,
+  setFlowFromSelectCard
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(NewArrivals))

@@ -13,4 +13,8 @@ export default defineMessages({
     id: 'newArrivals.noData',
     defaultMessage: 'No data.',
   },
+  makeOrder: {
+    id: 'bundles.makeOrder',
+    defaultMessage: 'Make an Order',
+  },
 })
