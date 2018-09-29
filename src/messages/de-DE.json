@@ -1023,7 +1023,8 @@
     "files": [
       "src/routes/bundles/messages.js",
       "src/routes/cardStore/messages.js",
-      "src/routes/giftStore/messages.js"
+      "src/routes/giftStore/messages.js",
+      "src/routes/newArrivals/messages.js"
     ]
   },
   {
