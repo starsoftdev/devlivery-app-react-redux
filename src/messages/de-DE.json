@@ -3161,7 +3161,7 @@
   {
     "id": "purchase11.submit",
     "defaultMessage": "Proceed to checkout",
-    "message": "Bestellung abschliessen",
+    "message": "weiter zu Bezahlung",
     "files": [
       "src/routes/purchase11/messages.js"
     ]
