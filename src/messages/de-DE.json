@@ -1701,7 +1701,7 @@
   {
     "id": "home.signUp",
     "defaultMessage": "Sign up to get first access, curated notes about new styles, sales and events.",
-    "message": "Sign up to get first access, curated notes about new styles, sales and events.",
+    "message": "Melden Sie sich bei unserem Newsletter an, um als erster Zugang zu erhalten, zu neuen Kartenkollektionen und Geschenken.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -2449,7 +2449,7 @@
   {
     "id": "about.signUp",
     "defaultMessage": "Sign up to get first access, curated notes about new styles, sales and events.",
-    "message": "Sign up to get first access, curated notes about new styles, sales and events.",
+    "message": "Melden Sie sich bei unserem Newsletter an, um als erster Zugang zu erhalten, zu neuen Kartenkollektionen und Geschenken.",
     "files": [
       "src/routes/about/messages.js"
     ]
