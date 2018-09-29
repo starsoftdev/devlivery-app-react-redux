@@ -61,7 +61,7 @@ class Address extends React.Component {
                 {min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})}
               ],
             })(
-              <FloatingLabel placeholder={intl.formatMessage(index==1 ? messages.companyname: messages.address)+(required?" *":"")} onChange={(e) => onAddressChange(e.target.value)}/>
+              <FloatingLabel placeholder={intl.formatMessage(index==1 ? messages.companyname: messages.address0)+(required?" *":"")} onChange={(e) => onAddressChange(e.target.value)}/>
             )}
           </Form.Item>
           <Form.Item>
