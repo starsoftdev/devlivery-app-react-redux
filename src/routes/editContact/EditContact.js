@@ -16,7 +16,8 @@ class EditContact extends React.Component {
     this.state = {
       visible: false,
       nextPathname: null,
-      isChanged : false
+      isChanged : false,
+      requirAddress:false
     }
     this.onOk = this.onOk.bind(this);
     this.onCancel = this.onCancel.bind(this);
@@ -51,7 +52,25 @@ class EditContact extends React.Component {
     e.preventDefault()
     this.props.form.validateFields({force: true}, (err, values) => {
       if (!err) {
-        this.props.editContact(values, this.props.form)
+        var addresses = this.props.form.getFieldValue('addresses')
+        if(addresses === null)
+        {
+          this.props.editContact(values, this.props.form)
+          return true;
+        }else{
+          var validate = false;
+          addresses.map(item =>{
+            if(item.address != undefined && item.address != null && item.address !== '')
+              validate = true;
+          });
+          if(validate)
+          {
+            this.props.editContact(values, this.props.form)
+            return true;
+          }
+          this.setState({requirAddress:true});
+          return false;
+        }
       }
     })
   }
@@ -89,6 +108,9 @@ class EditContact extends React.Component {
                   <Col xs={24} md={12} className={s.leftColumn}>
                     {contactSection}
                     {birthdaySection}
+                    {
+                      <h4 className={this.state.requirAddress ? s.requirAddress: s.norequirAddress}>{"Home address or Company address is required."}</h4>
+                    }
                     {homeAddressSection}
                     {companyAddressSection}
                   </Col>

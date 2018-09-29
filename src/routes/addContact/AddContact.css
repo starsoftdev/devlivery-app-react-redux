@@ -45,4 +45,9 @@
     padding-right: 60px !important;
   }
 }
-
+.requirAddress {
+  color:red;
+}
+.norequirAddress {
+  color: black;
+}
