@@ -1995,6 +1995,14 @@
     ]
   },
   {
+    "id": "address.address0",
+    "defaultMessage": "Address",
+    "message": "",
+    "files": [
+      "src/components/Address/messages.js"
+    ]
+  },
+  {
     "id": "address.address",
     "defaultMessage": "Address",
     "message": "",

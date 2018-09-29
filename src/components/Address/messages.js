@@ -1,6 +1,10 @@
 import {defineMessages} from 'react-intl'
 
 export default defineMessages({
+  address0: {
+    id: 'address.address0',
+    defaultMessage: 'Address',
+  },
   address: {
     id: 'address.address',
     defaultMessage: 'Address',

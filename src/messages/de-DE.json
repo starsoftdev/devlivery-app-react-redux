@@ -1308,7 +1308,7 @@
   {
     "id": "contactForm.postalCode",
     "defaultMessage": "Postal Code",
-    "message": "Postleitzahl"
+    "message": "PLZ"
   },
   {
     "id": "purchase4.postcard",
@@ -2135,6 +2135,14 @@
     ]
   },
   {
+    "id": "address.address0",
+    "defaultMessage": "Address",
+    "message": "Strasse & Hausnummer",
+    "files": [
+      "src/components/Address/messages.js"
+    ]
+  },
+  {
     "id": "address.address",
     "defaultMessage": "Address",
     "message": "Adresse",
@@ -2169,7 +2177,7 @@
   {
     "id": "address.postalCode",
     "defaultMessage": "Postal Code",
-    "message": "Postleitzahl",
+    "message": "PLZ",
     "files": [
       "src/components/Address/messages.js"
     ]
@@ -3330,7 +3338,7 @@
   {
     "id": "user.postalCode",
     "defaultMessage": "Postal Code",
-    "message": "Postleitzahl",
+    "message": "PLZ",
     "files": [
       "src/routes/user/messages.js",
       "src/routes/purchase9/messages.js",
