@@ -44,6 +44,9 @@
 .previewDescription {
   margin-top: var(--margin-md);
   text-align: center;
+  font-family: var(--font-family-secondary);
+  letter-spacing: normal;
+  text-transform: uppercase;
 }
 
 .preview {

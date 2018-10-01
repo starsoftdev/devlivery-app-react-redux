@@ -3226,7 +3226,7 @@
   {
     "id": "purchase5.preview",
     "defaultMessage": "Preview",
-    "message": "Preview",
+    "message": "Vorschau",
     "files": [
       "src/routes/purchase5/messages.js"
     ]
@@ -3234,7 +3234,7 @@
   {
     "id": "purchase5.previewHeader",
     "defaultMessage": "Card Preview",
-    "message": "Card Preview",
+    "message": "Karten Vorschau",
     "files": [
       "src/routes/purchase5/messages.js"
     ]
@@ -3258,7 +3258,7 @@
   {
     "id": "purchase8.preview",
     "defaultMessage": "Preview",
-    "message": "Preview",
+    "message": "Vorschau",
     "files": [
       "src/routes/purchase8/messages.js"
     ]
@@ -3266,7 +3266,7 @@
   {
     "id": "purchase8.previewHeader",
     "defaultMessage": "Gift Preview",
-    "message": "Gift Preview",
+    "message": "Geschenk Vorschau",
     "files": [
       "src/routes/purchase8/messages.js"
     ]
