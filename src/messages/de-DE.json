@@ -1729,6 +1729,15 @@
     "defaultMessage": "Group",
     "message": "Gruppe",
     "files": [
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
+    ]
+  },
+  {
+    "id": "contacts.noitem",
+    "defaultMessage": "No item",
+    "message": "kein Gegenstand",
+    "files": [
       "src/routes/contacts/messages.js"
     ]
   },
@@ -2027,7 +2036,7 @@
   {
     "id": "uploadedContacts.header",
     "defaultMessage": "Select Contacts",
-    "message": "Select Contacts",
+    "message": "Wählen Sie Kontakte",
     "files": [
       "src/components/UploadedContacts/messages.js"
     ]
@@ -2051,7 +2060,7 @@
   {
     "id": "importContacts.selectContacts",
     "defaultMessage": "Select Contacts",
-    "message": "Select Contacts",
+    "message": "Wählen Sie Kontakte",
     "files": [
       "src/routes/importContacts/messages.js"
     ]
@@ -2091,7 +2100,7 @@
   {
     "id": "purchase10.addContactManually",
     "defaultMessage": "Add contacts manually",
-    "message": "Add contacts manually",
+    "message": "Fügen Sie Kontakte manuell hinzu",
     "files": [
       "src/routes/purchase10/messages.js"
     ]
@@ -2107,7 +2116,7 @@
   {
     "id": "purchase10.importContacts",
     "defaultMessage": "Import contacts",
-    "message": "Import contacts",
+    "message": "Kontakte importieren",
     "files": [
       "src/routes/purchase10/messages.js"
     ]
@@ -2115,7 +2124,7 @@
   {
     "id": "purchase10.selectContacts",
     "defaultMessage": "Select Contacts",
-    "message": "Select Contacts",
+    "message": "Wählen Sie Kontakte",
     "files": [
       "src/routes/purchase10/messages.js"
     ]

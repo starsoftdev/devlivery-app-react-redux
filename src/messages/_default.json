@@ -449,6 +449,15 @@
     "defaultMessage": "Group",
     "message": "",
     "files": [
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
+    ]
+  },
+  {
+    "id": "contacts.noitem",
+    "defaultMessage": "No item",
+    "message": "",
+    "files": [
       "src/routes/contacts/messages.js"
     ]
   },
