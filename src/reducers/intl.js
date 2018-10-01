@@ -69,7 +69,8 @@ export const setLocaleSuccess = (locale, messages) => (dispatch, getState, {hist
   dispatch({type: SET_LOCALE_SUCCESS, locale, messages})
   if (process.env.BROWSER) {
     cookies.set(LOCALE_COOKIE, locale, {maxAge: YEAR, path: '/'})
-    history.replace('/')
+    //history.replace('/')
+    window.location.reload();
   }
 }
 
