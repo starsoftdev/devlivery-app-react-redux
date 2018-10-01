@@ -144,13 +144,13 @@ class GiftStore extends React.Component {
               </Row>
               <Row className={s.detailRow}>
                 <Col md={24}>
-                  <span className={s.DetailTitle}>Description</span><br/>
+                  <span className={s.DetailTitle}>{intl.formatMessage(messages.description)}</span><br/>
                   <span className={s.Detail}>{giftDetails.description}</span>
                 </Col>
               </Row>
               <Row className={s.detailRow}>
                 <Col md={12}>
-                  <span className={s.DetailTitle}>Price</span><br/>
+                  <span className={s.DetailTitle}>{intl.formatMessage(messages.price)}</span><br/>
                   <span className={s.Detail}>{giftDetails.price +" "+giftDetails.currency}</span>
                 </Col>
               </Row>

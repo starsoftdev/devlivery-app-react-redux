@@ -13,6 +13,14 @@ export default defineMessages({
     id: 'newArrivals.noData',
     defaultMessage: 'No data.',
   },
+  description: {
+    id: 'giftStore.description',
+    defaultMessage: 'Description',
+  },
+  price: {
+    id: 'giftStore.price',
+    defaultMessage: 'Price',
+  },
   makeOrder: {
     id: 'bundles.makeOrder',
     defaultMessage: 'Make an Order',

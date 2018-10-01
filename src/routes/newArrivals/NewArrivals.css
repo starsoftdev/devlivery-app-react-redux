@@ -215,6 +215,7 @@
 .DetailTitle {
   margin-bottom: 15px;
   color: color-mod(var(--dark-color) a(70%));
+  font-family: var(--font-family-secondary);
 }
 .itemImage {
   background-repeat: no-repeat;

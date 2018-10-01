@@ -21,6 +21,14 @@ export default defineMessages({
     id: 'giftStore.clearFilters',
     defaultMessage: 'Clear filters',
   },
+  description: {
+    id: 'giftStore.description',
+    defaultMessage: 'Description',
+  },
+  price: {
+    id: 'giftStore.price',
+    defaultMessage: 'Price',
+  },
   makeOrder: {
     id: 'bundles.makeOrder',
     defaultMessage: 'Make an Order',
