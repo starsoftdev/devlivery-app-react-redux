@@ -1,5 +1,5 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import {
   CREDIT_CARD,
   BITPAY,
@@ -9,15 +9,15 @@ import {
   makeBitpayPayment,
   makePaypalPayment,
 } from '../../reducers/purchase'
-import {Button, Col, Form, Input, Row, Spin, Icon, message} from 'antd'
+import { Button, Col, Form, Input, Row, Spin, Icon, message } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase13.css'
-import {PurchaseActions, SectionHeader} from '../../components'
-import KeyHandler, {KEYPRESS} from 'react-key-handler'
+import { PurchaseActions, SectionHeader } from '../../components'
+import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import ReactCreditCard from 'react-credit-cards'
 import creditCardStyles from 'react-credit-cards/es/styles-compiled.css'
 import messages from './messages'
-import {FloatingLabel} from '../../components';
+import { FloatingLabel } from '../../components';
 
 // TODO add validation for cards 'payment' library
 class Purchase13 extends React.Component {
@@ -27,10 +27,22 @@ class Purchase13 extends React.Component {
     expiry: '',
     cvc: '',
     focused: '',
+    requirmsg: null,
+    isValid: false
   }
-
+  constructor(props) {
+    super(props)
+    this.handleCallback = this.handleCallback.bind(this);
+  }
   componentDidMount() {
+
     switch (this.props.paymentMethod) {
+      case CREDIT_CARD: {
+        Payment.formatCardNumber(document.querySelector('input.cardnumber'));
+        Payment.formatCardExpiry(document.querySelector('input.cardexpire'));
+        Payment.formatCardCVC(document.querySelector('input.cardcvc'));
+        break;
+      }
       case PAYPAL:
         this.props.makePaypalPayment()
         // this.props.nextFlowStep()
@@ -47,14 +59,13 @@ class Purchase13 extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (values.number && values.name && values.expiry && values.cvc) {
-        if (!err) {
+        if (!err && this.state.isValid) {
           // TODO validate card fields
           const card = {
             ...values,
             expiry_month: values.expiry.slice(0, 2),
             expiry_year: `20${values.expiry.slice(-2)}`,
           }
-
           switch (this.props.paymentMethod) {
             case CREDIT_CARD:
               this.props.makeStripePayment(card)
@@ -106,18 +117,22 @@ class Purchase13 extends React.Component {
       help: 'required'
     }
   }
-
+  handleCallback(type, isValid) {
+    if (type && type.issuer == 'unknown' || !isValid) {
+      this.setState({ requirmsg: 'Invalid credit card number', isValid });
+    } else this.setState({ requirmsg: null, isValid });
+  }
   render() {
-    const {number, name, expiry, cvc, focused} = this.state
-    const {flowIndex, intl} = this.props
-    const {getFieldDecorator} = this.props.form
+    const { number, name, expiry, cvc, focused } = this.state
+    const { flowIndex, intl } = this.props
+    const { getFieldDecorator } = this.props.form
     return (
       <React.Fragment>
         {this.props.paymentMethod !== CREDIT_CARD &&
           <div className={s.loadingScreen}>
             <Spin
               wrapperClassName='action-spin'
-              indicator={<Icon style={{fontSize: '16px'}} spin type='loading'/>}
+              indicator={<Icon style={{ fontSize: '16px' }} spin type='loading' />}
               spinning={this.props.loading}
             />
           </div>
@@ -137,27 +152,30 @@ class Purchase13 extends React.Component {
                 expiry={expiry}
                 cvc={cvc}
                 focused={focused}
+                callback={this.handleCallback}
               />
             </Col>
             <Col xs={24} sm={12}>
               <Form>
-                <Form.Item
-                  {...this.validation(this.state.number, 16)}
-                >
+                <Form.Item>
                   {getFieldDecorator('number', {
                   })(
-                    <FloatingLabel
+                    <Input
                       placeholder={intl.formatMessage(messages.number)}
                       onChange={(e) => this.handleInputChange(e, 'number')}
                       onFocus={(e) => this.handleInputFocus(e, 'number')}
-                      maxLength='16'
+                      className={'cardnumber'}
                     />
                   )}
                 </Form.Item>
+                {
+                  this.state.requirmsg && this.props.form.getFieldValue('number') &&
+                  <h4 className={s.requireMark}>{this.state.requirmsg}</h4>
+                }
                 <Form.Item>
                   {getFieldDecorator('name', {
                   })(
-                    <FloatingLabel
+                    <Input
                       placeholder={intl.formatMessage(messages.name)}
                       onChange={(e) => this.handleInputChange(e, 'name')}
                       onFocus={(e) => this.handleInputFocus(e, 'name')}
@@ -167,30 +185,30 @@ class Purchase13 extends React.Component {
                 <Row gutter={20}>
                   <Col xs={16}>
                     <Form.Item
-                      {...this.validation(this.state.expiry, 4)}
+                      //{...this.validation(this.state.expiry, 4)}
                     >
                       {getFieldDecorator('expiry', {
                       })(
-                        <FloatingLabel
+                        <Input
                           placeholder={intl.formatMessage(messages.expiry)}
                           onChange={(e) => this.handleInputChange(e, 'expiry')}
                           onFocus={(e) => this.handleInputFocus(e, 'expiry')}
-                          maxLength='4'
+                          className={'cardexpire'}
                         />
                       )}
                     </Form.Item>
                   </Col>
                   <Col xs={8}>
                     <Form.Item
-                      {...this.validation(this.state.cvc, 3)}
+                      //{...this.validation(this.state.cvc, 3)}
                     >
                       {getFieldDecorator('cvc', {
                       })(
-                        <FloatingLabel
+                        <Input
                           placeholder={intl.formatMessage(messages.cvc)}
                           onChange={(e) => this.handleInputChange(e, 'cvc')}
                           onFocus={(e) => this.handleInputFocus(e, 'cvc')}
-                          maxLength='3'
+                          className={'cardcvc'}
                         />
                       )}
                     </Form.Item>
