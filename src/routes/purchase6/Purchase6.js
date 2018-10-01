@@ -139,7 +139,7 @@ class TextAlignmentPicker extends React.Component {
         value ={this.state.textAlignment}
       >
         {Contants.TEXT_ALIGNMENT.map((item) =>
-          <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>
+          <Select.Option key={item.value} value={item.value}>{this.props.intl.locale === 'de-DE'? item.label_de: item.label}</Select.Option>
         )}
       </Select>
     )
@@ -296,7 +296,7 @@ class Purchase6 extends React.Component {
                 <FontFamilyPicker execCommand={this.execTinyCommand}/>
                 <FontWeightPicker execCommand={this.execTinyCommand}/>
                 <FontSizePicker execCommand={this.execTinyCommand}/>
-                <TextAlignmentPicker execCommand={this.execTinyCommand}/>
+                <TextAlignmentPicker execCommand={this.execTinyCommand} intl={intl}/>
                 <ColorPicker execCommand={this.execTinyCommand}/> 
               </div>
             </div>
