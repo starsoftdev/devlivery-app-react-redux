@@ -41,7 +41,7 @@ class User extends React.Component {
           <Row type='flex' gutter={20} className={s.leftColumn}>
             <Col xs={24} md={12}>
               <section className={s.section}>
-                <h1 className={s.header}>Personal Information</h1>
+                <h1 className={s.header}>{intl.formatMessage(messages.personalInf)}</h1>
                 <Form.Item>
                   {getFieldDecorator('user.nickname', {
                     initialValue: user && user.nickname ?user.nickname:'',
@@ -58,7 +58,7 @@ class User extends React.Component {
                           {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
                         ],
                       })(
-                        <FloatingLabel placeholder={'First Name'}/>
+                        <FloatingLabel placeholder={intl.formatMessage(messages.firstName)}/>
                       )}
                     </Form.Item>
                   </Col>
@@ -99,7 +99,7 @@ class User extends React.Component {
                 </Form.Item>
               </section>
               <section className={s.section}>
-                <h1 className={s.header}>Birthday</h1>
+                <h1 className={s.header}>{intl.formatMessage(messages.birthday)}</h1>
                 <Form.Item>
                   {getFieldDecorator('birthday', {
                     initialValue: user && user.dob ? moment(user.dob, DATE_FORMAT) : undefined,
@@ -109,7 +109,7 @@ class User extends React.Component {
                 </Form.Item>
               </section>
               <section className={s.section}>
-                <h1 className={s.header}>Billing Details</h1>
+                <h1 className={s.header}>{intl.formatMessage(messages.billingdetails)}</h1>
                 <Form.Item>
                   {getFieldDecorator('billing.card_number', {
                     initialValue: user && user.billing && user.billing.card_number,
@@ -155,7 +155,7 @@ class User extends React.Component {
                 </Row>
               </section>
               <section className={s.section}>
-                <h1 className={s.header}>{'Contact Preferences'}</h1>
+                <h1 className={s.header}>{intl.formatMessage(messages.contactpreference)}</h1>
                 <Form.Item className={s.checkboxWrapper}>
                   {getFieldDecorator('preference.notify_on_reminders', {
                     valuePropName: 'checked',
@@ -192,7 +192,7 @@ class User extends React.Component {
             </Col>
             <Col xs={24} md={12} className={s.rightColumn}>
               <section className={s.section}>
-                <h1 className={s.header}>{'Shipping Address'}</h1>
+                <h1 className={s.header}>{intl.formatMessage(messages.shipping)}</h1>
                 {address && address.id && getFieldDecorator(`address.id`, {
                   initialValue: address.id,
                 })(
@@ -204,7 +204,7 @@ class User extends React.Component {
                       {getFieldDecorator('address.first_name', {
                         initialValue: address && address.first_name,
                       })(
-                        <FloatingLabel placeholder={'First Name'}/>
+                        <FloatingLabel placeholder={intl.formatMessage(messages.firstName)}/>
                       )}
                     </Form.Item>
                   </Col>
@@ -213,7 +213,7 @@ class User extends React.Component {
                       {getFieldDecorator('address.last_name', {
                         initialValue: address && address.last_name,
                       })(
-                        <FloatingLabel placeholder={'Last Name'}/>
+                        <FloatingLabel placeholder={intl.formatMessage(messages.lastName)}/>
                       )}
                     </Form.Item>
                   </Col>
@@ -287,7 +287,7 @@ class User extends React.Component {
           <div className={s.actions}>
             <Button type='primary' ghost onClick={this.handleSubmit}>
               <PlusIcon/>
-              Save
+              {intl.formatMessage(messages.save)}
             </Button>
           </div>
         </div>

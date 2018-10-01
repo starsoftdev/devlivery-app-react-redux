@@ -7,6 +7,7 @@ import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
 import {updatePassword} from '../../reducers/user'
 import {FloatingLabel} from '../../components';
+import messages from './messages';
 
 class ChangePasswordForm extends React.Component {
   state = {
@@ -51,7 +52,7 @@ class ChangePasswordForm extends React.Component {
 
     return (
       <Form className={s.section} onSubmit={this.handleSubmit}>
-        <h1 className={s.header}>{'Change Password'}</h1>
+        <h1 className={s.header}>{intl.formatMessage(messages.changepswd)}</h1>
         <Row gutter={20}>
           <Col xs={24} sm={12}>
             <Form.Item>
@@ -60,7 +61,7 @@ class ChangePasswordForm extends React.Component {
                   {required: true, message: intl.formatMessage(formMessages.required)},
                 ],
               })(
-                <FloatingLabel placeholder={'Old Password'} type='password'/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.oldpswd)} type='password'/>
               )}
             </Form.Item>
           </Col>
@@ -72,7 +73,7 @@ class ChangePasswordForm extends React.Component {
                   {validator: this.validateToNextPassword},
                 ],
               })(
-                <FloatingLabel placeholder={'New Password'} type='password'/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.newpswd)} type='password'/>
               )}
             </Form.Item>
           </Col>
@@ -84,11 +85,11 @@ class ChangePasswordForm extends React.Component {
               {validator: this.compareToFirstPassword},
             ],
           })(
-            <FloatingLabel type='password' placeholder={'Password Confirmation'} onBlur={this.handleConfirmBlur}/>
+            <FloatingLabel type='password' placeholder={intl.formatMessage(messages.confirmpswd)} onBlur={this.handleConfirmBlur}/>
           )}
         </Form.Item>
         <Form.Item>
-          <Button htmlType='submit' type='primary' ghost>{'Change'}</Button>
+          <Button htmlType='submit' type='primary' ghost>{intl.formatMessage(messages.change)}</Button>
         </Form.Item>
       </Form>
     )

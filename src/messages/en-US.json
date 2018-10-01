@@ -20,7 +20,8 @@
     "defaultMessage": "Birthday",
     "message": "",
     "files": [
-      "src/components/ContactForm/messages.js"
+      "src/components/ContactForm/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -36,7 +37,8 @@
     "defaultMessage": "First Name",
     "message": "",
     "files": [
-      "src/components/ContactForm/messages.js"
+      "src/components/ContactForm/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -61,7 +63,8 @@
     "defaultMessage": "Last Name",
     "message": "",
     "files": [
-      "src/components/ContactForm/messages.js"
+      "src/components/ContactForm/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -3224,7 +3227,56 @@
     "message": "",
     "files": [
       "src/routes/user/messages.js",
-      "src/routes/purchase9/messages.js"
+      "src/routes/purchase9/messages.js",
+      "src/routes/register2/messages.js"
+    ]
+  },
+  {
+    "id": "user.save",
+    "defaultMessage": "Save",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.changepswd",
+    "defaultMessage": "Change Password",
+    "message": "",
+    "files": [
+      "src/components/ChangePasswordForm/messages.js"
+    ]
+  },
+  {
+    "id": "user.oldpswd",
+    "defaultMessage": "Old Password",
+    "message": "",
+    "files": [
+      "src/components/ChangePasswordForm/messages.js"
+    ]
+  },
+  {
+    "id": "user.newpswd",
+    "defaultMessage": "New Password",
+    "message": "",
+    "files": [
+      "src/components/ChangePasswordForm/messages.js"
+    ]
+  },
+  {
+    "id": "user.confirmpswd",
+    "defaultMessage": "Password Confirmation",
+    "message": "",
+    "files": [
+      "src/components/ChangePasswordForm/messages.js"
+    ]
+  },
+  {
+    "id": "user.change",
+    "defaultMessage": "Change",
+    "message": "",
+    "files": [
+      "src/components/ChangePasswordForm/messages.js"
     ]
   },
   {
@@ -3245,6 +3297,30 @@
       "src/routes/user/messages.js",
       "src/routes/purchase9/messages.js",
       "src/routes/register2/messages.js"
+    ]
+  },
+  {
+    "id": "user.personalInf",
+    "defaultMessage": "Personal Information",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.contactpreference",
+    "defaultMessage": "Contact Preferences",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.billingdetails",
+    "defaultMessage": "Billing Details",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
     ]
   },
   {

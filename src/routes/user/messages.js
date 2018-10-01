@@ -25,4 +25,36 @@ export default defineMessages({
     id: 'user.company',
     defaultMessage: 'Company',
   },
+  personalInf: {
+    id: 'user.personalInf',
+    defaultMessage: 'Personal Information',
+  },
+  contactpreference: {
+    id: 'user.contactpreference',
+    defaultMessage: 'Contact Preferences',
+  },
+  billingdetails: {
+    id: 'user.billingdetails',
+    defaultMessage: 'Billing Details',
+  },
+  shipping:{
+    id: 'user.shipAddress',
+    defaultMessage: 'Shipping Address',
+  },
+  birthday: {
+    id: 'contactForm.birthday',
+    defaultMessage: 'Birthday',
+  },
+  firstName:{
+    id: 'contactForm.firstName',
+    defaultMessage: 'First Name',
+  },
+  lastName:{
+    id: 'contactForm.lastName',
+    defaultMessage: 'Last Name',
+  },
+  save:{
+    id: 'user.save',
+    defaultMessage: 'Save',
+  }
 })
