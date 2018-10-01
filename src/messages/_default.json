@@ -1336,7 +1336,8 @@
     "defaultMessage": "Size",
     "message": "",
     "files": [
-      "src/routes/purchase6/messages.js"
+      "src/routes/purchase6/messages.js",
+      "src/routes/newArrivals/messages.js"
     ]
   },
   {
@@ -2408,7 +2409,8 @@
     "defaultMessage": "Occasion",
     "message": "",
     "files": [
-      "src/routes/cardStore/messages.js"
+      "src/routes/cardStore/messages.js",
+      "src/routes/newArrivals/messages.js"
     ]
   },
   {
@@ -2440,7 +2442,8 @@
     "defaultMessage": "Style",
     "message": "",
     "files": [
-      "src/routes/cardStore/messages.js"
+      "src/routes/cardStore/messages.js",
+      "src/routes/newArrivals/messages.js"
     ]
   },
   {
@@ -2738,7 +2741,8 @@
     "message": "",
     "files": [
       "src/routes/giftStore/messages.js",
-      "src/routes/newArrivals/messages.js"
+      "src/routes/newArrivals/messages.js",
+      "src/routes/cardStore/messages.js"
     ]
   },
   {

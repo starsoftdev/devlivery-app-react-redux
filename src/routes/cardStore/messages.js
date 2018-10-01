@@ -37,6 +37,10 @@ export default defineMessages({
     id: 'cardStore.clearFilters',
     defaultMessage: 'Clear filters',
   },
+  price: {
+    id: 'giftStore.price',
+    defaultMessage: 'Price',
+  },
   makeOrder: {
     id: 'bundles.makeOrder',
     defaultMessage: 'Make an Order',

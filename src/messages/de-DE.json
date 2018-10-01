@@ -1712,7 +1712,8 @@
     "defaultMessage": "Size",
     "message": "Grösse",
     "files": [
-      "src/routes/purchase6/messages.js"
+      "src/routes/purchase6/messages.js",
+      "src/routes/newArrivals/messages.js"
     ]
   },
   {
@@ -2546,9 +2547,10 @@
   {
     "id": "cardStore.occasion",
     "defaultMessage": "Occasion",
-    "message": "Occasion",
+    "message": "Anlass",
     "files": [
-      "src/routes/cardStore/messages.js"
+      "src/routes/cardStore/messages.js",
+      "src/routes/newArrivals/messages.js"
     ]
   },
   {
@@ -2570,7 +2572,7 @@
   {
     "id": "cardStore.size",
     "defaultMessage": "Size",
-    "message": "Size",
+    "message": "Grösse",
     "files": [
       "src/routes/cardStore/messages.js"
     ]
@@ -2578,9 +2580,10 @@
   {
     "id": "cardStore.style",
     "defaultMessage": "Style",
-    "message": "Style",
+    "message": "Stil",
     "files": [
-      "src/routes/cardStore/messages.js"
+      "src/routes/cardStore/messages.js",
+      "src/routes/newArrivals/messages.js"
     ]
   },
   {
@@ -2869,7 +2872,8 @@
     "message": "Preis",
     "files": [
       "src/routes/giftStore/messages.js",
-      "src/routes/newArrivals/messages.js"
+      "src/routes/newArrivals/messages.js",
+      "src/routes/cardStore/messages.js"
     ]
   },
   {

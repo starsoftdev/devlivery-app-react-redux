@@ -321,21 +321,21 @@ class NewArrivals extends React.Component {
               </Row>
               <Row className={s.detailRow}>
                 <Col md={12}>
-                  <span className={s.DetailTitle}>Style</span><br/>
+                  <span className={s.DetailTitle}>{intl.formatMessage(messages.style)}</span><br/>
                   <span className={s.Detail}>{cardDetails.style}</span>
                 </Col>
                 <Col md={12}>
-                  <span className={s.DetailTitle}>Occasion</span><br/>
+                  <span className={s.DetailTitle}>{intl.formatMessage(messages.occasion)}</span><br/>
                   <span className={s.Detail}>{occasionByCardId && occasionByCardId.length > 0 && occasionByCardId[0].title}</span>
                 </Col>
               </Row>
               <Row className={s.detailRow}>
                 <Col md={12}>
-                  <span className={s.DetailTitle}>Size</span><br/>
+                  <span className={s.DetailTitle}>{intl.formatMessage(messages.size)}</span><br/>
                   <span className={s.Detail}>{cardDetails.size}</span>
                 </Col>
                 <Col md={12}>
-                  <span className={s.DetailTitle}>Price</span><br/>
+                  <span className={s.DetailTitle}>{intl.formatMessage(messages.price)}</span><br/>
                   <span className={s.Detail}>{cardDetails.price +" "+cardDetails.currency}</span>
                 </Col>
               </Row>
