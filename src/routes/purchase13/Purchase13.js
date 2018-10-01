@@ -28,11 +28,14 @@ class Purchase13 extends React.Component {
     cvc: '',
     focused: '',
     requirmsg: null,
-    isValid: false
+    isValid: false,
+    showMark: false,
+    cardtype:null
   }
   constructor(props) {
     super(props)
     this.handleCallback = this.handleCallback.bind(this);
+    this.handleBlurCardNumber = this.handleBlurCardNumber.bind(this);
   }
   componentDidMount() {
 
@@ -86,6 +89,7 @@ class Purchase13 extends React.Component {
     if (field === 'number') {
       this.setState({
         [field]: e.target.value.replace(/ /g, ''),
+        showMark:false
       })
     }
     else if (field === 'expiry') {
@@ -99,7 +103,9 @@ class Purchase13 extends React.Component {
       })
     }
   }
-
+  handleBlurCardNumber = () => {
+    this.setState({showMark:true});
+  }
   handleInputFocus = (e, field) => {
     this.setState({
       focused: field,
@@ -120,7 +126,7 @@ class Purchase13 extends React.Component {
   handleCallback(type, isValid) {
     if (type && type.issuer == 'unknown' || !isValid) {
       this.setState({ requirmsg: 'Invalid credit card number', isValid });
-    } else this.setState({ requirmsg: null, isValid });
+    } else this.setState({ requirmsg: null, isValid, cardtype:type.issuer });
   }
   render() {
     const { number, name, expiry, cvc, focused } = this.state
@@ -164,12 +170,13 @@ class Purchase13 extends React.Component {
                       placeholder={intl.formatMessage(messages.number)}
                       onChange={(e) => this.handleInputChange(e, 'number')}
                       onFocus={(e) => this.handleInputFocus(e, 'number')}
+                      onBlur = {()=> this.handleBlurCardNumber()}
                       className={'cardnumber'}
                     />
                   )}
                 </Form.Item>
                 {
-                  this.state.requirmsg && this.props.form.getFieldValue('number') &&
+                  this.state.showMark && this.state.requirmsg && this.props.form.getFieldValue('number') &&
                   <h4 className={s.requireMark}>{this.state.requirmsg}</h4>
                 }
                 <Form.Item>
@@ -209,6 +216,7 @@ class Purchase13 extends React.Component {
                           onChange={(e) => this.handleInputChange(e, 'cvc')}
                           onFocus={(e) => this.handleInputFocus(e, 'cvc')}
                           className={'cardcvc'}
+                          maxLength = {this.state.cardtype !== 'mastercard' ? 3 : 4}
                         />
                       )}
                     </Form.Item>
