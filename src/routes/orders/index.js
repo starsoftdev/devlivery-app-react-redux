@@ -6,19 +6,20 @@ import moment from 'moment'
 import messages from './messages'
 import {getOccasions} from '../../reducers/cards'
 
-function action({store, route, intl}) {
+function action({params,store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
-  store.dispatch(getOrders())
+  store.dispatch(getOrders({search: params && params.orderid ? params.orderid :null}))
   store.dispatch(getEvents(moment()))
   store.dispatch(getUpcomingEvents())
   store.dispatch(getOccasions())
+  
   return {
     chunks: ['dashboard'],
     title: intl.formatMessage(messages.title),
     breadcrumbs: [
       {name: intl.formatMessage(messages.breadcrumb)},
     ],
-    component: <Orders intl={intl}/>,
+    component: <Orders intl={intl} orderID = {params && params.orderid}/>,
   }
 }
 

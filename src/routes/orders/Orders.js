@@ -18,9 +18,10 @@ class Orders extends React.Component {
     super(props)
 
     this.state = {
-      search: undefined,
+      search: props.orderID ? props.orderID : undefined,
+      orderID: props.orderID
     }
-
+    
     this.getOrders = debounce(this.props.getOrders, DEFAULT_DEBOUNCE_TIME)
   }
 
@@ -54,6 +55,16 @@ class Orders extends React.Component {
       orderDetailsModalOpened,
       upcomingEvents,
     } = this.props
+    
+    if(this.state.orderID && orders.length > 0)
+    {
+      var findorder = orders.filter(item => item.order_number === this.state.orderID+'');
+      if(findorder.length > 0)
+      {
+        this.state.orderID = null;
+        openOrderDetailsModal(findorder[0])
+      }
+    }
     const columns = [
       {
         title: intl.formatMessage(messages.orderColumn),
