@@ -379,7 +379,7 @@ class Contacts extends React.Component {
                 )}
               {
                 dataEntry.length <= 0 &&
-                <div>No item</div>
+                <div>{intl.formatMessage(messages.noitem)}</div>
               }
             </Row>
             {
