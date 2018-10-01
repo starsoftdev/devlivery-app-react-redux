@@ -294,7 +294,6 @@ class Contacts extends React.Component {
                 className={s.search}
                 placeholder={intl.formatMessage(messages.groupBy)}
                 onChange={(type) => {
-                  console.log("changed type",type);
                   if (type === category[0])
                     getContactGroups(
                       {
