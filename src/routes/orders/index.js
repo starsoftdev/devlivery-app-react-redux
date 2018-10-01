@@ -4,13 +4,14 @@ import {setCurrentRouteName} from '../../reducers/global'
 import {getEvents, getOrders, getUpcomingEvents} from '../../reducers/orders'
 import moment from 'moment'
 import messages from './messages'
+import {getOccasions} from '../../reducers/cards'
 
 function action({store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
   store.dispatch(getOrders())
   store.dispatch(getEvents(moment()))
   store.dispatch(getUpcomingEvents())
-
+  store.dispatch(getOccasions())
   return {
     chunks: ['dashboard'],
     title: intl.formatMessage(messages.title),

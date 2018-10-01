@@ -81,4 +81,21 @@ export default defineMessages({
     id: 'orders.summaryTotal',
     defaultMessage: 'Total',
   },
+
+  size: {
+    id: 'cardStore.size',
+    defaultMessage: 'Size',
+  },
+  style: {
+    id: 'cardStore.style',
+    defaultMessage: 'Style',
+  },
+  occasion: {
+    id: 'cardStore.occasion',
+    defaultMessage: 'Occasion',
+  },
+  description: {
+    id: 'giftStore.description',
+    defaultMessage: 'Description',
+  },
 })

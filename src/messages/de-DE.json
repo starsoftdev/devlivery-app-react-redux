@@ -2550,7 +2550,8 @@
     "message": "Anlass",
     "files": [
       "src/routes/cardStore/messages.js",
-      "src/routes/newArrivals/messages.js"
+      "src/routes/newArrivals/messages.js",
+      "src/routes/orders/messages.js"
     ]
   },
   {
@@ -2574,7 +2575,8 @@
     "defaultMessage": "Size",
     "message": "Grösse",
     "files": [
-      "src/routes/cardStore/messages.js"
+      "src/routes/cardStore/messages.js",
+      "src/routes/orders/messages.js"
     ]
   },
   {
@@ -2583,7 +2585,8 @@
     "message": "Stil",
     "files": [
       "src/routes/cardStore/messages.js",
-      "src/routes/newArrivals/messages.js"
+      "src/routes/newArrivals/messages.js",
+      "src/routes/orders/messages.js"
     ]
   },
   {
@@ -2882,7 +2885,8 @@
     "message": "Beschreibung",
     "files": [
       "src/routes/giftStore/messages.js",
-      "src/routes/newArrivals/messages.js"
+      "src/routes/newArrivals/messages.js",
+      "src/routes/orders/messages.js"
     ]
   },
   {
@@ -3064,7 +3068,7 @@
   {
     "id": "orders.priceColumn",
     "defaultMessage": "Price",
-    "message": "Price",
+    "message": "Preis",
     "files": [
       "src/routes/orders/messages.js"
     ]
