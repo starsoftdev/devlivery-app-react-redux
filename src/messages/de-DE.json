@@ -395,7 +395,8 @@
     "defaultMessage": "Contacts",
     "message": "Kontakte",
     "files": [
-      "src/routes/dashboard/messages.js"
+      "src/routes/dashboard/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -519,7 +520,8 @@
     "defaultMessage": "Email",
     "message": "Email",
     "files": [
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -789,7 +791,8 @@
     "defaultMessage": "Groups",
     "message": "Gruppen",
     "files": [
-      "src/components/ContactForm/messages.js"
+      "src/components/ContactForm/messages.js",
+      "src/components/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -1072,7 +1075,8 @@
     "defaultMessage": "Name",
     "message": "Name",
     "files": [
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -1509,6 +1513,16 @@
     "message": "Kontakt speichern",
     "files": [
       "src/routes/addContact/messages.js"
+    ]
+  },
+  {
+    "id": "addContact.requireadres",
+    "defaultMessage": "Home address or Company address is required.",
+    "message": "Privatadresse oder Firmenadresse ist erforderlich.",
+    "files": [
+      "src/routes/addContact/messages.js",
+      "src/routes/editContact/messages.js",
+      "src/routes/purchase10/messages.js"
     ]
   },
   {
@@ -2212,7 +2226,7 @@
   {
     "id": "contactForm.phone",
     "defaultMessage": "Phone",
-    "message": "Phone",
+    "message": "Telefon",
     "files": [
       "src/components/ContactForm/messages.js"
     ]
@@ -2220,7 +2234,7 @@
   {
     "id": "contactForm.repeat",
     "defaultMessage": "Repeat",
-    "message": "Repeat",
+    "message": "Wiederholen",
     "files": [
       "src/components/ContactForm/messages.js"
     ]
@@ -2609,7 +2623,7 @@
   {
     "id": "contactGroup.birthdayColumn",
     "defaultMessage": "Birthday",
-    "message": "Birthday",
+    "message": "Geburtstag",
     "files": [
       "src/routes/contactGroup/messages.js"
     ]
@@ -2617,7 +2631,7 @@
   {
     "id": "contactGroup.breadcrumb",
     "defaultMessage": "Contact Group",
-    "message": "Contact Group",
+    "message": "Kontaktgruppe",
     "files": [
       "src/routes/contactGroup/messages.js"
     ]
@@ -2641,7 +2655,7 @@
   {
     "id": "contactGroup.header",
     "defaultMessage": "Contact Group",
-    "message": "Contact Group",
+    "message": "Kontaktgruppe",
     "files": [
       "src/routes/contactGroup/messages.js"
     ]
@@ -2657,7 +2671,7 @@
   {
     "id": "contactGroup.phoneColumn",
     "defaultMessage": "Phone",
-    "message": "Phone",
+    "message": "Telefon",
     "files": [
       "src/routes/contactGroup/messages.js"
     ]
@@ -2689,7 +2703,7 @@
   {
     "id": "contactGroup.title",
     "defaultMessage": "Contact Group",
-    "message": "Contact Group",
+    "message": "Kontaktgruppe",
     "files": [
       "src/routes/contactGroup/messages.js"
     ]
@@ -2718,9 +2732,10 @@
   {
     "id": "contacts.birthdayColumn",
     "defaultMessage": "Birthday",
-    "message": "Birthday",
+    "message": "Geburtstag",
     "files": [
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -2737,9 +2752,10 @@
   {
     "id": "contacts.phoneColumn",
     "defaultMessage": "Phone",
-    "message": "Phone",
+    "message": "Telefon",
     "files": [
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -2793,7 +2809,7 @@
   {
     "id": "contactUs.phoneInput",
     "defaultMessage": "Phone",
-    "message": "Phone",
+    "message": "Telefon",
     "files": [
       "src/routes/contactUs/messages.js"
     ]

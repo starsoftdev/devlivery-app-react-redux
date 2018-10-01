@@ -17,4 +17,8 @@ export default defineMessages({
     id: 'addContact.submit',
     defaultMessage: 'Save Contact',
   },
+  requireadres: {
+    id: 'addContact.requireadres',
+    defaultMessage: 'Home address or Company address is required.',
+  }
 })

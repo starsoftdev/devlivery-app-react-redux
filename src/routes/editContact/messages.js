@@ -29,4 +29,8 @@ export default defineMessages({
     id: 'contactGroups.acceptRemoving',
     defaultMessage: 'Yes',
   },
+  requireadres: {
+    id: 'addContact.requireadres',
+    defaultMessage: 'Home address or Company address is required.',
+  }
 })

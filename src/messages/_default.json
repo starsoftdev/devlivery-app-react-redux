@@ -44,7 +44,8 @@
     "defaultMessage": "Groups",
     "message": "",
     "files": [
-      "src/components/ContactForm/messages.js"
+      "src/components/ContactForm/messages.js",
+      "src/components/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -272,6 +273,16 @@
     ]
   },
   {
+    "id": "addContact.requireadres",
+    "defaultMessage": "Home address or Company address is required.",
+    "message": "",
+    "files": [
+      "src/routes/addContact/messages.js",
+      "src/routes/editContact/messages.js",
+      "src/routes/purchase10/messages.js"
+    ]
+  },
+  {
     "id": "addContact.title",
     "defaultMessage": "New Contact",
     "message": "",
@@ -409,7 +420,8 @@
     "defaultMessage": "Email",
     "message": "",
     "files": [
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -425,7 +437,8 @@
     "defaultMessage": "Name",
     "message": "",
     "files": [
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -506,7 +519,8 @@
     "defaultMessage": "Contacts",
     "message": "",
     "files": [
-      "src/routes/dashboard/messages.js"
+      "src/routes/dashboard/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -2580,7 +2594,8 @@
     "defaultMessage": "Birthday",
     "message": "",
     "files": [
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -2599,7 +2614,8 @@
     "defaultMessage": "Phone",
     "message": "",
     "files": [
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {

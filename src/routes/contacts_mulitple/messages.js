@@ -61,4 +61,12 @@ export default defineMessages({
     id: 'contactGroups.acceptRemoving',
     defaultMessage: 'Yes',
   },
+  groups: {
+    id: 'contactForm.groups',
+    defaultMessage: 'Groups',
+  },
+  contacts: {
+    id: 'dashboard.contacts',
+    defaultMessage: 'Contacts',
+  },
 })
