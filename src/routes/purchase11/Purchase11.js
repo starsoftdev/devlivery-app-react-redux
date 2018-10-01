@@ -373,7 +373,7 @@ class Purchase11 extends React.Component {
                           {required: this.state.checkSave === 1 ? true : false, min: this.state.checkSave === 1 ? 5:0, message: intl.formatMessage(formMessages.minLength, {length: 5})},
                         ],
                       })(
-                        <FloatingLabel placeholder={'Bundle Name *'}/>
+                        <FloatingLabel placeholder={ intl.formatMessage(messages.bundleName)+' *'}/>
                       )}
                     </Form.Item>
                   }
