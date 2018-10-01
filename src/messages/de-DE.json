@@ -2864,6 +2864,24 @@
     ]
   },
   {
+    "id": "giftStore.price",
+    "defaultMessage": "Price",
+    "message": "Preis",
+    "files": [
+      "src/routes/giftStore/messages.js",
+      "src/routes/newArrivals/messages.js"
+    ]
+  },
+  {
+    "id": "giftStore.description",
+    "defaultMessage": "Description",
+    "message": "Beschreibung",
+    "files": [
+      "src/routes/giftStore/messages.js",
+      "src/routes/newArrivals/messages.js"
+    ]
+  },
+  {
     "id": "giftStore.collections",
     "defaultMessage": "Collections",
     "message": "Collections",
