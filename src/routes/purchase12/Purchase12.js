@@ -21,7 +21,7 @@ class Purchase12 extends React.Component {
     return (
       <div className={s.content}>
         <SectionHeader
-          header={'Select Payment Method'}
+          header={intl.formatMessage(messages.purchase12)}
           number={flowIndex + 1}
           prefixClassName={s.headerPrefix}
         />
