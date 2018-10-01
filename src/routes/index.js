@@ -19,6 +19,7 @@ export const SET_PASSWORD_ROUTE = 'set-password'
 
 export const DASHBOARD_ROUTE = 'dashboard'
 export const ORDERS_ROUTE = 'orders'
+export const ORDERS_ROUTE_DETAIL = 'orders_detail'
 export const MANAGE_TEAM_ROUTE = 'manage-team'
 export const GROUP_PERMISSION_ROUTE = 'group-permission'
 export const REPORTS_ROUTE = 'reports'
@@ -44,6 +45,7 @@ export const HOME_ROUTES = [
 export const DASHBOARD_ROUTES = [
   DASHBOARD_ROUTE,
   ORDERS_ROUTE,
+  ORDERS_ROUTE_DETAIL,
   MANAGE_TEAM_ROUTE,
   REPORTS_ROUTE,
   CONTACTS_ROUTE,
@@ -204,6 +206,11 @@ const authRoutes = {
         {
           path: '/orders',
           name: ORDERS_ROUTE,
+          load: () => import(/* webpackChunkName: 'dashboard' */ './orders'),
+        },
+        {
+          path: '/orders/:orderid/details',
+          name: ORDERS_ROUTE_DETAIL,
           load: () => import(/* webpackChunkName: 'dashboard' */ './orders'),
         },
         {
