@@ -109,7 +109,7 @@ class EditContact extends React.Component {
                     {contactSection}
                     {birthdaySection}
                     {
-                      <h4 className={this.state.requirAddress ? s.requirAddress: s.norequirAddress}>{"Home address or Company address is required."}</h4>
+                      <h4 className={this.state.requirAddress ? s.requirAddress: s.norequirAddress}>{intl.formatMessage(messages.requireadres)}</h4>
                     }
                     {homeAddressSection}
                     {companyAddressSection}

@@ -144,7 +144,10 @@ class Reminders extends React.Component {
                   allowClear
                   placeholder={intl.formatMessage(messages.repeat)}
                 >
-                  {[{value: 'm', label: 'Every month'}, {value: 'y', label: 'Every year'}].map((item) =>
+                  {[
+                    {value: 'm', label: intl.locale === 'de-DE' ? 'Jeden Monat' : 'Every month'}, 
+                    {value: 'y', label: intl.locale === 'de-DE' ? 'Jedes Jahr' : 'Every year'}
+                  ].map((item) =>
                     <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>
                   )}
                 </Select>

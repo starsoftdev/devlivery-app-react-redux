@@ -311,7 +311,7 @@ class Contacts extends React.Component {
                 value={this.state.type}
               >
                 {category.map(item =>
-                  <Select.Option key={item} value={item}>{item}</Select.Option>
+                  <Select.Option key={item} value={item}>{intl.formatMessage(messages[item.toLowerCase()])}</Select.Option>
                 )}
               </Select>
             }
