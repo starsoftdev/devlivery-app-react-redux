@@ -17,9 +17,21 @@ export default defineMessages({
     id: 'giftStore.description',
     defaultMessage: 'Description',
   },
+  occasion: {
+    id: 'cardStore.occasion',
+    defaultMessage: 'Occasion',
+  },
+  style: {
+    id: 'cardStore.style',
+    defaultMessage: 'Style',
+  },
   price: {
     id: 'giftStore.price',
     defaultMessage: 'Price',
+  },
+  size: {
+    id: 'purchase6.size',
+    defaultMessage: 'Size',
   },
   makeOrder: {
     id: 'bundles.makeOrder',
