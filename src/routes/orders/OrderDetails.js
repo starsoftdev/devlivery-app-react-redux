@@ -1,12 +1,14 @@
 import React from 'react'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './OrderDetails.css'
-import {Col, Modal, Row, Table, Button} from 'antd'
-import {connect} from 'react-redux'
-import {closeOrderDetailsModal} from '../../reducers/orders'
+import { Col, Modal, Row, Table, Button, Carousel } from 'antd'
+import { connect } from 'react-redux'
+import { closeOrderDetailsModal } from '../../reducers/orders'
 import messages from './messages'
-import {getItemImage} from '../../utils'
-import {CARD_IMAGES_PROP, GIFT_IMAGES_PROP} from '../../constants'
+import { getItemImage } from '../../utils'
+import { CARD_IMAGES_PROP, GIFT_IMAGES_PROP } from '../../constants'
+import cn from 'classnames';
+import BackIcon from '../../static/view_list.svg'
 
 const CARD_TYPE = 'card'
 const GIFT_TYPE = 'gift'
@@ -19,25 +21,26 @@ class OrderDetails extends React.Component {
     super(props)
     this.state = {
       currentShipping: 0,
+      cardPreview: false
     }
   }
 
   prevShipping = () => {
-    if(this.state.currentShipping !== 0) {
-      this.setState({currentShipping: this.state.currentShipping - 1})
+    if (this.state.currentShipping !== 0) {
+      this.setState({ currentShipping: this.state.currentShipping - 1 })
     }
   }
 
   nextShipping = () => {
-    if(this.state.currentShipping !== this.props.orderDetails.recipients.length - 1) {
-      this.setState({currentShipping: this.state.currentShipping + 1})
+    if (this.state.currentShipping !== this.props.orderDetails.recipients.length - 1) {
+      this.setState({ currentShipping: this.state.currentShipping + 1 })
     }
   }
 
   render() {
 
     const currentShipping = this.state.currentShipping
-    const {closeOrderDetailsModal, orderDetails, intl} = this.props
+    const { closeOrderDetailsModal, orderDetails, intl, occasions } = this.props
 
     const columns = [
       {
@@ -49,15 +52,15 @@ class OrderDetails extends React.Component {
           switch (item.productType) {
             case CARD_TYPE:
               return (
-                <div className={s.product}>
-                  <div style={{backgroundImage: `url(${getItemImage(item, CARD_IMAGES_PROP)})`}} className={s.productImage}/>
+                <div className={cn(s.product, s.touch)} onClick={() => this.setState({ cardPreview: 'card' })}>
+                  <div style={{ backgroundImage: `url(${getItemImage(item, CARD_IMAGES_PROP)})` }} className={s.productImage} />
                   <div className={s.title}>{item.title}</div>
                 </div>
               )
             case GIFT_TYPE:
               return (
-                <div className={s.product}>
-                  <div style={{backgroundImage: `url(${getItemImage(item, GIFT_IMAGES_PROP)})`}} className={s.productImage}/>
+                <div className={cn(s.product, s.touch)} onClick={() => this.setState({ cardPreview: 'gift' })}>
+                  <div style={{ backgroundImage: `url(${getItemImage(item, GIFT_IMAGES_PROP)})` }} className={s.productImage} />
                   <div className={s.title}>{item.title}</div>
                 </div>
               )
@@ -67,13 +70,13 @@ class OrderDetails extends React.Component {
                   <div className={s.productImage}>
                     <div className={s.voucherContain}>
                       <span className={s.title}>
-                      <strong>FROM:</strong>
-                      {" "+item.from}
+                        <strong>FROM:</strong>
+                        {" " + item.from}
                       </span>
-                      <br/>
+                      <br />
                       <span className={s.title}>
-                      <strong>TO:</strong>
-                      {" "+item.to}
+                        <strong>TO:</strong>
+                        {" " + item.to}
                       </span>
                     </div>
                   </div>
@@ -83,7 +86,7 @@ class OrderDetails extends React.Component {
             case DONATION_TYPE:
               return (
                 <div className={s.product}>
-                  <div style={{backgroundImage: `url(${getItemImage(item, 'logo')})`}} className={s.productImage}/>
+                  <div style={{ backgroundImage: `url(${getItemImage(item, 'logo')})` }} className={s.productImage} />
                   <div className={s.title}>{item.name}</div>
                 </div>
               )
@@ -109,9 +112,9 @@ class OrderDetails extends React.Component {
           } else if (item.productType === DONATION_TYPE) {
             quantity = item.amount
           }
-          
+
           return (
-           <div>{quantity}</div>
+            <div>{quantity}</div>
           )
         }
       },
@@ -124,7 +127,7 @@ class OrderDetails extends React.Component {
           return (
             <React.Fragment>
               {item.price}
-              <span className={s.currency}>{item.currency?item.currency:''}</span>
+              <span className={s.currency}>{item.currency ? item.currency : ''}</span>
             </React.Fragment>
           )
         }
@@ -145,21 +148,19 @@ class OrderDetails extends React.Component {
           productType: GIFT_TYPE,
           key
         }
-    }),
+      }),
     ] : [];
     key++;
-    if(orderDetails && orderDetails.donation && orderDetails.donation.organization)
-    {
+    if (orderDetails && orderDetails.donation && orderDetails.donation.organization) {
       dataSource.push({
         ...orderDetails.donation.organization,
         productType: DONATION_TYPE,
-        amount:orderDetails.donation.amount,
+        amount: orderDetails.donation.amount,
         key
       });
       key++;
     }
-    if(orderDetails && orderDetails.voucher)
-    {
+    if (orderDetails && orderDetails.voucher) {
       dataSource.push({
         ...orderDetails.voucher,
         productType: VOUCHER_TYPE,
@@ -167,7 +168,13 @@ class OrderDetails extends React.Component {
       });
       key++;
     }
-    console.log("orderDetails",orderDetails);
+    const cardDetails = orderDetails && orderDetails.items['card'];
+    var occasionByCardId = null;
+    if (cardDetails && occasions)
+      occasionByCardId = occasions.filter(item => item.id === cardDetails.occasion_id);
+
+    var giftDetails = orderDetails && orderDetails.items['gifts'] && orderDetails.items['gifts'][0].gift;
+    
     // TODO add shipping price/info
     return (
       <Modal
@@ -176,9 +183,16 @@ class OrderDetails extends React.Component {
         onOk={closeOrderDetailsModal}
         onCancel={closeOrderDetailsModal}
         width={900}
-        footer={null}
+        footer={
+          this.state.cardPreview &&
+          <div style={{ width: '100%', textAlign: 'right' }}>
+            <Button type='primary' size={'small'} style={{ alignSelf: 'right' }} ghost onClick={() => this.setState({ cardPreview: false })}>
+              {'Back'}
+            </Button>
+          </div>
+        }
       >
-        {orderDetails ? (
+        {!this.state.cardPreview && orderDetails ? (
           <React.Fragment>
             <div className={s.headerWrapper}>
               <h1 className={s.header}>{`#${orderDetails.order_number}`}</h1>
@@ -234,14 +248,14 @@ class OrderDetails extends React.Component {
                     <React.Fragment>
                       <div className={s.shippingDetails}>
                         <h3>Shipping details {currentShipping + 1} / {orderDetails.recipients.length}</h3>
-                        <span>{orderDetails.recipients[currentShipping].contact.title}</span><br/>
-                        <span>{orderDetails.recipients[currentShipping].contact.first_name + ' ' + orderDetails.recipients[currentShipping].contact.last_name}</span><br/>
-                        <span>{orderDetails.recipients[currentShipping].receiving_address.address}</span><br/>
-                        <span>{orderDetails.recipients[currentShipping].receiving_address.postal_code ? orderDetails.recipients[currentShipping].receiving_address.postal_code:'' + ' ' + orderDetails.recipients[currentShipping].receiving_address.city?orderDetails.recipients[currentShipping].receiving_address.city:''}</span><br/>
-                        <span>{orderDetails.recipients[currentShipping].receiving_address.country ? orderDetails.recipients[currentShipping].receiving_address.country :''}</span><br/>
+                        <span>{orderDetails.recipients[currentShipping].contact.title}</span><br />
+                        <span>{orderDetails.recipients[currentShipping].contact.first_name + ' ' + orderDetails.recipients[currentShipping].contact.last_name}</span><br />
+                        <span>{orderDetails.recipients[currentShipping].receiving_address.address}</span><br />
+                        <span>{orderDetails.recipients[currentShipping].receiving_address.postal_code ? orderDetails.recipients[currentShipping].receiving_address.postal_code : '' + ' ' + orderDetails.recipients[currentShipping].receiving_address.city ? orderDetails.recipients[currentShipping].receiving_address.city : ''}</span><br />
+                        <span>{orderDetails.recipients[currentShipping].receiving_address.country ? orderDetails.recipients[currentShipping].receiving_address.country : ''}</span><br />
                       </div>
                       {
-                        orderDetails.recipients.length > 1 && 
+                        orderDetails.recipients.length > 1 &&
                         <div className={s.shippingButtons}>
                           <Button
                             type='primary'
@@ -267,6 +281,96 @@ class OrderDetails extends React.Component {
             </Row>
           </React.Fragment>
         ) : null}
+        {
+          this.state.cardPreview === 'card' && orderDetails && cardDetails? (
+            <React.Fragment>
+              <Row>
+                <Col md={16} style={{ paddingLeft: 20, paddingRight: 20 }}>
+                  <Row className={s.detailRow}>
+                    <Carousel
+                      loop
+                      customPaging={() => (
+                        <div className={s.dotWrapper}>
+                          <div className={s.dot} />
+                        </div>
+                      )}
+                    >
+                      {[...cardDetails.front_image, ...cardDetails.images].map((image, i) => image.url ? (
+                        <div key={i}>
+                          <div style={{ backgroundImage: `url(${image.url})` }} className={s.previewImage} />
+                        </div>
+                      ) : null
+                      )}
+                    </Carousel>
+                  </Row>
+                </Col>
+                <Col md={8}>
+                  <Row className={s.detailRow}>
+                    <Col md={12}>
+                      <span className={s.DetailTitle}>{intl.formatMessage(messages.style)}</span><br />
+                      <span className={s.Detail}>{cardDetails.style}</span>
+                    </Col>
+                    <Col md={12}>
+                      <span className={s.DetailTitle}>{intl.formatMessage(messages.occasion)}</span><br />
+                      <span className={s.Detail}>{occasionByCardId && occasionByCardId.length > 0 && occasionByCardId[0].title}</span>
+                    </Col>
+                  </Row>
+                  <Row className={s.detailRow}>
+                    <Col md={12}>
+                      <span className={s.DetailTitle}>{intl.formatMessage(messages.size)}</span><br />
+                      <span className={s.Detail}>{cardDetails.size}</span>
+                    </Col>
+                    <Col md={12}>
+                      <span className={s.DetailTitle}>{intl.formatMessage(messages.priceColumn)}</span><br />
+                      <span className={s.Detail}>{cardDetails.price + " " + cardDetails.currency}</span>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </React.Fragment>
+          ) : null
+        }
+        {
+          this.state.cardPreview === 'gift' && orderDetails && giftDetails? (
+            <React.Fragment>
+              <Row>
+                <Col md={16} style={{ paddingLeft: 20, paddingRight: 20 }}>
+                  <Row className={s.detailRow}>
+                    <Carousel
+                      loop
+                      customPaging={() => (
+                        <div className={s.dotWrapper}>
+                          <div className={s.dot} />
+                        </div>
+                      )}
+                    >
+                      {giftDetails.image.map((image, i) => image.url ? (
+                        <div key={i}>
+                          <div style={{ backgroundImage: `url(${image.url})` }} className={s.previewImage} />
+                        </div>
+                      ) : null
+                      )}
+                    </Carousel>
+                  </Row>
+                </Col>
+                <Col md={8}>
+                  <Row className={s.detailRow}>
+                    <Col md={24}>
+                      <span className={s.DetailTitle}>{intl.formatMessage(messages.description)}</span><br />
+                      <span className={s.Detail}>{giftDetails.description}</span>
+                    </Col>
+                  </Row>
+                  <Row className={s.detailRow}>
+                    <Col md={12}>
+                      <span className={s.DetailTitle}>{intl.formatMessage(messages.priceColumn)}</span><br />
+                      <span className={s.Detail}>{giftDetails.price + " " + giftDetails.currency}</span>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </React.Fragment>
+          ) : null
+        }
       </Modal>
     )
   }
@@ -274,6 +378,7 @@ class OrderDetails extends React.Component {
 
 const mapState = state => ({
   orderDetails: state.orders.orderDetails,
+  occasions: state.cards.occasions
 })
 
 const mapDispatch = {
