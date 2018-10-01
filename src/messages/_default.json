@@ -2360,7 +2360,8 @@
     "defaultMessage": "Bundle name",
     "message": "",
     "files": [
-      "src/routes/addBundle/messages.js"
+      "src/routes/addBundle/messages.js",
+      "src/routes/purchase11/messages.js"
     ]
   },
   {

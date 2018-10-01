@@ -61,4 +61,8 @@ export default defineMessages({
     id: 'contactGroups.acceptRemoving',
     defaultMessage: 'Yes',
   },
+  bundleName: {
+    id: 'addBundle.bundleName',
+    defaultMessage: 'Bundle name',
+  },
 })
