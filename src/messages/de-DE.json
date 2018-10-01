@@ -1626,7 +1626,10 @@
   {
     "id": "purchase.purchase12",
     "defaultMessage": "Select Payment Method",
-    "message": "Zahlungsmethode auswählen"
+    "message": "Zahlungsmethode auswählen",
+    "files": [
+      "src/routes/purchase12/messages.js"
+    ]
   },
   {
     "id": "contactForm.selectGroup",
@@ -2282,9 +2285,10 @@
   {
     "id": "header.dashboard",
     "defaultMessage": "Dashboard",
-    "message": "Dashboard",
+    "message": "Benutzerverwaltung",
     "files": [
-      "src/components/Header/messages.js"
+      "src/components/Header/messages.js",
+      "src/components/purchaseCompleted/messages.js"
     ]
   },
   {
@@ -2338,7 +2342,7 @@
   {
     "id": "purchaseActions.purchase12",
     "defaultMessage": "Select Payment Method",
-    "message": "Select Payment Method",
+    "message": "Zahlungsmethode auswählen",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2346,7 +2350,7 @@
   {
     "id": "purchaseActions.purchase13",
     "defaultMessage": "Credit Card Information",
-    "message": "Credit Card Information",
+    "message": "Kreditkarteninformation",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]

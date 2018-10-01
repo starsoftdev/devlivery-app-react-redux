@@ -1085,6 +1085,14 @@
     ]
   },
   {
+    "id": "purchase.purchase12",
+    "defaultMessage": "Select Payment Method",
+    "message": "",
+    "files": [
+      "src/routes/purchase12/messages.js"
+    ]
+  },
+  {
     "id": "purchase1.title",
     "defaultMessage": "Purchase",
     "message": "",
@@ -2144,7 +2152,8 @@
     "defaultMessage": "Dashboard",
     "message": "",
     "files": [
-      "src/components/Header/messages.js"
+      "src/components/Header/messages.js",
+      "src/components/purchaseCompleted/messages.js"
     ]
   },
   {

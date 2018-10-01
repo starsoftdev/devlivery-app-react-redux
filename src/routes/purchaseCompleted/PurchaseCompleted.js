@@ -6,6 +6,7 @@ import s from './PurchaseCompleted.css'
 import {Link} from '../../components'
 import CompletedIcon from '../../static/checked_badge.svg'
 import {ORDERS_ROUTE} from '../'
+import messages from './messages'
 
 class PurchaseCompleted extends React.Component {
   render() {
@@ -19,7 +20,7 @@ class PurchaseCompleted extends React.Component {
           Create in 4 simple steps!
         </p>
         <Link to={ORDERS_ROUTE} className={s.dashboardBtn}>
-          <Button type='primary'>Dashboard</Button>
+          <Button type='primary'>{this.props.intl.formatMessage(messages.dashboard)}</Button>
         </Link>
       </div>
     )
