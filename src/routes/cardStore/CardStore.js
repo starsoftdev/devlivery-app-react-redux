@@ -79,7 +79,7 @@ class CardStore extends React.Component {
                 <li key={item.id}>
                   <a
                     onClick={() => getCards({occasion: item.id})}
-                    className={cn(item.id === occasion && s.selected)}
+                    className={cn(item.id === occasion && s.selected, !item.has_cards && s.disabled)}
                   >
                     {item.title}
                   </a>
