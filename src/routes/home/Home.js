@@ -125,19 +125,9 @@ class Home extends React.Component {
         <section className={s.giftingSection}>
           <div className={s.giftingBackground}>
             <div className={s.giftingContent}>
-              <h3 
-                className={cn(
-                  s.giftingHeader,
-                  intl.locale === "de-DE" &&
-                  s.giftingHeader_de
-                )}
-                >
+              <h3 className={s.giftingHeader}>
                 {intl.formatMessage(messages.gifting)}
               </h3>
-              {
-                intl.locale === "de-DE" &&
-                <h5 className={s.subgiftingHeader}>{'(Ein überraschendes Geschenk im richtigen Augenblick)'}</h5>
-              }
               <p>
                 {intl.formatMessage(messages.giftingDescription)}
                 <Link to={NEW_ARRIVALS_ROUTE} className={s.sectionBtn}>
