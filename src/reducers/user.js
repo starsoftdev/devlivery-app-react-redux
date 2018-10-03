@@ -2,7 +2,7 @@ import createReducer, {RESET_STORE} from '../createReducer'
 import {STATE_COOKIE, TOKEN_COOKIE} from '../constants'
 import {getBirthday} from '../utils'
 import {message} from 'antd'
-
+import { getFormErrors, getOrdering} from '../utils'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -72,7 +72,7 @@ export const getUserDetails = () => (dispatch, getState, {fetch}) => {
   })
 }
 
-export const updateUser = ({user, birthday, preference, ...values}) => (dispatch, getState, {fetch}) => {
+export const updateUser = ({user, birthday, preference, ...values},form) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   dispatch({type: UPDATE_USER_REQUEST})
   return fetch(`/edit-settings`, {
@@ -95,9 +95,13 @@ export const updateUser = ({user, birthday, preference, ...values}) => (dispatch
       message.success('User updated.')
       dispatch(getUserDetails())
     },
-    failure: (err) => {
+    failure: (res) => {
       dispatch({type: UPDATE_USER_FAILURE})
-      message.error('Something went wrong. Please try again.')
+      const {formErrors} = getFormErrors({...res, values})
+      if (formErrors)
+        form.setFields(formErrors)
+      else
+        message.error('Something went wrong. Please try again.')
     }
   })
 }
