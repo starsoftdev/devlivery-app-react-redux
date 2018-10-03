@@ -122,7 +122,22 @@ export const AUTH_PURCHASE_FLOW = {
     PURCHASE_COMPLETED_ROUTE,
   ]
 }
-
+export const GIFT_PURCHASE_FLOW = {
+  key: 'gift-purchase-flow',
+  routes: [
+    PURCHASE1_ROUTE,
+    PURCHASE2_ROUTE,
+    PURCHASE3_ROUTE,
+    PURCHASE4_ROUTE,
+    PURCHASE5_ROUTE,
+    PURCHASE10_ROUTE,
+    PURCHASE6_ROUTE,
+    PURCHASE11_ROUTE,
+    PURCHASE12_ROUTE,
+    PURCHASE13_ROUTE,
+    PURCHASE_COMPLETED_ROUTE,
+  ]
+}
 export const EVENT_PURCHASE_FLOW = {
   key: 'event-purchase-flow',
   routes: [
