@@ -155,30 +155,24 @@ class Home extends React.Component {
             )}
           >
             <div className={s.feedback}>
-              <div style={{background: `url(${'http://via.placeholder.com/90x90'})`}} className={s.feedbackImage}/>
-              <h3 className={s.feedbackHeader}>ROGER FEDERER</h3>
+              <div><img src={require('../../static/POSE_2.png')} className={s.feedbackImage}/></div>
+              <h3 className={s.feedbackHeader}>{intl.formatMessage(messages.feedbackHeader1)}</h3>
               <p className={s.feedbackDescription}>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make
-                a type specimen book.
+                {intl.formatMessage(messages.feedbackDescription1)}
               </p>
             </div>
             <div className={s.feedback}>
-              <div style={{background: `url(${'http://via.placeholder.com/90x90'})`}} className={s.feedbackImage}/>
-              <h3 className={s.feedbackHeader}>ROGER FEDERER</h3>
+              <div><img src={require('../../static/POSE_2.png')} className={s.feedbackImage}/></div>
+              <h3 className={s.feedbackHeader}>{intl.formatMessage(messages.feedbackHeader2)}</h3>
               <p className={s.feedbackDescription}>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make
-                a type specimen book.
+                {intl.formatMessage(messages.feedbackDescription2)}
               </p>
             </div>
             <div className={s.feedback}>
-              <div style={{background: `url(${'http://via.placeholder.com/90x90'})`}} className={s.feedbackImage}/>
-              <h3 className={s.feedbackHeader}>ROGER FEDERER</h3>
+              <div><img src={require('../../static/POSE_2.png')} className={s.feedbackImage}/></div>
+              <h3 className={s.feedbackHeader}>{intl.formatMessage(messages.feedbackHeader3)}</h3>
               <p className={s.feedbackDescription}>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make
-                a type specimen book.
+                {intl.formatMessage(messages.feedbackDescription3)}
               </p>
             </div>
           </Carousel>

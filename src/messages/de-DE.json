@@ -1728,6 +1728,54 @@
     ]
   },
   {
+    "id": "home.feedbackHeader1",
+    "defaultMessage": "ROGER FEDERER",
+    "message": "Zumi weiss",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.feedbackHeader2",
+    "defaultMessage": "ROGER FEDERER",
+    "message": "Zumi rät",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.feedbackHeader3",
+    "defaultMessage": "ROGER FEDERER",
+    "message": "Zumi weiss",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.feedbackDescription1",
+    "defaultMessage": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make a type specimen book.",
+    "message": "Kunden zu gewinnen, ist schwer – sie zu halten, noch mehr. Trotzdem vernachlässigen viele Unternehmen ihre Kunden, weil ihnen Zeit und Ressourcen fehlen. Damit vergeben sie viele Geschäftschancen. Das muss nicht mehr sein: Dafür ist unser Service da!",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.feedbackDescription2",
+    "defaultMessage": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make a type specimen book.",
+    "message": "«Kleine Geschenke erhalten die Freundschaft», sagt das Sprichwort. Das gilt erst recht, wenn das Geschenk überraschend eintrifft – und Sie etwas schenken, das Sie am liebsten selbst erhalten würden.",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.feedbackDescription3",
+    "defaultMessage": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make a type specimen book.",
+    "message": "Kunden zu gewinnen, ist schwer – sie zu halten, noch mehr. Trotzdem vernachlässigen viele Unternehmen ihre Kunden, weil ihnen Zeit und Ressourcen fehlen. Damit vergeben sie viele Geschäftschancen. Das muss nicht mehr sein: Dafür ist unser Service da!",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
     "id": "purchase6.size",
     "defaultMessage": "Size",
     "message": "Grösse",

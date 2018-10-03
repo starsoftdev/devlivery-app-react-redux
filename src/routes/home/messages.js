@@ -93,4 +93,28 @@ export default defineMessages({
     id: 'home.signUp',
     defaultMessage: 'Sign up to get first access, curated notes about new styles, sales and events.',
   },
+  feedbackHeader1: {
+    id: 'home.feedbackHeader1',
+    defaultMessage: 'ROGER FEDERER',
+  },
+  feedbackHeader2: {
+    id: 'home.feedbackHeader2',
+    defaultMessage: 'ROGER FEDERER',
+  },
+  feedbackHeader3: {
+    id: 'home.feedbackHeader3',
+    defaultMessage: 'ROGER FEDERER',
+  },
+  feedbackDescription1: {
+    id: 'home.feedbackDescription1',
+    defaultMessage: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make a type specimen book.",
+  },
+  feedbackDescription2: {
+    id: 'home.feedbackDescription2',
+    defaultMessage: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make a type specimen book.",
+  },
+  feedbackDescription3: {
+    id: 'home.feedbackDescription3',
+    defaultMessage: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make a type specimen book.",
+  }
 })
