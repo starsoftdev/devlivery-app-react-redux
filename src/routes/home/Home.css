@@ -95,7 +95,7 @@
 .card {
   position: relative;
   background-color: var(--white-color);
-  height: 435px;
+  height: 451px;
   padding: var(--margin-md);
   display: flex;
   flex-direction: column;
@@ -141,6 +141,7 @@
   text-transform: uppercase;
   text-align: center;
   letter-spacing: 3.15px;
+  margin-top: 20px;
 }
 
 .cardDescription {
