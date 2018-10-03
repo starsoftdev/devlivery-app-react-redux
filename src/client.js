@@ -62,6 +62,7 @@ store.subscribe(() => {
     'orientation',
     //'cardDetails',
     //'gift',
+    'giftId',
     'giftType',
     'bundleId',
     'orderId',

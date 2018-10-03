@@ -11,6 +11,7 @@ import {
   PURCHASE8_ROUTE,//Select Gift
   PURCHASE_FLOW,
   VOUCHER_ROUTE,
+  GIFT_PURCHASE_FLOW
 } from '../routes'
 import { generateUrl } from '../router'
 import qs from 'query-string'
@@ -176,7 +177,8 @@ export const setFlow = (flow, redirect = true) => (dispatch, getState, { history
   if (redirect && 
     flow.key != ORDER_BUNDLE_FLOW.key && 
     flow.key != ORDER_CARD_FLOW.key &&
-    flow.key != ORDER_VOUCHER_FLOW.key) {
+    flow.key != ORDER_VOUCHER_FLOW.key && 
+    flow.key != GIFT_PURCHASE_FLOW.key) {
     dispatch(clear())
   }
 
@@ -224,10 +226,11 @@ export const setFlowFromSelectCard = (card) => (dispatch, getState) => {
 export const setFlowFromSelectGift = (gift) => (dispatch, getState) => {
   localStorage.removeItem(GROUP_ID_KEY)
   localStorage.removeItem(CONTACT_IDS_KEY)
-  dispatch(setFlow(AUTH_PURCHASE_FLOW))
+  dispatch(clear())
   const giftType = gift.type;
   dispatch({ type: SET_GIFT_TYPE, giftType })
   dispatch({ type: SET_GIFT, gift })
+  dispatch(setFlow(GIFT_PURCHASE_FLOW))
 }
 export const setFlowIndex = () => (dispatch, getState) => {
   const { currentRouteName } = getState().global
@@ -414,12 +417,16 @@ export const getCards = (params = {}) => (dispatch, getState, { fetch }) => {
 
 export const setCardSize = (cardSize) => ({ type: SET_CARD_SIZE, cardSize })
 
-export const submitCardDetails = (cardDetails) => (dispatch, getState) => {
-  dispatch(nextFlowStep())
+export const submitCardDetails = (cardDetails) => async (dispatch, getState) => {
   dispatch({ type: SET_CARD_DETAILS, cardDetails })
-  const { bundle } = getState().purchase;
+  const { bundle,flow } = getState().purchase;
   if (bundle && bundle.id)
     dispatch({ type: UPDATE_BUNDLE_BODY, cardDetails })
+ 
+  if (flow.key === GIFT_PURCHASE_FLOW.key) {
+    await dispatch(addBundle())
+  }
+  dispatch(nextFlowStep())
 }
 
 export const setGiftType = (giftType) => ({ type: SET_GIFT_TYPE, giftType })
@@ -550,7 +557,7 @@ export const submitGift = () => async (dispatch, getState) => {
 
 export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
-  const { letteringTechnique, cardId, gift, flow, cardDetails, saved } = getState().purchase
+  const { letteringTechnique, cardId, gift, giftId, flow, cardDetails, saved } = getState().purchase
   dispatch({ type: ADD_BUNDLE_REQUEST })
   
   return fetch(`/create-bundle`, {
@@ -559,9 +566,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
     body: {
       lettering: letteringTechnique,
       card_id: cardId,
-      ...gift ? {
-        gift_id: gift.id,
-      } : {},
+      gift_id: giftId,
       // TODO check if we need to send card body here
       body: cardDetails && cardDetails.body && cardDetails.body.length > 0 ? cardDetails.body : '<p></p>',
       // TODO backend can't get undefined value for title
@@ -602,7 +607,7 @@ export const makeOrder = () => (dispatch, getState, { fetch, history }) => {
   } else {
 
     //dispatch({type: MAKE_ORDER_REQUEST})
-
+    
     return fetch(`/make-order-from-bundle`, {
       method: 'POST',
       contentType: 'application/x-www-form-urlencoded',
@@ -1198,6 +1203,7 @@ export default createReducer(initialState, {
   }),
   [SET_GIFT]: (state, { gift }) => ({
     gift,
+    giftId: gift && gift.id
   }),
   [GET_GIFTS_REQUEST]: (state, { params }) => ({
     giftType: has(params, 'giftType') ? params.giftType : state.giftType,
