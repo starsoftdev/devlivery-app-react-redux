@@ -64,7 +64,7 @@ class Register2 extends React.Component {
                 validateTrigger: 'onSubmit',//'onBlur'
                 initialValue: individualDetails && individualDetails.email,
                 rules: [
-                  {required: true, message: intl.formatMessage(formMessages.required)},
+                  {required: false, message: intl.formatMessage(formMessages.required)},
                   {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
                 ],
               })(
@@ -75,7 +75,7 @@ class Register2 extends React.Component {
               {getFieldDecorator('phone', {
                 initialValue: individualDetails && individualDetails.phone,
                 rules: [
-                  {required: true, message: intl.formatMessage(formMessages.required)},
+                  {required: false, message: intl.formatMessage(formMessages.required)},
                 ],
               })(
                 <FloatingLabel placeholder={intl.formatMessage(messages.phone)}/>
