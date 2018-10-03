@@ -189,7 +189,7 @@
   {
     "id": "contactForm.address",
     "defaultMessage": "Address",
-    "message": "Adresse"
+    "message": "Adresszusatz"
   },
   {
     "id": "home.allOurCards",
@@ -2176,7 +2176,7 @@
   {
     "id": "address.address",
     "defaultMessage": "Address",
-    "message": "Adresse",
+    "message": "Adresszusatz",
     "files": [
       "src/components/Address/messages.js"
     ]
@@ -3349,7 +3349,7 @@
   {
     "id": "user.address",
     "defaultMessage": "Address",
-    "message": "Adresse",
+    "message": "Adresszusatz",
     "files": [
       "src/routes/user/messages.js",
       "src/routes/purchase9/messages.js",
