@@ -376,10 +376,6 @@ class Contacts extends React.Component {
                   )
                 }
                 )}
-              {
-                dataEntry.length <= 0 &&
-                <div>{intl.formatMessage(messages.noitem)}</div>
-              }
             </Row>
             {
               <div className={s.footer}>
