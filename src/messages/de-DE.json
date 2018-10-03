@@ -3531,7 +3531,7 @@
   {
     "id": "voucher.submit",
     "defaultMessage": "Next",
-    "message": "nächste",
+    "message": "weiter",
     "files": [
       "src/routes/voucher/messages.js"
     ]
