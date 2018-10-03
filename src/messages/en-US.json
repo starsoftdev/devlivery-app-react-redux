@@ -815,6 +815,54 @@
     ]
   },
   {
+    "id": "home.feedbackHeader1",
+    "defaultMessage": "ROGER FEDERER",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.feedbackHeader2",
+    "defaultMessage": "ROGER FEDERER",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.feedbackHeader3",
+    "defaultMessage": "ROGER FEDERER",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.feedbackDescription1",
+    "defaultMessage": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make a type specimen book.",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.feedbackDescription2",
+    "defaultMessage": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make a type specimen book.",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
+    "id": "home.feedbackDescription3",
+    "defaultMessage": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make a type specimen book.",
+    "message": "",
+    "files": [
+      "src/routes/home/messages.js"
+    ]
+  },
+  {
     "id": "home.subHeader",
     "defaultMessage": "We make it easy and seamless to",
     "message": "",
