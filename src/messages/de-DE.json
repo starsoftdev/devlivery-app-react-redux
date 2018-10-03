@@ -1521,7 +1521,7 @@
   {
     "id": "addContact.requireadres",
     "defaultMessage": "Home address or Company address is required.",
-    "message": "Privatadresse oder Firmenadresse ist erforderlich.",
+    "message": "Mindestens eine Adresse wird benötigt, entweder die Private oder die Geschäftsadresse.",
     "files": [
       "src/routes/addContact/messages.js",
       "src/routes/editContact/messages.js",
@@ -2064,7 +2064,7 @@
   {
     "id": "importContacts.breadcrumb",
     "defaultMessage": "Import Contacts",
-    "message": "Import Contacts",
+    "message": "Kontakte importieren",
     "files": [
       "src/routes/importContacts/messages.js"
     ]
@@ -2072,7 +2072,7 @@
   {
     "id": "importContacts.header",
     "defaultMessage": "Import Contacts",
-    "message": "Import Contacts",
+    "message": "Kontakte importieren",
     "files": [
       "src/routes/importContacts/messages.js"
     ]
@@ -2104,7 +2104,7 @@
   {
     "id": "importContacts.title",
     "defaultMessage": "Import Contacts",
-    "message": "Import Contacts",
+    "message": "Kontakte importieren",
     "files": [
       "src/routes/importContacts/messages.js"
     ]
@@ -2120,7 +2120,7 @@
   {
     "id": "purchase10.addContactManually",
     "defaultMessage": "Add contacts manually",
-    "message": "Fügen Sie Kontakte manuell hinzu",
+    "message": "Kontakt manuell hinzufügen",
     "files": [
       "src/routes/purchase10/messages.js"
     ]
