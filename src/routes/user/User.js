@@ -17,7 +17,7 @@ class User extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.updateUser(values)
+        this.props.updateUser(values,this.props.form)
       }
     })
   }
@@ -80,7 +80,7 @@ class User extends React.Component {
                     validateTrigger: 'onSubmit',//'onBlur'
                     initialValue: user && user.email,
                     rules: [
-                      {required: true, message: intl.formatMessage(formMessages.required)},
+                      {required: false, message: intl.formatMessage(formMessages.required)},
                       {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
                     ],
                   })(
@@ -91,7 +91,7 @@ class User extends React.Component {
                   {getFieldDecorator('user.phone', {
                     initialValue: user && user.phone,
                     rules: [
-                      {required: true, message: formMessages.required},
+                      {required: false, message: formMessages.required},
                     ],
                   })(
                     <FloatingLabel placeholder={'Phone'}/>
