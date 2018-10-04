@@ -10,17 +10,29 @@ import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
 import formMessages from '../../formMessages'
 import {FloatingLabel} from '../../components';
-
+const DONATION_STATE = 'donation_state'
 class Donation extends React.Component {
+  state = {
+    amountValue:'',
+    hideAmount: false
+  }
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err && this.props.donationOrg) {
+        localStorage.setItem(DONATION_STATE, JSON.stringify(values));
         this.props.submitDonation(values)
       }
     })
   }
-
+  componentWillMount() {
+    this.loadLocalStorage();
+  }
+  async loadLocalStorage() {
+    var initState = await localStorage.getItem(DONATION_STATE);
+    initState = JSON.parse(initState);
+    this.setState({ ...initState });
+  }
   render() {
     const {donationOrg, setDonationOrg, donationOrgs, intl, flowIndex, loading, donationAmount, hideAmount} = this.props
     const {getFieldDecorator} = this.props.form
@@ -69,6 +81,7 @@ class Donation extends React.Component {
             <Form.Item>
               {getFieldDecorator('hideAmount', {
                 initialValue: hideAmount,
+                valuePropName: 'checked',
               })(
                 <Checkbox>{'Hide amount'}</Checkbox>
               )}
