@@ -193,8 +193,7 @@ export const setFlow = (flow, redirect = true) => (dispatch, getState, { history
 }
 
 export const setBundle = (bundle) => (dispatch, getState) => {
-  localStorage.removeItem(GROUP_ID_KEY)
-  localStorage.removeItem(CONTACT_IDS_KEY)
+  localStorage.clear();
   dispatch({
     type: SET_BUNDLE,
     bundle,
@@ -212,8 +211,6 @@ export const setBundle = (bundle) => (dispatch, getState) => {
   else dispatch(setFlow(ORDER_BUNDLE_FLOW))
 }
 export const setFlowFromSelectCard = (card) => (dispatch, getState) => {
-  localStorage.removeItem(GROUP_ID_KEY)
-  localStorage.removeItem(CONTACT_IDS_KEY)
   dispatch(clear())
   const occasion = { id: card.occasion_id };
   dispatch({ type: SET_OCCASION, occasion })
@@ -226,8 +223,6 @@ export const setFlowFromSelectCard = (card) => (dispatch, getState) => {
   dispatch(setFlow(ORDER_CARD_FLOW))
 }
 export const setFlowFromSelectGift = (gift) => (dispatch, getState) => {
-  localStorage.removeItem(GROUP_ID_KEY)
-  localStorage.removeItem(CONTACT_IDS_KEY)
   dispatch(clear())
   const giftType = gift.type;
   dispatch({ type: SET_GIFT_TYPE, giftType })
@@ -1033,8 +1028,7 @@ export const setFontFamilies = (fontFamily) => ({ type: SET_FONT_FAMILIES, fontF
 export const setNewRecipients = (newrecipient) => ({ type: SET_NEW_RECIPIENT, newrecipient })
 
 export const clear = () => (dispatch, getState) => {
-  localStorage.removeItem(GROUP_ID_KEY);
-  localStorage.removeItem(CONTACT_IDS_KEY);
+  localStorage.clear();
   dispatch({ type: CLEAR })
 }
 
