@@ -372,7 +372,7 @@ class Purchase11 extends React.Component {
                 {
                   flow.key !== ORDER_BUNDLE_FLOW.key && flow.key !== ORDER_VOUCHER_FLOW.key &&
                   <div>
-                    <Form.Item type="checkbox">
+                    <Form.Item>
                       {getFieldDecorator('saved', {
                         initialValue: saved===1 || this.state.checkSave===1 ? true:false,
                         valuePropName: 'checked',
