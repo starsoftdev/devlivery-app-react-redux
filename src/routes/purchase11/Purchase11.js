@@ -1,14 +1,14 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {submitShipping,removeRecipientsOrder,toAddContactFlowStep} from '../../reducers/purchase'
-import {Button, Col, DatePicker, Form, Row, Select, message, Checkbox, Input, Popconfirm} from 'antd'
+import { connect } from 'react-redux'
+import { submitShipping, removeRecipientsOrder, toAddContactFlowStep } from '../../reducers/purchase'
+import { Button, Col, DatePicker, Form, Row, Select, message, Checkbox, Input, Popconfirm } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase11.css'
-import {OrderItems, PurchaseActions, SectionHeader} from '../../components'
-import KeyHandler, {KEYPRESS} from 'react-key-handler'
+import { OrderItems, PurchaseActions, SectionHeader } from '../../components'
+import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import formMessages from '../../formMessages'
 import messages from './messages'
-import {DATE_FORMAT, DISPLAYED_DATE_FORMAT} from '../../constants'
+import { DATE_FORMAT, DISPLAYED_DATE_FORMAT } from '../../constants'
 import moment from 'moment'
 
 import { Editor } from '@tinymce/tinymce-react';
@@ -16,7 +16,7 @@ import * as Contants from '../../constants';
 import { injectGlobal } from 'styled-components';
 import PlusIcon from '../../static/plus.svg'
 import RemoveIcon from '../../static/remove.svg'
-import {FloatingLabel} from '../../components';
+import { FloatingLabel } from '../../components';
 
 import {
   ORDER_BUNDLE_FLOW,
@@ -32,6 +32,7 @@ injectGlobal`
     overflow-y:hidden !important;
   }
 `
+const ORDER_CONFIRM_STATE = 'order_confirm_state'
 
 class Purchase11 extends React.Component {
   // TODO refactor and reuse code from OrderDetails.js
@@ -40,32 +41,38 @@ class Purchase11 extends React.Component {
     this.state = {
       currentRecipient: 0,
       mounted: false,
-      content:'',
-      fontlink:[],
+      content: '',
+      fontlink: [],
       order: props.order,
-      disableSubmit:false,
-      selectedLocation:'shipping',
-      selOccasion:null,
-      selDate:(props.newrecipient && props.newrecipient.dob) || props.deliveryTime,
-      contact:null,
-      checkSave: props.saved || 0
+      disableSubmit: false,
+      selectedLocation: 'shipping',
+      selOccasion: null,
+      selDate: (props.newrecipient && props.newrecipient.dob) || props.deliveryTime,
+      contact: null,
+      checkSave: props.saved || 0,
+      bundleName: ''
     }
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.onCheckSaved = this.onCheckSaved.bind(this);
   }
-  componentWillReceiveProps(nextProps){
-    if(nextProps && nextProps.bundle)
-    {
-      this.setState({content:nextProps.bundle.body ?nextProps.bundle.body:''});
+  componentWillMount() {
+    this.loadLocalStorage();
+  }
+  async loadLocalStorage() {
+    var initState = await localStorage.getItem(ORDER_CONFIRM_STATE);
+    initState = JSON.parse(initState);
+    this.setState({ ...initState });
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps && nextProps.bundle) {
+      this.setState({ content: nextProps.bundle.body ? nextProps.bundle.body : '' });
     }
-    if(nextProps && nextProps.order !== this.state.order)
-    {
-      
-      if(this.state.contact)
-      {
+    if (nextProps && nextProps.order !== this.state.order) {
+
+      if (this.state.contact) {
         this.state.order = nextProps.order;
         this.onSelectLocation(this.state.selectedLocation);
-      }else this.setState({order:nextProps.order});
+      } else this.setState({ order: nextProps.order });
     }
   }
   componentDidMount() {
@@ -78,35 +85,32 @@ class Purchase11 extends React.Component {
     )
     this.setState(newState)
   }
-  onSelectLocation = (value) =>{
-    const {order,currentRecipient,selectedLocation} = this.state;
-    if(value === 'shipping')
-    {
-      const {user} = this.props;
+  onSelectLocation = (value) => {
+    const { order, currentRecipient, selectedLocation } = this.state;
+
+    if (value === 'shipping') {
+      const { user } = this.props;
       const address = user && user.addresses && user.addresses.find(item => item.default !== null)
-      
-      this.setState({selectedLocation:value, contact:{...address,...user, title:' '}});
-      return ;
+
+      this.setState({ selectedLocation: value, contact: { ...address, ...user, title: ' ' } });
+      return;
     }
-    else if(order && order.recipients && order.recipients[currentRecipient])
-    {
+    else if (order && order.recipients && order.recipients[currentRecipient]) {
       var selRecipient = order.recipients[currentRecipient];
-      const filter_contact =  selRecipient.contact.addresses.filter(item => item.title === value);
-      
-      
-      if(filter_contact)
-      {
-        const contact = filter_contact.length > 0 ? filter_contact[0]: null;
-        this.setState({selectedLocation:value, contact:{...contact, ...selRecipient.contact}});
+      const filter_contact = selRecipient.contact.addresses.filter(item => item.title === value);
+
+
+      if (filter_contact) {
+        const contact = filter_contact.length > 0 ? filter_contact[0] : null;
+        this.setState({ selectedLocation: value, contact: { ...contact, ...selRecipient.contact } });
       }
-      else this.setState({selectedLocation:value, contact:null});
+      else this.setState({ selectedLocation: value, contact: null });
     }
-    else this.setState({...this.state});
+    else this.setState({ ...this.state });
   }
-  onSelectOccasion = (value) =>{
-    this.setState({selOccasion:value});
-    if(value !== undefined)
-    {
+  onSelectOccasion = (value) => {
+    this.setState({ selOccasion: value });
+    if (value !== undefined) {
       this.state.selDate = null;
       this.props.form.setFieldsValue({
         schedule_date: null,
@@ -114,21 +118,21 @@ class Purchase11 extends React.Component {
     }
   }
   onCheckSaved = (e) => {
-    var checkSave = e.target.checked ? 1:0;
-    this.setState({checkSave});
+    var checkSave = e.target.checked ? 1 : 0;
+    this.setState({ checkSave });
   }
-  onChangeDatePicker = (value) =>{
+  onChangeDatePicker = (value) => {
     this.state.selDate = value;
   }
   prevRecipient = () => {
-    if(this.state.currentRecipient !== 0) {
+    if (this.state.currentRecipient !== 0) {
       this.state.currentRecipient = this.state.currentRecipient - 1;
       this.onSelectLocation(this.state.selectedLocation);
     }
   }
 
   nextRecipient = () => {
-    if(this.state.currentRecipient !== this.props.order.recipients.length - 1) {
+    if (this.state.currentRecipient !== this.props.order.recipients.length - 1) {
       this.state.currentRecipient = this.state.currentRecipient + 1;
       this.onSelectLocation(this.state.selectedLocation);
     }
@@ -136,12 +140,21 @@ class Purchase11 extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.setState({disableSubmit:true})
+    this.setState({ disableSubmit: true })
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        var jsonData = {
+          selectedLocation: this.state.selectedLocation,
+          selOccasion: this.state.selOccasion,
+          selDate: this.state.selDate,
+          contact: this.state.contact,
+          checkSave: this.state.checkSave,
+          bundleName: this.props.form.getFieldValue('title')
+        }
+        localStorage.setItem(ORDER_CONFIRM_STATE, JSON.stringify(jsonData));
         this.props.submitShipping(values)
-      }else{
-        this.setState({disableSubmit:false})
+      } else {
+        this.setState({ disableSubmit: false })
       }
     })
   }
@@ -149,20 +162,20 @@ class Purchase11 extends React.Component {
     this.setState({ content });
   }
   render() {
-    const {currentRecipient,order,disableSubmit, contact, selOccasion,checkSave, selectedLocation} = this.state
-    const {flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation, flow} = this.props
-    const {getFieldDecorator} = this.props.form
+    const { currentRecipient, order, disableSubmit, contact, selOccasion, checkSave, selectedLocation } = this.state
+    const { flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation, flow } = this.props
+    const { getFieldDecorator } = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
-    
+
     const w = cardSize ? cardSize.width : 100
     const h = cardSize ? cardSize.height : 100
 
-    const cardWidth = orientation && orientation =='l' ? h : w;
-    const cardHeight = orientation && orientation =='l' ? w : h;
+    const cardWidth = orientation && orientation == 'l' ? h : w;
+    const cardHeight = orientation && orientation == 'l' ? w : h;
 
-    
+
     const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
-    
+
     return order ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -171,22 +184,22 @@ class Purchase11 extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
-          <OrderItems {...order} gift={order.items.gifts[0] && order.items.gifts[0].gift} card={order.items.card}/>
+          <OrderItems {...order} gift={order.items.gifts[0] && order.items.gifts[0].gift} card={order.items.card} />
           <div className={s.orderDetails}>
             <h3 className={s.cardTitle}>{occasion && occasion.title}</h3>
             {this.state.mounted && bundle && <Editor
-                    value={this.state.content} 
-                    init={{
-                      toolbar: false,
-                      menubar:false,
-                      statusbar: false,
-                      width: `${cardWidth}mm`,
-                      height: `${cardHeight}mm`,
-                      content_css : [...this.state.fontlink, '/styles/tinymce.css'],
-                      readonly: true
-                    }}
-                    onEditorChange={this.handleEditorChange} 
-                  />
+              value={this.state.content}
+              init={{
+                toolbar: false,
+                menubar: false,
+                statusbar: false,
+                width: `${cardWidth}mm`,
+                height: `${cardHeight}mm`,
+                content_css: [...this.state.fontlink, '/styles/tinymce.css'],
+                readonly: true
+              }}
+              onEditorChange={this.handleEditorChange}
+            />
             }
             {
               /*
@@ -216,7 +229,7 @@ class Purchase11 extends React.Component {
               <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.tax)}</h2>
             </Col>
             <Col xs={12}>
-              <span className={s.subtotalValue}>{(order.total-order.subtotal).toFixed(2)}</span>
+              <span className={s.subtotalValue}>{(order.total - order.subtotal).toFixed(2)}</span>
               <span className={s.subtotalCurrency}>{'CHF'}</span>
             </Col>
           </Row>
@@ -235,16 +248,16 @@ class Purchase11 extends React.Component {
               <Col xs={24} sm={8}>
                 <Form.Item>
                   {getFieldDecorator('deliverable', {
-                    initialValue: undefined,
+                    initialValue: this.state.selectedLocation,
                     rules: [
-                      {required: true, message: intl.formatMessage(formMessages.required)},
+                      { required: true, message: intl.formatMessage(formMessages.required) },
                     ],
                   })(
-                    <Select 
-                      placeholder={intl.formatMessage(messages.deliveryPlace)} 
+                    <Select
+                      placeholder={intl.formatMessage(messages.deliveryPlace)}
                       className={s.select}
-                      onChange ={this.onSelectLocation}
-                      >
+                      onChange={this.onSelectLocation}
+                    >
                       {deliveryLocations && deliveryLocations.map((item) =>
                         <Select.Option key={item.value} value={item.value}>{item.title}</Select.Option>
                       )}
@@ -255,16 +268,18 @@ class Purchase11 extends React.Component {
               <Col xs={24} sm={8}>
                 <Form.Item>
                   {getFieldDecorator('delivery_occasion', {
-                    initialValue: undefined,
+                    initialValue: this.state.selOccasion || undefined,
                     rules: [
-                      {required: false, message: intl.formatMessage(formMessages.required)},
+                      { required: false, message: intl.formatMessage(formMessages.required) },
                     ],
                   })(
-                    <Select 
-                      allowClear ={true} 
-                      placeholder={intl.formatMessage(messages.deliveryOccasion)} 
+                    <Select
+                      allowClear={true}
+                      disabled={deliveryOccations && deliveryOccations.length > 0 ? false : true}
+                      showArrow={deliveryOccations && deliveryOccations.length > 0 ? true : false}
+                      placeholder={intl.formatMessage(messages.deliveryOccasion)}
                       className={s.select}
-                      onChange ={this.onSelectOccasion}>
+                      onChange={this.onSelectOccasion}>
                       {deliveryOccations && deliveryOccations.map((item) =>
                         <Select.Option key={item} value={item}>{item}</Select.Option>
                       )}
@@ -278,17 +293,17 @@ class Purchase11 extends React.Component {
                     initialValue: specialDate ? moment(specialDate, DATE_FORMAT) : undefined,
                   })(
                     <DatePicker
-                      ref ={ref =>this.datePicker = ref}
+                      ref={ref => this.datePicker = ref}
                       className={s.select}
                       placeholder={intl.formatMessage(messages.deliveryTime)}
                       format={DISPLAYED_DATE_FORMAT}
-                      disabled = {selOccasion && selOccasion.length > 0 ? true : false}
-                      disabledDate ={current =>{
+                      disabled={selOccasion && selOccasion.length > 0 ? true : false}
+                      disabledDate={current => {
                         var date = new Date();
                         date.setDate(date.getDate() - 1);
                         return current && current.valueOf() < (date)
                       }}
-                      onChange = {this.onChangeDatePicker}
+                      onChange={this.onChangeDatePicker}
                     />
                   )}
                 </Form.Item>
@@ -299,15 +314,15 @@ class Purchase11 extends React.Component {
                 <div className={s.recipients}>
                   {order.recipients[currentRecipient] && (
                     <div className={s.recipient}>
-                      <div>{contact && contact.title ? contact.title :' '}</div>
-                      <div>{`${contact && contact.first_name ? contact.first_name:' '} ${contact && contact.last_name ? contact.last_name:' '}`}</div>
-                      <div>{contact? contact.address :" "/*order.recipients[currentRecipient].receiving_address.address*/}</div>
-                      <div>{`${contact && contact.postal_code? contact.postal_code :" "/*order.recipients[currentRecipient].receiving_address.postal_code*/} ${contact && contact.city? contact.city :" "/*order.recipients[currentRecipient].receiving_address.city*/}`}</div>
-                      <div>{contact? contact.country :" "/*order.recipients[currentRecipient].receiving_address.country*/}</div>
+                      <div>{contact && contact.title ? contact.title : ' '}</div>
+                      <div>{`${contact && contact.first_name ? contact.first_name : ' '} ${contact && contact.last_name ? contact.last_name : ' '}`}</div>
+                      <div>{contact ? contact.address : " "/*order.recipients[currentRecipient].receiving_address.address*/}</div>
+                      <div>{`${contact && contact.postal_code ? contact.postal_code : " "/*order.recipients[currentRecipient].receiving_address.postal_code*/} ${contact && contact.city ? contact.city : " "/*order.recipients[currentRecipient].receiving_address.city*/}`}</div>
+                      <div>{contact ? contact.country : " "/*order.recipients[currentRecipient].receiving_address.country*/}</div>
                     </div>
                   )}
                   {selectedLocation !== 'shipping' && order.recipients.length > 1 && (
-                    <div style={{marginTop:10}}>
+                    <div style={{ marginTop: 10 }}>
                       <Button
                         type='primary'
                         onClick={this.prevRecipient}
@@ -323,72 +338,73 @@ class Purchase11 extends React.Component {
                       >
                         next
                       </Button>
-                      
+
                     </div>
                   )}
                 </div>
                 {
                   selectedLocation !== 'shipping' &&
-                    <div style={{marginTop:20}}>
-                      <Button type='primary' size='small' style={{marginRight:10}} ghost onClick={() => {
-                          this.props.toAddContactFlowStep();
-                      }}>
-                        <PlusIcon/>
-                        {intl.formatMessage(messages.add)}
+                  <div style={{ marginTop: 20 }}>
+                    <Button type='primary' size='small' style={{ marginRight: 10 }} ghost onClick={() => {
+                      this.props.toAddContactFlowStep();
+                    }}>
+                      <PlusIcon />
+                      {intl.formatMessage(messages.add)}
+                    </Button>
+
+                    <Popconfirm
+                      title={intl.formatMessage(messages.confirmRemoving)}
+                      onConfirm={() => {
+                        removeRecipientsOrder(order.recipients[currentRecipient].id)
+                        this.setState({ currentRecipient: 0 });
+                      }}
+                      okText={intl.formatMessage(messages.acceptRemoving)}
+                    >
+                      <Button type='primary' size='small' ghost >
+                        <RemoveIcon />
+                        {intl.formatMessage(messages.remove)}
                       </Button>
-                      
-                      <Popconfirm
-                        title={intl.formatMessage(messages.confirmRemoving)}
-                        onConfirm={() => {
-                          removeRecipientsOrder(order.recipients[currentRecipient].id)
-                          this.setState({currentRecipient:0});
-                        }}
-                        okText={intl.formatMessage(messages.acceptRemoving)}
-                      >
-                        <Button type='primary' size='small' ghost >
-                          <RemoveIcon/>
-                          {intl.formatMessage(messages.remove)}
-                        </Button>
-                      </Popconfirm>
+                    </Popconfirm>
                   </div>
                 }
               </Col>
               <Col xs={12}>
-              {
-                flow.key !== ORDER_BUNDLE_FLOW.key && flow.key !== ORDER_VOUCHER_FLOW.key &&
-                <div>
-                  <Form.Item>
-                    {getFieldDecorator('saved', {
-                      initialValue: saved,
-                    })(
-                      <Checkbox onChange={this.onCheckSaved}>{intl.formatMessage(messages.saveasbundle)}</Checkbox>
-                    )}
-                  </Form.Item>
-                  {
-                    this.state.checkSave === 1 &&
-                    <Form.Item>
-                      {getFieldDecorator('title', {
-                        initialValue: '',
-                        rules: [
-                          {required: this.state.checkSave === 1 ? true : false, min: this.state.checkSave === 1 ? 5:0, message: intl.formatMessage(formMessages.minLength, {length: 5})},
-                        ],
+                {
+                  flow.key !== ORDER_BUNDLE_FLOW.key && flow.key !== ORDER_VOUCHER_FLOW.key &&
+                  <div>
+                    <Form.Item type="checkbox">
+                      {getFieldDecorator('saved', {
+                        initialValue: saved===1 || this.state.checkSave===1 ? true:false,
+                        valuePropName: 'checked',
                       })(
-                        <FloatingLabel placeholder={ intl.formatMessage(messages.bundleName)+' *'}/>
+                        <Checkbox onChange={this.onCheckSaved}>{intl.formatMessage(messages.saveasbundle)}</Checkbox>
                       )}
                     </Form.Item>
-                  }
-                </div>
-              }
+                    {
+                      this.state.checkSave === 1 &&
+                      <Form.Item>
+                        {getFieldDecorator('title', {
+                          initialValue: this.state.bundleName,
+                          rules: [
+                            { required: this.state.checkSave === 1 ? true : false, min: this.state.checkSave === 1 ? 5 : 0, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
+                          ],
+                        })(
+                          <FloatingLabel placeholder={intl.formatMessage(messages.bundleName) + ' *'} />
+                        )}
+                      </Form.Item>
+                    }
+                  </div>
+                }
               </Col>
             </Row>
-            
+
           </section>
         </div>
         <PurchaseActions>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={() => {!disableSubmit && this.handleSubmit}}
+            onKeyHandle={() => { !disableSubmit && this.handleSubmit }}
           />
           <Button
             type='primary'
