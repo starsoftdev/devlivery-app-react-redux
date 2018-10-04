@@ -2063,6 +2063,14 @@
     ]
   },
   {
+    "id": "purchase10.selectGroups",
+    "defaultMessage": "Select Groups",
+    "message": "",
+    "files": [
+      "src/routes/purchase10/messages.js"
+    ]
+  },
+  {
     "id": "purchase10.submit",
     "defaultMessage": "Next",
     "message": "",

@@ -1,12 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {ADD_CONTACT_MANUALLY, IMPORT_CONTACTS,nextFlowStep} from '../../reducers/purchase'
+import {ADD_CONTACT_MANUALLY, IMPORT_CONTACTS,SELECT_CONTACTS,SELECT_GROUPS,nextFlowStep} from '../../reducers/purchase'
 import {Button,Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase10.css'
 import {Card, PurchaseActions, SectionHeader} from '../../components'
 import AddContactManuallyIcon from '../../static/add_contacts_manually.svg'
 import ImportContactsIcon from '../../static/import_contacts.svg'
+import SelectContactsIcon from '../../static/select_contact.svg'
+import SelectGroupsIcon from '../../static/select_group.svg'
 import ImportContacts from './ImportContacts'
 import AddContact from './AddContact'
 import messages from './messages'
@@ -18,9 +20,12 @@ import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import {message} from 'antd'
 import {getContacts} from '../../reducers/contacts'
 
+const ADDCONTACTMODE = 'addingContactMode'
+
 class Purchase10 extends React.Component {
   state = {
     addingContactMode: null,
+    selectMode:false,
     isFirstSubmit:false,
     disableButton:false
   }
@@ -32,6 +37,13 @@ class Purchase10 extends React.Component {
     this.ref_contacts = React.createRef();
     this.ref_importcontact = React.createRef();
   }
+  componentWillMount() {
+    this.loadLocalStorage();
+  }
+  async loadLocalStorage() {
+    var  addingContactMode = await localStorage.getItem(ADDCONTACTMODE);
+    this.setState({addingContactMode});
+  }
   setAddingContactsMode = (addingContactMode) => {
     this.setState({addingContactMode})
   }
@@ -41,7 +53,6 @@ class Purchase10 extends React.Component {
   }
   refreshPage(){
     this.setState({
-      //addingContactMode: null,
       disableButton:false
     })
     this.props.getContactGroups();
@@ -49,6 +60,15 @@ class Purchase10 extends React.Component {
   }
   onSubmit(){
     const {addingContactMode} = this.state;
+    
+    if(!this.state.selectMode)
+    {
+      if(addingContactMode === null)
+        return;
+      localStorage.setItem(ADDCONTACTMODE, addingContactMode)
+      this.setState({selectMode:true});
+      return;
+    }
     
     if(addingContactMode === ADD_CONTACT_MANUALLY)
     {
@@ -91,14 +111,22 @@ class Purchase10 extends React.Component {
   }
   
   render() {
-    const {addingContactMode,disableButton} = this.state
-    const {flowIndex, intl} = this.props
+    const {addingContactMode,disableButton,selectMode} = this.state
+    const {flowIndex, intl,contactGroups,contacts} = this.props
     return (
       <React.Fragment>
-        {addingContactMode === ADD_CONTACT_MANUALLY ? (
+        {selectMode && addingContactMode === ADD_CONTACT_MANUALLY ? (
           <AddContact intl={intl} onRef={ref => (this.ref_addcontact = ref)} />
-        ) : addingContactMode === IMPORT_CONTACTS ? (
+        ) : selectMode && addingContactMode === IMPORT_CONTACTS ? (
           <ImportContacts intl={intl} onRef={ref => (this.ref_importcontact = ref)} refreshPage={this.refreshPage}/>
+        ) : selectMode && (addingContactMode === SELECT_CONTACTS || addingContactMode === SELECT_GROUPS) ? (
+          <Contacts 
+            mode = {addingContactMode}
+            headerTitle = {intl.formatMessage(addingContactMode === SELECT_CONTACTS ? messages.selectContacts:messages.selectGroups) }
+            {...this.props} 
+            onRef={ref => (this.ref_contacts = ref)} 
+            setDisableButton={this.setDisableButton}
+          />
         ) : (
           <React.Fragment>
             <div className={s.content}>
@@ -108,7 +136,7 @@ class Purchase10 extends React.Component {
                 prefixClassName={s.headerPrefix}
               />
               <Row className={s.items} gutter={20} type='flex' align='center'>
-                <Col className={s.itemWrapper}>
+                <Col className={s.itemWrapper} sm={6}>
                   <Card
                     className={s.item}
                     title={intl.formatMessage(messages.addContactManually)}
@@ -118,7 +146,7 @@ class Purchase10 extends React.Component {
                     svg={AddContactManuallyIcon}
                   />
                 </Col>
-                <Col className={s.itemWrapper}>
+                <Col className={s.itemWrapper} md={6}>
                   <Card
                     className={s.item}
                     title={intl.formatMessage(messages.importContacts)}
@@ -128,8 +156,29 @@ class Purchase10 extends React.Component {
                     svg={ImportContactsIcon}
                   />
                 </Col>
+                <Col className={s.itemWrapper} md={6}>
+                  <Card
+                    className={s.item}
+                    title={intl.formatMessage(messages.selectContacts)}
+                    onClick={() => this.setAddingContactsMode(SELECT_CONTACTS)}
+                    active={addingContactMode === SELECT_CONTACTS}
+                    keyValue='c'
+                    svg={SelectContactsIcon}
+                    disabled = {contacts && contacts.length > 0 ? false: true}
+                  />
+                </Col>
+                <Col className={s.itemWrapper} md={6}>
+                  <Card
+                    className={s.item}
+                    title={intl.formatMessage(messages.selectGroups)}
+                    onClick={() => this.setAddingContactsMode(SELECT_GROUPS)}
+                    active={addingContactMode === SELECT_GROUPS}
+                    keyValue='d'
+                    svg={SelectGroupsIcon}
+                    disabled = {contactGroups && contactGroups.length > 0 ? false : true}
+                  />
+                </Col>
               </Row>
-              <Contacts {...this.props} onRef={ref => (this.ref_contacts = ref)} setDisableButton={this.setDisableButton}/>
             </div>
           </React.Fragment>
         )}
@@ -158,6 +207,8 @@ class Purchase10 extends React.Component {
 
 const mapState = state => ({
   flowIndex: state.purchase.flowIndex,
+  contactGroups: state.contactGroups.contactGroups,
+  contacts: state.contacts.contacts
 })
 
 const mapDispatch = {getContactsByName,getContactGroups,nextFlowStep,getContacts}
