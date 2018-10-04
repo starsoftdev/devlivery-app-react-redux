@@ -563,7 +563,9 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
     body: {
       lettering: letteringTechnique,
       card_id: cardId,
-      gift_id: giftId,
+      ...giftId ? {
+        gift_id: giftId,
+      }:{},
       // TODO check if we need to send card body here
       body: cardDetails && cardDetails.body && cardDetails.body.length > 0 ? cardDetails.body : '<p></p>',
       // TODO backend can't get undefined value for title
