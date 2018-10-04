@@ -27,7 +27,17 @@
     width: 100%;
   }
 }
+.sectionHeader {
+  margin-top: 10px;
+  margin-bottom: 0;
 
+  @media (--md-up) {
+    font-size: 40px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
+}
 .headerPrefix {
   @media (--sm-up) {
     position: absolute;

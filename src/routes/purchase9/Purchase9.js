@@ -1,15 +1,15 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Button, Col, Form, Input, Row, Select} from 'antd'
+import { connect } from 'react-redux'
+import { Button, Col, Form, Input, Row, Select } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase9.css'
-import {PurchaseActions, SectionHeader, Link} from '../../components'
-import KeyHandler, {KEYPRESS} from 'react-key-handler'
+import { PurchaseActions, SectionHeader, Link } from '../../components'
+import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import formMessages from '../../formMessages'
-import {INDIVIDUAL_ACCOUNT, TEAM_ACCOUNT} from '../../reducers/register'
-import {register} from '../../reducers/purchase'
+import { INDIVIDUAL_ACCOUNT, TEAM_ACCOUNT } from '../../reducers/register'
+import { register } from '../../reducers/purchase'
 import messages from './messages'
-import {FloatingLabel} from '../../components';
+import { FloatingLabel } from '../../components';
 
 class Purchase9 extends React.Component {
   state = {
@@ -27,11 +27,11 @@ class Purchase9 extends React.Component {
 
   handleConfirmBlur = (e) => {
     const value = e.target.value
-    this.setState({confirmDirty: this.state.confirmDirty || !!value})
+    this.setState({ confirmDirty: this.state.confirmDirty || !!value })
   }
 
   compareToFirstPassword = (rule, value, callback) => {
-    const {intl} = this.props
+    const { intl } = this.props
     const form = this.props.form
     if (value && value !== form.getFieldValue('password')) {
       callback(intl.formatMessage(formMessages.passwordNotMatch))
@@ -43,14 +43,14 @@ class Purchase9 extends React.Component {
   validateToNextPassword = (rule, value, callback) => {
     const form = this.props.form
     if (value && this.state.confirmDirty) {
-      form.validateFields(['password_confirmation'], {force: true})
+      form.validateFields(['password_confirmation'], { force: true })
     }
     callback()
   }
 
   render() {
-    const {intl, flowIndex} = this.props
-    const {getFieldDecorator} = this.props.form
+    const { intl, flowIndex } = this.props
+    const { getFieldDecorator } = this.props.form
     return (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -59,16 +59,21 @@ class Purchase9 extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
+          <div>
+            <Link to={{ name: "login", params: { inpurchase: true } }}>
+              <h4 className={s.loginbutton}>I HAVE AN ACCOUNT</h4>
+            </Link>
+          </div>
           <Form.Item>
             {getFieldDecorator('account_type', {
               rules: [
-                {required: true, message: intl.formatMessage(formMessages.required)},
+                { required: true, message: intl.formatMessage(formMessages.required) },
               ],
             })(
               <Select placeholder={intl.formatMessage(messages.type)}>
                 {[
-                  {label: intl.formatMessage(messages.individual), value: INDIVIDUAL_ACCOUNT},
-                  {label: intl.formatMessage(messages.team), value: TEAM_ACCOUNT},
+                  { label: intl.formatMessage(messages.individual), value: INDIVIDUAL_ACCOUNT },
+                  { label: intl.formatMessage(messages.team), value: TEAM_ACCOUNT },
                 ].map((item) =>
                   <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>
                 )}
@@ -79,20 +84,20 @@ class Purchase9 extends React.Component {
             {getFieldDecorator('email', {
               validateTrigger: 'onSubmit',//'onBlur'
               rules: [
-                {required: true, message: intl.formatMessage(formMessages.required)},
-                {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
+                { required: true, message: intl.formatMessage(formMessages.required) },
+                { type: 'email', message: intl.formatMessage(formMessages.emailInvalid) },
               ],
             })(
-              <FloatingLabel placeholder={intl.formatMessage(messages.email)}/>
+              <FloatingLabel placeholder={intl.formatMessage(messages.email)} />
             )}
           </Form.Item>
           <Form.Item>
             {getFieldDecorator('phone', {
               rules: [
-                {required: true, message: intl.formatMessage(formMessages.required)},
+                { required: true, message: intl.formatMessage(formMessages.required) },
               ],
             })(
-              <FloatingLabel placeholder={intl.formatMessage(messages.phone)}/>
+              <FloatingLabel placeholder={intl.formatMessage(messages.phone)} />
             )}
           </Form.Item>
           <Row gutter={20}>
@@ -100,11 +105,11 @@ class Purchase9 extends React.Component {
               <Form.Item>
                 {getFieldDecorator('password', {
                   rules: [
-                    {required: true, message: intl.formatMessage(formMessages.required)},
-                    {validator: this.validateToNextPassword},
+                    { required: true, message: intl.formatMessage(formMessages.required) },
+                    { validator: this.validateToNextPassword },
                   ],
                 })(
-                  <FloatingLabel type='password' placeholder={intl.formatMessage(messages.password)}/>
+                  <FloatingLabel type='password' placeholder={intl.formatMessage(messages.password)} />
                 )}
               </Form.Item>
             </Col>
@@ -112,11 +117,11 @@ class Purchase9 extends React.Component {
               <Form.Item>
                 {getFieldDecorator('password_confirmation', {
                   rules: [
-                    {required: true, message: intl.formatMessage(formMessages.required)},
-                    {validator: this.compareToFirstPassword},
+                    { required: true, message: intl.formatMessage(formMessages.required) },
+                    { validator: this.compareToFirstPassword },
                   ],
                 })(
-                  <FloatingLabel type='password' placeholder={intl.formatMessage(messages.passwordAgain)} onBlur={this.handleConfirmBlur}/>
+                  <FloatingLabel type='password' placeholder={intl.formatMessage(messages.passwordAgain)} onBlur={this.handleConfirmBlur} />
                 )}
               </Form.Item>
             </Col>
@@ -126,10 +131,10 @@ class Purchase9 extends React.Component {
               <Form.Item>
                 {getFieldDecorator('first_name', {
                   rules: [
-                    {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                    { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                   ],
                 })(
-                  <FloatingLabel placeholder={intl.formatMessage(messages.firstName)}/>
+                  <FloatingLabel placeholder={intl.formatMessage(messages.firstName)} />
                 )}
               </Form.Item>
             </Col>
@@ -137,10 +142,10 @@ class Purchase9 extends React.Component {
               <Form.Item>
                 {getFieldDecorator('last_name', {
                   rules: [
-                    {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                    { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                   ],
                 })(
-                  <FloatingLabel placeholder={intl.formatMessage(messages.lastName)}/>
+                  <FloatingLabel placeholder={intl.formatMessage(messages.lastName)} />
                 )}
               </Form.Item>
             </Col>
@@ -150,19 +155,19 @@ class Purchase9 extends React.Component {
             <Form.Item>
               {getFieldDecorator(`company`, {
                 rules: [
-                  {required: true , min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})},
+                  { required: true, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
                 ],
               })(
-                <FloatingLabel placeholder={intl.formatMessage(messages.company)}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.company)} />
               )}
             </Form.Item>
             <Form.Item>
               {getFieldDecorator(`address`, {
                 rules: [
-                  {required: true , min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})},
+                  { required: true, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
                 ],
               })(
-                <FloatingLabel placeholder={intl.formatMessage(messages.address)}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.address)} />
               )}
             </Form.Item>
             <Row gutter={20}>
@@ -170,10 +175,10 @@ class Purchase9 extends React.Component {
                 <Form.Item>
                   {getFieldDecorator(`city`, {
                     rules: [
-                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                      { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                     ],
                   })(
-                    <FloatingLabel placeholder={intl.formatMessage(messages.city)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.city)} />
                   )}
                 </Form.Item>
               </Col>
@@ -183,10 +188,10 @@ class Purchase9 extends React.Component {
                 <Form.Item>
                   {getFieldDecorator(`postal_code`, {
                     rules: [
-                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                      { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                     ],
                   })(
-                    <FloatingLabel placeholder={intl.formatMessage(messages.postalCode)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.postalCode)} />
                   )}
                 </Form.Item>
               </Col>
@@ -194,18 +199,16 @@ class Purchase9 extends React.Component {
                 <Form.Item>
                   {getFieldDecorator(`country`, {
                     rules: [
-                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                      { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                     ],
                   })(
-                    <FloatingLabel placeholder={intl.formatMessage(messages.country)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.country)} />
                   )}
                 </Form.Item>
               </Col>
             </Row>
           </section>
-          <Link to={{name:"login", params: {inpurchase: true}}}>
-              <h4 className={s.loginbutton}>I HAVE AN ACCOUNT</h4>
-          </Link>
+
         </div>
         <PurchaseActions>
           <KeyHandler
