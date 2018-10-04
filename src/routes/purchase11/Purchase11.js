@@ -71,9 +71,9 @@ class Purchase11 extends React.Component {
 
       if (this.state.contact) {
         this.state.order = nextProps.order;
-        this.onSelectLocation(this.state.selectedLocation);
       } else this.setState({ order: nextProps.order });
     }
+    this.onSelectLocation(this.state.selectedLocation);
   }
   componentDidMount() {
     // load editor only on client side (not server side)
