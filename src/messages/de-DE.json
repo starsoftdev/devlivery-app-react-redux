@@ -3317,7 +3317,7 @@
   {
     "id": "purchase2.handwrittenDisabled",
     "defaultMessage": "If you're interested in activating this option please contact {email}",
-    "message": "If you're interested in activating this option please contact {email}",
+    "message": "Wenn Sie interessiert sind diese Option zu nutzen kontaktieren Sie uns unter: {email}",
     "files": [
       "src/routes/purchase2/messages.js"
     ]
