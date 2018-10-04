@@ -59,6 +59,7 @@ class CardStore extends React.Component {
     var occasionByCardId = null;
     if(cardDetails && occasions)
       occasionByCardId = occasions.filter(item => item.id === cardDetails.occasion_id);
+
     return (
       <div className={s.container}>
         <div className={s.filters}>
@@ -75,7 +76,7 @@ class CardStore extends React.Component {
               )}
             </Select>
             <ul className={s.filterItems}>
-              {occasions.map((item) =>
+              {occasions.filter(item => item.on_card_store).map((item) =>
                 <li key={item.id}>
                   <a
                     onClick={() => getCards({occasion: item.id})}
