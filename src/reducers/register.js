@@ -3,7 +3,7 @@ import {loginSuccess} from './login'
 import {message} from 'antd'
 import {getToken,updateUser} from './user'
 import {DATE_FORMAT} from '../constants'
-import {getFormErrors} from '../utils'
+import {getFormErrors,showErrorMessage} from '../utils'
 
 // ------------------------------------
 // Constants
@@ -190,9 +190,9 @@ export const invitePeople = (people) => (dispatch, getState, {fetch, history}) =
       message.success(res.data)
       dispatch(clear())
     },
-    failure: () => {
+    failure: (err) => {
       dispatch({type: INVITE_PEOPLE_FAILURE})
-      message.error('Something went wrong. Please try again.')
+      showErrorMessage(err);
     },
   })
   
