@@ -173,8 +173,10 @@ class OrderDetails extends React.Component {
     if (cardDetails && occasions)
       occasionByCardId = occasions.filter(item => item.id === cardDetails.occasion_id);
 
-    var giftDetails = orderDetails && orderDetails.items['gifts'] && orderDetails.items['gifts'][0].gift;
-    
+    var giftDetails = null;
+    if (orderDetails && orderDetails.items['gifts'] && orderDetails.items['gifts'].length > 0)
+      giftDetails = orderDetails.items['gifts'][0].gift;
+
     // TODO add shipping price/info
     return (
       <Modal
@@ -282,7 +284,7 @@ class OrderDetails extends React.Component {
           </React.Fragment>
         ) : null}
         {
-          this.state.cardPreview === 'card' && orderDetails && cardDetails? (
+          this.state.cardPreview === 'card' && orderDetails && cardDetails ? (
             <React.Fragment>
               <Row>
                 <Col md={16} style={{ paddingLeft: 20, paddingRight: 20 }}>
@@ -331,7 +333,7 @@ class OrderDetails extends React.Component {
           ) : null
         }
         {
-          this.state.cardPreview === 'gift' && orderDetails && giftDetails? (
+          this.state.cardPreview === 'gift' && orderDetails && giftDetails ? (
             <React.Fragment>
               <Row>
                 <Col md={16} style={{ paddingLeft: 20, paddingRight: 20 }}>
