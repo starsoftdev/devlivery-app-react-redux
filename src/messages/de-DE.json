@@ -2198,6 +2198,14 @@
     ]
   },
   {
+    "id": "purchase10.selectGroups",
+    "defaultMessage": "Select Groups",
+    "message": "Wählen Sie Gruppen",
+    "files": [
+      "src/routes/purchase10/messages.js"
+    ]
+  },
+  {
     "id": "purchase10.submit",
     "defaultMessage": "Next",
     "message": "weiter",

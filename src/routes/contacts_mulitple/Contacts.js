@@ -7,7 +7,7 @@ import EditIcon from '../../static/edit.svg'
 import RemoveIcon from '../../static/remove.svg'
 import GridIcon from '../../static/view_card.svg'
 import ListIcon from '../../static/view_list.svg'
-import { Link, PaginationItem } from '../../components'
+import { Link, PaginationItem, SectionHeader } from '../../components'
 import { clear, getContacts, removeContact, getContactsByName } from '../../reducers/contacts'
 import debounce from 'lodash/debounce'
 import messages from './messages'
@@ -17,6 +17,7 @@ import { getContactGroups, removeContactGroup } from '../../reducers/contactGrou
 import { setNewRecipients, GROUP_ID_KEY, CONTACT_IDS_KEY } from '../../reducers/purchase'
 import CheckIcon from '../../static/card_checkmark.svg'
 import { updateTeamMemberRole } from '../../reducers/team';
+import { SELECT_CONTACTS, SELECT_GROUPS } from '../../reducers/purchase'
 
 const GRID_VIEW = 'grid'
 const LIST_VIEW = 'list'
@@ -31,7 +32,7 @@ class Contacts extends React.Component {
       view: GRID_VIEW,
       search: undefined,
       contactId: null,
-      type: category[0],
+      type: props.mode === SELECT_GROUPS ? category[0] : category[1],
       dataEntry: [],
       datacount: 0,
       page: 1,
@@ -39,38 +40,11 @@ class Contacts extends React.Component {
       selGroupId: null,
       selContactIds: []
     }
-
     this.getContacts = debounce(this.props.getContacts, DEFAULT_DEBOUNCE_TIME)
     this.selectCell = this.selectCell.bind(this);
   }
-  componentWillReceiveProps(nextProps) {
-    const { contacts, contactsCount, contactGroups, contactGroupsCount } = nextProps
-    const { type, dataEntry, datacount, selGroupId, selContactIds } = this.state;
 
-    if (nextProps) {
-      var srcData = type === category[0] ? contactGroups : contacts;
-      var count = type === category[0] ? contactGroupsCount : contactsCount;
-      var maps = srcData.map(item => { return { ...item, ...{ checked: false } } });
-      if (maps !== dataEntry || datacount !== count) {
-        this.setState({
-          dataEntry: maps.map(item => {
-            var active = false;
-            if (this.state.type === category[0]) {
-              if (item.id+'' === this.state.selGroupId+'')
-                active = true;
-            } else {
-              if (this.state.selContactIds.includes(item.id))
-                active = true;
-            }
-            return { ...item, ...{ checked: active } }
-          }),
-          datacount: count,
-        });
-        //this.updateTable();
-      }
-    }
-  }
-  componentWillMount(){
+  componentWillMount() {
     this.loadLocalStorage();
   }
   componentDidMount() {
@@ -78,15 +52,15 @@ class Contacts extends React.Component {
   }
 
   async loadLocalStorage() {
-    this.state.selGroupId = await localStorage.getItem(GROUP_ID_KEY);
-    this.state.selContactIds = await localStorage.getItem(CONTACT_IDS_KEY);
-
-    if (this.state.selContactIds === null) this.state.selContactIds = [];
-    else this.state.selContactIds = JSON.parse(this.state.selContactIds);
-
-    if (this.state.selGroupId === null && this.state.selContactIds && this.state.selContactIds.length > 0) {
-      this.setState({ type: category[1] });
-    } else this.setState({ type: category[0] });
+    if(this.state.type === category[0])
+      this.state.selGroupId = await localStorage.getItem(GROUP_ID_KEY);
+    else {
+      this.state.selContactIds = await localStorage.getItem(CONTACT_IDS_KEY);
+      
+      if (this.state.selContactIds === null) this.state.selContactIds = [];
+      else this.state.selContactIds = JSON.parse(this.state.selContactIds);
+    }
+    this.forceUpdate();
   }
 
   componentWillUnmount() {
@@ -144,7 +118,11 @@ class Contacts extends React.Component {
               this.props.nextFlowStep();
               return true;
             }
-            else this.props.setDisableButton(false);
+            else {
+              this.setState({selGroupId:null});
+              message.info("The group have no contacts.");
+              this.props.setDisableButton(false);
+            }
           });
         return true;
       }
@@ -163,9 +141,33 @@ class Contacts extends React.Component {
     }
   }
   render() {
-    const { view, search, contactId, type, dataEntry, datacount, page, pageSize, selGroupId, selContactIds } = this.state
+    const { view, search, contactId, type, page, pageSize, selGroupId, selContactIds } = this.state
     // TODO add loading
-    const { contacts, loading, getContacts, removeContact, intl, ordering, withSearchGroup, contactGroups, getContactGroups, removeContactGroup } = this.props
+    const { contacts, contactsCount, loading, getContacts, removeContact, intl, ordering, withSearchGroup, contactGroups, getContactGroups, removeContactGroup, contactGroupsCount } = this.props
+
+
+    var srcData = type === category[0] ? contactGroups : contacts;
+    var count = type === category[0] ? contactGroupsCount : contactsCount;
+    var maps = srcData.map(item => { return { ...item, ...{ checked: false } } });
+    var dataEntry = [];
+    var datacount = 0;
+
+    dataEntry = maps.map(item => {
+      var active = false;
+      if (type === category[0]) {
+        if (item.id + '' === selGroupId + '')
+          active = true;
+      } else {
+        if (selContactIds.includes(item.id))
+          active = true;
+      }
+      return { ...item, ...{ checked: active } }
+    });
+    datacount = count;
+
+    this.state.dataEntry = dataEntry;
+    this.state.datacount = datacount;
+
     var columns = [];
 
     if (type === category[1])
@@ -284,12 +286,16 @@ class Contacts extends React.Component {
       { value: '-created_at', label: 'Creation Date' },
       { value: '-dob', label: 'Upcoming birthdays' },
     ]
-    
+
     return (
       <div className={s.container}>
         {
           <div className={s.actions}>
-            {
+            <SectionHeader
+              header={this.props.headerTitle}
+              prefixClassName={s.headerPrefix}
+            />
+            {/*
               <Select
                 className={s.search}
                 placeholder={intl.formatMessage(messages.groupBy)}
@@ -313,6 +319,7 @@ class Contacts extends React.Component {
                   <Select.Option key={item} value={item}>{intl.formatMessage(messages[item.toLowerCase()])}</Select.Option>
                 )}
               </Select>
+              */
             }
             <div className={s.views}>
               <a className={s.viewBtn} onClick={() => this.changeView(GRID_VIEW)}>

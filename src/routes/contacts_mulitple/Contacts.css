@@ -16,7 +16,12 @@
     padding-top: var(--margin-xl);
   }
 }
-
+.headerPrefix {
+  @media (min-width: 821px) {
+    position: absolute;
+    right: 100%;
+  }
+}
 .actions {
   display: flex;
   justify-content: space-between;

@@ -32,6 +32,8 @@ export const PRINTED = 'printed'
 
 export const ADD_CONTACT_MANUALLY = 'add-contacts-manually'
 export const IMPORT_CONTACTS = 'import-contacts'
+export const SELECT_CONTACTS = 'select-contacts'
+export const SELECT_GROUPS = 'select-groups'
 
 export const PAYPAL = 'PAYPAL'
 export const CREDIT_CARD = 'CREDIT_CARD'
