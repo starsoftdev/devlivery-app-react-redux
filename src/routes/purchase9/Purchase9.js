@@ -150,7 +150,7 @@ class Purchase9 extends React.Component {
             <Form.Item>
               {getFieldDecorator(`company`, {
                 rules: [
-                  {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                  {required: true , min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})},
                 ],
               })(
                 <FloatingLabel placeholder={intl.formatMessage(messages.company)}/>
@@ -159,7 +159,7 @@ class Purchase9 extends React.Component {
             <Form.Item>
               {getFieldDecorator(`address`, {
                 rules: [
-                  {required: false, message: intl.formatMessage(formMessages.required), whitespace: true},
+                  {required: true , min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})},
                 ],
               })(
                 <FloatingLabel placeholder={intl.formatMessage(messages.address)}/>

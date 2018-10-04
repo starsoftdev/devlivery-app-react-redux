@@ -222,7 +222,7 @@ class User extends React.Component {
                   {getFieldDecorator(`address.company`, {
                     initialValue: address && address.company,
                     rules: [
-                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                      {required: true , min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})},
                     ],
                   })(
                     <FloatingLabel placeholder={intl.formatMessage(messages.company)}/>
@@ -232,7 +232,7 @@ class User extends React.Component {
                   {getFieldDecorator(`address.address`, {
                     initialValue: address && address.address[0],
                     rules: [
-                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                      {required: true , min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})},
                     ],
                   })(
                     <FloatingLabel placeholder={intl.formatMessage(messages.address)}/>

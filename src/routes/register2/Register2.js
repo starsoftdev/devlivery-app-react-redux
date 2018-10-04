@@ -110,7 +110,7 @@ class Register2 extends React.Component {
               {getFieldDecorator(`company`, {
                 initialValue: individualDetails && individualDetails.company,
                 rules: [
-                  {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                  {required: true , min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})},
                 ],
               })(
                 <FloatingLabel placeholder={intl.formatMessage(messages.company)}/>
@@ -120,7 +120,7 @@ class Register2 extends React.Component {
               {getFieldDecorator(`address`, {
                 initialValue: individualDetails && individualDetails.address,
                 rules: [
-                  {required: false, message: intl.formatMessage(formMessages.required), whitespace: true},
+                  {required: true , min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})},
                 ],
               })(
                 <FloatingLabel placeholder={intl.formatMessage(messages.address)}/>
