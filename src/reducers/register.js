@@ -186,7 +186,7 @@ export const invitePeople = (people) => (dispatch, getState, {fetch, history}) =
     token,
     success: (res) => {
       dispatch({type: INVITE_PEOPLE_SUCCESS})
-      history.push('/dashboard/orders')
+      history.push('/dashboard/manage-team')
       message.success(res.data)
       dispatch(clear())
     },
