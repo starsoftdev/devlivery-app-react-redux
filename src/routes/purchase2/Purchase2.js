@@ -51,7 +51,7 @@ class Purchase2 extends React.Component {
                 <React.Fragment>
                   <FormattedMessage
                     {...messages.handwrittenDisabled}
-                    values={{email: <a href='mailto:support@byzumi.ch'>{'support@byzumi.ch'}</a>}}
+                    values={{email: <a href='mailto:support@byzumi.com'>{'support@byzumi.com'}</a>}}
                   />
                   <br/>
                   <br/>
