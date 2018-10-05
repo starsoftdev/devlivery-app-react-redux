@@ -72,8 +72,8 @@ class Purchase11 extends React.Component {
       if (this.state.contact) {
         this.state.order = nextProps.order;
       } else this.setState({ order: nextProps.order });
+      this.onSelectLocation(this.state.selectedLocation);
     }
-    this.onSelectLocation(this.state.selectedLocation);
   }
   componentDidMount() {
     // load editor only on client side (not server side)
@@ -87,7 +87,6 @@ class Purchase11 extends React.Component {
   }
   onSelectLocation = (value) => {
     const { order, currentRecipient, selectedLocation } = this.state;
-
     if (value === 'shipping') {
       const { user } = this.props;
       const address = user && user.addresses && user.addresses.find(item => item.default !== null)
@@ -99,14 +98,15 @@ class Purchase11 extends React.Component {
       var selRecipient = order.recipients[currentRecipient];
       const filter_contact = selRecipient.contact.addresses.filter(item => item.title === value);
 
-
       if (filter_contact) {
         const contact = filter_contact.length > 0 ? filter_contact[0] : null;
         this.setState({ selectedLocation: value, contact: { ...contact, ...selRecipient.contact } });
       }
       else this.setState({ selectedLocation: value, contact: null });
     }
-    else this.setState({ ...this.state });
+    else {
+      this.setState({ ...this.state, selectedLocation:value, contact:null })
+    }
   }
   onSelectOccasion = (value) => {
     this.setState({ selOccasion: value });
@@ -312,7 +312,7 @@ class Purchase11 extends React.Component {
             <Row type='flex' align='center' gutter={20} className={s.totalSection}>
               <Col xs={12}>
                 <div className={s.recipients}>
-                  {order.recipients[currentRecipient] && (
+                  {contact && (
                     <div className={s.recipient}>
                       <div>{contact && contact.title ? contact.title : ' '}</div>
                       <div>{`${contact && contact.first_name ? contact.first_name : ' '} ${contact && contact.last_name ? contact.last_name : ' '}`}</div>
@@ -321,7 +321,7 @@ class Purchase11 extends React.Component {
                       <div>{contact ? contact.country : " "/*order.recipients[currentRecipient].receiving_address.country*/}</div>
                     </div>
                   )}
-                  {selectedLocation !== 'shipping' && order.recipients.length > 1 && (
+                  {selectedLocation !== 'shipping' && order.recipients && order.recipients.length > 1 && (
                     <div style={{ marginTop: 10 }}>
                       <Button
                         type='primary'

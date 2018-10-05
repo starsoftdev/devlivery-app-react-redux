@@ -8,7 +8,7 @@ import {getOccasions} from '../../reducers/cards'
 
 function action({params,store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
-  store.dispatch(getOrders({search: params && params.orderid ? params.orderid :null}))
+  store.dispatch(getOrders())
   store.dispatch(getEvents(moment()))
   store.dispatch(getUpcomingEvents())
   store.dispatch(getOccasions())

@@ -224,7 +224,7 @@ const authRoutes = {
           load: () => import(/* webpackChunkName: 'dashboard' */ './orders'),
         },
         {
-          path: '/orders/:orderid/details',
+          path: '/order/:orderid/details',
           name: ORDERS_ROUTE_DETAIL,
           load: () => import(/* webpackChunkName: 'dashboard' */ './orders'),
         },
