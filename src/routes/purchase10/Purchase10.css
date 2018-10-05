@@ -44,7 +44,8 @@
 
   @media (--xs-up) {
     /*to split by 2*/
-    width: 277px;
+    width: 100%;
+    min-width: 200px;
   }
 }
 .actions {
