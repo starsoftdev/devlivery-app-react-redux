@@ -136,7 +136,7 @@ class Purchase10 extends React.Component {
                 prefixClassName={s.headerPrefix}
               />
               <Row className={s.items} gutter={20} type='flex' align='center'>
-                <Col className={s.itemWrapper} sm={6}>
+                <Col className={s.itemWrapper} md={6}>
                   <Card
                     className={s.item}
                     title={intl.formatMessage(messages.addContactManually)}
