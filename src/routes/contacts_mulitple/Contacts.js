@@ -14,7 +14,7 @@ import messages from './messages'
 import { DEFAULT_DEBOUNCE_TIME } from '../../constants'
 import { EDIT_CONTACT_ROUTE, EDIT_CONTACT_GROUP_ROUTE } from '../'
 import { getContactGroups, removeContactGroup } from '../../reducers/contactGroups'
-import { setNewRecipients, GROUP_ID_KEY, CONTACT_IDS_KEY } from '../../reducers/purchase'
+import { setNewRecipients, GROUP_ID_KEY, CONTACT_IDS_KEY, gotoConfirm } from '../../reducers/purchase'
 import CheckIcon from '../../static/card_checkmark.svg'
 import { updateTeamMemberRole } from '../../reducers/team';
 import { SELECT_CONTACTS, SELECT_GROUPS } from '../../reducers/purchase'
@@ -52,11 +52,11 @@ class Contacts extends React.Component {
   }
 
   async loadLocalStorage() {
-    if(this.state.type === category[0])
+    if (this.state.type === category[0])
       this.state.selGroupId = await localStorage.getItem(GROUP_ID_KEY);
     else {
       this.state.selContactIds = await localStorage.getItem(CONTACT_IDS_KEY);
-      
+
       if (this.state.selContactIds === null) this.state.selContactIds = [];
       else this.state.selContactIds = JSON.parse(this.state.selContactIds);
     }
@@ -115,11 +115,13 @@ class Contacts extends React.Component {
               this.props.setNewRecipients(recipents);
               localStorage.setItem(GROUP_ID_KEY, filter[0].id);
               localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(recipents))
-              this.props.nextFlowStep();
+              if (this.props.recipientMode)
+                this.props.gotoConfirm();
+              else this.props.nextFlowStep()
               return true;
             }
             else {
-              this.setState({selGroupId:null});
+              this.setState({ selGroupId: null });
               message.info("The group have no contacts.");
               this.props.setDisableButton(false);
             }
@@ -136,7 +138,9 @@ class Contacts extends React.Component {
       this.props.setNewRecipients(this.state.selContactIds);
       localStorage.removeItem(GROUP_ID_KEY);
       localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(this.state.selContactIds))
-      this.props.nextFlowStep();
+      if (this.props.recipientMode)
+        this.props.gotoConfirm();
+      else this.props.nextFlowStep()
       return true;
     }
   }
@@ -441,7 +445,8 @@ class Contacts extends React.Component {
 const mapState = state => ({
   ...state.contacts,
   contactGroups: state.contactGroups.contactGroups,
-  contactGroupsCount: state.contactGroups.contactGroupsCount
+  contactGroupsCount: state.contactGroups.contactGroupsCount,
+  recipientMode: state.purchase.recipientMode,
 })
 
 const mapDispatch = {
@@ -451,7 +456,8 @@ const mapDispatch = {
   getContactGroups,
   removeContactGroup,
   setNewRecipients,
-  getContactsByName
+  getContactsByName,
+  gotoConfirm
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Contacts))

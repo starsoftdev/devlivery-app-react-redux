@@ -4,8 +4,8 @@ import {Button, Form} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './AddContact.css'
 import {ContactForm, PurchaseActions, SectionHeader} from '../../components'
-import {nextFlowStep,GROUP_ID_KEY,CONTACT_IDS_KEY} from '../../reducers/purchase'
-import {addContact, editContact,saveFields,getContact,setContact } from '../../reducers/contacts'
+import {nextFlowStep,GROUP_ID_KEY,CONTACT_IDS_KEY,gotoConfirm} from '../../reducers/purchase'
+import {addContact, editContact,saveFields,setContact } from '../../reducers/contacts'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
 import isEmpty from 'lodash/isEmpty'
@@ -17,13 +17,8 @@ class AddContact extends React.Component {
       contact: null,
       requirAddress:false
     }
-    if(props.selectedContact && props.selectedContact.id)
-      props.getContact(props.selectedContact.id);
   }
-  componentWillReceiveProps(nextProps){
-    if(nextProps && nextProps.contact && this.props.selectedContact && this.props.selectedContact.id)
-      this.setState({contact: nextProps.contact});
-  }
+  
   componentDidMount () {
     if (!isEmpty(this.props.fields)) {
       this.props.form.setFieldsValue(this.props.fields)
@@ -64,14 +59,12 @@ class AddContact extends React.Component {
     return false;
   }
   onNextSubmit(values){
-    if(this.props.selectedContact && this.props.selectedContact.id)
-    {
-      this.props.editContact(values, this.props.form,null, () => this.props.nextFlowStep())
-    }
-    else this.props.addContact(values, this.props.form, (contact) => {
+    this.props.addContact(values, this.props.form, (contact) => {
       localStorage.removeItem(GROUP_ID_KEY)
       localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify([contact.id]))
-      this.props.nextFlowStep()
+      if(this.props.recipientMode)
+        this.props.gotoConfirm();
+      else this.props.nextFlowStep()
     })
   }
   render() {
@@ -112,6 +105,7 @@ class AddContact extends React.Component {
 }
 
 const mapState = state => ({
+  recipientMode: state.purchase.recipientMode,
   flowIndex: state.purchase.flowIndex,
   fields: state.contacts.fields,
   contact: state.contacts.contact
@@ -122,8 +116,8 @@ const mapDispatch = {
   nextFlowStep,
   saveFields,
   editContact,
-  getContact,
-  setContact
+  setContact,
+  gotoConfirm
 }
 
 export default connect(mapState, mapDispatch)(Form.create({
