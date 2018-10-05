@@ -1,42 +1,55 @@
 import React from 'react'
-import {Select, Row, Col, Input, Button} from 'antd'
-import {getUserCreatedRoles} from '../../reducers/permissions'
-import {addBudget, reduceAmountBudget, addAmountBudget, deleteBudget, updateTeamMemberRole} from '../../reducers/team'
-import {connect} from 'react-redux'
+import { Select, Row, Col, Input, Button } from 'antd'
+import { getUserCreatedRoles } from '../../reducers/permissions'
+import { addBudget, reduceAmountBudget, addAmountBudget, deleteBudget, updateTeamMemberRole } from '../../reducers/team'
+import { connect } from 'react-redux'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './TeamExpandedRow.css'
-import {FloatingLabel} from '../../components';
-import {getUserPermission,hasAnyPermission} from '../../reducers/permissions'
+import { FloatingLabel } from '../../components';
+import { getUserPermission, hasAnyPermission, getPermissionsOfSpecialRole } from '../../reducers/permissions'
 
 class TeamExpandedRow extends React.Component {
   constructor(props) {
     super(props)
+    const groupid = props.record && props.record.groups.length > 0 && props.record.groups[0].id;
     this.state = {
-      picked: [],
+      picked: groupid ? groupid : undefined,
       budget: this.props.record.budget ? this.props.record.budget.budget : '',
       amountAdd: '',
       amountReduce: '',
-      payment_permission: null
+      payment_permission: null,
+      special_payment_permission: false
     }
+    if (groupid)
+      props.getPermissionsOfSpecialRole(groupid);
   }
-  componentWillReceiveProps(nextprops){
-    
-    if(!this.state.load && nextprops.record)
+
+  componentWillReceiveProps(nextprops) {
+
+    if (!this.state.load && nextprops.record)
       this.setState({
-        load:true,
+        load: true,
         //picked:nextprops.record.groups ? nextprops.record.groups.map(item=>item.id+"") :[]
       })
-    
-    if(nextprops && nextprops.user_permissions)
-    {
-      if(nextprops.user_permissions.hasOwnProperty('Payments'))
-      {
-        var subPermission =  nextprops.user_permissions['Payments'].filter(item => item.name === 'Can pay' || item.name === 'Can pay with budget');
-        if(subPermission.length > 0)
-          this.setState({payment_permission: true});
-        return;
+
+    if (nextprops && nextprops.user_permissions) {
+      if (nextprops.user_permissions.hasOwnProperty('Payments')) {
+        this.setState({ payment_permission: this.isHavePaymentPermission(nextprops.user_permissions) });
       }
     }
+
+    if (nextprops && nextprops.selectedPermissions && this.state.picked !== undefined && nextprops.selectedPermissions.id === this.state.picked) {
+      this.setState({ special_payment_permission: this.isHavePaymentPermission(nextprops.selectedPermissions.data) });
+    }
+
+  }
+  isHavePaymentPermission(permissions) {
+    if(permissions.length <= 0 )
+      return false;
+    var subPermission = permissions['Payments'].filter(item => item.name === 'Can pay' || item.name === 'Can pay with budget');
+    if (subPermission.length > 0)
+      return true;
+    return false;
   }
   componentDidMount() {
     this.props.getUserPermission();
@@ -44,41 +57,42 @@ class TeamExpandedRow extends React.Component {
   }
 
   selectChange = (value) => {
-    this.setState({picked: value})
-    this.props.updateTeamMemberRole(this.props.record.id ,value)
+    this.props.getPermissionsOfSpecialRole(value);
+    this.setState({ picked: value })
+    this.props.updateTeamMemberRole(this.props.record.id, value)
   }
 
   budgetInput = (e) => {
-    this.setState({budget: e.target.value})
+    this.setState({ budget: e.target.value })
   }
 
   addAmountInput = (e) => {
-    this.setState({amountAdd: e.target.value})
+    this.setState({ amountAdd: e.target.value })
   }
 
   reduceAmountInput = (e) => {
-    this.setState({amountReduce: e.target.value})
+    this.setState({ amountReduce: e.target.value })
   }
 
   deleteBudgetHendler = (id) => {
     this.props.deleteBudget(id)
-    this.setState({budget: ''})
+    this.setState({ budget: '' })
   }
 
   addAmountBudgetHandler = (id, amount) => {
     this.props.addAmountBudget(id, amount)
-    this.setState({amountAdd: ''})
+    this.setState({ amountAdd: '' })
   }
 
   reduceAmountBudgetHandler = (id, amount) => {
     this.props.reduceAmountBudget(id, amount)
-    this.setState({amountReduce: ''})
+    this.setState({ amountReduce: '' })
   }
 
   render() {
-    const {record, roles, addBudget, user_permissions,user} = this.props
-    const {payment_permission} = this.state;
-    
+    const { record, roles, addBudget, user_permissions, user } = this.props
+    const { payment_permission, special_payment_permission } = this.state;
+    const payment_enable = this.state.picked !== undefined && payment_permission && special_payment_permission;
     return (
       <Row className={s.container}>
         <Col md={12} className={s.column}>
@@ -86,18 +100,18 @@ class TeamExpandedRow extends React.Component {
             <Select
               //mode='multiple'
               placeholder='Select groups'
-              style={{width: '100%'}}
+              style={{ width: '100%' }}
               onChange={this.selectChange}
-              value={this.state.picked}
-              disabled = {user.id === record.id}
+              value={roles.filter(item => item.id === this.state.picked).length > 0 ? this.state.picked : undefined}
+              disabled={user.id === record.id}
             >
               {roles && roles.map((role) =>
-                <Select.Option className={s.multiple} key={role.id} title={role.name}>
+                <Select.Option className={s.multiple} key={role.id} value={role.id} title={role.name}>
                   {role.name}
-                  </Select.Option>)}
+                </Select.Option>)}
             </Select>
           </div>
-          {!record.budget && payment_permission && <div className={s.leftInputRow}>
+          {!record.budget && payment_enable && <div className={s.leftInputRow}>
             <FloatingLabel
               className={s.amountInput}
               onChange={this.budgetInput}
@@ -114,46 +128,46 @@ class TeamExpandedRow extends React.Component {
           </div>}
         </Col>
         <Col md={12} className={s.column}>
-          {record.budget && payment_permission &&
-          <React.Fragment>
-            <div className={s.leftInputRow}>
-              <FloatingLabel
-                className={s.amountInput}
-                onChange={this.addAmountInput}
-                value={this.state.amountAdd}
-                type='text'
-                placeholder='Add amount'
-              />
-              <Button
-                onClick={() => this.addAmountBudgetHandler(record.budget.id, this.state.amountAdd)}
-                type='primary'
-              >
-                Add amount
+          {record.budget && payment_enable &&
+            <React.Fragment>
+              <div className={s.leftInputRow}>
+                <FloatingLabel
+                  className={s.amountInput}
+                  onChange={this.addAmountInput}
+                  value={this.state.amountAdd}
+                  type='text'
+                  placeholder='Add amount'
+                />
+                <Button
+                  onClick={() => this.addAmountBudgetHandler(record.budget.id, this.state.amountAdd)}
+                  type='primary'
+                >
+                  Add amount
               </Button>
-            </div>
-            <div className={s.leftInputRow}>
-              <FloatingLabel
-                className={s.amountInput}
-                onChange={this.reduceAmountInput}
-                type='text'
-                placeholder='Reduce amount'
-              />
-              <Button
-                value={this.state.amountReduce}
-                onClick={() => this.reduceAmountBudgetHandler(record.budget.id, this.state.amountReduce)}
-                type='primary'
-              >
-                Reduce amount
+              </div>
+              <div className={s.leftInputRow}>
+                <FloatingLabel
+                  className={s.amountInput}
+                  onChange={this.reduceAmountInput}
+                  type='text'
+                  placeholder='Reduce amount'
+                />
+                <Button
+                  value={this.state.amountReduce}
+                  onClick={() => this.reduceAmountBudgetHandler(record.budget.id, this.state.amountReduce)}
+                  type='primary'
+                >
+                  Reduce amount
               </Button>
-            </div>
-            <Button
-              onClick={() => this.deleteBudgetHendler(record.budget.id)}
-              type='primary'
-              ghost
-            >
-              Delete budget
+              </div>
+              <Button
+                onClick={() => this.deleteBudgetHendler(record.budget.id)}
+                type='primary'
+                ghost
+              >
+                Delete budget
             </Button>
-          </React.Fragment>}
+            </React.Fragment>}
         </Col>
       </Row>
     )
@@ -163,7 +177,8 @@ class TeamExpandedRow extends React.Component {
 const mapState = state => ({
   roles: state.permission.user_created_roles,
   user_permissions: state.permission.user_permissions,
-  user: state.user.user
+  user: state.user.user,
+  selectedPermissions: state.permission.specialPermissions,
 })
 
 const mapDispatch = {
@@ -173,7 +188,8 @@ const mapDispatch = {
   reduceAmountBudget,
   deleteBudget,
   getUserCreatedRoles,
-  getUserPermission
+  getUserPermission,
+  getPermissionsOfSpecialRole
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(TeamExpandedRow))
