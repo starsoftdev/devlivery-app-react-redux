@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {ADD_CONTACT_MANUALLY, IMPORT_CONTACTS,SELECT_CONTACTS,SELECT_GROUPS,nextFlowStep} from '../../reducers/purchase'
+import {ADD_CONTACT_MANUALLY, IMPORT_CONTACTS,SELECT_CONTACTS,SELECT_GROUPS,nextFlowStep,getRecipientMode} from '../../reducers/purchase'
 import {Button,Col, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase10.css'
@@ -38,6 +38,7 @@ class Purchase10 extends React.Component {
     this.ref_importcontact = React.createRef();
   }
   componentWillMount() {
+    this.props.getRecipientMode();
     this.loadLocalStorage();
   }
   async loadLocalStorage() {
@@ -211,6 +212,6 @@ const mapState = state => ({
   contacts: state.contacts.contacts
 })
 
-const mapDispatch = {getContactsByName,getContactGroups,nextFlowStep,getContacts}
+const mapDispatch = {getContactsByName,getContactGroups,nextFlowStep,getContacts,getRecipientMode}
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase10))

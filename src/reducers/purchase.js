@@ -172,6 +172,8 @@ export const UPDATE_BUNDLE_BODY = 'Purchase.UPDATE_BUNDLE_BODY'
 
 export const SET_SAVED_VALUE = 'Purchase.SET_SAVED_VALUE'
 export const SET_ORIENTATION = 'Purchase.SET_ORIENTATION'
+
+export const SET_RECIPIENT_MODE = 'Purchase.SET_RECIPIENT_MODE'
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -245,8 +247,21 @@ export const nextFlowStep = (step = 0) => (dispatch, getState, { history }) => {
     dispatch(clear())
   }
 }
+export const ADDRECIPENT_MODE = 'addRecipientMode';
 export const toAddContactFlowStep = () => (dispatch, getState, { history }) => {
+  const recipientMode = true
+  dispatch(setRecipientMode(recipientMode));
   history.push(generateUrl('purchase10'));
+}
+export const setRecipientMode = (recipientMode) => (dispatch, getState, { history }) => {
+  dispatch({type:SET_RECIPIENT_MODE, recipientMode:recipientMode})
+  if(recipientMode)
+    localStorage.setItem(ADDRECIPENT_MODE, recipientMode);
+  else localStorage.removeItem(ADDRECIPENT_MODE);
+}
+export const getRecipientMode = () => (dispatch) => {
+  const recipientMode = localStorage.getItem(ADDRECIPENT_MODE)
+  dispatch({type:SET_RECIPIENT_MODE, recipientMode})
 }
 export const setSavedValue = (saved) => ({ type: SET_SAVED_VALUE, saved })
 
@@ -1092,7 +1107,8 @@ export const initialState = {
   fontFamilies: [],
   newrecipient: [],
   saved: 0,
-  orientation: null
+  orientation: null,
+  recipientMode: null
 }
 
 export default createReducer(initialState, {
@@ -1376,6 +1392,9 @@ export default createReducer(initialState, {
   }),
   [SET_ORIENTATION]: (state, { orientation }) => ({
     orientation
+  }),
+  [SET_RECIPIENT_MODE]: (state, { recipientMode }) => ({
+    recipientMode
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

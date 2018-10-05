@@ -10,7 +10,7 @@ import { DATE_FORMAT, DISPLAYED_DATE_FORMAT } from '../../constants'
 import { ChangePasswordForm } from '../../components'
 import { updateUser, getAllCards, addCard } from '../../reducers/user'
 import messages from './messages'
-import { FloatingLabel,CardCheckOut } from '../../components';
+import { FloatingLabel, CardCheckOut } from '../../components';
 import ReactCreditCard from 'react-credit-cards'
 import creditCardStyles from 'react-credit-cards/es/styles-compiled.css'
 import { makeStripePayment } from '../../reducers/purchase'
@@ -51,7 +51,7 @@ class User extends React.Component {
   }
 
   handleAddCardButton = () => {
-    if(this.state.processing)
+    if (this.state.processing)
       return;
     if (!this.state.saveButton) {
       this.setState({ saveButton: true });
@@ -79,8 +79,8 @@ class User extends React.Component {
         this.setState({ showMark: true, requirmsg: 'Invalid expire date' });
         return;
       }
-      this.setState({ showMark: false, processing:true });
-     
+      this.setState({ showMark: false, processing: true });
+
       this.props.makeStripePayment(
         {
           number: this.state.number,
@@ -89,13 +89,13 @@ class User extends React.Component {
           cvc: this.state.cvc,
         },
         (data) => {
-          if(data && data.id)
+          if (data && data.id)
             this.props.addCard(data, (success) => {
-              this.setState({processing:false}); 
-              if (success) this.resetCardInf() 
+              this.setState({ processing: false });
+              if (success) this.resetCardInf()
             })
-          else{
-            this.setState({ showMark: true, requirmsg: 'Invalid Card', processing:false });
+          else {
+            this.setState({ showMark: true, requirmsg: 'Invalid Card', processing: false });
             return;
           }
         }
@@ -242,7 +242,7 @@ class User extends React.Component {
                 <h1 className={s.header}>{intl.formatMessage(messages.billingdetails)}</h1>
                 {
                   cards && cards.length > 0 &&
-                  <CardCheckOut cards={cards}/>
+                  <CardCheckOut cards={cards} />
                 }
                 <Row gutter={20} type='flex' align='middle' className={this.state.saveButton === true ? s.show : s.hidden}>
                   <Col xs={24} sm={24}>
@@ -288,18 +288,16 @@ class User extends React.Component {
                           maxLength={this.state.cardtype !== 'mastercard' ? 3 : 4}
                         />
                       </Col>
-                      <Col>
-                        {
-                          this.state.showMark && this.state.requirmsg &&
-                          <h4 className={s.requireMark}>{this.state.requirmsg}</h4>
-                        }
-                      </Col>
                     </Row>
+                    {
+                      this.state.showMark && this.state.requirmsg &&
+                      <h4 className={s.requireMark}>{this.state.requirmsg}</h4>
+                    }
                   </Col>
                 </Row>
                 <Button type='primary' ghost size={'small'} className={s.addcardbtn} onClick={this.handleAddCardButton}>
                   <PlusIcon />
-                  {this.state.processing ? 'Adding...': intl.formatMessage(messages.addcard)}
+                  {this.state.processing ? 'Adding...' : intl.formatMessage(messages.addcard)}
                 </Button>
               </section>
               <section className={s.section}>
