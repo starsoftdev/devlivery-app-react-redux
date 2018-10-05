@@ -11,7 +11,8 @@ import {
   PURCHASE8_ROUTE,//Select Gift
   PURCHASE_FLOW,
   VOUCHER_ROUTE,
-  GIFT_PURCHASE_FLOW
+  GIFT_PURCHASE_FLOW,
+  PURCHASE11_ROUTE
 } from '../routes'
 import { generateUrl } from '../router'
 import qs from 'query-string'
@@ -262,6 +263,12 @@ export const setRecipientMode = (recipientMode) => (dispatch, getState, { histor
 export const getRecipientMode = () => (dispatch) => {
   const recipientMode = localStorage.getItem(ADDRECIPENT_MODE)
   dispatch({type:SET_RECIPIENT_MODE, recipientMode})
+}
+export const gotoConfirm = () => (dispatch, getState, { history }) => {
+  const { flow, flowIndex } = getState().purchase
+  history.push(generateUrl(PURCHASE11_ROUTE))
+  const recipientMode = null
+  dispatch(setRecipientMode(recipientMode));
 }
 export const setSavedValue = (saved) => ({ type: SET_SAVED_VALUE, saved })
 
