@@ -72,3 +72,15 @@
 .select {
   width: 100%;
 }
+.addcardbtn{
+  margin-top: 20px;
+}
+.show {
+  display: block;
+}
+.hidden {
+  display: none;
+}
+.requireMark{
+  color:red;
+}

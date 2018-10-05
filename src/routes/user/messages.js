@@ -56,5 +56,25 @@ export default defineMessages({
   save:{
     id: 'user.save',
     defaultMessage: 'Save',
-  }
+  },
+  addcard:{
+    id: 'user.addcard',
+    defaultMessage: 'Add Card',
+  },
+  number: {
+    id: 'purchase13.number',
+    defaultMessage: 'Card Number',
+  },
+  name: {
+    id: 'purchase13.name',
+    defaultMessage: 'Full Name',
+  },
+  expiry: {
+    id: 'purchase13.expiry',
+    defaultMessage: 'Expiry',
+  },
+  cvc: {
+    id: 'purchase13.cvc',
+    defaultMessage: 'CVC',
+  },
 })

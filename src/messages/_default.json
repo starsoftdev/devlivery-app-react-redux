@@ -1156,7 +1156,8 @@
     "defaultMessage": "CVC",
     "message": "",
     "files": [
-      "src/routes/purchase13/messages.js"
+      "src/routes/purchase13/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -1164,7 +1165,8 @@
     "defaultMessage": "Expiry",
     "message": "",
     "files": [
-      "src/routes/purchase13/messages.js"
+      "src/routes/purchase13/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -1180,7 +1182,8 @@
     "defaultMessage": "Full Name",
     "message": "",
     "files": [
-      "src/routes/purchase13/messages.js"
+      "src/routes/purchase13/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -1188,7 +1191,8 @@
     "defaultMessage": "Card Number",
     "message": "",
     "files": [
-      "src/routes/purchase13/messages.js"
+      "src/routes/purchase13/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -3290,6 +3294,14 @@
   {
     "id": "user.save",
     "defaultMessage": "Save",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.addcard",
+    "defaultMessage": "Add Card",
     "message": "",
     "files": [
       "src/routes/user/messages.js"

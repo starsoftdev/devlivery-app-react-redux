@@ -650,7 +650,7 @@ export const addCardBody = (orderId) => (dispatch, getState, { fetch }) => {
   })
 }
 
-export const makeStripePayment = (card) => (dispatch, getState, { fetch }) => {
+export const makeStripePayment = (card,callback) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   const { orderId } = getState().purchase
   if (!orderId) {
@@ -679,6 +679,11 @@ export const makeStripePayment = (card) => (dispatch, getState, { fetch }) => {
     },
     token,
     success: (stripeToken) => {
+      if(callback)
+      {
+        callback(stripeToken)
+        return;
+      }
       return fetch(`/payments/stripe/charge/${orderId}`, {
         method: 'POST',
         contentType: 'application/x-www-form-urlencoded',
@@ -696,6 +701,10 @@ export const makeStripePayment = (card) => (dispatch, getState, { fetch }) => {
       })
     },
     failure: (error) => {
+      if(callback)
+      {
+        callback(null)
+      }
       dispatch({ type: MAKE_STRIPE_PAYMENT_FAILURE })
       if (error && error.error && error.error.message) {
         message.error(error.error.message)
