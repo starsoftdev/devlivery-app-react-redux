@@ -13,7 +13,7 @@ export const showErrorMessage = (res) => {
   {
     if(res.message)
     {
-      message.error('Something went wrong. Please try again.');
+      message.error(JSON.stringify(res.message));
       return;
     }
     if(res.errors && res.errors.validation)

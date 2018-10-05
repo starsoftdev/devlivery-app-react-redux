@@ -1,0 +1,30 @@
+@import '../../styles/variables.css';
+
+.container {
+  width:100%
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.header {
+  margin-bottom: 0;
+
+  @media (--md-up) {
+    font-size: 40px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
+}
+.addteam{
+  float: right;
+  margin-top: 10px;
+}
+.cardstyle {
+  max-width: 50px;
+  max-height: 33px;
+}

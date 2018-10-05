@@ -27,3 +27,4 @@ export {default as PendingTeamExpandedRow} from './TeamExpandedRow/PendingTeamEx
 export {default as Preview} from './Preview/Preview'
 export {default as OrderItems} from './OrderItems/OrderItems'
 export {default as FloatingLabel} from './FloatingLabel/FloatingLabel'
+export {default as CardCheckOut} from './CardCheckOut/CardCheckOut'
