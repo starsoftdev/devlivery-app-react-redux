@@ -277,7 +277,8 @@
     "defaultMessage": "Card Number",
     "message": "Kartennummer",
     "files": [
-      "src/routes/purchase13/messages.js"
+      "src/routes/purchase13/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -481,7 +482,8 @@
     "defaultMessage": "CVC",
     "message": "Kartenprüfnummer",
     "files": [
-      "src/routes/purchase13/messages.js"
+      "src/routes/purchase13/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -578,7 +580,8 @@
     "defaultMessage": "Expiry",
     "message": "Ablaufdatum",
     "files": [
-      "src/routes/purchase13/messages.js"
+      "src/routes/purchase13/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -728,7 +731,8 @@
     "defaultMessage": "Full Name",
     "message": "Vollständiger Name",
     "files": [
-      "src/routes/purchase13/messages.js"
+      "src/routes/purchase13/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -3426,6 +3430,14 @@
     "id": "user.save",
     "defaultMessage": "Save",
     "message": "sparen",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.addcard",
+    "defaultMessage": "Add Card",
+    "message": "Add Card",
     "files": [
       "src/routes/user/messages.js"
     ]

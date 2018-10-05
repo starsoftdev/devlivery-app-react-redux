@@ -1,40 +1,158 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Button, Checkbox, Col, DatePicker, Form, Input, Row, Select} from 'antd'
+import { connect } from 'react-redux'
+import { Button, Checkbox, Col, DatePicker, Form, Input, Row, Select } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './User.css'
 import formMessages from '../../formMessages'
 import moment from 'moment'
 import PlusIcon from '../../static/plus.svg'
-import {DATE_FORMAT, DISPLAYED_DATE_FORMAT} from '../../constants'
-import {ChangePasswordForm} from '../../components'
-import {updateUser} from '../../reducers/user'
+import { DATE_FORMAT, DISPLAYED_DATE_FORMAT } from '../../constants'
+import { ChangePasswordForm } from '../../components'
+import { updateUser, getAllCards, addCard } from '../../reducers/user'
 import messages from './messages'
-import {FloatingLabel} from '../../components';
+import { FloatingLabel } from '../../components';
+import ReactCreditCard from 'react-credit-cards'
+import creditCardStyles from 'react-credit-cards/es/styles-compiled.css'
+import { makeStripePayment } from '../../reducers/purchase'
 
 class User extends React.Component {
+  state = {
+    number: '',
+    name: '',
+    expiry: '',
+    cvc: '',
+    focused: '',
+    requirmsg: null,
+    isValid: false,
+    showMark: false,
+    cardtype: null,
+    saveButton: false
+  }
+  constructor(props) {
+    super(props)
+    this.handleCallback = this.handleCallback.bind(this);
+    this.handleBlurCardNumber = this.handleBlurCardNumber.bind(this);
+    this.handleAddCardButton = this.handleAddCardButton.bind(this);
+    this.resetCardInf = this.resetCardInf.bind(this);
+  }
+  componentDidMount() {
+    Payment.formatCardNumber(document.querySelector('input.cardnumber'));
+    Payment.formatCardExpiry(document.querySelector('input.cardexpire'));
+    Payment.formatCardCVC(document.querySelector('input.cardcvc'));
+  }
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.updateUser(values,this.props.form)
+        this.props.updateUser(values, this.props.form)
       }
     })
   }
 
-  render() {
-    const {user, intl} = this.props
-    const {getFieldDecorator} = this.props.form
-    
-    const address = user && user.addresses && user.addresses.find(item => item.default !== null)
-    
-    const reminderTimes = [
-      {value: 0, label: 'Same Day'},
-      {value: 1, label: 'Day Before'},
-      {value: 3, label: '3 Days Before'},
-      {value: 7, label: '1 week before'},
-    ]
+  handleAddCardButton = () => {
+    if (!this.state.saveButton) {
+      this.setState({ saveButton: true });
+      return
+    }
 
+    if (this.state.isValid) {
+      if (this.state.name.length <= 0) {
+        this.setState({ showMark: true, requirmsg: 'please input name.' });
+        return;
+      }
+      if (this.state.expiry < 4) {
+        this.setState({ showMark: true, requirmsg: 'Invalid expire date' });
+        return;
+      }
+      if (this.state.cvc < 3) {
+        this.setState({ showMark: true, requirmsg: 'Invalid CVC number' });
+        return;
+      }
+      const expiry_month = this.state.expiry.slice(0, 2);
+      const expiry_year = this.state.expiry.slice(-(this.state.expiry.length - 2))
+      const expriteDate = expiry_month + ' / ' + expiry_year;
+
+      if (!Payment.fns.validateCardExpiry(expriteDate)) {
+        this.setState({ showMark: true, requirmsg: 'Invalid expire date' });
+        return;
+      }
+      this.setState({ showMark: false });
+      this.props.makeStripePayment(
+        {
+          number: this.state.number,
+          expiry_month,
+          expiry_year,
+          cvc: this.state.cvc,
+        },
+        (data) => {
+          console.log("stripe tokendata", data);
+          this.props.addCard(data, (success) => { if (success) this.resetCardInf() })
+        }
+      )
+    }
+    else {
+      this.setState({ showMark: true });
+    }
+  }
+  resetCardInf() {
+    this.setState({
+      number: '',
+      name: '',
+      expiry: '',
+      cvc: '',
+      focused: '',
+      requirmsg: null,
+      isValid: false,
+      showMark: false,
+      cardtype: null,
+      saveButton: false
+    });
+  }
+  handleInputChange = (e, field) => {
+    if (field === 'number') {
+      this.setState({
+        [field]: e.target.value.replace(/ /g, ''),
+        showMark: false
+      })
+    }
+    else if (field === 'expiry') {
+      this.setState({
+        [field]: e.target.value.replace(/ |\//g, ''),
+      })
+    }
+    else {
+      this.setState({
+        [field]: e.target.value,
+      })
+    }
+  }
+  handleBlurCardNumber = () => {
+    this.setState({ showMark: true });
+  }
+  handleInputFocus = (e, field) => {
+    this.setState({
+      focused: field,
+    })
+  }
+
+  handleCallback(type, isValid) {
+    if (type && type.issuer == 'unknown' || !isValid) {
+      this.setState({ requirmsg: 'Invalid credit card number', isValid });
+    } else this.setState({ requirmsg: null, isValid, cardtype: type.issuer });
+  }
+  render() {
+    const { number, name, expiry, cvc, focused } = this.state
+    const { user, intl } = this.props
+    const { getFieldDecorator } = this.props.form
+
+    const address = user && user.addresses && user.addresses.find(item => item.default !== null)
+
+    const reminderTimes = [
+      { value: 0, label: 'Same Day' },
+      { value: 1, label: 'Day Before' },
+      { value: 3, label: '3 Days Before' },
+      { value: 7, label: '1 week before' },
+    ]
     return (
       <div className={s.container}>
         <div className={s.form}>
@@ -44,9 +162,9 @@ class User extends React.Component {
                 <h1 className={s.header}>{intl.formatMessage(messages.personalInf)}</h1>
                 <Form.Item>
                   {getFieldDecorator('user.nickname', {
-                    initialValue: user && user.nickname ?user.nickname:'',
+                    initialValue: user && user.nickname ? user.nickname : '',
                   })(
-                    <FloatingLabel placeholder={'Nickname'}/>
+                    <FloatingLabel placeholder={'Nickname'} />
                   )}
                 </Form.Item>
                 <Row gutter={20}>
@@ -55,10 +173,10 @@ class User extends React.Component {
                       {getFieldDecorator('user.first_name', {
                         initialValue: user && user.first_name,
                         rules: [
-                          {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                          { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                         ],
                       })(
-                        <FloatingLabel placeholder={intl.formatMessage(messages.firstName)}/>
+                        <FloatingLabel placeholder={intl.formatMessage(messages.firstName)} />
                       )}
                     </Form.Item>
                   </Col>
@@ -67,10 +185,10 @@ class User extends React.Component {
                       {getFieldDecorator('user.last_name', {
                         initialValue: user && user.last_name,
                         rules: [
-                          {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                          { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                         ],
                       })(
-                        <FloatingLabel placeholder={'Last Name'}/>
+                        <FloatingLabel placeholder={'Last Name'} />
                       )}
                     </Form.Item>
                   </Col>
@@ -80,21 +198,21 @@ class User extends React.Component {
                     validateTrigger: 'onSubmit',//'onBlur'
                     initialValue: user && user.email,
                     rules: [
-                      {required: false, message: intl.formatMessage(formMessages.required)},
-                      {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
+                      { required: false, message: intl.formatMessage(formMessages.required) },
+                      { type: 'email', message: intl.formatMessage(formMessages.emailInvalid) },
                     ],
                   })(
-                    <FloatingLabel placeholder={'Email'}/>
+                    <FloatingLabel placeholder={'Email'} />
                   )}
                 </Form.Item>
                 <Form.Item>
                   {getFieldDecorator('user.phone', {
                     initialValue: user && user.phone,
                     rules: [
-                      {required: false, message: formMessages.required},
+                      { required: false, message: formMessages.required },
                     ],
                   })(
-                    <FloatingLabel placeholder={'Phone'}/>
+                    <FloatingLabel placeholder={'Phone'} />
                   )}
                 </Form.Item>
               </section>
@@ -104,62 +222,76 @@ class User extends React.Component {
                   {getFieldDecorator('birthday', {
                     initialValue: user && user.dob ? moment(user.dob, DATE_FORMAT) : undefined,
                   })(
-                    <DatePicker className={s.birthday} format={DISPLAYED_DATE_FORMAT}/>
+                    <DatePicker className={s.birthday} format={DISPLAYED_DATE_FORMAT} />
                   )}
                 </Form.Item>
               </section>
               <section className={s.section}>
                 <h1 className={s.header}>{intl.formatMessage(messages.billingdetails)}</h1>
-                <Form.Item>
-                  {getFieldDecorator('billing.card_number', {
-                    initialValue: user && user.billing && user.billing.card_number,
-                  })(
-                    <FloatingLabel placeholder={'Card Number'}/>
-                  )}
-                </Form.Item>
-                <Form.Item>
-                  {getFieldDecorator('billing.name_on_card', {
-                    initialValue: user && user.billing && user.billing.name_on_card,
-                  })(
-                    <FloatingLabel placeholder={'Card Name'}/>
-                  )}
-                </Form.Item>
-                <Row gutter={20}>
-                  <Col xs={24} sm={6}>
-                    <Form.Item>
-                      {getFieldDecorator('billing.expiry_month', {
-                        initialValue: user && user.billing && user.billing.expiry_month,
-                      })(
-                        <FloatingLabel placeholder={'MM'}/>
-                      )}
-                    </Form.Item>
+                <Row gutter={20} type='flex' align='middle' className={this.state.saveButton === true ? s.show : s.hidden}>
+                  <Col xs={24} sm={24}>
+                    <br />
+                    <ReactCreditCard
+                      number={number}
+                      name={name}
+                      expiry={expiry}
+                      cvc={cvc}
+                      focused={focused}
+                      callback={this.handleCallback}
+                    />
+                    <br />
                   </Col>
-                  <Col xs={24} sm={6}>
-                    <Form.Item>
-                      {getFieldDecorator('billing.expiry_year', {
-                        initialValue: user && user.billing && user.billing.expiry_year,
-                      })(
-                        <FloatingLabel placeholder={'YYYY'}/>
-                      )}
-                    </Form.Item>
-                  </Col>
-                  <Col xs={24} sm={12}>
-                    <Form.Item>
-                      {getFieldDecorator('billing.cvv', {
-                        initialValue: user && user.billing && user.billing.cvv,
-                      })(
-                        <FloatingLabel placeholder={'CVV'}/>
-                      )}
-                    </Form.Item>
+                  <Col xs={24} sm={24}>
+                    <Input
+                      placeholder={intl.formatMessage(messages.number)}
+                      onChange={(e) => this.handleInputChange(e, 'number')}
+                      onFocus={(e) => this.handleInputFocus(e, 'number')}
+                      onBlur={() => this.handleBlurCardNumber()}
+                      className={'cardnumber'}
+                    />
+                    <Input
+                      placeholder={intl.formatMessage(messages.name)}
+                      onChange={(e) => this.handleInputChange(e, 'name')}
+                      onFocus={(e) => this.handleInputFocus(e, 'name')}
+                    />
+                    <Row gutter={20}>
+                      <Col xs={16}>
+                        <Input
+                          placeholder={intl.formatMessage(messages.expiry)}
+                          onChange={(e) => this.handleInputChange(e, 'expiry')}
+                          onFocus={(e) => this.handleInputFocus(e, 'expiry')}
+                          className={'cardexpire'}
+                        />
+                      </Col>
+                      <Col xs={8}>
+                        <Input
+                          placeholder={intl.formatMessage(messages.cvc)}
+                          onChange={(e) => this.handleInputChange(e, 'cvc')}
+                          onFocus={(e) => this.handleInputFocus(e, 'cvc')}
+                          className={'cardcvc'}
+                          maxLength={this.state.cardtype !== 'mastercard' ? 3 : 4}
+                        />
+                      </Col>
+                      <Col>
+                        {
+                          this.state.showMark && this.state.requirmsg &&
+                          <h4 className={s.requireMark}>{this.state.requirmsg}</h4>
+                        }
+                      </Col>
+                    </Row>
                   </Col>
                 </Row>
+                <Button type='primary' ghost size={'small'} className={s.addcardbtn} onClick={this.handleAddCardButton}>
+                  <PlusIcon />
+                  {intl.formatMessage(messages.addcard)}
+                </Button>
               </section>
               <section className={s.section}>
                 <h1 className={s.header}>{intl.formatMessage(messages.contactpreference)}</h1>
                 <Form.Item className={s.checkboxWrapper}>
                   {getFieldDecorator('preference.notify_on_reminders', {
                     valuePropName: 'checked',
-                    initialValue: user && user.preference &&  user.preference.notify_on_reminders,
+                    initialValue: user && user.preference && user.preference.notify_on_reminders,
 
                   })(
                     <Checkbox>Notify me of new reminders via email</Checkbox>
@@ -196,7 +328,7 @@ class User extends React.Component {
                 {address && address.id && getFieldDecorator(`address.id`, {
                   initialValue: address.id,
                 })(
-                  <Input type='hidden'/>
+                  <Input type='hidden' />
                 )}
                 <Row gutter={20}>
                   <Col xs={24} sm={12}>
@@ -204,7 +336,7 @@ class User extends React.Component {
                       {getFieldDecorator('address.first_name', {
                         initialValue: address && address.first_name,
                       })(
-                        <FloatingLabel placeholder={intl.formatMessage(messages.firstName)}/>
+                        <FloatingLabel placeholder={intl.formatMessage(messages.firstName)} />
                       )}
                     </Form.Item>
                   </Col>
@@ -213,7 +345,7 @@ class User extends React.Component {
                       {getFieldDecorator('address.last_name', {
                         initialValue: address && address.last_name,
                       })(
-                        <FloatingLabel placeholder={intl.formatMessage(messages.lastName)}/>
+                        <FloatingLabel placeholder={intl.formatMessage(messages.lastName)} />
                       )}
                     </Form.Item>
                   </Col>
@@ -222,20 +354,20 @@ class User extends React.Component {
                   {getFieldDecorator(`address.company`, {
                     initialValue: address && address.company,
                     rules: [
-                      {required: true , min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})},
+                      { required: true, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
                     ],
                   })(
-                    <FloatingLabel placeholder={intl.formatMessage(messages.company)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.company)} />
                   )}
                 </Form.Item>
                 <Form.Item>
                   {getFieldDecorator(`address.address`, {
                     initialValue: address && address.address[0],
                     rules: [
-                      {required: true , min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})},
+                      { required: true, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
                     ],
                   })(
-                    <FloatingLabel placeholder={intl.formatMessage(messages.address)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.address)} />
                   )}
                 </Form.Item>
                 <Row gutter={20}>
@@ -244,10 +376,10 @@ class User extends React.Component {
                       {getFieldDecorator(`address.city`, {
                         initialValue: address && address.city,
                         rules: [
-                          {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                          { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                         ],
                       })(
-                        <FloatingLabel placeholder={intl.formatMessage(messages.city)}/>
+                        <FloatingLabel placeholder={intl.formatMessage(messages.city)} />
                       )}
                     </Form.Item>
                   </Col>
@@ -258,10 +390,10 @@ class User extends React.Component {
                       {getFieldDecorator(`address.postal_code`, {
                         initialValue: address && address.postal_code,
                         rules: [
-                          {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                          { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                         ],
                       })(
-                        <FloatingLabel placeholder={intl.formatMessage(messages.postalCode)}/>
+                        <FloatingLabel placeholder={intl.formatMessage(messages.postalCode)} />
                       )}
                     </Form.Item>
                   </Col>
@@ -270,23 +402,23 @@ class User extends React.Component {
                       {getFieldDecorator(`address.country`, {
                         initialValue: address && address.country,
                         rules: [
-                          {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                          { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                         ],
                       })(
-                        <FloatingLabel placeholder={intl.formatMessage(messages.country)}/>
+                        <FloatingLabel placeholder={intl.formatMessage(messages.country)} />
                       )}
                     </Form.Item>
                   </Col>
                 </Row>
               </section>
-              <ChangePasswordForm/>
+              <ChangePasswordForm />
             </Col>
           </Row>
         </div>
         <div className={s.actionsWrapper}>
           <div className={s.actions}>
             <Button type='primary' ghost onClick={this.handleSubmit}>
-              <PlusIcon/>
+              <PlusIcon />
               {intl.formatMessage(messages.save)}
             </Button>
           </div>
@@ -298,10 +430,14 @@ class User extends React.Component {
 
 const mapState = state => ({
   user: state.user.user,
+  cards: state.user.cards
 })
 
 const mapDispatch = {
   updateUser,
+  getAllCards,
+  makeStripePayment,
+  addCard
 }
 
-export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(User)))
+export default connect(mapState, mapDispatch)(Form.create()(withStyles(s, creditCardStyles)(User)))
