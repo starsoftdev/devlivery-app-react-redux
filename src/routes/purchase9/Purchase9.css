@@ -46,6 +46,7 @@
 }
 .loginbutton{
   color:var(--primary-color);
-  float:right;
   font-style: italic;
+  display: inline;
+  margin-bottom: 10px;
 }
