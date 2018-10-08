@@ -210,7 +210,7 @@ class User extends React.Component {
                     validateTrigger: 'onSubmit',//'onBlur'
                     initialValue: user && user.email,
                     rules: [
-                      { required: false, message: intl.formatMessage(formMessages.required) },
+                      { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                       { type: 'email', message: intl.formatMessage(formMessages.emailInvalid) },
                     ],
                   })(

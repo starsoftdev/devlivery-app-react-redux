@@ -64,7 +64,7 @@ class Register2 extends React.Component {
                 validateTrigger: 'onSubmit',//'onBlur'
                 initialValue: individualDetails && individualDetails.email,
                 rules: [
-                  {required: false, message: intl.formatMessage(formMessages.required)},
+                  {required: true, message: intl.formatMessage(formMessages.required), whitespace:true},
                   {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
                 ],
               })(
