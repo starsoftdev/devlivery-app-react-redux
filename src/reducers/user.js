@@ -185,6 +185,25 @@ export const addCard = (card, callback) => (dispatch, getState, { fetch }) => {
     }
   })
 }
+export const setDefaultCard = (card_id,callback) => (dispatch, getState, { fetch }) => {
+  const { token } = dispatch(getToken())
+  return fetch(`/user/set-default-card`, {
+    method: 'POST',
+    contentType: 'multipart/form-data',
+    token,
+    body: {
+      card_id
+    },
+    success: async (res) => {
+      await dispatch(getAllCards());
+      if(callback) callback();
+    },
+    failure: (error) => {
+      if(callback) callback();
+      dispatch(getAllCards());
+    }
+  })
+}
 // ------------------------------------
 // Reducer
 // ------------------------------------
