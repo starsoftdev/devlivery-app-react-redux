@@ -1043,7 +1043,24 @@ export const getOrderDetails = (orderId) => (dispatch, getState, { fetch }) => {
       },
     })
 }
-
+export const updateOrderMeta = () => (dispatch, getState, { fetch }) => {
+  const { token } = dispatch(getToken())
+  const {orderId} = getState().purchase;
+  if (!orderId) {
+    return
+  }
+  return fetch(`/orders/${orderId}`, {
+      method: 'POST',
+      contentType: 'multipart/form-data',
+      token,
+      body: {
+        _method: 'PUT',
+        incomplete_payment: 1,
+      },
+      success: (res) => {},
+      failure: (err) => {},
+    })
+}
 export const getBundleDetails = (bundleId) => (dispatch, getState, { fetch }) => {
   dispatch({ type: GET_BUNDLE_DETAILS_REQUEST })
   const { token } = dispatch(getToken())
