@@ -200,7 +200,14 @@ class ContactForm extends React.Component {
           {getFieldDecorator('dob', {
             initialValue: initialValues && initialValues.dob ? moment(initialValues.dob, DATE_FORMAT) : undefined,
           })(
-            <DatePicker className={s.birthday} format={DISPLAYED_DATE_FORMAT} onChange={(value)=>{
+            <DatePicker className={s.birthday} 
+              format={DISPLAYED_DATE_FORMAT} 
+              disabledDate={current => {
+                var date = new Date();
+                date.setFullYear(date.getFullYear() - 18);
+                return current && current.valueOf() >= (date)
+              }}
+              onChange={(value)=>{
               if(value && setupBirthday)
               {
                setupBirthday(true)
