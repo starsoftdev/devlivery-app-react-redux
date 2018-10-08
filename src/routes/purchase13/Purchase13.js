@@ -190,7 +190,7 @@ class Purchase13 extends React.Component {
                   )}
                 </Form.Item>
                 <Row gutter={20}>
-                  <Col xs={16}>
+                  <Col xs={12}>
                     <Form.Item
                       //{...this.validation(this.state.expiry, 4)}
                     >
@@ -205,7 +205,7 @@ class Purchase13 extends React.Component {
                       )}
                     </Form.Item>
                   </Col>
-                  <Col xs={8}>
+                  <Col xs={12}>
                     <Form.Item
                       //{...this.validation(this.state.cvc, 3)}
                     >
