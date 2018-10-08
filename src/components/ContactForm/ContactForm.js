@@ -143,7 +143,7 @@ class ContactForm extends React.Component {
               {required: false, message: intl.formatMessage(formMessages.required)},
             ],
           })(
-            <FloatingLabel placeholder={intl.formatMessage(messages.email)+ " *"}/>
+            <FloatingLabel placeholder={intl.formatMessage(messages.email)}/>
           )}
         </Form.Item>
         <Form.Item>
@@ -153,7 +153,7 @@ class ContactForm extends React.Component {
               {required: false, message: intl.formatMessage(formMessages.required)},
             ],
           })(
-            <FloatingLabel placeholder={intl.formatMessage(messages.phone)+ " *"}/>
+            <FloatingLabel placeholder={intl.formatMessage(messages.phone)}/>
           )}
         </Form.Item>
         <Form.Item>
