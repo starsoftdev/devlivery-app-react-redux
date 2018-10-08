@@ -62,6 +62,7 @@ export const CHANGE_SELECTED_CONTACTS = 'Contacts.CHANGE_SELECTED_CONTACTS'
 export const SAVE_FIELDS = 'Contacts.SAVE_FIELDS'
 
 export const SET_CHANGE_EDITFORM = "Contacts.SET_CHANGE_EDITFORM"
+export const SET_BIRTHDAY_SETUP = "Contacts.SET_BIRTHDAY_SETUP"
 
 export const CLEAR = 'Contacts.CLEAR'
 
@@ -121,6 +122,9 @@ export const getContact = (contactId) => (dispatch, getState, {fetch}) => {
     token,
     success: (res) => {
       dispatch({type: GET_CONTACT_SUCCESS, contact: res.data && res.data[0]})
+      if(res.data && res.data[0] && res.data[0].dob)
+        dispatch(setupBirthday(true));
+      else dispatch(setupBirthday(false));
     },
     failure: () => dispatch({type: GET_CONTACT_FAILURE})
   })
@@ -285,16 +289,26 @@ export const removeContact = (contact) => (dispatch, getState, {fetch}) => {
 export const getOccasions = ({search} = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_OCCASIONS_REQUEST})
   const {token} = dispatch(getToken())
-  return fetch(`/occasions?${qs.stringify({
+ 
+  const {setupBirthday} = getState().contacts;
+
+  var url = `/occasions?${qs.stringify({
     take: 10,
     ...search ? {
       filter_key: 'title',
       filter_value: search,
     } : {},
-  })}`, {
+  })}`;
+
+  if(setupBirthday)
+   url = `/occasions?filter_key=title&filter_value=Birthday&not_equal`;
+ 
+  return fetch(url, {
     method: 'GET',
     token,
-    success: (res) => dispatch({type: GET_OCCASIONS_SUCCESS, occasions: res.data}),
+    success: (res) => {
+      dispatch({type: GET_OCCASIONS_SUCCESS, occasions: res.data})
+    },
     failure: () => dispatch({type: GET_OCCASIONS_FAILURE})
   })
 }
@@ -392,7 +406,11 @@ export const changeSelectedContacts = (selectedContacts) => ({type: CHANGE_SELEC
 export const saveFields = (fields) => (dispatch, getState) => {
   dispatch({type: SAVE_FIELDS, fields})
 }
-
+export const setupBirthday = (setupBirthday) => async(dispatch, getState) => {
+  await dispatch({type: SET_BIRTHDAY_SETUP, setupBirthday})
+  if(setupBirthday)
+    dispatch(getOccasions());
+}
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -420,6 +438,7 @@ const initialState = {
   selectedContacts: [],
   ordering: 'first_name',
   fields: {},
+  setupBirthday: false
 }
 
 export default createReducer(initialState, {
@@ -609,6 +628,9 @@ export default createReducer(initialState, {
   }),
   [SET_CHANGE_EDITFORM]: (state, {changedForm}) => ({
     changedForm,
+  }),
+  [SET_BIRTHDAY_SETUP]: (state, {setupBirthday}) => ({
+    setupBirthday,
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })

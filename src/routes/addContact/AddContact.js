@@ -4,7 +4,7 @@ import {Button, Col, Form, Row} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './AddContact.css'
 import PlusIcon from '../../static/plus.svg'
-import {addContact} from '../../reducers/contacts'
+import {addContact,setupBirthday} from '../../reducers/contacts'
 import {ContactForm} from '../../components'
 import messages from './messages'
 import history from '../../history'
@@ -44,9 +44,9 @@ class AddContact extends React.Component {
   }
 
   render() {
-    const {intl} = this.props
+    const {intl,setupBirthday} = this.props
     return (
-      <ContactForm form={this.props.form} header={intl.formatMessage(messages.header)}>
+      <ContactForm form={this.props.form} header={intl.formatMessage(messages.header)} setupBirthday = {setupBirthday}>
         {({
             contactSection,
             birthdaySection,
@@ -92,6 +92,7 @@ const mapState = state => ({})
 
 const mapDispatch = {
   addContact,
+  setupBirthday
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(AddContact)))
