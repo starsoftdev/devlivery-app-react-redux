@@ -74,7 +74,7 @@ class Purchase8 extends React.Component {
                         </React.Fragment>
                       }
                       bordered={false}
-                      description={item.description}
+                      description={item.short_description}
                       onClick={() => setGift(item)}
                       active={gift && gift.id === item.id}
                     />

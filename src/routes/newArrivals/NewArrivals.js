@@ -211,7 +211,7 @@ class NewArrivals extends React.Component {
                         </React.Fragment>
                       }
                       bordered={false}
-                      description={item.description}
+                      description={item.short_description}
                       onClick={() => {
                         this.setState({showGiftDetails: true,giftDetails:item});
                       }}
