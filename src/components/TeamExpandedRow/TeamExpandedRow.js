@@ -46,9 +46,13 @@ class TeamExpandedRow extends React.Component {
   isHavePaymentPermission(permissions) {
     if(permissions.length <= 0 )
       return false;
-    var subPermission = permissions['Payments'].filter(item => item.name === 'Can pay' || item.name === 'Can pay with budget');
-    if (subPermission.length > 0)
-      return true;
+    if(permissions.hasOwnProperty('Payments'))
+    {
+      var subPermission = permissions['Payments'].filter(item => item.name === 'Can pay' || item.name === 'Can pay with budget');
+      if (subPermission.length > 0)
+        return true;
+      return false;
+    }
     return false;
   }
   componentDidMount() {
