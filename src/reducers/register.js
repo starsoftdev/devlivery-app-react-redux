@@ -44,7 +44,7 @@ export const register = (values, form) => (dispatch, getState, {fetch, history})
     contentType: 'application/x-www-form-urlencoded',
     body: {
       ...otherDetails,
-      account_type: accountType,
+      account_type: accountType ? accountType : INDIVIDUAL_ACCOUNT,
       ...birthday ? {
         dob: birthday.format(DATE_FORMAT)
       } : {},
