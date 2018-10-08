@@ -234,7 +234,15 @@ class User extends React.Component {
                   {getFieldDecorator('birthday', {
                     initialValue: user && user.dob ? moment(user.dob, DATE_FORMAT) : undefined,
                   })(
-                    <DatePicker className={s.birthday} format={DISPLAYED_DATE_FORMAT} />
+                    <DatePicker 
+                      className={s.birthday} 
+                      format={DISPLAYED_DATE_FORMAT} 
+                      disabledDate={current => {
+                        var date = new Date();
+                        date.setFullYear(date.getFullYear() - 18);
+                        return current && current.valueOf() >= (date)
+                      }}
+                      />
                   )}
                 </Form.Item>
               </section>
@@ -295,10 +303,13 @@ class User extends React.Component {
                     }
                   </Col>
                 </Row>
-                <Button type='primary' ghost size={'small'} className={s.addcardbtn} onClick={this.handleAddCardButton}>
-                  <PlusIcon />
-                  {this.state.processing ? 'Adding...' : intl.formatMessage(messages.addcard)}
-                </Button>
+                {
+                  !(cards && cards.length >= 4) &&
+                  <Button type='primary' ghost size={'small'} className={s.addcardbtn} onClick={this.handleAddCardButton}>
+                    <PlusIcon />
+                    {this.state.processing ? 'Adding...' : intl.formatMessage(messages.addcard)}
+                  </Button>
+                }
               </section>
               <section className={s.section}>
                 <h1 className={s.header}>{intl.formatMessage(messages.contactpreference)}</h1>

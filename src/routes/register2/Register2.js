@@ -10,6 +10,8 @@ import messages from './messages'
 import {DATE_FORMAT, DISPLAYED_DATE_FORMAT} from '../../constants'
 import {Actions, SectionHeader} from '../../components'
 import {FloatingLabel} from '../../components';
+import { isMoment } from 'moment';
+import moment from 'moment'
 
 class Register2 extends React.Component {
   handleSubmit = (e) => {
@@ -99,7 +101,16 @@ class Register2 extends React.Component {
               {getFieldDecorator('birthday', {
                 initialValue: individualDetails ? individualDetails.birthday : undefined,
               })(
-                <DatePicker className={s.birthday} format={DISPLAYED_DATE_FORMAT}/>
+                <DatePicker 
+                  className={s.birthday} 
+                  format={DISPLAYED_DATE_FORMAT}
+                  //defaultValue={moment().subtract(18, 'years')}
+                  disabledDate={current => {
+                    var date = new Date();
+                    date.setFullYear(date.getFullYear() - 18);
+                    return current && current.valueOf() >= (date)
+                  }}
+                  />
               )}
             </Form.Item>
           </section>
