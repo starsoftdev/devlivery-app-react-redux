@@ -48,7 +48,12 @@
   letter-spacing: normal;
   text-transform: uppercase;
 }
-
+.previewShortDescription{
+  text-align: center;
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-base);
+  word-break: break-all;
+}
 .preview {
   min-height: 425px;
 

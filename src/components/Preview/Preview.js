@@ -55,6 +55,11 @@ class Preview extends React.Component {
               {item.title}
             </p>
           )}
+          {item.short_description && (
+            <p className={s.previewShortDescription}>
+              {item.short_description}
+            </p>
+          )}
         </section>
       </Layout.Sider>
     ) : null
