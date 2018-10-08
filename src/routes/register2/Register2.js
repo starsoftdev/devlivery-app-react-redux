@@ -5,7 +5,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Register2.css'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import formMessages from '../../formMessages'
-import {register} from '../../reducers/register'
+import {register,TEAM_ACCOUNT} from '../../reducers/register'
 import messages from './messages'
 import {DATE_FORMAT, DISPLAYED_DATE_FORMAT} from '../../constants'
 import {Actions, SectionHeader} from '../../components'
@@ -22,7 +22,7 @@ class Register2 extends React.Component {
   }
 
   render() {
-    const {individualDetails, intl} = this.props
+    const {individualDetails, intl, accountType} = this.props
     const {getFieldDecorator} = this.props.form
     return (
       <Form onSubmit={this.handleSubmit} className={s.container}>
@@ -110,7 +110,7 @@ class Register2 extends React.Component {
               {getFieldDecorator(`company`, {
                 initialValue: individualDetails && individualDetails.company,
                 rules: [
-                  {required: true , min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})},
+                  {required: accountType === TEAM_ACCOUNT ? true:false , min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})},
                 ],
               })(
                 <FloatingLabel placeholder={intl.formatMessage(messages.company)}/>
@@ -186,6 +186,7 @@ class Register2 extends React.Component {
 
 const mapState = state => ({
   individualDetails: state.register.individualDetails,
+  accountType: state.register.accountType
 })
 
 const mapDispatch = {
