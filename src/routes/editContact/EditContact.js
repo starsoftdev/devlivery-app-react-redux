@@ -5,7 +5,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './EditContact.css'
 import PlusIcon from '../../static/plus.svg'
 import RemoveIcon from '../../static/remove.svg'
-import {editContact, clear, removeContact, setChangingStatusEditForm} from '../../reducers/contacts'
+import {editContact, clear, removeContact, setChangingStatusEditForm,setupBirthday} from '../../reducers/contacts'
 import {ContactForm} from '../../components'
 import messages from './messages'
 import { setNextRouteName,navigateToNextRouteName } from '../../reducers/global';
@@ -79,7 +79,7 @@ class EditContact extends React.Component {
   }
 
   render() {
-    const {intl, contact,removeContact} = this.props
+    const {intl, contact,removeContact,setupBirthday} = this.props
     
     return contact ? (
       <div>
@@ -93,7 +93,7 @@ class EditContact extends React.Component {
         >
           <h2>Do you wish save the information you've edited?</h2>
         </Modal>
-        <ContactForm initialValues={contact} form={this.props.form} header={intl.formatMessage(messages.header)}>
+        <ContactForm initialValues={contact} form={this.props.form} header={intl.formatMessage(messages.header)} setupBirthday = {setupBirthday}>
           {({
               contactSection,
               birthdaySection,
@@ -159,7 +159,8 @@ const mapDispatch = {
   setNextRouteName,
   navigateToNextRouteName,
   removeContact,
-  setChangingStatusEditForm
+  setChangingStatusEditForm,
+  setupBirthday
 }
 
 export default connect(mapState, mapDispatch)(Form.create({

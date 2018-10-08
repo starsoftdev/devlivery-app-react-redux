@@ -86,7 +86,7 @@ class ContactForm extends React.Component {
 
   render() {
     const {requiredAddress, relationshipName, newRelationship} = this.state
-    const {intl, children, header, initialValues} = this.props
+    const {intl, children, header, initialValues, setupBirthday} = this.props
     const {getFieldDecorator} = this.props.form
 
     let relationshipList = [...RELATIONSHIP]
@@ -200,7 +200,12 @@ class ContactForm extends React.Component {
           {getFieldDecorator('dob', {
             initialValue: initialValues && initialValues.dob ? moment(initialValues.dob, DATE_FORMAT) : undefined,
           })(
-            <DatePicker className={s.birthday} format={DISPLAYED_DATE_FORMAT}/>
+            <DatePicker className={s.birthday} format={DISPLAYED_DATE_FORMAT} onChange={(value)=>{
+              if(value && setupBirthday)
+              {
+               setupBirthday(true)
+              }
+            }}/>
           )}
         </Form.Item>
       </section>
