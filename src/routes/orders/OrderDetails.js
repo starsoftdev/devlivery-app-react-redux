@@ -9,6 +9,7 @@ import { getItemImage } from '../../utils'
 import { CARD_IMAGES_PROP, GIFT_IMAGES_PROP } from '../../constants'
 import cn from 'classnames';
 import BackIcon from '../../static/view_list.svg'
+import {setFlowPayment} from '../../reducers/purchase'
 
 const CARD_TYPE = 'card'
 const GIFT_TYPE = 'gift'
@@ -40,8 +41,8 @@ class OrderDetails extends React.Component {
   render() {
 
     const currentShipping = this.state.currentShipping
-    const { closeOrderDetailsModal, orderDetails, intl, occasions } = this.props
-
+    const { closeOrderDetailsModal, orderDetails, intl, occasions,setFlowPayment } = this.props
+    
     const columns = [
       {
         title: intl.formatMessage(messages.productColumn),
@@ -208,6 +209,16 @@ class OrderDetails extends React.Component {
                   rowKey={record => record.key}
                   pagination={false}
                 />
+                {
+                  orderDetails.incomplete_payment &&
+                  <div className={s.paybutton}>
+                    <Button type='primary' onClick={() => {
+                      setFlowPayment(orderDetails)
+                    }}>
+                      {'Pay'}
+                    </Button>
+                  </div>
+                }
               </Col>
               <Col xs={24} sm={8}>
                 <section className={s.summary}>
@@ -385,6 +396,7 @@ const mapState = state => ({
 
 const mapDispatch = {
   closeOrderDetailsModal,
+  setFlowPayment
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(OrderDetails))

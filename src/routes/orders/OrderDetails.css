@@ -168,3 +168,8 @@
   border-radius: 50%;
   margin: 0;
 }
+.paybutton{
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+}

@@ -208,7 +208,14 @@ export const EDIT_BUNDLE_FLOW = {
     BUNDLES_ROUTE,
   ]
 }
-
+export const PAYMENT_FLOW = {
+  key: 'payment-flow',
+  routes: [
+    PURCHASE12_ROUTE,
+    PURCHASE13_ROUTE,
+    PURCHASE_COMPLETED_ROUTE,
+  ]
+}
 
 const authRoutes = {
   path: '',

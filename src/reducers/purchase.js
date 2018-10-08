@@ -12,7 +12,8 @@ import {
   PURCHASE_FLOW,
   VOUCHER_ROUTE,
   GIFT_PURCHASE_FLOW,
-  PURCHASE11_ROUTE
+  PURCHASE11_ROUTE,
+  PAYMENT_FLOW
 } from '../routes'
 import { generateUrl } from '../router'
 import qs from 'query-string'
@@ -183,7 +184,8 @@ export const setFlow = (flow, redirect = true) => (dispatch, getState, { history
     flow.key != ORDER_BUNDLE_FLOW.key &&
     flow.key != ORDER_CARD_FLOW.key &&
     flow.key != ORDER_VOUCHER_FLOW.key &&
-    flow.key != GIFT_PURCHASE_FLOW.key) {
+    flow.key != GIFT_PURCHASE_FLOW.key &&
+    flow.key != PAYMENT_FLOW.key) {
     dispatch(clear())
   }
 
@@ -231,6 +233,11 @@ export const setFlowFromSelectGift = (gift) => (dispatch, getState) => {
   dispatch({ type: SET_GIFT_TYPE, giftType })
   dispatch({ type: SET_GIFT, gift })
   dispatch(setFlow(GIFT_PURCHASE_FLOW))
+}
+export const setFlowPayment = (order) => (dispatch, getState) => {
+  dispatch(clear())
+  dispatch({type: MAKE_ORDER_SUCCESS, order })
+  dispatch(setFlow(PAYMENT_FLOW))
 }
 export const setFlowIndex = () => (dispatch, getState) => {
   const { currentRouteName } = getState().global
