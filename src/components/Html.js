@@ -46,6 +46,8 @@ class Html extends React.Component {
       <body>
       <div id="app" dangerouslySetInnerHTML={{__html: children}}/>
       <script dangerouslySetInnerHTML={{__html: `window.App=${serialize(app)}`}}/>
+      <script dangerouslySetInnerHTML={{__html: `window.$crisp=[];window.CRISP_WEBSITE_ID=${serialize(config.CRISP_WEBSITE_ID)};(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();`}}/>
+      
       {scripts.map(script => <script key={script} src={script}/>)}
       </body>
       </html>
