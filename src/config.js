@@ -29,4 +29,6 @@ module.exports = {
     // https://analytics.google.com/
     googleTrackingId: process.env.GOOGLE_TRACKING_ID || '',
   },
+
+  CRISP_WEBSITE_ID : "1a110172-9bbb-4d34-9ce2-7e30d1bbc9a0"
 }
