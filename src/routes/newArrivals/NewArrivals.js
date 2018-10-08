@@ -130,7 +130,7 @@ class NewArrivals extends React.Component {
     const {search, slideIndex,slideMap, giftDetails,cardDetails} = this.state
     const {intl, foods,nonfoods, cards, loading, setFlowFromSelectGift, setFlowFromSelectCard, occasions} = this.props
 
-    const slideKey = slideMap[slideIndex].key;
+    const slideKey = slideMap[slideIndex] && slideMap[slideIndex].key ? slideMap[slideIndex].key : 0;
     const gifts = slideKey === FOOD_GIFTS_INDEX ? foods:nonfoods;
     var occasionByCardId = null;
     if(cardDetails && occasions)

@@ -211,5 +211,5 @@ export default createReducer(initialState, {
       cards: false,
     },
   }),
-  [CLEAR]: (state, action) => RESET_STORE,
+  //[CLEAR]: (state, action) => RESET_STORE,
 })
