@@ -163,3 +163,7 @@
   pointer-events: none;
   opacity: 0.6
 }
+.modaltitle{
+  font-size: 23px;
+  font-family: var(--font-family-secondary);
+}

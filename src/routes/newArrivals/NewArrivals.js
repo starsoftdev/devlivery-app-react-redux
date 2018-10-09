@@ -229,7 +229,7 @@ class NewArrivals extends React.Component {
           this.state.showGiftDetails && giftDetails &&
           <Modal
               className={s.DetailModal}
-              title={`${giftDetails.title}`}
+              title={<label className={s.modaltitle}>{giftDetails.title}</label>}
               visible = {this.state.showGiftDetails}
               onCancel={()=>this.setState({showGiftDetails:false})}
               footer={null}
@@ -276,7 +276,7 @@ class NewArrivals extends React.Component {
           this.state.showCardDetails && cardDetails &&
           <Modal
               className={s.DetailModal}
-              title={`${cardDetails.title}`}
+              title={<label className={s.modaltitle}>{cardDetails.title}</label>}
               visible = {this.state.showCardDetails}
               onCancel={()=>this.setState({showCardDetails:false})}
               footer={null}

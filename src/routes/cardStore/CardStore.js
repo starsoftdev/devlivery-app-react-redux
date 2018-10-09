@@ -182,7 +182,7 @@ class CardStore extends React.Component {
           this.state.showCardDetails && cardDetails &&
           <Modal
               className={s.DetailModal}
-              title={`${cardDetails.title}`}
+              title={<label className={s.modaltitle}>{cardDetails.title}</label>}
               visible = {this.state.showCardDetails}
               onCancel={()=>this.setState({showCardDetails:false})}
               footer={null}
