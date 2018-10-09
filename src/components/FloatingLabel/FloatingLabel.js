@@ -16,7 +16,7 @@ export default class FloatingLabel extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = {hasValue: false, hasError: false};
+    this.state = {hasValue: props.value && props.value.length > 0 ? true:false, hasError: false};
   }
   componentWillReceiveProps(nexprops){
     if(nexprops && nexprops.value)

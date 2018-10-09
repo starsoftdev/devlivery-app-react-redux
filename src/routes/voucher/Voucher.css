@@ -1,5 +1,11 @@
 @import '../../styles/variables.css';
-
+.form {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  font-size: var(--font-size-base);
+  color: var(--text-color);
+}
 .content {
   padding-bottom: var(--margin-md);
 
@@ -41,4 +47,13 @@
 .voucherWrapper {
   display: flex;
   justify-content: center;
+}
+.messageTitle {
+  font-size: 15px;
+  font-family: "Proxima Nova";
+  color: rgba(64,77,95,0.5);
+  height: 50px;
+  display: block;
+  padding-top: 20px;
+  line-height: 15px;
 }

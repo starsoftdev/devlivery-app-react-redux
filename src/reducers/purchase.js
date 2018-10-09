@@ -938,8 +938,9 @@ export const confirmVoucher = (bundleValues) => async (dispatch, getState, { fet
       html,
     },
     token,
-    success: () => {
-      dispatch({ type: CONFIRM_VOUCHER_SUCCESS })
+    success: async (res) => {
+      await dispatch({ type: CONFIRM_VOUCHER_SUCCESS })
+      await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
       dispatch(nextFlowStep())
     },
     failure: (err) => {
