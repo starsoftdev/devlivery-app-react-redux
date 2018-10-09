@@ -253,3 +253,7 @@
   border-radius: 50%;
   margin: 0;
 }
+.modaltitle{
+  font-size: 23px;
+  font-family: var(--font-family-secondary);
+}
