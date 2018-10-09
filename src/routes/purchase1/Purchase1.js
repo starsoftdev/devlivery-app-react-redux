@@ -62,7 +62,7 @@ class Purchase1 extends React.Component {
                   }
                 }}
                 active={occasion && occasion.id === item.id}
-                //disabled = {!item.has_cards}
+                disabled = {!item.has_cards && item.id !== SEASONALID}
                 //keyValue={ALPHABET[i]}
               />
             </Col>
