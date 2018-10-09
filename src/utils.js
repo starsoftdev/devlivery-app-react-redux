@@ -101,3 +101,15 @@ export const loadFont = (font) => {
 export const getItemImage = (item, imagesProp) =>
   imagesProp && item && item[imagesProp] ? (isArray(item[imagesProp]) ? item[imagesProp][0] && item[imagesProp][0].url : item[imagesProp].url) : null
 
+export const  isHavePaymentPermission =(permissions) =>{
+    if(permissions.length <= 0 )
+      return false;
+    if(permissions.hasOwnProperty('Payments'))
+    {
+      var subPermission = permissions['Payments'].filter(item => item.name === 'Can pay' || item.name === 'Can pay with budget');
+      if (subPermission.length > 0)
+        return true;
+      return false;
+    }
+    return false;
+  }
