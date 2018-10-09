@@ -1,6 +1,7 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {getToken} from './user'
 import {message} from 'antd'
+import { getFormErrors, showErrorMessage } from '../utils'
 
 // ------------------------------------
 // Constants
@@ -16,10 +17,18 @@ export const CLEAR = 'ContactUs.CLEAR'
 // Actions
 // ------------------------------------
 
-export const sendEnquiries = (values, callback) => (dispatch, getState, {fetch}) => {
+export const sendEnquiries = (values,callback) => (dispatch, getState, {fetch}) => {
   dispatch({type: SEND_CONTACT_US_REQUEST})
   const {name, phone, email, subject, message, attachments} = values
   const {token} = dispatch(getToken())
+  console.log(`/enquiries`,{
+    name,
+    phone,
+    email,
+    subject,
+    message,
+    attachments,
+  });
   return fetch(`/enquiries`, {
     method: 'POST',
     token,
@@ -32,12 +41,21 @@ export const sendEnquiries = (values, callback) => (dispatch, getState, {fetch})
       attachments,
     },
     success: (res) => {
+      console.log("res",res);
+      message.success("Successfully sent message.");
       dispatch({type: SEND_CONTACT_US_SUCCESS, res})
       if (callback) callback()
     },
     failure: (res) => {
+      const { formErrors } = getFormErrors({ ...res, values })
+      console.log("formerrors",res);
+      
+      if (formErrors && callback)
+        callback(formErrors)
+      else
+        // TODO
+        message.error('Something went wrong. Please try again.')
       dispatch({type: SEND_CONTACT_US_FAILURE})
-      message.error('Something went wrong. Please try again.')
     }
   })
 }

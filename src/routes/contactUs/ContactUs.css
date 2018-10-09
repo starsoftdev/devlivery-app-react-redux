@@ -112,3 +112,7 @@
   height: 420px;
   background-position: right;
 }
+.error{
+  color:red;
+  padding-top:  10px;
+}
