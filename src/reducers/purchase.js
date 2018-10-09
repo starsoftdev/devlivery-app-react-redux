@@ -749,7 +749,7 @@ export const makePaypalPayment = () => (dispatch, getState, { fetch }) => {
   if (!orderId) {
     return
   }
-
+  
   dispatch({ type: MAKE_PAYPAL_PAYMENT_REQUEST })
   return fetch(`/payments/paypal/charge/${orderId}`, {
     method: 'POST',
@@ -785,9 +785,12 @@ export const executePaypalPayment = ({ paymentId, paypalToken, payerId }) => (di
   const { token } = dispatch(getToken())
   const transactionId = localStorage.getItem(TRANSACTION_ID_KEY)
   if (!transactionId) {
+    dispatch(returnToPaymentMethod(true))
+    dispatch({ type: CANCEL_PAYPAL_PAYMENT_SUCCESS })
     return
   }
   dispatch({ type: EXECUTE_PAYPAL_PAYMENT_REQUEST })
+  
   return fetch('/payments/paypal/execute', {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
@@ -804,7 +807,7 @@ export const executePaypalPayment = ({ paymentId, paypalToken, payerId }) => (di
       history.push('/purchase/completed')
       dispatch({ type: EXECUTE_PAYPAL_PAYMENT_SUCCESS })
     },
-    failure: () => {
+    failure: (err) => {
       // payment failed, let user choose another one
       dispatch(returnToPaymentMethod())
       // TODO add error message to be shown
@@ -817,6 +820,8 @@ export const cancelPaypalPayment = () => (dispatch, getState, { fetch, history }
   const { token } = dispatch(getToken())
   const transactionId = localStorage.getItem(TRANSACTION_ID_KEY)
   if (!transactionId) {
+    dispatch(returnToPaymentMethod(true))
+    dispatch({ type: CANCEL_PAYPAL_PAYMENT_SUCCESS })
     return
   }
   dispatch({ type: CANCEL_PAYPAL_PAYMENT_REQUEST })
