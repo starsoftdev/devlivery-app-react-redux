@@ -147,6 +147,7 @@
 .cardDescription {
   text-align: center;
   margin-bottom: 0;
+  width:100%;
 }
 
 .cardsForEverythingHeader {
