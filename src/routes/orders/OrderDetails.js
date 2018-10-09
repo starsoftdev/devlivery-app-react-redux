@@ -54,14 +54,14 @@ class OrderDetails extends React.Component {
             case CARD_TYPE:
               return (
                 <div className={cn(s.product, s.touch)} onClick={() => this.setState({ cardPreview: 'card' })}>
-                  <div style={{ backgroundImage: `url(${getItemImage(item, CARD_IMAGES_PROP)})` }} className={s.productImage} />
+                  <div style={{ backgroundImage: `url(${getItemImage(item, CARD_IMAGES_PROP)})`, minWidth:'150px' }} className={s.productImage} />
                   <div className={s.title}>{item.title}</div>
                 </div>
               )
             case GIFT_TYPE:
               return (
                 <div className={cn(s.product, s.touch)} onClick={() => this.setState({ cardPreview: 'gift' })}>
-                  <div style={{ backgroundImage: `url(${getItemImage(item, GIFT_IMAGES_PROP)})` }} className={s.productImage} />
+                  <div style={{ backgroundImage: `url(${getItemImage(item, GIFT_IMAGES_PROP)})`, minWidth:'150px'}} className={s.productImage} />
                   <div className={s.title}>{item.title}</div>
                 </div>
               )
