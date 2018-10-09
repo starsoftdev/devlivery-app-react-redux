@@ -120,7 +120,7 @@ class GiftStore extends React.Component {
           this.state.showGiftDetails && giftDetails &&
           <Modal
               className={s.DetailModal}
-              title={<label className={s.modaltitle}>{giftDetails.title}</label>}
+              title={<div className={s.modaltitle}>{giftDetails.title}</div>}
               visible = {this.state.showGiftDetails}
               onCancel={()=>this.setState({showGiftDetails:false})}
               footer={null}

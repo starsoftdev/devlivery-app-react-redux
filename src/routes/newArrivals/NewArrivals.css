@@ -256,4 +256,5 @@
 .modaltitle{
   font-size: 23px;
   font-family: var(--font-family-secondary);
+  text-align: center;
 }
