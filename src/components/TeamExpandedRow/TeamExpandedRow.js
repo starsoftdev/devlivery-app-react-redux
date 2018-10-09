@@ -152,6 +152,7 @@ class TeamExpandedRow extends React.Component {
               <div className={s.leftInputRow}>
                 <FloatingLabel
                   className={s.amountInput}
+                  value={this.state.amountReduce}
                   onChange={this.reduceAmountInput}
                   type='text'
                   placeholder='Reduce amount'
