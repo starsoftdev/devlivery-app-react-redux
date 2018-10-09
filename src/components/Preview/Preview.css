@@ -17,7 +17,7 @@
   max-width: 420px !important;
   min-width: auto !important;
   width: 100% !important;
-
+  justify-content: center;
   @media (--xl-up) {
     position: fixed;
   }
@@ -55,10 +55,9 @@
   word-break: break-all;
 }
 .preview {
-  min-height: 425px;
-
+  align-self: center;
+  padding-bottom: 35px;
   @media (--md-up) {
-    margin-top: calc(var(--margin-xl) + 134px);
     padding-right: var(--margin-xl);
     padding-left: var(--margin-xl);
   }
@@ -80,7 +79,7 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  min-height: 250px;
+  min-height: 200px;
 }
 
 /*TODO move to component styles*/
