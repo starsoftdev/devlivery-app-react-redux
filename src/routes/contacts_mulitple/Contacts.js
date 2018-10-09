@@ -114,7 +114,7 @@ class Contacts extends React.Component {
               var recipents = data.map(item => item.id);
               this.props.setNewRecipients(recipents);
               localStorage.setItem(GROUP_ID_KEY, filter[0].id);
-              localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(recipents))
+              //localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(recipents))
               if (this.props.recipientMode)
                 this.props.gotoConfirm();
               else this.props.nextFlowStep()
@@ -137,7 +137,7 @@ class Contacts extends React.Component {
       }
       this.props.setNewRecipients(this.state.selContactIds);
       localStorage.removeItem(GROUP_ID_KEY);
-      localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(this.state.selContactIds))
+      //localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(this.state.selContactIds))
       if (this.props.recipientMode)
         this.props.gotoConfirm();
       else this.props.nextFlowStep()

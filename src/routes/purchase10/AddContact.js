@@ -4,7 +4,7 @@ import {Button, Form} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './AddContact.css'
 import {ContactForm, PurchaseActions, SectionHeader} from '../../components'
-import {nextFlowStep,GROUP_ID_KEY,CONTACT_IDS_KEY,gotoConfirm} from '../../reducers/purchase'
+import {nextFlowStep,GROUP_ID_KEY,CONTACT_IDS_KEY,gotoConfirm,setNewRecipients} from '../../reducers/purchase'
 import {addContact, editContact,saveFields,setContact } from '../../reducers/contacts'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
@@ -61,7 +61,8 @@ class AddContact extends React.Component {
   onNextSubmit(values){
     this.props.addContact(values, this.props.form, (contact) => {
       localStorage.removeItem(GROUP_ID_KEY)
-      localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify([contact.id]))
+      //localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify([contact.id]))
+      this.props.setNewRecipients([contact.id]);
       if(this.props.recipientMode)
         this.props.gotoConfirm();
       else this.props.nextFlowStep()
@@ -117,7 +118,8 @@ const mapDispatch = {
   saveFields,
   editContact,
   setContact,
-  gotoConfirm
+  gotoConfirm,
+  setNewRecipients
 }
 
 export default connect(mapState, mapDispatch)(Form.create({
