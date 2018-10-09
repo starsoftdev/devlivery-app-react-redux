@@ -14,6 +14,7 @@ import { FloatingLabel, CardCheckOut } from '../../components';
 import ReactCreditCard from 'react-credit-cards'
 import creditCardStyles from 'react-credit-cards/es/styles-compiled.css'
 import { makeStripePayment } from '../../reducers/purchase'
+import {TEAM_ACCOUNT} from '../../reducers/register'
 
 class User extends React.Component {
   state = {
@@ -158,7 +159,7 @@ class User extends React.Component {
     const { getFieldDecorator } = this.props.form
 
     const address = user && user.addresses && user.addresses.find(item => item.default !== null)
-
+    
     const reminderTimes = [
       { value: 0, label: 'Same Day' },
       { value: 1, label: 'Day Before' },
@@ -379,7 +380,7 @@ class User extends React.Component {
                   {getFieldDecorator(`address.company`, {
                     initialValue: address && address.company,
                     rules: [
-                      { required: true, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
+                      { required: user && user.account_type === TEAM_ACCOUNT ? true:false, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
                     ],
                   })(
                     <FloatingLabel placeholder={intl.formatMessage(messages.company)} />
