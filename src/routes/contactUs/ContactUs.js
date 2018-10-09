@@ -22,6 +22,7 @@ class ContactUs extends React.Component {
       subject: '',
       message: '',
       attachments: [],
+      email_err: null
     }
   }
 
@@ -31,14 +32,26 @@ class ContactUs extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.sendEnquiries(this.state)
-    Object.keys(this.state).map((k) => {
-      if(k!=='attachment') {
-        this.setState({[k]: ''})
-      } else {
-        this.setState({attachments: []})
+    this.setState({email_err:null});
+    this.props.sendEnquiries(this.state, (errors) =>{
+      if(errors){
+        console.log("errors",errors);
+        if(errors.hasOwnProperty('email') && errors.email.errors && errors.email.errors[0].message)
+        {
+          this.setState({email_err:errors.email.errors[0].message});
+        }
+      }
+      else{
+        Object.keys(this.state).map((k) => {
+          if(k!=='attachment') {
+            this.setState({[k]: ''})
+          } else {
+            this.setState({attachments: []})
+          }
+        })
       }
     })
+    
   }
 
   addAttachment = (e) => {
@@ -97,6 +110,10 @@ class ContactUs extends React.Component {
                   type='email'
                   required
                 />
+                {
+                  this.state.email_err &&
+                  <h5 className={s.error}>{this.state.email_err}</h5>
+                }
               </Col>
               <Col md={12} className={s.contactInput}>
                 <FloatingLabel
