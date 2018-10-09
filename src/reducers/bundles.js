@@ -4,6 +4,7 @@ import {getToken} from './user'
 import {DEFAULT_PAGE_SIZE} from '../constants'
 import has from 'lodash/has'
 import {message} from 'antd'
+import { getFormErrors, showErrorMessage } from '../utils'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -53,7 +54,10 @@ export const removeBundle = (bundle) => (dispatch, getState, {fetch}) => {
       dispatch({type: REMOVE_BUNDLE_SUCCESS})
       dispatch(getBundles())
     },
-    failure: (err) => {dispatch({type: REMOVE_BUNDLE_FAILURE})},
+    failure: (err) => {
+      showErrorMessage(err);
+      dispatch({type: REMOVE_BUNDLE_FAILURE})
+    },
   })
 }
 
