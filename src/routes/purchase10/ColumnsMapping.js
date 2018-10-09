@@ -8,7 +8,7 @@ import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import messages from './messages'
 import { injectIntl } from 'react-intl'
 import { importContacts, openUploadedContactsModal } from '../../reducers/contacts'
-import { nextFlowStep, GROUP_ID_KEY, CONTACT_IDS_KEY, gotoConfirm } from '../../reducers/purchase'
+import { nextFlowStep, GROUP_ID_KEY, CONTACT_IDS_KEY, gotoConfirm,setNewRecipients } from '../../reducers/purchase'
 
 class ColumnsMapping extends React.Component {
   componentDidMount() {
@@ -23,7 +23,8 @@ class ColumnsMapping extends React.Component {
       if (!err) {
         this.props.importContacts(values, (newrecipient) => {
           localStorage.removeItem(GROUP_ID_KEY)
-          localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(newrecipient))
+          //localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(newrecipient))
+          this.props.setNewRecipients(newrecipient);
           if (newrecipient) {
             if (this.props.recipientMode)
               this.props.gotoConfirm();
@@ -94,7 +95,8 @@ const mapDispatch = {
   openUploadedContactsModal,
   importContacts,
   nextFlowStep,
-  gotoConfirm
+  gotoConfirm,
+  setNewRecipients
 }
 
 export default injectIntl(connect(mapState, mapDispatch)(withStyles(s)(ColumnsMapping)))
