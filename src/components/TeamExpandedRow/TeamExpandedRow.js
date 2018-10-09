@@ -7,6 +7,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './TeamExpandedRow.css'
 import { FloatingLabel } from '../../components';
 import { getUserPermission, hasAnyPermission, getPermissionsOfSpecialRole } from '../../reducers/permissions'
+import {isHavePaymentPermission} from '../../utils';
 
 class TeamExpandedRow extends React.Component {
   constructor(props) {
@@ -34,27 +35,16 @@ class TeamExpandedRow extends React.Component {
 
     if (nextprops && nextprops.user_permissions) {
       if (nextprops.user_permissions.hasOwnProperty('Payments')) {
-        this.setState({ payment_permission: this.isHavePaymentPermission(nextprops.user_permissions) });
+        this.setState({ payment_permission: isHavePaymentPermission(nextprops.user_permissions) });
       }
     }
 
     if (nextprops && nextprops.selectedPermissions && this.state.picked !== undefined && nextprops.selectedPermissions.id === this.state.picked) {
-      this.setState({ special_payment_permission: this.isHavePaymentPermission(nextprops.selectedPermissions.data) });
+      this.setState({ special_payment_permission: isHavePaymentPermission(nextprops.selectedPermissions.data) });
     }
 
   }
-  isHavePaymentPermission(permissions) {
-    if(permissions.length <= 0 )
-      return false;
-    if(permissions.hasOwnProperty('Payments'))
-    {
-      var subPermission = permissions['Payments'].filter(item => item.name === 'Can pay' || item.name === 'Can pay with budget');
-      if (subPermission.length > 0)
-        return true;
-      return false;
-    }
-    return false;
-  }
+  
   componentDidMount() {
     this.props.getUserPermission();
     this.props.getUserCreatedRoles()
@@ -107,7 +97,7 @@ class TeamExpandedRow extends React.Component {
               style={{ width: '100%' }}
               onChange={this.selectChange}
               value={roles.filter(item => item.id === this.state.picked).length > 0 ? this.state.picked : undefined}
-              disabled={user.id === record.id}
+              disabled={user && user.id === record.id}
             >
               {roles && roles.map((role) =>
                 <Select.Option className={s.multiple} key={role.id} value={role.id} title={role.name}>
