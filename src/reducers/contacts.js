@@ -291,7 +291,7 @@ export const getOccasions = ({search} = {}) => (dispatch, getState, {fetch}) => 
   const {token} = dispatch(getToken())
  
   const {setupBirthday} = getState().contacts;
-
+  /*
   var url = `/occasions?${qs.stringify({
     take: 10,
     ...search ? {
@@ -299,9 +299,9 @@ export const getOccasions = ({search} = {}) => (dispatch, getState, {fetch}) => 
       filter_value: search,
     } : {},
   })}`;
-
-  if(setupBirthday)
-   url = `/occasions?filter_key=title&filter_value=Birthday&not_equal`;
+  */
+  //if(setupBirthday)
+  var url = `/occasions?filter_key=title&filter_value=Birthday&not_equal`;
  
   return fetch(url, {
     method: 'GET',
@@ -408,8 +408,8 @@ export const saveFields = (fields) => (dispatch, getState) => {
 }
 export const setupBirthday = (setupBirthday) => async(dispatch, getState) => {
   await dispatch({type: SET_BIRTHDAY_SETUP, setupBirthday})
-  if(setupBirthday)
-    dispatch(getOccasions());
+  //if(setupBirthday)
+    //dispatch(getOccasions());
 }
 export const clear = () => ({type: CLEAR})
 
