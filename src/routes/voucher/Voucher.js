@@ -1,15 +1,17 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {submitVoucher} from '../../reducers/purchase'
-import {Button, Form} from 'antd'
+import { connect } from 'react-redux'
+import { submitVoucher } from '../../reducers/purchase'
+import { Button, Form, Input } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Voucher.css'
-import {Actions,PurchaseActions, SectionHeader} from '../../components'
-import KeyHandler, {KEYPRESS} from 'react-key-handler'
+import { Actions, PurchaseActions, SectionHeader, FloatingLabel } from '../../components'
+import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import messages from './messages'
-import {VOUCHER_TEMPLATE} from '../../constants'
-import {loadFont} from '../../utils'
+import { VOUCHER_TEMPLATE } from '../../constants'
+import { loadFont } from '../../utils'
 import ContentEditable from 'react-contenteditable'
+import formMessages from '../../formMessages'
+const {TextArea} = Input;
 
 const leftMargin = 35 + 8
 const rightMargin = 30 + 8
@@ -98,7 +100,7 @@ class Voucher extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.props.submitVoucher({
-          html: this.voucher.outerHTML,
+          html: values.text,
           title: this.props.intl.formatMessage(messages.voucherHeader),
           ...values,
         })
@@ -107,10 +109,70 @@ class Voucher extends React.Component {
   }
 
   render() {
-    const {intl, flowIndex, loading, voucher} = this.props
+    const { intl, flowIndex, loading, voucher } = this.props
     // TODO fix  The prop `html` is marked as required in `ContentEditable`, but its value is `undefined`
-    const {getFieldDecorator} = this.props.form
-
+    const { getFieldDecorator } = this.props.form
+    
+    return (
+      <Form onSubmit={this.handleSubmit} className={s.form}>
+        <div className={s.content}>
+          <SectionHeader
+            className={s.header}
+            header={intl.formatMessage(messages.header)}
+            number={flowIndex + 1}
+            prefixClassName={s.headerPrefix}
+          />
+          <p className={s.description}>{intl.formatMessage(messages.description)}</p>
+         
+            <Form.Item>
+              {getFieldDecorator('from', {
+                initialValue: voucher ? voucher.from : '',
+                rules: [
+                  { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
+                ],
+              })(
+                <FloatingLabel placeholder={intl.formatMessage(messages.receiver)} />
+              )}
+            </Form.Item>
+            <Form.Item>
+              {getFieldDecorator('to', {
+                initialValue: voucher ? voucher.to : '',
+                rules: [
+                  { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
+                ],
+              })(
+                <FloatingLabel placeholder={intl.formatMessage(messages.giver)} />
+              )}
+            </Form.Item>
+            <span className={s.messageTitle}>{intl.formatMessage(messages.freeText)}</span>
+            <Form.Item>
+              {getFieldDecorator('text', {
+                initialValue: voucher ? voucher.text : '',
+                rules: [
+                  { required: true, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
+                ],
+              })(
+                <TextArea/>
+              )}
+            </Form.Item>
+          
+        </div>
+        <PurchaseActions>
+          <KeyHandler
+            keyEventName={KEYPRESS}
+            keyCode={13}
+            onKeyHandle={this.handleSubmit}
+          />
+          <Button
+            type='primary'
+            onClick={this.handleSubmit}
+          >
+            {intl.formatMessage(messages.submit)}
+          </Button>
+        </PurchaseActions>
+      </Form>
+    );
+    /*
     return (
       <React.Fragment>
         <div className={s.content}>
@@ -169,7 +231,9 @@ class Voucher extends React.Component {
           </Button>
         </PurchaseActions>
       </React.Fragment>
+      
     )
+    */
   }
 }
 
