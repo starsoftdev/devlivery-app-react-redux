@@ -588,12 +588,12 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
 
   return fetch(`/create-bundle`, {
     method: 'POST',
-    contentType: 'application/x-www-form-urlencoded',
+    contentType: 'application/json',
     body: {
       lettering: letteringTechnique,
       card_id: cardId,
       ...giftId ? {
-        gift_id: giftId,
+        gift_ids: [giftId],
       } : {},
       // TODO check if we need to send card body here
       body: cardDetails && cardDetails.body && cardDetails.body.length > 0 ? cardDetails.body : '<p></p>',
