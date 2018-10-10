@@ -53,6 +53,10 @@ export default defineMessages({
     id: 'purchase9.passwordAgain',
     defaultMessage: 'Password Again',
   },
+  haveaccount: {
+    id: 'purchase9.haveaccount',
+    defaultMessage: 'I HAVE AN ACCOUNT',
+  },
   shipAddress: {
     id: 'user.shipAddress',
     defaultMessage: 'Shipping Address',

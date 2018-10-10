@@ -1548,6 +1548,14 @@
     ]
   },
   {
+    "id": "purchase9.haveaccount",
+    "defaultMessage": "I HAVE AN ACCOUNT",
+    "message": "",
+    "files": [
+      "src/routes/purchase9/messages.js"
+    ]
+  },
+  {
     "id": "purchase9.phone",
     "defaultMessage": "Phone",
     "message": "",

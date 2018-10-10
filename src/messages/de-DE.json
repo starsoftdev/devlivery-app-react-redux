@@ -430,7 +430,7 @@
   {
     "id": "login.createAccount",
     "defaultMessage": "Create Account",
-    "message": "Konto erstellen",
+    "message": "Account erstellen",
     "files": [
       "src/routes/login/messages.js"
     ]
@@ -438,12 +438,12 @@
   {
     "id": "purchase.purchase9",
     "defaultMessage": "Create Account",
-    "message": "Konto erstellen"
+    "message": "Account erstellen"
   },
   {
     "id": "purchase9.header",
     "defaultMessage": "Create Account",
-    "message": "Konto erstellen",
+    "message": "Account erstellen",
     "files": [
       "src/routes/purchase9/messages.js"
     ]
@@ -713,7 +713,7 @@
   {
     "id": "login.verify",
     "defaultMessage": "Verification Complete!",
-    "message": "Verification Complete!",
+    "message": "verifizierung Abgeschlossen!",
     "files": [
       "src/routes/verify/messages.js"
     ]
@@ -721,7 +721,7 @@
   {
     "id": "login.verifysubmit",
     "defaultMessage": "Done",
-    "message": "Done",
+    "message": "Erledigt",
     "files": [
       "src/routes/verify/messages.js"
     ]
@@ -937,7 +937,7 @@
   {
     "id": "home.header",
     "defaultMessage": "Keep in Touch with Your Contacts",
-    "message": "Wecken Sie grosse Emotionen – mit kleinem Aufwand.",
+    "message": "Belieben Sie in Kontakt mit Ihrem Netzwerk",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -1072,7 +1072,7 @@
   {
     "id": "form.maxLength",
     "defaultMessage": "Max length is {length} characters.",
-    "message": "Maximale Anzahl Schriftzeichen ist ()",
+    "message": "Maximale anzahl an Zeichen: {length}",
     "files": [
       "src/formMessages.js"
     ]
@@ -1255,6 +1255,14 @@
     "id": "purchase9.passwordAgain",
     "defaultMessage": "Password Again",
     "message": "Passwort wiederholen",
+    "files": [
+      "src/routes/purchase9/messages.js"
+    ]
+  },
+  {
+    "id": "purchase9.haveaccount",
+    "defaultMessage": "I HAVE AN ACCOUNT",
+    "message": "Ich habe einen Account",
     "files": [
       "src/routes/purchase9/messages.js"
     ]
@@ -1543,7 +1551,7 @@
   {
     "id": "editContact.delete",
     "defaultMessage": "Delete Contact",
-    "message": "Kontakt speichern",
+    "message": "Kontakt löschen",
     "files": [
       "src/routes/editContact/messages.js"
     ]
@@ -1678,7 +1686,7 @@
   {
     "id": "setPassword.header",
     "defaultMessage": "Set Password",
-    "message": "Passwort definieren",
+    "message": "Passwort setzten",
     "files": [
       "src/routes/setPassword/messages.js"
     ]
@@ -1686,7 +1694,7 @@
   {
     "id": "setPassword.title",
     "defaultMessage": "Set Password",
-    "message": "Passwort definieren",
+    "message": "Passwort setzten",
     "files": [
       "src/routes/setPassword/messages.js"
     ]
@@ -2101,7 +2109,7 @@
   {
     "id": "columnsMappingForm.notInFile",
     "defaultMessage": "Not in File",
-    "message": "Not in File",
+    "message": "Nicht in der Datei enthalten",
     "files": [
       "src/components/ColumnsMappingForm/messages.js"
     ]
@@ -2141,7 +2149,7 @@
   {
     "id": "importContacts.subHeader",
     "defaultMessage": "Match the labels below with the corresponding options in the dropdown select field.",
-    "message": "Match the labels below with the corresponding options in the dropdown select field.",
+    "message": "Ordnen Sie die Spalten den entsprechenden Optionen im Dropdown-Auswahlfeld zu.",
     "files": [
       "src/routes/importContacts/messages.js"
     ]
@@ -2149,7 +2157,7 @@
   {
     "id": "importContacts.submit",
     "defaultMessage": "Save Contacts",
-    "message": "Save Contacts",
+    "message": "Kontakt speichern",
     "files": [
       "src/routes/importContacts/messages.js"
     ]
@@ -2478,7 +2486,7 @@
   {
     "id": "purchaseActions.purchase9",
     "defaultMessage": "Create Account",
-    "message": "Create Account",
+    "message": "Account erstellen",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2494,7 +2502,7 @@
   {
     "id": "form.minLength",
     "defaultMessage": "The field must be at least {length} characters.",
-    "message": "The field must be at least {length} characters.",
+    "message": "Dieses Wort muss mindestens {length} Worte enthalten.",
     "files": [
       "src/formMessages.js"
     ]
@@ -2780,7 +2788,7 @@
   {
     "id": "contactGroups.confirmRemoving",
     "defaultMessage": "Are you sure you want to delete?",
-    "message": "Are you sure you want to delete?",
+    "message": "Sind Sie sicher das Sie diesen Inhalt löschen wollen?",
     "files": [
       "src/routes/contactGroups/messages.js"
     ]
@@ -2788,7 +2796,7 @@
   {
     "id": "contactGroups.acceptRemoving",
     "defaultMessage": "Yes",
-    "message": "Yes",
+    "message": "Ja",
     "files": [
       "src/routes/contactGroup/messages.js",
       "src/routes/contactGroups/messages.js",
@@ -2811,7 +2819,7 @@
   {
     "id": "contacts.confirmRemoving",
     "defaultMessage": "Are you sure you want to delete?",
-    "message": "Are you sure you want to delete?",
+    "message": "Sind Sie sicher das Sie diesen Inhalt löschen wollen?",
     "files": [
       "src/routes/contacts/messages.js",
       "src/routes/contacts_mulitple/messages.js",
@@ -3404,7 +3412,7 @@
   {
     "id": "register4.skip",
     "defaultMessage": "skip",
-    "message": "skip",
+    "message": "Weiter oder Überspringen?",
     "files": [
       "src/routes/register4/messages.js"
     ]

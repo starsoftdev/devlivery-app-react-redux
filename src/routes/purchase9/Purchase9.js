@@ -61,7 +61,7 @@ class Purchase9 extends React.Component {
           />
           <div>
             <Link to={{ name: "login", params: { inpurchase: true } }}>
-              <h4 className={s.loginbutton}>I HAVE AN ACCOUNT</h4>
+              <h4 className={s.loginbutton}>{intl.formatMessage(messages.haveaccount)}</h4>
             </Link>
           </div>
           <Form.Item>
