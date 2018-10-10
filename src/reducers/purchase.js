@@ -53,6 +53,7 @@ export const SET_CARD_DETAILS = 'Purchase.SET_CARD_DETAILS'
 export const SET_GIFT_TYPE = 'Purchase.SET_GIFT_TYPE'
 export const CONTINUE_WITHOUT_GIFT = 'Purchase.CONTINUE_WITHOUT_GIFT'
 export const SET_GIFT = 'Purchase.SET_GIFT'
+export const SET_GIFTIDS = 'Purchase.SET_GIFTIDS'
 export const SET_PAYMENT_METHOD = 'Purchase.SET_PAYMENT_METHOD'
 
 export const GET_OCCASIONS_REQUEST = 'Purchase.GET_OCCASIONS_REQUEST'
@@ -459,8 +460,23 @@ export const setGiftType = (giftType) => ({ type: SET_GIFT_TYPE, giftType })
 
 export const setCard = (card) => ({ type: SET_CARD, card })
 
-export const setGift = (gift) => ({ type: SET_GIFT, gift })
-
+const GIFT_IDS = 'gift_ids'
+export const setGift = (gift) => (dispatch, getState, { fetch }) => {
+  dispatch({ type: SET_GIFT, gift })
+}
+export const buyMoreGift = () => (dispatch, getState, { fetch }) => {
+  const {giftId} = getState().purchase;
+  var giftIds =  localStorage.getItem(GIFT_IDS);
+  if(giftIds ===  null)
+    giftIds = giftId ? [giftId]:[];
+  else {
+    giftIds = JSON.parse(giftIds);
+    if(giftId && !giftIds.includes(giftId))
+      giftIds.push(giftId);
+  }
+  localStorage.setItem(GIFT_IDS, JSON.stringify(giftIds))
+  dispatch({ type: SET_GIFTIDS, giftIds })
+}
 export const getGifts = (params = {}) => (dispatch, getState, { fetch }) => {
   dispatch({ type: GET_GIFTS_REQUEST, params })
   const { giftType } = getState().purchase
@@ -586,12 +602,50 @@ export const submitGift = (refresh = false) => async (dispatch, getState) => {
 
 export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
-  const { letteringTechnique, cardId, gift, giftId, flow, cardDetails, saved } = getState().purchase
+  const { letteringTechnique, cardId, gift, giftId, flow, giftIds, saved,bundleId } = getState().purchase
   dispatch({ type: ADD_BUNDLE_REQUEST })
+
+  var gift_ids = giftIds;
+  if(!gift_ids.includes(giftId))
+  {
+    gift_ids.push(giftId);
+    dispatch(buyMoreGift())
+  }
+  
+  if(bundleId)
+  {
+    console.log(`/sync-bundle-gifts`,{
+      bundle_id: bundleId,
+      gift_ids,
+    });
+    return fetch(`/sync-bundle-gifts`, {
+      method: 'POST',
+      contentType: 'application/json',
+      body: {
+        bundle_id: bundleId,
+        gift_ids,
+      },
+      token,
+      success: (res) => {
+        dispatch({ type: ADD_BUNDLE_SUCCESS, bundle: res.data })
+        if (flow.key === EDIT_BUNDLE_FLOW.key) {
+          if (goToNext) {
+            dispatch(nextFlowStep())
+          }
+          message.success('Bundle created.')
+        }
+      },
+      failure: (err) => {
+        console.log("err",err);
+        showErrorMessage(err);
+        dispatch({ type: ADD_BUNDLE_FAILURE })
+      },
+    })
+  }
   console.log(`/create-bundle`,{
     lettering: letteringTechnique,
     card_id: cardId,
-    gift_ids: giftId ? [giftId]:[],
+    gift_ids: giftIds.length > 0 ? giftIds : giftId ? giftId : [],
     saved
   });
   return fetch(`/create-bundle`, {
@@ -600,7 +654,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
     body: {
       lettering: letteringTechnique,
       card_id: cardId,
-      gift_ids: giftId ? [giftId]:[],
+      gift_ids,
       saved
     },
     token,
@@ -1058,7 +1112,10 @@ export const getOrderDetails = (orderId) => (dispatch, getState, { fetch }) => {
 
         dispatch({ type: GET_ORDER_DETAILS_SUCCESS, order: res.data })
       },
-      failure: () => {
+      failure: (err) => {
+        console.log(`/order-confirmation?${qs.stringify({
+          order_id: orderId,
+        })}`,err);
         dispatch({ type: GET_ORDER_DETAILS_FAILURE })
       },
     })
@@ -1169,7 +1226,9 @@ export const initialState = {
   newrecipient: [],
   saved: 0,
   orientation: null,
-  recipientMode: null
+  recipientMode: null,
+  giftId:null,
+  giftIds:[]
 }
 
 export default createReducer(initialState, {
@@ -1288,6 +1347,9 @@ export default createReducer(initialState, {
   [SET_GIFT]: (state, { gift }) => ({
     gift,
     giftId: gift && gift.id
+  }),
+  [SET_GIFTIDS]: (state, { giftIds }) => ({
+    giftIds
   }),
   [GET_GIFTS_REQUEST]: (state, { params }) => ({
     giftType: has(params, 'giftType') ? params.giftType : state.giftType,

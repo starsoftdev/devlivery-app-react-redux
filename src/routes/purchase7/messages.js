@@ -10,8 +10,8 @@ export default defineMessages({
     defaultMessage: 'Add Gift?',
   },
   submit: {
-    id: 'purchase7.submit',
-    defaultMessage: 'Submit',
+    id: 'purchase5.submit',
+    defaultMessage: 'Next',
   },
   continueWithoutGift: {
     id: 'purchase7.continueWithoutGift',

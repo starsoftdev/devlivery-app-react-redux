@@ -1357,6 +1357,7 @@
       "src/routes/purchase3/messages.js",
       "src/routes/purchase4/messages.js",
       "src/routes/purchase5/messages.js",
+      "src/routes/purchase7/messages.js",
       "src/routes/purchase8/messages.js",
       "src/routes/purchase12/messages.js"
     ]
