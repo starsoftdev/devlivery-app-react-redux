@@ -94,7 +94,7 @@ class Purchase9 extends React.Component {
           <Form.Item>
             {getFieldDecorator('phone', {
               rules: [
-                { required: true, message: intl.formatMessage(formMessages.required) },
+                { required: false, message: intl.formatMessage(formMessages.required) },
               ],
             })(
               <FloatingLabel placeholder={intl.formatMessage(messages.phone)} />
@@ -155,7 +155,7 @@ class Purchase9 extends React.Component {
             <Form.Item>
               {getFieldDecorator(`company`, {
                 rules: [
-                  { required: true, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
+                  {required: this.props.form.getFieldValue('account_type') === TEAM_ACCOUNT ? true:false , min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})},
                 ],
               })(
                 <FloatingLabel placeholder={intl.formatMessage(messages.company)} />

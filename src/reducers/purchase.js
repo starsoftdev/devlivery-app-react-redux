@@ -444,8 +444,10 @@ export const getCards = (params = {}) => (dispatch, getState, { fetch }) => {
 
 export const setCardSize = (cardSize) => ({ type: SET_CARD_SIZE, cardSize })
 
+export const CARDDETAILS = "card_details";
 export const submitCardDetails = (cardDetails) => async (dispatch, getState) => {
   dispatch({ type: SET_CARD_DETAILS, cardDetails })
+  localStorage.setItem(CARDDETAILS,JSON.stringify(cardDetails));
   const { bundle, flow } = getState().purchase;
   if (bundle && bundle.id)
     dispatch({ type: UPDATE_BUNDLE_BODY, cardDetails })
@@ -455,7 +457,11 @@ export const submitCardDetails = (cardDetails) => async (dispatch, getState) => 
   }
   dispatch(nextFlowStep())
 }
-
+export const loadCardDetails = () => async (dispatch, getState) => {
+  var cardDetails = await localStorage.getItem(CARDDETAILS);
+  cardDetails = JSON.parse(cardDetails)
+  dispatch({ type: SET_CARD_DETAILS, cardDetails })
+}
 export const setGiftType = (giftType) => ({ type: SET_GIFT_TYPE, giftType })
 
 export const setCard = (card) => ({ type: SET_CARD, card })
@@ -700,15 +706,16 @@ export const makeOrder = () => (dispatch, getState, { fetch, history }) => {
         bundle_id: parseInt(bundleId),
       },
       token,
-      success: (res) => {
+      success: async (res) => {
 
         const order = res.data
         dispatch({ type: MAKE_ORDER_SUCCESS, order })
-        dispatch(addCardBody(order.id))
-        dispatch(getDeliveryLocations(order.id))
-        dispatch(getDeliveryOccasions(order.id))
-        dispatch(addRecipientsOrder(order.id))
-
+        await dispatch(addCardBody(order.id))
+        await dispatch(getDeliveryLocations(order.id))
+        await dispatch(getDeliveryOccasions(order.id))
+        await dispatch(addRecipientsOrder(order.id))
+        
+        
         dispatch({ type: SET_ORIENTATION, orientation: order.print_orientation });
         //dispatch({type: GET_BUNDLE_DETAILS_SUCCESS, bundle: getState().purchase.cardDetails});
       },
@@ -731,8 +738,12 @@ export const addCardBody = (orderId) => (dispatch, getState, { fetch }) => {
       html1: cardDetails && cardDetails.body && cardDetails.body.length > 0 ? cardDetails.body : '<p></p>',
     },
     token,
-    success: () => dispatch({ type: ADD_CARD_BODY_SUCCESS }),
-    failure: () => dispatch({ type: ADD_CARD_BODY_FAILURE }),
+    success: (res) => {
+      dispatch({ type: ADD_CARD_BODY_SUCCESS })
+    },
+    failure: (err) => {
+      dispatch({ type: ADD_CARD_BODY_FAILURE })
+    },
   })
 }
 
