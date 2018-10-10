@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Table, Button, Radio } from 'antd'
+import {Table, Button, Radio, Popconfirm } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './CardCheckOut.css'
 import messages from './messages'
@@ -9,7 +9,8 @@ import Mastercard from '../../static/payment/mastercard.svg';
 import Discover from '../../static/payment/discover.svg';
 import Amex from '../../static/payment/amex.svg';
 import Fault from '../../static/payment/default.svg';
-import {setDefaultCard} from '../../reducers/user';
+import {setDefaultCard,deleteCard} from '../../reducers/user';
+import RemoveIcon from '../../static/remove.svg'
 
 class CardCheckOut extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class CardCheckOut extends React.Component {
   render() {
     // TODO add table loading
     const {
-      cards
+      cards,intl
     } = this.props
     
     const columns = [
@@ -72,6 +73,31 @@ class CardCheckOut extends React.Component {
         key: '',
         render: (record) => record.exp_month+' / ' +record.exp_year
       },
+      {
+        title: '',
+        dataIndex: '',
+        key: 'actions',
+        render: (data) => {
+          if(data.default)
+           return null;
+          return (
+            <div>
+              <Popconfirm
+                title={intl.formatMessage(messages.confirmRemoving)}
+                onConfirm={() => {
+                  this.setState({disabled:true});
+                  this.props.deleteCard(data.id,()=>this.setState({disabled:false}))
+                }}
+                okText={intl.formatMessage(messages.acceptRemoving)}
+              >
+                <a className={s.removeIcon}>
+                  <RemoveIcon/>
+                </a>
+              </Popconfirm>
+            </div>
+          )
+        }
+      },
     ]
     
     return (
@@ -96,7 +122,8 @@ const mapState = state => ({
 })
 
 const mapDispatch = {
-  setDefaultCard
+  setDefaultCard,
+  deleteCard
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(CardCheckOut))
