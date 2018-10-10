@@ -3283,6 +3283,30 @@
     ]
   },
   {
+    "id": "register4.cancel",
+    "defaultMessage": "Cancel",
+    "message": "",
+    "files": [
+      "src/routes/register4/messages.js"
+    ]
+  },
+  {
+    "id": "register4.resendmsg",
+    "defaultMessage": "You've already invited this person. Do you wish to resend your invite?",
+    "message": "",
+    "files": [
+      "src/routes/register4/messages.js"
+    ]
+  },
+  {
+    "id": "register4.resend",
+    "defaultMessage": "Resend",
+    "message": "",
+    "files": [
+      "src/routes/register4/messages.js"
+    ]
+  },
+  {
     "id": "user.address",
     "defaultMessage": "Address",
     "message": "",

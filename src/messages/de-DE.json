@@ -3418,6 +3418,30 @@
     ]
   },
   {
+    "id": "register4.resend",
+    "defaultMessage": "Resend",
+    "message": "nochmlas Senden",
+    "files": [
+      "src/routes/register4/messages.js"
+    ]
+  },
+  {
+    "id": "register4.cancel",
+    "defaultMessage": "Cancel",
+    "message": "Abrechen",
+    "files": [
+      "src/routes/register4/messages.js"
+    ]
+  },
+  {
+    "id": "register4.resendmsg",
+    "defaultMessage": "You've already invited this person. Do you wish to resend your invite?",
+    "message": "Sie haben diese Person bereits eingeladen, möchten Sie sie erneut einladen?",
+    "files": [
+      "src/routes/register4/messages.js"
+    ]
+  },
+  {
     "id": "user.address",
     "defaultMessage": "Address",
     "message": "Adresszusatz",

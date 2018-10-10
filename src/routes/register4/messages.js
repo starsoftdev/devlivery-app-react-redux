@@ -29,4 +29,16 @@ export default defineMessages({
     id: 'register4.skip',
     defaultMessage: 'skip',
   },
+  resend: {
+    id: 'register4.resend',
+    defaultMessage: 'Resend',
+  },
+  cancel: {
+    id: 'register4.cancel',
+    defaultMessage: 'Cancel',
+  },
+  resendmsg: {
+    id: 'register4.resendmsg',
+    defaultMessage: "You've already invited this person. Do you wish to resend your invite?",
+  }
 })
