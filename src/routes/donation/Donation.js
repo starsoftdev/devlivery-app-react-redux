@@ -1,27 +1,31 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {submitDonation, setDonationOrg} from '../../reducers/purchase'
-import {Button, Col, Form, Input, Row, Checkbox} from 'antd'
+import { connect } from 'react-redux'
+import { submitDonation, setDonationOrg } from '../../reducers/purchase'
+import { Button, Col, Form, Input, Row, Checkbox } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Donation.css'
-import {Actions, Card, PurchaseActions, SectionHeader} from '../../components'
-import {ALPHABET} from '../../constants'
-import KeyHandler, {KEYPRESS} from 'react-key-handler'
+import { Actions, Card, PurchaseActions, SectionHeader } from '../../components'
+import { ALPHABET } from '../../constants'
+import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import messages from './messages'
 import formMessages from '../../formMessages'
-import {FloatingLabel} from '../../components';
+import { FloatingLabel } from '../../components';
 const DONATION_STATE = 'donation_state'
 class Donation extends React.Component {
   state = {
-    amountValue:'',
+    amountValue: '',
     hideAmount: false
   }
-  handleSubmit = (e) => {
+  constructor(props){
+    super(props)
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleSubmit = (e,refresh=false) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err && this.props.donationOrg) {
         localStorage.setItem(DONATION_STATE, JSON.stringify(values));
-        this.props.submitDonation(values)
+        this.props.submitDonation(values,refresh)
       }
     })
   }
@@ -34,8 +38,8 @@ class Donation extends React.Component {
     this.setState({ ...initState });
   }
   render() {
-    const {donationOrg, setDonationOrg, donationOrgs, intl, flowIndex, loading, donationAmount, hideAmount} = this.props
-    const {getFieldDecorator} = this.props.form
+    const { donationOrg, setDonationOrg, donationOrgs, intl, flowIndex, loading, donationAmount, hideAmount } = this.props
+    const { getFieldDecorator } = this.props.form
     // TODO make amount input as InputNumber field
     return (
       <React.Fragment>
@@ -65,17 +69,17 @@ class Donation extends React.Component {
               )}
             </Row>
           ) : !loading.donationOrgs ? (
-            <div style={{textAlign: 'center'}}>{'No organizations.'}</div>
+            <div style={{ textAlign: 'center' }}>{'No organizations.'}</div>
           ) : null}
           <Form>
             <Form.Item className={s.amount}>
               {getFieldDecorator('donationAmount', {
                 initialValue: donationAmount,
                 rules: [
-                  {required: true, message: intl.formatMessage(formMessages.required)},
+                  { required: true, message: intl.formatMessage(formMessages.required) },
                 ],
               })(
-                <FloatingLabel placeholder={intl.formatMessage(messages.amount)}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.amount)} />
               )}
             </Form.Item>
             <Form.Item>
@@ -89,15 +93,22 @@ class Donation extends React.Component {
           </Form>
         </div>
         <PurchaseActions>
+          <Button
+            type='primary'
+            disabled={!donationOrg}
+            onClick={(e)=>this.handleSubmit(e,true)}
+          >
+            {'buy more products'}
+          </Button>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={this.handleSubmit}
+            onKeyHandle={(e)=>this.handleSubmit(e)}
           />
           <Button
             type='primary'
             disabled={!donationOrg}
-            onClick={this.handleSubmit}
+            onClick={(e)=>this.handleSubmit(e)}
           >
             {intl.formatMessage(messages.submit)}
           </Button>

@@ -1,28 +1,28 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {getGifts, setGift, submitGift} from '../../reducers/purchase'
-import {Button, Col, Layout, Row, Select} from 'antd'
+import { connect } from 'react-redux'
+import { getGifts, setGift, submitGift } from '../../reducers/purchase'
+import { Button, Col, Layout, Row, Select } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase8.css'
-import {Card, Header, Preview, PurchaseActions, SectionHeader} from '../../components'
+import { Card, Header, Preview, PurchaseActions, SectionHeader } from '../../components'
 import cn from 'classnames'
 import messages from './messages'
-import {GIFT_IMAGES_PROP, GIFT_TYPES} from '../../constants'
-import KeyHandler, {KEYPRESS} from 'react-key-handler'
+import { GIFT_IMAGES_PROP, GIFT_TYPES } from '../../constants'
+import KeyHandler, { KEYPRESS } from 'react-key-handler'
 
 class Purchase8 extends React.Component {
   state = {
     previewCollapsed: false,
-    disableSubmit:false
+    disableSubmit: false
   }
 
   onPreviewCollapse = (previewCollapsed) => {
-    this.setState({previewCollapsed})
+    this.setState({ previewCollapsed })
   }
 
   render() {
-    const {previewCollapsed,disableSubmit} = this.state
-    const {gift, setGift, submitGift, intl, flowIndex, gifts, getGifts, giftType} = this.props
+    const { previewCollapsed, disableSubmit } = this.state
+    const { gift, setGift, submitGift, intl, flowIndex, gifts, getGifts, giftType } = this.props
 
     return (
       <React.Fragment>
@@ -37,7 +37,7 @@ class Purchase8 extends React.Component {
             </Button>
           )}
           <Layout.Content className={cn(s.contentWrapper, gift && !previewCollapsed && s.withPreview)}>
-            <Header className={s.layoutHeader}/>
+            <Header className={s.layoutHeader} />
             <div className={s.content}>
               <SectionHeader
                 className={s.header}
@@ -49,7 +49,7 @@ class Purchase8 extends React.Component {
                   className={s.giftType}
                   allowClear
                   placeholder={intl.formatMessage(messages.filterByGiftType)}
-                  onChange={(giftType) => getGifts({giftType})}
+                  onChange={(giftType) => getGifts({ giftType })}
                   value={giftType}
                 >
                   {GIFT_TYPES(intl).map((item) =>
@@ -66,7 +66,7 @@ class Purchase8 extends React.Component {
                       title={
                         <React.Fragment>
                           {item.title}
-                          <br/>
+                          <br />
                           <span className={s.price}>
                             {item.price}
                             <span className={s.currency}>{item.currency}</span>
@@ -92,13 +92,22 @@ class Purchase8 extends React.Component {
           />
         </div>
         <PurchaseActions>
+          <Button
+            type='primary'
+            disabled={!gift || disableSubmit}
+            onClick={() => {
+              this.setState({ disableSubmit: true });
+              submitGift(true)
+            }}
+          >
+            {'buy more products'}
+          </Button>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
             onKeyHandle={() => {
-              if(gift || !disableSubmit) 
-              {
-                this.setState({disableSubmit:true});
+              if (gift || !disableSubmit) {
+                this.setState({ disableSubmit: true });
                 submitGift()
               }
             }}
@@ -107,7 +116,7 @@ class Purchase8 extends React.Component {
             type='primary'
             disabled={!gift || disableSubmit}
             onClick={() => {
-              this.setState({disableSubmit:true});
+              this.setState({ disableSubmit: true });
               submitGift()
             }}
           >
