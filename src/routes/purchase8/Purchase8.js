@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getGifts, setGift, submitGift } from '../../reducers/purchase'
+import { getGifts, setGift, submitGift,buyMoreGift } from '../../reducers/purchase'
 import { Button, Col, Layout, Row, Select } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase8.css'
@@ -22,7 +22,7 @@ class Purchase8 extends React.Component {
 
   render() {
     const { previewCollapsed, disableSubmit } = this.state
-    const { gift, setGift, submitGift, intl, flowIndex, gifts, getGifts, giftType } = this.props
+    const { gift, setGift,buyMoreGift, submitGift, intl, flowIndex, gifts, getGifts, giftType } = this.props
 
     return (
       <React.Fragment>
@@ -97,6 +97,7 @@ class Purchase8 extends React.Component {
             disabled={!gift || disableSubmit}
             onClick={() => {
               this.setState({ disableSubmit: true });
+              buyMoreGift();
               submitGift(true)
             }}
           >
@@ -140,6 +141,7 @@ const mapDispatch = {
   setGift,
   submitGift,
   getGifts,
+  buyMoreGift
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase8))

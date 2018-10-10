@@ -7,7 +7,7 @@ import PlusGiftIcon from '../../static/plus_round.svg'
 
 class OrderItems extends React.Component {
   render() {
-    const {voucher, donation, card, gift} = this.props
+    const {voucher, donation, card, gift,giftcount} = this.props
 
     return (
       <div className={s.orderInfo}>
@@ -33,7 +33,7 @@ class OrderItems extends React.Component {
               className={s.itemImage}
             />
             <p className={s.cardInfo}>
-              <span className={s.cardType}>gift.title}</span>
+              <span className={s.cardType}>{"GIFT ("+giftcount+")"}</span>
               <br/>
               <span className={s.cardPrice}>{gift.price}</span>
               <span className={s.cardPriceCurrency}>{gift.currency}</span>
