@@ -130,6 +130,7 @@ export const GIFT_PURCHASE_FLOW = {
     PURCHASE3_ROUTE,
     PURCHASE4_ROUTE,
     PURCHASE5_ROUTE,
+    PURCHASE9_ROUTE,
     PURCHASE10_ROUTE,
     PURCHASE6_ROUTE,
     PURCHASE11_ROUTE,
@@ -160,6 +161,7 @@ export const EVENT_PURCHASE_FLOW = {
 export const ORDER_BUNDLE_FLOW = {
   key: 'order-bundle-flow',
   routes: [
+    PURCHASE9_ROUTE,
     PURCHASE10_ROUTE,
     PURCHASE6_ROUTE,
     PURCHASE11_ROUTE,
@@ -171,6 +173,7 @@ export const ORDER_BUNDLE_FLOW = {
 export const ORDER_VOUCHER_FLOW = {
   key: 'order-voucher-flow',
   routes: [
+    PURCHASE9_ROUTE,
     PURCHASE10_ROUTE,
     PURCHASE6_ROUTE,
     VOUCHER_ROUTE,
@@ -184,10 +187,11 @@ export const ORDER_CARD_FLOW = {
   key: 'order-card-flow',
   routes: [
     PURCHASE2_ROUTE,
+    PURCHASE9_ROUTE,
+    PURCHASE10_ROUTE,
     PURCHASE6_ROUTE,
     PURCHASE7_ROUTE,
     PURCHASE8_ROUTE,
-    PURCHASE10_ROUTE,
     PURCHASE11_ROUTE,
     PURCHASE12_ROUTE,
     PURCHASE13_ROUTE,
