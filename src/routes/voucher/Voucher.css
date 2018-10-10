@@ -55,5 +55,18 @@
   height: 50px;
   display: block;
   padding-top: 20px;
-  line-height: 15px;
+  line-height: 30px;
+}
+.voucherForm{
+  width: 400px;
+  height: 450px;
+  background-color: white;
+  padding: 35px;
+}
+.voucherFormItem {
+  margin-top: 10px;
+  margin-bottom: 10px
+}
+.voucherarea {
+  max-height: 160px;
 }

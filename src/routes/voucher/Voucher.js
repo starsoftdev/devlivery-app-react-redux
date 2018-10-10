@@ -11,7 +11,9 @@ import { VOUCHER_TEMPLATE } from '../../constants'
 import { loadFont } from '../../utils'
 import ContentEditable from 'react-contenteditable'
 import formMessages from '../../formMessages'
-const {TextArea} = Input;
+import cn from 'classnames';
+
+const { TextArea } = Input;
 
 const leftMargin = 35 + 8
 const rightMargin = 30 + 8
@@ -95,7 +97,7 @@ class Voucher extends React.Component {
     loadFont('Alex Brush')
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = (e, refresh = false) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -103,7 +105,7 @@ class Voucher extends React.Component {
           html: values.text,
           title: this.props.intl.formatMessage(messages.voucherHeader),
           ...values,
-        })
+        }, refresh)
       }
     })
   }
@@ -112,7 +114,7 @@ class Voucher extends React.Component {
     const { intl, flowIndex, loading, voucher } = this.props
     // TODO fix  The prop `html` is marked as required in `ContentEditable`, but its value is `undefined`
     const { getFieldDecorator } = this.props.form
-    
+
     return (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -122,9 +124,8 @@ class Voucher extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
-          <p className={s.description}>{intl.formatMessage(messages.description)}</p>
-         
-            <Form.Item>
+          <div className={cn(s.voucherForm)}>
+            <Form.Item className={cn(s.voucherFormItem)}>
               {getFieldDecorator('from', {
                 initialValue: voucher ? voucher.from : '',
                 rules: [
@@ -134,7 +135,7 @@ class Voucher extends React.Component {
                 <FloatingLabel placeholder={intl.formatMessage(messages.receiver)} />
               )}
             </Form.Item>
-            <Form.Item>
+            <Form.Item className={cn(s.voucherFormItem)}>
               {getFieldDecorator('to', {
                 initialValue: voucher ? voucher.to : '',
                 rules: [
@@ -144,28 +145,34 @@ class Voucher extends React.Component {
                 <FloatingLabel placeholder={intl.formatMessage(messages.giver)} />
               )}
             </Form.Item>
-            <span className={s.messageTitle}>{intl.formatMessage(messages.freeText)}</span>
-            <Form.Item>
+            <label className={s.messageTitle}>{intl.formatMessage(messages.freeText)}</label>
+            <Form.Item className={cn(s.voucherFormItem)}>
               {getFieldDecorator('text', {
                 initialValue: voucher ? voucher.text : '',
                 rules: [
                   { required: true, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
                 ],
               })(
-                <TextArea/>
+                <TextArea className={s.voucherarea}/>
               )}
             </Form.Item>
-          
+          </div>
         </div>
         <PurchaseActions>
+          <Button
+            type='primary'
+            onClick={(e) => this.handleSubmit(e, true)}
+          >
+            {'buy more products'}
+          </Button>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={this.handleSubmit}
+            onKeyHandle={(e) => this.handleSubmit(e)}
           />
           <Button
             type='primary'
-            onClick={this.handleSubmit}
+            onClick={(e) => this.handleSubmit(e)}
           >
             {intl.formatMessage(messages.submit)}
           </Button>

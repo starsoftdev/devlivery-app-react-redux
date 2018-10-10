@@ -236,7 +236,7 @@ export const setFlowFromSelectGift = (gift) => (dispatch, getState) => {
 }
 export const setFlowPayment = (order) => (dispatch, getState) => {
   dispatch(clear())
-  dispatch({type: MAKE_ORDER_SUCCESS, order })
+  dispatch({ type: MAKE_ORDER_SUCCESS, order })
   dispatch(setFlow(PAYMENT_FLOW))
 }
 export const setFlowIndex = () => (dispatch, getState) => {
@@ -572,33 +572,35 @@ export const continueWithoutGift = () => async (dispatch, getState) => {
   dispatch(nextFlowStep(1))
 }
 
-export const submitGift = () => async (dispatch, getState) => {
+export const submitGift = (refresh = false) => async (dispatch, getState) => {
   const { flow } = getState().purchase
   if (flow.key !== EDIT_BUNDLE_FLOW.key) {
     await dispatch(addBundle())
     await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
   }
-  dispatch(nextFlowStep())
+  if (refresh) {
+    dispatch(nextFlowStep(-2))
+  }
+  else dispatch(nextFlowStep())
 }
 
 export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   const { letteringTechnique, cardId, gift, giftId, flow, cardDetails, saved } = getState().purchase
   dispatch({ type: ADD_BUNDLE_REQUEST })
-
+  console.log(`/create-bundle`,{
+    lettering: letteringTechnique,
+    card_id: cardId,
+    gift_ids: giftId ? [giftId]:[],
+    saved
+  });
   return fetch(`/create-bundle`, {
     method: 'POST',
     contentType: 'application/json',
     body: {
       lettering: letteringTechnique,
       card_id: cardId,
-      ...giftId ? {
-        gift_ids: [giftId],
-      } : {},
-      // TODO check if we need to send card body here
-      body: cardDetails && cardDetails.body && cardDetails.body.length > 0 ? cardDetails.body : '<p></p>',
-      // TODO backend can't get undefined value for title
-      ...pickBy(values, identity),
+      gift_ids: giftId ? [giftId]:[],
       saved
     },
     token,
@@ -612,6 +614,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
       }
     },
     failure: (err) => {
+      console.log("err",err);
       showErrorMessage(err);
       dispatch({ type: ADD_BUNDLE_FAILURE })
     },
@@ -749,7 +752,7 @@ export const makePaypalPayment = () => (dispatch, getState, { fetch }) => {
   if (!orderId) {
     return
   }
-  
+
   dispatch({ type: MAKE_PAYPAL_PAYMENT_REQUEST })
   return fetch(`/payments/paypal/charge/${orderId}`, {
     method: 'POST',
@@ -790,7 +793,7 @@ export const executePaypalPayment = ({ paymentId, paypalToken, payerId }) => (di
     return
   }
   dispatch({ type: EXECUTE_PAYPAL_PAYMENT_REQUEST })
-  
+
   return fetch('/payments/paypal/execute', {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
@@ -911,17 +914,17 @@ export const submitGiftType = () => (dispatch, getState) => {
   dispatch(nextFlowStep())
 }
 
-export const submitVoucher = (voucher) => async (dispatch, getState) => {
+export const submitVoucher = (voucher, refresh = false) => async (dispatch, getState) => {
   await dispatch({ type: SUBMIT_VOUCHER, voucher })
   const { flow } = getState().purchase
   if (flow.key === EDIT_BUNDLE_FLOW.key) {
     dispatch(nextFlowStep())
   } else {
-    dispatch(confirmVoucher())
+    dispatch(confirmVoucher(null, refresh))
   }
 }
 
-export const confirmVoucher = (bundleValues) => async (dispatch, getState, { fetch }) => {
+export const confirmVoucher = (bundleValues, refresh) => async (dispatch, getState, { fetch }) => {
   await dispatch(addBundle(bundleValues, false))
   const { token } = dispatch(getToken())
   const { bundleId, voucher: { html, ...values } } = getState().purchase
@@ -941,7 +944,9 @@ export const confirmVoucher = (bundleValues) => async (dispatch, getState, { fet
     success: async (res) => {
       await dispatch({ type: CONFIRM_VOUCHER_SUCCESS })
       await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
-      dispatch(nextFlowStep())
+      if (refresh)
+        dispatch(nextFlowStep(-2))
+      else dispatch(nextFlowStep())
     },
     failure: (err) => {
       showErrorMessage(err);
@@ -950,17 +955,17 @@ export const confirmVoucher = (bundleValues) => async (dispatch, getState, { fet
   })
 }
 
-export const submitDonation = (donation) => async (dispatch, getState) => {
+export const submitDonation = (donation, refresh = false) => async (dispatch, getState) => {
   await dispatch({ type: SUBMIT_DONATION, donation })
   const { flow } = getState().purchase
   if (flow.key === EDIT_BUNDLE_FLOW.key) {
     dispatch(nextFlowStep())
   } else {
-    dispatch(confirmDonation())
+    dispatch(confirmDonation(null, refresh))
   }
 }
 
-export const confirmDonation = (bundleValues) => async (dispatch, getState, { fetch }) => {
+export const confirmDonation = (bundleValues, refresh) => async (dispatch, getState, { fetch }) => {
   await dispatch(addBundle(bundleValues, false))
   const { token } = dispatch(getToken())
   const { donationOrg, bundleId, donationAmount, hideAmount } = getState().purchase
@@ -980,7 +985,9 @@ export const confirmDonation = (bundleValues) => async (dispatch, getState, { fe
     token,
     success: () => {
       dispatch({ type: CONFIRM_DONATION_SUCCESS })
-      dispatch(nextFlowStep())
+      if (refresh)
+        dispatch(nextFlowStep(-2))
+      else dispatch(nextFlowStep())
     },
     failure: () => {
       dispatch({ type: CONFIRM_DONATION_FAILURE })
@@ -1045,9 +1052,9 @@ export const getOrderDetails = (orderId) => (dispatch, getState, { fetch }) => {
       method: 'GET',
       token,
       success: (res) => {
-        const newrecipient = res.data.recipients.map(item=>item.contact.id);
-        dispatch({ type: SET_NEW_RECIPIENT, newrecipient})
-        localStorage.setItem(CONTACT_IDS_KEY,JSON.stringify(newrecipient))
+        const newrecipient = res.data.recipients.map(item => item.contact.id);
+        dispatch({ type: SET_NEW_RECIPIENT, newrecipient })
+        localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(newrecipient))
 
         dispatch({ type: GET_ORDER_DETAILS_SUCCESS, order: res.data })
       },
@@ -1058,21 +1065,21 @@ export const getOrderDetails = (orderId) => (dispatch, getState, { fetch }) => {
 }
 export const updateOrderMeta = () => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
-  const {orderId} = getState().purchase;
+  const { orderId } = getState().purchase;
   if (!orderId) {
     return
   }
   return fetch(`/orders/${orderId}`, {
-      method: 'POST',
-      contentType: 'multipart/form-data',
-      token,
-      body: {
-        _method: 'PUT',
-        incomplete_payment: 1,
-      },
-      success: (res) => {},
-      failure: (err) => {},
-    })
+    method: 'POST',
+    contentType: 'multipart/form-data',
+    token,
+    body: {
+      _method: 'PUT',
+      incomplete_payment: 1,
+    },
+    success: (res) => { },
+    failure: (err) => { },
+  })
 }
 export const getBundleDetails = (bundleId) => (dispatch, getState, { fetch }) => {
   dispatch({ type: GET_BUNDLE_DETAILS_REQUEST })
@@ -1090,8 +1097,8 @@ export const getBundleDetails = (bundleId) => (dispatch, getState, { fetch }) =>
 
 export const setFontFamilies = (fontFamily) => ({ type: SET_FONT_FAMILIES, fontFamily })
 
-export const setNewRecipients = (newrecipient) => async(dispatch, getState) => {
-  
+export const setNewRecipients = (newrecipient) => async (dispatch, getState) => {
+
   var orginRecipients = await localStorage.getItem(CONTACT_IDS_KEY);
 
   if (orginRecipients === null) orginRecipients = [];
