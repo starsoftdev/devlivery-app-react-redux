@@ -46,7 +46,7 @@ class User extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.updateUser(values, this.props.form)
+        this.props.updateUser(values, this.props.form,this.props.intl.locale === "de-DE" ? 'Angaben angepasst':'User updated.')
       }
     })
   }
@@ -320,7 +320,7 @@ class User extends React.Component {
                     initialValue: user && user.preference && user.preference.notify_on_reminders,
 
                   })(
-                    <Checkbox>Notify me of new reminders via email</Checkbox>
+                    <Checkbox>{intl.formatMessage(messages.checkNotify)}</Checkbox>
                   )}
                 </Form.Item>
                 <Form.Item className={s.checkboxWrapper}>
@@ -328,7 +328,7 @@ class User extends React.Component {
                     valuePropName: 'checked',
                     initialValue: user && user.preference && user.preference.receive_promotional_emails,
                   })(
-                    <Checkbox>I would like to receive promotional email</Checkbox>
+                    <Checkbox>{intl.formatMessage(messages.checkEmail)}</Checkbox>
                   )}
                 </Form.Item>
                 <Form.Item>
@@ -337,7 +337,7 @@ class User extends React.Component {
                   })(
                     <Select
                       allowClear
-                      placeholder={'Notification Time for Upcoming Reminders'}
+                      placeholder={intl.formatMessage(messages.checkPlaceholder)}
                       className={s.select}
                     >
                       {reminderTimes.map((item) =>

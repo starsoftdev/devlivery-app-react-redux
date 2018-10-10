@@ -3327,6 +3327,30 @@
     ]
   },
   {
+    "id": "user.checkNotify",
+    "defaultMessage": "Notify me of new reminders via email",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.checkEmail",
+    "defaultMessage": "I would like to receive promotional email",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.checkPlaceholder",
+    "defaultMessage": "Notification Time for Upcoming Reminders",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
     "id": "user.save",
     "defaultMessage": "Save",
     "message": "",
@@ -3345,7 +3369,7 @@
   {
     "id": "user.changepswd",
     "defaultMessage": "Change Password",
-    "message": "",
+    "message": "Passwort ändern",
     "files": [
       "src/components/ChangePasswordForm/messages.js"
     ]
@@ -3353,7 +3377,7 @@
   {
     "id": "user.oldpswd",
     "defaultMessage": "Old Password",
-    "message": "",
+    "message": "Altes Passwort",
     "files": [
       "src/components/ChangePasswordForm/messages.js"
     ]
@@ -3361,7 +3385,7 @@
   {
     "id": "user.newpswd",
     "defaultMessage": "New Password",
-    "message": "",
+    "message": "Neues Kennwort",
     "files": [
       "src/components/ChangePasswordForm/messages.js"
     ]
@@ -3369,7 +3393,7 @@
   {
     "id": "user.confirmpswd",
     "defaultMessage": "Password Confirmation",
-    "message": "",
+    "message": "Passwort bestätigen",
     "files": [
       "src/components/ChangePasswordForm/messages.js"
     ]
