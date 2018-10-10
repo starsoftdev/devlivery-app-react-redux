@@ -3327,6 +3327,30 @@
     ]
   },
   {
+    "id": "user.checkNotify",
+    "defaultMessage": "Notify me of new reminders via email",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.checkEmail",
+    "defaultMessage": "I would like to receive promotional email",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.checkPlaceholder",
+    "defaultMessage": "Notification Time for Upcoming Reminders",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
     "id": "user.save",
     "defaultMessage": "Save",
     "message": "",

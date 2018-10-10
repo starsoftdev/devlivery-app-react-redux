@@ -275,7 +275,7 @@
   {
     "id": "purchase13.number",
     "defaultMessage": "Card Number",
-    "message": "Kartennummer",
+    "message": "Kreditkarten Nummer",
     "files": [
       "src/routes/purchase13/messages.js",
       "src/routes/user/messages.js"
@@ -3462,9 +3462,33 @@
     ]
   },
   {
+    "id": "user.checkNotify",
+    "defaultMessage": "Notify me of new reminders via email",
+    "message": "Erinnerungen per Mail sneden",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.checkEmail",
+    "defaultMessage": "I would like to receive promotional email",
+    "message": "Ich möchte gerne über Neuigkeiten informiert werden",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.checkPlaceholder",
+    "defaultMessage": "Notification Time for Upcoming Reminders",
+    "message": "Ich möchte so viele Tage oder Wochen vorab über meine Erinnerungen  informiert werden.",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
     "id": "user.save",
     "defaultMessage": "Save",
-    "message": "sparen",
+    "message": "Speichern",
     "files": [
       "src/routes/user/messages.js"
     ]
@@ -3512,7 +3536,7 @@
   {
     "id": "user.change",
     "defaultMessage": "Change",
-    "message": "Veränderung",
+    "message": "Ändern",
     "files": [
       "src/components/ChangePasswordForm/messages.js"
     ]
@@ -3548,7 +3572,7 @@
   {
     "id": "user.contactpreference",
     "defaultMessage": "Contact Preferences",
-    "message": "Kontaktpräferenzen",
+    "message": "News & Erinnerungen",
     "files": [
       "src/routes/user/messages.js"
     ]

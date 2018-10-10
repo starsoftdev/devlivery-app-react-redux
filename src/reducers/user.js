@@ -74,7 +74,7 @@ export const getUserDetails = () => (dispatch, getState, { fetch }) => {
   })
 }
 
-export const updateUser = ({ user, birthday, preference, ...values }, form) => (dispatch, getState, { fetch }) => {
+export const updateUser = ({ user, birthday, preference, ...values }, form, msg) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   dispatch({ type: UPDATE_USER_REQUEST })
   return fetch(`/edit-settings`, {
@@ -94,7 +94,8 @@ export const updateUser = ({ user, birthday, preference, ...values }, form) => (
     },
     success: () => {
       dispatch({ type: UPDATE_USER_SUCCESS })
-      message.success('User updated.')
+      if(msg)
+        message.success(msg)
       dispatch(getUserDetails())
     },
     failure: (res) => {

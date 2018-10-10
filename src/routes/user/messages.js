@@ -41,6 +41,18 @@ export default defineMessages({
     id: 'user.shipAddress',
     defaultMessage: 'Shipping Address',
   },
+  checkNotify:{
+    id: 'user.checkNotify',
+    defaultMessage: 'Notify me of new reminders via email',
+  },
+  checkEmail:{
+    id: 'user.checkEmail',
+    defaultMessage: 'I would like to receive promotional email',
+  },
+  checkPlaceholder:{
+    id: 'user.checkPlaceholder',
+    defaultMessage: 'Notification Time for Upcoming Reminders',
+  },
   birthday: {
     id: 'contactForm.birthday',
     defaultMessage: 'Birthday',
