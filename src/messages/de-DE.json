@@ -884,7 +884,7 @@
   {
     "id": "register4.inviteMore",
     "defaultMessage": "Invite one more",
-    "message": "Eine zusätzlich Person einladen",
+    "message": "Eine Zusätzlich Person Einladen",
     "files": [
       "src/routes/register4/messages.js"
     ]
@@ -2213,7 +2213,7 @@
   {
     "id": "purchase10.selectGroups",
     "defaultMessage": "Select Groups",
-    "message": "Wählen Sie Gruppen",
+    "message": "Gruppe wählen",
     "files": [
       "src/routes/purchase10/messages.js"
     ]
@@ -2558,7 +2558,7 @@
   {
     "id": "about.submit",
     "defaultMessage": "Submit",
-    "message": "Submit",
+    "message": "Weiter",
     "files": [
       "src/routes/about/messages.js"
     ]
@@ -2724,7 +2724,7 @@
   {
     "id": "contactGroup.groupName",
     "defaultMessage": "Group name",
-    "message": "Group name",
+    "message": "Gruppenname",
     "files": [
       "src/routes/contactGroup/messages.js"
     ]
@@ -2904,7 +2904,7 @@
   {
     "id": "contactUs.submit",
     "defaultMessage": "submit",
-    "message": "submit",
+    "message": "Weiter",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
@@ -2952,7 +2952,7 @@
   {
     "id": "donation.submit",
     "defaultMessage": "Submit",
-    "message": "Submit",
+    "message": "Weiter",
     "files": [
       "src/routes/donation/messages.js"
     ]
@@ -3036,7 +3036,7 @@
   {
     "id": "contactGroups.editPermissions",
     "defaultMessage": "Edit Permissions",
-    "message": "Edit Permissions",
+    "message": "Berechtigungen ändern",
     "files": [
       "src/routes/groupPermissions/messages.js"
     ]
@@ -3068,7 +3068,7 @@
   {
     "id": "permissionGroups.nameColumn",
     "defaultMessage": "Group Name",
-    "message": "Group Name",
+    "message": "Gruppenname",
     "files": [
       "src/routes/groupPermissions/messages.js"
     ]
@@ -3076,7 +3076,7 @@
   {
     "id": "permissionGroups.permissionColumn",
     "defaultMessage": "Permission Control",
-    "message": "Permission Control",
+    "message": "Berechtigungen kontrollieren",
     "files": [
       "src/routes/groupPermissions/messages.js"
     ]
@@ -3108,7 +3108,7 @@
   {
     "id": "manageTeam.pendingTableTitle",
     "defaultMessage": "Manage Pending Team Members",
-    "message": "Manage Pending Team Members",
+    "message": "kürzlich hinzugefügt Teammitglieder bearbeiten",
     "files": [
       "src/routes/manageTeam/messages.js"
     ]
