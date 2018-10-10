@@ -2795,7 +2795,8 @@
       "src/routes/contacts/messages.js",
       "src/routes/contacts_mulitple/messages.js",
       "src/routes/editContact/messages.js",
-      "src/routes/purchase11/messages.js"
+      "src/routes/purchase11/messages.js",
+      "src/components/CardCheckout/messages.js"
     ]
   },
   {
@@ -2815,7 +2816,8 @@
       "src/routes/contacts/messages.js",
       "src/routes/contacts_mulitple/messages.js",
       "src/routes/editContact/messages.js",
-      "src/routes/purchase11/messages.js"
+      "src/routes/purchase11/messages.js",
+      "src/components/CardCheckOut/messages.js"
     ]
   },
   {

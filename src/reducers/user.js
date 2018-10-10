@@ -185,6 +185,24 @@ export const addCard = (card, callback) => (dispatch, getState, { fetch }) => {
     }
   })
 }
+export const deleteCard = (cardid, callback) => (dispatch, getState, { fetch }) => {
+  const { token } = dispatch(getToken())
+  return fetch(`/user/delete/card/${cardid}`, {
+    method: 'POST',
+    token,
+    success: async (res) => {
+      message.success('successfully deleted card.');
+      await dispatch(getAllCards());
+      if (callback)
+        callback(true)
+    },
+    failure: (error) => {
+      showErrorMessage(error)
+      if (callback)
+        callback(false)
+    }
+  })
+}
 export const setDefaultCard = (card_id,callback) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   return fetch(`/user/set-default-card`, {
