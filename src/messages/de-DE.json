@@ -2657,7 +2657,7 @@
   {
     "id": "cardStore.search",
     "defaultMessage": "Search",
-    "message": "Search",
+    "message": "Suche",
     "files": [
       "src/routes/cardStore/messages.js"
     ]
@@ -3002,7 +3002,7 @@
   {
     "id": "giftStore.search",
     "defaultMessage": "Search",
-    "message": "Search",
+    "message": "Suche",
     "files": [
       "src/routes/giftStore/messages.js"
     ]
@@ -3138,7 +3138,7 @@
   {
     "id": "newArrivals.search",
     "defaultMessage": "Search",
-    "message": "Search",
+    "message": "Suche",
     "files": [
       "src/routes/newArrivals/messages.js"
     ]
