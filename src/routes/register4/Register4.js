@@ -120,10 +120,10 @@ class Register4 extends React.Component {
           </div>
         </div>
         <Modal
-          title="You've already invited this person. Do you wish to resend your invite?"
+          title={intl.formatMessage(messages.resendmsg)}
           visible={this.state.visible}
-          okText = {"Resend"}
-          cancelText = {"Cancel"}
+          okText = {intl.formatMessage(messages.resend)}
+          cancelText = {intl.formatMessage(messages.cancel)}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
