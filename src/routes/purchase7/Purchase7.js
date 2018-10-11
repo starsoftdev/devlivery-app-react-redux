@@ -51,10 +51,12 @@ class Purchase7 extends React.Component {
             type='primary'
             ghost
             onClick={() => {
-              continueWithoutGift()
+              if(giftIds.length > 0)
+                submitGift(1);
+              else continueWithoutGift()
             }}
           >
-            {intl.formatMessage(messages.continueWithoutGift)}
+            {giftIds.length > 0 ? intl.formatMessage(messages.submit) : intl.formatMessage(messages.continueWithoutGift)}
           </Button>
           {/*
           <Button
