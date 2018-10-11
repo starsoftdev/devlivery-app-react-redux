@@ -10,6 +10,7 @@ import CreditCardIcon from '../../static/credit_card.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
 import {isHavePaymentPermission} from '../../utils';
+import {INDIVIDUAL_ACCOUNT} from '../../reducers/register';
 
 class Purchase12 extends React.Component {
   state = {
@@ -30,9 +31,9 @@ class Purchase12 extends React.Component {
     }
   }
   render() {
-    const {paymentMethod, flowIndex,intl} = this.props
+    const {paymentMethod, flowIndex,intl, user} = this.props
     const {payment_permission,msg} = this.state;
-    
+    const havePermission  = user && user.account_type === INDIVIDUAL_ACCOUNT ? true : payment_permission === null ? false : true;
     return (
       <div className={s.content}>
         <SectionHeader
@@ -40,17 +41,17 @@ class Purchase12 extends React.Component {
           number={flowIndex + 1}
           prefixClassName={s.headerPrefix}
         />
-        {payment_permission === null && <h3 style={{color:'red'}}>{msg}</h3>}
+        {!havePermission && <h3 style={{color:'red'}}>{msg}</h3>}
         <Row className={s.items} gutter={20} type='flex' align='center'>
           <Col className={s.itemWrapper}>
             <Card
               className={s.item}
               title={'PayPal'}
               onClick={() => this.setPaymentMethod(PAYPAL)}
-              active={paymentMethod === PAYPAL && payment_permission}
+              active={paymentMethod === PAYPAL && havePermission}
               keyValue='a'
               svg={PayPalIcon}
-              disabled = {payment_permission === null}
+              disabled = {!havePermission}
             />
           </Col>
           <Col className={s.itemWrapper}>
@@ -58,10 +59,10 @@ class Purchase12 extends React.Component {
               className={s.item}
               title={'Credit Card'}
               onClick={() => this.setPaymentMethod(CREDIT_CARD)}
-              active={paymentMethod === CREDIT_CARD && payment_permission}
+              active={paymentMethod === CREDIT_CARD && havePermission}
               keyValue='b'
               svg={CreditCardIcon}
-              disabled = {payment_permission === null}
+              disabled = {!havePermission}
             />
           </Col>
           <Col className={s.itemWrapper}>
@@ -69,10 +70,10 @@ class Purchase12 extends React.Component {
               className={s.item}
               title={'BitPay'}
               onClick={() => this.setPaymentMethod(BITPAY)}
-              active={paymentMethod === BITPAY && payment_permission}
+              active={paymentMethod === BITPAY && havePermission}
               keyValue='c'
               svg={CreditCardIcon}
-              disabled = {payment_permission === null}
+              disabled = {!havePermission}
             />
           </Col>
         </Row>
@@ -98,6 +99,7 @@ class Purchase12 extends React.Component {
 }
 
 const mapState = state => ({
+  user: state.user.user,
   paymentMethod: state.purchase.paymentMethod,
   flowIndex: state.purchase.flowIndex,
   user_permissions: state.permission.user_permissions,
