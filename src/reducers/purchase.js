@@ -764,6 +764,12 @@ export const makeStripePayment = (card, callback) => (dispatch, getState, { fetc
     cvc,
   } = card
   const { stripeApiKey } = getState().global
+  console.log('https://api.stripe.com/v1/tokens',{
+    'card[number]': number,
+    'card[exp_month]': expiry_month,
+    'card[exp_year]': expiry_year,
+    'card[cvc]': cvc,
+  });
   return fetch('https://api.stripe.com/v1/tokens', {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
@@ -800,6 +806,7 @@ export const makeStripePayment = (card, callback) => (dispatch, getState, { fetc
       })
     },
     failure: (error) => {
+      console.log("error",error);
       if (callback) {
         callback(null)
       }
