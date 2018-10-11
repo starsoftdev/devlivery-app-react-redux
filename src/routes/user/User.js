@@ -52,6 +52,7 @@ class User extends React.Component {
   }
 
   handleAddCardButton = () => {
+    
     if (this.state.processing)
       return;
     if (!this.state.saveButton) {
@@ -107,6 +108,10 @@ class User extends React.Component {
     }
   }
   resetCardInf() {
+    if(this.number) this.number.input.value = '';
+    if(this.name) this.name.input.value = '';
+    if(this.expiry) this.expiry.input.value = '';
+    if(this.cvc) this.cvc.input.value = '';
     this.setState({
       number: '',
       name: '',
@@ -268,6 +273,7 @@ class User extends React.Component {
                   </Col>
                   <Col xs={24} sm={24}>
                     <Input
+                      ref = {ref => this.number = ref}
                       placeholder={intl.formatMessage(messages.number)}
                       onChange={(e) => this.handleInputChange(e, 'number')}
                       onFocus={(e) => this.handleInputFocus(e, 'number')}
@@ -275,6 +281,7 @@ class User extends React.Component {
                       className={'cardnumber'}
                     />
                     <Input
+                      ref = {ref => this.name = ref}
                       placeholder={intl.formatMessage(messages.name)}
                       onChange={(e) => this.handleInputChange(e, 'name')}
                       onFocus={(e) => this.handleInputFocus(e, 'name')}
@@ -282,6 +289,7 @@ class User extends React.Component {
                     <Row gutter={20}>
                       <Col xs={16}>
                         <Input
+                          ref = {ref => this.expiry = ref}
                           placeholder={intl.formatMessage(messages.expiry)}
                           onChange={(e) => this.handleInputChange(e, 'expiry')}
                           onFocus={(e) => this.handleInputFocus(e, 'expiry')}
@@ -290,6 +298,7 @@ class User extends React.Component {
                       </Col>
                       <Col xs={8}>
                         <Input
+                          ref = {ref => this.cvc = ref}
                           placeholder={intl.formatMessage(messages.cvc)}
                           onChange={(e) => this.handleInputChange(e, 'cvc')}
                           onFocus={(e) => this.handleInputFocus(e, 'cvc')}
