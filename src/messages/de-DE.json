@@ -2641,7 +2641,7 @@
   {
     "id": "about.submit",
     "defaultMessage": "Submit",
-    "message": "Weiter",
+    "message": "Abschicken",
     "files": [
       "src/routes/about/messages.js"
     ]
