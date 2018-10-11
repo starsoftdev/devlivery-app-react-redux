@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="132px" height="101px" viewBox="0 0 132 101" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>without_gift</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="d_Gift-Flow-6_V2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-1158.000000, -300.000000)">
+        <g id="card-copy" transform="translate(1111.000000, 250.000000)">
+            <g id="without_gift" transform="translate(47.000000, 51.000000)">
+                <path d="M9.46893738,68.1886 C0.193875044,72.9339807 -2.12489054,76.0233488 2.51264063,77.4567043 C9.46893738,79.6067375 37.7272621,85.7071958 50.9092618,91.3327681 C64.0912615,96.9583404 110.283055,102.583913 115.031915,96.9583404 C119.780774,91.3327681 118.022131,86.7248086 119.780774,77.4567043 C120.953204,71.2779681 122.578775,64.9696384 124.657488,58.5317154 C124.572252,44.9444101 122.946681,39.7528453 119.780774,42.957021 C115.031915,47.7632845 102.643131,85.4149582 96.6600897,81.4358313 C90.6770483,77.4567043 50.2647737,68.1886 35.4311102,68.1886 C25.5420011,68.1886 16.8879435,68.1886 9.46893738,68.1886 Z" id="Path-196" fill="#E0DFE6"></path>
+                <path d="M99.7204621,32.7576425 C99.7204621,36.5349788 113.797904,52.1801758 125.995477,50.2440788 C138.193049,48.3079818 125.400881,45.1091533 127.950159,41.9881928 C130.499438,38.8672322 114.276423,24.3062553 113.797904,20.0842775 C113.319385,15.8622996 112.43887,12.625094 115.238454,11.2530571 C118.038038,9.88102016 107.491516,1.10904907 99.7204621,18.4667659 C91.9494084,35.8244828 99.7204621,28.9803063 99.7204621,32.7576425 Z" id="Path-197" fill="#E0DFE6" transform="translate(113.811784, 29.116831) scale(-1, 1) translate(-113.811784, -29.116831) "></path>
+                <path d="M56.5294499,41.9109728 L108.864371,50.0376259 C109.79766,66.3527723 109.79766,74.5544155 108.864371,74.6425555 C107.931082,74.7306956 90.4861081,71.4830197 56.5294499,64.899528" id="Path-187" stroke="#404D5F" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M109.024849,49.6626562 L117.614595,33.583631" id="Path-188" stroke="#404D5F" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M109.312702,74.8035401 L118.21068,57.7352846" id="Path-189" stroke="#404D5F" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"></path>
+                <polyline id="Path-190" stroke="#404D5F" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" points="108.030524 75.0429932 106.757686 89.0034523 51.8634731 80.4680509"></polyline>
+                <polyline id="Path-191" stroke="#404D5F" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" points="107.031293 88.6429126 114.755825 71.9990209 118.291606 57.6209036"></polyline>
+                <path d="M118.5,31.5 L128.184332,9.03242868" id="Path-192" stroke="#404D5F" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2,4"></path>
+                <path d="M54.1704633,41.5135274 L9.13326113,35.3603699 C7.67410124,50.722692 7.67410124,58.6564156 9.13326113,59.1615408 C10.592421,59.6666659 24.8279882,61.5005961 51.8399625,64.6633312" id="Path-193" stroke="#404D5F" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2,4"></path>
+                <polyline id="Path-194" stroke="#404D5F" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2,4" points="49.2629497 80.5136143 12.0767567 73.8984558 12.0767567 61.3802649"></polyline>
+                <path d="M10.7226392,34.1267885 C31.9170265,11.0609475 43.1303271,-0.297705045 44.362541,0.0508310484 C46.2108619,0.573635189 126.595468,8.0386306 127.412061,8.76963108 C127.956456,9.25696473 128.583237,13.700228 129.292404,22.0994209 C124.969953,42.0431362 121.930353,53.2863646 120.173607,55.8291062" id="Path-195" stroke="#404D5F" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2,4"></path>
+            </g>
+        </g>
+    </g>
+</svg>
