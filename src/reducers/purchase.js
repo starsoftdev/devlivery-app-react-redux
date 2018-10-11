@@ -754,7 +754,7 @@ export const addCardBody = (orderId) => (dispatch, getState, { fetch }) => {
 export const makeStripePayment = (card, callback) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   const { orderId } = getState().purchase
-  if (!orderId) {
+  if (!orderId && !card.ignore) {
     return
   }
   dispatch({ type: MAKE_STRIPE_PAYMENT_REQUEST })

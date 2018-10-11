@@ -82,13 +82,13 @@ class User extends React.Component {
         return;
       }
       this.setState({ showMark: false, processing: true });
-
       this.props.makeStripePayment(
         {
           number: this.state.number,
           expiry_month,
           expiry_year,
           cvc: this.state.cvc,
+          ignore: true
         },
         (data) => {
           if (data && data.id)
