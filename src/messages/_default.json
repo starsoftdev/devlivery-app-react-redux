@@ -1845,6 +1845,40 @@
     ]
   },
   {
+    "id": "reports.datefrom",
+    "defaultMessage": "From:",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js",
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "reports.dateto",
+    "defaultMessage": "To:",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js",
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "reports.datestart",
+    "defaultMessage": "Start date",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.dateend",
+    "defaultMessage": "End date",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
     "id": "reports.header",
     "defaultMessage": "Scheduled",
     "message": "",

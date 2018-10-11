@@ -98,4 +98,12 @@ export default defineMessages({
     id: 'giftStore.description',
     defaultMessage: 'Description',
   },
+  datefrom: {
+    id: 'reports.datefrom',
+    defaultMessage: 'From:',
+  },
+  dateto: {
+    id: 'reports.dateto',
+    defaultMessage: 'To:',
+  },
 })

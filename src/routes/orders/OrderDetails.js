@@ -71,12 +71,12 @@ class OrderDetails extends React.Component {
                   <div className={s.productImage}>
                     <div className={s.voucherContain}>
                       <span className={s.title}>
-                        <strong>FROM:</strong>
+                        <strong>{intl.formatMessage(messages.datefrom)}</strong>
                         {" " + item.from}
                       </span>
                       <br />
                       <span className={s.title}>
-                        <strong>TO:</strong>
+                        <strong>{intl.formatMessage(messages.dateto)}</strong>
                         {" " + item.to}
                       </span>
                     </div>

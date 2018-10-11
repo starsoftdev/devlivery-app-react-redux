@@ -593,6 +593,40 @@
     ]
   },
   {
+    "id": "reports.datefrom",
+    "defaultMessage": "From:",
+    "message": "Von:",
+    "files": [
+      "src/routes/reports/messages.js",
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "reports.dateto",
+    "defaultMessage": "To:",
+    "message": "Zu:",
+    "files": [
+      "src/routes/reports/messages.js",
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "reports.datestart",
+    "defaultMessage": "Start date",
+    "message": "Startdatum",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.dateend",
+    "defaultMessage": "End date",
+    "message": "Ended am",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
     "id": "footer.faq",
     "defaultMessage": "FAQ",
     "message": "FAQ",
