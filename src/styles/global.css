@@ -36,3 +36,9 @@
   margin-top: 18px;
   
 }
+
+button span {
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

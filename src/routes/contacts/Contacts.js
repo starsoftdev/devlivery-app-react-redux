@@ -120,9 +120,9 @@ class Contacts extends React.Component {
     const contactSortBy = [
       {value: 'first_name', label: 'A-Z'},
       {value: '-first_name', label: 'Z-A'},
-      {value: '-updated_at', label: 'Last Update Date'},
-      {value: '-created_at', label: 'Creation Date'},
-      {value: '-dob', label: 'Upcoming birthdays'},
+      {value: '-updated_at', label: intl.locale === "de-DE" ? 'Datum, letzes Update':'Last Update Date'},
+      {value: '-created_at', label: intl.locale === "de-DE" ? 'Datum hinzufügen': 'Creation Date'},
+      {value: '-dob', label: intl.locale === "de-DE" ? 'anstehnde Geburtstage':'Upcoming birthdays'},
     ]
     
     return (
@@ -214,7 +214,7 @@ class Contacts extends React.Component {
               )}
               {
                 contacts.length <= 0 &&
-                <div>No Contact</div>
+                <div>{intl.formatMessage(messages.nocontact)}</div>
               }
             </Row>
             {

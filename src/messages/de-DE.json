@@ -227,7 +227,7 @@
   {
     "id": "bundles.breadcrumb",
     "defaultMessage": "Bundles",
-    "message": "Pakete",
+    "message": "Kombinationen",
     "files": [
       "src/routes/bundles/messages.js"
     ]
@@ -235,7 +235,7 @@
   {
     "id": "bundles.title",
     "defaultMessage": "Bundles",
-    "message": "Pakete",
+    "message": "Kombinationen",
     "files": [
       "src/routes/bundles/messages.js"
     ]
@@ -243,7 +243,7 @@
   {
     "id": "dashboard.bundles",
     "defaultMessage": "Bundles",
-    "message": "Pakete",
+    "message": "Kombinationen",
     "files": [
       "src/routes/dashboard/messages.js"
     ]
@@ -451,7 +451,7 @@
   {
     "id": "bundles.addBundle",
     "defaultMessage": "Create Bundle",
-    "message": "Paket erstellen",
+    "message": "Geschenkkombination erstellen",
     "files": [
       "src/routes/bundles/messages.js"
     ]
@@ -459,7 +459,7 @@
   {
     "id": "bundles.header",
     "defaultMessage": "Created Bundles",
-    "message": "Erstellte Pakete",
+    "message": "Erstellte Geschenkkombinationen",
     "files": [
       "src/routes/bundles/messages.js"
     ]
@@ -603,7 +603,7 @@
   {
     "id": "contacts.breadcrumb",
     "defaultMessage": "Find Contacts",
-    "message": "Kontakte finden",
+    "message": "Kontakte Finden",
     "files": [
       "src/routes/contacts/messages.js"
     ]
@@ -611,7 +611,7 @@
   {
     "id": "contacts.header",
     "defaultMessage": "Find Contacts",
-    "message": "Kontakte finden",
+    "message": "Kontakte Finden",
     "files": [
       "src/routes/contacts/messages.js"
     ]
@@ -619,7 +619,7 @@
   {
     "id": "contacts.title",
     "defaultMessage": "Find Contacts",
-    "message": "Kontakte finden",
+    "message": "Kontakte Finden",
     "files": [
       "src/routes/contacts/messages.js"
     ]
@@ -627,7 +627,7 @@
   {
     "id": "dashboard.findContacts",
     "defaultMessage": "Find Contacts",
-    "message": "Kontakte finden",
+    "message": "Kontakte Finden",
     "files": [
       "src/routes/dashboard/messages.js"
     ]
@@ -1559,7 +1559,7 @@
   {
     "id": "reports.header",
     "defaultMessage": "Scheduled",
-    "message": "Kalender",
+    "message": "Geplant",
     "files": [
       "src/routes/reports/messages.js"
     ]
@@ -1808,6 +1808,15 @@
     "id": "contacts.groupBy",
     "defaultMessage": "Group",
     "message": "Gruppe",
+    "files": [
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
+    ]
+  },
+  {
+    "id": "contacts.nocontact",
+    "defaultMessage": "No Contact",
+    "message": "kein Kontakt",
     "files": [
       "src/routes/contacts/messages.js",
       "src/routes/contacts_mulitple/messages.js"
@@ -2142,6 +2151,22 @@
     "id": "importContacts.selectContacts",
     "defaultMessage": "Select Contacts",
     "message": "Wählen Sie Kontakte",
+    "files": [
+      "src/routes/importContacts/messages.js"
+    ]
+  },
+  {
+    "id": "importContacts.howto",
+    "defaultMessage": "How To Import Contacts",
+    "message": "So importieren Sie Ihre Kontakte",
+    "files": [
+      "src/routes/importContacts/messages.js"
+    ]
+  },
+  {
+    "id": "importContacts.upload",
+    "defaultMessage": "Upload",
+    "message": "hochladen",
     "files": [
       "src/routes/importContacts/messages.js"
     ]
@@ -2639,7 +2664,7 @@
   {
     "id": "cardStore.noData",
     "defaultMessage": "No data.",
-    "message": "No data.",
+    "message": "Keine Daten",
     "files": [
       "src/routes/cardStore/messages.js"
     ]
@@ -3004,7 +3029,7 @@
   {
     "id": "giftStore.noData",
     "defaultMessage": "No data.",
-    "message": "No data.",
+    "message": "Keine Daten",
     "files": [
       "src/routes/giftStore/messages.js"
     ]
@@ -3140,7 +3165,7 @@
   {
     "id": "newArrivals.noData",
     "defaultMessage": "No data.",
-    "message": "No data.",
+    "message": "Keine Daten",
     "files": [
       "src/routes/newArrivals/messages.js"
     ]
