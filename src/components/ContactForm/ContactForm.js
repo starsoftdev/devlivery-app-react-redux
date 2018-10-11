@@ -15,19 +15,19 @@ import {FloatingLabel} from '../../components';
 const SALUTATIONS = ['Mr.', 'Ms.', 'Dr.','Family']
 
 const RELATIONSHIP = [
-  'Mother',
-  'Father',
-  'Brother',
-  'Sister',
-  'Son',
-  'Daughter',
-  'Child',
-  'Friend',
-  'Spouse',
-  'Partner',
-  'Assistant',
-  'Manager',
-  'Other',
+  {key:'Mother', de:'Mutter'},
+  {key:'Father', de:'Vater'},
+  {key:'Brother', de:'Bruder'},
+  {key:'Sister', de:'Schwester'},
+  {key:'Son', de:'Sohn'},
+  {key:'Daughter', de:'Tochter'},
+  {key:'Child', de:'Kind'},
+  {key:'Friend', de:'Freund'},
+  {key:'Spouse', de:'Ehefrau'},
+  {key:'Partner', de:'Partner'},
+  {key:'Assistant', de:'Assistent'},
+  {key:'Manager', de:'Manager'},
+  {key:'Other', de:'Sonstige'},
 ]
 
 class ContactForm extends React.Component {
@@ -92,7 +92,7 @@ class ContactForm extends React.Component {
     let relationshipList = [...RELATIONSHIP]
 
     if (newRelationship && !relationshipName) {
-      relationshipList = [newRelationship, ...RELATIONSHIP.filter(item => item !== newRelationship)]
+      relationshipList = [newRelationship, ...RELATIONSHIP.filter(item => item.key !== newRelationship.key)]
     }
     
     const contactSection = (
@@ -185,7 +185,7 @@ class ContactForm extends React.Component {
                 <Select.Option key={0} value={relationshipName}>+ Add "{relationshipName}"</Select.Option>
               )}
               {relationshipList.map((item, i) =>
-                <Select.Option key={i + 1} value={item}>{item}</Select.Option>
+                <Select.Option key={i + 1} value={item.key}>{intl.locale === 'de-DE' ? item.de: item.key}</Select.Option>
               )}
             </Select>
           )}

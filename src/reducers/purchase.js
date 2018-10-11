@@ -25,6 +25,7 @@ import pickBy from 'lodash/pickBy'
 import identity from 'lodash/identity'
 import uniq from 'lodash/uniq'
 import moment from 'moment'
+import localStorage from 'localStorage';
 
 // ------------------------------------
 // Constants

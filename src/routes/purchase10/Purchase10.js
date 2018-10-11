@@ -19,6 +19,7 @@ import {getContactGroups} from '../../reducers/contactGroups'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import {message} from 'antd'
 import {getContacts} from '../../reducers/contacts'
+import localStorage from 'localStorage';
 
 const ADDCONTACTMODE = 'addingContactMode'
 
