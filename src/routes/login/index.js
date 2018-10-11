@@ -12,7 +12,7 @@ function action({params,query, store, route, intl}) {
     title: intl.formatMessage(messages.title),
     component: (
       <AppLayout>
-        <Login redirectUrl={query.next} intl={intl} inpurchase={query.inpurchase}/>
+        <Login redirectUrl={query.next} intl={intl} inpurchase={query.inpurchase} password_reset = {query && hasOwnProperty.call(query, "password_reset")}/>
       </AppLayout>
     ),
   }
