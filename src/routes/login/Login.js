@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from '../../components'
 import {clear, login} from '../../reducers/login'
-import {Alert, Button, Col, Form, Input, Row} from 'antd'
+import {Alert, Button, Col, Form, Input, Row, message} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Login.css'
 import {RESET_PASSWORD_ROUTE, REGISTER1_ROUTE} from '../'
@@ -12,6 +12,10 @@ import {nextFlowStep} from '../../reducers/purchase';
 import {FloatingLabel} from '../../components';
 
 class Login extends React.Component {
+  componentDidMount(){
+    if(this.props.password_reset)
+      message.success('Your password has been reset!')
+  }
   componentWillUnmount() {
     this.props.clear()
   }
