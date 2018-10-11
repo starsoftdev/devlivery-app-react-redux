@@ -64,8 +64,8 @@ class Purchase11 extends React.Component {
     this.setState({ ...initState });
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps && nextProps.bundle) {
-      this.setState({ content: nextProps.bundle.body ? nextProps.bundle.body : '' });
+    if (nextProps && nextProps.cardDetails) {
+      this.setState({ content: nextProps.cardDetails.body ? nextProps.cardDetails.body : '' });
     }
     if (nextProps && nextProps.order !== this.state.order) {
 
