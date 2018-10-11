@@ -10,14 +10,15 @@ import messages from './messages'
 
 class PurchaseCompleted extends React.Component {
   render() {
+    const {intl} = this.props;
     return (
       <div className={s.container}>
         <CompletedIcon className={s.completedIcon}/>
-        <h1 className={s.header}>Thank You</h1>
+        <h1 className={s.header}>{intl.formatMessage(messages.thankyou)}</h1>
         <p className={s.description}>
-          Your order is complete. If you want to see track your gift, you can control it from your Personal Account.
+          {intl.formatMessage(messages.thankyou_text)}
           <br/>
-          Create in 4 simple steps!
+          {intl.formatMessage(messages.thankyou_shorttext)}
         </p>
         <Link to={ORDERS_ROUTE} className={s.dashboardBtn}>
           <Button type='primary'>{this.props.intl.formatMessage(messages.dashboard)}</Button>

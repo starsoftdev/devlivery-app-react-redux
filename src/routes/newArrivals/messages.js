@@ -13,6 +13,10 @@ export default defineMessages({
     id: 'newArrivals.noData',
     defaultMessage: 'No data.',
   },
+  shopnow: {
+    id: 'newArrivals.shopnow',
+    defaultMessage: 'Shop now',
+  },
   description: {
     id: 'giftStore.description',
     defaultMessage: 'Description',
