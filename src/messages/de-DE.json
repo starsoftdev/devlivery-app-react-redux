@@ -1318,6 +1318,30 @@
     ]
   },
   {
+    "id": "purchase13.thankyou",
+    "defaultMessage": "Thank You",
+    "message": "Danke für Ihre Bestellung",
+    "files": [
+      "src/routes/purchaseCompleted/messages.js"
+    ]
+  },
+  {
+    "id": "purchase13.thankyou_text",
+    "defaultMessage": "Your order is complete. If you want to see track your gift, you can control it from your Personal Account.",
+    "message": "Ihre Bestellung ist abgeschlossen. Wenn Sie Ihr Geschenk verfolgen möchten, können Sie das von Ihren persönlichen Account aus tun.",
+    "files": [
+      "src/routes/purchaseCompleted/messages.js"
+    ]
+  },
+  {
+    "id": "purchase13.thankyou_shorttext",
+    "defaultMessage": "Create in 4 simple steps!",
+    "message": "Erstellen Sie in vier einfachen Schritten Ihren persönlichen Account!",
+    "files": [
+      "src/routes/purchaseCompleted/messages.js"
+    ]
+  },
+  {
     "id": "register4.permissionsLevel",
     "defaultMessage": "Permissions Level",
     "message": "Nutzerberechtigungen"
@@ -2601,7 +2625,7 @@
   {
     "id": "about.email",
     "defaultMessage": "Enter your email address",
-    "message": "Enter your email address",
+    "message": "Gib deine Email Adresse ein",
     "files": [
       "src/routes/about/messages.js"
     ]
@@ -2682,7 +2706,7 @@
   {
     "id": "cardStore.clearFilters",
     "defaultMessage": "Clear filters",
-    "message": "Clear filters",
+    "message": "Filter aufheben",
     "files": [
       "src/routes/cardStore/messages.js"
     ]
@@ -2690,7 +2714,7 @@
   {
     "id": "cardStore.collections",
     "defaultMessage": "Collections",
-    "message": "Collections",
+    "message": "Kolektionen",
     "files": [
       "src/routes/cardStore/messages.js"
     ]
@@ -2716,7 +2740,7 @@
   {
     "id": "cardStore.occasionType",
     "defaultMessage": "Occasion Type",
-    "message": "Occasion Type",
+    "message": "Anlass wählen",
     "files": [
       "src/routes/cardStore/messages.js"
     ]
@@ -2751,7 +2775,7 @@
   {
     "id": "cardStore.title",
     "defaultMessage": "Card Store",
-    "message": "Card Store",
+    "message": "Kartenshop",
     "files": [
       "src/routes/cardStore/messages.js"
     ]
@@ -2963,7 +2987,7 @@
   {
     "id": "contactUs.submit",
     "defaultMessage": "submit",
-    "message": "Weiter",
+    "message": "Abschicken",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
@@ -2971,7 +2995,7 @@
   {
     "id": "contactUs.title",
     "defaultMessage": "Contact Us",
-    "message": "Contact Us",
+    "message": "Kontaktiere uns",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
@@ -3027,7 +3051,7 @@
   {
     "id": "giftStore.clearFilters",
     "defaultMessage": "Clear filters",
-    "message": "Clear filters",
+    "message": "Filter aufheben",
     "files": [
       "src/routes/giftStore/messages.js"
     ]
@@ -3055,7 +3079,7 @@
   {
     "id": "giftStore.collections",
     "defaultMessage": "Collections",
-    "message": "Collections",
+    "message": "Kolektionen",
     "files": [
       "src/routes/giftStore/messages.js"
     ]
@@ -3079,7 +3103,7 @@
   {
     "id": "giftStore.title",
     "defaultMessage": "Gift Store",
-    "message": "Gift Store",
+    "message": "Geschenkshop",
     "files": [
       "src/routes/giftStore/messages.js"
     ]
@@ -3205,6 +3229,14 @@
     ]
   },
   {
+    "id": "newArrivals.shopnow",
+    "defaultMessage": "Shop now",
+    "message": "jetzt einkaufen",
+    "files": [
+      "src/routes/newArrivals/messages.js"
+    ]
+  },
+  {
     "id": "newArrivals.search",
     "defaultMessage": "Search",
     "message": "Suche",
@@ -3215,7 +3247,7 @@
   {
     "id": "newArrivals.title",
     "defaultMessage": "New Arrivals",
-    "message": "New Arrivals",
+    "message": "Neue Produkte",
     "files": [
       "src/routes/newArrivals/messages.js"
     ]

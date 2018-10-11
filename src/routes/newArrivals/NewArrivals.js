@@ -92,7 +92,7 @@ class NewArrivals extends React.Component {
               className={s.carouselItem}>
           <h1 className={s.header}>{'Fresh Tulips Arrival'}</h1>
           <Link to={PURCHASE1_ROUTE}>
-            <Button type='primary'>{'Shop now'}</Button>
+            <Button type='primary'>{intl.formatMessage(messages.shopnow)}</Button>
           </Link>
         </div>
       </div>
@@ -106,7 +106,7 @@ class NewArrivals extends React.Component {
               className={s.carouselItem}>
           <h1 className={s.header}>{'Fresh Tulips Arrival'}</h1>
           <Link to={PURCHASE1_ROUTE}>
-            <Button type='primary'>{'Shop now'}</Button>
+            <Button type='primary'>{intl.formatMessage(messages.shopnow)}</Button>
           </Link>
         </div>
       </div>
@@ -120,7 +120,7 @@ class NewArrivals extends React.Component {
               className={s.carouselItem}>
           <h1 className={s.header}>{'Fresh Tulips Arrival'}</h1>
           <Link to={PURCHASE1_ROUTE}>
-            <Button type='primary'>{'Shop now'}</Button>
+            <Button type='primary'>{intl.formatMessage(messages.shopnow)}</Button>
           </Link>
         </div>
       </div>

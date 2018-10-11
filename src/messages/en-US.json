@@ -1213,6 +1213,30 @@
     ]
   },
   {
+    "id": "purchase13.thankyou",
+    "defaultMessage": "Thank You",
+    "message": "",
+    "files": [
+      "src/routes/purchaseCompleted/messages.js"
+    ]
+  },
+  {
+    "id": "purchase13.thankyou_text",
+    "defaultMessage": "Your order is complete. If you want to see track your gift, you can control it from your Personal Account.",
+    "message": "",
+    "files": [
+      "src/routes/purchaseCompleted/messages.js"
+    ]
+  },
+  {
+    "id": "purchase13.thankyou_shorttext",
+    "defaultMessage": "Create in 4 simple steps!",
+    "message": "",
+    "files": [
+      "src/routes/purchaseCompleted/messages.js"
+    ]
+  },
+  {
     "id": "purchase13.title",
     "defaultMessage": "Purchase",
     "message": "",
@@ -3064,6 +3088,14 @@
   {
     "id": "newArrivals.noData",
     "defaultMessage": "No data.",
+    "message": "",
+    "files": [
+      "src/routes/newArrivals/messages.js"
+    ]
+  },
+  {
+    "id": "newArrivals.shopnow",
+    "defaultMessage": "Shop now",
     "message": "",
     "files": [
       "src/routes/newArrivals/messages.js"
