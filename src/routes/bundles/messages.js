@@ -7,7 +7,7 @@ export default defineMessages({
   },
   header: {
     id: 'bundles.header',
-    defaultMessage: 'Created Bundles',
+    defaultMessage: 'Created Bundles',/*Erstellte Geschenkkombinationen",*/
   },
   breadcrumb: {
     id: 'bundles.breadcrumb',

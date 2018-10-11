@@ -25,4 +25,12 @@ export default defineMessages({
     id: 'importContacts.selectContacts',
     defaultMessage: 'Select Contacts',
   },
+  howto: {
+    id: 'importContacts.howto',
+    defaultMessage: 'How To Import Contacts',
+  },
+  upload: {
+    id: 'importContacts.upload',
+    defaultMessage: 'Upload',
+  },
 })

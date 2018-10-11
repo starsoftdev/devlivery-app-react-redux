@@ -470,6 +470,15 @@
     ]
   },
   {
+    "id": "contacts.nocontact",
+    "defaultMessage": "No Contact",
+    "message": "",
+    "files": [
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
+    ]
+  },
+  {
     "id": "contacts.noitem",
     "defaultMessage": "No item",
     "message": "",
@@ -2006,6 +2015,22 @@
   {
     "id": "importContacts.selectContacts",
     "defaultMessage": "Select Contacts",
+    "message": "",
+    "files": [
+      "src/routes/importContacts/messages.js"
+    ]
+  },
+  {
+    "id": "importContacts.howto",
+    "defaultMessage": "How To Import Contacts",
+    "message": "",
+    "files": [
+      "src/routes/importContacts/messages.js"
+    ]
+  },
+  {
+    "id": "importContacts.upload",
+    "defaultMessage": "Upload",
     "message": "",
     "files": [
       "src/routes/importContacts/messages.js"

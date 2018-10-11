@@ -25,6 +25,10 @@ export default defineMessages({
     id: 'contacts.groupBy',
     defaultMessage: 'Group',
   },
+  nocontact: {
+    id: 'contacts.nocontact',
+    defaultMessage: 'No Contact',
+  },
   tableItems: {
     id: 'contacts.tableItems',
     defaultMessage: '{range0}-{range1} of {total} items',

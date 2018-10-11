@@ -46,12 +46,12 @@ class Bundles extends React.Component {
         <div className={s.actions}>
           <h1 className={s.header}>{intl.formatMessage(messages.header)}</h1>
           <Input.Search
-            className={s.search}
+            className={intl.locale === 'de-DE' ? s.search_de : s.search}
             placeholder={intl.formatMessage(messages.search)}
             value={search}
             onChange={this.changeSearch}
           />
-          <Button type='primary' ghost onClick={() => {
+          <Button className={s.createbundlebtn} type='primary' ghost onClick={() => {
             setFlow(EDIT_BUNDLE_FLOW)
             setSavedValue(1);
           }}>
