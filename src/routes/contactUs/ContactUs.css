@@ -24,7 +24,8 @@
 }
 
 .contentContainer{
-  width:555px;
+  text-align: center;
+  width:80%;
   align-self: center;
 }
 .contentContainer_de{
@@ -48,10 +49,9 @@
 
 .subtitle{
   text-align: left;
-  font-size: 15px;
-  font-family: "Adobe Garamond Pro";
-  line-height: 24px;
-  margin-bottom: 20px;
+  font-size: 27px;
+  margin-bottom: 40px;
+  
 }
 
 .messageTitle {
