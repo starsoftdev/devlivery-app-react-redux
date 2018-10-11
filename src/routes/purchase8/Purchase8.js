@@ -98,7 +98,7 @@ class Purchase8 extends React.Component {
             onClick={() => {
               this.setState({ disableSubmit: true });
               buyMoreGift();
-              submitGift(true)
+              submitGift(-2)
             }}
           >
             {'buy more products'}

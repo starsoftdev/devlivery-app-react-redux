@@ -594,16 +594,19 @@ export const continueWithoutGift = () => async (dispatch, getState) => {
   dispatch(nextFlowStep(1))
 }
 
-export const submitGift = (refresh = false) => async (dispatch, getState) => {
+export const submitGift = (gotoNext = 0) => async (dispatch, getState) => {
   const { flow } = getState().purchase
   if (flow.key !== EDIT_BUNDLE_FLOW.key) {
     await dispatch(addBundle())
     await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
   }
-  if (refresh) {
-    dispatch(nextFlowStep(-2))
+  if(gotoNext === 0)
+  {
+    dispatch(nextFlowStep())
   }
-  else dispatch(nextFlowStep())
+  else{
+    dispatch(nextFlowStep(gotoNext))
+  }
 }
 
 export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, { fetch }) => {
