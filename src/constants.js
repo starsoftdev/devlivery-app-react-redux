@@ -27,6 +27,7 @@ export const DATE_FORMAT = 'YYYY-MM-DD'
 export const DISPLAYED_DATE_FORMAT = 'DD.MM.YYYY'
 
 export const DEFAULT_OCCASION_TYPE = 'Standard'
+export const DEFAULT_OCCASION_TYPE_DE = 'Standart'
 
 export const ADDRESS_FIELDS = [
   'street',

@@ -5,7 +5,7 @@ import {Col, Row, Select, Button} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase1.css'
 import {Card, SectionHeader, PurchaseActions} from '../../components'
-import {ALPHABET} from '../../constants'
+import {ALPHABET,DEFAULT_OCCASION_TYPE_DE,DEFAULT_OCCASION_TYPE} from '../../constants'
 import messages from './messages'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 const SEASONALID = 25;
@@ -13,8 +13,11 @@ const SEASONALID = 25;
 class Purchase1 extends React.Component {
   constructor(props){
     super(props)
+    let type  = props.occasionType;
+    if(type === DEFAULT_OCCASION_TYPE && props.intl.locale === 'de-DE')
+      type = DEFAULT_OCCASION_TYPE_DE;
     this.state = {
-      occasionType: props.occasionType
+      occasionType: type
     }
     this.selectSeasonal = this.selectSeasonal.bind(this);
   }
