@@ -49,4 +49,20 @@ export default defineMessages({
     id: 'reports.occasion',
     defaultMessage: 'Occasion',
   },
+  datefrom: {
+    id: 'reports.datefrom',
+    defaultMessage: 'From:',
+  },
+  dateto: {
+    id: 'reports.dateto',
+    defaultMessage: 'To:',
+  },
+  datestart: {
+    id: 'reports.datestart',
+    defaultMessage: 'Start date',
+  },
+  dateend: {
+    id: 'reports.dateend',
+    defaultMessage: 'End date',
+  },
 })

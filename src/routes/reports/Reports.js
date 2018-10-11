@@ -114,7 +114,7 @@ class Reports extends React.Component {
           <Row type='flex' gutter={20} align='middle' className={s.filterWrapper}>
             <Col>
               <div className={s.label}>
-                From:
+              {intl.formatMessage(messages.datefrom)}
               </div>
             </Col>
             <Col>
@@ -122,7 +122,7 @@ class Reports extends React.Component {
                 disabledDate={this.disabledStartDate}
                 format={DISPLAYED_DATE_FORMAT}
                 value={startValue}
-                placeholder={'Start date'}
+                placeholder={intl.formatMessage(messages.datestart)}
                 onChange={this.onStartChange}
                 onOpenChange={this.handleStartOpenChange}
               />
@@ -131,7 +131,7 @@ class Reports extends React.Component {
           <Row type='flex' gutter={20} align='middle' className={s.filterWrapper}>
             <Col>
               <div className={s.label}>
-                To:
+              {intl.formatMessage(messages.dateto)}
               </div>
             </Col>
             <Col>
@@ -139,7 +139,7 @@ class Reports extends React.Component {
                 disabledDate={this.disabledEndDate}
                 format={DISPLAYED_DATE_FORMAT}
                 value={endValue}
-                placeholder={'End date'}
+                placeholder={intl.formatMessage(messages.dateend)}
                 onChange={this.onEndChange}
                 open={endOpen}
                 onOpenChange={this.handleEndOpenChange}
