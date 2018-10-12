@@ -809,7 +809,7 @@ export const makeStripePayment = (card, callback) => (dispatch, getState, { fetc
     failure: (error) => {
       console.log("error",error);
       if (callback) {
-        callback(null)
+        callback(error)
       }
       dispatch({ type: MAKE_STRIPE_PAYMENT_FAILURE })
       if (error && error.error && error.error.message) {
