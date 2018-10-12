@@ -42,3 +42,5 @@ button span {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+::-webkit-inner-spin-button { margin-top: 12px; margin-left: 5px }
+::-webkit-calendar-picker-indicator { display: none; }
