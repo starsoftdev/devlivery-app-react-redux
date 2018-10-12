@@ -1321,7 +1321,7 @@
   {
     "id": "purchase13.thankyou",
     "defaultMessage": "Thank You",
-    "message": "Danke für Ihre Bestellung",
+    "message": "Danke",
     "files": [
       "src/routes/purchaseCompleted/messages.js"
     ]
