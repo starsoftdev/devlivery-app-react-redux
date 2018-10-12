@@ -10,7 +10,7 @@ import { DATE_FORMAT, DISPLAYED_DATE_FORMAT } from '../../constants'
 import { ChangePasswordForm } from '../../components'
 import { updateUser, getAllCards, addCard } from '../../reducers/user'
 import messages from './messages'
-import { FloatingLabel, CardCheckOut } from '../../components';
+import { FloatingLabel, CardCheckOut, Avatar } from '../../components';
 import ReactCreditCard from 'react-credit-cards'
 import creditCardStyles from 'react-credit-cards/es/styles-compiled.css'
 import { makeStripePayment } from '../../reducers/purchase'
@@ -173,7 +173,9 @@ class User extends React.Component {
     const { number, name, expiry, cvc, focused } = this.state
     const { user, intl, cards } = this.props
     const { getFieldDecorator } = this.props.form
-    
+
+    const handwrittenDisabled = !(user && user.is_subscribed);
+
     const address = user && user.addresses && user.addresses.find(item => item.default !== null)
 
     const reminderTimes = [
@@ -456,6 +458,13 @@ class User extends React.Component {
                 </Row>
               </section>
               <ChangePasswordForm />
+              {
+                !handwrittenDisabled &&
+                <section className={s.section}>
+                  <h1 className={s.header}>{'Company  Logo'}</h1>
+                  <Avatar isLogo = {true}/>
+                </section>
+              }
             </Col>
           </Row>
         </div>
