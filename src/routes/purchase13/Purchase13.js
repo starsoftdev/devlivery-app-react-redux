@@ -175,7 +175,7 @@ class Purchase13 extends React.Component {
             }
           </div>
           {
-            <Row gutter={20} type='flex' align='middle' className={!this.state.useDefualtCard?s.visible:s.invisible}>
+            <Row gutter={20} type='flex' align='middle' className={!this.state.useDefualtCard && cards.length < 4 ? s.visible:s.invisible}>
               <Col xs={24} sm={12}>
                 <ReactCreditCard
                   number={number}
@@ -255,7 +255,7 @@ class Purchase13 extends React.Component {
           <div className={s.checkbox}>
             {
               cards && cards.length > 0 &&
-              <Checkbox checked={this.state.useDefualtCard} onChange={(e) => {
+              <Checkbox checked={this.state.useDefualtCard || cards.length >= 4} onChange={(e) => {
                 this.setState({ useDefualtCard: e.target.checked })
               }
               }>
