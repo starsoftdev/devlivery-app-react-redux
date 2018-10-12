@@ -758,19 +758,22 @@ export const makeDefaultStripePayment = (tokenid, callback) => (dispatch, getSta
     return
   }
   dispatch({ type: MAKE_STRIPE_PAYMENT_REQUEST })
-  
+  console.log(`/payments/stripe/charge/${orderId}`,{
+    card_id: tokenid,
+  })
   return fetch(`/payments/stripe/charge/${orderId}`, {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
     body: {
-      stripeToken: tokenid,
+      card_id: tokenid,
     },
     token,
     success: () => {
       dispatch(nextFlowStep())
       dispatch({ type: MAKE_STRIPE_PAYMENT_SUCCESS })
     },
-    failure: () => {
+    failure: (err) => {
+      console.log("err",err);
       dispatch({ type: MAKE_STRIPE_PAYMENT_FAILURE })
     },
   })
