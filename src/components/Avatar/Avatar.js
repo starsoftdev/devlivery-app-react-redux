@@ -3,10 +3,10 @@ import NoAvatarIcon from '../../static/individual.svg'
 import EditIcon from '../../static/edit.svg'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Avatar.css'
-import {Modal} from 'antd'
+import { Modal } from 'antd'
 import AvatarEditModal from './AvatarEditModal'
-import {connect} from 'react-redux'
-import {uploadAvatar} from '../../reducers/user'
+import { connect } from 'react-redux'
+import { uploadAvatar, uploadLogo } from '../../reducers/user'
 
 class Avatar extends React.Component {
   state = {
@@ -14,33 +14,40 @@ class Avatar extends React.Component {
   }
 
   toggleEditAvatarModal = () => {
-    this.setState({editAvatarModalOpened: !this.state.editAvatarModalOpened})
+    this.setState({ editAvatarModalOpened: !this.state.editAvatarModalOpened })
   }
 
   render() {
-    const {editAvatarModalOpened} = this.state
-    const {user} = this.props
-
+    const { editAvatarModalOpened } = this.state
+    const { user, isLogo } = this.props
+    const imageURL = isLogo ? user && user.company_logo : user && user.avatar && user.avatar.url;
     return (
       <React.Fragment>
         <Modal
-          title='Edit avatar'
+          title={isLogo ? 'Edit Logo' : 'Edit avatar'}
           visible={editAvatarModalOpened}
           onOk={this.handleOk}
           onCancel={this.toggleEditAvatarModal}
           footer={null}
         >
           <AvatarEditModal
-            uploadAvatar={this.props.uploadAvatar}
-            url={user && user.avatar && user.avatar.url}
+            uploadAvatar={isLogo ? this.props.uploadLogo : this.props.uploadAvatar}
+            url={imageURL}
             toggleEditAvatarModal={this.toggleEditAvatarModal}
           />
         </Modal>
         <div className={s.avatarContainer} onClick={this.toggleEditAvatarModal}>
-          <div className={s.avatarWrapper}>
-            <EditIcon className={s.editBtn}/>
-            {user && user.avatar ? <img src={user.avatar.url} width='110'/> : <NoAvatarIcon/>}
-          </div>
+          {
+            isLogo && imageURL === null ?
+              <div className={s.avatarWrapper}>
+                <h4>Upload logo</h4>
+              </div>
+              :
+              <div className={s.avatarWrapper}>
+                <EditIcon className={s.editBtn} />
+                {imageURL ? <img src={imageURL} width={'110'} /> : <NoAvatarIcon />}
+              </div>
+          }
         </div>
       </React.Fragment>
     )
@@ -53,6 +60,7 @@ const mapState = state => ({
 
 const mapDispatch = {
   uploadAvatar,
+  uploadLogo
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Avatar))

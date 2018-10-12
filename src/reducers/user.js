@@ -150,6 +150,28 @@ export const uploadAvatar = (imageBlob) => (dispatch, getState, { fetch }) => {
     }
   })
 }
+export const uploadLogo = (imageBlob) => (dispatch, getState, { fetch }) => {
+  const { token } = dispatch(getToken())
+  dispatch({ type: UPLOAD_AVATAR_REQUEST })
+  return fetch(`/update-company-logo`, {
+    method: 'POST',
+    contentType: 'multipart/form-data',
+    token,
+    body: {
+      image: imageBlob,
+    },
+    success: (res) => {
+      dispatch({ type: UPLOAD_AVATAR_SUCCESS })
+      dispatch(getUserDetails())
+    },
+    failure: (error) => {
+      dispatch({ type: UPLOAD_AVATAR_FAILURE })
+      if (error && error.image) {
+        message.error(error.image)
+      }
+    }
+  })
+}
 export const getAllCards = () => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   return fetch(`/user/get/all-cards`, {
