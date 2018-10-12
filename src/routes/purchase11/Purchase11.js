@@ -17,6 +17,7 @@ import { injectGlobal } from 'styled-components';
 import PlusIcon from '../../static/plus.svg'
 import RemoveIcon from '../../static/remove.svg'
 import { FloatingLabel } from '../../components';
+import {INDIVIDUAL_ACCOUNT} from '../../reducers/register'
 
 import {
   ORDER_BUNDLE_FLOW,
@@ -142,7 +143,10 @@ class Purchase11 extends React.Component {
     e.preventDefault()
     
     const {order, user} = this.props;
-    if(user && user.budget && user.budget.remaining_budget && parseFloat(order.total) <= parseFloat( user.budget.remaining_budget))    {     
+    
+    const owner = user.account_type==INDIVIDUAL_ACCOUNT && user.is_team_owner==false || user.is_team_owner==true;
+    
+    if(user && user.budget && user.budget.remaining_budget && parseFloat(order.total) <= parseFloat( user.budget.remaining_budget) || owner)    {     
       this.setState({ disableSubmit: true })
       this.props.form.validateFields((err, values) => {
         if (!err) {
