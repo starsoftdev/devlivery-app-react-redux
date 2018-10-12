@@ -140,30 +140,36 @@ class Purchase11 extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.setState({ disableSubmit: true })
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        var jsonData = {
-          selectedLocation: this.state.selectedLocation,
-          selOccasion: this.state.selOccasion,
-          selDate: this.state.selDate,
-          contact: this.state.contact,
-          checkSave: this.state.checkSave,
-          bundleName: this.props.form.getFieldValue('title')
+    
+    const {order, user} = this.props;
+    if(user && user.budget && user.budget.remaining_budget && parseFloat(order.total) <= parseFloat( user.budget.remaining_budget))    {     
+      this.setState({ disableSubmit: true })
+      this.props.form.validateFields((err, values) => {
+        if (!err) {
+          var jsonData = {
+            selectedLocation: this.state.selectedLocation,
+            selOccasion: this.state.selOccasion,
+            selDate: this.state.selDate,
+            contact: this.state.contact,
+            checkSave: this.state.checkSave,
+            bundleName: this.props.form.getFieldValue('title')
+          }
+          localStorage.setItem(ORDER_CONFIRM_STATE, JSON.stringify(jsonData));
+          this.props.submitShipping(values)
+        } else {
+          this.setState({ disableSubmit: false })
         }
-        localStorage.setItem(ORDER_CONFIRM_STATE, JSON.stringify(jsonData));
-        this.props.submitShipping(values)
-      } else {
-        this.setState({ disableSubmit: false })
-      }
-    })
+      })
+    }else{
+      message.warn("Insufficient budget available");
+    }
   }
   handleEditorChange(content) {
     this.setState({ content });
   }
   render() {
     const { currentRecipient, order, disableSubmit, contact, selOccasion, checkSave, selectedLocation } = this.state
-    const { flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation, flow } = this.props
+    const { flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation, flow,user } = this.props
     const { getFieldDecorator } = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
 
@@ -174,7 +180,7 @@ class Purchase11 extends React.Component {
     const cardHeight = orientation && orientation == 'l' ? w : h;
 
     const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
-
+    
     return order ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -238,6 +244,15 @@ class Purchase11 extends React.Component {
             </Col>
             <Col xs={12}>
               <span className={s.subtotalValue}>{order.total}</span>
+              <span className={s.subtotalCurrency}>{'CHF'}</span>
+            </Col>
+          </Row>
+          <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+            <Col xs={12}>
+              <h2 className={s.subtotalHeader}>{'AVAILABLE BUDGET:'}</h2>
+            </Col>
+            <Col xs={12}>
+              <span className={s.subtotalValue}>{user && user.budget && user.budget.remaining_budget ? user.budget.remaining_budget : '0'}</span>
               <span className={s.subtotalCurrency}>{'CHF'}</span>
             </Col>
           </Row>
