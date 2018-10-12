@@ -70,11 +70,10 @@ class Purchase13 extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     if (this.state.useDefualtCard && this.props.paymentMethod === CREDIT_CARD) {
-      console.log('cards',this.props.cards);
       var defaultcard = this.props.cards.filter(item => item.default);
       if(defaultcard.length > 0)
       {
-        //this.props.makeDefaultStripePayment(defaultcard[0].id);
+        this.props.makeDefaultStripePayment(defaultcard[0].id);
       }
     }
     else{
