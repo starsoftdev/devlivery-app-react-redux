@@ -63,3 +63,18 @@
   margin-top: 10px;
   color:red;
 }
+.CardCheckOut{
+  margin-left: 10px;
+  margin-bottom: 20px;
+  display: block;
+}
+.checkbox{
+  margin-left: 10px;
+  margin-top: 20px;
+}
+.visible{
+  display: inline-block;
+}
+.invisible{
+  display: none;
+}

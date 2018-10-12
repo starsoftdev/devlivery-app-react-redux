@@ -751,7 +751,30 @@ export const addCardBody = (orderId) => (dispatch, getState, { fetch }) => {
     },
   })
 }
-
+export const makeDefaultStripePayment = (tokenid, callback) => (dispatch, getState, { fetch }) => {
+  const { token } = dispatch(getToken())
+  const { orderId } = getState().purchase
+  if (!orderId && !card.ignore) {
+    return
+  }
+  dispatch({ type: MAKE_STRIPE_PAYMENT_REQUEST })
+  
+  return fetch(`/payments/stripe/charge/${orderId}`, {
+    method: 'POST',
+    contentType: 'application/x-www-form-urlencoded',
+    body: {
+      stripeToken: tokenid,
+    },
+    token,
+    success: () => {
+      dispatch(nextFlowStep())
+      dispatch({ type: MAKE_STRIPE_PAYMENT_SUCCESS })
+    },
+    failure: () => {
+      dispatch({ type: MAKE_STRIPE_PAYMENT_FAILURE })
+    },
+  })
+}
 export const makeStripePayment = (card, callback) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   const { orderId } = getState().purchase

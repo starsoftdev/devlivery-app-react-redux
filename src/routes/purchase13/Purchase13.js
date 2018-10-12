@@ -10,12 +10,13 @@ import {
   makeBitpayPayment,
   makePaypalPayment,
   makeInvoicePayment,
+  makeDefaultStripePayment,
   INVOICE
 } from '../../reducers/purchase'
-import { Button, Col, Form, Input, Row, Spin, Icon, message } from 'antd'
+import { Button, Col, Form, Input, Row, Spin, Icon, message, Checkbox } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase13.css'
-import { PurchaseActions, SectionHeader } from '../../components'
+import { PurchaseActions, SectionHeader, CardCheckOut } from '../../components'
 import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import ReactCreditCard from 'react-credit-cards'
 import creditCardStyles from 'react-credit-cards/es/styles-compiled.css'
@@ -33,7 +34,8 @@ class Purchase13 extends React.Component {
     requirmsg: null,
     isValid: false,
     showMark: false,
-    cardtype:null
+    cardtype: null,
+    useDefualtCard: false
   }
   constructor(props) {
     super(props)
@@ -67,36 +69,46 @@ class Purchase13 extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.form.validateFields((err, values) => {
-      if (values.number && values.name && values.expiry && values.cvc) {
-        if (!err && this.state.isValid) {
-          // TODO validate card fields
-          const card = {
-            ...values,
-            expiry_month: values.expiry.slice(0, 2),
-            expiry_year: `20${values.expiry.slice(-2)}`,
-          }
-          switch (this.props.paymentMethod) {
-            case CREDIT_CARD:
-              this.props.makeStripePayment(card)
-              break
-
-            default:
-              this.props.nextFlowStep()
-              break
-          }
-        }
-      } else {
-        message.error('All fields must be filled in')
+    if (this.state.useDefualtCard && this.props.paymentMethod === CREDIT_CARD) {
+      console.log('cards',this.props.cards);
+      var defaultcard = this.props.cards.filter(item => item.default);
+      if(defaultcard.length > 0)
+      {
+        //this.props.makeDefaultStripePayment(defaultcard[0].id);
       }
-    })
+    }
+    else{
+      this.props.form.validateFields((err, values) => {
+        if (values.number && values.name && values.expiry && values.cvc) {
+          if (!err && this.state.isValid) {
+            // TODO validate card fields
+            const card = {
+              ...values,
+              expiry_month: values.expiry.slice(0, 2),
+              expiry_year: `20${values.expiry.slice(-2)}`,
+            }
+            switch (this.props.paymentMethod) {
+              case CREDIT_CARD:
+                this.props.makeStripePayment(card)
+                break
+
+              default:
+                this.props.nextFlowStep()
+                break
+            }
+          }
+        } else {
+          message.error('All fields must be filled in')
+        }
+      })
+    }
   }
 
   handleInputChange = (e, field) => {
     if (field === 'number') {
       this.setState({
         [field]: e.target.value.replace(/ /g, ''),
-        showMark:false
+        showMark: false
       })
     }
     else if (field === 'expiry') {
@@ -111,7 +123,7 @@ class Purchase13 extends React.Component {
     }
   }
   handleBlurCardNumber = () => {
-    this.setState({showMark:true});
+    this.setState({ showMark: true });
   }
   handleInputFocus = (e, field) => {
     this.setState({
@@ -133,11 +145,11 @@ class Purchase13 extends React.Component {
   handleCallback(type, isValid) {
     if (type && type.issuer == 'unknown' || !isValid) {
       this.setState({ requirmsg: 'Invalid credit card number', isValid });
-    } else this.setState({ requirmsg: null, isValid, cardtype:type.issuer });
+    } else this.setState({ requirmsg: null, isValid, cardtype: type.issuer });
   }
   render() {
     const { number, name, expiry, cvc, focused } = this.state
-    const { flowIndex, intl } = this.props
+    const { flowIndex, intl, cards } = this.props
     const { getFieldDecorator } = this.props.form
     return (
       <React.Fragment>
@@ -157,81 +169,101 @@ class Purchase13 extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
-          <Row gutter={20} type='flex' align='middle'>
-            <Col xs={24} sm={12}>
-              <ReactCreditCard
-                number={number}
-                name={name}
-                expiry={expiry}
-                cvc={cvc}
-                focused={focused}
-                callback={this.handleCallback}
-              />
-            </Col>
-            <Col xs={24} sm={12}>
-              <Form>
-                <Form.Item>
-                  {getFieldDecorator('number', {
-                  })(
-                    <Input
-                      placeholder={intl.formatMessage(messages.number)}
-                      onChange={(e) => this.handleInputChange(e, 'number')}
-                      onFocus={(e) => this.handleInputFocus(e, 'number')}
-                      onBlur = {()=> this.handleBlurCardNumber()}
-                      className={'cardnumber'}
-                    />
-                  )}
-                </Form.Item>
-                {
-                  this.state.showMark && this.state.requirmsg && this.props.form.getFieldValue('number') &&
-                  <h4 className={s.requireMark}>{this.state.requirmsg}</h4>
-                }
-                <Form.Item>
-                  {getFieldDecorator('name', {
-                  })(
-                    <Input
-                      placeholder={intl.formatMessage(messages.name)}
-                      onChange={(e) => this.handleInputChange(e, 'name')}
-                      onFocus={(e) => this.handleInputFocus(e, 'name')}
-                    />
-                  )}
-                </Form.Item>
-                <Row gutter={20}>
-                  <Col xs={12}>
-                    <Form.Item
+          <div className={s.CardCheckOut}>
+            {
+              cards && cards.length > 0 &&
+              <CardCheckOut cards={cards} intl={intl} />
+            }
+          </div>
+          {
+            <Row gutter={20} type='flex' align='middle' className={!this.state.useDefualtCard?s.visible:s.invisible}>
+              <Col xs={24} sm={12}>
+                <ReactCreditCard
+                  number={number}
+                  name={name}
+                  expiry={expiry}
+                  cvc={cvc}
+                  focused={focused}
+                  callback={this.handleCallback}
+                />
+              </Col>
+              <Col xs={24} sm={12}>
+                <Form>
+                  <Form.Item>
+                    {getFieldDecorator('number', {
+                    })(
+                      <Input
+                        placeholder={intl.formatMessage(messages.number)}
+                        onChange={(e) => this.handleInputChange(e, 'number')}
+                        onFocus={(e) => this.handleInputFocus(e, 'number')}
+                        onBlur={() => this.handleBlurCardNumber()}
+                        className={'cardnumber'}
+                      />
+                    )}
+                  </Form.Item>
+                  {
+                    this.state.showMark && this.state.requirmsg && this.props.form.getFieldValue('number') &&
+                    <h4 className={s.requireMark}>{this.state.requirmsg}</h4>
+                  }
+                  <Form.Item>
+                    {getFieldDecorator('name', {
+                    })(
+                      <Input
+                        placeholder={intl.formatMessage(messages.name)}
+                        onChange={(e) => this.handleInputChange(e, 'name')}
+                        onFocus={(e) => this.handleInputFocus(e, 'name')}
+                      />
+                    )}
+                  </Form.Item>
+                  <Row gutter={20}>
+                    <Col xs={12}>
+                      <Form.Item
                       //{...this.validation(this.state.expiry, 4)}
-                    >
-                      {getFieldDecorator('expiry', {
-                      })(
-                        <Input
-                          placeholder={intl.formatMessage(messages.expiry)}
-                          onChange={(e) => this.handleInputChange(e, 'expiry')}
-                          onFocus={(e) => this.handleInputFocus(e, 'expiry')}
-                          className={'cardexpire'}
-                        />
-                      )}
-                    </Form.Item>
-                  </Col>
-                  <Col xs={12}>
-                    <Form.Item
+                      >
+                        {getFieldDecorator('expiry', {
+                        })(
+                          <Input
+                            placeholder={intl.formatMessage(messages.expiry)}
+                            onChange={(e) => this.handleInputChange(e, 'expiry')}
+                            onFocus={(e) => this.handleInputFocus(e, 'expiry')}
+                            className={'cardexpire'}
+                          />
+                        )}
+                      </Form.Item>
+                    </Col>
+                    <Col xs={12}>
+                      <Form.Item
                       //{...this.validation(this.state.cvc, 3)}
-                    >
-                      {getFieldDecorator('cvc', {
-                      })(
-                        <Input
-                          placeholder={intl.formatMessage(messages.cvc)}
-                          onChange={(e) => this.handleInputChange(e, 'cvc')}
-                          onFocus={(e) => this.handleInputFocus(e, 'cvc')}
-                          className={'cardcvc'}
-                          maxLength = {this.state.cardtype !== 'mastercard' ? 3 : 4}
-                        />
-                      )}
-                    </Form.Item>
-                  </Col>
-                </Row>
-              </Form>
-            </Col>
-          </Row>
+                      >
+                        {getFieldDecorator('cvc', {
+                        })(
+                          <Input
+                            placeholder={intl.formatMessage(messages.cvc)}
+                            onChange={(e) => this.handleInputChange(e, 'cvc')}
+                            onFocus={(e) => this.handleInputFocus(e, 'cvc')}
+                            className={'cardcvc'}
+                            maxLength={this.state.cardtype !== 'mastercard' ? 3 : 4}
+                          />
+                        )}
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                </Form>
+              </Col>
+            </Row>
+          }
+          <br/>
+          <div className={s.checkbox}>
+            {
+              cards && cards.length > 0 &&
+              <Checkbox checked={this.state.useDefualtCard} onChange={(e) => {
+                this.setState({ useDefualtCard: e.target.checked })
+              }
+              }>
+                Use this card as default from now on
+            </Checkbox>
+            }
+          </div>
         </div>
         <PurchaseActions>
           <KeyHandler
@@ -255,6 +287,7 @@ const mapState = state => ({
   paymentMethod: state.purchase.paymentMethod,
   flowIndex: state.purchase.flowIndex,
   loading: state.purchase.loading.payment,
+  cards: state.user.cards
 })
 
 const mapDispatch = {
@@ -262,7 +295,8 @@ const mapDispatch = {
   makeStripePayment,
   makeBitpayPayment,
   makePaypalPayment,
-  makeInvoicePayment
+  makeInvoicePayment,
+  makeDefaultStripePayment
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s, creditCardStyles)(Purchase13)))
