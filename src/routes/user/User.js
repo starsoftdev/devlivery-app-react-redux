@@ -97,7 +97,7 @@ class User extends React.Component {
               if (success) this.resetCardInf()
             })
           else {
-            this.setState({ showMark: true, requirmsg: 'Invalid Card', processing: false });
+            this.setState({ showMark: true, requirmsg: data.message ? data.message :'Invalid Card', processing: false });
             return;
           }
         }
