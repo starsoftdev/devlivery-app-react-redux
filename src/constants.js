@@ -7,6 +7,8 @@ import FoodImage from './static/food.svg'
 import NonFoodImage from './static/non_food.svg'
 import DonationImage from './static/donation.svg'
 import VoucherImage from './static/voucher.svg'
+import ContinueWithoutImage from './static/without_gift.svg'
+import purchase7_messages from './routes/purchase7/messages'
 
 export const DAY = 86400
 export const YEAR = 31536000
@@ -85,6 +87,7 @@ export const FOOD_TYPE = 'Food'
 export const NON_FOOD_TYPE = 'Non-Food'
 export const DONATION_TYPE = 'Donation'
 export const VOUCHER_TYPE = 'Voucher'
+export const CONTINUE_WITHOUT_GIFT = 'Continue_without_gift'
 
 // TODO add translations
 export const GIFT_TYPES = (intl) => [
@@ -96,7 +99,9 @@ export const ADDITIONAL_GIFT_TYPES = (intl) => [
   {key: DONATION_TYPE, title: 'Donation', svg: DonationImage},
   {key: VOUCHER_TYPE, title: 'Voucher', svg: VoucherImage},
 ]
-
+export const OTHER_TYPES = (intl) => [
+  {key: CONTINUE_WITHOUT_GIFT, title: intl.formatMessage(purchase7_messages.continueWithoutGift), svg: ContinueWithoutImage},
+]
 //TinyCME Editor Constants
 export const FONTS = ['Anonymous Pro', 'Amatic SC',  'Caveat', 'Cinzel', 'Covered By Your Grace', 'Cutive Mono', 'Dancing Script', 'Gloria Hallelujah', 'Great Vibes', 'Italianno', 'Josefin Sans', 'Merienda', 'Montserrat', 'Nova Mono', 'Open Sans', 'PT Serif', 'Playfair Display', 'Playfair Display SC', 'Raleway', 'Sacramento', 'Shadows Into Light', 'Teko', 'Yellowtail']
 

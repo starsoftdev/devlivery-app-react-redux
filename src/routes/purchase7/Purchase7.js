@@ -1,17 +1,17 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {continueWithoutGift, setGiftType, submitGiftType,submitGift} from '../../reducers/purchase'
-import {Button, Col, Row} from 'antd'
+import { connect } from 'react-redux'
+import { continueWithoutGift, setGiftType, submitGiftType, submitGift } from '../../reducers/purchase'
+import { Button, Col, Row } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase7.css'
-import {Card, PurchaseActions, SectionHeader} from '../../components'
-import {ADDITIONAL_GIFT_TYPES, ALPHABET, GIFT_TYPES} from '../../constants'
-import KeyHandler, {KEYPRESS} from 'react-key-handler'
+import { Card, PurchaseActions, SectionHeader } from '../../components'
+import { ADDITIONAL_GIFT_TYPES, ALPHABET, GIFT_TYPES, OTHER_TYPES, CONTINUE_WITHOUT_GIFT } from '../../constants'
+import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import messages from './messages'
 
 class Purchase7 extends React.Component {
   render() {
-    const {giftType, setGiftType, submitGift,bundleId,giftIds,submitGiftType, intl, flowIndex, continueWithoutGift} = this.props
+    const { giftType, setGiftType, submitGift, bundleId, giftIds, submitGiftType, intl, flowIndex, continueWithoutGift } = this.props
     return (
       <React.Fragment>
         <div className={s.content}>
@@ -21,15 +21,20 @@ class Purchase7 extends React.Component {
             prefixClassName={s.headerPrefix}
           />
           <Row className={s.items} gutter={20} type='flex' align='center'>
-            {[...GIFT_TYPES(intl), ...ADDITIONAL_GIFT_TYPES(intl)].map((item, i) =>
-              <Col key={item.key} className={s.itemWrapper}>
+            {[...GIFT_TYPES(intl), ...ADDITIONAL_GIFT_TYPES(intl), ...OTHER_TYPES(intl)].map((item, i) =>
+              <Col key={item.key} className={s.itemWrapper} xs={8}>
                 <Card
                   className={s.item}
                   title={item.title}
                   svg={item.svg}
                   onClick={() => {
-                    setGiftType(item.key)
-                    submitGiftType()
+                    if (item.key === CONTINUE_WITHOUT_GIFT) {
+                      continueWithoutGift()
+                    }
+                    else {
+                      setGiftType(item.key)
+                      submitGiftType()
+                    }
                   }}
                   active={item.key === giftType}
                   keyValue={ALPHABET[i]}
@@ -39,35 +44,26 @@ class Purchase7 extends React.Component {
             )}
           </Row>
         </div>
-        <PurchaseActions>
-          {/*
-          <KeyHandler
-            keyEventName={KEYPRESS}
-            keyCode={13}
-            onKeyHandle={() => giftType && submitGiftType()}
-          />
-          */}
-          <Button
-            type='primary'
-            ghost
-            onClick={() => {
-              if(giftIds.length > 0)
-                submitGift(1);
-              else continueWithoutGift()
-            }}
-          >
-            {giftIds.length > 0 ? intl.formatMessage(messages.submit) : intl.formatMessage(messages.continueWithoutGift)}
-          </Button>
-          {/*
-          <Button
-            type='primary'
-            disabled={!giftType}
-            onClick={() => submitGiftType()}
-          >
-            {intl.formatMessage(messages.submit)}
-          </Button>
-          */}
-        </PurchaseActions>
+        {
+          giftIds.length > 0 ?
+            <PurchaseActions>
+              <KeyHandler
+                keyEventName={KEYPRESS}
+                keyCode={13}
+                onKeyHandle={() => submitGift(1)}
+              />
+              <Button
+                type='primary'
+                ghost
+                onClick={() => {
+                  submitGift(1);
+                }}
+              >
+                {intl.formatMessage(messages.submit)}
+              </Button>
+            </PurchaseActions>
+            : <PurchaseActions />
+        }
       </React.Fragment>
     )
   }
