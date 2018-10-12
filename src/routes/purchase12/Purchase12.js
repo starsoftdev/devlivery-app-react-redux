@@ -1,12 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {BITPAY, CREDIT_CARD, nextFlowStep, PAYPAL, setPaymentMethod} from '../../reducers/purchase'
+import {BITPAY, CREDIT_CARD, nextFlowStep, PAYPAL, INVOICE,setPaymentMethod} from '../../reducers/purchase'
 import {Col, Row, Button} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase12.css'
 import {Card, SectionHeader, PurchaseActions} from '../../components'
 import PayPalIcon from '../../static/paypal.svg'
 import CreditCardIcon from '../../static/credit_card.svg'
+import InvoiceIcon from '../../static/invoice.svg'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
 import {isHavePaymentPermission} from '../../utils';
@@ -34,6 +35,8 @@ class Purchase12 extends React.Component {
     const {paymentMethod, flowIndex,intl, user} = this.props
     const {payment_permission,msg} = this.state;
     const havePermission  = user && user.account_type === INDIVIDUAL_ACCOUNT ? true : payment_permission === null ? false : true;
+    const handwrittenDisabled = !(user && user.is_subscribed);
+    
     return (
       <div className={s.content}>
         <SectionHeader
@@ -74,6 +77,17 @@ class Purchase12 extends React.Component {
               keyValue='c'
               svg={CreditCardIcon}
               disabled = {!havePermission}
+            />
+          </Col>
+          <Col className={s.itemWrapper}>
+            <Card
+              className={s.item}
+              title={'OFFICE-INVOICE'}
+              onClick={() => this.setPaymentMethod(INVOICE)}
+              active={paymentMethod === INVOICE && havePermission}
+              keyValue='d'
+              svg={InvoiceIcon}
+              disabled = {!havePermission || handwrittenDisabled}
             />
           </Col>
         </Row>
