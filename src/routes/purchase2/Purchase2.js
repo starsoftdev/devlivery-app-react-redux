@@ -20,9 +20,8 @@ class Purchase2 extends React.Component {
 
   render() {
     const {letteringTechnique, intl, flowIndex, user} = this.props
-
-    const handwrittenDisabled = !user || !user.is_subscribed
-
+    const handwrittenDisabled = !(user && user.is_subscribed);
+    
     return (
       <div className={s.content}>
         <SectionHeader
@@ -99,7 +98,7 @@ class Purchase2 extends React.Component {
 const mapState = state => ({
   letteringTechnique: state.purchase.letteringTechnique,
   flowIndex: state.purchase.flowIndex,
-  user: state.global.user,
+  user: state.user.user,
 })
 
 const mapDispatch = {

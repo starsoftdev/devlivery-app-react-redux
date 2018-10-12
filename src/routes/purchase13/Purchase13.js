@@ -5,9 +5,12 @@ import {
   BITPAY,
   PAYPAL,
   nextFlowStep,
+  InvoiceIcon,
   makeStripePayment,
   makeBitpayPayment,
   makePaypalPayment,
+  makeInvoicePayment,
+  INVOICE
 } from '../../reducers/purchase'
 import { Button, Col, Form, Input, Row, Spin, Icon, message } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
@@ -53,6 +56,10 @@ class Purchase13 extends React.Component {
 
       case BITPAY:
         this.props.makeBitpayPayment()
+        // this.props.nextFlowStep()
+        break
+      case INVOICE:
+        this.props.makeInvoicePayment()
         // this.props.nextFlowStep()
         break
     }
@@ -255,6 +262,7 @@ const mapDispatch = {
   makeStripePayment,
   makeBitpayPayment,
   makePaypalPayment,
+  makeInvoicePayment
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s, creditCardStyles)(Purchase13)))

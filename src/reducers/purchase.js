@@ -41,6 +41,7 @@ export const SELECT_GROUPS = 'select-groups'
 export const PAYPAL = 'PAYPAL'
 export const CREDIT_CARD = 'CREDIT_CARD'
 export const BITPAY = 'BITPAY'
+export const INVOICE = 'INVOICE'
 
 export const SET_BUNDLE = 'Purchase.SET_BUNDLE'
 export const SET_FLOW = 'Purchase.SET_FLOW'
@@ -848,7 +849,29 @@ export const makePaypalPayment = () => (dispatch, getState, { fetch }) => {
     },
   })
 }
-
+export const makeInvoicePayment = () => (dispatch, getState, { fetch }) => {
+  const { token } = dispatch(getToken())
+  const { orderId } = getState().purchase
+  if (!orderId) {
+    return
+  }
+  console.log(`/order-confirmation?order_id=${orderId}`);
+  return fetch(`/order-confirmation?order_id=${orderId}`, {
+    method: 'GET',
+    token,
+    success: (res) => {
+      console.log("res",res);
+      dispatch(nextFlowStep());
+    },
+    failure: (error) => {
+      console.log('error',error);
+      if (error && error.error && error.error.message) {
+        message.error(error.error.message)
+      }
+      dispatch(nextFlowStep(-2));
+    },
+  })
+}
 const returnToPaymentMethod = (keepOrder) => (dispatch, getState, { history }) => {
   const orderId = localStorage.getItem(ORDER_ID_KEY)
   dispatch({ type: MAKE_ORDER_SUCCESS, order: { id: orderId } })
