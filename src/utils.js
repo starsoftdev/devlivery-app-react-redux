@@ -60,7 +60,7 @@ export const getFormErrors = ({values, errors}) => {
   }
 }
 
-export const getBirthday = (birthday) => birthday ? birthday.format(DATE_FORMAT) : null
+export const getBirthday = (birthday) => birthday ? birthday : null
 
 export const getOrdering = (ordering) => {
   const orderDesc = ordering.substring(0, 1) === '-'

@@ -14,7 +14,7 @@ import { FloatingLabel, CardCheckOut } from '../../components';
 import ReactCreditCard from 'react-credit-cards'
 import creditCardStyles from 'react-credit-cards/es/styles-compiled.css'
 import { makeStripePayment } from '../../reducers/purchase'
-import {TEAM_ACCOUNT} from '../../reducers/register'
+import { TEAM_ACCOUNT } from '../../reducers/register'
 
 class User extends React.Component {
   state = {
@@ -46,13 +46,24 @@ class User extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.updateUser(values, this.props.form,this.props.intl.locale === "de-DE" ? 'Angaben angepasst':'User updated.')
+        var birthday = moment(values.birthday);
+        var expected = moment().subtract(18, 'years');
+        if (birthday < expected)
+          this.props.updateUser(values, this.props.form, this.props.intl.locale === "de-DE" ? 'Angaben angepasst' : 'User updated.')
+        else {
+          this.props.form.setFields({
+            birthday: {
+              value: values.birthday,
+              errors: [new Error('please select date older than 18 years.')],
+            },
+          });
+        }
       }
     })
   }
 
   handleAddCardButton = () => {
-    
+
     if (this.state.processing)
       return;
     if (!this.state.saveButton) {
@@ -97,7 +108,7 @@ class User extends React.Component {
               if (success) this.resetCardInf()
             })
           else {
-            this.setState({ showMark: true, requirmsg: data.message ? data.message :'Invalid Card', processing: false });
+            this.setState({ showMark: true, requirmsg: data.message ? data.message : 'Invalid Card', processing: false });
             return;
           }
         }
@@ -108,10 +119,10 @@ class User extends React.Component {
     }
   }
   resetCardInf() {
-    if(this.number) this.number.input.value = '';
-    if(this.name) this.name.input.value = '';
-    if(this.expiry) this.expiry.input.value = '';
-    if(this.cvc) this.cvc.input.value = '';
+    if (this.number) this.number.input.value = '';
+    if (this.name) this.name.input.value = '';
+    if (this.expiry) this.expiry.input.value = '';
+    if (this.cvc) this.cvc.input.value = '';
     this.setState({
       number: '',
       name: '',
@@ -162,9 +173,9 @@ class User extends React.Component {
     const { number, name, expiry, cvc, focused } = this.state
     const { user, intl, cards } = this.props
     const { getFieldDecorator } = this.props.form
-
-    const address = user && user.addresses && user.addresses.find(item => item.default !== null)
     
+    const address = user && user.addresses && user.addresses.find(item => item.default !== null)
+
     const reminderTimes = [
       { value: 0, label: 'Same Day' },
       { value: 1, label: 'Day Before' },
@@ -238,17 +249,15 @@ class User extends React.Component {
                 <h1 className={s.header}>{intl.formatMessage(messages.birthday)}</h1>
                 <Form.Item>
                   {getFieldDecorator('birthday', {
-                    initialValue: user && user.dob ? moment(user.dob, DATE_FORMAT) : undefined,
+                    initialValue: user && user.dob ? user.dob : undefined,
+                    rules: [
+                      { required: true, message: intl.formatMessage(formMessages.required) },
+                    ],
                   })(
-                    <DatePicker 
-                      className={s.birthday} 
-                      format={DISPLAYED_DATE_FORMAT} 
-                      disabledDate={current => {
-                        var date = new Date();
-                        date.setFullYear(date.getFullYear() - 18);
-                        return current && current.valueOf() >= (date)
-                      }}
-                      />
+                    <Input
+                      type='date'
+                      max={moment().subtract(18, 'years').format(DATE_FORMAT)}
+                    />
                   )}
                 </Form.Item>
               </section>
@@ -256,7 +265,7 @@ class User extends React.Component {
                 <h1 className={s.header}>{intl.formatMessage(messages.billingdetails)}</h1>
                 {
                   cards && cards.length > 0 &&
-                  <CardCheckOut cards={cards} intl = {intl}/>
+                  <CardCheckOut cards={cards} intl={intl} />
                 }
                 <Row gutter={20} type='flex' align='middle' className={this.state.saveButton === true ? s.show : s.hidden}>
                   <Col xs={24} sm={24}>
@@ -273,7 +282,7 @@ class User extends React.Component {
                   </Col>
                   <Col xs={24} sm={24}>
                     <Input
-                      ref = {ref => this.number = ref}
+                      ref={ref => this.number = ref}
                       placeholder={intl.formatMessage(messages.number)}
                       onChange={(e) => this.handleInputChange(e, 'number')}
                       onFocus={(e) => this.handleInputFocus(e, 'number')}
@@ -281,7 +290,7 @@ class User extends React.Component {
                       className={'cardnumber'}
                     />
                     <Input
-                      ref = {ref => this.name = ref}
+                      ref={ref => this.name = ref}
                       placeholder={intl.formatMessage(messages.name)}
                       onChange={(e) => this.handleInputChange(e, 'name')}
                       onFocus={(e) => this.handleInputFocus(e, 'name')}
@@ -289,7 +298,7 @@ class User extends React.Component {
                     <Row gutter={20}>
                       <Col xs={16}>
                         <Input
-                          ref = {ref => this.expiry = ref}
+                          ref={ref => this.expiry = ref}
                           placeholder={intl.formatMessage(messages.expiry)}
                           onChange={(e) => this.handleInputChange(e, 'expiry')}
                           onFocus={(e) => this.handleInputFocus(e, 'expiry')}
@@ -298,7 +307,7 @@ class User extends React.Component {
                       </Col>
                       <Col xs={8}>
                         <Input
-                          ref = {ref => this.cvc = ref}
+                          ref={ref => this.cvc = ref}
                           placeholder={intl.formatMessage(messages.cvc)}
                           onChange={(e) => this.handleInputChange(e, 'cvc')}
                           onFocus={(e) => this.handleInputFocus(e, 'cvc')}
@@ -389,7 +398,7 @@ class User extends React.Component {
                   {getFieldDecorator(`address.company`, {
                     initialValue: address && address.company,
                     rules: [
-                      { required: user && user.account_type === TEAM_ACCOUNT ? true:false, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
+                      { required: user && user.account_type === TEAM_ACCOUNT ? true : false, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
                     ],
                   })(
                     <FloatingLabel placeholder={intl.formatMessage(messages.company)} />

@@ -10,6 +10,9 @@ import { INDIVIDUAL_ACCOUNT, TEAM_ACCOUNT } from '../../reducers/register'
 import { register } from '../../reducers/purchase'
 import messages from './messages'
 import { FloatingLabel } from '../../components';
+import moment from 'moment'
+import {DATE_FORMAT, DISPLAYED_DATE_FORMAT} from '../../constants'
+
 
 class Purchase9 extends React.Component {
   state = {
@@ -20,7 +23,18 @@ class Purchase9 extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.register(values, this.props.form)
+        var birthday = moment(values.birthday);
+        var expected = moment().subtract(18, 'years');
+        if(birthday < expected)
+          this.props.register(values, this.props.form)
+        else {
+          this.props.form.setFields({
+            birthday: {
+              value: values.birthday,
+              errors: [new Error('Invalid birthday')],
+            },
+          });
+        }
       }
     })
   }
@@ -70,7 +84,7 @@ class Purchase9 extends React.Component {
                 { required: true, message: intl.formatMessage(formMessages.required) },
               ],
             })(
-              <Select placeholder={intl.formatMessage(messages.type)}>
+              <Select placeholder={intl.formatMessage(messages.type)} onChange={()=>this.setState({...this.state})}>
                 {[
                   { label: intl.formatMessage(messages.individual), value: INDIVIDUAL_ACCOUNT },
                   { label: intl.formatMessage(messages.team), value: TEAM_ACCOUNT },
@@ -150,6 +164,23 @@ class Purchase9 extends React.Component {
               </Form.Item>
             </Col>
           </Row>
+          <section>
+            <h1 className={s.sectionHeader}>
+              {intl.formatMessage(messages.birthday)}
+            </h1>
+            <Form.Item>
+              {getFieldDecorator('birthday', {
+                rules: [
+                  {required: true, message: intl.formatMessage(formMessages.required)},
+                ],
+              })(
+                <Input 
+                  type='date' 
+                  max={moment().subtract(18, 'years').format(DATE_FORMAT)}
+                  />
+              )}
+            </Form.Item>
+          </section>
           <section className={s.section}>
             <h1 className={s.sectionHeader}>{intl.formatMessage(messages.shipAddress)}</h1>
             <Form.Item>

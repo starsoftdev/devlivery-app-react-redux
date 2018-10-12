@@ -188,7 +188,7 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
       contact: {
         ...otherValues.contact,
         ...dob ? {
-          dob: dob.format(DATE_FORMAT)
+          dob
         } : {},
       },
       addresses: getAddressesArray(addresses),

@@ -38,7 +38,7 @@ export const CLEAR = 'Register.CLEAR'
 export const register = (values, form) => (dispatch, getState, {fetch, history}) => {
   dispatch({type: REGISTER_REQUEST, individualDetails: values})
   const {accountType, individualDetails: {birthday, ...otherDetails},inviteToken} = getState().register
-  
+  console.log("birthday",birthday);
   return fetch(`/signup`, {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
@@ -46,7 +46,7 @@ export const register = (values, form) => (dispatch, getState, {fetch, history})
       ...otherDetails,
       account_type: accountType ? accountType : INDIVIDUAL_ACCOUNT,
       ...birthday ? {
-        dob: birthday.format(DATE_FORMAT)
+        dob: birthday,//.format(DATE_FORMAT)
       } : {},
       ...inviteToken ?{
         invitation_token:inviteToken
@@ -89,7 +89,7 @@ export const register = (values, form) => (dispatch, getState, {fetch, history})
         },
 
         user:{
-          dob: birthday ? birthday.format(DATE_FORMAT):null,
+          dob: birthday ? birthday:null,
           email: otherDetails.email,
           first_name: otherDetails.first_name,
           last_name: otherDetails.last_name,

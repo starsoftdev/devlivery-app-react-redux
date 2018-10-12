@@ -85,4 +85,8 @@ export default defineMessages({
     id: 'user.company',
     defaultMessage: 'Company',
   },
+  birthday: {
+    id: 'register2.birthday',
+    defaultMessage: 'Birthday',
+  }
 })

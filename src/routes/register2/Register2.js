@@ -18,7 +18,18 @@ class Register2 extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.register(values, this.props.form)
+        var birthday = moment(values.birthday);
+        var expected = moment().subtract(18, 'years');
+        if(birthday < expected)
+          this.props.register(values, this.props.form)
+        else {
+          this.props.form.setFields({
+            birthday: {
+              value: values.birthday,
+              errors: [new Error('please select date older than 18 years.')],
+            },
+          });
+        }
       }
     })
   }
@@ -100,16 +111,13 @@ class Register2 extends React.Component {
             <Form.Item>
               {getFieldDecorator('birthday', {
                 initialValue: individualDetails ? individualDetails.birthday : undefined,
+                rules: [
+                  {required: true, message: intl.formatMessage(formMessages.required)},
+                ],
               })(
-                <DatePicker 
-                  className={s.birthday} 
-                  format={DISPLAYED_DATE_FORMAT}
-                  //defaultValue={moment().subtract(18, 'years')}
-                  disabledDate={current => {
-                    var date = new Date();
-                    date.setFullYear(date.getFullYear() - 18);
-                    return current && current.valueOf() >= (date)
-                  }}
+                <Input 
+                  type='date' 
+                  max={moment().subtract(18, 'years').format(DATE_FORMAT)}
                   />
               )}
             </Form.Item>
