@@ -194,7 +194,7 @@
   {
     "id": "home.allOurCards",
     "defaultMessage": "All our cards",
-    "message": "KARTEN-selektion",
+    "message": "Karten-Selektion",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -276,7 +276,7 @@
   {
     "id": "purchase13.number",
     "defaultMessage": "Card Number",
-    "message": "Kreditkarten Nummer",
+    "message": "Kartennummer",
     "files": [
       "src/routes/purchase13/messages.js",
       "src/routes/user/messages.js"
@@ -301,7 +301,7 @@
   {
     "id": "home.checkItOut",
     "defaultMessage": "Check it out",
-    "message": "Jetzt AUSPROBIEREN!",
+    "message": "Jetzt Ausprobieren!",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -322,7 +322,7 @@
   {
     "id": "home.chooseIt",
     "defaultMessage": "Choose it",
-    "message": "Modell wählen.",
+    "message": "ANLASS WÄHLEN.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -571,7 +571,7 @@
   {
     "id": "home.email",
     "defaultMessage": "Enter your email address",
-    "message": "Gib deine Email Adresse ein.",
+    "message": "Geben Sie Ihre Email Addresse ein",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -773,7 +773,7 @@
   {
     "id": "dashboard.getStarted",
     "defaultMessage": "Get Started",
-    "message": "Los geht’s!",
+    "message": "Los Geht's",
     "files": [
       "src/routes/dashboard/messages.js"
     ]
@@ -797,7 +797,7 @@
   {
     "id": "home.getStarted",
     "defaultMessage": "Get Started",
-    "message": "Los geht’s!",
+    "message": "Los Geht's",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -972,7 +972,7 @@
   {
     "id": "home.header",
     "defaultMessage": "Keep in Touch with Your Contacts",
-    "message": "Belieben Sie in Kontakt mit Ihrem Netzwerk",
+    "message": "Wecken Sie grosse Emotionen – mit kleinem Aufwand.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -1064,7 +1064,7 @@
   {
     "id": "bundles.makeOrder",
     "defaultMessage": "Make an Order",
-    "message": "Bestellung aufgeben",
+    "message": "Bestellung Aufgeben",
     "files": [
       "src/routes/bundles/messages.js",
       "src/routes/cardStore/messages.js",
@@ -1363,7 +1363,7 @@
   {
     "id": "home.personalizeIt",
     "defaultMessage": "Personalize it",
-    "message": "Persönlich werden.",
+    "message": "PERSÖNLICH WERDEN.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -1408,7 +1408,7 @@
   {
     "id": "footer.privacy",
     "defaultMessage": "Privacy Policy",
-    "message": "Datenschutzerklärung",
+    "message": "DATENSCHUTZERKLÄRUNG",
     "files": [
       "src/components/Footer/messages.js"
     ]
@@ -1729,7 +1729,7 @@
   {
     "id": "home.sendIt",
     "defaultMessage": "Send it",
-    "message": "Ab die Post!",
+    "message": "AB DIE POST!",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -1769,7 +1769,7 @@
   {
     "id": "footer.shipping",
     "defaultMessage": "Shipping & Returns",
-    "message": "Versand & Rücknahme",
+    "message": "VERSAND & RÜCKNAHME",
     "files": [
       "src/components/Footer/messages.js"
     ]
@@ -1793,7 +1793,7 @@
   {
     "id": "home.signUp",
     "defaultMessage": "Sign up to get first access, curated notes about new styles, sales and events.",
-    "message": "Melden Sie sich bei unserem Newsletter an, um als erster Zugang zu erhalten, zu neuen Kartenkollektionen und Geschenken.",
+    "message": "Melden Sie sich bei unserem Newsletter an, um über neue Kartenkollektionen und Geschenken informiert zu bleiben.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -1841,7 +1841,7 @@
   {
     "id": "home.feedbackDescription3",
     "defaultMessage": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make a type specimen book.",
-    "message": "Kunden zu gewinnen, ist schwer – sie zu halten, noch mehr. Trotzdem vernachlässigen viele Unternehmen ihre Kunden, weil ihnen Zeit und Ressourcen fehlen. Damit vergeben sie viele Geschäftschancen. Das muss nicht mehr sein: Dafür ist unser Service da!",
+    "message": "«Kleine Geschenke erhalten die Freundschaft», sagt das Sprichwort. Das gilt erst recht, wenn das Geschenk überraschend eintrifft – und Sie etwas schenken, das Sie am liebsten selbst erhalten würden.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -2137,7 +2137,7 @@
   {
     "id": "home.subHeader",
     "defaultMessage": "We make it easy and seamless to",
-    "message": "Verblüffen Sie Ihre Kunden und Partner.",
+    "message": "VERBLÜFFEN SIE IHRE KUNDEN UND PARTNER.",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -2257,7 +2257,7 @@
   {
     "id": "purchase1.filterByOccasionType",
     "defaultMessage": "Filter by Occasion Type",
-    "message": "Filter by Occasion Type",
+    "message": "Anlass wählen",
     "files": [
       "src/routes/purchase1/messages.js"
     ]
@@ -2594,7 +2594,7 @@
   {
     "id": "about.about",
     "defaultMessage": "About Us",
-    "message": "Über uns",
+    "message": "Kundenverblüffung leicht gemacht",
     "files": [
       "src/routes/about/messages.js"
     ]
@@ -2626,7 +2626,7 @@
   {
     "id": "about.email",
     "defaultMessage": "Enter your email address",
-    "message": "Gib deine Email Adresse ein",
+    "message": "Geben Sie Ihre Email Addresse ein",
     "files": [
       "src/routes/about/messages.js"
     ]
@@ -2634,7 +2634,7 @@
   {
     "id": "about.signUp",
     "defaultMessage": "Sign up to get first access, curated notes about new styles, sales and events.",
-    "message": "Melden Sie sich bei unserem Newsletter an, um als erster Zugang zu erhalten, zu neuen Kartenkollektionen und Geschenken.",
+    "message": "Melden Sie sich bei unserem Newsletter an, um über neue Kartenkollektionen und Geschenken informiert zu bleiben.",
     "files": [
       "src/routes/about/messages.js"
     ]
@@ -2956,7 +2956,7 @@
   {
     "id": "contactUs.messageInput",
     "defaultMessage": "Message",
-    "message": "Message",
+    "message": "Nachricht",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
@@ -2980,7 +2980,7 @@
   {
     "id": "contactUs.subjectInput",
     "defaultMessage": "Subject",
-    "message": "Subject",
+    "message": "Betreff",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
