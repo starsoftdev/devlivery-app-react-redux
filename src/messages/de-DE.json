@@ -213,7 +213,8 @@
     "defaultMessage": "Birthday",
     "message": "Geburtstag",
     "files": [
-      "src/routes/register2/messages.js"
+      "src/routes/register2/messages.js",
+      "src/routes/purchase9/messages.js"
     ]
   },
   {

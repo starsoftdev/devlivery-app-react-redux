@@ -9,6 +9,7 @@ import {addContact, editContact,saveFields,setContact } from '../../reducers/con
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
 import isEmpty from 'lodash/isEmpty'
+import moment from 'moment'
 
 class AddContact extends React.Component {
   constructor(props){
@@ -34,24 +35,37 @@ class AddContact extends React.Component {
     //e.preventDefault()
     this.props.form.validateFields({force: true}, (err, values) => {
       if (!err) {
-        var addresses = this.props.form.getFieldValue('addresses')
-        if(addresses === null)
+        var birthday = moment(values.dob);
+        var expected = moment().subtract(18, 'years');
+        if(birthday < expected)
         {
-          this.onNextSubmit(values);
-          return true;
-        }else{
-          var validate = false;
-          addresses.map(item =>{
-            if(item.address != undefined && item.address != null && item.address !== '')
-              validate = true;
-          });
-          if(validate)
+          var addresses = this.props.form.getFieldValue('addresses')
+          if(addresses === null)
           {
             this.onNextSubmit(values);
             return true;
+          }else{
+            var validate = false;
+            addresses.map(item =>{
+              if(item.address != undefined && item.address != null && item.address !== '')
+                validate = true;
+            });
+            if(validate)
+            {
+              this.onNextSubmit(values);
+              return true;
+            }
+            this.setState({requirAddress:true});
+            return false;
           }
-          this.setState({requirAddress:true});
-          return false;
+        }
+        else {
+          this.props.form.setFields({
+            dob: {
+              value: values.dob,
+              errors: [new Error('please select date older than 18 years.')],
+            },
+          });
         }
       }
       return false;

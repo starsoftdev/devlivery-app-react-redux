@@ -198,21 +198,18 @@ class ContactForm extends React.Component {
         <h1 className={s.header}>{intl.formatMessage(messages.birthday)}</h1>
         <Form.Item>
           {getFieldDecorator('dob', {
-            initialValue: initialValues && initialValues.dob ? moment(initialValues.dob, DATE_FORMAT) : undefined,
+            initialValue: initialValues && initialValues.dob ? initialValues.dob : undefined,
           })(
-            <DatePicker className={s.birthday} 
-              format={DISPLAYED_DATE_FORMAT} 
-              disabledDate={current => {
-                var date = new Date();
-                date.setFullYear(date.getFullYear() - 18);
-                return current && current.valueOf() >= (date)
-              }}
+            <Input 
+              type='date' 
+              max={moment().subtract(18, 'years').format(DATE_FORMAT)}
               onChange={(value)=>{
-              if(value && setupBirthday)
-              {
-               setupBirthday(true)
-              }
-            }}/>
+                if(value && setupBirthday)
+                {
+                 setupBirthday(true)
+                }
+              }}
+            />
           )}
         </Form.Item>
       </section>
