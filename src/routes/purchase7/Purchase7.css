@@ -32,7 +32,7 @@
 }
 
 .itemWrapper {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 
   @media (--xs-down) {
     width: 100%;
@@ -45,6 +45,6 @@
 
   @media (--xs-up) {
     /*to split by 4*/
-    width: 277px;
+    width: 335px;
   }
 }

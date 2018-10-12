@@ -616,7 +616,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
   dispatch({ type: ADD_BUNDLE_REQUEST })
 
   var gift_ids = giftIds;
-  if(!gift_ids.includes(giftId))
+  if(!gift_ids.includes(giftId) && giftId)
   {
     gift_ids.push(giftId);
     dispatch(buyMoreGift())
@@ -633,7 +633,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
       contentType: 'application/json',
       body: {
         bundle_id: bundleId,
-        gift_ids,
+        gift_ids : gift_ids ? gift_ids : []
       },
       token,
       success: (res) => {
