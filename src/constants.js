@@ -91,13 +91,13 @@ export const CONTINUE_WITHOUT_GIFT = 'Continue_without_gift'
 
 // TODO add translations
 export const GIFT_TYPES = (intl) => [
-  {key: FOOD_TYPE, title: 'Food', svg: FoodImage},
-  {key: NON_FOOD_TYPE, title: 'Non Food', svg: NonFoodImage},
+  {key: FOOD_TYPE, title: intl.formatMessage(purchase7_messages.Food), svg: FoodImage},
+  {key: NON_FOOD_TYPE, title: intl.formatMessage(purchase7_messages.NonFood), svg: NonFoodImage},
 ]
 
 export const ADDITIONAL_GIFT_TYPES = (intl) => [
-  {key: DONATION_TYPE, title: 'Donation', svg: DonationImage},
-  {key: VOUCHER_TYPE, title: 'Voucher', svg: VoucherImage},
+  {key: DONATION_TYPE, title: intl.formatMessage(purchase7_messages.Donation), svg: DonationImage},
+  {key: VOUCHER_TYPE, title: intl.formatMessage(purchase7_messages.Voucher), svg: VoucherImage},
 ]
 export const OTHER_TYPES = (intl) => [
   {key: CONTINUE_WITHOUT_GIFT, title: intl.formatMessage(purchase7_messages.continueWithoutGift), svg: ContinueWithoutImage},
