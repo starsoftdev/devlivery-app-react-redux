@@ -3367,6 +3367,14 @@
     ]
   },
   {
+    "id": "purchase5.nocards",
+    "defaultMessage": "No cards.",
+    "message": "",
+    "files": [
+      "src/routes/purchase5/messages.js"
+    ]
+  },
+  {
     "id": "purchase6.textAlignment",
     "defaultMessage": "Text align",
     "message": "",

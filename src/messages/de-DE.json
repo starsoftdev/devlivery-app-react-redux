@@ -3502,6 +3502,14 @@
     ]
   },
   {
+    "id": "purchase5.nocards",
+    "defaultMessage": "No cards.",
+    "message": "Keine Karten",
+    "files": [
+      "src/routes/purchase5/messages.js"
+    ]
+  },
+  {
     "id": "purchase6.textAlignment",
     "defaultMessage": "Text align",
     "message": "Text align",

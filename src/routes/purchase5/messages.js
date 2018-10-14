@@ -25,4 +25,8 @@ export default defineMessages({
     id: 'purchase5.previewHeader',
     defaultMessage: 'Card Preview',
   },
+  nocards: {
+    id: 'purchase5.nocards',
+    defaultMessage: 'No cards.',
+  },
 })
