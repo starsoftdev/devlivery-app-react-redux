@@ -69,6 +69,7 @@ class Purchase13 extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+    /*
     if (this.state.useDefualtCard && this.props.paymentMethod === CREDIT_CARD) {
       var defaultcard = this.props.cards.filter(item => item.default);
       if(defaultcard.length > 0)
@@ -101,8 +102,43 @@ class Purchase13 extends React.Component {
         }
       })
     }
-  }
+    */
+    this.props.form.validateFields((err, values) => {
+      if (values.number && values.name && values.expiry && values.cvc) {
+        if (!err && this.state.isValid) {
+          // TODO validate card fields
+          const card = {
+            ...values,
+            expiry_month: values.expiry.slice(0, 2),
+            expiry_year: `20${values.expiry.slice(-2)}`,
+          }
+          switch (this.props.paymentMethod) {
+            case CREDIT_CARD:
+              this.props.makeStripePayment(card)
+              break
 
+            default:
+              this.props.nextFlowStep()
+              break
+          }
+        }
+        else this.payWithDefaultCard();
+      } else {
+        this.payWithDefaultCard();
+        //message.error('All fields must be filled in')
+      }
+    })
+  }
+  payWithDefaultCard(){
+    if (this.props.paymentMethod === CREDIT_CARD) {
+      var defaultcard = this.props.cards.filter(item => item.default);
+      if(defaultcard.length > 0)
+      {
+        this.props.makeDefaultStripePayment(defaultcard[0].id);
+      }
+      else message.error('All fields must be filled in')
+    }
+  }
   handleInputChange = (e, field) => {
     if (field === 'number') {
       this.setState({
@@ -175,7 +211,7 @@ class Purchase13 extends React.Component {
             }
           </div>
           {
-            <Row gutter={20} type='flex' align='middle' className={!this.state.useDefualtCard && cards.length < 4 ? s.visible:s.invisible}>
+            <Row gutter={20} type='flex' align='middle' className={s.visible/*!this.state.useDefualtCard && cards.length < 4 ? s.visible:s.invisible*/}>
               <Col xs={24} sm={12}>
                 <ReactCreditCard
                   number={number}
@@ -253,7 +289,7 @@ class Purchase13 extends React.Component {
           }
           <br/>
           <div className={s.checkbox}>
-            {
+            {/*
               cards && cards.length > 0 &&
               <Checkbox checked={this.state.useDefualtCard || cards.length >= 4} onChange={(e) => {
                 this.setState({ useDefualtCard: e.target.checked })
@@ -261,6 +297,7 @@ class Purchase13 extends React.Component {
               }>
                 Use this card as default from now on
             </Checkbox>
+            */
             }
           </div>
         </div>

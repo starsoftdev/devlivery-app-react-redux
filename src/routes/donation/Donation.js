@@ -87,7 +87,7 @@ class Donation extends React.Component {
                 initialValue: hideAmount,
                 valuePropName: 'checked',
               })(
-                <Checkbox>{'Hide amount'}</Checkbox>
+                <Checkbox>{intl.formatMessage(messages.hideamount)}</Checkbox>
               )}
             </Form.Item>
           </Form>

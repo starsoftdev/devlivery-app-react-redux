@@ -1477,6 +1477,38 @@
     ]
   },
   {
+    "id": "purchase7.Food",
+    "defaultMessage": "Food",
+    "message": "",
+    "files": [
+      "src/routes/purchase7/messages.js"
+    ]
+  },
+  {
+    "id": "purchase7.NonFood",
+    "defaultMessage": "Non Food",
+    "message": "",
+    "files": [
+      "src/routes/purchase7/messages.js"
+    ]
+  },
+  {
+    "id": "purchase7.Donation",
+    "defaultMessage": "Donation",
+    "message": "",
+    "files": [
+      "src/routes/purchase7/messages.js"
+    ]
+  },
+  {
+    "id": "purchase7.Voucher",
+    "defaultMessage": "Voucher",
+    "message": "",
+    "files": [
+      "src/routes/purchase7/messages.js"
+    ]
+  },
+  {
     "id": "purchase7.continueWithoutGift",
     "defaultMessage": "Continue without Gift",
     "message": "",
@@ -2877,6 +2909,14 @@
   {
     "id": "donation.amount",
     "defaultMessage": "Amount (CHF)",
+    "message": "",
+    "files": [
+      "src/routes/donation/messages.js"
+    ]
+  },
+  {
+    "id": "donation.hideamount",
+    "defaultMessage": "Hide amount",
     "message": "",
     "files": [
       "src/routes/donation/messages.js"
