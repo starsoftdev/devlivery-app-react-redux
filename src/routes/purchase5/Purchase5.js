@@ -82,7 +82,7 @@ class Purchase5 extends React.Component {
                   )}
                 </Row>
               ) : !loading.cards ? (
-                <div style={{textAlign: 'center'}}>No cards.</div>
+                <div style={{textAlign: 'center'}}>{intl.formatMessage(messages.nocards)}</div>
               ) : null}
             </div>
           </Layout.Content>
