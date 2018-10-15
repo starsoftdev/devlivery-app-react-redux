@@ -286,6 +286,14 @@
     ]
   },
   {
+    "id": "addContact.importDescription",
+    "defaultMessage": "Match the labels below with the corresponding options in the dropdown select field.",
+    "message": "",
+    "files": [
+      "src/routes/purchase10/messages.js"
+    ]
+  },
+  {
     "id": "addContact.title",
     "defaultMessage": "New Contact",
     "message": "",

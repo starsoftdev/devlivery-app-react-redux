@@ -1632,6 +1632,14 @@
     ]
   },
   {
+    "id": "addContact.importDescription",
+    "defaultMessage": "Match the labels below with the corresponding options in the dropdown select field.",
+    "message": "Ordnen Sie die Spalten den entsprechenden Optionen im Dropdown-Auswahlfeld zu.",
+    "files": [
+      "src/routes/purchase10/messages.js"
+    ]
+  },
+  {
     "id": "editContact.submit",
     "defaultMessage": "Save Contact",
     "message": "Kontakt löschen",
