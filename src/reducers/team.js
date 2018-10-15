@@ -100,7 +100,7 @@ export const reduceAmountBudget = (budget_id, amount) => (dispatch, getState, {f
       budget_id,
       amount,
     },
-    success: () => {
+    success: (res) => {
       dispatch({type: ADD_AMOUNT_BUDGET_SUCCESS})
       dispatch(getTeam())
     },
