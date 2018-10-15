@@ -48,7 +48,6 @@ class CardCheckOut extends React.Component {
         dataIndex: '',
         key: '',
         render:(record) =>{
-          console.log("barnd",record.brand);
           if(record.brand.toLowerCase()==='visa')
             return (<Visa className={s.cardstyle}/>)
           if(record.brand.toLowerCase()==='mastercard')
