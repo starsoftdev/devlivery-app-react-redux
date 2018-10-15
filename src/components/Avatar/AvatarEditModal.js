@@ -65,7 +65,7 @@ class AvatarEditModal extends React.Component {
         />
         <div className={s.modalContainer}>
           <span>zoom</span>
-          <FloatingLabel name='zoom' type='range' min='0.1' max='2' step='0.1' onChange={this.setZoom}/>
+          <Input name='zoom' type='range' min='0.1' max='2' step='0.1' onChange={this.setZoom}/>
         </div>
         <div className={s.modalContainer}>
           <Upload
