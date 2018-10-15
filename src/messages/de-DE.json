@@ -2275,7 +2275,7 @@
     "defaultMessage": "Upload",
     "message": "hochladen",
     "files": [
-      "src/routes/importContacts/messages.js"
+      "src/components/Avatar/messages.js"
     ]
   },
   {

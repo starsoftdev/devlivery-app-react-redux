@@ -5,6 +5,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './AvatarEditModal.css'
 import {Button, Input, Upload, message} from 'antd'
 import {FloatingLabel} from '../../components';
+import messages from './messages'
 
 class AvatarEditModal extends React.Component {
   constructor(props) {
@@ -50,6 +51,7 @@ class AvatarEditModal extends React.Component {
   setEditorRef = (editorRef) => this.editorRef = editorRef
 
   render() {
+    const {intl} = this.props;
     return (
       <div>
         <AvatarEditor
@@ -78,7 +80,7 @@ class AvatarEditModal extends React.Component {
           >
             <Button type='primary' ghost>
               <label className={s.loadImageBtn}>
-                Load image
+                {intl.formatMessage(messages.upload)}
               </label>
             </Button>
           </Upload>

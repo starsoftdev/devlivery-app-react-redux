@@ -19,7 +19,7 @@ class Avatar extends React.Component {
 
   render() {
     const { editAvatarModalOpened } = this.state
-    const { user, isLogo } = this.props
+    const { user, isLogo, intl } = this.props
     const imageURL = isLogo ? user && user.company_logo : user && user.avatar && user.avatar.url;
     return (
       <React.Fragment>
@@ -34,6 +34,7 @@ class Avatar extends React.Component {
             uploadAvatar={isLogo ? this.props.uploadLogo : this.props.uploadAvatar}
             url={imageURL}
             toggleEditAvatarModal={this.toggleEditAvatarModal}
+            intl = {intl}
           />
         </Modal>
         <div className={s.avatarContainer} onClick={this.toggleEditAvatarModal}>
