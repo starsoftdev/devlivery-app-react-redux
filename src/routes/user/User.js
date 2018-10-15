@@ -267,7 +267,7 @@ class User extends React.Component {
                 <h1 className={s.header}>{intl.formatMessage(messages.billingdetails)}</h1>
                 {
                   cards && cards.length > 0 &&
-                  <CardCheckOut cards={cards} intl={intl} />
+                  <CardCheckOut cards={cards} intl={intl}  removeable={true}/>
                 }
                 <Row gutter={20} type='flex' align='middle' className={this.state.saveButton === true ? s.show : s.hidden}>
                   <Col xs={24} sm={24}>
