@@ -148,25 +148,25 @@ class TextAlignmentPicker extends React.Component {
 
 class FontWeightPicker extends React.Component {
   state = {
-    font_weight: Contants.FONT_WEIGHT[0]
+    font_weight: Contants.FONT_WEIGHT[0].value
   }
   toggleFontWeight = (font_weight) => {
     // TODO workaround for toggling "bold" icon in editor - there is no option "normal"
     this.setState({font_weight});
-    this.props.execCommand('Bold',false,font_weight === Contants.FONT_WEIGHT[0] ? false:true )
+    this.props.execCommand('Bold',false,font_weight === Contants.FONT_WEIGHT[0].value ? false:true )
   }
 
   render() {
     return (
       <Select
-        defaultValue={Contants.FONT_WEIGHT[0]}
+        defaultValue={Contants.FONT_WEIGHT[0].value}
         style={{width: '50%', paddingRight: '5%', marginBottom: 20}}
         placeholder={'Font Weight'}
         onSelect={this.toggleFontWeight}
         value={this.state.font_weight}
       >
         {Contants.FONT_WEIGHT.map((item) =>
-          <Select.Option key={item} value={item}>{item}</Select.Option>
+          <Select.Option key={item.value} value={item.value}>{this.props.intl.locale === 'de-DE'? item.label_de: item.label}</Select.Option>
         )}
       </Select>
     )
@@ -294,7 +294,7 @@ class Purchase6 extends React.Component {
               <div className={s.editorActions}>
                 <Template templates={templates} execCommand={this.insertConent} intl={intl}/>
                 <FontFamilyPicker execCommand={this.execTinyCommand}/>
-                <FontWeightPicker execCommand={this.execTinyCommand}/>
+                <FontWeightPicker execCommand={this.execTinyCommand} intl={intl}/>
                 <FontSizePicker execCommand={this.execTinyCommand}/>
                 <TextAlignmentPicker execCommand={this.execTinyCommand} intl={intl}/>
                 <ColorPicker execCommand={this.execTinyCommand}/> 
