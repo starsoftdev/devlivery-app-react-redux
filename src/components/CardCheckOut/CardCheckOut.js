@@ -55,7 +55,7 @@ class CardCheckOut extends React.Component {
             return (<Mastercard className={s.cardstyle}/>)
           if(record.brand.toLowerCase()==='discover')
             return (<Discover className={s.cardstyle}/>)
-          if(record.brand.toLowerCase()==='amex')
+          if(record.brand.toLowerCase()==='american express')
             return (<Amex className={s.cardstyle}/>)
           if(record.brand.toLowerCase()==='diners club')
             return (<Diners className={s.cardstyle}/>)
