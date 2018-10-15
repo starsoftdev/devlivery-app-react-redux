@@ -168,7 +168,7 @@
   {
     "id": "contactForm.addGroup",
     "defaultMessage": "Add new group",
-    "message": "Neue Gruppe hinzufügen",
+    "message": "Neue Gruppe Hinzufügen",
     "files": [
       "src/components/ContactForm/messages.js"
     ]
@@ -1624,7 +1624,7 @@
   {
     "id": "addContact.requireadres",
     "defaultMessage": "Home address or Company address is required.",
-    "message": "Mindestens eine Adresse wird benötigt, entweder die Private oder die Geschäftsadresse.",
+    "message": "Mindestens eine Adresse wird benötigt, entweder die Privat- oder die Geschäftsadresse.",
     "files": [
       "src/routes/addContact/messages.js",
       "src/routes/editContact/messages.js",
@@ -1916,7 +1916,7 @@
   {
     "id": "contacts.noitem",
     "defaultMessage": "No item",
-    "message": "kein Gegenstand",
+    "message": "Kein Artikel ausgewählt",
     "files": [
       "src/routes/contacts/messages.js"
     ]

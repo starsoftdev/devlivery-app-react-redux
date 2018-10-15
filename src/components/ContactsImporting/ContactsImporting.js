@@ -13,7 +13,19 @@ class ContactsImporting extends React.Component {
   render() {
     const {uploadContacts, children, intl, sectionClassName} = this.props
 
-    const exportGoogleContacts = (
+    const exportGoogleContacts = intl.locale === 'de-DE' ?
+    (
+      <ol className={cn(s.instructions, sectionClassName)}>
+        <li><a href='https://gmail.com' rel='nofollow' target='_blank' className={s.link}>Gmail</a> öffnen.</li>
+        <li>Gehen Sie ins Gmail Menu und wählen Sie die Rubrik <b>Kontakte</b> an.</li>
+        <li>Klicken Sie auf den <b>"mehr"</b> Button in <b>der</b> Toolbar.</li>
+        <li>Wählen Sie die Funktion <b>"Exportieren"</b> aus dem Menu.</li>
+        <li>Wählen Sie alle <b>Kontakte</b> und <b>Gruppen</b> welche Sie exportieren wollen.</li>
+        <li>Wählen Sie <b>Google CSV</b> Format.</li>
+        <li>Klickne Sie auf <b>"Export"</b>.</li>
+      </ol>
+    )
+    : (
       <ol className={cn(s.instructions, sectionClassName)}>
         <li>Open <a href='https://gmail.com' rel='nofollow' target='_blank' className={s.link}>Gmail</a>.</li>
         <li>Under Gmail Menu, select <b>Contacts</b>.</li>
@@ -25,7 +37,18 @@ class ContactsImporting extends React.Component {
       </ol>
     )
 
-    const exportOutlookContacts = (
+    const exportOutlookContacts = intl.locale === 'de-DE' ? 
+    (
+      <ol className={cn(s.instructions, sectionClassName)}>
+        <li>Öffnen Sie <a href='https://outlook.com' rel='nofollow' target='_blank' className={s.link}>Outlook</a>.</li>
+        <li>Nachdem Sie eingeloggt sind klicken Sie auf auf das <b>App Icon Links</b> oben.</li>
+        <li><b>Kontakte</b> anwählen.</li>
+        <li><b>Rubrik</b> bearbeiten anwählen .</li>
+        <li>Wählen Sie alle Kontakte oder Kontaktordner.</li>
+        <li><b>Kontakte</b> exportieren.</li>
+      </ol>
+    )
+    :(
       <ol className={cn(s.instructions, sectionClassName)}>
         <li>Open <a href='https://outlook.com' rel='nofollow' target='_blank' className={s.link}>Outlook</a>.</li>
         <li>Once logged in, click the <b>Apps</b> icon in the upper left-hand corner.</li>
@@ -36,7 +59,16 @@ class ContactsImporting extends React.Component {
       </ol>
     )
 
-    const exportCardContacts = (
+    const exportCardContacts = intl.locale === 'de-DE' ? 
+    (
+      <ol className={cn(s.instructions, sectionClassName)}>
+        <li><b>Auswahlmenu</b> öffnen.</li>
+        <li><b>Kontakte</b> wählen.</li>
+        <li>Die Liste anwählen welche <b>Sie</b> exportieren möchten.</li>
+        <li>Verwenden Sie im Menü Kontakte den <b>Menübefehl Datei Expert</b> exportieren vCard.</li>
+      </ol>
+    ) 
+    :(
       <ol className={cn(s.instructions, sectionClassName)}>
         <li>Open the <b>Applications</b> menu.</li>
         <li>Choose <b>Contacts</b>.</li>
