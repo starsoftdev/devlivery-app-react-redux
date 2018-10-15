@@ -1,5 +1,5 @@
 import createReducer, { RESET_STORE } from '../createReducer'
-import { STATE_COOKIE, TOKEN_COOKIE } from '../constants'
+import { STATE_COOKIE, TOKEN_COOKIE, DAY } from '../constants'
 import { getBirthday } from '../utils'
 import { message } from 'antd'
 import { getFormErrors, showErrorMessage, getOrdering } from '../utils'
@@ -31,6 +31,8 @@ export const GET_ALLCARDS_SUCCESS = 'User.GET_ALLCARDS_SUCCESS'
 // ------------------------------------
 export const getToken = () => (dispatch, getState, { cookies }) => {
   const token = cookies.get(TOKEN_COOKIE, { path: '/' })
+  if(token !== null && token !== undefined)
+    cookies.set(TOKEN_COOKIE, token, {maxAge: DAY, path: '/'})
   return { token }
 }
 
