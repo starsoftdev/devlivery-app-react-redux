@@ -67,7 +67,7 @@ class ManageTeam extends React.Component {
         key: 'budget',
         render: (budget) => {
           if (budget){
-            return (<span>{budget.budget}/{budget.total_spent}</span>)
+            return (<span>{budget.total_spent}/{budget.budget}</span>)
           } else {
             return ''
           }
