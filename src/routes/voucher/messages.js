@@ -19,15 +19,15 @@ export default defineMessages({
   },
   receiver: {
     id: 'voucher.receiver',
-    defaultMessage: 'Receiver',
+    defaultMessage: 'To',
   },
   giver: {
     id: 'voucher.giver',
-    defaultMessage: 'Giver',
+    defaultMessage: 'From',
   },
   freeText: {
     id: 'voucher.freeText',
-    defaultMessage: 'Free Text',
+    defaultMessage: 'Message',
   },
   description: {
     id: 'voucher.description',
