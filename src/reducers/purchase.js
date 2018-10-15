@@ -439,7 +439,9 @@ export const getCards = (params = {}) => (dispatch, getState, { fetch }) => {
     })
   })}`, {
       method: 'GET',
-      success: (res) => dispatch({ type: GET_CARDS_SUCCESS, cards: res.data }),
+      success: (res) => {
+        dispatch({ type: GET_CARDS_SUCCESS, cards: res.data })
+      },
       failure: () => dispatch({ type: GET_CARDS_FAILURE })
     })
 }

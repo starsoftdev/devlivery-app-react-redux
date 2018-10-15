@@ -813,7 +813,7 @@
   {
     "id": "dashboard.resend",
     "defaultMessage": "Resend",
-    "message": "nochmlas Senden",
+    "message": "Erneut senden",
     "files": [
       "src/routes/dashboard/messages.js"
     ]
@@ -1682,7 +1682,7 @@
   {
     "id": "bundles.search",
     "defaultMessage": "Search",
-    "message": "Suche",
+    "message": "Suchen",
     "files": [
       "src/routes/bundles/messages.js"
     ]
@@ -1690,7 +1690,7 @@
   {
     "id": "contacts.search",
     "defaultMessage": "Search",
-    "message": "Suche",
+    "message": "Suchen",
     "files": [
       "src/routes/contacts/messages.js"
     ]
@@ -1698,7 +1698,7 @@
   {
     "id": "orders.search",
     "defaultMessage": "Search",
-    "message": "Suche",
+    "message": "Suchen",
     "files": [
       "src/routes/orders/messages.js"
     ]
@@ -1953,7 +1953,7 @@
   {
     "id": "home.submit",
     "defaultMessage": "Submit",
-    "message": "Abschicken",
+    "message": "Senden",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -1961,22 +1961,22 @@
   {
     "id": "purchase1.submit",
     "defaultMessage": "Submit",
-    "message": "weiter"
+    "message": "Senden"
   },
   {
     "id": "purchase2.submit",
     "defaultMessage": "Submit",
-    "message": "weiter"
+    "message": "Senden"
   },
   {
     "id": "purchase3.submit",
     "defaultMessage": "Submit",
-    "message": "weiter"
+    "message": "Senden"
   },
   {
     "id": "purchase4.submit",
     "defaultMessage": "Submit",
-    "message": "weiter"
+    "message": "Senden"
   },
   {
     "id": "purchase5.submit",
@@ -2004,7 +2004,7 @@
   {
     "id": "purchase7.submit",
     "defaultMessage": "Submit",
-    "message": "weiter",
+    "message": "Senden",
     "files": [
       "src/routes/purchase7/messages.js"
     ]
@@ -2012,12 +2012,12 @@
   {
     "id": "purchase8.submit",
     "defaultMessage": "Submit",
-    "message": "weiter"
+    "message": "Senden"
   },
   {
     "id": "purchase9.submit",
     "defaultMessage": "Submit",
-    "message": "weiter",
+    "message": "Senden",
     "files": [
       "src/routes/purchase9/messages.js"
     ]
@@ -2025,7 +2025,7 @@
   {
     "id": "register1.submit",
     "defaultMessage": "Submit",
-    "message": "weiter",
+    "message": "Senden",
     "files": [
       "src/routes/register1/messages.js"
     ]
@@ -2033,7 +2033,7 @@
   {
     "id": "register2.submit",
     "defaultMessage": "Submit",
-    "message": "weiter",
+    "message": "Senden",
     "files": [
       "src/routes/register2/messages.js"
     ]
@@ -2041,7 +2041,7 @@
   {
     "id": "register3.submit",
     "defaultMessage": "Submit",
-    "message": "weiter",
+    "message": "Senden",
     "files": [
       "src/routes/register3/messages.js"
     ]
@@ -2049,7 +2049,7 @@
   {
     "id": "register4.submit",
     "defaultMessage": "Submit",
-    "message": "weiter",
+    "message": "Senden",
     "files": [
       "src/routes/register4/messages.js"
     ]
@@ -2057,7 +2057,7 @@
   {
     "id": "resetPassword.submit",
     "defaultMessage": "Submit",
-    "message": "senden",
+    "message": "Senden",
     "files": [
       "src/routes/resetPassword/messages.js"
     ]
@@ -2065,7 +2065,7 @@
   {
     "id": "setPassword.submit",
     "defaultMessage": "Submit",
-    "message": "senden",
+    "message": "Senden",
     "files": [
       "src/routes/setPassword/messages.js"
     ]
@@ -2273,7 +2273,7 @@
   {
     "id": "importContacts.upload",
     "defaultMessage": "Upload",
-    "message": "hochladen",
+    "message": "Hochladen",
     "files": [
       "src/components/Avatar/messages.js"
     ]
@@ -2690,7 +2690,7 @@
   {
     "id": "about.submit",
     "defaultMessage": "Submit",
-    "message": "Abschicken",
+    "message": "Senden",
     "files": [
       "src/routes/about/messages.js"
     ]
@@ -2797,7 +2797,7 @@
   {
     "id": "cardStore.search",
     "defaultMessage": "Search",
-    "message": "Suche",
+    "message": "Suchen",
     "files": [
       "src/routes/cardStore/messages.js"
     ]
@@ -3044,7 +3044,7 @@
   {
     "id": "contactUs.submit",
     "defaultMessage": "submit",
-    "message": "Abschicken",
+    "message": "Senden",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
@@ -3060,7 +3060,7 @@
   {
     "id": "dashboard.permissionGroup",
     "defaultMessage": "permission groups",
-    "message": "permission groups",
+    "message": "Berechtigungen verwalten",
     "files": [
       "src/routes/dashboard/messages.js"
     ]
@@ -3100,7 +3100,7 @@
   {
     "id": "donation.submit",
     "defaultMessage": "Submit",
-    "message": "Weiter",
+    "message": "Senden",
     "files": [
       "src/routes/donation/messages.js"
     ]
@@ -3160,7 +3160,7 @@
   {
     "id": "giftStore.search",
     "defaultMessage": "Search",
-    "message": "Suche",
+    "message": "Suchen",
     "files": [
       "src/routes/giftStore/messages.js"
     ]
@@ -3200,7 +3200,7 @@
   {
     "id": "permissionGroups.breadcrumb",
     "defaultMessage": "Permission Groups",
-    "message": "Permission Groups",
+    "message": "Berechtigungen verwalten",
     "files": [
       "src/routes/groupPermissions/messages.js"
     ]
@@ -3208,7 +3208,7 @@
   {
     "id": "permissionGroups.header",
     "defaultMessage": "Permission Groups",
-    "message": "Permission Groups",
+    "message": "Berechtigungen verwalten",
     "files": [
       "src/routes/groupPermissions/messages.js"
     ]
@@ -3232,7 +3232,7 @@
   {
     "id": "permissionGroups.title",
     "defaultMessage": "Permission Groups",
-    "message": "Permission Groups",
+    "message": "Berechtigungen verwalten",
     "files": [
       "src/routes/groupPermissions/messages.js"
     ]
@@ -3256,7 +3256,7 @@
   {
     "id": "manageTeam.pendingTableTitle",
     "defaultMessage": "Manage Pending Team Members",
-    "message": "kürzlich hinzugefügt Teammitglieder bearbeiten",
+    "message": "Kürzlich hinzugefügt teammitglieder bearbeiten",
     "files": [
       "src/routes/manageTeam/messages.js"
     ]
@@ -3304,7 +3304,7 @@
   {
     "id": "newArrivals.search",
     "defaultMessage": "Search",
-    "message": "Suche",
+    "message": "Suchen",
     "files": [
       "src/routes/newArrivals/messages.js"
     ]
@@ -3504,7 +3504,7 @@
   {
     "id": "purchase5.color",
     "defaultMessage": "Color",
-    "message": "Color",
+    "message": "Farbe",
     "files": [
       "src/routes/purchase5/messages.js"
     ]
@@ -3584,7 +3584,7 @@
   {
     "id": "register4.resend",
     "defaultMessage": "Resend",
-    "message": "nochmlas Senden",
+    "message": "Erneut senden",
     "files": [
       "src/routes/register4/messages.js"
     ]
