@@ -99,6 +99,7 @@ class PermissionsTable extends React.Component {
                 <Col className={s.tableCol} md={12}>
                   <div className={s.tableItemWrapper}>
                     {
+                      group.editable ?
                       (this.state.showEditForm === group.id) ?
                         <a className={s.tableBtn} onClick={()=>this.submitGroup(group)}>
                           <PlusIcon/>
@@ -107,6 +108,14 @@ class PermissionsTable extends React.Component {
                         <a className={s.tableBtn} onClick={() => this.editGroup(group.id)}>
                           <EditIcon/>
                           <span>{intl.formatMessage(messages.editPermissions)}</span>
+                        </a>
+                      :
+                      (this.state.showEditForm === group.id) ?
+                        <a className={s.tableBtn} onClick={()=>this.submitGroup(group)}>
+                          <span>{'View Details'}</span>
+                        </a> :
+                        <a className={s.tableBtn} onClick={() => this.editGroup(group.id)}>
+                          <span>{'View Details'}</span>
                         </a>
                     }
                     {
