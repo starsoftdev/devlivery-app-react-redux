@@ -774,6 +774,7 @@ export const makeDefaultStripePayment = (tokenid, callback) => (dispatch, getSta
     },
     failure: (err) => {
       console.log("err",err);
+      showErrorMessage(err);
       dispatch({ type: MAKE_STRIPE_PAYMENT_FAILURE })
     },
   })
