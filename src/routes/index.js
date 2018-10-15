@@ -1,6 +1,6 @@
 import React from 'react'
 import {generateUrl} from '../router'
-import {getUser, getUserDetails, logout} from '../reducers/user'
+import {getUser, getUserDetails,checkToken, logout} from '../reducers/user'
 import {isLeaveEditContactPage,setNextRouteName} from '../reducers/global';
 
 export const HOME_ROUTE = 'home'
@@ -540,7 +540,7 @@ const routes = {
   ],
 
   async action(context) {
-    
+    context.store.dispatch(checkToken())
     var prevPathName = context.store.getState().global.prevPathname;
     var curPathName = context.store.getState().global.currentPathname;
     if(isLeaveEditContactPage(prevPathName) && curPathName !== prevPathName)

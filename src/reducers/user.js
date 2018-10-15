@@ -39,7 +39,14 @@ export const logout = () => (dispatch, getState, { cookies }) => {
   cookies.remove(STATE_COOKIE, { path: '/' })
   dispatch({ type: LOGOUT_SUCCESS })
 }
-
+export const checkToken = () => (dispatch, getState, { cookies }) => {
+  const token = cookies.get(TOKEN_COOKIE, { path: '/' })
+    
+  if(token === null || token === undefined)
+  {
+    dispatch(logout());
+  }
+}
 export const getUserSuccess = (user) => ({ type: GET_USER_SUCCESS, user })
 
 export const getUser = () => (dispatch, getState, { fetch, cookies }) => {
