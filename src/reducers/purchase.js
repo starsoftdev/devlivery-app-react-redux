@@ -549,15 +549,17 @@ export const submitShipping = (values) => (dispatch, getState, { fetch }) => {
 }
 export const updateBundle = (param) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
+  console.log(`/bundles/${getState().purchase.bundleId}`,param)
   return fetch(`/bundles/${getState().purchase.bundleId}`, {
     method: 'POST',
     token,
     body: param,
     success: (res) => {
+      console.log('res',res);
       const saved = 0;
       dispatch({ type: SET_SAVED_VALUE, saved })
     },
-    failure: (err) => { },
+    failure: (err) => { console.log('err',err);},
   })
 }
 export const setPaymentMethod = (paymentMethod) => ({ type: SET_PAYMENT_METHOD, paymentMethod })
@@ -657,6 +659,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
     lettering: letteringTechnique,
     card_id: cardId,
     gift_ids: giftIds.length > 0 ? giftIds : giftId ? giftId : [],
+    title:values.title,
     saved
   });
   return fetch(`/create-bundle`, {
@@ -666,6 +669,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
       lettering: letteringTechnique,
       card_id: cardId,
       gift_ids,
+      title:values.title,
       saved
     },
     token,
