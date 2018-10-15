@@ -91,7 +91,7 @@ function createFetch(fetch, {apiUrl, cookies}) {
       })
       if(resp.status === 401)
       {
-        window.location.reload();
+        window.location.href='/';
         return options.failure({})
       }
       if (options.fileName) {
