@@ -124,19 +124,26 @@ export const COLORS = [
   '#4A4A3A',
 ]
 
-export const FONT_WEIGHT = ['Normal', 'Bold']
+export const FONT_WEIGHT = [//['Normal', 'Bold']
+  {
+    value: 'Normal', label: 'Normal', label_de:'Normal',
+  },
+  {
+    value: 'Bold', label: 'Bold', label_de:'Fett',
+  }
+]
 
 export const FONT_SIZES = [16, 24, 36, 50, 72]
 
 export const TEXT_ALIGNMENT = [
   {
-    value: 'JustifyLeft', label: 'Left', label_de:'Links',
+    value: 'JustifyLeft', label: 'Left', label_de:'Linksbündig',
   },
   {
-    value: 'JustifyCenter', label: 'Center', label_de:'Center',
+    value: 'JustifyCenter', label: 'Center', label_de:'Rechtsbündig',
   },
   {
-    value: 'JustifyRight', label: 'Right', label_de:'Recht',
+    value: 'JustifyRight', label: 'Right', label_de:'Zentriert',
   },
 ]
 
