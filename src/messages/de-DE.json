@@ -1042,7 +1042,7 @@
   {
     "id": "purchase.purchase2",
     "defaultMessage": "Lettering Technique",
-    "message": "Schreibtechnik"
+    "message": "Die passende Schrift"
   },
   {
     "id": "purchase2.header",
@@ -2546,7 +2546,7 @@
   {
     "id": "purchaseActions.purchase2",
     "defaultMessage": "Lettering Technique",
-    "message": "Lettering Technique",
+    "message": "Die passende Schrift",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
