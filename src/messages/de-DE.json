@@ -159,7 +159,7 @@
   {
     "id": "contactGroups.addGroup",
     "defaultMessage": "Add Group",
-    "message": "Gruppe hinzufügen",
+    "message": "Gruppe Hinzufügen",
     "files": [
       "src/routes/contactGroups/messages.js",
       "src/routes/groupPermissions/messages.js"
@@ -813,7 +813,7 @@
   {
     "id": "dashboard.resend",
     "defaultMessage": "Resend",
-    "message": "Erneut senden",
+    "message": "nochmlas Senden",
     "files": [
       "src/routes/dashboard/messages.js"
     ]
@@ -911,7 +911,7 @@
   {
     "id": "dashboard.importContacts",
     "defaultMessage": "Import Contacts",
-    "message": "Kontakte importieren",
+    "message": "Kontakte Importieren",
     "files": [
       "src/routes/dashboard/messages.js"
     ]
@@ -951,7 +951,7 @@
   {
     "id": "register4.inviteMore",
     "defaultMessage": "Invite one more",
-    "message": "Eine zusأ¤tzlich Person einladen",
+    "message": "Eine Zusätzlich Person Einladen",
     "files": [
       "src/routes/register4/messages.js"
     ]
@@ -1353,7 +1353,7 @@
   {
     "id": "purchase13.thankyou",
     "defaultMessage": "Thank You",
-    "message": "Danke",
+    "message": "Danke für Ihre Bestellung",
     "files": [
       "src/routes/purchaseCompleted/messages.js"
     ]
@@ -2225,7 +2225,7 @@
   {
     "id": "importContacts.breadcrumb",
     "defaultMessage": "Import Contacts",
-    "message": "Kontakte importieren",
+    "message": "Kontakte Importieren",
     "files": [
       "src/routes/importContacts/messages.js"
     ]
@@ -2233,7 +2233,7 @@
   {
     "id": "importContacts.header",
     "defaultMessage": "Import Contacts",
-    "message": "Kontakte importieren",
+    "message": "Kontakte Importieren",
     "files": [
       "src/routes/importContacts/messages.js"
     ]
@@ -2281,7 +2281,7 @@
   {
     "id": "importContacts.title",
     "defaultMessage": "Import Contacts",
-    "message": "Kontakte importieren",
+    "message": "Kontakte Importieren",
     "files": [
       "src/routes/importContacts/messages.js"
     ]
@@ -2313,7 +2313,7 @@
   {
     "id": "purchase10.importContacts",
     "defaultMessage": "Import contacts",
-    "message": "Kontakte importieren",
+    "message": "Kontakte Importieren",
     "files": [
       "src/routes/purchase10/messages.js"
     ]
@@ -2924,6 +2924,14 @@
     ]
   },
   {
+    "id": "contactGroups.nogroup",
+    "defaultMessage": "No Group",
+    "message": "keine Gruppen verfügbar",
+    "files": [
+      "src/routes/contactGroups/messages.js"
+    ]
+  },
+  {
     "id": "contacts.birthdayColumn",
     "defaultMessage": "Birthday",
     "message": "Geburtstag",
@@ -3256,7 +3264,7 @@
   {
     "id": "manageTeam.addTeamMember",
     "defaultMessage": "Add Team Member",
-    "message": "Teammitglied hinzufügen",
+    "message": "Teammitglied Hinzufügen",
     "files": [
       "src/routes/manageTeam/messages.js"
     ]
@@ -3668,7 +3676,7 @@
   {
     "id": "user.confirmpswd",
     "defaultMessage": "Password Confirmation",
-    "message": "Passwort Bestätigung",
+    "message": "Passwort bestätigen",
     "files": [
       "src/components/ChangePasswordForm/messages.js"
     ]

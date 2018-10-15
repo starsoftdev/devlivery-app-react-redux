@@ -2789,6 +2789,14 @@
     ]
   },
   {
+    "id": "contactGroups.nogroup",
+    "defaultMessage": "No Group",
+    "message": "",
+    "files": [
+      "src/routes/contactGroups/messages.js"
+    ]
+  },
+  {
     "id": "contacts.birthdayColumn",
     "defaultMessage": "Birthday",
     "message": "",
