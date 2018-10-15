@@ -17,7 +17,7 @@ import { injectGlobal } from 'styled-components';
 import PlusIcon from '../../static/plus.svg'
 import RemoveIcon from '../../static/remove.svg'
 import { FloatingLabel } from '../../components';
-import {INDIVIDUAL_ACCOUNT} from '../../reducers/register'
+import {INDIVIDUAL_ACCOUNT,TEAM_ACCOUNT} from '../../reducers/register'
 
 import {
   ORDER_BUNDLE_FLOW,
@@ -251,15 +251,18 @@ class Purchase11 extends React.Component {
               <span className={s.subtotalCurrency}>{'CHF'}</span>
             </Col>
           </Row>
-          <Row type='flex' align='center' gutter={20} className={s.totalSection}>
-            <Col xs={12}>
-              <h2 className={s.subtotalHeader}>{'AVAILABLE BUDGET:'}</h2>
-            </Col>
-            <Col xs={12}>
-              <span className={s.subtotalValue}>{user && user.budget && user.budget.remaining_budget ? user.budget.remaining_budget : '0'}</span>
-              <span className={s.subtotalCurrency}>{'CHF'}</span>
-            </Col>
-          </Row>
+          {
+            user && user.account_type===TEAM_ACCOUNT &&
+            <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+              <Col xs={12}>
+                <h2 className={s.subtotalHeader}>{'AVAILABLE BUDGET:'}</h2>
+              </Col>
+              <Col xs={12}>
+                <span className={s.subtotalValue}>{user && user.budget && user.budget.remaining_budget ? user.budget.remaining_budget : '0'}</span>
+                <span className={s.subtotalCurrency}>{'CHF'}</span>
+              </Col>
+            </Row>
+          }
           <section className={s.section}>
             <h2 className={s.sectionHeader}>{intl.formatMessage(messages.shipping)}</h2>
             <Row gutter={20} type='flex' align='center'>
