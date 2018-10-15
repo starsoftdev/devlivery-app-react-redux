@@ -19,7 +19,7 @@ export default defineMessages({
   },
   addBundle: {
     id: 'bundles.addBundle',
-    defaultMessage: 'Create Bundle',
+    defaultMessage: 'Create',
   },
   makeOrder: {
     id: 'bundles.makeOrder',
