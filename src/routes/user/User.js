@@ -314,7 +314,7 @@ class User extends React.Component {
                           onChange={(e) => this.handleInputChange(e, 'cvc')}
                           onFocus={(e) => this.handleInputFocus(e, 'cvc')}
                           className={'cardcvc'}
-                          maxLength={this.state.cardtype !== 'mastercard' ? 3 : 4}
+                          maxLength={this.state.cardtype === 'amex' ? 4 : 3}
                         />
                       </Col>
                     </Row>
