@@ -2140,7 +2140,7 @@
     "defaultMessage": "Upload",
     "message": "",
     "files": [
-      "src/routes/importContacts/messages.js"
+      "src/components/Avatar/messages.js"
     ]
   },
   {
