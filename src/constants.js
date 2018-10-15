@@ -10,7 +10,7 @@ import VoucherImage from './static/voucher.svg'
 import ContinueWithoutImage from './static/without_gift.svg'
 import purchase7_messages from './routes/purchase7/messages'
 
-export const DAY = 86400
+export const DAY = 3600//86400
 export const YEAR = 31536000
 
 export const TOKEN_COOKIE = 'token'

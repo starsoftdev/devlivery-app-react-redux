@@ -89,7 +89,11 @@ function createFetch(fetch, {apiUrl, cookies}) {
           ...options.headers,
         },
       })
-
+      if(resp.status === 401)
+      {
+        window.location.reload();
+        return options.failure({})
+      }
       if (options.fileName) {
         if (resp.ok) {
           const responseFile = await resp.blob()
