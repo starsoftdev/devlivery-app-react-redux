@@ -32,5 +32,9 @@ export default defineMessages({
   requireadres: {
     id: 'addContact.requireadres',
     defaultMessage: 'Home address or Company address is required.',
+  },
+  importDescription: {
+    id: 'addContact.importDescription',
+    defaultMessage: 'Match the labels below with the corresponding options in the dropdown select field.',
   }
 })

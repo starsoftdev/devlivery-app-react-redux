@@ -59,6 +59,8 @@ class ColumnsMapping extends React.Component {
               {intl.formatMessage(messages.selectContacts)}
             </Button>
           </SectionHeader>
+          <p>{intl.formatMessage(messages.importDescription)}</p>
+
           <ColumnsMappingForm
             className={s.columnsMappingForm}
             ref={ref => this.columnsMappingForm = ref}
