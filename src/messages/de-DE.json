@@ -483,8 +483,8 @@
   },
   {
     "id": "bundles.addBundle",
-    "defaultMessage": "Create Bundle",
-    "message": "Geschenkkombination erstellen",
+    "defaultMessage": "Create",
+    "message": "ERSTELLTE",
     "files": [
       "src/routes/bundles/messages.js"
     ]
