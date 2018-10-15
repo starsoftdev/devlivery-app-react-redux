@@ -179,10 +179,10 @@ class User extends React.Component {
     const address = user && user.addresses && user.addresses.find(item => item.default !== null)
 
     const reminderTimes = [
-      { value: 0, label: 'Same Day' },
-      { value: 1, label: 'Day Before' },
-      { value: 3, label: '3 Days Before' },
-      { value: 7, label: '1 week before' },
+      { value: 0, label: 'Same Day', label_de: 'Same Day' },
+      { value: 1, label: 'Day Before', label_de: '1 Tage vorher' },
+      { value: 3, label: '3 Days Before', label_de: '3 Tage vorher' },
+      { value: 7, label: '1 week before', label_de: '1 Woche vorher' },
     ]
     return (
       <div className={s.container}>
@@ -361,7 +361,7 @@ class User extends React.Component {
                       className={s.select}
                     >
                       {reminderTimes.map((item) =>
-                        <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>
+                        <Select.Option key={item.value} value={item.value}>{intl.locale==='de-DE'? item.label_de : item.label}</Select.Option>
                       )}
                     </Select>
                   )}

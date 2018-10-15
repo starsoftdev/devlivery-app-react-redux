@@ -33,4 +33,8 @@ export default defineMessages({
     id: 'contactGroups.acceptRemoving',
     defaultMessage: 'Yes',
   },
+  nogroup: {
+    id: 'contactGroups.nogroup',
+    defaultMessage: 'No Group',
+  },
 })

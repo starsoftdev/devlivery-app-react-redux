@@ -50,7 +50,7 @@ class ContactGroups extends React.Component {
               )}
               {
                 contactGroups.length <= 0 &&
-                <div>No Group</div>
+                <div>{intl.formatMessage(messages.nogroup)}</div>
               }
             </Row>
             <div className={s.footer}>
