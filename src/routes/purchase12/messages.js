@@ -9,4 +9,8 @@ export default defineMessages({
     id: 'purchase.purchase12',
     defaultMessage: 'Select Payment Method',
   },
+  creditcard: {
+    id: 'purchase.creditcard',
+    defaultMessage: 'Credit Card',
+  },
 })

@@ -60,7 +60,7 @@ class Purchase12 extends React.Component {
           <Col className={s.itemWrapper}>
             <Card
               className={s.item}
-              title={'Credit Card'}
+              title={intl.formatMessage(messages.creditcard)}
               onClick={() => this.setPaymentMethod(CREDIT_CARD)}
               active={paymentMethod === CREDIT_CARD && havePermission}
               keyValue='b'

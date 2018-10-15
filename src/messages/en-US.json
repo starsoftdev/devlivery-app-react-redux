@@ -1161,6 +1161,14 @@
     ]
   },
   {
+    "id": "purchase.creditcard",
+    "defaultMessage": "Credit Card",
+    "message": "",
+    "files": [
+      "src/routes/purchase12/messages.js"
+    ]
+  },
+  {
     "id": "purchase1.title",
     "defaultMessage": "Purchase",
     "message": "",
