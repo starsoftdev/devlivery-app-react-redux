@@ -1719,7 +1719,7 @@
   {
     "id": "purchase.purchase1",
     "defaultMessage": "Select Occasion",
-    "message": "Anlass"
+    "message": "Auswahl des Anlasses"
   },
   {
     "id": "purchase1.header",
@@ -2506,7 +2506,7 @@
   {
     "id": "purchaseActions.purchase1",
     "defaultMessage": "Select Occasion",
-    "message": "Select Occasion",
+    "message": "Auswahl des Anlasses",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2554,7 +2554,7 @@
   {
     "id": "purchaseActions.purchase3",
     "defaultMessage": "Select Style",
-    "message": "Select Style",
+    "message": "Stilauswahl",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2562,7 +2562,7 @@
   {
     "id": "purchaseActions.purchase4",
     "defaultMessage": "Choose the Format",
-    "message": "Choose the Format",
+    "message": "Format wählen",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2570,7 +2570,7 @@
   {
     "id": "purchaseActions.purchase5",
     "defaultMessage": "Choose Card",
-    "message": "Choose Card",
+    "message": "Karten auswählen",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2578,7 +2578,7 @@
   {
     "id": "purchaseActions.purchase6",
     "defaultMessage": "Personalize Card",
-    "message": "Personalize Card",
+    "message": "Personalisieren der Karte",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2586,7 +2586,7 @@
   {
     "id": "purchaseActions.purchase7",
     "defaultMessage": "Add Gift?",
-    "message": "Add Gift?",
+    "message": "Geschenk hinzufügen?",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
@@ -2594,7 +2594,7 @@
   {
     "id": "purchaseActions.purchase8",
     "defaultMessage": "Select Gift",
-    "message": "Select Gift",
+    "message": "Geschenkauswahl",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
