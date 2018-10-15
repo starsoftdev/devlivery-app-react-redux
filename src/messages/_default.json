@@ -3638,7 +3638,7 @@
   },
   {
     "id": "voucher.freeText",
-    "defaultMessage": "Free Text",
+    "defaultMessage": "Message",
     "message": "",
     "files": [
       "src/routes/voucher/messages.js"
@@ -3646,7 +3646,7 @@
   },
   {
     "id": "voucher.giver",
-    "defaultMessage": "Giver",
+    "defaultMessage": "From",
     "message": "",
     "files": [
       "src/routes/voucher/messages.js"
@@ -3662,7 +3662,7 @@
   },
   {
     "id": "voucher.receiver",
-    "defaultMessage": "Receiver",
+    "defaultMessage": "To",
     "message": "",
     "files": [
       "src/routes/voucher/messages.js"

@@ -124,38 +124,41 @@ class Voucher extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
-          <div className={cn(s.voucherForm)}>
-            <Form.Item className={cn(s.voucherFormItem)}>
-              {getFieldDecorator('from', {
-                initialValue: voucher ? voucher.from : '',
-                rules: [
-                  { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
-                ],
-              })(
-                <FloatingLabel placeholder={intl.formatMessage(messages.receiver)} />
-              )}
-            </Form.Item>
-            <Form.Item className={cn(s.voucherFormItem)}>
-              {getFieldDecorator('to', {
-                initialValue: voucher ? voucher.to : '',
-                rules: [
-                  { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
-                ],
-              })(
-                <FloatingLabel placeholder={intl.formatMessage(messages.giver)} />
-              )}
-            </Form.Item>
-            <label className={s.messageTitle}>{intl.formatMessage(messages.freeText)}</label>
-            <Form.Item className={cn(s.voucherFormItem)}>
-              {getFieldDecorator('text', {
-                initialValue: voucher ? voucher.text : '',
-                rules: [
-                  { required: true, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
-                ],
-              })(
-                <TextArea className={s.voucherarea}/>
-              )}
-            </Form.Item>
+          <p className={s.description}>{intl.formatMessage(messages.description)}</p>
+          <div className={s.container}>
+            <div className={cn(s.voucherForm)}>
+              <Form.Item className={cn(s.voucherFormItem)}>
+                {getFieldDecorator('from', {
+                  initialValue: voucher ? voucher.from : '',
+                  rules: [
+                    { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
+                  ],
+                })(
+                  <FloatingLabel placeholder={intl.formatMessage(messages.receiver)} />
+                )}
+              </Form.Item>
+              <Form.Item className={cn(s.voucherFormItem)}>
+                {getFieldDecorator('to', {
+                  initialValue: voucher ? voucher.to : '',
+                  rules: [
+                    { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
+                  ],
+                })(
+                  <FloatingLabel placeholder={intl.formatMessage(messages.giver)} />
+                )}
+              </Form.Item>
+              <label className={s.messageTitle}>{intl.formatMessage(messages.freeText)}</label>
+              <Form.Item className={cn(s.voucherFormItem)}>
+                {getFieldDecorator('text', {
+                  initialValue: voucher ? voucher.text : '',
+                  rules: [
+                    { required: true, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
+                  ],
+                })(
+                  <TextArea className={s.voucherarea} />
+                )}
+              </Form.Item>
+            </div>
           </div>
         </div>
         <PurchaseActions>

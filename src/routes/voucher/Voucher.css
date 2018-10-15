@@ -22,7 +22,13 @@
     width: 100%;
   }
 }
-
+.container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
 .headerPrefix {
   @media (min-width: 565px) {
     position: absolute;
