@@ -72,8 +72,13 @@ class FontFamilyPicker extends React.Component {
   state ={
     fontFamily:Contants.FONTS[0]
   }
+  componentDidMount () {
+    this.props.setFontFamilies(Contants.FONTS[0])
+  }
+
   toggleFontFamily = (fontFamily) => {
     this.setState({fontFamily});
+    this.props.setFontFamilies(fontFamily)
     this.props.execCommand("FontName",false,fontFamily);
   }
 
@@ -233,7 +238,13 @@ class Purchase6 extends React.Component {
   }
 
   handleSubmit = () => {
-    this.props.submitCardDetails({body: this.tinymce.editor && this.tinymce.editor.getContent()})
+    const html  = this.tinymce.editor && this.tinymce.editor.getContent();
+    const fonts = this.props.fontFamilies.map(font =>
+      `<link id="${font}" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=${font}" media="all">`
+    ).join('')
+    
+    const body = `${GLOBAL_STYLES}${fonts}<body>${html}</body>`;
+    this.props.submitCardDetails({body})
   }
   handleEditorChange(content) {
     this.setState({ content });
@@ -293,7 +304,7 @@ class Purchase6 extends React.Component {
               </div>
               <div className={s.editorActions}>
                 <Template templates={templates} execCommand={this.insertConent} intl={intl}/>
-                <FontFamilyPicker execCommand={this.execTinyCommand}/>
+                <ConnectedFontFamilyPicker  execCommand={this.execTinyCommand}/>
                 <FontWeightPicker execCommand={this.execTinyCommand} intl={intl}/>
                 <FontSizePicker execCommand={this.execTinyCommand}/>
                 <TextAlignmentPicker execCommand={this.execTinyCommand} intl={intl}/>
