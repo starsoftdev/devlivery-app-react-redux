@@ -8,6 +8,7 @@ import Visa from '../../static/payment/visa.svg';
 import Mastercard from '../../static/payment/mastercard.svg';
 import Discover from '../../static/payment/discover.svg';
 import Amex from '../../static/payment/amex.svg';
+import Diners from '../../static/payment/diners.svg';
 import Fault from '../../static/payment/default.svg';
 import {setDefaultCard,deleteCard} from '../../reducers/user';
 import RemoveIcon from '../../static/remove.svg'
@@ -23,7 +24,8 @@ class CardCheckOut extends React.Component {
   render() {
     // TODO add table loading
     const {
-      cards,intl
+      cards,intl,
+      removeable
     } = this.props
     
     const columns = [
@@ -46,6 +48,7 @@ class CardCheckOut extends React.Component {
         dataIndex: '',
         key: '',
         render:(record) =>{
+          console.log("barnd",record.brand);
           if(record.brand.toLowerCase()==='visa')
             return (<Visa className={s.cardstyle}/>)
           if(record.brand.toLowerCase()==='mastercard')
@@ -54,6 +57,8 @@ class CardCheckOut extends React.Component {
             return (<Discover className={s.cardstyle}/>)
           if(record.brand.toLowerCase()==='amex')
             return (<Amex className={s.cardstyle}/>)
+          if(record.brand.toLowerCase()==='diners club')
+            return (<Diners className={s.cardstyle}/>)
           return (<Fault className={s.cardstyle}/>)
         }
       },
@@ -73,7 +78,10 @@ class CardCheckOut extends React.Component {
         key: '',
         render: (record) => record.exp_month+' / ' +record.exp_year
       },
-      {
+    ]
+    if(removeable)
+    {
+      columns.push({
         title: '',
         dataIndex: '',
         key: 'actions',
@@ -97,9 +105,8 @@ class CardCheckOut extends React.Component {
             </div>
           )
         }
-      },
-    ]
-    
+      });
+    }
     return (
       <div className={s.container}>
         <Table
