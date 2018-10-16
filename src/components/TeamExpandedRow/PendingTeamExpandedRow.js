@@ -5,6 +5,7 @@ import {updatePendingTeamMemberRole} from '../../reducers/pendingMembers'
 import {connect} from 'react-redux'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './TeamExpandedRow.css'
+import messages from './messages'
 
 class TeamExpandedRow extends React.Component {
   constructor(props) {
@@ -31,11 +32,11 @@ class TeamExpandedRow extends React.Component {
   }
 
   render() {
-    const {roles} = this.props
+    const {roles,intl} = this.props
     return (
       <Select
         //mode='multiple'
-        placeholder='Select groups'
+        placeholder={intl.formatMessage(messages.selectGroups)}
         style={{width: '30%', minWidth: 300}}
         onChange={this.selectChange}
         value={this.state.picked}
