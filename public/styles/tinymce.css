@@ -1,6 +1,8 @@
 IFRAME {overflow:hidden;}
 body{
     overflow-y:hidden !important;
+    font-size: 16px;
+    font-family: 'Anonymous Pro';
 }
 .mceContentBody{
     overflow-y:hidden !important;
