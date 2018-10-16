@@ -661,7 +661,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
     lettering: letteringTechnique,
     card_id: cardId,
     gift_ids: giftIds.length > 0 ? giftIds : giftId ? giftId : [],
-    title:values.title,
+    title:values && values.title ? values.title :null,
     saved
   });
   return fetch(`/create-bundle`, {
@@ -671,7 +671,9 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
       lettering: letteringTechnique,
       card_id: cardId,
       gift_ids,
-      title:values.title,
+      ...(values && values.title) && {
+        title: values.title
+      },
       saved
     },
     token,
