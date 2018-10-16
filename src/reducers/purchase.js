@@ -1060,7 +1060,11 @@ export const submitVoucher = (voucher, refresh = false) => async (dispatch, getS
   await dispatch({ type: SUBMIT_VOUCHER, voucher })
   const { flow } = getState().purchase
   if (flow.key === EDIT_BUNDLE_FLOW.key) {
-    dispatch(nextFlowStep())
+    if (refresh)
+    {
+      dispatch(nextFlowStep(-2))
+    }
+    else dispatch(nextFlowStep())
   } else {
     dispatch(confirmVoucher(null, refresh))
   }
@@ -1074,6 +1078,7 @@ export const confirmVoucher = (bundleValues, refresh) => async (dispatch, getSta
     message.error('Bundle is incorrect.');
     return;
   }
+        
   dispatch({ type: CONFIRM_VOUCHER_REQUEST })
   return fetch(`/vouchers`, {
     method: 'POST',
@@ -1087,7 +1092,9 @@ export const confirmVoucher = (bundleValues, refresh) => async (dispatch, getSta
       await dispatch({ type: CONFIRM_VOUCHER_SUCCESS })
       await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
       if (refresh)
+      {
         dispatch(nextFlowStep(-2))
+      }
       else dispatch(nextFlowStep())
     },
     failure: (err) => {
@@ -1101,7 +1108,11 @@ export const submitDonation = (donation, refresh = false) => async (dispatch, ge
   await dispatch({ type: SUBMIT_DONATION, donation })
   const { flow } = getState().purchase
   if (flow.key === EDIT_BUNDLE_FLOW.key) {
-    dispatch(nextFlowStep())
+    if (refresh)
+    {
+      dispatch(nextFlowStep(-2))
+    }
+    else dispatch(nextFlowStep())
   } else {
     dispatch(confirmDonation(null, refresh))
   }
