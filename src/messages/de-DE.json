@@ -3268,7 +3268,7 @@
   {
     "id": "manageTeam.senderFirstName",
     "defaultMessage": "Sender first name",
-    "message": "Sender first name",
+    "message": "Absender Vorname",
     "files": [
       "src/routes/manageTeam/messages.js"
     ]
@@ -3276,7 +3276,7 @@
   {
     "id": "manageTeam.senderLastName",
     "defaultMessage": "Sender last name",
-    "message": "Sender last name",
+    "message": "Absender Nachname",
     "files": [
       "src/routes/manageTeam/messages.js"
     ]

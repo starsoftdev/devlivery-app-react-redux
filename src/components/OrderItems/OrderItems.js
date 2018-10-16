@@ -31,6 +31,7 @@ class OrderItems extends React.Component {
         </div>
         {gift && (
           <div className={s.cardWrapper}>
+            {/*
             <Popconfirm
               title={intl.formatMessage(messages.confirmRemoving)}
               onConfirm={() => {}}
@@ -40,6 +41,7 @@ class OrderItems extends React.Component {
                 <RemoveIcon />
               </a>
             </Popconfirm>
+            */}
             <div
               style={{ backgroundImage: `url(${getItemImage(gift, GIFT_IMAGES_PROP)})` }}
               className={s.itemImage}
