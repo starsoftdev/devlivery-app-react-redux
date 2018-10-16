@@ -132,23 +132,23 @@ class PermissionsTable extends React.Component {
               {this.state.showEditForm === group.id &&
               <Row className={s.permissionRow}>
                 <Col md={4}>
-                  <h1>Contacts</h1>
+                  <h1>{intl.formatMessage(messages.contacts)}</h1>
                   <CheckboxGroup disabled={!group.editable} value = {this.state.pickedPermissions['contacts']} onChange={this.pickPermission('contacts')} className={s.checkBox} options={options.contacts}/>
                 </Col>
                 <Col md={4}>
-                  <h1>Groups</h1>
+                  <h1>{intl.formatMessage(messages.groups)}</h1>
                   <CheckboxGroup disabled={!group.editable} value = {this.state.pickedPermissions['groups']} onChange={this.pickPermission('groups')} options={options.groups}/>
                 </Col>
                 <Col md={5}>
-                  <h1>Team</h1>
+                  <h1>{intl.formatMessage(messages.team)}</h1>
                   <CheckboxGroup disabled={!group.editable} value = {this.state.pickedPermissions['team']} onChange={this.pickPermission('team')} options={options.team}/>
                 </Col>
                 <Col md={4}>
-                  <h1>Purchase</h1>
+                  <h1>{intl.formatMessage(messages.purchase)}</h1>
                   <CheckboxGroup disabled={!group.editable} value = {this.state.pickedPermissions['purchase']} onChange={this.pickPermission('purchase')} options={options.purchase}/>
                 </Col>
                 <Col md={4}>
-                  <h1>Payments</h1>
+                  <h1>{intl.formatMessage(messages.payments)}</h1>
                   <CheckboxGroup disabled={!group.editable} value = {this.state.pickedPermissions['payments']} onChange={this.pickPermission('payments')} options={options.payments}/>
                 </Col>
               </Row>}
