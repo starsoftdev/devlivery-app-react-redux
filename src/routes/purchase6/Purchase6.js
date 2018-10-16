@@ -243,9 +243,11 @@ class Purchase6 extends React.Component {
 
   handleSubmit = () => {
     const html = this.tinymce.editor && this.tinymce.editor.getContent();
-    const fonts = this.props.fontFamilies.map(font =>
+    var fonts = this.props.fontFamilies.map(font =>
       `<link id="${font}" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=${font}" media="all">`
     ).join('')
+    if(this.props.fontFamilies.length <= 0)
+      fonts = `<link id="${Contants.FONTS[0]}" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=${Contants.FONTS[0]}" media="all">`
     const body = `<!doctype html><html lang="en"><head>${GLOBAL_META}${fonts}${GLOBAL_STYLES}</head><body>${html}</body></html>`;
     console.log("body",body);
     
