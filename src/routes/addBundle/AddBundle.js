@@ -80,7 +80,7 @@ class AddBundle extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
-          <OrderItems card={card} gift={gift} voucher={voucher} donation={donation}/>
+          <OrderItems {...this.props} card={card} gift={gift} voucher={voucher} donation={donation}/>
           <div className={s.orderDetails}>
             <Form.Item>
               {getFieldDecorator('title', {
