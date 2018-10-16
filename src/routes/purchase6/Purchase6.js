@@ -35,14 +35,17 @@ const GLOBAL_STYLES = `
 <style type='text/css'>
   body {
     margin: 0;
-    padding: 5px 8px;
     line-height: 1.3;
+    font-size: 16px;
+    font-family:'Anonymous Pro'
   }
   p {
     word-break: break-all;
+    font-family:'Anonymous Pro'
   }
   span {
     word-break: break-all;
+    font-family:'Anonymous Pro'
   }
 </style>`
 
@@ -249,7 +252,6 @@ class Purchase6 extends React.Component {
     if(this.props.fontFamilies.length <= 0)
       fonts = `<link id="${Contants.FONTS[0]}" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=${Contants.FONTS[0]}" media="all">`
     const body = `<!doctype html><html lang="en"><head>${GLOBAL_META}${fonts}${GLOBAL_STYLES}</head><body>${html}</body></html>`;
-    console.log("body",body);
     
     this.props.submitCardDetails({ body })
   }
@@ -273,7 +275,7 @@ class Purchase6 extends React.Component {
 
     const cardWidth = orientation && orientation == 'l' ? h : w;
     const cardHeight = orientation && orientation == 'l' ? w : h;
-
+    
     return (
       <div className={s.form}>
         <div className={s.content}>
@@ -291,7 +293,7 @@ class Purchase6 extends React.Component {
                 {mounted && (
                   <Editor
                     ref={editor => this.tinymce = editor}
-                    value={this.state.content}
+                    value={this.state.content.replace('<!doctype html>','')}
                     init={{
                       toolbar: false,
                       menubar: false,
