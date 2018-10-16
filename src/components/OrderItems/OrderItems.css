@@ -59,3 +59,9 @@
   color: var(--muted-color);
   margin-left: 4px;
 }
+.removeIcon {
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
