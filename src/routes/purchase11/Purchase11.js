@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { submitShipping, removeRecipientsOrder, toAddContactFlowStep } from '../../reducers/purchase'
+import { submitShipping, removeRecipientsOrder, toAddContactFlowStep,removeDontationFromBundle,removeVoucherFromBundle  } from '../../reducers/purchase'
 import { Button, Col, DatePicker, Form, Row, Select, message, Checkbox, Input, Popconfirm } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase11.css'
@@ -193,7 +193,7 @@ class Purchase11 extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
-          <OrderItems {...order} gift={order.items.gifts[0] && order.items.gifts[0].gift} giftcount = {order.items.gifts && order.items.gifts.length} card={order.items.card} />
+          <OrderItems {...this.props} {...order} gift={order.items.gifts[0] && order.items.gifts[0].gift} giftcount = {order.items.gifts && order.items.gifts.length} card={order.items.card} />
           <div className={s.orderDetails}>
             <h3 className={s.cardTitle}>{occasion && occasion.title}</h3>
             {this.state.mounted && bundle && <Editor
@@ -461,7 +461,9 @@ const mapState = state => ({
 const mapDispatch = {
   submitShipping,
   removeRecipientsOrder,
-  toAddContactFlowStep
+  toAddContactFlowStep,
+  removeDontationFromBundle,
+  removeVoucherFromBundle
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Purchase11)))

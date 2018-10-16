@@ -1174,6 +1174,42 @@ export const getDeliveryOccasions = (orderId) => (dispatch, getState, { fetch })
     }
   })
 }
+export const removeDontationFromBundle = () => (dispatch, getState, { fetch }) => {
+  const { token } = dispatch(getToken())
+  const { bundleId,orderId } = getState().purchase
+  if (bundleId === null) {
+    message.error("Bundle Id doesn't exist.");
+    return;
+  }
+  return fetch(`/removeDonationFromBundle/${bundleId}`, {
+    method: 'POST',
+    token,
+    success: (res) => {
+      dispatch(getOrderDetails(orderId))
+    },
+    failure: (err) => {
+      showErrorMessage(err);
+    }
+  })
+}
+export const removeVoucherFromBundle = () => (dispatch, getState, { fetch }) => {
+  const { token } = dispatch(getToken())
+  const { bundleId,orderId } = getState().purchase
+  if (bundleId === null) {
+    message.error("Bundle Id doesn't exist.");
+    return;
+  }
+  return fetch(`/removeVoucherFromBundle/${bundleId}`, {
+    method: 'POST',
+    token,
+    success: (res) => {
+      dispatch(getOrderDetails(orderId))
+    },
+    failure: (err) => {
+      showErrorMessage(err);
+    }
+  })
+}
 export const getOrderDetails = (orderId) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   if (!orderId) {
