@@ -146,7 +146,7 @@ class Purchase11 extends React.Component {
     
     const owner = user.account_type==INDIVIDUAL_ACCOUNT && user.is_team_owner==false || user.is_team_owner==true;
     
-    if(user && user.budget && user.budget.remaining_budget && parseFloat(order.total) <= parseFloat( user.budget.remaining_budget) || owner)    {     
+    if(user && user.budget && user.budget.remaining_budget && parseFloat(order.total) <= parseFloat( user.budget.remaining_budget))    {     
       this.setState({ disableSubmit: true })
       this.props.form.validateFields((err, values) => {
         if (!err) {
