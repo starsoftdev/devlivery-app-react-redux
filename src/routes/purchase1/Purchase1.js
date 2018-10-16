@@ -9,6 +9,8 @@ import {ALPHABET,DEFAULT_OCCASION_TYPE_DE,DEFAULT_OCCASION_TYPE} from '../../con
 import messages from './messages'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 const SEASONALID = 25;
+const SEASONALNAME = 'seasonal';
+const SEASONALNAME_DE = 'saisonal';
 
 class Purchase1 extends React.Component {
   constructor(props){
@@ -27,7 +29,8 @@ class Purchase1 extends React.Component {
   }
   render() {
     const {occasions, occasion, setOccasion, intl, flowIndex, nextFlowStep, occasionTypes, getOccasions} = this.props
-   
+    const seasonal_name  = intl.locale === 'de-DE' ? SEASONALNAME_DE: SEASONALNAME;
+    
     return (
       <div className={s.content}>
         <SectionHeader
@@ -57,7 +60,7 @@ class Purchase1 extends React.Component {
                 item={item}
                 imagesProp={'image'}
                 onClick={() => {
-                  if(item.id == SEASONALID)
+                  if(item.title.toLowerCase() == seasonal_name)
                     this.selectSeasonal('Seasonal');
                   else{
                     setOccasion(item)
@@ -65,7 +68,7 @@ class Purchase1 extends React.Component {
                   }
                 }}
                 active={occasion && occasion.id === item.id}
-                disabled = {!item.has_cards && item.id !== SEASONALID}
+                disabled = {!item.has_cards && item.title.toLowerCase() !== seasonal_name}
                 //keyValue={ALPHABET[i]}
               />
             </Col>
