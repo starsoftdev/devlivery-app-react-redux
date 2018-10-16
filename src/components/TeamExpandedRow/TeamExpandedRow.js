@@ -8,6 +8,7 @@ import s from './TeamExpandedRow.css'
 import { FloatingLabel } from '../../components';
 import { getUserPermission, hasAnyPermission, getPermissionsOfSpecialRole } from '../../reducers/permissions'
 import {isHavePaymentPermission} from '../../utils';
+import messages from './messages'
 
 class TeamExpandedRow extends React.Component {
   constructor(props) {
@@ -84,7 +85,7 @@ class TeamExpandedRow extends React.Component {
   }
 
   render() {
-    const { record, roles, addBudget, user_permissions, user } = this.props
+    const { record, roles, addBudget, user_permissions, user, intl } = this.props
     const { payment_permission, special_payment_permission } = this.state;
     const payment_enable = this.state.picked !== undefined && payment_permission && special_payment_permission;
     return (
@@ -93,7 +94,7 @@ class TeamExpandedRow extends React.Component {
           <div className={s.leftInputRow}>
             <Select
               //mode='multiple'
-              placeholder='Select groups'
+              placeholder={intl.formatMessage(messages.selectGroups)}
               style={{ width: '100%' }}
               onChange={this.selectChange}
               value={roles.filter(item => item.id === this.state.picked).length > 0 ? this.state.picked : undefined}

@@ -149,7 +149,7 @@ class ManageTeam extends React.Component {
           onChange={(pagination, filters, sorter) => getTeam({pagination, filters, sorter})}
           expandRowByClick={true}
           expandedRowKeys={[this.state.invited]}
-          expandedRowRender={(record) => <TeamExpandedRow record={record}/>}
+          expandedRowRender={(record) => <TeamExpandedRow intl = {intl} record={record}/>}
           pagination={{
             current: page,
             total: teamCount,
@@ -170,7 +170,7 @@ class ManageTeam extends React.Component {
           onChange={(pagination, filters, sorter) => getPendingTeam({pagination, filters, sorter})}
           expandRowByClick={true}
           expandedRowKeys={[this.state.pending]}
-          expandedRowRender={(record) => <PendingTeamExpandedRow record={record}/>}
+          expandedRowRender={(record) => <PendingTeamExpandedRow intl = {intl} record={record}/>}
           pagination={{
             current: pendingMembers.page,
             total: pendingMembers.teamCount,

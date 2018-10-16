@@ -2212,7 +2212,8 @@
     "defaultMessage": "Select Groups",
     "message": "",
     "files": [
-      "src/routes/purchase10/messages.js"
+      "src/routes/purchase10/messages.js",
+      "src/components/TeamExpandedRow/messages.js"
     ]
   },
   {
