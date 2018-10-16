@@ -3186,6 +3186,46 @@
     ]
   },
   {
+    "id": "contactGroups.contacts",
+    "defaultMessage": "Contacts",
+    "message": "Kontakte",
+    "files": [
+      "src/routes/groupPermissions/messages.js"
+    ]
+  },
+  {
+    "id": "contactGroups.groups",
+    "defaultMessage": "Groups",
+    "message": "Gruppen",
+    "files": [
+      "src/routes/groupPermissions/messages.js"
+    ]
+  },
+  {
+    "id": "contactGroups.team",
+    "defaultMessage": "Team",
+    "message": "Team",
+    "files": [
+      "src/routes/groupPermissions/messages.js"
+    ]
+  },
+  {
+    "id": "contactGroups.purchase",
+    "defaultMessage": "Purchase",
+    "message": "Purchase",
+    "files": [
+      "src/routes/groupPermissions/messages.js"
+    ]
+  },
+  {
+    "id": "contactGroups.payments",
+    "defaultMessage": "Payments",
+    "message": "Payments",
+    "files": [
+      "src/routes/groupPermissions/messages.js"
+    ]
+  },
+  {
     "id": "contactGroups.editPermissions",
     "defaultMessage": "Edit Permissions",
     "message": "Berechtigungen ändern",

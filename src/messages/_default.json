@@ -3051,6 +3051,46 @@
     ]
   },
   {
+    "id": "contactGroups.contacts",
+    "defaultMessage": "Contacts",
+    "message": "",
+    "files": [
+      "src/routes/groupPermissions/messages.js"
+    ]
+  },
+  {
+    "id": "contactGroups.groups",
+    "defaultMessage": "Groups",
+    "message": "",
+    "files": [
+      "src/routes/groupPermissions/messages.js"
+    ]
+  },
+  {
+    "id": "contactGroups.team",
+    "defaultMessage": "Team",
+    "message": "",
+    "files": [
+      "src/routes/groupPermissions/messages.js"
+    ]
+  },
+  {
+    "id": "contactGroups.purchase",
+    "defaultMessage": "Purchase",
+    "message": "",
+    "files": [
+      "src/routes/groupPermissions/messages.js"
+    ]
+  },
+  {
+    "id": "contactGroups.payments",
+    "defaultMessage": "Payments",
+    "message": "",
+    "files": [
+      "src/routes/groupPermissions/messages.js"
+    ]
+  },
+  {
     "id": "contactGroups.editPermissions",
     "defaultMessage": "Edit Permissions",
     "message": "",

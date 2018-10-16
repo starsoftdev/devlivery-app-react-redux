@@ -40,5 +40,25 @@ export default defineMessages({
   deleteGroup: {
     id: 'contactGroups.deleteGroup',
     defaultMessage: 'Delete Group',
+  },
+  contacts: {
+    id: 'contactGroups.contacts',
+    defaultMessage: 'Contacts',
+  },
+  groups: {
+    id: 'contactGroups.groups',
+    defaultMessage: 'Groups',
+  },
+  team: {
+    id: 'contactGroups.team',
+    defaultMessage: 'Team',
+  },
+  purchase: {
+    id: 'contactGroups.purchase',
+    defaultMessage: 'Purchase',
+  },
+  payments: {
+    id: 'contactGroups.payments',
+    defaultMessage: 'Payments',
   }
 })
