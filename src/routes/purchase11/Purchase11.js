@@ -144,9 +144,9 @@ class Purchase11 extends React.Component {
     
     const {order, user} = this.props;
     
-    const owner = user.account_type==INDIVIDUAL_ACCOUNT && user.is_team_owner==false || user.is_team_owner==true;
+    const owner = user.account_type==INDIVIDUAL_ACCOUNT || user.is_team_owner==true;
     
-    if(user && user.budget && user.budget.remaining_budget && parseFloat(order.total) <= parseFloat( user.budget.remaining_budget))    {     
+    if(user && user.budget && user.budget.remaining_budget && parseFloat(order.total) <= parseFloat( user.budget.remaining_budget) || owner)    {     
       this.setState({ disableSubmit: true })
       this.props.form.validateFields((err, values) => {
         if (!err) {
@@ -252,7 +252,7 @@ class Purchase11 extends React.Component {
             </Col>
           </Row>
           {
-            user && user.account_type===TEAM_ACCOUNT &&
+            user && user.account_type===TEAM_ACCOUNT && !user.is_team_owner &&
             <Row type='flex' align='center' gutter={20} className={s.totalSection}>
               <Col xs={12}>
                 <h2 className={s.subtotalHeader}>{'AVAILABLE BUDGET:'}</h2>
