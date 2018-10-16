@@ -8,10 +8,12 @@ import {
   ORDER_BUNDLE_FLOW,
   ORDER_VOUCHER_FLOW,
   ORDER_CARD_FLOW,
+  AUTH_ORDER_CARD_FLOW,
   PURCHASE8_ROUTE,//Select Gift
   PURCHASE_FLOW,
   VOUCHER_ROUTE,
   GIFT_PURCHASE_FLOW,
+  AUTH_GIFT_PURCHASE_FLOW,
   PURCHASE11_ROUTE,
   PAYMENT_FLOW
 } from '../routes'
@@ -188,6 +190,8 @@ export const setFlow = (flow, redirect = true) => (dispatch, getState, { history
     flow.key != ORDER_CARD_FLOW.key &&
     flow.key != ORDER_VOUCHER_FLOW.key &&
     flow.key != GIFT_PURCHASE_FLOW.key &&
+    flow.key != AUTH_ORDER_CARD_FLOW.key &&
+    flow.key != AUTH_GIFT_PURCHASE_FLOW.key &&
     flow.key != PAYMENT_FLOW.key) {
     dispatch(clear())
   }
@@ -456,7 +460,8 @@ export const submitCardDetails = (cardDetails) => async (dispatch, getState) => 
   if (bundle && bundle.id)
     dispatch({ type: UPDATE_BUNDLE_BODY, cardDetails })
 
-  if (flow.key === GIFT_PURCHASE_FLOW.key) {
+    
+  if (flow.key === GIFT_PURCHASE_FLOW.key || flow.key === AUTH_GIFT_PURCHASE_FLOW.key) {
     await dispatch(addBundle())
   }
   dispatch(nextFlowStep())
@@ -711,7 +716,9 @@ export const makeOrder = () => (dispatch, getState, { fetch, history }) => {
   } else {
 
     //dispatch({type: MAKE_ORDER_REQUEST})
-
+    console.log(`/make-order-from-bundle`,{
+      bundle_id: parseInt(bundleId),
+    })
     return fetch(`/make-order-from-bundle`, {
       method: 'POST',
       contentType: 'application/x-www-form-urlencoded',
@@ -733,6 +740,7 @@ export const makeOrder = () => (dispatch, getState, { fetch, history }) => {
         //dispatch({type: GET_BUNDLE_DETAILS_SUCCESS, bundle: getState().purchase.cardDetails});
       },
       failure: (err) => {
+        console.log('err',err);
         history.goBack();
         //dispatch({type: MAKE_ORDER_FAILURE})
       },
