@@ -134,7 +134,7 @@ class Voucher extends React.Component {
                     { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                   ],
                 })(
-                  <FloatingLabel placeholder={intl.formatMessage(messages.receiver)} />
+                  <FloatingLabel placeholder={intl.formatMessage(messages.giver)} />
                 )}
               </Form.Item>
               <Form.Item className={cn(s.voucherFormItem)}>
@@ -144,7 +144,7 @@ class Voucher extends React.Component {
                     { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                   ],
                 })(
-                  <FloatingLabel placeholder={intl.formatMessage(messages.giver)} />
+                  <FloatingLabel placeholder={intl.formatMessage(messages.receiver)} />
                 )}
               </Form.Item>
               <label className={s.messageTitle}>{intl.formatMessage(messages.freeText)}</label>
