@@ -38,7 +38,6 @@ export const CLEAR = 'Register.CLEAR'
 export const register = (values, form) => (dispatch, getState, {fetch, history}) => {
   dispatch({type: REGISTER_REQUEST, individualDetails: values})
   const {accountType, individualDetails: {birthday, ...otherDetails},inviteToken} = getState().register
-  console.log("birthday",birthday);
   return fetch(`/signup`, {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
@@ -95,8 +94,8 @@ export const register = (values, form) => (dispatch, getState, {fetch, history})
           last_name: otherDetails.last_name,
           nickname: "",
           phone: otherDetails.phone,
-        }
-
+        },
+        birthday : birthday ? birthday:null
       }))
       if (accountType === TEAM_ACCOUNT) {
         history.push('/register/team-details')
