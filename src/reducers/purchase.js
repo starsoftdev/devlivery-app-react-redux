@@ -888,8 +888,8 @@ export const makeInvoicePayment = () => (dispatch, getState, { fetch }) => {
   if (!orderId) {
     return
   }
-  console.log(`/order-confirmation?order_id=${orderId}`);
-  return fetch(`/order-confirmation?order_id=${orderId}`, {
+  console.log(`/order/${orderId}/pay_by_invoice`);
+  return fetch(`/order/${orderId}/pay_by_invoice`, {
     method: 'GET',
     token,
     success: (res) => {

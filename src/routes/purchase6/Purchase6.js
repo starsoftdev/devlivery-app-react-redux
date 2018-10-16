@@ -1,14 +1,14 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {getMessageTemplate, submitCardDetails, setFontFamilies} from '../../reducers/purchase'
-import {Button, Form, Select} from 'antd'
+import { connect } from 'react-redux'
+import { getMessageTemplate, submitCardDetails, setFontFamilies } from '../../reducers/purchase'
+import { Button, Form, Select } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase6.css'
-import {PurchaseActions, SectionHeader} from '../../components'
-import KeyHandler, {KEYPRESS} from 'react-key-handler'
+import { PurchaseActions, SectionHeader } from '../../components'
+import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import messages from './messages'
 import EditorIcon from '../../static/editor_icon.svg'
-import {loadFont} from '../../utils'
+import { loadFont } from '../../utils'
 import * as Contants from '../../constants';
 
 import { Editor } from '@tinymce/tinymce-react';
@@ -24,16 +24,21 @@ injectGlobal`
     overflow-y:hidden !important;
   }
 `
-
+const GLOBAL_META = `
+<meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    `;
 const GLOBAL_STYLES = `
 <style type='text/css'>
   body {
     margin: 0;
-    padding: 5px 10px;
-    line-height: 1;
+    padding: 5px 8px;
+    line-height: 1.3;
   }
   p {
-    margin: 0.5rem 0;
     word-break: break-all;
   }
   span {
@@ -44,18 +49,18 @@ const GLOBAL_STYLES = `
 // TODO use intl for custom pickers
 // TODO use classNames instead of inline styles on Select fields
 class FontSizePicker extends React.Component {
-  state ={
+  state = {
     fontSize: Contants.FONT_SIZES[0]
   }
   toggleFontSize = (fontSize) => {
-    this.setState({fontSize});
-    this.props.execCommand('FontSize',false,`${fontSize}px`);
+    this.setState({ fontSize });
+    this.props.execCommand('FontSize', false, `${fontSize}px`);
   }
 
   render() {
     return (
       <Select
-        style={{width: '50%', paddingLeft: '5%', marginBottom: 20}}
+        style={{ width: '50%', paddingLeft: '5%', marginBottom: 20 }}
         placeholder={'Font Size'}
         onSelect={this.toggleFontSize}
         value={this.state.fontSize}
@@ -69,29 +74,29 @@ class FontSizePicker extends React.Component {
 }
 
 class FontFamilyPicker extends React.Component {
-  state ={
-    fontFamily:Contants.FONTS[0]
+  state = {
+    fontFamily: Contants.FONTS[0]
   }
-  componentDidMount () {
+  componentDidMount() {
     this.props.setFontFamilies(Contants.FONTS[0])
   }
 
   toggleFontFamily = (fontFamily) => {
-    this.setState({fontFamily});
+    this.setState({ fontFamily });
     this.props.setFontFamilies(fontFamily)
-    this.props.execCommand("FontName",false,fontFamily);
+    this.props.execCommand("FontName", false, fontFamily);
   }
 
   render() {
     return (
       <Select
-        style={{width: '100%', marginBottom: 20, fontFamily: this.state.fontFamily}}
+        style={{ width: '100%', marginBottom: 20, fontFamily: this.state.fontFamily }}
         placeholder={'Font Family'}
         onSelect={this.toggleFontFamily}
         value={this.state.fontFamily}
       >
         {Contants.FONTS.map((item) =>
-          <Select.Option key={item} value={item} style={{fontFamily: item}}>{item}</Select.Option>
+          <Select.Option key={item} value={item} style={{ fontFamily: item }}>{item}</Select.Option>
         )}
       </Select>
     )
@@ -115,7 +120,7 @@ class ColorPicker extends React.Component {
           <div key={item} className={s.colorWrapper}>
             <a
               className={s.color}
-              style={{backgroundColor: item}}
+              style={{ backgroundColor: item }}
               onClick={() => this.toggleColor(item)}
             />
           </div>
@@ -126,25 +131,25 @@ class ColorPicker extends React.Component {
 }
 
 class TextAlignmentPicker extends React.Component {
-  state ={
-    textAlignment:Contants.TEXT_ALIGNMENT[0].value
+  state = {
+    textAlignment: Contants.TEXT_ALIGNMENT[0].value
   }
   toggleTextAlignment = (textAlignment) => {
-    this.setState({textAlignment});
-    this.props.execCommand(textAlignment,false,true);
+    this.setState({ textAlignment });
+    this.props.execCommand(textAlignment, false, true);
   }
 
   render() {
     return (
       <Select
         defaultValue={Contants.TEXT_ALIGNMENT[0].value}
-        style={{width: '100%', marginBottom: 20}}
+        style={{ width: '100%', marginBottom: 20 }}
         placeholder={'Text Align'}
         onSelect={this.toggleTextAlignment}
-        value ={this.state.textAlignment}
+        value={this.state.textAlignment}
       >
         {Contants.TEXT_ALIGNMENT.map((item) =>
-          <Select.Option key={item.value} value={item.value}>{this.props.intl.locale === 'de-DE'? item.label_de: item.label}</Select.Option>
+          <Select.Option key={item.value} value={item.value}>{this.props.intl.locale === 'de-DE' ? item.label_de : item.label}</Select.Option>
         )}
       </Select>
     )
@@ -157,21 +162,21 @@ class FontWeightPicker extends React.Component {
   }
   toggleFontWeight = (font_weight) => {
     // TODO workaround for toggling "bold" icon in editor - there is no option "normal"
-    this.setState({font_weight});
-    this.props.execCommand('Bold',false,font_weight === Contants.FONT_WEIGHT[0].value ? false:true )
+    this.setState({ font_weight });
+    this.props.execCommand('Bold', false, font_weight === Contants.FONT_WEIGHT[0].value ? false : true)
   }
 
   render() {
     return (
       <Select
         defaultValue={Contants.FONT_WEIGHT[0].value}
-        style={{width: '50%', paddingRight: '5%', marginBottom: 20}}
+        style={{ width: '50%', paddingRight: '5%', marginBottom: 20 }}
         placeholder={'Font Weight'}
         onSelect={this.toggleFontWeight}
         value={this.state.font_weight}
       >
         {Contants.FONT_WEIGHT.map((item) =>
-          <Select.Option key={item.value} value={item.value}>{this.props.intl.locale === 'de-DE'? item.label_de: item.label}</Select.Option>
+          <Select.Option key={item.value} value={item.value}>{this.props.intl.locale === 'de-DE' ? item.label_de : item.label}</Select.Option>
         )}
       </Select>
     )
@@ -184,10 +189,10 @@ class Template extends React.Component {
   }
 
   render() {
-    const {templates} = this.props
+    const { templates } = this.props
     return (
       <Select
-        style={{width: '100%', marginBottom: 20, position: 'absolute', top: 0}}
+        style={{ width: '100%', marginBottom: 20, position: 'absolute', top: 0 }}
         placeholder={this.props.intl.formatMessage(messages.recipient)}
         onSelect={this.addTemplate}
       >
@@ -206,7 +211,7 @@ class Purchase6 extends React.Component {
     this.state = {
       mounted: false,
       content: '',
-      fontlink:[]
+      fontlink: []
     }
 
     this.handleEditorChange = this.handleEditorChange.bind(this);
@@ -214,10 +219,9 @@ class Purchase6 extends React.Component {
     this.execTinyCommand = this.execTinyCommand.bind(this);
     this.insertConent = this.insertConent.bind(this);
   }
-  componentWillReceiveProps(nextProps){
-    if(nextProps && nextProps.cardDetails)
-    {
-      this.setState({content:nextProps.cardDetails.body});
+  componentWillReceiveProps(nextProps) {
+    if (nextProps && nextProps.cardDetails) {
+      this.setState({ content: nextProps.cardDetails.body });
     }
   }
   componentDidMount() {
@@ -225,12 +229,12 @@ class Purchase6 extends React.Component {
     // load all fonts to show them on Select
     Contants.FONTS.forEach(font => loadFont(font))
 
-    const {cardDetails} = this.props
+    const { cardDetails } = this.props
     // load editor only on client side (not server side)
     const newState = {
       mounted: true
     }
-    
+
     this.state.fontlink = Contants.FONTS.map(font =>
       `//fonts.googleapis.com/css?family=${font}`
     )
@@ -238,34 +242,35 @@ class Purchase6 extends React.Component {
   }
 
   handleSubmit = () => {
-    const html  = this.tinymce.editor && this.tinymce.editor.getContent();
+    const html = this.tinymce.editor && this.tinymce.editor.getContent();
     const fonts = this.props.fontFamilies.map(font =>
       `<link id="${font}" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=${font}" media="all">`
     ).join('')
+    const body = `<!doctype html><html lang="en"><head>${GLOBAL_META}${fonts}${GLOBAL_STYLES}</head><body>${html}</body></html>`;
+    console.log("body",body);
     
-    const body = `${GLOBAL_STYLES}${fonts}<body>${html}</body>`;
-    this.props.submitCardDetails({body})
+    this.props.submitCardDetails({ body })
   }
   handleEditorChange(content) {
     this.setState({ content });
   }
-  execTinyCommand(type,flag,value){
-    if(this.tinymce)
+  execTinyCommand(type, flag, value) {
+    if (this.tinymce)
       this.tinymce.editor.editorCommands.execCommand(type, flag, value);
   }
-  insertConent(value){
-    if(this.tinymce)
+  insertConent(value) {
+    if (this.tinymce)
       this.tinymce.editor.insertContent(value);
   }
   render() {
-    const {mounted} = this.state
-    const {intl, flowIndex, cardSize, templates, orientation} = this.props
+    const { mounted } = this.state
+    const { intl, flowIndex, cardSize, templates, orientation } = this.props
 
     const w = cardSize ? cardSize.width : 100
     const h = cardSize ? cardSize.height : 100
 
-    const cardWidth = orientation && orientation =='l' ? h : w;
-    const cardHeight = orientation && orientation =='l' ? w : h;
+    const cardWidth = orientation && orientation == 'l' ? h : w;
+    const cardHeight = orientation && orientation == 'l' ? w : h;
 
     return (
       <div className={s.form}>
@@ -277,41 +282,41 @@ class Purchase6 extends React.Component {
           />
           <div className={s.editorContainer}>
             <div className={s.editorWrapper}>
-              <div className={s.editorIconWrapper} style={{left: `${(cardWidth/2) + 3}mm`}}>
-                <EditorIcon/>
+              <div className={s.editorIconWrapper} style={{ left: `${(cardWidth / 2) + 3}mm` }}>
+                <EditorIcon />
               </div>
               <div>
                 {mounted && (
                   <Editor
-                    ref ={editor => this.tinymce = editor} 
-                    value={this.state.content} 
+                    ref={editor => this.tinymce = editor}
+                    value={this.state.content}
                     init={{
                       toolbar: false,
-                      menubar:false,
+                      menubar: false,
                       statusbar: false,
                       width: `${cardWidth}mm`,
                       height: `${cardHeight}mm`,
-                      content_css : [...this.state.fontlink, '/styles/tinymce.css'],
+                      content_css: [...this.state.fontlink, '/styles/tinymce.css'],
                       setup: function (ed) {
                         ed.on('init', function (e) {
                           ed.execCommand("fontName", false, Contants.FONTS[0]);
                         });
                       }
                     }}
-                    onEditorChange={this.handleEditorChange} 
+                    onEditorChange={this.handleEditorChange}
                   />
                 )}
               </div>
               <div className={s.editorActions}>
-                <Template templates={templates} execCommand={this.insertConent} intl={intl}/>
-                <ConnectedFontFamilyPicker  execCommand={this.execTinyCommand}/>
-                <FontWeightPicker execCommand={this.execTinyCommand} intl={intl}/>
-                <FontSizePicker execCommand={this.execTinyCommand}/>
-                <TextAlignmentPicker execCommand={this.execTinyCommand} intl={intl}/>
-                <ColorPicker execCommand={this.execTinyCommand}/> 
+                <Template templates={templates} execCommand={this.insertConent} intl={intl} />
+                <ConnectedFontFamilyPicker execCommand={this.execTinyCommand} />
+                <FontWeightPicker execCommand={this.execTinyCommand} intl={intl} />
+                <FontSizePicker execCommand={this.execTinyCommand} />
+                <TextAlignmentPicker execCommand={this.execTinyCommand} intl={intl} />
+                <ColorPicker execCommand={this.execTinyCommand} />
               </div>
             </div>
-            
+
           </div>
         </div>
         <PurchaseActions>

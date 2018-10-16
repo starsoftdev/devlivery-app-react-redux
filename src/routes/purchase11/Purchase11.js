@@ -197,7 +197,7 @@ class Purchase11 extends React.Component {
           <div className={s.orderDetails}>
             <h3 className={s.cardTitle}>{occasion && occasion.title}</h3>
             {this.state.mounted && bundle && <Editor
-              value={this.state.content}
+              value={this.state.content.replace('<!doctype html>','')}
               init={{
                 toolbar: false,
                 menubar: false,
