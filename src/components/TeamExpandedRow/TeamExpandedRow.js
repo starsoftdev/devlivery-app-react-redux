@@ -87,7 +87,13 @@ class TeamExpandedRow extends React.Component {
   render() {
     const { record, roles, addBudget, user_permissions, user, intl } = this.props
     const { payment_permission, special_payment_permission } = this.state;
-    const payment_enable = this.state.picked !== undefined && payment_permission && special_payment_permission;
+    var payment_enable = this.state.picked !== undefined && payment_permission && special_payment_permission;
+    if(user && user.is_team_owner === true)
+    {
+      payment_enable = true;
+    }
+    if(record.is_team_owner == true)
+      payment_enable = false;
     return (
       <Row className={s.container}>
         <Col md={12} className={s.column}>

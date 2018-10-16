@@ -48,6 +48,7 @@ class ManageTeam extends React.Component {
       intl,
       pendingMembers,
       getPendingTeam,
+      user
     } = this.props
     
     const columns = [
@@ -63,11 +64,13 @@ class ManageTeam extends React.Component {
       },
       {
         title: intl.formatMessage(messages.budgetColumn),
-        dataIndex: 'budget',
+        dataIndex: '',
         key: 'budget',
-        render: (budget) => {
-          if (budget){
-            return (<span>{budget.total_spent}/{budget.budget}</span>)
+        render: (record) => {
+          if(record.is_team_owner)
+            return ''
+          if (record.budget){
+            return (<span>{record.budget.total_spent}/{record.budget.budget}</span>)
           } else {
             return ''
           }
@@ -194,6 +197,7 @@ class ManageTeam extends React.Component {
 const mapState = state => ({
   ...state.team,
   pendingMembers: state.pendingMembers,
+  user: state.user.user,
 })
 
 const mapDispatch = {
