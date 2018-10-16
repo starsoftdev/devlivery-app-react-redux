@@ -3709,7 +3709,8 @@
     "defaultMessage": "From",
     "message": "",
     "files": [
-      "src/routes/voucher/messages.js"
+      "src/routes/voucher/messages.js",
+      "src/components/OrderItems/messages.js"
     ]
   },
   {
@@ -3725,7 +3726,8 @@
     "defaultMessage": "To",
     "message": "",
     "files": [
-      "src/routes/voucher/messages.js"
+      "src/routes/voucher/messages.js",
+      "src/components/OrderItems/messages.js"
     ]
   },
   {
