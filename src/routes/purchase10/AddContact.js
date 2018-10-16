@@ -34,10 +34,11 @@ class AddContact extends React.Component {
   handleSubmit = () => {
     //e.preventDefault()
     this.props.form.validateFields({force: true}, (err, values) => {
+        
       if (!err) {
         var birthday = moment(values.dob);
         var expected = moment().subtract(18, 'years');
-        if(birthday < expected)
+        if(birthday < expected || (values.dob && values.dob.length <= 0) || values.dob === undefined)
         {
           var addresses = this.props.form.getFieldValue('addresses')
           if(addresses === null)
@@ -60,12 +61,14 @@ class AddContact extends React.Component {
           }
         }
         else {
+          
           this.props.form.setFields({
             dob: {
               value: values.dob,
               errors: [new Error('please select date older than 18 years.')],
             },
           });
+          
         }
       }
       return false;
