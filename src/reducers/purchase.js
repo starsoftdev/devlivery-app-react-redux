@@ -463,7 +463,7 @@ export const submitCardDetails = (cardDetails) => async (dispatch, getState) => 
 
   if (flow.key === GIFT_PURCHASE_FLOW.key || flow.key === AUTH_GIFT_PURCHASE_FLOW.key) {
     await dispatch(addBundle())
-    dispatch(nextFlowStep(2))
+    dispatch(nextFlowStep())
   }
   else
     dispatch(nextFlowStep())
