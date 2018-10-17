@@ -24,9 +24,7 @@ const prepareRequestHeaders = (cookies, contentType = 'application/json', token)
     headers['Authorization'] = `Bearer ${token}`
   }
   headers['Accept'] = `application/json`
-  if (contentType !== 'multipart/form-data') {
-    headers['Content-Type'] = contentType
-  }
+  headers['Content-Type'] = contentType
   const locale = cookies.get(LOCALE_COOKIE) || 'de-DE'
   headers['lang'] = locale.substring(0, 2) // 'en'
   return headers
@@ -83,12 +81,19 @@ function createFetch(fetch, {apiUrl, cookies}) {
       options.headers = prepareRequestHeaders(cookies, contentType, token)
     }
     try {
+      console.log(anotherDomainRequest ? url : `${apiUrl}${url}`, {
+        ...options,
+        headers: {
+          ...options.headers,
+        },
+      });
       const resp = await fetch(anotherDomainRequest ? url : `${apiUrl}${url}`, {
         ...options,
         headers: {
           ...options.headers,
         },
       })
+      console.log("resp",resp);
       if(resp.status === 401)
       {
         window.location.href='/';
