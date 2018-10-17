@@ -31,6 +31,7 @@ export const sendEnquiries = (values,callback) => (dispatch, getState, {fetch}) 
   });
   return fetch(`/enquiries`, {
     method: 'POST',
+    contentType: 'multipart/form-data',
     token,
     body: {
       name,
