@@ -16,7 +16,7 @@
   }
 }
 .actionsContainer{
-  margin-bottom: var(--margin-md);
+  margin-bottom: 3rem;
   display: block
 }
 .actions {

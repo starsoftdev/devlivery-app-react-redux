@@ -16,7 +16,7 @@
 }
 
 .search {
-  margin-bottom: var(--margin-md);
+  margin-bottom: 3rem;
 }
 
 .filters {
@@ -28,7 +28,7 @@
 }
 
 .filterHeader {
-  margin-bottom: var(--margin-md);
+  margin-bottom: 3rem;
 
   @media (--md-up) {
     font-size: 40px;
