@@ -455,16 +455,18 @@ export const setCardSize = (cardSize) => ({ type: SET_CARD_SIZE, cardSize })
 export const CARDDETAILS = "card_details";
 export const submitCardDetails = (cardDetails) => async (dispatch, getState) => {
   dispatch({ type: SET_CARD_DETAILS, cardDetails })
-  localStorage.setItem(CARDDETAILS,JSON.stringify(cardDetails));
+  localStorage.setItem(CARDDETAILS, JSON.stringify(cardDetails));
   const { bundle, flow } = getState().purchase;
   if (bundle && bundle.id)
     dispatch({ type: UPDATE_BUNDLE_BODY, cardDetails })
 
-    
+
   if (flow.key === GIFT_PURCHASE_FLOW.key || flow.key === AUTH_GIFT_PURCHASE_FLOW.key) {
     await dispatch(addBundle())
+    dispatch(nextFlowStep(2))
   }
-  dispatch(nextFlowStep())
+  else
+    dispatch(nextFlowStep())
 }
 export const loadCardDetails = () => async (dispatch, getState) => {
   var cardDetails = await localStorage.getItem(CARDDETAILS);
@@ -480,13 +482,13 @@ export const setGift = (gift) => (dispatch, getState, { fetch }) => {
   dispatch({ type: SET_GIFT, gift })
 }
 export const buyMoreGift = () => (dispatch, getState, { fetch }) => {
-  const {giftId} = getState().purchase;
-  var giftIds =  localStorage.getItem(GIFT_IDS);
-  if(giftIds ===  null)
-    giftIds = giftId ? [giftId]:[];
+  const { giftId } = getState().purchase;
+  var giftIds = localStorage.getItem(GIFT_IDS);
+  if (giftIds === null)
+    giftIds = giftId ? [giftId] : [];
   else {
     giftIds = JSON.parse(giftIds);
-    if(giftId && !giftIds.includes(giftId))
+    if (giftId && !giftIds.includes(giftId))
       giftIds.push(giftId);
   }
   localStorage.setItem(GIFT_IDS, JSON.stringify(giftIds))
@@ -556,17 +558,17 @@ export const submitShipping = (values) => (dispatch, getState, { fetch }) => {
 }
 export const updateBundle = (param) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
-  console.log(`/bundles/${getState().purchase.bundleId}`,param)
+  console.log(`/bundles/${getState().purchase.bundleId}`, param)
   return fetch(`/bundles/${getState().purchase.bundleId}`, {
     method: 'POST',
     token,
     body: param,
     success: (res) => {
-      console.log('res',res);
+      console.log('res', res);
       const saved = 0;
       dispatch({ type: SET_SAVED_VALUE, saved })
     },
-    failure: (err) => { console.log('err',err);},
+    failure: (err) => { console.log('err', err); },
   })
 }
 export const setPaymentMethod = (paymentMethod) => ({ type: SET_PAYMENT_METHOD, paymentMethod })
@@ -607,34 +609,35 @@ export const continueWithoutGift = () => async (dispatch, getState) => {
 
 export const submitGift = (gotoNext = 0) => async (dispatch, getState) => {
   const { flow } = getState().purchase
+  /*
   if (flow.key !== EDIT_BUNDLE_FLOW.key) {
     await dispatch(addBundle())
     await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
   }
-  if(gotoNext === 0)
-  {
+  */
+  await dispatch(addBundle())
+  await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
+  if (gotoNext === 0) {
     dispatch(nextFlowStep())
   }
-  else{
+  else {
     dispatch(nextFlowStep(gotoNext))
   }
 }
 
 export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
-  const { letteringTechnique, cardId, gift, giftId, flow, giftIds, saved,bundleId } = getState().purchase
+  const { letteringTechnique, cardId, gift, giftId, flow, giftIds, saved, bundleId } = getState().purchase
   dispatch({ type: ADD_BUNDLE_REQUEST })
 
   var gift_ids = giftIds;
-  if(!gift_ids.includes(giftId) && giftId)
-  {
+  if (!gift_ids.includes(giftId) && giftId) {
     gift_ids.push(giftId);
     dispatch(buyMoreGift())
   }
-  
-  if(bundleId)
-  {
-    console.log(`/sync-bundle-gifts`,{
+
+  if (bundleId) {
+    console.log(`/sync-bundle-gifts`, {
       bundle_id: bundleId,
       gift_ids,
     });
@@ -643,7 +646,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
       contentType: 'application/json',
       body: {
         bundle_id: bundleId,
-        gift_ids : gift_ids ? gift_ids : []
+        gift_ids: gift_ids ? gift_ids : []
       },
       token,
       success: (res) => {
@@ -652,21 +655,20 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
           if (goToNext) {
             dispatch(nextFlowStep())
           }
-          message.success('Bundle created.')
         }
       },
       failure: (err) => {
-        console.log("err",err);
+        console.log("err", err);
         showErrorMessage(err);
         dispatch({ type: ADD_BUNDLE_FAILURE })
       },
     })
   }
-  console.log(`/create-bundle`,{
+  console.log(`/create-bundle`, {
     lettering: letteringTechnique,
     card_id: cardId,
     gift_ids: giftIds.length > 0 ? giftIds : giftId ? giftId : [],
-    title:values && values.title ? values.title :null,
+    title: values && values.title ? values.title : null,
     saved
   });
   return fetch(`/create-bundle`, {
@@ -688,11 +690,10 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
         if (goToNext) {
           dispatch(nextFlowStep())
         }
-        message.success('Bundle created.')
       }
     },
     failure: (err) => {
-      console.log("err",err);
+      console.log("err", err);
       showErrorMessage(err);
       dispatch({ type: ADD_BUNDLE_FAILURE })
     },
@@ -716,7 +717,7 @@ export const makeOrder = () => (dispatch, getState, { fetch, history }) => {
   } else {
 
     //dispatch({type: MAKE_ORDER_REQUEST})
-    console.log(`/make-order-from-bundle`,{
+    console.log(`/make-order-from-bundle`, {
       bundle_id: parseInt(bundleId),
     })
     return fetch(`/make-order-from-bundle`, {
@@ -734,13 +735,13 @@ export const makeOrder = () => (dispatch, getState, { fetch, history }) => {
         await dispatch(getDeliveryLocations(order.id))
         await dispatch(getDeliveryOccasions(order.id))
         await dispatch(addRecipientsOrder(order.id))
-        
-        
+
+
         dispatch({ type: SET_ORIENTATION, orientation: order.print_orientation });
         //dispatch({type: GET_BUNDLE_DETAILS_SUCCESS, bundle: getState().purchase.cardDetails});
       },
       failure: (err) => {
-        console.log('err',err);
+        console.log('err', err);
         history.goBack();
         //dispatch({type: MAKE_ORDER_FAILURE})
       },
@@ -774,7 +775,7 @@ export const makeDefaultStripePayment = (tokenid, callback) => (dispatch, getSta
     return
   }
   dispatch({ type: MAKE_STRIPE_PAYMENT_REQUEST })
-  console.log(`/payments/stripe/charge/${orderId}`,{
+  console.log(`/payments/stripe/charge/${orderId}`, {
     card_id: tokenid,
   })
   return fetch(`/payments/stripe/charge/${orderId}`, {
@@ -789,7 +790,7 @@ export const makeDefaultStripePayment = (tokenid, callback) => (dispatch, getSta
       dispatch({ type: MAKE_STRIPE_PAYMENT_SUCCESS })
     },
     failure: (err) => {
-      console.log("err",err);
+      console.log("err", err);
       showErrorMessage(err);
       dispatch({ type: MAKE_STRIPE_PAYMENT_FAILURE })
     },
@@ -809,7 +810,7 @@ export const makeStripePayment = (card, callback) => (dispatch, getState, { fetc
     cvc,
   } = card
   const { stripeApiKey } = getState().global
-  console.log('https://api.stripe.com/v1/tokens',{
+  console.log('https://api.stripe.com/v1/tokens', {
     'card[number]': number,
     'card[exp_month]': expiry_month,
     'card[exp_year]': expiry_year,
@@ -851,7 +852,7 @@ export const makeStripePayment = (card, callback) => (dispatch, getState, { fetc
       })
     },
     failure: (error) => {
-      console.log("error",error);
+      console.log("error", error);
       if (callback) {
         callback(error)
       }
@@ -903,11 +904,11 @@ export const makeInvoicePayment = () => (dispatch, getState, { fetch }) => {
     method: 'GET',
     token,
     success: (res) => {
-      console.log("res",res);
+      console.log("res", res);
       dispatch(nextFlowStep());
     },
     failure: (error) => {
-      console.log('error',error);
+      console.log('error', error);
       if (error && error.error && error.error.message) {
         message.error(error.error.message)
       }
@@ -1060,8 +1061,7 @@ export const submitVoucher = (voucher, refresh = false) => async (dispatch, getS
   await dispatch({ type: SUBMIT_VOUCHER, voucher })
   const { flow } = getState().purchase
   if (flow.key === EDIT_BUNDLE_FLOW.key) {
-    if (refresh)
-    {
+    if (refresh) {
       dispatch(nextFlowStep(-2))
     }
     else dispatch(nextFlowStep())
@@ -1078,7 +1078,7 @@ export const confirmVoucher = (bundleValues, refresh) => async (dispatch, getSta
     message.error('Bundle is incorrect.');
     return;
   }
-        
+
   dispatch({ type: CONFIRM_VOUCHER_REQUEST })
   return fetch(`/vouchers`, {
     method: 'POST',
@@ -1091,8 +1091,7 @@ export const confirmVoucher = (bundleValues, refresh) => async (dispatch, getSta
     success: async (res) => {
       await dispatch({ type: CONFIRM_VOUCHER_SUCCESS })
       await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
-      if (refresh)
-      {
+      if (refresh) {
         dispatch(nextFlowStep(-2))
       }
       else dispatch(nextFlowStep())
@@ -1108,8 +1107,7 @@ export const submitDonation = (donation, refresh = false) => async (dispatch, ge
   await dispatch({ type: SUBMIT_DONATION, donation })
   const { flow } = getState().purchase
   if (flow.key === EDIT_BUNDLE_FLOW.key) {
-    if (refresh)
-    {
+    if (refresh) {
       dispatch(nextFlowStep(-2))
     }
     else dispatch(nextFlowStep())
@@ -1195,7 +1193,7 @@ export const getDeliveryOccasions = (orderId) => (dispatch, getState, { fetch })
 }
 export const removeDontationFromBundle = () => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
-  const { bundleId,orderId } = getState().purchase
+  const { bundleId, orderId } = getState().purchase
   if (bundleId === null) {
     message.error("Bundle Id doesn't exist.");
     return;
@@ -1213,7 +1211,7 @@ export const removeDontationFromBundle = () => (dispatch, getState, { fetch }) =
 }
 export const removeVoucherFromBundle = () => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
-  const { bundleId,orderId } = getState().purchase
+  const { bundleId, orderId } = getState().purchase
   if (bundleId === null) {
     message.error("Bundle Id doesn't exist.");
     return;
@@ -1250,7 +1248,7 @@ export const getOrderDetails = (orderId) => (dispatch, getState, { fetch }) => {
       failure: (err) => {
         console.log(`/order-confirmation?${qs.stringify({
           order_id: orderId,
-        })}`,err);
+        })}`, err);
         dispatch({ type: GET_ORDER_DETAILS_FAILURE })
       },
     })
@@ -1362,8 +1360,8 @@ export const initialState = {
   saved: 0,
   orientation: null,
   recipientMode: null,
-  giftId:null,
-  giftIds:[]
+  giftId: null,
+  giftIds: []
 }
 
 export default createReducer(initialState, {
