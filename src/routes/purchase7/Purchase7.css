@@ -18,6 +18,10 @@
     max-width: var(--max-content-width);
     width: 100%;
   }
+  @media (max-width: 1341px) {
+    margin-left : 60px;
+    margin-right: 60px;
+  }
 }
 
 .headerPrefix {

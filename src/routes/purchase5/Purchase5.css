@@ -36,6 +36,10 @@
     max-width: 880px;
     width: 100%;
   }
+  @media (max-width: 1501px) {
+    margin-left : 60px;
+    margin-right: 60px;
+  }
 }
 
 .header {
