@@ -24,7 +24,9 @@ const prepareRequestHeaders = (cookies, contentType = 'application/json', token)
     headers['Authorization'] = `Bearer ${token}`
   }
   headers['Accept'] = `application/json`
-  headers['Content-Type'] = contentType
+  if (contentType !== 'multipart/form-data') {
+    headers['Content-Type'] = contentType
+  }
   const locale = cookies.get(LOCALE_COOKIE) || 'de-DE'
   headers['lang'] = locale.substring(0, 2) // 'en'
   return headers
@@ -87,7 +89,6 @@ function createFetch(fetch, {apiUrl, cookies}) {
           ...options.headers,
         },
       })
-      console.log("resp",resp);
       if(resp.status === 401)
       {
         window.location.href='/';
