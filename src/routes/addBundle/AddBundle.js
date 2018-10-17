@@ -1,14 +1,14 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {addBundle, confirmDonation, confirmVoucher} from '../../reducers/purchase'
-import {Button, Col, Input, Row} from 'antd'
+import { connect } from 'react-redux'
+import { addBundle, confirmDonation, confirmVoucher, updateBundle,nextFlowStep } from '../../reducers/purchase'
+import { Button, Col, Input, Row } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './AddBundle.css'
-import {Actions, OrderItems, SectionHeader} from '../../components'
-import KeyHandler, {KEYPRESS} from 'react-key-handler'
-import {Form} from 'antd'
+import { Actions, OrderItems, SectionHeader } from '../../components'
+import KeyHandler, { KEYPRESS } from 'react-key-handler'
+import { Form } from 'antd'
 import messages from './messages'
-import {FloatingLabel} from '../../components';
+import { FloatingLabel } from '../../components';
 import formMessages from '../../formMessages'
 
 // TODO calculate bundle price correctly
@@ -18,6 +18,7 @@ class AddBundle extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         // send request depending on selected gift option
+        /*
         if (this.props.donationOrg) {
           this.props.confirmDonation(values)
         } else if (this.props.voucher) {
@@ -25,13 +26,15 @@ class AddBundle extends React.Component {
         } else {
           this.props.addBundle(values)
         }
+        */
+        this.props.updateBundle({ ...values, saved: 1, _method:'PUT' },()=>this.props.nextFlowStep() )
       }
     })
   }
 
   // bundle is not created on this step so price needs to be calculated on frontend side
   getPrice = () => {
-    const {card, gift, donationAmount, voucher} = this.props
+    const { card, gift, donationAmount, voucher } = this.props
     let subtotal = 0
     let total = 0
 
@@ -60,8 +63,8 @@ class AddBundle extends React.Component {
   }
 
   render() {
-    const {flowIndex, card, gift, intl, voucher, donationAmount, donationOrg, hideAmount} = this.props
-    const {getFieldDecorator} = this.props.form
+    const { flowIndex, card, gift, intl, voucher, donationAmount, donationOrg, hideAmount } = this.props
+    const { getFieldDecorator } = this.props.form
 
     // create donation obj similar to backend response (donation is not submitted on this step)
     const donation = donationOrg ? {
@@ -70,7 +73,7 @@ class AddBundle extends React.Component {
       hide_amount: hideAmount,
     } : null
 
-    const {total, subtotal} = this.getPrice()
+    const { total, subtotal } = this.getPrice()
 
     return card ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
@@ -80,16 +83,16 @@ class AddBundle extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
-          <OrderItems {...this.props} card={card} gift={gift} voucher={voucher} donation={donation}/>
+          <OrderItems {...this.props} card={card} gift={gift} voucher={voucher} donation={donation} />
           <div className={s.orderDetails}>
             <Form.Item>
               {getFieldDecorator('title', {
                 initialValue: '',
                 rules: [
-                  {required: true , min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})},
+                  { required: true, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
                 ],
               })(
-                <FloatingLabel placeholder={intl.formatMessage(messages.bundleName)}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.bundleName)} />
               )}
             </Form.Item>
           </div>
@@ -145,6 +148,8 @@ const mapDispatch = {
   addBundle,
   confirmDonation,
   confirmVoucher,
+  updateBundle,
+  nextFlowStep
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(AddBundle)))
