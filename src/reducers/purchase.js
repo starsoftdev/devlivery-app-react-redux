@@ -556,7 +556,7 @@ export const submitShipping = (values) => (dispatch, getState, { fetch }) => {
     },
   })
 }
-export const updateBundle = (param) => (dispatch, getState, { fetch }) => {
+export const updateBundle = (param,callback) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   console.log(`/bundles/${getState().purchase.bundleId}`, param)
   return fetch(`/bundles/${getState().purchase.bundleId}`, {
@@ -565,6 +565,8 @@ export const updateBundle = (param) => (dispatch, getState, { fetch }) => {
     body: param,
     success: (res) => {
       console.log('res', res);
+      if(callback)
+        callback();
       const saved = 0;
       dispatch({ type: SET_SAVED_VALUE, saved })
     },
@@ -669,7 +671,6 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
     card_id: cardId,
     gift_ids: giftIds.length > 0 ? giftIds : giftId ? giftId : [],
     title: values && values.title ? values.title : null,
-    saved
   });
   return fetch(`/create-bundle`, {
     method: 'POST',
@@ -681,7 +682,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
       ...(values && values.title) && {
         title: values.title
       },
-      saved
+      saved: 0 
     },
     token,
     success: (res) => {
