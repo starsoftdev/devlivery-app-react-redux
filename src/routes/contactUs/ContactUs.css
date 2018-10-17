@@ -70,7 +70,7 @@
 }
 
 .contactInput {
-  margin-bottom: 40px;
+  margin-bottom: 0px;
 }
 
 .attachBtn {
@@ -115,4 +115,7 @@
 .error{
   color:red;
   padding-top:  10px;
+}
+.formItem{
+  min-height: 83px;
 }
