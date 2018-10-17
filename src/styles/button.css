@@ -18,7 +18,7 @@
     font-size: var(--font-size-sm);
     font-weight: var(--btn-font-weight);
     font-family: var(--font-family-secondary);
-    line-height: var(--line-height-base);
+    line-height: var(--btn-height-base);
 
     min-width: 170px;
     text-transform: uppercase;
