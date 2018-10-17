@@ -21,7 +21,14 @@ export const sendEnquiries = (values,callback) => (dispatch, getState, {fetch}) 
   dispatch({type: SEND_CONTACT_US_REQUEST})
   const {name, phone, email, subject, message, attachments} = values
   const {token} = dispatch(getToken())
-  
+  console.log(`/enquiries`,{
+    name,
+    phone,
+    email,
+    subject,
+    message,
+    attachments:typeof attachments === 'string' && attachments.length <= 0 ? []:attachments,
+  });
   return fetch(`/enquiries`, {
     method: 'POST',
     token,
