@@ -31,7 +31,6 @@ export const sendEnquiries = (values,callback) => (dispatch, getState, {fetch}) 
   });
   return fetch(`/enquiries`, {
     method: 'POST',
-    contentType: 'multipart/form-data',
     token,
     body: {
       name,
@@ -42,11 +41,13 @@ export const sendEnquiries = (values,callback) => (dispatch, getState, {fetch}) 
       attachments:typeof attachments === 'string' && attachments.length <= 0 ? []:attachments,
     },
     success: (res) => {
+      console.log('res',res);
       message.success("Successfully sent message.");
       dispatch({type: SEND_CONTACT_US_SUCCESS, res})
       if (callback) callback()
     },
     failure: (res) => {
+      console.log('error',res);
       const { formErrors } = getFormErrors({ ...res, values })
       
       if (formErrors && callback)
