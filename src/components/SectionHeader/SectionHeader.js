@@ -11,10 +11,12 @@ class SectionHeader extends React.Component {
       <h1 className={cn(s.headerWrapper, className)}>
         <span className={s.header}>
           {number > 0 && (
-            <span className={cn(s.prefix, prefixClassName)}>
+            <span className={cn(s.prefix)}>
               {number}
-              <ArrowIcon className={s.arrowIcon}/>
             </span>
+          )}
+          {number > 0 && (
+            <ArrowIcon className={s.arrowIcon}/>
           )}
           {header}
         </span>
