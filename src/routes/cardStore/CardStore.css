@@ -15,9 +15,12 @@
     padding: var(--margin-md);
   }
 }
-
-.actions {
+.actionsContainer{
   margin-bottom: var(--margin-md);
+  display: block
+}
+.actions {
+  width: 100%;
   display: flex;
 }
 
