@@ -81,12 +81,6 @@ function createFetch(fetch, {apiUrl, cookies}) {
       options.headers = prepareRequestHeaders(cookies, contentType, token)
     }
     try {
-      console.log(anotherDomainRequest ? url : `${apiUrl}${url}`, {
-        ...options,
-        headers: {
-          ...options.headers,
-        },
-      });
       const resp = await fetch(anotherDomainRequest ? url : `${apiUrl}${url}`, {
         ...options,
         headers: {
