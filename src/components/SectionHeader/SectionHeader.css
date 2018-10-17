@@ -15,6 +15,8 @@
 
 .header {
   display: inline-flex;
+  align-items: center;
+  
 }
 
 .prefix {
@@ -22,15 +24,19 @@
   align-items: center;
   color: var(--primary-color);
   margin-right: var(--margin-sm);
-
-  @media (--md-up) {
+  
+  @media (--lg-up) {
     font-size: 40px;
+    margin-left: -62px;
   }
-  @media (--md-down) {
+  @media (--lg-down) {
     font-size: 32px;
   }
 }
 
 .arrowIcon {
-  margin-left: var(--margin-xs);
+  display: flex;
+  align-items: center;
+  color: var(--primary-color);
+  margin-right: var(--margin-sm);
 }
