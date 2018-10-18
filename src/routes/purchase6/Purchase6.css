@@ -19,10 +19,10 @@
   @media (--md-up) {
     padding-top: var(--margin-xl);
   }
-  margin-right: auto;
-  margin-left: auto;
   max-width: 1250px;
   flex: auto;
+  margin-left : 60px;
+  margin-right: 60px;
 }
 
 .headerPrefix {

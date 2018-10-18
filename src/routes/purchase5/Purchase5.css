@@ -8,7 +8,7 @@
 
 .contentWrapper {
   padding-top: 114px;
-
+  width:100%;
   @media (--md-down) {
     padding-top: 144px;
   }
