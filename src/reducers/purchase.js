@@ -963,7 +963,7 @@ export const executePaypalPayment = ({ paymentId, paypalToken, payerId }) => asy
     failure: (err) => {
       console.log('err',err);
       showErrorMessage(err);
-      //dispatch(returnToPaymentMethod())
+      dispatch(returnToPaymentMethod())
       dispatch({ type: EXECUTE_PAYPAL_PAYMENT_FAILURE })
     },
   })
