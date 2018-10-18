@@ -61,7 +61,16 @@ class AddContact extends React.Component {
           }
         }
         else {
-          
+          if((values.dob && values.dob.length <= 0))
+          {
+            this.props.form.setFields({
+              dob: {
+                value: values.dob,
+                errors: [new Error('Invalid Date Format.')],
+              },
+            });
+          }
+          else 
           this.props.form.setFields({
             dob: {
               value: values.dob,

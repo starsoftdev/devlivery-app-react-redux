@@ -1,54 +1,54 @@
 import React from 'react'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './ContactForm.css'
-import {Col, DatePicker, Input, Row, Select, Form} from 'antd'
+import { Col, DatePicker, Input, Row, Select, Form } from 'antd'
 import formMessages from '../../formMessages'
-import {DATE_FORMAT, DISPLAYED_DATE_FORMAT} from '../../constants'
-import {Address} from '../../components'
+import { DATE_FORMAT, DISPLAYED_DATE_FORMAT } from '../../constants'
+import { Address } from '../../components'
 import messages from './messages'
-import {injectIntl} from 'react-intl'
+import { injectIntl } from 'react-intl'
 import Reminders from './Reminders'
 import Groups from './Groups'
 import moment from 'moment'
-import {FloatingLabel} from '../../components';
+import { FloatingLabel } from '../../components';
+import Cleave from 'cleave.js/react';
 
-const SALUTATIONS = ['Mr.', 'Ms.', 'Dr.','Family']
+const SALUTATIONS = ['Mr.', 'Ms.', 'Dr.', 'Family']
 
 const RELATIONSHIP = [
-  {key:'Mother', de:'Mutter'},
-  {key:'Father', de:'Vater'},
-  {key:'Brother', de:'Bruder'},
-  {key:'Sister', de:'Schwester'},
-  {key:'Son', de:'Sohn'},
-  {key:'Daughter', de:'Tochter'},
-  {key:'Child', de:'Kind'},
-  {key:'Friend', de:'Freund'},
-  {key:'Spouse', de:'Ehefrau'},
-  {key:'Partner', de:'Partner'},
-  {key:'Assistant', de:'Assistent'},
-  {key:'Manager', de:'Manager'},
-  {key:'Other', de:'Sonstige'},
+  { key: 'Mother', de: 'Mutter' },
+  { key: 'Father', de: 'Vater' },
+  { key: 'Brother', de: 'Bruder' },
+  { key: 'Sister', de: 'Schwester' },
+  { key: 'Son', de: 'Sohn' },
+  { key: 'Daughter', de: 'Tochter' },
+  { key: 'Child', de: 'Kind' },
+  { key: 'Friend', de: 'Freund' },
+  { key: 'Spouse', de: 'Ehefrau' },
+  { key: 'Partner', de: 'Partner' },
+  { key: 'Assistant', de: 'Assistent' },
+  { key: 'Manager', de: 'Manager' },
+  { key: 'Other', de: 'Sonstige' },
 ]
 
 class ContactForm extends React.Component {
-  constructor(props)
-  {
+  constructor(props) {
     super(props)
     var salutations_list = SALUTATIONS.map(item => {
       return {
-        id:item, 
-        value:props.intl.formatMessage(messages['salt_'+item.toLowerCase().substring(0,item.length-1)])
+        id: item,
+        value: props.intl.formatMessage(messages['salt_' + item.toLowerCase().substring(0, item.length - 1)])
       }
     });
     //if(salutations_list[1].value === salutations_list[2].value)
-      //delete salutations_list[2];
+    //delete salutations_list[2];
 
     this.state = {
-      requiredAddress: props.initRequiredAddress?props.initRequiredAddress:-1,
+      requiredAddress: props.initRequiredAddress ? props.initRequiredAddress : -1,
       relationshipName: null,
       newRelationship: null,
       salutations_list,
-      collapseActiveIndex:null
+      collapseActiveIndex: null
     }
     this.onExpand = this.onExpand.bind(this);
   }
@@ -58,20 +58,18 @@ class ContactForm extends React.Component {
       relationshipName: null,
     })
   }
-  onExpand(index,keyevent){
-    if(index !== null)
-    {
-      if(keyevent)
-      {
-        this.setState({collapseActiveIndex:index ===0 ? 1:null});
+  onExpand(index, keyevent) {
+    if (index !== null) {
+      if (keyevent) {
+        this.setState({ collapseActiveIndex: index === 0 ? 1 : null });
       }
-      else this.setState({collapseActiveIndex:index !== this.state.collapseActiveIndex?index:null});
+      else this.setState({ collapseActiveIndex: index !== this.state.collapseActiveIndex ? index : null });
     }
   }
 
   // TODO find a better way to set at least one address required
   changeRequiredAddress = (index, value) => {
-    
+
     let requiredAddress = index
     /*
     if (!value && index === 1) {
@@ -80,21 +78,21 @@ class ContactForm extends React.Component {
       requiredAddress = 1
     }
     */
-    if(value)
-      this.setState({requiredAddress})
+    if (value)
+      this.setState({ requiredAddress })
   }
 
   render() {
-    const {requiredAddress, relationshipName, newRelationship} = this.state
-    const {intl, children, header, initialValues, setupBirthday} = this.props
-    const {getFieldDecorator} = this.props.form
+    const { requiredAddress, relationshipName, newRelationship } = this.state
+    const { intl, children, header, initialValues, setupBirthday } = this.props
+    const { getFieldDecorator } = this.props.form
 
     let relationshipList = [...RELATIONSHIP]
 
     if (newRelationship && !relationshipName) {
       relationshipList = [newRelationship, ...RELATIONSHIP.filter(item => item.key !== newRelationship.key)]
     }
-    
+
     const contactSection = (
       <section className={s.section}>
         {header && <h1 className={s.header}>{header}</h1>}
@@ -115,10 +113,10 @@ class ContactForm extends React.Component {
               {getFieldDecorator('contact.first_name', {
                 initialValue: initialValues && initialValues.first_name,
                 rules: [
-                  {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                  { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                 ],
               })(
-                <FloatingLabel placeholder={intl.formatMessage(messages.firstName)+ " *"}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.firstName) + " *"} />
               )}
             </Form.Item>
           </Col>
@@ -127,10 +125,10 @@ class ContactForm extends React.Component {
               {getFieldDecorator('contact.last_name', {
                 initialValue: initialValues && initialValues.last_name,
                 rules: [
-                  {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                  { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                 ],
               })(
-                <FloatingLabel placeholder={intl.formatMessage(messages.lastName)+ " *"}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.lastName) + " *"} />
               )}
             </Form.Item>
           </Col>
@@ -140,27 +138,27 @@ class ContactForm extends React.Component {
             validateTrigger: 'onSubmit',//'onBlur'
             initialValue: initialValues && initialValues.email,
             rules: [
-              {required: false, message: intl.formatMessage(formMessages.required)},
+              { required: false, message: intl.formatMessage(formMessages.required) },
             ],
           })(
-            <FloatingLabel placeholder={intl.formatMessage(messages.email)}/>
+            <FloatingLabel placeholder={intl.formatMessage(messages.email)} />
           )}
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('contact.phone', {
             initialValue: initialValues && initialValues.phone,
             rules: [
-              {required: false, message: intl.formatMessage(formMessages.required)},
+              { required: false, message: intl.formatMessage(formMessages.required) },
             ],
           })(
-            <FloatingLabel placeholder={intl.formatMessage(messages.phone)}/>
+            <FloatingLabel placeholder={intl.formatMessage(messages.phone)} />
           )}
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('contact.nickname', {
             initialValue: initialValues && initialValues.nickname,
           })(
-            <FloatingLabel placeholder={intl.formatMessage(messages.nickname)}/>
+            <FloatingLabel placeholder={intl.formatMessage(messages.nickname)} />
           )}
         </Form.Item>
         <Form.Item>
@@ -173,7 +171,7 @@ class ContactForm extends React.Component {
               placeholder={intl.formatMessage(messages.relationship)}
               filterOption={false}
               onSearch={(search) => {
-                this.setState({relationshipName: search})
+                this.setState({ relationshipName: search })
               }}
               onChange={(value, item) => {
                 if (item && +item.key === 0) {
@@ -185,7 +183,7 @@ class ContactForm extends React.Component {
                 <Select.Option key={0} value={relationshipName}>+ Add "{relationshipName}"</Select.Option>
               )}
               {relationshipList.map((item, i) =>
-                <Select.Option key={i + 1} value={item.key}>{intl.locale === 'de-DE' ? item.de: item.key}</Select.Option>
+                <Select.Option key={i + 1} value={item.key}>{intl.locale === 'de-DE' ? item.de : item.key}</Select.Option>
               )}
             </Select>
           )}
@@ -200,14 +198,11 @@ class ContactForm extends React.Component {
           {getFieldDecorator('dob', {
             initialValue: initialValues && initialValues.dob ? initialValues.dob : undefined,
           })(
-            <Input 
-              type='date' 
-              max={moment().subtract(18, 'years').format(DATE_FORMAT)}
-              onChange={(value)=>{
-                if(value && setupBirthday)
-                {
-                 setupBirthday(true)
-                }
+            <Cleave
+              placeholder="mm/dd/yyyy"
+              options={{
+                date: true,
+                datePattern: ['m', 'd', 'Y']
               }}
             />
           )}
@@ -221,13 +216,13 @@ class ContactForm extends React.Component {
         required={requiredAddress === 0}
         onAddressChange={(value) => this.changeRequiredAddress(0, value)}
         header={intl.formatMessage(messages.homeAddress)}
-        form = {this.props.form}
+        form={this.props.form}
         getFieldDecorator={getFieldDecorator}
         index={0}
         intl={intl}
-        initialValues={initialValues && initialValues.addresses? initialValues.addresses.find(item => item.title === 'home' || item.title === null) : null}
-        collapseActiveIndex = {this.state.collapseActiveIndex}
-        onExpand = {this.onExpand}
+        initialValues={initialValues && initialValues.addresses ? initialValues.addresses.find(item => item.title === 'home' || item.title === null) : null}
+        collapseActiveIndex={this.state.collapseActiveIndex}
+        onExpand={this.onExpand}
       />
     )
 
@@ -237,27 +232,27 @@ class ContactForm extends React.Component {
         required={requiredAddress === 1}
         onAddressChange={(value) => this.changeRequiredAddress(1, value)}
         header={intl.formatMessage(messages.companyAddress)}
-        form = {this.props.form}
+        form={this.props.form}
         getFieldDecorator={getFieldDecorator}
         index={1}
         intl={intl}
-        initialValues={initialValues && initialValues.addresses? initialValues.addresses.find(item => item.title === 'office') : null}
-        collapseActiveIndex = {this.state.collapseActiveIndex}
-        onExpand = {this.onExpand}
+        initialValues={initialValues && initialValues.addresses ? initialValues.addresses.find(item => item.title === 'office') : null}
+        collapseActiveIndex={this.state.collapseActiveIndex}
+        onExpand={this.onExpand}
       />
     )
 
     const remindersSection = (
       <section className={s.section}>
         <h1 className={s.header}>{intl.formatMessage(messages.reminders)}</h1>
-        <Reminders form={this.props.form} intl={intl} initialValues={initialValues ? initialValues.reminders : null}/>
+        <Reminders form={this.props.form} intl={intl} initialValues={initialValues ? initialValues.reminders : null} />
       </section>
     )
 
     const groupsSection = (
       <section className={s.section}>
         <h1 className={s.header}>{intl.formatMessage(messages.groups)}</h1>
-        <Groups form={this.props.form} intl={intl} initialValues={initialValues ? initialValues.groups : null}/>
+        <Groups form={this.props.form} intl={intl} initialValues={initialValues ? initialValues.groups : null} />
       </section>
     )
 
