@@ -50,4 +50,5 @@ input[placeholder="mm/dd/yyyy"] {
   background-color: transparent;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  min-height : 50px;
 }
