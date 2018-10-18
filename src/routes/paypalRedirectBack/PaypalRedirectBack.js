@@ -9,10 +9,10 @@ class PaypalRedirectBack extends React.PureComponent {
     if (this.props.cancel) {
       this.props.cancelPaypalPayment()
     } else {
-      const query = new URLSearchParams(window.location.search)
-      const paymentId = query.get('paymentId')
-      const paypalToken = query.get('token')
-      const payerId = query.get('PayerID')
+      //const query = new URLSearchParams(window.location.search)
+      const paymentId = this.props.query.paymentId
+      const paypalToken = this.props.query.token
+      const payerId = this.props.query.PayerID
 
       this.props.executePaypalPayment({paymentId, paypalToken, payerId})
     }
