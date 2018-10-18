@@ -94,6 +94,7 @@
   display: flex;
   flex: 1;
   min-height: 125px;
+  overflow: hidden
 }
 
 .image {
@@ -112,8 +113,11 @@
 }
 
 .extra {
-  position: absolute;
-  top: var(--margin-xs);
+  margin-top: -20px;
+  margin-bottom: var(--margin-xs);
   font-family: var(--font-family-secondary);
   font-size: var(--font-size-sm);
+}
+svg {
+  bottom: 0px;
 }
