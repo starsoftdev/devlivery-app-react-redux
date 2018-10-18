@@ -928,10 +928,11 @@ const returnToPaymentMethod = (keepOrder) => (dispatch, getState, { history }) =
   history.push('/purchase/payment-method')
 }
 
-export const executePaypalPayment = ({ paymentId, paypalToken, payerId }) => (dispatch, getState, { fetch, history }) => {
+export const executePaypalPayment = ({ paymentId, paypalToken, payerId }) => async (dispatch, getState, { fetch, history }) => {
   const { token } = dispatch(getToken())
-  const transactionId = localStorage.getItem(TRANSACTION_ID_KEY)
+  const transactionId = await localStorage.getItem(TRANSACTION_ID_KEY)
   if (!transactionId) {
+    message.error("transaction id doesn't exist");
     dispatch(returnToPaymentMethod(true))
     dispatch({ type: CANCEL_PAYPAL_PAYMENT_SUCCESS })
     return
@@ -955,6 +956,7 @@ export const executePaypalPayment = ({ paymentId, paypalToken, payerId }) => (di
       dispatch({ type: EXECUTE_PAYPAL_PAYMENT_SUCCESS })
     },
     failure: (err) => {
+      showErrorMessage(err);
       // payment failed, let user choose another one
       dispatch(returnToPaymentMethod())
       // TODO add error message to be shown
