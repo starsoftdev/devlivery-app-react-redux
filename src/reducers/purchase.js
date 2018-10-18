@@ -938,7 +938,12 @@ export const executePaypalPayment = ({ paymentId, paypalToken, payerId }) => asy
     return
   }
   dispatch({ type: EXECUTE_PAYPAL_PAYMENT_REQUEST })
-
+  console.log('/payments/paypal/execute',{
+    transaction_id: transactionId,
+    token: paymentId,
+    paymentId,
+    payerId,
+  });
   return fetch('/payments/paypal/execute', {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
@@ -956,10 +961,9 @@ export const executePaypalPayment = ({ paymentId, paypalToken, payerId }) => asy
       dispatch({ type: EXECUTE_PAYPAL_PAYMENT_SUCCESS })
     },
     failure: (err) => {
+      console.log('err',err);
       showErrorMessage(err);
-      // payment failed, let user choose another one
-      dispatch(returnToPaymentMethod())
-      // TODO add error message to be shown
+      //dispatch(returnToPaymentMethod())
       dispatch({ type: EXECUTE_PAYPAL_PAYMENT_FAILURE })
     },
   })
