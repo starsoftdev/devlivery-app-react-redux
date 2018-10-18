@@ -24,8 +24,7 @@
 }
 
 .dashboardBtn {
-  position: absolute;
-  bottom: -30px;
+  margin-bottom: -80px
 }
 
 .header {
@@ -44,6 +43,7 @@
 }
 
 .description {
+  width: 100%;
   @media (--sm-up) {
     padding-right: 40px;
     padding-left: 40px;
