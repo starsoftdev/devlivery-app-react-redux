@@ -12,7 +12,7 @@ import messages from './messages'
 import { FloatingLabel } from '../../components';
 import moment from 'moment'
 import {DATE_FORMAT, DISPLAYED_DATE_FORMAT} from '../../constants'
-
+import Cleave from 'cleave.js/react';
 
 class Purchase9 extends React.Component {
   state = {
@@ -22,19 +22,21 @@ class Purchase9 extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
-      if (!err) {
-        var birthday = moment(values.birthday);
-        var expected = moment().subtract(18, 'years');
-        if(birthday < expected)
-          this.props.register(values, this.props.form)
-        else {
-          this.props.form.setFields({
-            birthday: {
-              value: values.birthday,
-              errors: [new Error('Invalid birthday')],
-            },
-          });
-        }
+      var dobValidation = false;
+      var birthday = moment(values.birthday);
+      var expected = moment().subtract(18, 'years');
+      if (birthday < expected)
+        dobValidation = true;
+      else {
+        this.props.form.setFields({
+          birthday: {
+            value: values.birthday,
+            errors: [new Error('please select date older than 18 years.')],
+          },
+        });
+      }
+      if (!err && dobValidation) {
+        this.props.register(values, this.props.form)
       }
     })
   }
@@ -174,10 +176,13 @@ class Purchase9 extends React.Component {
                   {required: true, message: intl.formatMessage(formMessages.required)},
                 ],
               })(
-                <Input 
-                  type='date' 
-                  max={moment().subtract(18, 'years').format(DATE_FORMAT)}
-                  />
+                <Cleave
+                  placeholder="mm/dd/yyyy"
+                  options={{
+                    date: true,
+                    datePattern: ['m', 'd', 'Y']
+                  }}
+                />
               )}
             </Form.Item>
           </section>

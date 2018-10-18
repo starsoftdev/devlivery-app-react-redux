@@ -1,42 +1,45 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Button, Col, DatePicker, Form, Input, Row} from 'antd'
+import { connect } from 'react-redux'
+import { Button, Col, DatePicker, Form, Input, Row } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Register2.css'
-import KeyHandler, {KEYPRESS} from 'react-key-handler'
+import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import formMessages from '../../formMessages'
-import {register,TEAM_ACCOUNT} from '../../reducers/register'
+import { register, TEAM_ACCOUNT } from '../../reducers/register'
 import messages from './messages'
-import {DATE_FORMAT, DISPLAYED_DATE_FORMAT} from '../../constants'
-import {Actions, SectionHeader} from '../../components'
-import {FloatingLabel} from '../../components';
+import { DATE_FORMAT, DISPLAYED_DATE_FORMAT } from '../../constants'
+import { Actions, SectionHeader } from '../../components'
+import { FloatingLabel } from '../../components';
 import { isMoment } from 'moment';
 import moment from 'moment'
+import Cleave from 'cleave.js/react';
 
 class Register2 extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
-      if (!err) {
-        var birthday = moment(values.birthday);
-        var expected = moment().subtract(18, 'years');
-        if(birthday < expected)
-          this.props.register(values, this.props.form)
-        else {
-          this.props.form.setFields({
-            birthday: {
-              value: values.birthday,
-              errors: [new Error('please select date older than 18 years.')],
-            },
-          });
-        }
+      var dobValidation = false;
+      var birthday = moment(values.birthday);
+      var expected = moment().subtract(18, 'years');
+      if (birthday < expected)
+        dobValidation = true;
+      else {
+        this.props.form.setFields({
+          birthday: {
+            value: values.birthday,
+            errors: [new Error('please select date older than 18 years.')],
+          },
+        });
+      }
+      if (!err && dobValidation) {
+        this.props.register(values, this.props.form)
       }
     })
   }
 
   render() {
-    const {individualDetails, intl, accountType} = this.props
-    const {getFieldDecorator} = this.props.form
+    const { individualDetails, intl, accountType } = this.props
+    const { getFieldDecorator } = this.props.form
     return (
       <Form onSubmit={this.handleSubmit} className={s.container}>
         <div className={s.content}>
@@ -52,10 +55,10 @@ class Register2 extends React.Component {
                   {getFieldDecorator('first_name', {
                     initialValue: individualDetails && individualDetails.first_name,
                     rules: [
-                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                      { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                     ],
                   })(
-                    <FloatingLabel placeholder={intl.formatMessage(messages.firstName)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.firstName)} />
                   )}
                 </Form.Item>
               </Col>
@@ -64,10 +67,10 @@ class Register2 extends React.Component {
                   {getFieldDecorator('last_name', {
                     initialValue: individualDetails && individualDetails.last_name,
                     rules: [
-                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                      { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                     ],
                   })(
-                    <FloatingLabel placeholder={intl.formatMessage(messages.lastName)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.lastName)} />
                   )}
                 </Form.Item>
               </Col>
@@ -77,30 +80,30 @@ class Register2 extends React.Component {
                 validateTrigger: 'onSubmit',//'onBlur'
                 initialValue: individualDetails && individualDetails.email,
                 rules: [
-                  {required: true, message: intl.formatMessage(formMessages.required), whitespace:true},
-                  {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
+                  { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
+                  { type: 'email', message: intl.formatMessage(formMessages.emailInvalid) },
                 ],
               })(
-                <FloatingLabel placeholder={intl.formatMessage(messages.email)}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.email)} />
               )}
             </Form.Item>
             <Form.Item>
               {getFieldDecorator('phone', {
                 initialValue: individualDetails && individualDetails.phone,
                 rules: [
-                  {required: false, message: intl.formatMessage(formMessages.required)},
+                  { required: false, message: intl.formatMessage(formMessages.required) },
                 ],
               })(
-                <FloatingLabel placeholder={intl.formatMessage(messages.phone)}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.phone)} />
               )}
             </Form.Item>
             <Form.Item>
               {getFieldDecorator('password', {
                 rules: [
-                  {required: true, message: intl.formatMessage(formMessages.required)},
+                  { required: true, message: intl.formatMessage(formMessages.required) },
                 ],
               })(
-                <FloatingLabel type='password' placeholder={intl.formatMessage(messages.password)}/>
+                <FloatingLabel type='password' placeholder={intl.formatMessage(messages.password)} />
               )}
             </Form.Item>
           </section>
@@ -112,37 +115,40 @@ class Register2 extends React.Component {
               {getFieldDecorator('birthday', {
                 initialValue: individualDetails ? individualDetails.birthday : undefined,
                 rules: [
-                  {required: true, message: intl.formatMessage(formMessages.required)},
+                  { required: true, message: intl.formatMessage(formMessages.required) },
                 ],
               })(
-                <Input 
-                  type='date' 
-                  max={moment().subtract(18, 'years').format(DATE_FORMAT)}
-                  />
+                <Cleave
+                  placeholder="mm/dd/yyyy"
+                  options={{
+                    date: true,
+                    datePattern: ['m', 'd', 'Y']
+                  }}
+                />
               )}
             </Form.Item>
           </section>
-         
+
           <section className={s.section}>
             <h1 className={s.sectionHeader}>{intl.formatMessage(messages.shipAddress)}</h1>
             <Form.Item>
               {getFieldDecorator(`company`, {
                 initialValue: individualDetails && individualDetails.company,
                 rules: [
-                  {required: accountType === TEAM_ACCOUNT ? true:false , min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})},
+                  { required: accountType === TEAM_ACCOUNT ? true : false, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
                 ],
               })(
-                <FloatingLabel placeholder={intl.formatMessage(messages.company)}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.company)} />
               )}
             </Form.Item>
             <Form.Item>
               {getFieldDecorator(`address`, {
                 initialValue: individualDetails && individualDetails.address,
                 rules: [
-                  {required: true , min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})},
+                  { required: true, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
                 ],
               })(
-                <FloatingLabel placeholder={intl.formatMessage(messages.address)}/>
+                <FloatingLabel placeholder={intl.formatMessage(messages.address)} />
               )}
             </Form.Item>
             <Row gutter={20}>
@@ -151,10 +157,10 @@ class Register2 extends React.Component {
                   {getFieldDecorator(`city`, {
                     initialValue: individualDetails && individualDetails.city,
                     rules: [
-                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                      { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                     ],
                   })(
-                    <FloatingLabel placeholder={intl.formatMessage(messages.city)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.city)} />
                   )}
                 </Form.Item>
               </Col>
@@ -165,10 +171,10 @@ class Register2 extends React.Component {
                   {getFieldDecorator(`postal_code`, {
                     initialValue: individualDetails && individualDetails.postal_code,
                     rules: [
-                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                      { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                     ],
                   })(
-                    <FloatingLabel placeholder={intl.formatMessage(messages.postalCode)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.postalCode)} />
                   )}
                 </Form.Item>
               </Col>
@@ -177,16 +183,15 @@ class Register2 extends React.Component {
                   {getFieldDecorator(`country`, {
                     initialValue: individualDetails && individualDetails.country,
                     rules: [
-                      {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                      { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                     ],
                   })(
-                    <FloatingLabel placeholder={intl.formatMessage(messages.country)}/>
+                    <FloatingLabel placeholder={intl.formatMessage(messages.country)} />
                   )}
                 </Form.Item>
               </Col>
             </Row>
           </section>
-              
         </div>
         <Actions>
           <KeyHandler
