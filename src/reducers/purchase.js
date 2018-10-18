@@ -1141,7 +1141,8 @@ export const confirmDonation = (bundleValues, refresh) => async (dispatch, getSt
         dispatch(nextFlowStep(-2))
       else dispatch(nextFlowStep())
     },
-    failure: () => {
+    failure: (err) => {
+      showErrorMessage(err);
       dispatch({ type: CONFIRM_DONATION_FAILURE })
     },
   })
