@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { continueWithoutGift, setGiftType, submitGiftType, submitGift } from '../../reducers/purchase'
+import { continueWithoutGift, setGiftType, submitGiftType, submitGift, MULTIPRODUCT } from '../../reducers/purchase'
 import { Button, Col, Row } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase7.css'
@@ -10,6 +10,15 @@ import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import messages from './messages'
 
 class Purchase7 extends React.Component {
+  state = {
+    multi_products: []
+  }
+  async componentWillMount(){
+    var multi_products = JSON.parse(localStorage.getItem(MULTIPRODUCT));
+    if(multi_products == null)
+      multi_products = [];
+    this.setState({multi_products})
+  }
   render() {
     const { giftType, setGiftType, submitGift, bundleId, giftIds, submitGiftType, intl, flowIndex, continueWithoutGift } = this.props
     return (
@@ -36,7 +45,7 @@ class Purchase7 extends React.Component {
                       submitGiftType()
                     }
                   }}
-                  active={item.key === giftType}
+                  active={this.state.multi_products.includes(item.key)}
                   keyValue={ALPHABET[i]}
                   extra={item.extra}
                 />

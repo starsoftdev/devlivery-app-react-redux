@@ -65,7 +65,6 @@ class AddBundle extends React.Component {
   render() {
     const { flowIndex,  intl, donationAmount, donationOrg, hideAmount, bundle } = this.props
     const { getFieldDecorator } = this.props.form
-    console.log('bundle',bundle);
     const card = bundle && bundle.bundle_card && bundle.bundle_card.card ? bundle.bundle_card.card : null;
     const gifts = bundle && bundle.bundle_gifts ? bundle.bundle_gifts : []
     const voucher = bundle && bundle.voucher
