@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addBundle, confirmDonation, confirmVoucher, updateBundle,nextFlowStep } from '../../reducers/purchase'
+import { addBundle, confirmDonation, confirmVoucher, updateBundle,nextFlowStep,removeDontationFromBundle, removeVoucherFromBundle } from '../../reducers/purchase'
 import { Button, Col, Input, Row } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './AddBundle.css'
@@ -37,7 +37,7 @@ class AddBundle extends React.Component {
     const { card, gift, donationAmount, voucher } = this.props
     let subtotal = 0
     let total = 0
-
+    
     if (card) {
       subtotal += card.price
       total += card.price_with_tax
@@ -52,8 +52,8 @@ class AddBundle extends React.Component {
     }
     if (voucher) {
       // TODO do not use hardcoded values
-      subtotal += 200
-      total += 220
+      subtotal += voucher.price
+      total += voucher.price_with_tax
     }
 
     return {
@@ -63,18 +63,14 @@ class AddBundle extends React.Component {
   }
 
   render() {
-    const { flowIndex, card, gift, intl, voucher, donationAmount, donationOrg, hideAmount } = this.props
+    const { flowIndex,  intl, donationAmount, donationOrg, hideAmount, bundle } = this.props
     const { getFieldDecorator } = this.props.form
-
-    // create donation obj similar to backend response (donation is not submitted on this step)
-    const donation = donationOrg ? {
-      organization: donationOrg,
-      amount: donationAmount,
-      hide_amount: hideAmount,
-    } : null
-
-    const { total, subtotal } = this.getPrice()
-
+    console.log('bundle',bundle);
+    const card = bundle && bundle.bundle_card && bundle.bundle_card.card ? bundle.bundle_card.card : null;
+    const gifts = bundle && bundle.bundle_gifts ? bundle.bundle_gifts : []
+    const voucher = bundle && bundle.voucher
+    const donation = bundle && bundle.donation
+    
     return card ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -83,7 +79,7 @@ class AddBundle extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
-          <OrderItems {...this.props} card={card} gift={gift} voucher={voucher} donation={donation} />
+          <OrderItems {...this.props} card={card} gift={gifts.length > 0 && gifts[0].gift} giftcount = {gifts.length} voucher={voucher} donation={donation} card={card}/>
           <div className={s.orderDetails}>
             <Form.Item>
               {getFieldDecorator('title', {
@@ -101,7 +97,16 @@ class AddBundle extends React.Component {
               <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.subtotal)}</h2>
             </Col>
             <Col xs={12}>
-              <span className={s.subtotalValue}>{subtotal}</span>
+              <span className={s.subtotalValue}>{bundle.total ? bundle.total : 0}</span>
+              <span className={s.subtotalCurrency}>{'CHF'}</span>
+            </Col>
+          </Row>
+          <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+            <Col xs={12}>
+              <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.tax)}</h2>
+            </Col>
+            <Col xs={12}>
+              <span className={s.subtotalValue}>{(bundle.total_with_tax - bundle.total).toFixed(2)}</span>
               <span className={s.subtotalCurrency}>{'CHF'}</span>
             </Col>
           </Row>
@@ -110,7 +115,7 @@ class AddBundle extends React.Component {
               <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.total)}</h2>
             </Col>
             <Col xs={12}>
-              <span className={s.subtotalValue}>{total}</span>
+              <span className={s.subtotalValue}>{bundle.total_with_tax ? bundle.total_with_tax : 0}</span>
               <span className={s.subtotalCurrency}>{'CHF'}</span>
             </Col>
           </Row>
@@ -142,6 +147,7 @@ const mapState = state => ({
   donationAmount: state.purchase.donationAmount,
   donationOrg: state.purchase.donationOrg,
   hideAmount: state.purchase.hideAmount,
+  bundle: state.purchase.bundle
 })
 
 const mapDispatch = {
@@ -149,7 +155,9 @@ const mapDispatch = {
   confirmDonation,
   confirmVoucher,
   updateBundle,
-  nextFlowStep
+  nextFlowStep,
+  removeDontationFromBundle,
+  removeVoucherFromBundle
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(AddBundle)))

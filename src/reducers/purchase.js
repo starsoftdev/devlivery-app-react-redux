@@ -1067,14 +1067,7 @@ export const submitGiftType = () => (dispatch, getState) => {
 export const submitVoucher = (voucher, refresh = false) => async (dispatch, getState) => {
   await dispatch({ type: SUBMIT_VOUCHER, voucher })
   const { flow } = getState().purchase
-  if (flow.key === EDIT_BUNDLE_FLOW.key) {
-    if (refresh) {
-      dispatch(nextFlowStep(-2))
-    }
-    else dispatch(nextFlowStep())
-  } else {
-    dispatch(confirmVoucher(null, refresh))
-  }
+  dispatch(confirmVoucher(null, refresh))
 }
 
 export const confirmVoucher = (bundleValues, refresh) => async (dispatch, getState, { fetch }) => {
@@ -1113,14 +1106,7 @@ export const confirmVoucher = (bundleValues, refresh) => async (dispatch, getSta
 export const submitDonation = (donation, refresh = false) => async (dispatch, getState) => {
   await dispatch({ type: SUBMIT_DONATION, donation })
   const { flow } = getState().purchase
-  if (flow.key === EDIT_BUNDLE_FLOW.key) {
-    if (refresh) {
-      dispatch(nextFlowStep(-2))
-    }
-    else dispatch(nextFlowStep())
-  } else {
-    dispatch(confirmDonation(null, refresh))
-  }
+  dispatch(confirmDonation(null, refresh))
 }
 
 export const confirmDonation = (bundleValues, refresh) => async (dispatch, getState, { fetch }) => {
@@ -1229,6 +1215,7 @@ export const removeVoucherFromBundle = () => (dispatch, getState, { fetch }) => 
     token,
     success: (res) => {
       dispatch(getOrderDetails(orderId))
+      dispatch(getBundleDetails())
     },
     failure: (err) => {
       showErrorMessage(err);
@@ -1284,7 +1271,7 @@ export const getBundleDetails = (bundleId) => (dispatch, getState, { fetch }) =>
   const { token } = dispatch(getToken())
   return fetch(`/bundles?${qs.stringify({
     filter_key: 'id',
-    filter_value: bundleId,
+    filter_value: bundleId ? bundleId : getState().purchase.bundleId,
   })}`, {
       method: 'GET',
       token,

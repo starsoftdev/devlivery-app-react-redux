@@ -2738,6 +2738,14 @@
     ]
   },
   {
+    "id": "addBundle.tax",
+    "defaultMessage": "Tax:",
+    "message": "Tax",
+    "files": [
+      "src/routes/addBundle/messages.js"
+    ]
+  },
+  {
     "id": "addBundle.title",
     "defaultMessage": "Purchase",
     "message": "Purchase",

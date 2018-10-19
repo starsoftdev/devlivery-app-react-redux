@@ -2603,6 +2603,14 @@
     ]
   },
   {
+    "id": "addBundle.tax",
+    "defaultMessage": "Tax:",
+    "message": "",
+    "files": [
+      "src/routes/addBundle/messages.js"
+    ]
+  },
+  {
     "id": "addBundle.title",
     "defaultMessage": "Purchase",
     "message": "",
