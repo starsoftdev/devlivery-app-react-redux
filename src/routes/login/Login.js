@@ -51,7 +51,7 @@ class Login extends React.Component {
           )}
           <Form.Item>
             {getFieldDecorator('email', {
-              validateTrigger: 'onSubmit',//'onBlur'
+              validateTrigger: 'onBlur',
               rules: [
                 {required: true, message: intl.formatMessage(formMessages.required)},
                 {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
