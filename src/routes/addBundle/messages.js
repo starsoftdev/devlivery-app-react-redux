@@ -21,6 +21,10 @@ export default defineMessages({
     id: 'addBundle.subtotal',
     defaultMessage: 'Subtotal:',
   },
+  tax : {
+    id: 'addBundle.tax',
+    defaultMessage: 'Tax:',
+  },
   submit: {
     id: 'addBundle.submit',
     defaultMessage: 'Save bundle',
