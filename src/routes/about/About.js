@@ -79,7 +79,7 @@ class About extends React.Component {
           </h3>
           <Form onSubmit={this.handleSubmit} className={s.signUpInputWrapper}>
             {getFieldDecorator('email', {
-              validateTrigger: 'onSubmit',//'onBlur'
+              validateTrigger: 'onBlur',
               rules: [
                 {required: true, message: intl.formatMessage(formMessages.required)},
                 {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},

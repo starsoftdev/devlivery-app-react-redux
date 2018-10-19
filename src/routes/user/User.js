@@ -226,7 +226,7 @@ class User extends React.Component {
                 </Row>
                 <Form.Item>
                   {getFieldDecorator('user.email', {
-                    validateTrigger: 'onSubmit',//'onBlur'
+                    validateTrigger: 'onBlur',//'onSubmit'
                     initialValue: user && user.email,
                     rules: [
                       { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
