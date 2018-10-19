@@ -473,8 +473,24 @@ export const loadCardDetails = () => async (dispatch, getState) => {
   cardDetails = JSON.parse(cardDetails)
   dispatch({ type: SET_CARD_DETAILS, cardDetails })
 }
-export const setGiftType = (giftType) => ({ type: SET_GIFT_TYPE, giftType })
-
+export const MULTIPRODUCT = 'multiproduct';
+export const saveGiftType = () => (dispatch, getState, { fetch }) => {
+  const {giftType} = getState().purchase;
+  if(giftType)
+  {
+    var multi_products = JSON.parse(localStorage.getItem(MULTIPRODUCT));
+    if(multi_products == null)
+      multi_products = [];
+    if(!multi_products.includes(giftType))
+    {
+      multi_products.push(giftType);
+      localStorage.setItem(MULTIPRODUCT, JSON.stringify(multi_products));
+    }
+  }
+}
+export const setGiftType = (giftType) => (dispatch, getState, { fetch }) => {
+  dispatch({ type: SET_GIFT_TYPE, giftType })
+}
 export const setCard = (card) => ({ type: SET_CARD, card })
 
 const GIFT_IDS = 'gift_ids'
@@ -619,6 +635,7 @@ export const submitGift = (gotoNext = 0) => async (dispatch, getState) => {
   */
   await dispatch(addBundle())
   await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
+  dispatch(saveGiftType())
   if (gotoNext === 0) {
     dispatch(nextFlowStep())
   }
@@ -1091,6 +1108,7 @@ export const confirmVoucher = (bundleValues, refresh) => async (dispatch, getSta
     success: async (res) => {
       await dispatch({ type: CONFIRM_VOUCHER_SUCCESS })
       await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
+      dispatch(saveGiftType())
       if (refresh) {
         dispatch(nextFlowStep(-2))
       }
@@ -1129,6 +1147,7 @@ export const confirmDonation = (bundleValues, refresh) => async (dispatch, getSt
     token,
     success: () => {
       dispatch({ type: CONFIRM_DONATION_SUCCESS })
+      dispatch(saveGiftType())
       if (refresh)
         dispatch(nextFlowStep(-2))
       else dispatch(nextFlowStep())
@@ -1197,6 +1216,7 @@ export const removeDontationFromBundle = () => (dispatch, getState, { fetch }) =
     token,
     success: (res) => {
       dispatch(getOrderDetails(orderId))
+      dispatch(getBundleDetails())
     },
     failure: (err) => {
       showErrorMessage(err);
