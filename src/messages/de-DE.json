@@ -1642,7 +1642,7 @@
   {
     "id": "editContact.submit",
     "defaultMessage": "Save Contact",
-    "message": "Kontakt löschen",
+    "message": "Speichern",
     "files": [
       "src/routes/editContact/messages.js"
     ]
