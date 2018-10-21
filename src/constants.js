@@ -140,10 +140,10 @@ export const TEXT_ALIGNMENT = [
     value: 'JustifyLeft', label: 'Left', label_de:'Linksbündig',
   },
   {
-    value: 'JustifyCenter', label: 'Center', label_de:'Rechtsbündig',
+    value: 'JustifyCenter', label: 'Center', label_de:'Zentriert',
   },
   {
-    value: 'JustifyRight', label: 'Right', label_de:'Zentriert',
+    value: 'JustifyRight', label: 'Right', label_de:'Rechtsbündig',
   },
 ]
 
