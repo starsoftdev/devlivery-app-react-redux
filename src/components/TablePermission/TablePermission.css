@@ -13,12 +13,12 @@
 
   span {
     line-height: 15px;
-    margin-bottom: -4px;
   }
 }
 
 .tableBtn {
   position: relative;
+  margin-right: 20px;
 }
 
 .tableCol {
