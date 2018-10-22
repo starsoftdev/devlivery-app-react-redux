@@ -2976,7 +2976,7 @@
   },
   {
     "id": "donation.submit",
-    "defaultMessage": "Submit",
+    "defaultMessage": "Next",
     "message": "",
     "files": [
       "src/routes/donation/messages.js"
