@@ -20,7 +20,7 @@ class Purchase3 extends React.Component {
           prefixClassName={s.headerPrefix}
         />
         <Row className={s.items} gutter={20} type='flex' align='center'>
-          {cardStyles.sort((a,b) => a.sequence>b.sequence).map((item, i) =>
+          {cardStyles.sort((a,b) => a.sequence>b.sequence ? 1 : -1).map((item, i) =>
             <Col key={item.title} className={s.itemWrapper}>
               <Card
                 className={s.item}

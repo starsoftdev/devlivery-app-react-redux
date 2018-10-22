@@ -52,7 +52,7 @@ class Purchase1 extends React.Component {
           </Select>
         </SectionHeader>
         <Row className={s.items} gutter={20} type='flex' align='center'>
-          {occasions.sort((a,b)=>parseInt(a.id) > parseInt(b.id)).map((item, i) =>
+          {occasions.sort((a,b)=>parseInt(a.id) > parseInt(b.id) ? 1 : -1).map((item, i) =>
             <Col key={item.id} className={s.itemWrapper}>
               <Card
                 className={s.item}
