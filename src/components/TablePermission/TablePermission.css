@@ -109,3 +109,6 @@ h1 {
   height: 40px;
   line-height: 48px;
 }
+.checkGroup{
+  max-width: 150px;
+}
