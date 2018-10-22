@@ -19,6 +19,12 @@ class AvatarEditModal extends React.Component {
 
   onClickSave = () => {
     if (this.props.url !== this.state.newUrl) {
+      const base64data = this.editorRef.getImage().toDataURL();
+      //strip the data:image part from a base64 string
+      var strImage = base64data.replace(/^data:image\/[a-z]+;base64,/, "");
+      this.props.uploadAvatar(strImage)
+      this.props.toggleEditAvatarModal()
+      /*
       this.editorRef.getImage().toBlob((blob) => {
         const lessThanMaxSize = blob.size / 1024 / 1024 < 2
         if(lessThanMaxSize) {
@@ -28,6 +34,7 @@ class AvatarEditModal extends React.Component {
           message.error('picture is too big. Need to reduce zoom')
         }
       })
+      */
     }
   }
 
