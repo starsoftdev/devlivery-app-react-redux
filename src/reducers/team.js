@@ -31,7 +31,7 @@ export const DELETE_BUDGET_SUCCESS = 'Team.DELETE_BUDGET_SUCCESS'
 export const DELETE_BUDGET_FAILURE = 'Team.DELETE_BUDGET_FAILURE'
 
 export const CLEAR = 'Team.CLEAR'
-
+import { getFormErrors, showErrorMessage } from '../utils'
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -89,7 +89,27 @@ export const addAmountBudget = (budget_id, amount) => (dispatch, getState, {fetc
     failure: () => dispatch({type: ADD_AMOUNT_BUDGET_FAILURE}),
   })
 }
-
+export const saveAmountBudget = (budget_id, amount) => (dispatch, getState, {fetch}) => {
+  dispatch({type: ADD_AMOUNT_BUDGET_REQUEST})
+  const {token} = dispatch(getToken())
+  return fetch(`/budgets/set-amount`, {
+    method: 'POST',
+    contentType: 'multipart/form-data',
+    token,
+    body: {
+      budget_id,
+      amount,
+    },
+    success: () => {
+      dispatch({type: ADD_AMOUNT_BUDGET_SUCCESS})
+      dispatch(getTeam())
+    },
+    failure: (err) => {
+      showErrorMessage(err);
+      dispatch({type: ADD_AMOUNT_BUDGET_FAILURE})
+    },
+  })
+}
 export const reduceAmountBudget = (budget_id, amount) => (dispatch, getState, {fetch}) => {
   dispatch({type: ADD_AMOUNT_BUDGET_REQUEST})
   const {token} = dispatch(getToken())

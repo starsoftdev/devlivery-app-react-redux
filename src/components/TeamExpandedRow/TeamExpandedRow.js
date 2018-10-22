@@ -1,7 +1,7 @@
 import React from 'react'
 import { Select, Row, Col, Input, Button } from 'antd'
 import { getUserCreatedRoles } from '../../reducers/permissions'
-import { addBudget, reduceAmountBudget, addAmountBudget, deleteBudget, updateTeamMemberRole } from '../../reducers/team'
+import { addBudget, reduceAmountBudget, addAmountBudget, deleteBudget, updateTeamMemberRole, saveAmountBudget } from '../../reducers/team'
 import { connect } from 'react-redux'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './TeamExpandedRow.css'
@@ -16,7 +16,7 @@ class TeamExpandedRow extends React.Component {
     const groupid = props.record && props.record.groups.length > 0 && props.record.groups[0].id;
     this.state = {
       picked: groupid ? groupid : undefined,
-      budget: this.props.record.budget ? this.props.record.budget.budget : '',
+      budget: this.props.record.budget ? this.props.record.budget.budget : '0',
       amountAdd: '',
       amountReduce: '',
       payment_permission: null,
@@ -85,7 +85,7 @@ class TeamExpandedRow extends React.Component {
   }
 
   render() {
-    const { record, roles, addBudget, user_permissions, user, intl } = this.props
+    const { record, roles, addBudget, user_permissions, user, intl,saveAmountBudget } = this.props
     const { payment_permission, special_payment_permission } = this.state;
     var payment_enable = this.state.picked !== undefined && payment_permission && special_payment_permission;
     if(user && user.is_team_owner === true)
@@ -94,6 +94,7 @@ class TeamExpandedRow extends React.Component {
     }
     if(record.is_team_owner == true)
       payment_enable = false;
+
     return (
       <Row className={s.container}>
         <Col md={12} className={s.column}>
@@ -101,7 +102,7 @@ class TeamExpandedRow extends React.Component {
             <Select
               //mode='multiple'
               placeholder={intl.formatMessage(messages.selectGroups)}
-              style={{ width: '100%' }}
+              style={{ width: '100%', marginTop: '11px' }}
               onChange={this.selectChange}
               value={roles.filter(item => item.id === this.state.picked).length > 0 ? this.state.picked : undefined}
               disabled={user && user.id === record.id}
@@ -112,63 +113,25 @@ class TeamExpandedRow extends React.Component {
                 </Select.Option>)}
             </Select>
           </div>
-          {!record.budget && payment_enable && <div className={s.leftInputRow}>
-            <FloatingLabel
-              className={s.amountInput}
-              onChange={this.budgetInput}
-              value={this.state.budget}
-              type='text'
-              placeholder='budget'
-            />
-            <Button
-              onClick={() => addBudget(record.id, this.state.budget)}
-              type='primary'
-            >
-              Add budget
-            </Button>
-          </div>}
         </Col>
         <Col md={12} className={s.column}>
-          {record.budget && payment_enable &&
+          {payment_enable &&
             <React.Fragment>
               <div className={s.leftInputRow}>
                 <FloatingLabel
                   className={s.amountInput}
-                  onChange={this.addAmountInput}
-                  value={this.state.amountAdd}
+                  onChange={e=>this.setState({budget:e.target.value})}
+                  value={this.state.budget}
                   type='text'
-                  placeholder='Add amount'
+                  placeholder='Amount'
                 />
                 <Button
-                  onClick={() => this.addAmountBudgetHandler(record.budget.id, this.state.amountAdd)}
+                  onClick={() => saveAmountBudget(record.budget.id, this.state.budget)}
                   type='primary'
                 >
-                  Add amount
+                  {record.budget && record.budget.budget > 0 ? 'Save': 'Save new budget'}
               </Button>
               </div>
-              <div className={s.leftInputRow}>
-                <FloatingLabel
-                  className={s.amountInput}
-                  value={this.state.amountReduce}
-                  onChange={this.reduceAmountInput}
-                  type='text'
-                  placeholder='Reduce amount'
-                />
-                <Button
-                  value={this.state.amountReduce}
-                  onClick={() => this.reduceAmountBudgetHandler(record.budget.id, this.state.amountReduce)}
-                  type='primary'
-                >
-                  Reduce amount
-              </Button>
-              </div>
-              <Button
-                onClick={() => this.deleteBudgetHendler(record.budget.id)}
-                type='primary'
-                ghost
-              >
-                Delete budget
-            </Button>
             </React.Fragment>}
         </Col>
       </Row>
@@ -191,7 +154,8 @@ const mapDispatch = {
   deleteBudget,
   getUserCreatedRoles,
   getUserPermission,
-  getPermissionsOfSpecialRole
+  getPermissionsOfSpecialRole,
+  saveAmountBudget
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(TeamExpandedRow))
