@@ -133,11 +133,11 @@ class PermissionsTable extends React.Component {
               <Row className={s.permissionRow}>
                 <Col md={4}>
                   <h1>{intl.formatMessage(messages.contacts)}</h1>
-                  <CheckboxGroup disabled={!group.editable} value = {this.state.pickedPermissions['contacts']} onChange={this.pickPermission('contacts')} className={s.checkBox} options={options.contacts}/>
+                  <CheckboxGroup className={s.checkGroup} disabled={!group.editable} value = {this.state.pickedPermissions['contacts']} onChange={this.pickPermission('contacts')} className={s.checkBox} options={options.contacts}/>
                 </Col>
                 <Col md={4}>
                   <h1>{intl.formatMessage(messages.groups)}</h1>
-                  <CheckboxGroup disabled={!group.editable} value = {this.state.pickedPermissions['groups']} onChange={this.pickPermission('groups')} options={options.groups}/>
+                  <CheckboxGroup className={s.checkGroup} disabled={!group.editable} value = {this.state.pickedPermissions['groups']} onChange={this.pickPermission('groups')} options={options.groups}/>
                 </Col>
                 <Col md={5}>
                   <h1>{intl.formatMessage(messages.team)}</h1>
@@ -145,11 +145,11 @@ class PermissionsTable extends React.Component {
                 </Col>
                 <Col md={4}>
                   <h1>{intl.formatMessage(messages.purchase)}</h1>
-                  <CheckboxGroup disabled={!group.editable} value = {this.state.pickedPermissions['purchase']} onChange={this.pickPermission('purchase')} options={options.purchase}/>
+                  <CheckboxGroup className={s.checkGroup} disabled={!group.editable} value = {this.state.pickedPermissions['purchase']} onChange={this.pickPermission('purchase')} options={options.purchase}/>
                 </Col>
                 <Col md={4}>
                   <h1>{intl.formatMessage(messages.payments)}</h1>
-                  <CheckboxGroup disabled={!group.editable} value = {this.state.pickedPermissions['payments']} onChange={this.pickPermission('payments')} options={options.payments}/>
+                  <CheckboxGroup className={s.checkGroup} disabled={!group.editable} value = {this.state.pickedPermissions['payments']} onChange={this.pickPermission('payments')} options={options.payments}/>
                 </Col>
               </Row>}
             </div>
