@@ -81,7 +81,7 @@ class CardStore extends React.Component {
                   <a
                     onClick={() => {
                       window.scrollTo(0, 0)
-                      getCards({ cardStyle: item.title })
+                      getCards({ occasion: item.id })
                     }}
                     className={cn(item.id === occasion && s.selected, !item.has_cards && s.disabled)}
                   >
@@ -99,7 +99,7 @@ class CardStore extends React.Component {
                   <a
                     onClick={() => {
                       window.scrollTo(0, 0)
-                      getCards({ cardStyle: item.title })
+                      getCards({ cardSize: item.key })
                     }}
                     className={cn(item.key === cardSize && s.selected)}
                   >
