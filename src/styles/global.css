@@ -45,7 +45,7 @@ button span {
 ::-webkit-inner-spin-button { margin-top: 12px; margin-left: 5px }
 ::-webkit-calendar-picker-indicator { display: none; }
 
-input[placeholder="mm/dd/yyyy"] {
+input[placeholder="DD/MM/YYYY"] {
   width: 100%;
   background-color: transparent;
   border: none;
