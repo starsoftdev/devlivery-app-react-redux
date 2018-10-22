@@ -99,7 +99,7 @@ class EditContact extends React.Component {
 
   render() {
     const { intl, contact, removeContact, setupBirthday } = this.props
-
+    
     return contact ? (
       <div>
         <Modal

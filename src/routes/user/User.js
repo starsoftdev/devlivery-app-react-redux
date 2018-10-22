@@ -15,6 +15,7 @@ import ReactCreditCard from 'react-credit-cards'
 import creditCardStyles from 'react-credit-cards/es/styles-compiled.css'
 import { makeStripePayment } from '../../reducers/purchase'
 import { TEAM_ACCOUNT } from '../../reducers/register'
+import Cleave from 'cleave.js/react';
 
 class User extends React.Component {
   state = {
@@ -45,20 +46,23 @@ class User extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
-      if (!err) {
-        var birthday = moment(values.birthday);
-        var expected = moment().subtract(18, 'years');
-        if (birthday < expected)
-          this.props.updateUser(values, this.props.form, this.props.intl.locale === "de-DE" ? 'Angaben angepasst' : 'User updated.')
-        else {
-          this.props.form.setFields({
-            birthday: {
-              value: values.birthday,
-              errors: [new Error('please select date older than 18 years.')],
-            },
-          });
-        }
+      var dobValidation = false;
+      var birthday = moment(values.birthday);
+      var expected = moment().subtract(18, 'years');
+      if (birthday < expected)
+        dobValidation = true;
+      else {
+        this.props.form.setFields({
+          birthday: {
+            value: values.birthday,
+            errors: [new Error('please select date older than 18 years.')],
+          },
+        });
       }
+      if (!err && dobValidation) {
+        this.props.updateUser({...values, birthday: birthday.format(DATE_FORMAT)}, this.props.form, this.props.intl.locale === "de-DE" ? 'Angaben angepasst' : 'User updated.')
+      }
+
     })
   }
 
@@ -251,14 +255,17 @@ class User extends React.Component {
                 <h1 className={s.header}>{intl.formatMessage(messages.birthday)}</h1>
                 <Form.Item>
                   {getFieldDecorator('birthday', {
-                    initialValue: user && user.dob ? user.dob : undefined,
+                    initialValue: user && user.dob ? moment(user.dob).format("MM/DD/YYYY") : undefined,
                     rules: [
                       { required: true, message: intl.formatMessage(formMessages.required) },
                     ],
                   })(
-                    <Input
-                      type='date'
-                      max={moment().subtract(18, 'years').format(DATE_FORMAT)}
+                    <Cleave
+                      placeholder="mm/dd/yyyy"
+                      options={{
+                        date: true,
+                        datePattern: ['m', 'd', 'Y']
+                      }}
                     />
                   )}
                 </Form.Item>
