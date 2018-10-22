@@ -79,7 +79,10 @@ class CardStore extends React.Component {
               {occasions.filter(item => item.on_card_store).map((item) =>
                 <li key={item.id}>
                   <a
-                    onClick={() => getCards({ occasion: item.id })}
+                    onClick={() => {
+                      window.scrollTo(0, 0)
+                      getCards({ cardStyle: item.title })
+                    }}
                     className={cn(item.id === occasion && s.selected, !item.has_cards && s.disabled)}
                   >
                     {item.title}
@@ -94,7 +97,10 @@ class CardStore extends React.Component {
               {CARD_SIZES(intl).map((item) =>
                 <li key={item.key}>
                   <a
-                    onClick={() => getCards({ cardSize: item.key })}
+                    onClick={() => {
+                      window.scrollTo(0, 0)
+                      getCards({ cardStyle: item.title })
+                    }}
                     className={cn(item.key === cardSize && s.selected)}
                   >
                     {`${item.extra} ${item.title}`}
@@ -109,7 +115,10 @@ class CardStore extends React.Component {
               {cardStyles.map((item) =>
                 <li key={item.title}>
                   <a
-                    onClick={() => getCards({ cardStyle: item.title })}
+                    onClick={() => {
+                      window.scrollTo(0, 0)
+                      getCards({ cardStyle: item.title })
+                    }}
                     className={cn(item.title === cardStyle && s.selected)}
                   >
                     {item.title}
