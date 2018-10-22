@@ -7,14 +7,13 @@
   max-width: 500px;
   width: 100%;
   border: 10px solid #E0DFE6;
-  min-height: 350px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   text-align: center;
-
+  padding-bottom: 50px;
   @media (--md-down) {
     margin-top: var(--margin-md);
   }
