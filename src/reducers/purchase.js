@@ -291,6 +291,14 @@ export const setOccasion = (occasion) => ({ type: SET_OCCASION, occasion })
 export const getOccasions = (params = {}) => (dispatch, getState, { fetch }) => {
   dispatch({ type: GET_OCCASIONS_REQUEST, params })
   const { occasionType } = getState().purchase
+  console.log(`/occasions?${qs.stringify({
+    take: 100,
+    order_by: params && params.locale == params.defaultLocale ? 'title' : 'german_title',
+    ...occasionType ? {
+      filter_key: 'type',
+      filter_value: occasionType,
+    } : {},
+  })}`);
   return fetch(`/occasions?${qs.stringify({
     take: 100,
     order_by: params && params.locale == params.defaultLocale ? 'title' : 'german_title',
@@ -301,9 +309,11 @@ export const getOccasions = (params = {}) => (dispatch, getState, { fetch }) => 
   })}`, {
       method: 'GET',
       success: (res) => {
+        console.log('res',res);
         dispatch({ type: GET_OCCASIONS_SUCCESS, occasions: res.data })
       },
-      failure: () => {
+      failure: (err) => {
+        console.log('err',err);
         dispatch({ type: GET_OCCASIONS_FAILURE })
       }
     })
