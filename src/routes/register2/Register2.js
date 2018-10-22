@@ -19,7 +19,7 @@ class Register2 extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       var dobValidation = false;
-      var birthday = moment(values.birthday);
+      var birthday = moment(values.birthday,'DD/MM/YYYY');
       var expected = moment().subtract(18, 'years');
       if (birthday < expected)
         dobValidation = true;
@@ -113,16 +113,16 @@ class Register2 extends React.Component {
             </h1>
             <Form.Item>
               {getFieldDecorator('birthday', {
-                initialValue: individualDetails ? moment(individualDetails.birthday).format("MM/DD/YYYY") : undefined,
+                initialValue: individualDetails ? moment(individualDetails.birthday).format("DD/MM/YYYY") : undefined,
                 rules: [
                   { required: true, message: intl.formatMessage(formMessages.required) },
                 ],
               })(
                 <Cleave
-                  placeholder="mm/dd/yyyy"
+                  placeholder="DD/MM/YYYY"
                   options={{
                     date: true,
-                    datePattern: ['m', 'd', 'Y']
+                    datePattern: ['d', 'm', 'Y']
                   }}
                 />
               )}

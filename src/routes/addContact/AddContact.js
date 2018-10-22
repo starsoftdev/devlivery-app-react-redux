@@ -21,7 +21,7 @@ class AddContact extends React.Component {
     this.props.form.validateFields({ force: true }, (err, values) => {
 
       if (!err) {
-        var birthday = moment(values.dob);
+        var birthday = moment(values.dob,'DD/MM/YYYY');
         var expected = moment().subtract(18, 'years');
         if (birthday < expected || values.dob == null || (values.dob.length <= 0) || values.dob === undefined) 
         {

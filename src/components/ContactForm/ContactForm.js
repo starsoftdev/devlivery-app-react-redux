@@ -198,13 +198,13 @@ class ContactForm extends React.Component {
         <h1 className={s.header}>{intl.formatMessage(messages.birthday)}</h1>
         <Form.Item>
           {getFieldDecorator('dob', {
-            initialValue: initialValues && initialValues.dob ? moment(initialValues.dob).format("MM/DD/YYYY") : undefined,
+            initialValue: initialValues && initialValues.dob ? moment(initialValues.dob).format("DD/MM/YYYY") : undefined,
           })(
             <Cleave
-              placeholder="mm/dd/yyyy"
+              placeholder="DD/MM/YYYY"
               options={{
                 date: true,
-                datePattern: ['m', 'd', 'Y']
+                datePattern: ['d', 'm', 'Y']
               }}
               onBlur={this.onBirthdayBlur.bind(this)}
             />

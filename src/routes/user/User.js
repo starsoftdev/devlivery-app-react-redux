@@ -47,8 +47,9 @@ class User extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       var dobValidation = false;
-      var birthday = moment(values.birthday);
+      var birthday = moment(values.birthday,'DD/MM/YYYY');
       var expected = moment().subtract(18, 'years');
+      
       if (birthday < expected)
         dobValidation = true;
       else {
@@ -62,7 +63,6 @@ class User extends React.Component {
       if (!err && dobValidation) {
         this.props.updateUser({...values, birthday: birthday.format(DATE_FORMAT)}, this.props.form, this.props.intl.locale === "de-DE" ? 'Angaben angepasst' : 'User updated.')
       }
-
     })
   }
 
@@ -255,16 +255,16 @@ class User extends React.Component {
                 <h1 className={s.header}>{intl.formatMessage(messages.birthday)}</h1>
                 <Form.Item>
                   {getFieldDecorator('birthday', {
-                    initialValue: user && user.dob ? moment(user.dob).format("MM/DD/YYYY") : undefined,
+                    initialValue: user && user.dob ? moment(user.dob).format("DD/MM/YYYY") : undefined,
                     rules: [
                       { required: true, message: intl.formatMessage(formMessages.required) },
                     ],
                   })(
                     <Cleave
-                      placeholder="mm/dd/yyyy"
+                      placeholder="DD/MM/YYYY"
                       options={{
                         date: true,
-                        datePattern: ['m', 'd', 'Y']
+                        datePattern: ['d', 'm', 'Y']
                       }}
                     />
                   )}
