@@ -10,6 +10,7 @@
   width: 88px;
   overflow: hidden;
   cursor: pointer;
+  position: relative;
 }
 
 .avatarContainer {
@@ -22,6 +23,8 @@
   position: absolute;
   display: none;
   transition: 1s;
+  left: 50%;
+  margin-left: -7px;
 }
 
 .avatarWrapper:hover .editBtn {
