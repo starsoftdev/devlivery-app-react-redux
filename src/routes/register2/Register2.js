@@ -113,7 +113,7 @@ class Register2 extends React.Component {
             </h1>
             <Form.Item>
               {getFieldDecorator('birthday', {
-                initialValue: individualDetails ? individualDetails.birthday : undefined,
+                initialValue: individualDetails ? moment(individualDetails.birthday).format("MM/DD/YYYY") : undefined,
                 rules: [
                   { required: true, message: intl.formatMessage(formMessages.required) },
                 ],

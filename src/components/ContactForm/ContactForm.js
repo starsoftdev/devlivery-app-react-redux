@@ -81,7 +81,9 @@ class ContactForm extends React.Component {
     if (value)
       this.setState({ requiredAddress })
   }
-
+  onBirthdayBlur(e){
+    this.props.setupBirthday(e.target.value ? true:false);
+  }
   render() {
     const { requiredAddress, relationshipName, newRelationship } = this.state
     const { intl, children, header, initialValues, setupBirthday } = this.props
@@ -196,7 +198,7 @@ class ContactForm extends React.Component {
         <h1 className={s.header}>{intl.formatMessage(messages.birthday)}</h1>
         <Form.Item>
           {getFieldDecorator('dob', {
-            initialValue: initialValues && initialValues.dob ? initialValues.dob : undefined,
+            initialValue: initialValues && initialValues.dob ? moment(initialValues.dob).format("MM/DD/YYYY") : undefined,
           })(
             <Cleave
               placeholder="mm/dd/yyyy"
@@ -204,6 +206,7 @@ class ContactForm extends React.Component {
                 date: true,
                 datePattern: ['m', 'd', 'Y']
               }}
+              onBlur={this.onBirthdayBlur.bind(this)}
             />
           )}
         </Form.Item>
