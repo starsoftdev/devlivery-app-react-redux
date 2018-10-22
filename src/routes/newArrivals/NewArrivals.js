@@ -233,6 +233,7 @@ class NewArrivals extends React.Component {
               visible = {this.state.showGiftDetails}
               onCancel={()=>this.setState({showGiftDetails:false})}
               footer={null}
+              width={800}
             >
               <Row className={s.detailRow}>
                 <Carousel
@@ -265,7 +266,7 @@ class NewArrivals extends React.Component {
               </Row>
               
               <Row>
-                <Button type='primary' style={{float:'right'}} ghost onClick={() => setFlowFromSelectGift(giftDetails)}>
+                <Button type='primary' size={'small'} style={{float:'right'}} ghost onClick={() => setFlowFromSelectGift(giftDetails)}>
                   <PlusIcon/>
                   {intl.formatMessage(messages.makeOrder)}
                 </Button>
@@ -280,6 +281,7 @@ class NewArrivals extends React.Component {
               visible = {this.state.showCardDetails}
               onCancel={()=>this.setState({showCardDetails:false})}
               footer={null}
+              width={800}
             >
               <Row className={s.detailRow}>
                 <Carousel
@@ -320,7 +322,7 @@ class NewArrivals extends React.Component {
               </Row>
               
               <Row>
-                <Button type='primary' style={{float:'right'}} ghost onClick={() => setFlowFromSelectCard(cardDetails)}>
+                <Button type='primary' size={'small'} style={{float:'right'}} ghost onClick={() => setFlowFromSelectCard(cardDetails)}>
                   <PlusIcon/>
                   {intl.formatMessage(messages.makeOrder)}
                 </Button>

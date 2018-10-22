@@ -107,12 +107,23 @@
   font-weight: 600;
 }
 .DetailModal {
+  
   :global(.ant-modal-title) {
     font-size: 36px;
     line-height: 36px;
   }
   :global(.ant-modal-header) {
     padding: 61px 24px 18px 24px;
+  }
+  @media (--md-up) {
+    /*
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
+    */
+    top: 50px;
+    padding-bottom:0px;
   }
 }
 .detailRow {
@@ -140,7 +151,10 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  min-height: 250px;
+  min-height: 500px;
+  @media (--md-down) {
+    min-height: 250px;
+  }
 }
 
 /*TODO move to component styles*/
