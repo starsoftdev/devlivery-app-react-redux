@@ -78,7 +78,15 @@ class AddBundle extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
-          <OrderItems {...this.props} card={card} gift={gifts.length > 0 && gifts[0].gift} giftcount = {gifts.length} voucher={voucher} donation={donation} card={card}/>
+          <OrderItems 
+            {...this.props} 
+            card={card} 
+            gifts = {gifts ? gifts : []}
+            gift={gifts.length > 0 && gifts[0].gift} 
+            voucher={voucher} 
+            donation={donation} 
+            card={card}
+            />
           <div className={s.orderDetails}>
             <Form.Item>
               {getFieldDecorator('title', {

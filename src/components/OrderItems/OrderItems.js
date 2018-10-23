@@ -10,7 +10,7 @@ import messages from './messages'
 
 class OrderItems extends React.Component {
   render() {
-    const { intl, voucher, donation, card, gift, giftcount, removeDontationFromBundle, removeVoucherFromBundle } = this.props
+    const { intl, voucher, donation, card, gifts, gift, removeDontationFromBundle, removeVoucherFromBundle } = this.props
 
     return (
       <div className={s.orderInfo}>
@@ -47,7 +47,7 @@ class OrderItems extends React.Component {
               className={s.itemImage}
             />
             <p className={s.cardInfo}>
-              <span className={s.cardType}>{"GIFT (" + giftcount + ")"}</span>
+              <span className={s.cardType}>{"GIFT (" + gifts.length + ")"}</span>
               <br />
               <span className={s.cardPrice}>{gift.price}</span>
               <span className={s.cardPriceCurrency}>{gift.currency}</span>
