@@ -13,6 +13,26 @@ const messages = defineMessages({
     id: 'editContact.breadcrumb',
     defaultMessage: 'Edit Contact',
   },
+  email: {
+    id: 'editContact.email',
+    defaultMessage: 'Email',
+  },
+  phone: {
+    id: 'editContact.phone',
+    defaultMessage: 'Phone',
+  },
+  nickname: {
+    id: 'editContact.nickname',
+    defaultMessage: 'Nickname',
+  },
+  relationship: {
+    id: 'editContact.relationship',
+    defaultMessage: 'Relationship',
+  },
+  home: {
+    id: 'editContact.home',
+    defaultMessage: 'Home',
+  },
 })
 
 
@@ -23,6 +43,7 @@ class ContactDetail extends React.Component {
 
   render() {
     const {intl,last_name, first_name, email, phone, nickname, relationship, addresses,contactId} = this.props
+    console.log('addresses',addresses);
     return (
       <Modal
         className={s.contactDetailModal}
@@ -33,28 +54,28 @@ class ContactDetail extends React.Component {
       >
         <Row className={s.detailRow}>
           <Col md={12}>
-            <span className={s.contactDetailTitle}>Email</span><br/>
+            <span className={s.contactDetailTitle}>{intl.formatMessage(messages.email)}</span><br/>
             <span className={s.contactDetail}>{email}</span>
           </Col>
           <Col md={12}>
-            <span className={s.contactDetailTitle}>Phone</span><br/>
+            <span className={s.contactDetailTitle}>{intl.formatMessage(messages.phone)}</span><br/>
             <span className={s.contactDetail}>{phone}</span>
           </Col>
         </Row>
         <Row className={s.detailRow}>
           <Col md={12}>
-            <span className={s.contactDetailTitle}>Nickname</span><br/>
+            <span className={s.contactDetailTitle}>{intl.formatMessage(messages.nickname)}</span><br/>
             <span className={s.contactDetail}>{nickname}</span>
           </Col>
           <Col md={12}>
-            <span className={s.contactDetailTitle}>Relationship</span><br/>
+            <span className={s.contactDetailTitle}>{intl.formatMessage(messages.relationship)}</span><br/>
             <span className={s.contactDetail}>{relationship}</span>
           </Col>
         </Row>
         <Row className={s.detailRow}>
+          <span className={s.contactDetailTitle}>{intl.formatMessage(messages.home)}</span><br/>
           {addresses && addresses.map((address) =>
             <Col key={address.id} md={12}>
-              <span className={s.contactDetailTitle}>{address.title}</span><br/>
               <span className={s.contactDetail}>
                 {address.address2 ? `${address.address} ${address.address2}` : address.address}
               </span>
