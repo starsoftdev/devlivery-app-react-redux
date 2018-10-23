@@ -3762,7 +3762,7 @@
   {
     "id": "user.addcard",
     "defaultMessage": "Add Card",
-    "message": "Add Card",
+    "message": "Hinzufügen",
     "files": [
       "src/routes/user/messages.js"
     ]
