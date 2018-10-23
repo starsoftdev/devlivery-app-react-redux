@@ -6,6 +6,7 @@ import cn from 'classnames'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import {getItemImage} from '../../utils'
 
+
 class Card extends React.Component {
   static defaultProps = {
     bordered: true,
@@ -30,10 +31,10 @@ class Card extends React.Component {
       >
         {extra && <span className={s.extra}>{extra}</span>}
         {active && <CheckIcon className={s.checkIcon}/>}
-        <div className={s.content} style={{alignItems: (isSvg || svg) ? 'flex-end': 'center'}}>
+        <div className={cn(s.content, s.svgImage)} style={{alignItems: (isSvg || svg) ? 'flex-end': 'center'}}>
           {image ?
             isSvg ? (
-              <img src={image}/>
+              <img src={image} className={s.svgView}/>
             ) : (
               <div className={s.image} style={{backgroundImage: `url(${image})`,...imageStyle}}/>
             )
