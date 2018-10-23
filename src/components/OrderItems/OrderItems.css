@@ -67,3 +67,27 @@
   top: 5px;
   right: 5px;
 }
+.giftTitle{
+  position: absolute;
+  bottom: -100px;
+  text-align: center;
+  width: 100%;
+  left:0;
+  padding-left:10px;
+  padding-right:10px;
+}
+.giftTitleInner{
+  position: relative;
+  width: 100%;
+}
+.giftTitleContent{
+  display: inline-block;
+}
+.leftIcon{
+  float: left;
+  margin-top: 15px;
+}
+.rightIcon{
+  float: right;
+  margin-top: 15px;
+}
