@@ -221,7 +221,7 @@ class Purchase13 extends React.Component {
           <div className={s.CardCheckOut}>
             {
               cards && cards.length > 0 &&
-              <CardCheckOut cards={cards} intl={intl} />
+              <CardCheckOut cards={cards} intl={intl} disableDefaultCard = {this.state.user_newcard}/>
             }
           </div>
           <div className={s.checkbox}>
