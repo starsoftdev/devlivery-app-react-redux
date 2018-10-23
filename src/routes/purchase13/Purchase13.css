@@ -78,3 +78,27 @@
 .invisible{
   display: none;
 }
+.subtotalHeader {
+  font-family: var(--font-family-secondary);
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 3.15px;
+  text-transform: uppercase;
+  color: var(--dark-color);
+}
+
+.subtotalValue {
+  font-family: var(--font-family-secondary);
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 3.15px;
+  color: var(--dark-color);
+}
+
+.subtotalCurrency {
+  font-family: var(--font-family-secondary);
+  font-size: 18px;
+  letter-spacing: 3.15px;
+  color: var(--muted-color);
+  margin-left: 4px;
+}

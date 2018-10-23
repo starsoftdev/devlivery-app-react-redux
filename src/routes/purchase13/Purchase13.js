@@ -35,7 +35,7 @@ class Purchase13 extends React.Component {
     isValid: false,
     showMark: false,
     cardtype: null,
-    useDefualtCard: false
+    user_newcard: false
   }
   constructor(props) {
     super(props)
@@ -69,12 +69,15 @@ class Purchase13 extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    /*
-    if (this.state.useDefualtCard && this.props.paymentMethod === CREDIT_CARD) {
+    
+    if (!this.state.user_newcard && this.props.paymentMethod === CREDIT_CARD) {
       var defaultcard = this.props.cards.filter(item => item.default);
       if(defaultcard.length > 0)
       {
         this.props.makeDefaultStripePayment(defaultcard[0].id);
+      }
+      else {
+        this.setState({user_newcard: true});
       }
     }
     else{
@@ -102,7 +105,7 @@ class Purchase13 extends React.Component {
         }
       })
     }
-    */
+    /*
     this.props.form.validateFields((err, values) => {
       if (values.number && values.name && values.expiry && values.cvc) {
         if (!err && this.state.isValid) {
@@ -128,12 +131,12 @@ class Purchase13 extends React.Component {
         //message.error('All fields must be filled in')
       }
     })
+    */
   }
-  payWithDefaultCard(){
+  payWithDefaultCard() {
     if (this.props.paymentMethod === CREDIT_CARD) {
       var defaultcard = this.props.cards.filter(item => item.default);
-      if(defaultcard.length > 0)
-      {
+      if (defaultcard.length > 0) {
         this.props.makeDefaultStripePayment(defaultcard[0].id);
       }
       else message.error('All fields must be filled in')
@@ -184,8 +187,11 @@ class Purchase13 extends React.Component {
   }
   render() {
     const { number, name, expiry, cvc, focused } = this.state
-    const { flowIndex, intl, cards } = this.props
+    const { flowIndex, intl, cards, order } = this.props
     const { getFieldDecorator } = this.props.form
+
+    const disable_checkbox = cards && cards.length >= 4;
+
     return (
       <React.Fragment>
         {this.props.paymentMethod !== CREDIT_CARD &&
@@ -204,14 +210,56 @@ class Purchase13 extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
+          <div className={s.checkbox}>
+            <label>
+              <span className={s.subtotalHeader}>{intl.formatMessage(messages.amount)+': '}</span>
+              <span className={s.subtotalValue}>{order && order.total}</span>
+              <span className={s.subtotalCurrency}>{' CHF'}</span>
+            </label>
+          </div>
+          <br/>
           <div className={s.CardCheckOut}>
             {
               cards && cards.length > 0 &&
-              <CardCheckOut cards={cards} intl={intl}/>
+              <CardCheckOut cards={cards} intl={intl} />
             }
           </div>
+          <div className={s.checkbox}>
+            {
+              <Checkbox 
+                className
+                checked={this.state.user_newcard && !disable_checkbox} 
+                onChange={(e) => {
+                  this.setState({ user_newcard: e.target.checked })
+                  if(e.target.checked)
+                  {
+                    if (this.number) this.number.input.value = '';
+                    if (this.name) this.name.input.value = '';
+                    if (this.expiry) this.expiry.input.value = '';
+                    if (this.cvc) this.cvc.input.value = '';
+                    this.setState({
+                      number: '',
+                      name: '',
+                      expiry: '',
+                      cvc: '',
+                    });
+                    this.props.form.setFieldsValue({
+                      number:'',
+                      name:'',
+                      expiry: '',
+                      cvc:'',
+                    });
+                  }
+                }}
+                disabled = {disable_checkbox}
+              >
+                {'Pay with another card'}
+              </Checkbox>
+            }
+          </div>
+          <br />
           {
-            <Row gutter={20} type='flex' align='middle' className={s.visible/*!this.state.useDefualtCard && cards.length < 4 ? s.visible:s.invisible*/}>
+            <Row gutter={20} type='flex' align='middle' className={this.state.user_newcard ? s.visible:s.invisible}>
               <Col xs={24} sm={12}>
                 <ReactCreditCard
                   number={number}
@@ -228,6 +276,7 @@ class Purchase13 extends React.Component {
                     {getFieldDecorator('number', {
                     })(
                       <Input
+                        ref={ref => this.number = ref}
                         placeholder={intl.formatMessage(messages.number)}
                         onChange={(e) => this.handleInputChange(e, 'number')}
                         onFocus={(e) => this.handleInputFocus(e, 'number')}
@@ -244,6 +293,7 @@ class Purchase13 extends React.Component {
                     {getFieldDecorator('name', {
                     })(
                       <Input
+                        ref={ref => this.name = ref}
                         placeholder={intl.formatMessage(messages.name)}
                         onChange={(e) => this.handleInputChange(e, 'name')}
                         onFocus={(e) => this.handleInputFocus(e, 'name')}
@@ -258,6 +308,7 @@ class Purchase13 extends React.Component {
                         {getFieldDecorator('expiry', {
                         })(
                           <Input
+                            ref={ref => this.expiry = ref}
                             placeholder={intl.formatMessage(messages.expiry)}
                             onChange={(e) => this.handleInputChange(e, 'expiry')}
                             onFocus={(e) => this.handleInputFocus(e, 'expiry')}
@@ -273,6 +324,7 @@ class Purchase13 extends React.Component {
                         {getFieldDecorator('cvc', {
                         })(
                           <Input
+                            ref={ref => this.cvc = ref}
                             placeholder={intl.formatMessage(messages.cvc)}
                             onChange={(e) => this.handleInputChange(e, 'cvc')}
                             onFocus={(e) => this.handleInputFocus(e, 'cvc')}
@@ -287,19 +339,6 @@ class Purchase13 extends React.Component {
               </Col>
             </Row>
           }
-          <br/>
-          <div className={s.checkbox}>
-            {/*
-              cards && cards.length > 0 &&
-              <Checkbox checked={this.state.useDefualtCard || cards.length >= 4} onChange={(e) => {
-                this.setState({ useDefualtCard: e.target.checked })
-              }
-              }>
-                Use this card as default from now on
-            </Checkbox>
-            */
-            }
-          </div>
         </div>
         <PurchaseActions>
           <KeyHandler
@@ -323,7 +362,8 @@ const mapState = state => ({
   paymentMethod: state.purchase.paymentMethod,
   flowIndex: state.purchase.flowIndex,
   loading: state.purchase.loading.payment,
-  cards: state.user.cards
+  cards: state.user.cards,
+  order: state.purchase.order,
 })
 
 const mapDispatch = {

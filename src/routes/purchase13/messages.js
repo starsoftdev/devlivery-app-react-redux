@@ -9,6 +9,10 @@ export default defineMessages({
     id: 'purchase13.header',
     defaultMessage: 'Credit Card Information',
   },
+  amount: {
+    id: 'purchase13.amount',
+    defaultMessage: 'Amount',
+  },
   number: {
     id: 'purchase13.number',
     defaultMessage: 'Card Number',
