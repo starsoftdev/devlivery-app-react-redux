@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button, Form, Input, Table, Popconfirm} from 'antd'
+import {Button, Form, Input, Table, Popconfirm, message} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './ContactGroup.css'
 import {PaginationItem} from '../../components'
@@ -140,7 +140,7 @@ const mapDispatch = {
   editContactGroup,
   changeSelectedContacts,
   clear,
-  removeContactGroup
+  removeContactGroup,
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(ContactGroup)))

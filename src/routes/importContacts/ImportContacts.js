@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button, Col, Row} from 'antd'
+import {Button, Col, Row, message} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './ImportContacts.css'
 import {ColumnsMappingForm, ContactsImporting, UploadedContacts} from '../../components'
@@ -14,6 +14,11 @@ import {CONTACTS_ROUTE} from '../'
 class ImportContacts extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
+    if(this.props.selectedContacts.length <= 0)
+    {
+      message.warn("You have to select at least one contact.");
+      return;
+    }
     this.columnsMappingForm.validateFields((err, values) => {
       if (!err) {
         this.props.importContacts(values, () => history.push(generateUrl(CONTACTS_ROUTE)))
@@ -103,6 +108,7 @@ class ImportContacts extends React.Component {
 const mapState = state => ({
   mappingColumns: state.contacts.mappingColumns,
   uploadedContactsModalOpened: state.contacts.uploadedContactsModalOpened,
+  selectedContacts: state.contacts.selectedContacts
 })
 
 const mapDispatch = {
