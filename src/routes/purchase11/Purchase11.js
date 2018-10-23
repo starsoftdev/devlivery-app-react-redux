@@ -184,7 +184,6 @@ class Purchase11 extends React.Component {
     const cardHeight = orientation && orientation == 'l' ? w : h;
 
     const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
-    
     return order ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -193,7 +192,13 @@ class Purchase11 extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
-          <OrderItems {...this.props} {...order} gift={order.items.gifts[0] && order.items.gifts[0].gift} giftcount = {order.items.gifts && order.items.gifts.length} card={order.items.card} />
+          <OrderItems 
+            {...this.props} 
+            {...order} 
+            gifts = {order && order.items && order.items.gifts ? order.items.gifts : []} 
+            gift={order.items.gifts[0] && order.items.gifts[0].gift} 
+            card={order.items.card} 
+          />
           <div className={s.orderDetails}>
             <h3 className={s.cardTitle}>{occasion && occasion.title}</h3>
             {this.state.mounted && bundle && <Editor
