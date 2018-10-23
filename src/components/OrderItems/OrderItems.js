@@ -5,13 +5,47 @@ import { CARD_IMAGES_PROP, GIFT_IMAGES_PROP } from '../../constants'
 import { getItemImage } from '../../utils'
 import PlusGiftIcon from '../../static/plus_round.svg'
 import RemoveIcon from '../../static/remove.svg'
+import LeftIcon from '../../static/left-arrow.svg'
+import RightIcon from '../../static/right-arrow.svg'
 import { Popconfirm } from 'antd'
 import messages from './messages'
 
 class OrderItems extends React.Component {
-  render() {
-    const { intl, voucher, donation, card, gifts, gift, removeDontationFromBundle, removeVoucherFromBundle } = this.props
+  state = {
+    giftIndex: 0
+  }
+  onclickLeft() {
+    const {giftIndex} = this.state;
+    const {gifts} = this.props;
+    this.setState({giftIndex: giftIndex > 0 ? (giftIndex-1):(gifts.length-1)});
+  }
+  onclickRight() {
+    const {giftIndex} = this.state;
+    const {gifts} = this.props;
+    this.setState({giftIndex: giftIndex < (gifts.length-1) ? (giftIndex+1):0});
+  }
+  wraptext(str){
+    var maxlen = 20;
+    if(this.props.voucher)
+      maxlen -= 6;
+    if(this.props.donation)
+      maxlen -= 6;
 
+    if(str.length > maxlen)
+    {
+      return str.substr(0,maxlen)+"...";
+    }
+    return str;
+  }
+  render() {
+    const { intl, voucher, donation, card, gifts, removeDontationFromBundle, removeVoucherFromBundle } = this.props
+    const {giftIndex} = this.state;
+    var gift = null;
+    if(gifts.length > 0 && gifts[giftIndex])
+    {
+      gift = gifts[giftIndex].gift;
+    }
+    
     return (
       <div className={s.orderInfo}>
         <div className={s.cardWrapper}>
@@ -46,12 +80,30 @@ class OrderItems extends React.Component {
               style={{ backgroundImage: `url(${getItemImage(gift, GIFT_IMAGES_PROP)})` }}
               className={s.itemImage}
             />
-            <p className={s.cardInfo}>
-              <span className={s.cardType}>{"GIFT (" + gifts.length + ")"}</span>
-              <br />
-              <span className={s.cardPrice}>{gift.price}</span>
-              <span className={s.cardPriceCurrency}>{gift.currency}</span>
-            </p>
+            <div className={s.giftTitle}>
+              <div className={s.giftTitleInner}>
+                {
+                  gifts.length > 0 &&
+                  <a className={s.leftIcon} onClick={()=>this.onclickLeft()}>
+                    <LeftIcon />
+                  </a>
+                }
+                <p className={s.giftTitleContent}>
+                  <span className={s.cardType}>{this.wraptext(gift.title)}</span>
+                  <br />
+                  <span className={s.cardType}>{"(" +(giftIndex+1)+"/"+gifts.length + ")"}</span>
+                  <br />
+                  <span className={s.cardPrice}>{gift.price}</span>
+                  <span className={s.cardPriceCurrency}>{gift.currency}</span>
+                </p>
+                {
+                  gifts.length > 0 &&
+                  <a className={s.rightIcon} onClick={()=>this.onclickRight()}>
+                    <RightIcon />
+                  </a>
+                }
+              </div>
+            </div>
           </div>
         )}
         {voucher && (
