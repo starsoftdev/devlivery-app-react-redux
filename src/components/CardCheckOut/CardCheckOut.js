@@ -25,7 +25,8 @@ class CardCheckOut extends React.Component {
     // TODO add table loading
     const {
       cards,intl,
-      removeable
+      removeable,
+      disableDefaultCard
     } = this.props
     
     const columns = [
@@ -34,7 +35,7 @@ class CardCheckOut extends React.Component {
         dataIndex: '',
         key: '',
         render: (data) => (
-          <Radio  checked={data.default} disabled={this.state.disabled} onChange={() => {
+          <Radio  checked={data.default && !disableDefaultCard} disabled={this.state.disabled || disableDefaultCard} onChange={() => {
               if(!data.default)
               {
                 this.setState({disabled:true});
