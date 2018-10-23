@@ -131,3 +131,9 @@
 .editorBody span {
   word-break: break-all;
 }
+.show {
+  display: block;
+}
+.hide {
+  display: none;
+}
