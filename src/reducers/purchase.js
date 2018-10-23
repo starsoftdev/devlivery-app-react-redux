@@ -184,6 +184,7 @@ export const SET_RECIPIENT_MODE = 'Purchase.SET_RECIPIENT_MODE'
 // ------------------------------------
 // Actions
 // ------------------------------------
+export const ADDCONTACTMODE = 'addingContactMode'
 export const setFlow = (flow, redirect = true) => (dispatch, getState, { history }) => {
   if (redirect &&
     flow.key != ORDER_BUNDLE_FLOW.key &&
@@ -249,6 +250,12 @@ export const setFlowIndex = () => (dispatch, getState) => {
   const { currentRouteName } = getState().global
   const { flow } = getState().purchase
   const flowIndex = flow.routes.findIndex(item => item === currentRouteName)
+  const {currentPathname,prevPathname} = getState().global;
+  
+  if(currentPathname !== prevPathname)
+  {
+    localStorage.removeItem(ADDCONTACTMODE)
+  }
   dispatch({ type: SET_FLOW_INDEX, flowIndex })
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { ADD_CONTACT_MANUALLY, IMPORT_CONTACTS, SELECT_CONTACTS, SELECT_GROUPS, nextFlowStep, getRecipientMode } from '../../reducers/purchase'
-import { Button, Col, Row } from 'antd'
+import { ADDCONTACTMODE, ADD_CONTACT_MANUALLY, IMPORT_CONTACTS, SELECT_CONTACTS, SELECT_GROUPS, nextFlowStep, getRecipientMode } from '../../reducers/purchase'
+import { Button, Col, Row, Spin, Icon } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase10.css'
 import { Card, PurchaseActions, SectionHeader } from '../../components'
@@ -21,13 +21,13 @@ import { message } from 'antd'
 import { getContacts } from '../../reducers/contacts'
 import localStorage from 'localStorage';
 
-const ADDCONTACTMODE = 'addingContactMode'
 
 class Purchase10 extends React.Component {
   state = {
     addingContactMode: null,
     selectMode: false,
-    disableButton: false
+    disableButton: false,
+    init_localStore: false
   }
   constructor(props) {
     super(props);
@@ -43,7 +43,7 @@ class Purchase10 extends React.Component {
   }
   async loadLocalStorage() {
     var addingContactMode = await localStorage.getItem(ADDCONTACTMODE);
-    this.setState({ addingContactMode,selectMode: addingContactMode ? true:false });
+    this.setState({ addingContactMode,selectMode: addingContactMode ? true:false, init_localStore:true });
   }
   setAddingContactsMode = (addingContactMode) => {
     localStorage.setItem(ADDCONTACTMODE, addingContactMode)
@@ -104,6 +104,15 @@ class Purchase10 extends React.Component {
   render() {
     const { addingContactMode, disableButton, selectMode } = this.state
     const { flowIndex, intl, contactGroups, contacts } = this.props
+    if(!this.state.init_localStore)
+      return (
+      <div className={s.loadingScreen}>
+        <Spin
+          wrapperClassName='action-spin'
+          indicator={<Icon style={{ fontSize: '16px' }} spin type='loading' />}
+          spinning={!this.state.init_localStore}
+        />
+      </div>);
     return (
       <React.Fragment>
         {selectMode && addingContactMode === ADD_CONTACT_MANUALLY ? (
