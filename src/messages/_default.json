@@ -1203,6 +1203,14 @@
     ]
   },
   {
+    "id": "purchase13.amount",
+    "defaultMessage": "Amount",
+    "message": "",
+    "files": [
+      "src/routes/purchase13/messages.js"
+    ]
+  },
+  {
     "id": "purchase13.name",
     "defaultMessage": "Full Name",
     "message": "",
