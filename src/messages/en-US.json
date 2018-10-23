@@ -641,6 +641,46 @@
     ]
   },
   {
+    "id": "editContact.email",
+    "defaultMessage": "Email",
+    "message": "",
+    "files": [
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
+    "id": "editContact.phone",
+    "defaultMessage": "Phone",
+    "message": "",
+    "files": [
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
+    "id": "editContact.nickname",
+    "defaultMessage": "Nickname",
+    "message": "",
+    "files": [
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
+    "id": "editContact.relationship",
+    "defaultMessage": "Relationship",
+    "message": "",
+    "files": [
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
+    "id": "editContact.home",
+    "defaultMessage": "Home",
+    "message": "",
+    "files": [
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
     "id": "editContact.header",
     "defaultMessage": "Contact Details",
     "message": "",

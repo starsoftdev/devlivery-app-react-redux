@@ -552,6 +552,46 @@
     ]
   },
   {
+    "id": "editContact.email",
+    "defaultMessage": "Email",
+    "message": "Email",
+    "files": [
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
+    "id": "editContact.phone",
+    "defaultMessage": "Phone",
+    "message": "Telfon",
+    "files": [
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
+    "id": "editContact.nickname",
+    "defaultMessage": "Nickname",
+    "message": "Rufname",
+    "files": [
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
+    "id": "editContact.relationship",
+    "defaultMessage": "Relationship",
+    "message": "Beziehungstyp",
+    "files": [
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
+    "id": "editContact.home",
+    "defaultMessage": "Home",
+    "message": "Wohnadresse",
+    "files": [
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
     "id": "editContact.title",
     "defaultMessage": "Edit Contact",
     "message": "Kontakt bearbeiten",
