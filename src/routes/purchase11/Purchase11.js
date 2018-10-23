@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { submitShipping, removeRecipientsOrder, toAddContactFlowStep,removeDontationFromBundle,removeVoucherFromBundle  } from '../../reducers/purchase'
+import { submitShipping, removeRecipientsOrder, toAddContactFlowStep, removeDontationFromBundle, removeVoucherFromBundle } from '../../reducers/purchase'
 import { Button, Col, DatePicker, Form, Row, Select, message, Checkbox, Input, Popconfirm } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase11.css'
@@ -17,7 +17,7 @@ import { injectGlobal } from 'styled-components';
 import PlusIcon from '../../static/plus.svg'
 import RemoveIcon from '../../static/remove.svg'
 import { FloatingLabel } from '../../components';
-import {INDIVIDUAL_ACCOUNT,TEAM_ACCOUNT} from '../../reducers/register'
+import { INDIVIDUAL_ACCOUNT, TEAM_ACCOUNT } from '../../reducers/register'
 
 import {
   ORDER_BUNDLE_FLOW,
@@ -106,7 +106,7 @@ class Purchase11 extends React.Component {
       else this.setState({ selectedLocation: value, contact: null });
     }
     else {
-      this.setState({ ...this.state, selectedLocation:value, contact:null })
+      this.setState({ ...this.state, selectedLocation: value, contact: null })
     }
   }
   onSelectOccasion = (value) => {
@@ -141,12 +141,12 @@ class Purchase11 extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    
-    const {order, user} = this.props;
-    
-    const owner = user.account_type==INDIVIDUAL_ACCOUNT || user.is_team_owner==true;
-    
-    if(user && user.budget && user.budget.remaining_budget && parseFloat(order.total) <= parseFloat( user.budget.remaining_budget) || owner)    {     
+
+    const { order, user } = this.props;
+
+    const owner = user.account_type == INDIVIDUAL_ACCOUNT || user.is_team_owner == true;
+
+    if (user && user.budget && user.budget.remaining_budget && parseFloat(order.total) <= parseFloat(user.budget.remaining_budget) || owner) {
       this.setState({ disableSubmit: true })
       this.props.form.validateFields((err, values) => {
         if (!err) {
@@ -164,7 +164,7 @@ class Purchase11 extends React.Component {
           this.setState({ disableSubmit: false })
         }
       })
-    }else{
+    } else {
       message.warn("Insufficient budget available");
     }
   }
@@ -173,7 +173,7 @@ class Purchase11 extends React.Component {
   }
   render() {
     const { currentRecipient, order, disableSubmit, contact, selOccasion, checkSave, selectedLocation } = this.state
-    const { flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation, flow,user } = this.props
+    const { flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation, flow, user } = this.props
     const { getFieldDecorator } = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
 
@@ -184,6 +184,7 @@ class Purchase11 extends React.Component {
     const cardHeight = orientation && orientation == 'l' ? w : h;
 
     const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
+    console.log('deliveryOccations',deliveryOccations);
     return order ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -192,17 +193,17 @@ class Purchase11 extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
-          <OrderItems 
-            {...this.props} 
-            {...order} 
-            gifts = {order && order.items && order.items.gifts ? order.items.gifts : []} 
-            gift={order.items.gifts[0] && order.items.gifts[0].gift} 
-            card={order.items.card} 
+          <OrderItems
+            {...this.props}
+            {...order}
+            gifts={order && order.items && order.items.gifts ? order.items.gifts : []}
+            gift={order.items.gifts[0] && order.items.gifts[0].gift}
+            card={order.items.card}
           />
           <div className={s.orderDetails}>
             <h3 className={s.cardTitle}>{occasion && occasion.title}</h3>
             {this.state.mounted && bundle && <Editor
-              value={this.state.content.replace('<!doctype html>','')}
+              value={this.state.content.replace('<!doctype html>', '')}
               init={{
                 toolbar: false,
                 menubar: false,
@@ -257,7 +258,7 @@ class Purchase11 extends React.Component {
             </Col>
           </Row>
           {
-            user && user.account_type===TEAM_ACCOUNT && !user.is_team_owner &&
+            user && user.account_type === TEAM_ACCOUNT && !user.is_team_owner &&
             <Row type='flex' align='center' gutter={20} className={s.totalSection}>
               <Col xs={12}>
                 <h2 className={s.subtotalHeader}>{'AVAILABLE BUDGET:'}</h2>
@@ -270,7 +271,7 @@ class Purchase11 extends React.Component {
           }
           <section className={s.section}>
             <h2 className={s.sectionHeader}>{intl.formatMessage(messages.shipping)}</h2>
-            <Row gutter={20} type='flex' align='center'>
+            <Row gutter={20} type='flex' align='flex-start'>
               <Col xs={24} sm={8}>
                 <Form.Item>
                   {getFieldDecorator('deliverable', {
@@ -291,48 +292,54 @@ class Purchase11 extends React.Component {
                   )}
                 </Form.Item>
               </Col>
+              {
+                deliveryOccations && deliveryOccations.length > 0 &&
+                <Col xs={24} sm={8}>
+                  <Form.Item>
+                    {getFieldDecorator('delivery_occasion', {
+                      initialValue: this.state.selOccasion || undefined,
+                      rules: [
+                        { required: false, message: intl.formatMessage(formMessages.required) },
+                      ],
+                    })(
+                      <Select
+                        allowClear={true}
+                        disabled={deliveryOccations && deliveryOccations.length > 0 ? false : true}
+                        showArrow={deliveryOccations && deliveryOccations.length > 0 ? true : false}
+                        placeholder={intl.formatMessage(messages.deliveryOccasion)}
+                        className={s.select}
+                        onChange={this.onSelectOccasion}>
+                        {deliveryOccations && deliveryOccations.map((item) =>
+                          <Select.Option key={item} value={item}>{item}</Select.Option>
+                        )}
+                      </Select>
+                    )}
+                  </Form.Item>
+                </Col>
+              }
               <Col xs={24} sm={8}>
-                <Form.Item>
-                  {getFieldDecorator('delivery_occasion', {
-                    initialValue: this.state.selOccasion || undefined,
-                    rules: [
-                      { required: false, message: intl.formatMessage(formMessages.required) },
-                    ],
-                  })(
-                    <Select
-                      allowClear={true}
-                      disabled={deliveryOccations && deliveryOccations.length > 0 ? false : true}
-                      showArrow={deliveryOccations && deliveryOccations.length > 0 ? true : false}
-                      placeholder={intl.formatMessage(messages.deliveryOccasion)}
-                      className={s.select}
-                      onChange={this.onSelectOccasion}>
-                      {deliveryOccations && deliveryOccations.map((item) =>
-                        <Select.Option key={item} value={item}>{item}</Select.Option>
-                      )}
-                    </Select>
-                  )}
-                </Form.Item>
-              </Col>
-              <Col xs={24} sm={8}>
-                <Form.Item>
-                  {getFieldDecorator('schedule_date', {
-                    initialValue: specialDate ? moment(specialDate, DATE_FORMAT) : undefined,
-                  })(
-                    <DatePicker
-                      ref={ref => this.datePicker = ref}
-                      className={s.select}
-                      placeholder={intl.formatMessage(messages.deliveryTime)}
-                      format={DISPLAYED_DATE_FORMAT}
-                      disabled={selOccasion && selOccasion.length > 0 ? true : false}
-                      disabledDate={current => {
-                        var date = new Date();
-                        date.setDate(date.getDate() - 1);
-                        return current && current.valueOf() < (date)
-                      }}
-                      onChange={this.onChangeDatePicker}
-                    />
-                  )}
-                </Form.Item>
+                {
+                  !(selOccasion && selOccasion.length > 0) &&
+                  <Form.Item>
+                    {getFieldDecorator('schedule_date', {
+                      initialValue: specialDate ? moment(specialDate, DATE_FORMAT) : undefined,
+                    })(
+                      <DatePicker
+                        ref={ref => this.datePicker = ref}
+                        className={s.select}
+                        placeholder={intl.formatMessage(messages.deliveryTime)}
+                        format={DISPLAYED_DATE_FORMAT}
+                        disabled={selOccasion && selOccasion.length > 0 ? true : false}
+                        disabledDate={current => {
+                          var date = new Date();
+                          date.setDate(date.getDate() - 1);
+                          return current && current.valueOf() < (date)
+                        }}
+                        onChange={this.onChangeDatePicker}
+                      />
+                    )}
+                  </Form.Item>
+                }
               </Col>
             </Row>
             <Row type='flex' align='center' gutter={20} className={s.totalSection}>
@@ -400,7 +407,7 @@ class Purchase11 extends React.Component {
                   <div>
                     <Form.Item>
                       {getFieldDecorator('saved', {
-                        initialValue: saved===1 || this.state.checkSave===1 ? true:false,
+                        initialValue: saved === 1 || this.state.checkSave === 1 ? true : false,
                         valuePropName: 'checked',
                       })(
                         <Checkbox onChange={this.onCheckSaved}>{intl.formatMessage(messages.saveasbundle)}</Checkbox>
