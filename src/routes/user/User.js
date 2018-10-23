@@ -407,7 +407,7 @@ class User extends React.Component {
                   {getFieldDecorator(`address.company`, {
                     initialValue: address && address.company,
                     rules: [
-                      { required: user && user.account_type === TEAM_ACCOUNT ? true : false, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
+                      { required: user && user.account_type === TEAM_ACCOUNT ? true : false, min: user && user.account_type === TEAM_ACCOUNT ? 5 : 0, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
                     ],
                   })(
                     <FloatingLabel placeholder={intl.formatMessage(messages.company)} />

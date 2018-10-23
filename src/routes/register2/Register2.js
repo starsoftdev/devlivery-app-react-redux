@@ -135,7 +135,7 @@ class Register2 extends React.Component {
               {getFieldDecorator(`company`, {
                 initialValue: individualDetails && individualDetails.company,
                 rules: [
-                  { required: accountType === TEAM_ACCOUNT ? true : false, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
+                  { required: accountType === TEAM_ACCOUNT ? true : false, min: accountType === TEAM_ACCOUNT ? 5 : 0, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
                 ],
               })(
                 <FloatingLabel placeholder={intl.formatMessage(messages.company)} />
