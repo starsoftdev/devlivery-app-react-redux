@@ -402,11 +402,6 @@ export const openUploadedContactsModal = () => ({type: OPEN_UPLOADED_CONTACTS_MO
 export const closeUploadedContactsModal = () => ({type: CLOSE_UPLOADED_CONTACTS_MODAL})
 
 export const changeSelectedContacts = (selectedContacts) => (dispatch, getState) => {
-  if(selectedContacts.length <= 0)
-  {
-    message.warn("You have to select at least one contact.");
-    return;
-  }
   dispatch({type: CHANGE_SELECTED_CONTACTS, selectedContacts})
 }
 

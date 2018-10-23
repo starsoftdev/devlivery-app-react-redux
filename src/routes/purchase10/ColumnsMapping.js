@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button } from 'antd'
+import { Button,message } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './ColumnsMapping.css'
 import { PurchaseActions, ColumnsMappingForm, SectionHeader, UploadedContacts } from '../../components'
@@ -19,6 +19,11 @@ class ColumnsMapping extends React.Component {
   }
   handleSubmit = () => {
     //e.preventDefault()
+    if(this.props.selectedContacts.length <= 0)
+    {
+      message.warn("You have to select at least one contact.");
+      return false;
+    }
     this.columnsMappingForm.validateFields((err, values) => {
       if (!err) {
         this.props.importContacts(values, (newrecipient) => {
@@ -91,6 +96,7 @@ const mapState = state => ({
   flowIndex: state.purchase.flowIndex,
   mappingColumns: state.contacts.mappingColumns,
   uploadedContactsModalOpened: state.contacts.uploadedContactsModalOpened,
+  selectedContacts: state.contacts.selectedContacts
 })
 
 const mapDispatch = {
