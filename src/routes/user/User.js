@@ -199,7 +199,7 @@ class User extends React.Component {
                   {getFieldDecorator('user.nickname', {
                     initialValue: user && user.nickname ? user.nickname : '',
                   })(
-                    <FloatingLabel placeholder={'Nickname'} />
+                    <FloatingLabel placeholder={intl.formatMessage(messages.nickname)} />
                   )}
                 </Form.Item>
                 <Row gutter={20}>
@@ -223,7 +223,7 @@ class User extends React.Component {
                           { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                         ],
                       })(
-                        <FloatingLabel placeholder={'Last Name'} />
+                        <FloatingLabel placeholder={intl.formatMessage(messages.lastName)} />
                       )}
                     </Form.Item>
                   </Col>
@@ -247,7 +247,7 @@ class User extends React.Component {
                       { required: false, message: formMessages.required },
                     ],
                   })(
-                    <FloatingLabel placeholder={'Phone'} />
+                    <FloatingLabel placeholder={intl.formatMessage(messages.phone)} />
                   )}
                 </Form.Item>
               </section>

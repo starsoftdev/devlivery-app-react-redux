@@ -65,6 +65,14 @@ export default defineMessages({
     id: 'contactForm.lastName',
     defaultMessage: 'Last Name',
   },
+  phone: {
+    id: 'contactForm.phone',
+    defaultMessage: 'Phone',
+  },
+  nickname: {
+    id: 'contactForm.nickname',
+    defaultMessage: 'Nickname',
+  },
   save:{
     id: 'user.save',
     defaultMessage: 'Save',

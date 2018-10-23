@@ -72,7 +72,8 @@
     "defaultMessage": "Nickname",
     "message": "",
     "files": [
-      "src/components/ContactForm/messages.js"
+      "src/components/ContactForm/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -2309,7 +2310,8 @@
     "defaultMessage": "Phone",
     "message": "",
     "files": [
-      "src/components/ContactForm/messages.js"
+      "src/components/ContactForm/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
