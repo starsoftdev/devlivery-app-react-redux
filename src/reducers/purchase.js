@@ -195,7 +195,6 @@ export const setFlow = (flow, redirect = true) => (dispatch, getState, { history
     flow.key != PAYMENT_FLOW.key) {
     dispatch(clear())
   }
-
   dispatch({ type: SET_FLOW, flow })
   if (redirect) {
     // TODO decide if flow key should be in url to fix issue when user goes back to purchase flow

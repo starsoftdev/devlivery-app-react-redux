@@ -82,7 +82,7 @@ class ContactForm extends React.Component {
       this.setState({ requiredAddress })
   }
   onBirthdayBlur(e){
-    this.props.setupBirthday(e.target.value ? true:false);
+    this.props.setupBirthday && this.props.setupBirthday(e.target.value ? true:false);
   }
   render() {
     const { requiredAddress, relationshipName, newRelationship } = this.state

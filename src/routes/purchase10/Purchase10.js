@@ -39,13 +39,14 @@ class Purchase10 extends React.Component {
   }
   componentWillMount() {
     this.props.getRecipientMode();
-    //this.loadLocalStorage();
+    this.loadLocalStorage();
   }
   async loadLocalStorage() {
     var addingContactMode = await localStorage.getItem(ADDCONTACTMODE);
-    this.setState({ addingContactMode });
+    this.setState({ addingContactMode,selectMode: addingContactMode ? true:false });
   }
   setAddingContactsMode = (addingContactMode) => {
+    localStorage.setItem(ADDCONTACTMODE, addingContactMode)
     this.setState({ addingContactMode, selectMode:true })
   }
 
@@ -63,21 +64,15 @@ class Purchase10 extends React.Component {
     if(!this.state.selectMode)
       return;
     const { addingContactMode } = this.state;
-    /*
-    if (!this.state.selectMode) {
-      if (addingContactMode === null)
-        return;
-      localStorage.setItem(ADDCONTACTMODE, addingContactMode)
-      this.setState({ selectMode: true });
-      return;
-    }
-    */
+    
     if (addingContactMode === ADD_CONTACT_MANUALLY) {
       if (this.ref_addcontact) {
         this.setState({ disableButton: true });
         if (!this.ref_addcontact.handleSubmit()) {
           this.setState({ disableButton: false });
         }
+        else localStorage.removeItem(ADDCONTACTMODE);
+    
       }
       return;
     }
@@ -88,6 +83,8 @@ class Purchase10 extends React.Component {
           if (!this.ref_importcontact.handleSubmit()) {
             this.setState({ disableButton: false });
           }
+          else localStorage.removeItem(ADDCONTACTMODE);
+    
         }
       }
       else {
@@ -100,6 +97,7 @@ class Purchase10 extends React.Component {
       if (!this.ref_contacts.handleSubmit()) {
         this.setState({ disableButton: false });
       }
+      else localStorage.removeItem(ADDCONTACTMODE);
     }
   }
 
