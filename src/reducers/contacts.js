@@ -207,7 +207,15 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
       dispatch({type: ADD_CONTACT_FAILURE})
       const {formErrors} = getFormErrors({...res, values})
       if (formErrors)
-        form.setFields(formErrors)
+      {
+        try{
+          form.setFields(formErrors)
+        }
+        catch(e){
+          console.log('crash 1:',res);
+          message.error('Something went wrong. Please try again.')
+        }
+      }
       else
         message.error('Something went wrong. Please try again.')
     }
