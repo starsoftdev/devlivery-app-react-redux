@@ -1270,7 +1270,7 @@ export const getOrderDetails = (orderId) => (dispatch, getState, { fetch }) => {
       method: 'GET',
       token,
       success: (res) => {
-        const newrecipient = res.data.recipients.map(item => item.contact.id);
+        const newrecipient = res.data.recipients ? res.data.recipients.map(item => item.contact.id):[];
         dispatch({ type: SET_NEW_RECIPIENT, newrecipient })
         localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(newrecipient))
 
