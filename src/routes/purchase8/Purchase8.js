@@ -22,8 +22,8 @@ class Purchase8 extends React.Component {
 
   render() {
     const { previewCollapsed, disableSubmit } = this.state
-    const { gift, setGift,buyMoreGift, submitGift, intl, flowIndex, gifts, getGifts, giftType } = this.props
-
+    const { gift, giftIds, setGift,buyMoreGift, submitGift, intl, flowIndex, gifts, getGifts, giftType } = this.props
+    
     return (
       <React.Fragment>
         <div className={s.container}>
@@ -76,7 +76,7 @@ class Purchase8 extends React.Component {
                       bordered={false}
                       description={item.short_description}
                       onClick={() => setGift(item)}
-                      active={gift && gift.id === item.id}
+                      active={giftIds && giftIds.includes(item.id)}
                     />
                   </Col>
                 )}
@@ -135,6 +135,7 @@ const mapState = state => ({
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
   giftType: state.purchase.giftType,
+  giftIds: state.purchase.giftIds
 })
 
 const mapDispatch = {
