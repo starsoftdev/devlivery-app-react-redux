@@ -22,6 +22,8 @@ import ReactCreditCard from 'react-credit-cards'
 import creditCardStyles from 'react-credit-cards/es/styles-compiled.css'
 import messages from './messages'
 import { FloatingLabel } from '../../components';
+import PlusIcon from '../../static/plus.svg'
+import { addCard } from '../../reducers/user'
 
 // TODO add validation for cards 'payment' library
 class Purchase13 extends React.Component {
@@ -35,12 +37,14 @@ class Purchase13 extends React.Component {
     isValid: false,
     showMark: false,
     cardtype: null,
-    user_newcard: false
+    user_newcard: false,
+    processing: false
   }
   constructor(props) {
     super(props)
     this.handleCallback = this.handleCallback.bind(this);
     this.handleBlurCardNumber = this.handleBlurCardNumber.bind(this);
+    this.handleAddCardButton = this.handleAddCardButton.bind(this)
   }
   componentDidMount() {
 
@@ -66,10 +70,73 @@ class Purchase13 extends React.Component {
         break
     }
   }
+  handleAddCardButton(){
+    if (this.state.processing)
+      return;
+    this.props.form.validateFields((err, values) => {
+      if (values.number && values.name && values.expiry && values.cvc) {
+        if (!err && this.state.isValid) {
+          // TODO validate card fields
+          const card = {
+            ...values,
+            expiry_month: values.expiry.slice(0, 2),
+            expiry_year: `20${values.expiry.slice(-2)}`,
+            ignore: true
+          }
+          this.setState({ processing: true });
+          switch (this.props.paymentMethod) {
+            case CREDIT_CARD:
+              this.props.makeStripePayment(card,
+                (data) => {
+                if (data && data.id)
+                  this.props.addCard(data, (success) => {
+                    this.setState({ processing: false });
+                    if (success) {
+                      if (this.number) this.number.input.value = '';
+                      if (this.name) this.name.input.value = '';
+                      if (this.expiry) this.expiry.input.value = '';
+                      if (this.cvc) this.cvc.input.value = '';
+                      this.setState({
+                        number: '',
+                        name: '',
+                        expiry: '',
+                        cvc: '',
+                      });
+                      this.props.form.setFieldsValue({
+                        number:'',
+                        name:'',
+                        expiry: '',
+                        cvc:'',
+                      });
+                    }
+                  })
+                else {
+                  this.setState({ showMark: true, requirmsg: data.message ? data.message : 'Invalid Card', processing: false });
+                  return;
+                }
+              })
+              break
 
+            default:
+              this.props.nextFlowStep()
+              break
+          }
+        }
+      } else {
+        message.error('All fields must be filled in')
+      }
+    })
+  }
   handleSubmit = (e) => {
     e.preventDefault()
-    
+    if (this.props.paymentMethod === CREDIT_CARD) {
+      var defaultcard = this.props.cards.filter(item => item.default);
+      if(defaultcard.length > 0)
+      {
+        this.props.makeDefaultStripePayment(defaultcard[0].id);
+      }
+    }
+    /*
     if (!this.state.user_newcard && this.props.paymentMethod === CREDIT_CARD) {
       var defaultcard = this.props.cards.filter(item => item.default);
       if(defaultcard.length > 0)
@@ -105,32 +172,6 @@ class Purchase13 extends React.Component {
         }
       })
     }
-    /*
-    this.props.form.validateFields((err, values) => {
-      if (values.number && values.name && values.expiry && values.cvc) {
-        if (!err && this.state.isValid) {
-          // TODO validate card fields
-          const card = {
-            ...values,
-            expiry_month: values.expiry.slice(0, 2),
-            expiry_year: `20${values.expiry.slice(-2)}`,
-          }
-          switch (this.props.paymentMethod) {
-            case CREDIT_CARD:
-              this.props.makeStripePayment(card)
-              break
-
-            default:
-              this.props.nextFlowStep()
-              break
-          }
-        }
-        else this.payWithDefaultCard();
-      } else {
-        this.payWithDefaultCard();
-        //message.error('All fields must be filled in')
-      }
-    })
     */
   }
   payWithDefaultCard() {
@@ -221,11 +262,11 @@ class Purchase13 extends React.Component {
           <div className={s.CardCheckOut}>
             {
               cards && cards.length > 0 &&
-              <CardCheckOut cards={cards} intl={intl} disableDefaultCard = {this.state.user_newcard}/>
+              <CardCheckOut cards={cards} intl={intl} disableDefaultCard = {this.state.processing}/>
             }
           </div>
           <div className={s.checkbox}>
-            {
+            {/*
               <Checkbox 
                 className
                 checked={this.state.user_newcard && !disable_checkbox} 
@@ -255,11 +296,19 @@ class Purchase13 extends React.Component {
               >
                 {'Pay with another card'}
               </Checkbox>
+              */
+            }
+            {
+              !(cards && cards.length >= 4) &&
+              <Button disabled = {this.state.processing} type='primary' ghost size={'small'} className={s.addcardbtn} onClick={this.handleAddCardButton}>
+                <PlusIcon />
+                {intl.formatMessage(messages.addcard)}
+              </Button>
             }
           </div>
           <br />
           {
-            <Row gutter={20} type='flex' align='middle' className={this.state.user_newcard ? s.visible:s.invisible}>
+            <Row gutter={20} type='flex' align='middle' className={!(cards && cards.length >= 4) ? s.visible:s.invisible}>
               <Col xs={24} sm={12}>
                 <ReactCreditCard
                   number={number}
@@ -372,7 +421,8 @@ const mapDispatch = {
   makeBitpayPayment,
   makePaypalPayment,
   makeInvoicePayment,
-  makeDefaultStripePayment
+  makeDefaultStripePayment,
+  addCard
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s, creditCardStyles)(Purchase13)))

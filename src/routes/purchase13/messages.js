@@ -33,4 +33,8 @@ export default defineMessages({
     id: 'purchase13.submit',
     defaultMessage: 'Pay',
   },
+  addcard: {
+    id: 'purchase13.addcard',
+    defaultMessage: 'ADD',
+  }
 })

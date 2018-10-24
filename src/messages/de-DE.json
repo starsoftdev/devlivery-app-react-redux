@@ -1400,6 +1400,14 @@
     ]
   },
   {
+    "id": "purchase13.addcard",
+    "defaultMessage": "ADD",
+    "message": "HINZUFÜGEN",
+    "files": [
+      "src/routes/purchase13/messages.js"
+    ]
+  },
+  {
     "id": "purchase13.thankyou",
     "defaultMessage": "Thank You",
     "message": "Danke für Ihre Bestellung",
