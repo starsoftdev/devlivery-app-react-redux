@@ -26,7 +26,7 @@ class BundleDetails extends React.Component {
           <span className={s.currency}>CHF</span>
         </p>
         {bundleDetails.bundle_gifts.map((bundleGift) =>
-          <React.Fragment key={bundleGift.id}>
+          <React.Fragment key={bundleGift.gift.id}>
             <div style={{backgroundImage: `url(${getItemImage(bundleGift.gift, GIFT_IMAGES_PROP)})`}} className={s.itemImage}/>
             <h3 className={s.giftTitle}>{bundleGift.gift.title}</h3>
             <p>

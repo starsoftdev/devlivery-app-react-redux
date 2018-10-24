@@ -37,8 +37,23 @@ class OrderItems extends React.Component {
     }
     return str;
   }
+  removeGiftFromBundle(){
+    const {gifts} = this.props;
+    const {giftIndex} = this.state;
+    var gift = null;
+    if(gifts.length > 0 && gifts[giftIndex])
+    {
+      gift = gifts[giftIndex].gift;
+    }
+    if(gift)
+    {
+      var filter = gifts.filter(item => item.gift.id !== gift.id).map(item => item.gift.id);
+      this.setState({giftIndex:0});
+      this.props.syncGifts_Bundle(filter);
+    }
+  }
   render() {
-    const { intl, voucher, donation, card, gifts, removeDontationFromBundle, removeVoucherFromBundle } = this.props
+    const { intl, voucher, donation, card, gifts, removeDontationFromBundle, removeVoucherFromBundle,syncGifts_Bundle } = this.props
     const {giftIndex} = this.state;
     var gift = null;
     if(gifts.length > 0 && gifts[giftIndex])
@@ -65,17 +80,15 @@ class OrderItems extends React.Component {
         </div>
         {gift && (
           <div className={s.cardWrapper}>
-            {/*
             <Popconfirm
               title={intl.formatMessage(messages.confirmRemoving)}
-              onConfirm={() => {}}
+              onConfirm={() => {this.removeGiftFromBundle()}}
               okText={intl.formatMessage(messages.acceptRemoving)}
             >
               <a className={s.removeIcon}>
                 <RemoveIcon />
               </a>
             </Popconfirm>
-            */}
             <div
               style={{ backgroundImage: `url(${getItemImage(gift, GIFT_IMAGES_PROP)})` }}
               className={s.itemImage}
