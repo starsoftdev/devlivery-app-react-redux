@@ -671,7 +671,37 @@ export const submitGift = (gotoNext = 0) => async (dispatch, getState) => {
     dispatch(nextFlowStep(gotoNext))
   }
 }
-
+export const syncGifts_Bundle = (giftIds, goToNext = true) => (dispatch, getState, { fetch }) => {
+  const { token } = dispatch(getToken())
+  const { bundleId,orderId } = getState().purchase
+  dispatch({ type: ADD_BUNDLE_REQUEST })
+  if (bundleId) {
+    console.log(`/sync-bundle-gifts`, {
+      bundle_id: bundleId,
+      gift_ids:giftIds,
+    });
+    return fetch(`/sync-bundle-gifts`, {
+      method: 'POST',
+      contentType: 'application/json',
+      body: {
+        bundle_id: bundleId,
+        gift_ids: giftIds
+      },
+      token,
+      success: (res) => {
+        dispatch({ type: ADD_BUNDLE_SUCCESS, bundle: res.data })
+        if(orderId == null)
+          localStorage.setItem(GIFT_IDS, JSON.stringify(giftIds))
+        dispatch(getOrderDetails(orderId));
+      },
+      failure: (err) => {
+        console.log("err", err);
+        showErrorMessage(err);
+        dispatch({ type: ADD_BUNDLE_FAILURE })
+      },
+    })
+  }
+}
 export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   const { letteringTechnique, cardId, gift, giftId, flow, giftIds, saved, bundleId } = getState().purchase

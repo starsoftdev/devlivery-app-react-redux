@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { submitShipping, removeRecipientsOrder, toAddContactFlowStep, removeDontationFromBundle, removeVoucherFromBundle } from '../../reducers/purchase'
+import { submitShipping, removeRecipientsOrder, syncGifts_Bundle, toAddContactFlowStep, removeDontationFromBundle, removeVoucherFromBundle } from '../../reducers/purchase'
 import { Button, Col, DatePicker, Form, Row, Select, message, Checkbox, Input, Popconfirm } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase11.css'
@@ -491,7 +491,8 @@ const mapDispatch = {
   removeRecipientsOrder,
   toAddContactFlowStep,
   removeDontationFromBundle,
-  removeVoucherFromBundle
+  removeVoucherFromBundle,
+  syncGifts_Bundle
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Purchase11)))
