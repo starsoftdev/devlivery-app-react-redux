@@ -145,7 +145,7 @@ class Purchase11 extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-
+    
     const { order, user } = this.props;
 
     const owner = user.account_type == INDIVIDUAL_ACCOUNT || user.is_team_owner == true;
@@ -163,6 +163,9 @@ class Purchase11 extends React.Component {
             bundleName: this.props.form.getFieldValue('title')
           }
           localStorage.setItem(ORDER_CONFIRM_STATE, JSON.stringify(jsonData));
+          const html = this.tinymce.editor && this.tinymce.editor.getContent();
+          if(html=== null || html === '' || html === undefined)
+            message.warn('You are going to send this personalized message empty');
           this.props.submitShipping(values)
         } else {
           this.setState({ disableSubmit: false })
@@ -207,6 +210,7 @@ class Purchase11 extends React.Component {
           <div className={s.orderDetails}>
             <h3 className={s.cardTitle}>{occasion && occasion.title}</h3>
             {this.state.mounted && bundle && <Editor
+              ref={editor => this.tinymce = editor}
               value={this.state.content.replace('<!doctype html>', '')}
               init={{
                 toolbar: false,
