@@ -41,6 +41,10 @@ export default defineMessages({
     id: 'purchase11.tax',
     defaultMessage: 'Tax:',
   },
+  recipients: {
+    id: 'purchase11.recipients',
+    defaultMessage: 'Recipients:',
+  },
   shipping: {
     id: 'purchase11.shipping',
     defaultMessage: 'Shipping',

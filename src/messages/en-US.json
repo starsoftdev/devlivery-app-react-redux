@@ -3445,6 +3445,14 @@
     ]
   },
   {
+    "id": "purchase11.recipients",
+    "defaultMessage": "Recipients:",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
     "id": "purchase11.title",
     "defaultMessage": "Purchase",
     "message": "",

@@ -184,7 +184,7 @@ class Purchase11 extends React.Component {
     const cardHeight = orientation && orientation == 'l' ? w : h;
 
     const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
-    console.log('deliveryOccations',deliveryOccations);
+    console.log('order',order);
     return order ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -235,7 +235,7 @@ class Purchase11 extends React.Component {
               <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.subtotal)}</h2>
             </Col>
             <Col xs={12}>
-              <span className={s.subtotalValue}>{order.subtotal}</span>
+              <span className={s.subtotalValue}>{order.bundle_subtotal}</span>
               <span className={s.subtotalCurrency}>{'CHF'}</span>
             </Col>
           </Row>
@@ -244,8 +244,16 @@ class Purchase11 extends React.Component {
               <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.tax)}</h2>
             </Col>
             <Col xs={12}>
-              <span className={s.subtotalValue}>{(order.total - order.subtotal).toFixed(2)}</span>
+              <span className={s.subtotalValue}>{order.bundle_tax}</span>
               <span className={s.subtotalCurrency}>{'CHF'}</span>
+            </Col>
+          </Row>
+          <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+            <Col xs={12}>
+              <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.recipients)}</h2>
+            </Col>
+            <Col xs={12}>
+              <span className={s.subtotalValue}>{order.recipients_count}</span>
             </Col>
           </Row>
           <Row type='flex' align='center' gutter={20} className={s.totalSection}>
