@@ -511,19 +511,31 @@ export const setCard = (card) => ({ type: SET_CARD, card })
 
 const GIFT_IDS = 'gift_ids'
 export const setGift = (gift) => (dispatch, getState, { fetch }) => {
+  var giftIds = JSON.parse(JSON.stringify(getState().purchase.giftIds));
+  if(giftIds.includes(gift.id))
+  {
+    //remove gift id
+    var index = giftIds.indexOf(gift.id);
+    if (index > -1) {
+      giftIds.splice(index, 1);
+    }
+  }
+  else giftIds.push(gift.id)
+  localStorage.setItem(GIFT_IDS, JSON.stringify(giftIds))
+  dispatch({ type:SET_GIFTIDS, giftIds})
   dispatch({ type: SET_GIFT, gift })
 }
 export const buyMoreGift = () => (dispatch, getState, { fetch }) => {
   const { giftId } = getState().purchase;
+  
   var giftIds = localStorage.getItem(GIFT_IDS);
+  
   if (giftIds === null)
-    giftIds = giftId ? [giftId] : [];
+    giftIds = [];
   else {
     giftIds = JSON.parse(giftIds);
-    if (giftId && !giftIds.includes(giftId))
-      giftIds.push(giftId);
   }
-  localStorage.setItem(GIFT_IDS, JSON.stringify(giftIds))
+  
   dispatch({ type: SET_GIFTIDS, giftIds })
 }
 export const getGifts = (params = {}) => (dispatch, getState, { fetch }) => {
@@ -1270,6 +1282,10 @@ export const getOrderDetails = (orderId) => (dispatch, getState, { fetch }) => {
       method: 'GET',
       token,
       success: (res) => {
+        const giftIds = res.data.items && res.data.items.gifts ?
+        res.data.items.gifts.map(item => item.gift.id) :[];
+        localStorage.setItem(GIFT_IDS, JSON.stringify(giftIds))
+
         const newrecipient = res.data.recipients ? res.data.recipients.map(item => item.contact.id):[];
         dispatch({ type: SET_NEW_RECIPIENT, newrecipient })
         localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(newrecipient))
