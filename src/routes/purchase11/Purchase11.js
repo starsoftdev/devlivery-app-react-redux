@@ -97,8 +97,12 @@ class Purchase11 extends React.Component {
     }
     else if (order && order.recipients && order.recipients[currentRecipient]) {
       var selRecipient = order.recipients[currentRecipient];
-      const filter_contact = selRecipient.contact.addresses.filter(item => item.title === value);
+      var filter_contact = selRecipient.contact.addresses.filter(item => item.title === value);
 
+      if(filter_contact === null || filter_contact.length <= 0)
+      {
+        filter_contact = selRecipient.contact.addresses;
+      }
       if (filter_contact) {
         const contact = filter_contact.length > 0 ? filter_contact[0] : null;
         this.setState({ selectedLocation: value, contact: { ...contact, ...selRecipient.contact } });
@@ -184,7 +188,7 @@ class Purchase11 extends React.Component {
     const cardHeight = orientation && orientation == 'l' ? w : h;
 
     const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
-    console.log('order',order);
+    
     return order ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
