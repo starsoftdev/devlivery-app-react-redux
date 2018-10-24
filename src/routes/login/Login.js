@@ -57,7 +57,16 @@ class Login extends React.Component {
                 {type: 'email', message: intl.formatMessage(formMessages.emailInvalid)},
               ],
             })(
-              <FloatingLabel placeholder={intl.formatMessage(messages.email)}/>
+              <FloatingLabel placeholder={intl.formatMessage(messages.email)} autoFocus onBlur = {(e)=>{
+                /*
+                if(e.target.value)
+                {
+                  return;
+                }
+                var self = e.target;
+                self.focus();
+                */
+              }}/>
             )}
           </Form.Item>
           <Form.Item>
