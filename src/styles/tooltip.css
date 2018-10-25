@@ -2,7 +2,7 @@
 
 :global {
   .ant-tooltip {
-    position: absolute;
+    position: fixed;
     z-index: var(--zindex-tooltip);
     display: block;
     visibility: visible;

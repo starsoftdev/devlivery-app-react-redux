@@ -27,6 +27,16 @@ import {Link} from '../../components'
 import {injectIntl} from 'react-intl'
 
 class Purchase extends React.Component {
+  
+  constructor(props){
+    super(props)
+    const {flow, currentRouteName} = props
+    const current = flow.routes.findIndex(item => item === currentRouteName)
+      
+    this.state = {
+      currentFocus: current ? current : 0
+    }
+  }
   render() {
     const {children, intl, flow, currentRouteName} = this.props
 
@@ -63,7 +73,16 @@ class Purchase extends React.Component {
                   [s.pending]: i > current,
                 })}>
                   <div className={s.tail}/>
-                  <Tooltip title={flowNames[item]}>
+                  <Tooltip 
+                    title={flowNames[item]} 
+                    visible = {i === this.state.currentFocus && flowNames[item] ? true : false} 
+                    onMouseEnter = {e => {
+                      this.setState({currentFocus: i});
+                    }}
+                    onMouseLeave = {e => {
+                      this.setState({currentFocus: current});
+                    }}
+                  >
                     {i < current ? (
                       <Link to={item} className={s.step}/>
                     ) : (
