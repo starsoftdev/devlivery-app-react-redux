@@ -68,10 +68,10 @@ class Address extends React.Component {
             {getFieldDecorator(`addresses[${index}].address2`, {
               initialValue: initialValues && initialValues.address ? (typeof initialValues.address === 'string' ? initialValues.address : initialValues.address[1]) : undefined,
               rules: [
-                //{min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})}
+                {required: index==1 && required, min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})}
               ],
             })(
-              <FloatingLabel placeholder={intl.formatMessage(messages.address)}/>
+              <FloatingLabel placeholder={intl.formatMessage(messages.address)+ (index==1 && required ? " *":'')}/>
             )}
           </Form.Item>
           <Form.Item>
