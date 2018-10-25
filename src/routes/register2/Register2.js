@@ -145,7 +145,7 @@ class Register2 extends React.Component {
               {getFieldDecorator(`address`, {
                 initialValue: individualDetails && individualDetails.address,
                 rules: [
-                  { required: true, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
+                  { required: this.props.form.getFieldValue('company') ? false:true, min: this.props.form.getFieldValue('company')? 0 :  5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
                 ],
               })(
                 <FloatingLabel placeholder={intl.formatMessage(messages.address)} />
