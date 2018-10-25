@@ -36,7 +36,7 @@ class Purchase9 extends React.Component {
         });
       }
       if (!err && dobValidation) {
-        this.props.register(values, this.props.form)
+        this.props.register({...values, birthday: birthday.format(DATE_FORMAT)}, this.props.form)
       }
     })
   }
@@ -200,7 +200,7 @@ class Purchase9 extends React.Component {
             <Form.Item>
               {getFieldDecorator(`address`, {
                 rules: [
-                  { required: true, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
+                  { required: this.props.form.getFieldValue('company') ? false:true, min: this.props.form.getFieldValue('company')? 0 :  5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
                 ],
               })(
                 <FloatingLabel placeholder={intl.formatMessage(messages.address)} />
