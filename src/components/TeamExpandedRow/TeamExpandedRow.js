@@ -94,7 +94,6 @@ class TeamExpandedRow extends React.Component {
     }
     if(record.is_team_owner == true)
       payment_enable = false;
-
     return (
       <Row className={s.container}>
         <Col md={12} className={s.column}>
@@ -126,7 +125,11 @@ class TeamExpandedRow extends React.Component {
                   placeholder='Amount'
                 />
                 <Button
-                  onClick={() => saveAmountBudget(record.budget.id, this.state.budget)}
+                  onClick={() => {
+                    if(record.budget)
+                      saveAmountBudget(record.budget.id, this.state.budget)
+                    else addBudget(record.id, this.state.budget)
+                  }}
                   type='primary'
                 >
                   {record.budget && record.budget.budget > 0 ? 'Save': 'Save new budget'}
