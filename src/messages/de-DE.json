@@ -3564,6 +3564,14 @@
     ]
   },
   {
+    "id": "purchase11.personalizedmsg",
+    "defaultMessage": "You are going to send this personalized message empty.",
+    "message": "You are going to send this personalized message empty.",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
     "id": "purchase11.submit",
     "defaultMessage": "Proceed to checkout",
     "message": "weiter zu Bezahlung",
