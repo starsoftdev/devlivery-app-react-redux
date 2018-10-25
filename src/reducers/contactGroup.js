@@ -66,6 +66,11 @@ export const addContactGroup = (values) => (dispatch, getState, {fetch, history}
   const {token} = dispatch(getToken())
   const {user} = getState().user
   const {groupContacts} = getState().contactGroup
+  if(groupContacts <= 0)
+  {
+    message.warn("You have to select at least one contact.");
+    return;
+  }
   return fetch(`/contact-groups`, {
     method: 'POST',
     token,
@@ -89,6 +94,12 @@ export const editContactGroup = (values) => (dispatch, getState, {fetch, history
   dispatch({type: EDIT_CONTACT_GROUP_REQUEST})
   const {token} = dispatch(getToken())
   const {groupId, groupContacts} = getState().contactGroup
+  if(groupContacts <= 0)
+  {
+    message.warn("You have to select at least one contact.");
+    return;
+  }
+  console.log('groupContacts',groupContacts);
   return fetch(`/contact-groups/${groupId}`, {
     method: 'PUT',
     body: {
