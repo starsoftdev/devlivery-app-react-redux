@@ -64,7 +64,7 @@ class ContactGroup extends React.Component {
         key: 'dob',
       },
     ]
-
+    console.log('contacts',contacts);
     return (
       <React.Fragment>
         <div className={s.container}>
