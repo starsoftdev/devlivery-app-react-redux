@@ -862,17 +862,23 @@ export const makeDefaultStripePayment = (tokenid, callback) => (dispatch, getSta
     },
     token,
     success: () => {
+      if (callback) {
+        callback()
+      }
       dispatch(nextFlowStep())
       dispatch({ type: MAKE_STRIPE_PAYMENT_SUCCESS })
     },
     failure: (err) => {
+      if (callback) {
+        callback()
+      }
       console.log("err", err);
       showErrorMessage(err);
       dispatch({ type: MAKE_STRIPE_PAYMENT_FAILURE })
     },
   })
 }
-export const makeStripePayment = (card, callback) => (dispatch, getState, { fetch }) => {
+export const makeStripePayment = (card,isPaying = true, callback) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   const { orderId } = getState().purchase
   if (!orderId && !card.ignore) {
@@ -907,7 +913,7 @@ export const makeStripePayment = (card, callback) => (dispatch, getState, { fetc
     },
     token,
     success: (stripeToken) => {
-      if (callback) {
+      if (callback && !isPaying) {
         callback(stripeToken)
         return;
       }
@@ -919,6 +925,9 @@ export const makeStripePayment = (card, callback) => (dispatch, getState, { fetc
         },
         token,
         success: () => {
+          if (callback) {
+            callback(stripeToken)
+          }
           dispatch(nextFlowStep())
           dispatch({ type: MAKE_STRIPE_PAYMENT_SUCCESS })
         },
