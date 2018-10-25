@@ -163,9 +163,6 @@ class Purchase11 extends React.Component {
             bundleName: this.props.form.getFieldValue('title')
           }
           localStorage.setItem(ORDER_CONFIRM_STATE, JSON.stringify(jsonData));
-          const html = this.tinymce.editor && this.tinymce.editor.getContent();
-          if(html=== null || html === '' || html === undefined)
-            message.warn('You are going to send this personalized message empty');
           this.props.submitShipping(values)
         } else {
           this.setState({ disableSubmit: false })
@@ -192,6 +189,9 @@ class Purchase11 extends React.Component {
 
     const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
     
+    const html = this.tinymce && this.tinymce.editor && this.tinymce.editor.getContent();
+          
+          
     return order ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -208,9 +208,14 @@ class Purchase11 extends React.Component {
             card={order.items.card}
           />
           <div className={s.orderDetails}>
+            {/*
             <h3 className={s.cardTitle}>{occasion && occasion.title}</h3>
+            */}
+            <h3 className={s.warnText}>{this.tinymce && this.tinymce.editor && (html=== null || html === '' || html === undefined) && intl.formatMessage(messages.personalizedmsg)}</h3>
             {this.state.mounted && bundle && <Editor
-              ref={editor => this.tinymce = editor}
+              ref={editor => {
+                this.tinymce = editor
+              }}
               value={this.state.content.replace('<!doctype html>', '')}
               init={{
                 toolbar: false,
