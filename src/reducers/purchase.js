@@ -1387,6 +1387,7 @@ export const setNewRecipients = (newrecipient) => async (dispatch, getState) => 
         a.splice(j--, 1);
     }
   }
+  localStorage.setItem(CONTACT_IDS_KEY,JSON.stringify(a))
   dispatch({ type: SET_NEW_RECIPIENT, newrecipient: a })
 }
 
