@@ -183,8 +183,8 @@
   },
   {
     "id": "purchase.purchase10",
-    "defaultMessage": "Add your Contact(s)",
-    "message": "Kontakt hinzufügen"
+    "defaultMessage": "Add Contact(s)",
+    "message": "Kontakt(e) hinzufügen"
   },
   {
     "id": "contactForm.address",
@@ -2588,8 +2588,8 @@
   },
   {
     "id": "purchaseActions.purchase10",
-    "defaultMessage": "Add your Contact(s)",
-    "message": "Add your Contact(s)",
+    "defaultMessage": "Add Contact(s)",
+    "message": "Kontakt(e) hinzufügen",
     "files": [
       "src/components/PurchaseActions/messages.js"
     ]
