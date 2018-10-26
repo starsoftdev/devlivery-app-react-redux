@@ -146,7 +146,7 @@ export const TEXT_ALIGNMENT = [
     value: 'JustifyRight', label: 'Right', label_de:'Rechtsbündig',
   },
 ]
-
+export const EMPTY_IMAGE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAQAAABeK7cBAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORK5CYII=';
 export const DEFAULT_FONT = FONTS[10]
 export const DEFAULT_FONT_SIZE = FONT_SIZES[0]
 export const DEFAULT_COLOR = COLORS[6]

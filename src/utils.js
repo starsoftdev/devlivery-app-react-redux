@@ -1,4 +1,4 @@
-import {DATE_FORMAT} from './constants'
+import {DATE_FORMAT,EMPTY_IMAGE} from './constants'
 import get from 'lodash/get'
 import moment from 'moment'
 import isArray from 'lodash/isArray'
@@ -99,8 +99,11 @@ export const loadFont = (font) => {
 }
 
 export const getItemImage = (item, imagesProp) =>
-  imagesProp && item && item[imagesProp] ? (isArray(item[imagesProp]) ? item[imagesProp][0] && item[imagesProp][0].url : item[imagesProp].url) : null
-
+{
+  const result = imagesProp && item && item[imagesProp] ? (isArray(item[imagesProp]) ? item[imagesProp][0] && item[imagesProp][0].url : item[imagesProp].url) : null
+  return result ? result : EMPTY_IMAGE;
+}
+  
 export const  isHavePaymentPermission =(permissions) =>{
     if(permissions.length <= 0 )
       return false;
