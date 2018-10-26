@@ -93,7 +93,7 @@ class Purchase11 extends React.Component {
       const { user } = this.props;
       const address = user && user.addresses && user.addresses.find(item => item.default !== null)
 
-      this.setState({ selectedLocation: value, contact: { ...address, ...user, title: ' ' } });
+      this.setState({ selectedLocation: value, contact: { ...address, ...user, title: ' ' }, recip_warnmsg:'' });
       return;
     }
     else if (order && order.recipients && order.recipients[currentRecipient]) {
@@ -317,6 +317,7 @@ class Purchase11 extends React.Component {
           }
           <section className={s.section}>
             <h2 className={s.sectionHeader}>{intl.formatMessage(messages.shipping)}</h2>
+            <h3 className={s.warnText}>{this.state.recip_warnmsg}</h3>
             <Row gutter={20} type='flex' align='flex-start'>
               <Col xs={24} sm={8}>
                 <Form.Item>
@@ -476,7 +477,6 @@ class Purchase11 extends React.Component {
                 }
               </Col>
             </Row>
-            <h3 className={s.warnText}>{this.state.recip_warnmsg}</h3>
           </section>
         </div>
         <PurchaseActions>
