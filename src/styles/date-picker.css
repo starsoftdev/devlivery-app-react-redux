@@ -1,5 +1,4 @@
 /*TODO styles according to project styles*/
-
 :global {
   /* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
   /* stylelint-disable no-duplicate-selectors */
@@ -105,11 +104,11 @@
     pointer-events: auto;
   }
   .ant-calendar-picker-icon {
-    color: rgba(0, 0, 0, 0.25);
+    color: rgba(0, 0, 0, 0.45);
   }
   .ant-calendar-picker-icon:after {
-  /*  content: "\e6bb";
-    font-family: "anticon";*/
+    content: url('./svgs/selector_arrow.svg');/*"\e6bb";*/
+    font-family: "anticon";
     font-size: 14px;
     color: rgba(0, 0, 0, 0.25);
     display: inline-block;

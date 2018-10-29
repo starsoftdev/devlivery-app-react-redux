@@ -2453,7 +2453,7 @@
   },
   {
     "id": "purchaseActions.purchase10",
-    "defaultMessage": "Add your Contact(s)",
+    "defaultMessage": "Add Contact(s)",
     "message": "",
     "files": [
       "src/components/PurchaseActions/messages.js"
@@ -3423,6 +3423,14 @@
   {
     "id": "purchase11.remove",
     "defaultMessage": "Remove",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.personalizedmsg",
+    "defaultMessage": "You are going to send this personalized message empty.",
     "message": "",
     "files": [
       "src/routes/purchase11/messages.js"

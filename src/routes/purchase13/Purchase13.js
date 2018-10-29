@@ -38,7 +38,8 @@ class Purchase13 extends React.Component {
     showMark: false,
     cardtype: null,
     user_newcard: false,
-    processing: false
+    processing: false,
+    saveButton: false,
   }
   constructor(props) {
     super(props)
@@ -70,9 +71,16 @@ class Purchase13 extends React.Component {
         break
     }
   }
-  handleAddCardButton(){
+  handleAddCardButton() {
     if (this.state.processing)
       return;
+    if (!this.state.saveButton) {
+      this.setState({ saveButton: true });
+      return
+    }
+    this.resetCardInfo();
+    this.setState({ saveButton: false });
+    /*
     this.props.form.validateFields((err, values) => {
       if (values.number && values.name && values.expiry && values.cvc) {
         if (!err && this.state.isValid) {
@@ -86,35 +94,20 @@ class Purchase13 extends React.Component {
           this.setState({ processing: true });
           switch (this.props.paymentMethod) {
             case CREDIT_CARD:
-              this.props.makeStripePayment(card,
+              this.props.makeStripePayment(card, false,
                 (data) => {
-                if (data && data.id)
-                  this.props.addCard(data, (success) => {
-                    this.setState({ processing: false });
-                    if (success) {
-                      if (this.number) this.number.input.value = '';
-                      if (this.name) this.name.input.value = '';
-                      if (this.expiry) this.expiry.input.value = '';
-                      if (this.cvc) this.cvc.input.value = '';
-                      this.setState({
-                        number: '',
-                        name: '',
-                        expiry: '',
-                        cvc: '',
-                      });
-                      this.props.form.setFieldsValue({
-                        number:'',
-                        name:'',
-                        expiry: '',
-                        cvc:'',
-                      });
-                    }
-                  })
-                else {
-                  this.setState({ showMark: true, requirmsg: data.message ? data.message : 'Invalid Card', processing: false });
-                  return;
-                }
-              })
+                  if (data && data.id)
+                    this.props.addCard(data, (success) => {
+                      this.setState({ processing: false, saveButton: false });
+                      if (success) {
+                        this.resetCardInfo();
+                      }
+                    })
+                  else {
+                    this.setState({ showMark: true, requirmsg: data.message ? data.message : 'Invalid Card', processing: false });
+                    return;
+                  }
+                })
               break
 
             default:
@@ -123,31 +116,46 @@ class Purchase13 extends React.Component {
           }
         }
       } else {
-        message.error('All fields must be filled in')
+        message.info('All fields must be filled in')
       }
     })
+    */
+  }
+  resetCardInfo() {
+    if (this.number) this.number.input.value = '';
+    if (this.name) this.name.input.value = '';
+    if (this.expiry) this.expiry.input.value = '';
+    if (this.cvc) this.cvc.input.value = '';
+    this.setState({
+      number: '',
+      name: '',
+      expiry: '',
+      cvc: '',
+    });
+    this.props.form.setFieldsValue({
+      number: '',
+      name: '',
+      expiry: '',
+      cvc: '',
+    });
   }
   handleSubmit = (e) => {
     e.preventDefault()
-    if (this.props.paymentMethod === CREDIT_CARD) {
+    if (this.state.processing)
+      return;
+    if (!this.state.saveButton && this.props.paymentMethod === CREDIT_CARD) {
       var defaultcard = this.props.cards.filter(item => item.default);
-      if(defaultcard.length > 0)
-      {
-        this.props.makeDefaultStripePayment(defaultcard[0].id);
-      }
-    }
-    /*
-    if (!this.state.user_newcard && this.props.paymentMethod === CREDIT_CARD) {
-      var defaultcard = this.props.cards.filter(item => item.default);
-      if(defaultcard.length > 0)
-      {
-        this.props.makeDefaultStripePayment(defaultcard[0].id);
+      if (defaultcard.length > 0) {
+        this.setState({ processing: true });
+        this.props.makeDefaultStripePayment(defaultcard[0].id, (data) => {
+          this.setState && this.setState({ processing: false });
+        });
       }
       else {
-        this.setState({user_newcard: true});
+        message.info("Please add new card.")
       }
     }
-    else{
+    else {
       this.props.form.validateFields((err, values) => {
         if (values.number && values.name && values.expiry && values.cvc) {
           if (!err && this.state.isValid) {
@@ -159,20 +167,23 @@ class Purchase13 extends React.Component {
             }
             switch (this.props.paymentMethod) {
               case CREDIT_CARD:
-                this.props.makeStripePayment(card)
-                break
-
+                {
+                  this.setState({ processing: true });
+                  this.props.makeStripePayment(card, true, (data) => {
+                    this.setState && this.setState({ processing: false });
+                  })
+                  break
+                }
               default:
                 this.props.nextFlowStep()
                 break
             }
           }
         } else {
-          message.error('All fields must be filled in')
+          message.info('All fields must be filled in')
         }
       })
     }
-    */
   }
   payWithDefaultCard() {
     if (this.props.paymentMethod === CREDIT_CARD) {
@@ -180,7 +191,7 @@ class Purchase13 extends React.Component {
       if (defaultcard.length > 0) {
         this.props.makeDefaultStripePayment(defaultcard[0].id);
       }
-      else message.error('All fields must be filled in')
+      else message.info('All fields must be filled in')
     }
   }
   handleInputChange = (e, field) => {
@@ -253,54 +264,22 @@ class Purchase13 extends React.Component {
           />
           <div className={s.checkbox}>
             <label>
-              <span className={s.subtotalHeader}>{intl.formatMessage(messages.amount)+': '}</span>
+              <span className={s.subtotalHeader}>{intl.formatMessage(messages.amount) + ': '}</span>
               <span className={s.subtotalValue}>{order && order.total}</span>
               <span className={s.subtotalCurrency}>{' CHF'}</span>
             </label>
           </div>
-          <br/>
+          <br />
           <div className={s.CardCheckOut}>
             {
               cards && cards.length > 0 &&
-              <CardCheckOut cards={cards} intl={intl} disableDefaultCard = {this.state.processing}/>
+              <CardCheckOut cards={cards} intl={intl} disableDefaultCard={this.state.processing || this.state.saveButton} />
             }
           </div>
           <div className={s.checkbox}>
-            {/*
-              <Checkbox 
-                className
-                checked={this.state.user_newcard && !disable_checkbox} 
-                onChange={(e) => {
-                  this.setState({ user_newcard: e.target.checked })
-                  if(e.target.checked)
-                  {
-                    if (this.number) this.number.input.value = '';
-                    if (this.name) this.name.input.value = '';
-                    if (this.expiry) this.expiry.input.value = '';
-                    if (this.cvc) this.cvc.input.value = '';
-                    this.setState({
-                      number: '',
-                      name: '',
-                      expiry: '',
-                      cvc: '',
-                    });
-                    this.props.form.setFieldsValue({
-                      number:'',
-                      name:'',
-                      expiry: '',
-                      cvc:'',
-                    });
-                  }
-                }}
-                disabled = {disable_checkbox}
-              >
-                {'Pay with another card'}
-              </Checkbox>
-              */
-            }
             {
-              !(cards && cards.length >= 4) &&
-              <Button disabled = {this.state.processing} type='primary' ghost size={'small'} className={s.addcardbtn} onClick={this.handleAddCardButton}>
+              !disable_checkbox &&
+              <Button disabled={this.state.processing} type='primary' ghost size={'small'} className={s.addcardbtn} onClick={this.handleAddCardButton}>
                 <PlusIcon />
                 {intl.formatMessage(messages.addcard)}
               </Button>
@@ -308,7 +287,7 @@ class Purchase13 extends React.Component {
           </div>
           <br />
           {
-            <Row gutter={20} type='flex' align='middle' className={!(cards && cards.length >= 4) ? s.visible:s.invisible}>
+            <Row gutter={20} type='flex' align='middle' className={!disable_checkbox && this.state.saveButton === true ? s.visible : s.invisible}>
               <Col xs={24} sm={12}>
                 <ReactCreditCard
                   number={number}
@@ -396,6 +375,7 @@ class Purchase13 extends React.Component {
             onKeyHandle={this.handleSubmit}
           />
           <Button
+            disabled={this.state.processing}
             onClick={this.handleSubmit}
             type='primary'
           >

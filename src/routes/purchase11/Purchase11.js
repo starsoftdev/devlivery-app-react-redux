@@ -51,7 +51,8 @@ class Purchase11 extends React.Component {
       selDate: (props.newrecipient && props.newrecipient.dob) || props.deliveryTime,
       contact: null,
       checkSave: props.saved || 0,
-      bundleName: ''
+      bundleName: '',
+      recip_warnmsg: ''
     }
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.onCheckSaved = this.onCheckSaved.bind(this);
@@ -92,13 +93,15 @@ class Purchase11 extends React.Component {
       const { user } = this.props;
       const address = user && user.addresses && user.addresses.find(item => item.default !== null)
 
-      this.setState({ selectedLocation: value, contact: { ...address, ...user, title: ' ' } });
+      this.setState({ selectedLocation: value, contact: { ...address, ...user, title: ' ' }, recip_warnmsg:'' });
       return;
     }
     else if (order && order.recipients && order.recipients[currentRecipient]) {
+      this.validateRecipientsAddress(value)
+      
       var selRecipient = order.recipients[currentRecipient];
       var filter_contact = selRecipient.contact.addresses.filter(item => item.title === value);
-
+      
       if(filter_contact === null || filter_contact.length <= 0)
       {
         filter_contact = selRecipient.contact.addresses;
@@ -112,6 +115,24 @@ class Purchase11 extends React.Component {
     else {
       this.setState({ ...this.state, selectedLocation: value, contact: null })
     }
+  }
+  validateRecipientsAddress(value){
+    const { order } = this.state;
+    if(order.recipients)
+    {
+      var filterRecp = order.recipients.filter(recipient => {
+        const address = recipient.contact.addresses.filter(item => item.title === value);
+        return address.length > 0 ? true : false;
+      })
+      if(filterRecp.length !== order.recipients.length)
+      {
+        this.setState({
+          recip_warnmsg : value === 'home' ? 'Home address is not available for all recipients, in this case we will use Company address instead.' : 'Company address is not available for all recipients, in this case we will use Home address instead.'
+        });
+        return ;
+      }
+    }
+    this.setState({recip_warnmsg:''});
   }
   onSelectOccasion = (value) => {
     this.setState({ selOccasion: value });
@@ -147,7 +168,11 @@ class Purchase11 extends React.Component {
     e.preventDefault()
     
     const { order, user } = this.props;
-
+    if(order === null|| order.recipients_count === null || order.recipients_count <= 0)
+    {
+      message.warn('This order have no any recipient.');
+      return;
+    }
     const owner = user.account_type == INDIVIDUAL_ACCOUNT || user.is_team_owner == true;
 
     if (user && user.budget && user.budget.remaining_budget && parseFloat(order.total) <= parseFloat(user.budget.remaining_budget) || owner) {
@@ -163,9 +188,6 @@ class Purchase11 extends React.Component {
             bundleName: this.props.form.getFieldValue('title')
           }
           localStorage.setItem(ORDER_CONFIRM_STATE, JSON.stringify(jsonData));
-          const html = this.tinymce.editor && this.tinymce.editor.getContent();
-          if(html=== null || html === '' || html === undefined)
-            message.warn('You are going to send this personalized message empty');
           this.props.submitShipping(values)
         } else {
           this.setState({ disableSubmit: false })
@@ -192,6 +214,9 @@ class Purchase11 extends React.Component {
 
     const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
     
+    const html = this.tinymce && this.tinymce.editor && this.tinymce.editor.getContent();
+          
+          
     return order ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -208,9 +233,14 @@ class Purchase11 extends React.Component {
             card={order.items.card}
           />
           <div className={s.orderDetails}>
+            {/*
             <h3 className={s.cardTitle}>{occasion && occasion.title}</h3>
+            */}
+            <h3 className={s.warnText}>{this.tinymce && this.tinymce.editor && (html=== null || html === '' || html === undefined) && intl.formatMessage(messages.personalizedmsg)}</h3>
             {this.state.mounted && bundle && <Editor
-              ref={editor => this.tinymce = editor}
+              ref={editor => {
+                this.tinymce = editor
+              }}
               value={this.state.content.replace('<!doctype html>', '')}
               init={{
                 toolbar: false,
@@ -287,6 +317,7 @@ class Purchase11 extends React.Component {
           }
           <section className={s.section}>
             <h2 className={s.sectionHeader}>{intl.formatMessage(messages.shipping)}</h2>
+            <h3 className={s.warnText}>{this.state.recip_warnmsg}</h3>
             <Row gutter={20} type='flex' align='flex-start'>
               <Col xs={24} sm={8}>
                 <Form.Item>
@@ -446,7 +477,6 @@ class Purchase11 extends React.Component {
                 }
               </Col>
             </Row>
-
           </section>
         </div>
         <PurchaseActions>

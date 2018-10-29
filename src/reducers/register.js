@@ -3,7 +3,7 @@ import {loginSuccess} from './login'
 import {message} from 'antd'
 import {getToken,updateUser} from './user'
 import {DATE_FORMAT} from '../constants'
-import {getFormErrors,showErrorMessage} from '../utils'
+import {getFormErrors,showErrorMessage,getBirthday} from '../utils'
 
 // ------------------------------------
 // Constants
@@ -45,7 +45,7 @@ export const register = (values, form) => (dispatch, getState, {fetch, history})
       ...otherDetails,
       account_type: accountType ? accountType : INDIVIDUAL_ACCOUNT,
       ...birthday ? {
-        dob: birthday,//.format(DATE_FORMAT)
+        dob: getBirthday(birthday),//.format(DATE_FORMAT)
       } : {},
       ...inviteToken ?{
         invitation_token:inviteToken
@@ -88,7 +88,7 @@ export const register = (values, form) => (dispatch, getState, {fetch, history})
         },
 
         user:{
-          dob: birthday ? birthday:null,
+          dob: getBirthday(birthday),
           email: otherDetails.email,
           first_name: otherDetails.first_name,
           last_name: otherDetails.last_name,

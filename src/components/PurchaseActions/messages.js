@@ -39,7 +39,7 @@ export default defineMessages({
   },
   purchase10: {
     id: 'purchaseActions.purchase10',
-    defaultMessage: 'Add your Contact(s)',
+    defaultMessage: 'Add Contact(s)',
   },
   purchase11: {
     id: 'purchaseActions.purchase11',

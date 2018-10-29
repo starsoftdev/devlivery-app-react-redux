@@ -1,4 +1,4 @@
-import {DATE_FORMAT} from './constants'
+import {DATE_FORMAT,EMPTY_IMAGE} from './constants'
 import get from 'lodash/get'
 import moment from 'moment'
 import isArray from 'lodash/isArray'
@@ -60,7 +60,7 @@ export const getFormErrors = ({values, errors}) => {
   }
 }
 
-export const getBirthday = (birthday) => birthday ? birthday : null
+export const getBirthday = (birthday) => birthday ? moment(birthday,'DD/MM/YYYY').format(DATE_FORMAT) : null
 
 export const getOrdering = (ordering) => {
   const orderDesc = ordering.substring(0, 1) === '-'
@@ -99,8 +99,11 @@ export const loadFont = (font) => {
 }
 
 export const getItemImage = (item, imagesProp) =>
-  imagesProp && item && item[imagesProp] ? (isArray(item[imagesProp]) ? item[imagesProp][0] && item[imagesProp][0].url : item[imagesProp].url) : null
-
+{
+  const result = imagesProp && item && item[imagesProp] ? (isArray(item[imagesProp]) ? item[imagesProp][0] && item[imagesProp][0].url : item[imagesProp].url) : null
+  return result ? result : EMPTY_IMAGE;
+}
+  
 export const  isHavePaymentPermission =(permissions) =>{
     if(permissions.length <= 0 )
       return false;

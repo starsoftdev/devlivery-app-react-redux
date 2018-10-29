@@ -10,6 +10,7 @@ import has from 'lodash/has'
 import {getBirthday, getFormErrors, getOrdering} from '../utils'
 import { navigateToNextRouteName } from './global';
 import { SET_NEW_RECIPIENT } from './purchase';
+import moment from 'moment'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -188,7 +189,7 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
       contact: {
         ...otherValues.contact,
         ...dob ? {
-          dob
+          dob: moment(dob,'DD/MM/YYYY').format(DATE_FORMAT)
         } : {},
       },
       addresses: getAddressesArray(addresses),
