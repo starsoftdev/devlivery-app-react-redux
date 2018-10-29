@@ -302,7 +302,7 @@ export const getOccasions = ({search} = {}) => (dispatch, getState, {fetch}) => 
   const {setupBirthday} = getState().contacts;
   
   var url = `/occasions?${qs.stringify({
-    take: 10,
+    //take: 10,
     ...search ? {
       filter_key: 'title',
       filter_value: search,
@@ -316,7 +316,15 @@ export const getOccasions = ({search} = {}) => (dispatch, getState, {fetch}) => 
     method: 'GET',
     token,
     success: (res) => {
-      dispatch({type: GET_OCCASIONS_SUCCESS, occasions: res.data})
+      const occasions = res.data.filter(item =>{
+        const title = item.title.toUpperCase();
+        return title !== 'PERSONAL DESIGN' &&
+        title !== 'SEASONAL' &&
+        title !== 'PERSONAL DESIGN' &&
+        title !== 'SAISONAL' ;
+      }).sort((a,b)=>{return a.id-b.id});
+      
+      dispatch({type: GET_OCCASIONS_SUCCESS, occasions})
     },
     failure: () => dispatch({type: GET_OCCASIONS_FAILURE})
   })
