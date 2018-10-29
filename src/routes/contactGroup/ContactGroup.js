@@ -64,7 +64,6 @@ class ContactGroup extends React.Component {
         key: 'dob',
       },
     ]
-
     return (
       <React.Fragment>
         <div className={s.container}>
@@ -73,6 +72,7 @@ class ContactGroup extends React.Component {
               initialValue: title,
               rules: [
                 {required: true, message: intl.formatMessage(formMessages.required), whitespace: true},
+                {min: 2, message: intl.formatMessage(formMessages.minLength, {length: 2})}
               ],
             })(
               <FloatingLabel

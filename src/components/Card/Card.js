@@ -5,6 +5,7 @@ import CheckIcon from '../../static/card_checkmark.svg'
 import cn from 'classnames'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import {getItemImage} from '../../utils'
+import {EMPTY_IMAGE} from '../../constants'
 
 
 class Card extends React.Component {
@@ -14,9 +15,9 @@ class Card extends React.Component {
 
   render() {
     const {title,subtitle, active, onClick, keyValue, className, svg, extra, description, bordered, disabled, imagesProp, item, imageStyle} = this.props
-    const image = getItemImage(item, imagesProp)
+    const itemImg = getItemImage(item, imagesProp);
+    const image = itemImg === EMPTY_IMAGE && svg ? null : itemImg
     const isSvg = image && image.includes('.svg')
-
     return (
       <div
         className={cn(

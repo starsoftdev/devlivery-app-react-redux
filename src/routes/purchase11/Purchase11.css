@@ -63,7 +63,14 @@
   letter-spacing: 3.15px;
   margin-bottom: var(--margin-md);
 }
-
+.warnText{
+  font-family: var(--font-family-secondary);
+  font-size: 12px;
+  font-weight: 100;
+  letter-spacing: 1.15px;
+  margin-bottom: var(--margin-md);
+  color: red;
+}
 .cardPreview {
   border: 1px solid rgba(64,77,95,0.1);
   background: #F8F8F8;
@@ -108,7 +115,7 @@
 }
 
 .totalSection {
-  padding-bottom: var(--margin-xl);
+  padding-bottom: var(--margin-sm);
 }
 
 .recipients {

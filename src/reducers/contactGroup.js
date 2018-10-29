@@ -66,6 +66,11 @@ export const addContactGroup = (values) => (dispatch, getState, {fetch, history}
   const {token} = dispatch(getToken())
   const {user} = getState().user
   const {groupContacts} = getState().contactGroup
+  if(groupContacts <= 0)
+  {
+    message.warn("You have to select at least one contact.");
+    return;
+  }
   return fetch(`/contact-groups`, {
     method: 'POST',
     token,
@@ -89,6 +94,11 @@ export const editContactGroup = (values) => (dispatch, getState, {fetch, history
   dispatch({type: EDIT_CONTACT_GROUP_REQUEST})
   const {token} = dispatch(getToken())
   const {groupId, groupContacts} = getState().contactGroup
+  if(groupContacts <= 0)
+  {
+    message.warn("You have to select at least one contact.");
+    return;
+  }
   return fetch(`/contact-groups/${groupId}`, {
     method: 'PUT',
     body: {
@@ -102,9 +112,9 @@ export const editContactGroup = (values) => (dispatch, getState, {fetch, history
       message.success('Group updated.')
       history.push('/dashboard/contacts/groups')
     },
-    failure: () => {
+    failure: (err) => {
       dispatch({type: EDIT_CONTACT_GROUP_FAILURE})
-      message.error('Something went wrong. Please try again.')
+      showErrorMessage(err);
     }
   })
 }
@@ -137,7 +147,7 @@ export default createReducer(initialState, {
     pageSize: params.pagination ? params.pagination.pageSize : 12,
   }),
   [GET_CONTACTS_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
-    contacts: data,
+    contacts: data.sort((a,b)=> state.groupContacts.includes(a.id) ? -1 : 1),
     contactsCount: total,
   }),
   [GET_GROUP_CONTACTS_REQUEST]: (state, {params}) => ({
@@ -150,6 +160,7 @@ export default createReducer(initialState, {
   }),
   [GET_GROUP_CONTACTS_SUCCESS]: (state, {groupContacts}) => ({
     groupContacts,
+    contacts: state.contacts.sort((a,b)=> groupContacts.includes(a.id) ? -1 : 1),
     loading: {
       ...state.loading,
       groupContacts: false,

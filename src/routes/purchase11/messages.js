@@ -69,4 +69,8 @@ export default defineMessages({
     id: 'addBundle.bundleName',
     defaultMessage: 'Bundle name',
   },
+  personalizedmsg: {
+    id:'purchase11.personalizedmsg',
+    defaultMessage:'You are going to send this personalized message empty.'
+  }
 })
