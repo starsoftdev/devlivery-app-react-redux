@@ -79,7 +79,7 @@ class Donation extends React.Component {
                   { required: true, message: intl.formatMessage(formMessages.required) },
                 ],
               })(
-                <FloatingLabel placeholder={intl.formatMessage(messages.amount)} />
+                <Input placeholder={intl.formatMessage(messages.amount)} />
               )}
             </Form.Item>
             <Form.Item>
