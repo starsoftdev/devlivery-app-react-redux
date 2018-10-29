@@ -71,7 +71,6 @@ export const getUpcomingEvents = () => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_UPCOMING_EVENTS_REQUEST})
   const {token} = dispatch(getToken())
   return fetch(`/contact-reminders?${qs.stringify({
-    take: 3,
     upcoming: '',
   })}`, {
     method: 'GET',

@@ -89,7 +89,7 @@ class Orders extends React.Component {
       },
     ]
     const today = moment()
-
+    
     return (
       <div className={s.container}>
         <div className={s.actions}>
@@ -142,7 +142,7 @@ class Orders extends React.Component {
             />
           </section>
           <section className={s.events}>
-            {upcomingEvents.map((event, i) =>
+            {upcomingEvents.sort((a,b)=>{return new Date(a.contact_specific_date)-new Date(b.contact_specific_date)}).map((event, i) =>
               <CalendarEvent key={i} {...event}/>
             )}
           </section>
