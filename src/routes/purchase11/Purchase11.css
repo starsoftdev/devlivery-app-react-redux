@@ -111,7 +111,7 @@
 
 .subtotalSection {
   padding-top: var(--margin-xl);
-  padding-bottom: var(--margin-xl);
+  padding-bottom: var(--margin-sm);
 }
 
 .totalSection {
