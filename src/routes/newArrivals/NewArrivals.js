@@ -6,7 +6,7 @@ import messages from './messages'
 import {Button, Carousel, Col, Input, Row, Modal} from 'antd'
 import {Card, Link} from '../../components'
 import debounce from 'lodash/debounce'
-import {CARD_IMAGES_PROP, DEFAULT_DEBOUNCE_TIME, FOOD_TYPE, GIFT_IMAGES_PROP, NON_FOOD_TYPE} from '../../constants'
+import {CARD_IMAGES_PROP, DEFAULT_DEBOUNCE_TIME, FOOD_TYPE, GIFT_IMAGES_PROP, NON_FOOD_TYPE, GIFT_GALLERY_PROP} from '../../constants'
 import {getCards, getGifts} from '../../reducers/newArrivals'
 import ArrowIcon from '../../static/decor_arrow.svg'
 import {PURCHASE1_ROUTE} from '../'
@@ -244,7 +244,7 @@ class NewArrivals extends React.Component {
                     </div>
                   )}
                 >
-                  {giftDetails.image.map((image, i) => image.url ? (
+                  {giftDetails[GIFT_GALLERY_PROP].map((image, i) => image.url ? (
                     <div key={i}>
                       <div style={{backgroundImage: `url(${image.url})`}} className={s.previewImage}/>
                     </div>

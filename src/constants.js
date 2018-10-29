@@ -19,6 +19,7 @@ export const STATE_COOKIE = 'persisted_state'
 
 export const CARD_IMAGES_PROP = 'front_image'
 export const GIFT_IMAGES_PROP = 'image'
+export const GIFT_GALLERY_PROP = 'gallery'
 
 export const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'.split('')
 export const DEFAULT_PAGE_SIZE = 10
