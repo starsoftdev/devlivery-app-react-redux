@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { closeOrderDetailsModal } from '../../reducers/orders'
 import messages from './messages'
 import { getItemImage } from '../../utils'
-import { CARD_IMAGES_PROP, GIFT_IMAGES_PROP } from '../../constants'
+import { CARD_IMAGES_PROP, GIFT_IMAGES_PROP,GIFT_GALLERY_PROP } from '../../constants'
 import cn from 'classnames';
 import BackIcon from '../../static/view_list.svg'
 import {setFlowPayment} from '../../reducers/purchase'
@@ -22,7 +22,8 @@ class OrderDetails extends React.Component {
     super(props)
     this.state = {
       currentShipping: 0,
-      cardPreview: false
+      cardPreview: false,
+      giftDetails: null
     }
   }
 
@@ -60,7 +61,7 @@ class OrderDetails extends React.Component {
               )
             case GIFT_TYPE:
               return (
-                <div className={cn(s.product, s.touch)} onClick={() => this.setState({ cardPreview: 'gift' })}>
+                <div className={cn(s.product, s.touch)} onClick={() => this.setState({ cardPreview: 'gift',giftDetails: item })}>
                   <div style={{ backgroundImage: `url(${getItemImage(item, GIFT_IMAGES_PROP)})`, minWidth:'150px'}} className={s.productImage} />
                   <div className={s.title}>{item.title}</div>
                 </div>
@@ -174,10 +175,11 @@ class OrderDetails extends React.Component {
     if (cardDetails && occasions)
       occasionByCardId = occasions.filter(item => item.id === cardDetails.occasion_id);
 
-    var giftDetails = null;
-    if (orderDetails && orderDetails.items['gifts'] && orderDetails.items['gifts'].length > 0)
-      giftDetails = orderDetails.items['gifts'][0].gift;
-
+    //var giftDetails = null;
+    //if (orderDetails && orderDetails.items['gifts'] && orderDetails.items['gifts'].length > 0)
+      //giftDetails = orderDetails.items['gifts'][0].gift;
+    const {giftDetails} = this.state;
+      
     // TODO add shipping price/info
     return (
       <Modal
@@ -357,7 +359,7 @@ class OrderDetails extends React.Component {
                         </div>
                       )}
                     >
-                      {giftDetails.image.map((image, i) => image.url ? (
+                      {giftDetails[GIFT_GALLERY_PROP].map((image, i) => image.url ? (
                         <div key={i}>
                           <div style={{ backgroundImage: `url(${image.url})` }} className={s.previewImage} />
                         </div>

@@ -4,7 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './GiftStore.css'
 import messages from './messages'
 import debounce from 'lodash/debounce'
-import {DEFAULT_DEBOUNCE_TIME, GIFT_IMAGES_PROP, GIFT_TYPES} from '../../constants'
+import {DEFAULT_DEBOUNCE_TIME, GIFT_IMAGES_PROP, GIFT_TYPES, GIFT_GALLERY_PROP} from '../../constants'
 import {clearFilters, getGifts, clear} from '../../reducers/gifts'
 import {Button, Col, Input, Pagination, Row, Modal, Carousel} from 'antd'
 import {Card, PaginationItem} from '../../components'
@@ -135,7 +135,7 @@ class GiftStore extends React.Component {
                     </div>
                   )}
                 >
-                  {giftDetails.image.map((image, i) => image.url ? (
+                  {giftDetails[GIFT_GALLERY_PROP].map((image, i) => image.url ? (
                     <div key={i}>
                       <div style={{backgroundImage: `url(${image.url})`}} className={s.previewImage}/>
                     </div>
