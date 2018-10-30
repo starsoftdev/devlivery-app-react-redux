@@ -744,8 +744,11 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
   console.log(`/create-bundle`, {
     lettering: letteringTechnique,
     card_id: cardId,
-    gift_ids: giftIds.length > 0 ? giftIds : giftId ? giftId : [],
-    title: values && values.title ? values.title : null,
+    gift_ids,
+    ...(values && values.title) && {
+      title: values.title
+    },
+    saved: 0 
   });
   return fetch(`/create-bundle`, {
     method: 'POST',
@@ -1101,13 +1104,19 @@ export const makeBitpayPayment = () => (dispatch, getState, { fetch }) => {
   })
 }
 
-export const getDonationOrgs = () => (dispatch, getState, { fetch }) => {
+export const getDonationOrgs = (params = {}) => (dispatch, getState, { fetch }) => {
+  dispatch({type: GET_DONATION_ORGS_REQUEST, params})
   const { token } = dispatch(getToken())
-  dispatch({ type: GET_DONATION_ORGS_REQUEST })
-  return fetch(`/donation`, {
+  const {doPage, doPageSize} = getState().purchase
+  return fetch(`/donation?${qs.stringify({
+    page: doPage,
+    per_page: doPageSize,
+  })}`, {
     method: 'GET',
     token,
-    success: (res) => dispatch({ type: GET_DONATION_ORGS_SUCCESS, donationOrgs: res.data }),
+    success: (res) => {
+      dispatch({ type: GET_DONATION_ORGS_SUCCESS, res })
+    },
     failure: () => dispatch({ type: GET_DONATION_ORGS_FAILURE })
   })
 }
@@ -1448,7 +1457,10 @@ export const initialState = {
   orientation: null,
   recipientMode: null,
   giftId: null,
-  giftIds: []
+  giftIds: [],
+  doPage: 1,
+  doPageSize: 6,
+  doCount: 0
 }
 
 export default createReducer(initialState, {
@@ -1596,14 +1608,16 @@ export default createReducer(initialState, {
   [SET_DONATION_ORG]: (state, { donationOrg }) => ({
     donationOrg,
   }),
-  [GET_DONATION_ORGS_REQUEST]: (state, action) => ({
+  [GET_DONATION_ORGS_REQUEST]: (state, {params}) => ({
+    doPage: params.pagination ? params.pagination.current : 1,
     loading: {
       ...state.loading,
       donationOrgs: true,
     }
   }),
-  [GET_DONATION_ORGS_SUCCESS]: (state, { donationOrgs }) => ({
-    donationOrgs,
+  [GET_DONATION_ORGS_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
+    donationOrgs: data,
+    doCount: total,
     loading: {
       ...state.loading,
       donationOrgs: false,

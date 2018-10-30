@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { submitDonation, setDonationOrg } from '../../reducers/purchase'
-import { Button, Col, Form, Input, Row, Checkbox } from 'antd'
+import { submitDonation, setDonationOrg,getDonationOrgs } from '../../reducers/purchase'
+import { Button, Col, Form, Input, Row, Checkbox, Pagination } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Donation.css'
-import { Actions, Card, PurchaseActions, SectionHeader } from '../../components'
+import { Actions, Card, PurchaseActions, SectionHeader,PaginationItem } from '../../components'
 import { ALPHABET } from '../../constants'
 import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import messages from './messages'
@@ -38,7 +38,7 @@ class Donation extends React.Component {
     this.setState({ ...initState });
   }
   render() {
-    const { donationOrg, setDonationOrg, donationOrgs, intl, flowIndex, loading, donationAmount, hideAmount } = this.props
+    const { donationOrg, setDonationOrg, donationOrgs, intl, flowIndex, loading, donationAmount, hideAmount, doCount, doPage, doPageSize, getDonationOrgs } = this.props
     const { getFieldDecorator } = this.props.form
     // TODO make amount input as InputNumber field
     return (
@@ -71,6 +71,16 @@ class Donation extends React.Component {
           ) : !loading.donationOrgs ? (
             <div style={{ textAlign: 'center' }}>{'No organizations.'}</div>
           ) : null}
+          <div className={s.footer}>
+            <Pagination
+              hideOnSinglePage
+              current={doPage}
+              total={doCount}
+              pageSize={doPageSize}
+              onChange={(current) => getDonationOrgs({pagination: {current}})}
+              itemRender={(current, type, el) => <PaginationItem type={type} el={el}/>}
+            />
+          </div>
           <Form>
             <Form.Item className={s.amount}>
               {getFieldDecorator('donationAmount', {
@@ -125,11 +135,15 @@ const mapState = state => ({
   hideAmount: state.purchase.hideAmount,
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
+  doPage: state.purchase.doPage,
+  doPageSize: state.purchase.doPageSize,
+  doCount: state.purchase.doCount
 })
 
 const mapDispatch = {
   setDonationOrg,
   submitDonation,
+  getDonationOrgs
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Donation)))
