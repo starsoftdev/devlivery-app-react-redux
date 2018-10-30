@@ -1,4 +1,5 @@
 import {LOCALE_COOKIE} from './constants'
+import moment from 'moment'
 
 const transformFormUrlEncoded = (body) => {
   const str = []
@@ -29,6 +30,7 @@ const prepareRequestHeaders = (cookies, contentType = 'application/json', token)
   }
   const locale = cookies.get(LOCALE_COOKIE) || 'de-DE'
   headers['lang'] = locale.substring(0, 2) // 'en'
+  headers['zone'] = moment().format('Z') // 'zone'
   return headers
 }
 
