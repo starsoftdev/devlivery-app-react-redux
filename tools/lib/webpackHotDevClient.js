@@ -9,6 +9,7 @@ import {
   stopReportingRuntimeErrors,
 } from 'react-error-overlay'
 import 'event-source-polyfill'
+import 'intl';
 
 setEditorHandler(errorLocation => {
   const fileName = encodeURIComponent(errorLocation.fileName)
