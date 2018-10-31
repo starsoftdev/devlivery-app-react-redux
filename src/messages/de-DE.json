@@ -3590,7 +3590,7 @@
   {
     "id": "purchase11.shippingcost",
     "defaultMessage": "Shipping Cost:",
-    "message": "",
+    "message": "Shipping Cost:",
     "files": [
       "src/routes/purchase11/messages.js"
     ]

@@ -81,8 +81,35 @@ class ContactForm extends React.Component {
     if (value)
       this.setState({ requiredAddress })
   }
-  onBirthdayBlur(e){
-    this.props.setupBirthday && this.props.setupBirthday(e.target.value ? true:false);
+  onBirthdayBlur(e) {
+    const dob = this.props.form.getFieldValue('dob');
+    var birthday = moment(dob, 'DD/MM/YYYY');
+    var errors = null;
+    if (birthday.isValid() && dob.length === 10) {
+      if (moment().diff(birthday, 'days') > 0) {
+        errors = [new Error('This date must be today or in the future.')];
+      }
+    }
+    else {
+      if(dob && dob.length > 0)
+        errors = [new Error('Invalid Date Format.')];
+    }
+    this.props.form.setFields({
+      dob: {
+        value: dob,
+        errors
+      },
+    });
+
+    this.props.setupBirthday && this.props.setupBirthday(e.target.value ? true : false);
+  }
+  onBirthdayFocus(e) {
+    this.props.form.setFields({
+      dob: {
+        value: this.props.form.getFieldValue('dob'),
+        errors: null,
+      },
+    });
   }
   render() {
     const { requiredAddress, relationshipName, newRelationship } = this.state
@@ -207,6 +234,7 @@ class ContactForm extends React.Component {
                 datePattern: ['d', 'm', 'Y']
               }}
               onBlur={this.onBirthdayBlur.bind(this)}
+              onFocus={this.onBirthdayFocus.bind(this)}
             />
           )}
         </Form.Item>
