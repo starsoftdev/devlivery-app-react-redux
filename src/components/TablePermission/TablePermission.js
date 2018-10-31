@@ -42,7 +42,8 @@ class PermissionsTable extends React.Component {
   }
 
   submitGroup = (group) => {
-    if(group.editable)
+    const { user } = this.props;
+    if(group.editable && user && user.is_team_owner)
     {
       const permissions = _.flatten(Object.values(this.state.pickedPermissions))
       this.props.setPermissions(this.state.showEditForm, permissions)
@@ -64,9 +65,9 @@ class PermissionsTable extends React.Component {
   }
 
   render() {
-    const {groups, removeGroup, intl, permissions} = this.props
+    const {groups, removeGroup, intl, permissions, user} = this.props
     const groupedPermissions = groupby(permissions, 'group')
-    
+   
     const options = Object.keys(groupedPermissions)
       .reduce(
         (total, key) => ({
@@ -78,7 +79,6 @@ class PermissionsTable extends React.Component {
         }),
         {}
       )
-
     return (
       <div className={s.tableBody}>
         <Row className={s.tableRow}>
@@ -91,7 +91,9 @@ class PermissionsTable extends React.Component {
         </Row>
         <React.Fragment>
           {groups.map((group) =>
-            <div key={group.id}>
+            {
+              const editable = group.editable && user && user.is_team_owner;
+              return (<div key={group.id}>
               <Row className={s.tableRow}>
                 <Col className={s.tableCol} md={12}>
                   <span className={s.rowName}>{group.name}</span>
@@ -99,7 +101,7 @@ class PermissionsTable extends React.Component {
                 <Col className={s.tableCol} md={12}>
                   <div className={s.tableItemWrapper}>
                     {
-                      group.editable ?
+                      editable ?
                       (this.state.showEditForm === group.id) ?
                         <a className={s.tableBtn} onClick={()=>this.submitGroup(group)}>
                           <PlusIcon/>
@@ -119,7 +121,7 @@ class PermissionsTable extends React.Component {
                         </a>
                     }
                     {
-                      group.editable ?
+                      editable?
                       <a className={s.tableBtn} onClick={() => removeGroup(group.id)}>
                         <RemoveIcon/>
                         <span>{intl.formatMessage(messages.deleteGroup)}</span>
@@ -133,26 +135,27 @@ class PermissionsTable extends React.Component {
               <Row className={s.permissionRow}>
                 <Col md={4}>
                   <h1>{intl.formatMessage(messages.contacts)}</h1>
-                  <CheckboxGroup className={s.checkGroup} disabled={!group.editable} value = {this.state.pickedPermissions['contacts']} onChange={this.pickPermission('contacts')} className={s.checkBox} options={options.contacts}/>
+                  <CheckboxGroup className={s.checkGroup} disabled={!editable} value = {this.state.pickedPermissions['contacts']} onChange={this.pickPermission('contacts')} className={s.checkBox} options={options.contacts}/>
                 </Col>
                 <Col md={4}>
                   <h1>{intl.formatMessage(messages.groups)}</h1>
-                  <CheckboxGroup className={s.checkGroup} disabled={!group.editable} value = {this.state.pickedPermissions['groups']} onChange={this.pickPermission('groups')} options={options.groups}/>
+                  <CheckboxGroup className={s.checkGroup} disabled={!editable} value = {this.state.pickedPermissions['groups']} onChange={this.pickPermission('groups')} options={options.groups}/>
                 </Col>
                 <Col md={5}>
                   <h1>{intl.formatMessage(messages.team)}</h1>
-                  <CheckboxGroup disabled={!group.editable} value = {this.state.pickedPermissions['team']} onChange={this.pickPermission('team')} options={options.team}/>
+                  <CheckboxGroup disabled={!editable} value = {this.state.pickedPermissions['team']} onChange={this.pickPermission('team')} options={options.team}/>
                 </Col>
                 <Col md={4}>
                   <h1>{intl.formatMessage(messages.purchase)}</h1>
-                  <CheckboxGroup className={s.checkGroup} disabled={!group.editable} value = {this.state.pickedPermissions['purchase']} onChange={this.pickPermission('purchase')} options={options.purchase}/>
+                  <CheckboxGroup className={s.checkGroup} disabled={!editable} value = {this.state.pickedPermissions['purchase']} onChange={this.pickPermission('purchase')} options={options.purchase}/>
                 </Col>
                 <Col md={4}>
                   <h1>{intl.formatMessage(messages.payments)}</h1>
-                  <CheckboxGroup className={s.checkGroup} disabled={!group.editable} value = {this.state.pickedPermissions['payments']} onChange={this.pickPermission('payments')} options={options.payments}/>
+                  <CheckboxGroup className={s.checkGroup} disabled={!editable} value = {this.state.pickedPermissions['payments']} onChange={this.pickPermission('payments')} options={options.payments}/>
                 </Col>
               </Row>}
-            </div>
+            </div>)
+          }
           )}
         </React.Fragment>
       </div>
@@ -161,6 +164,7 @@ class PermissionsTable extends React.Component {
 }
 const mapState = state => ({
   selectedPermissions: state.permission.specialPermissions,
+  user: state.user.user
 })
 
 const mapDispatch = {
