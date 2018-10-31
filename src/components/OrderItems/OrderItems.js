@@ -155,7 +155,7 @@ class OrderItems extends React.Component {
             </Popconfirm>
 
             <div
-              style={{ backgroundImage: `url(${getItemImage(donation.organization, 'logo')})` }}
+              style={{ backgroundImage: `url(${getItemImage(donation.organization, 'logo')})`, backgroundSize:'contain' }}
               className={s.itemImage}
             />
             <p className={s.cardInfo}>

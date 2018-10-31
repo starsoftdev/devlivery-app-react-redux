@@ -64,6 +64,7 @@ class Donation extends React.Component {
                     description={item.description}
                     active={donationOrg && donationOrg.id === item.id}
                     keyValue={ALPHABET[i]}
+                    imageStyle = {{backgroundSize:'contain'}}
                   />
                 </Col>
               )}
