@@ -93,7 +93,7 @@ class ManageTeam extends React.Component {
       },
     ]
 
-    const columnsPending = [
+    var columnsPending = [
       {
         title: intl.formatMessage(messages.nameColumn),
         dataIndex: 'email',
@@ -123,7 +123,11 @@ class ManageTeam extends React.Component {
         dataIndex: 'sender.last_name',
         key: 'last_name',
       },
-      {
+      
+    ]
+    if(user && user.is_team_owner)
+    {
+      columnsPending.push({
         title: intl.formatMessage(messages.actionsColumn),
         dataIndex: '',
         key: 'actions',
@@ -137,9 +141,8 @@ class ManageTeam extends React.Component {
             </React.Fragment>
           )
         }
-      },
-    ]
-
+      });
+    }
     return (
       <div className={s.container}>
         <div className={s.actions}>

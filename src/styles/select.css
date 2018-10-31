@@ -309,6 +309,12 @@
       }
     }
   }
+  .ant-select-disabled{
+    opacity: 0.5;
+  }
+  .ant-select-disabled .ant-select-arrow{
+    display: none;
+  }
 }
 
 @keyframes: global(antSlideUpIn) {

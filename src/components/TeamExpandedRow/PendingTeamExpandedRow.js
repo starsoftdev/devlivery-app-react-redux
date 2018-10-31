@@ -49,7 +49,6 @@ class TeamExpandedRow extends React.Component {
 
 const mapState = state => ({
   roles: state.permission.user_created_roles,
-  user: state.user,
 })
 
 const mapDispatch = {
