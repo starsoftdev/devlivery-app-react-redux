@@ -32,15 +32,9 @@ class AddContact extends React.Component {
     this.props.onRef(undefined)
   }
   handleSubmit = () => {
-    //e.preventDefault()
-    this.props.form.validateFields({force: true}, (err, values) => {
-        
-      if (!err) {
-        var birthday = moment(values.dob,'DD/MM/YYYY');
-        var expected = moment().subtract(18, 'years');
-        if(birthday < expected || (values.dob && values.dob.length <= 0) || values.dob === undefined)
-        {
-          var addresses = this.props.form.getFieldValue('addresses')
+    this.props.form.validateFields({ force: true }, (err, values) => {
+      if (!err && this.props.form.getFieldsError().dob == null) {
+        var addresses = this.props.form.getFieldValue('addresses')
           if(addresses === null)
           {
             this.onNextSubmit(values);
@@ -59,26 +53,6 @@ class AddContact extends React.Component {
             this.setState({requirAddress:true});
             return false;
           }
-        }
-        else {
-          if((values.dob && values.dob.length <= 0))
-          {
-            this.props.form.setFields({
-              dob: {
-                value: values.dob,
-                errors: [new Error('Invalid Date Format.')],
-              },
-            });
-          }
-          else 
-          this.props.form.setFields({
-            dob: {
-              value: values.dob,
-              errors: [new Error('please select date older than 18 years.')],
-            },
-          });
-          
-        }
       }
       return false;
     })
