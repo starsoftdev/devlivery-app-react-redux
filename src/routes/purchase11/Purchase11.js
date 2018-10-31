@@ -505,12 +505,12 @@ class Purchase11 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={() => { !disableSubmit && this.handleSubmit }}
+            onKeyHandle={() => { !disableSubmit && this.handleSubmit && shipping_cost}}
           />
           <Button
             type='primary'
             htmlType='submit'
-            disabled={disableSubmit}
+            disabled={disableSubmit || shipping_cost === null}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
