@@ -1,6 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { submitShipping, removeRecipientsOrder, syncGifts_Bundle, toAddContactFlowStep, removeDontationFromBundle, removeVoucherFromBundle } from '../../reducers/purchase'
+import {
+  submitShipping,
+  removeRecipientsOrder,
+  syncGifts_Bundle,
+  toAddContactFlowStep,
+  removeDontationFromBundle,
+  removeVoucherFromBundle,
+  recalculateTotal
+}
+  from '../../reducers/purchase'
 import { Button, Col, DatePicker, Form, Row, Select, message, Checkbox, Input, Popconfirm } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase11.css'
@@ -88,22 +97,23 @@ class Purchase11 extends React.Component {
     this.setState(newState)
   }
   onSelectLocation = (value) => {
+    this.props.recalculateTotal(value);
+
     const { order, currentRecipient, selectedLocation } = this.state;
     if (value === 'shipping') {
       const { user } = this.props;
       const address = user && user.addresses && user.addresses.find(item => item.default !== null)
 
-      this.setState({ selectedLocation: value, contact: { ...address, ...user, title: ' ' }, recip_warnmsg:'' });
+      this.setState({ selectedLocation: value, contact: { ...address, ...user, title: ' ' }, recip_warnmsg: '' });
       return;
     }
     else if (order && order.recipients && order.recipients[currentRecipient]) {
       this.validateRecipientsAddress(value)
-      
+
       var selRecipient = order.recipients[currentRecipient];
       var filter_contact = selRecipient.contact.addresses.filter(item => item.title === value);
-      
-      if(filter_contact === null || filter_contact.length <= 0)
-      {
+
+      if (filter_contact === null || filter_contact.length <= 0) {
         filter_contact = selRecipient.contact.addresses;
       }
       if (filter_contact) {
@@ -116,23 +126,21 @@ class Purchase11 extends React.Component {
       this.setState({ ...this.state, selectedLocation: value, contact: null })
     }
   }
-  validateRecipientsAddress(value){
+  validateRecipientsAddress(value) {
     const { order } = this.state;
-    if(order.recipients)
-    {
+    if (order.recipients) {
       var filterRecp = order.recipients.filter(recipient => {
         const address = recipient.contact.addresses.filter(item => item.title === value);
         return address.length > 0 ? true : false;
       })
-      if(filterRecp.length !== order.recipients.length)
-      {
+      if (filterRecp.length !== order.recipients.length) {
         this.setState({
-          recip_warnmsg : value === 'home' ? 'Home address is not available for all recipients, in this case we will use Company address instead.' : 'Company address is not available for all recipients, in this case we will use Home address instead.'
+          recip_warnmsg: value === 'home' ? 'Home address is not available for all recipients, in this case we will use Company address instead.' : 'Company address is not available for all recipients, in this case we will use Home address instead.'
         });
-        return ;
+        return;
       }
     }
-    this.setState({recip_warnmsg:''});
+    this.setState({ recip_warnmsg: '' });
   }
   onSelectOccasion = (value) => {
     this.setState({ selOccasion: value });
@@ -166,10 +174,9 @@ class Purchase11 extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    
+
     const { order, user } = this.props;
-    if(order === null|| order.recipients_count === null || order.recipients_count <= 0)
-    {
+    if (order === null || order.recipients_count === null || order.recipients_count <= 0) {
       message.warn('This order have no any recipient.');
       return;
     }
@@ -202,7 +209,7 @@ class Purchase11 extends React.Component {
   }
   render() {
     const { currentRecipient, order, disableSubmit, contact, selOccasion, checkSave, selectedLocation } = this.state
-    const { flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation, flow, user } = this.props
+    const { flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation, flow, user, shipping_cost } = this.props
     const { getFieldDecorator } = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
 
@@ -213,10 +220,10 @@ class Purchase11 extends React.Component {
     const cardHeight = orientation && orientation == 'l' ? w : h;
 
     const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
-    
+
     const html = this.tinymce && this.tinymce.editor && this.tinymce.editor.getContent();
-          
-          
+
+
     return order ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -236,7 +243,7 @@ class Purchase11 extends React.Component {
             {/*
             <h3 className={s.cardTitle}>{occasion && occasion.title}</h3>
             */}
-            <h3 className={s.warnText}>{this.tinymce && this.tinymce.editor && (html=== null || html === '' || html === undefined) && intl.formatMessage(messages.personalizedmsg)}</h3>
+            <h3 className={s.warnText}>{this.tinymce && this.tinymce.editor && (html === null || html === '' || html === undefined) && intl.formatMessage(messages.personalizedmsg)}</h3>
             {this.state.mounted && bundle && <Editor
               ref={editor => {
                 this.tinymce = editor
@@ -294,15 +301,30 @@ class Purchase11 extends React.Component {
               <span className={s.subtotalValue}>{order.recipients_count}</span>
             </Col>
           </Row>
-          <Row type='flex' align='center' gutter={20} className={s.totalSection}>
-            <Col xs={12}>
-              <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.total)}</h2>
-            </Col>
-            <Col xs={12}>
-              <span className={s.subtotalValue}>{order.total}</span>
-              <span className={s.subtotalCurrency}>{'CHF'}</span>
-            </Col>
-          </Row>
+          {
+            shipping_cost &&
+            <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+              <Col xs={12}>
+                <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.shippingcost)}</h2>
+              </Col>
+              <Col xs={12}>
+                <span className={s.subtotalValue}>{shipping_cost.shipping_cost}</span>
+                <span className={s.subtotalCurrency}>{'CHF'}</span>
+              </Col>
+            </Row>
+          }
+          {
+            shipping_cost &&
+            <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+              <Col xs={12}>
+                <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.total)}</h2>
+              </Col>
+              <Col xs={12}>
+                <span className={s.subtotalValue}>{shipping_cost.total_with_tax}</span>
+                <span className={s.subtotalCurrency}>{'CHF'}</span>
+              </Col>
+            </Row>
+          }
           {
             user && user.account_type === TEAM_ACCOUNT && !user.is_team_owner &&
             <Row type='flex' align='center' gutter={20} className={s.totalSection}>
@@ -513,7 +535,8 @@ const mapState = state => ({
   newrecipient: state.purchase.newrecipient,
   deliveryOccations: state.purchase.deliveryOccations,
   user: state.user.user,
-  orientation: state.purchase.orientation
+  orientation: state.purchase.orientation,
+  shipping_cost: state.purchase.shipping_cost
 })
 
 const mapDispatch = {
@@ -522,7 +545,8 @@ const mapDispatch = {
   toAddContactFlowStep,
   removeDontationFromBundle,
   removeVoucherFromBundle,
-  syncGifts_Bundle
+  syncGifts_Bundle,
+  recalculateTotal
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Purchase11)))
