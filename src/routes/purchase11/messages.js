@@ -37,6 +37,10 @@ export default defineMessages({
     id: 'purchase11.subtotal',
     defaultMessage: 'Subtotal:',
   },
+  shippingcost : {
+    id: 'purchase11.shippingcost',
+    defaultMessage: 'Shipping Cost:',
+  },
   tax: {
     id: 'purchase11.tax',
     defaultMessage: 'Tax:',

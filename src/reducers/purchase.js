@@ -153,6 +153,10 @@ export const GET_RECIPIENTS_REQUEST = 'Purchase.GET_RECIPIENTS_REQUEST'
 export const GET_RECIPIENTS_SUCCESS = 'Purchase.GET_RECIPIENTS_SUCCESS'
 export const GET_RECIPIENTS_FAILURE = 'Purchase.GET_RECIPIENTS_FAILURE'
 
+export const GET_SHIPPINGTOTAL_REQUEST = 'Purchase.GET_SHIPPINGTOTAL_REQUEST'
+export const GET_SHIPPINGTOTAL_SUCCESS = 'Purchase.GET_SHIPPINGTOTAL_SUCCESS'
+export const GET_SHIPPINGTOTAL_FAILURE = 'Purchase.GET_SHIPPINGTOTAL_FAILURE'
+
 export const GET_TEMPLATE_REQUEST = 'Purchase.GET_TEMPLATE_REQUEST'
 export const GET_TEMPLATE_SUCCESS = 'Purchase.GET_TEMPLATE_SUCCESS'
 export const GET_TEMPLATE_FAILURE = 'Purchase.GET_TEMPLATE_FAILURE'
@@ -250,10 +254,9 @@ export const setFlowIndex = () => (dispatch, getState) => {
   const { currentRouteName } = getState().global
   const { flow } = getState().purchase
   const flowIndex = flow.routes.findIndex(item => item === currentRouteName)
-  const {currentPathname,prevPathname} = getState().global;
-  
-  if(currentPathname !== prevPathname)
-  {
+  const { currentPathname, prevPathname } = getState().global;
+
+  if (currentPathname !== prevPathname) {
     localStorage.removeItem(ADDCONTACTMODE)
   }
   dispatch({ type: SET_FLOW_INDEX, flowIndex })
@@ -315,11 +318,11 @@ export const getOccasions = (params = {}) => (dispatch, getState, { fetch }) => 
   })}`, {
       method: 'GET',
       success: (res) => {
-        console.log('res',res);
+        console.log('res', res);
         dispatch({ type: GET_OCCASIONS_SUCCESS, occasions: res.data })
       },
       failure: (err) => {
-        console.log('err',err);
+        console.log('err', err);
         dispatch({ type: GET_OCCASIONS_FAILURE })
       }
     })
@@ -491,14 +494,12 @@ export const loadCardDetails = () => async (dispatch, getState) => {
 }
 export const MULTIPRODUCT = 'multiproduct';
 export const saveGiftType = () => (dispatch, getState, { fetch }) => {
-  const {giftType} = getState().purchase;
-  if(giftType)
-  {
+  const { giftType } = getState().purchase;
+  if (giftType) {
     var multi_products = JSON.parse(localStorage.getItem(MULTIPRODUCT));
-    if(multi_products == null)
+    if (multi_products == null)
       multi_products = [];
-    if(!multi_products.includes(giftType))
-    {
+    if (!multi_products.includes(giftType)) {
       multi_products.push(giftType);
       localStorage.setItem(MULTIPRODUCT, JSON.stringify(multi_products));
     }
@@ -512,8 +513,7 @@ export const setCard = (card) => ({ type: SET_CARD, card })
 const GIFT_IDS = 'gift_ids'
 export const setGift = (gift) => (dispatch, getState, { fetch }) => {
   var giftIds = JSON.parse(JSON.stringify(getState().purchase.giftIds));
-  if(giftIds.includes(gift.id))
-  {
+  if (giftIds.includes(gift.id)) {
     //remove gift id
     var index = giftIds.indexOf(gift.id);
     if (index > -1) {
@@ -522,20 +522,20 @@ export const setGift = (gift) => (dispatch, getState, { fetch }) => {
   }
   else giftIds.push(gift.id)
   localStorage.setItem(GIFT_IDS, JSON.stringify(giftIds))
-  dispatch({ type:SET_GIFTIDS, giftIds})
+  dispatch({ type: SET_GIFTIDS, giftIds })
   dispatch({ type: SET_GIFT, gift })
 }
 export const buyMoreGift = () => (dispatch, getState, { fetch }) => {
   const { giftId } = getState().purchase;
-  
+
   var giftIds = localStorage.getItem(GIFT_IDS);
-  
+
   if (giftIds === null)
     giftIds = [];
   else {
     giftIds = JSON.parse(giftIds);
   }
-  
+
   dispatch({ type: SET_GIFTIDS, giftIds })
 }
 export const getGifts = (params = {}) => (dispatch, getState, { fetch }) => {
@@ -600,7 +600,7 @@ export const submitShipping = (values) => (dispatch, getState, { fetch }) => {
     },
   })
 }
-export const updateBundle = (param,callback) => (dispatch, getState, { fetch }) => {
+export const updateBundle = (param, callback) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   console.log(`/bundles/${getState().purchase.bundleId}`, param)
   return fetch(`/bundles/${getState().purchase.bundleId}`, {
@@ -609,7 +609,7 @@ export const updateBundle = (param,callback) => (dispatch, getState, { fetch }) 
     body: param,
     success: (res) => {
       console.log('res', res);
-      if(callback)
+      if (callback)
         callback();
       const saved = 0;
       dispatch({ type: SET_SAVED_VALUE, saved })
@@ -673,12 +673,12 @@ export const submitGift = (gotoNext = 0) => async (dispatch, getState) => {
 }
 export const syncGifts_Bundle = (giftIds, goToNext = true) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
-  const { bundleId,orderId } = getState().purchase
+  const { bundleId, orderId } = getState().purchase
   dispatch({ type: ADD_BUNDLE_REQUEST })
   if (bundleId) {
     console.log(`/sync-bundle-gifts`, {
       bundle_id: bundleId,
-      gift_ids:giftIds,
+      gift_ids: giftIds,
     });
     return fetch(`/sync-bundle-gifts`, {
       method: 'POST',
@@ -690,7 +690,7 @@ export const syncGifts_Bundle = (giftIds, goToNext = true) => (dispatch, getStat
       token,
       success: (res) => {
         dispatch({ type: ADD_BUNDLE_SUCCESS, bundle: res.data })
-        if(orderId == null)
+        if (orderId == null)
           localStorage.setItem(GIFT_IDS, JSON.stringify(giftIds))
         dispatch(getOrderDetails(orderId));
       },
@@ -748,7 +748,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
     ...(values && values.title) && {
       title: values.title
     },
-    saved: 0 
+    saved: 0
   });
   return fetch(`/create-bundle`, {
     method: 'POST',
@@ -760,7 +760,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
       ...(values && values.title) && {
         title: values.title
       },
-      saved: 0 
+      saved: 0
     },
     token,
     success: (res) => {
@@ -827,7 +827,35 @@ export const makeOrder = () => (dispatch, getState, { fetch, history }) => {
     })
   }
 }
-
+export const recalculateTotal = (deliverable) => (dispatch, getState, { fetch }) => {
+  const { token } = dispatch(getToken())
+  const { orderId } = getState().purchase
+  if (orderId) {
+    dispatch({ type: GET_SHIPPINGTOTAL_REQUEST })
+    console.log(`/recalculate-total`,{
+      order_id: orderId,
+      deliverable: deliverable ? deliverable : 'shipping'
+    })
+    return fetch(`/recalculate-total`, {
+      method: 'POST',
+      body: {
+        order_id: orderId,
+        deliverable: deliverable ? deliverable : 'shipping'
+      },
+      token,
+      success: (res) => {
+        console.log('recalculate-total res:', res);
+        dispatch({ type: GET_SHIPPINGTOTAL_SUCCESS, shipping_cost: res.data })
+      },
+      failure: (err) => {
+        console.log('recalculate-total err:', err);
+        dispatch({ type: GET_SHIPPINGTOTAL_FAILURE })
+      },
+    })
+  }else {
+    dispatch({ type: GET_SHIPPINGTOTAL_FAILURE })
+  }
+}
 export const addCardBody = (orderId) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   const { cardDetails } = getState().purchase
@@ -881,7 +909,7 @@ export const makeDefaultStripePayment = (tokenid, callback) => (dispatch, getSta
     },
   })
 }
-export const makeStripePayment = (card,isPaying = true, callback) => (dispatch, getState, { fetch }) => {
+export const makeStripePayment = (card, isPaying = true, callback) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   const { orderId } = getState().purchase
   if (!orderId && !card.ignore) {
@@ -1025,7 +1053,7 @@ export const executePaypalPayment = ({ paymentId, paypalToken, payerId }) => asy
     return
   }
   dispatch({ type: EXECUTE_PAYPAL_PAYMENT_REQUEST })
-  console.log('/payments/paypal/execute',{
+  console.log('/payments/paypal/execute', {
     transaction_id: transactionId,
     token: paymentId,
     paymentId,
@@ -1048,7 +1076,7 @@ export const executePaypalPayment = ({ paymentId, paypalToken, payerId }) => asy
       dispatch({ type: EXECUTE_PAYPAL_PAYMENT_SUCCESS })
     },
     failure: (err) => {
-      console.log('err',err);
+      console.log('err', err);
       showErrorMessage(err);
       dispatch(returnToPaymentMethod())
       dispatch({ type: EXECUTE_PAYPAL_PAYMENT_FAILURE })
@@ -1105,20 +1133,20 @@ export const makeBitpayPayment = () => (dispatch, getState, { fetch }) => {
 }
 
 export const getDonationOrgs = (params = {}) => (dispatch, getState, { fetch }) => {
-  dispatch({type: GET_DONATION_ORGS_REQUEST, params})
+  dispatch({ type: GET_DONATION_ORGS_REQUEST, params })
   const { token } = dispatch(getToken())
-  const {doPage, doPageSize} = getState().purchase
+  const { doPage, doPageSize } = getState().purchase
   return fetch(`/donation?${qs.stringify({
     page: doPage,
     per_page: doPageSize,
   })}`, {
-    method: 'GET',
-    token,
-    success: (res) => {
-      dispatch({ type: GET_DONATION_ORGS_SUCCESS, res })
-    },
-    failure: () => dispatch({ type: GET_DONATION_ORGS_FAILURE })
-  })
+      method: 'GET',
+      token,
+      success: (res) => {
+        dispatch({ type: GET_DONATION_ORGS_SUCCESS, res })
+      },
+      failure: () => dispatch({ type: GET_DONATION_ORGS_FAILURE })
+    })
 }
 
 export const setDonationOrg = (donationOrg) => ({ type: SET_DONATION_ORG, donationOrg })
@@ -1331,10 +1359,10 @@ export const getOrderDetails = (orderId) => (dispatch, getState, { fetch }) => {
       token,
       success: (res) => {
         const giftIds = res.data.items && res.data.items.gifts ?
-        res.data.items.gifts.map(item => item.gift.id) :[];
+          res.data.items.gifts.map(item => item.gift.id) : [];
         localStorage.setItem(GIFT_IDS, JSON.stringify(giftIds))
 
-        const newrecipient = res.data.recipients ? res.data.recipients.map(item => item.contact.id):[];
+        const newrecipient = res.data.recipients ? res.data.recipients.map(item => item.contact.id) : [];
         dispatch({ type: SET_NEW_RECIPIENT, newrecipient })
         localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(newrecipient))
 
@@ -1396,7 +1424,7 @@ export const setNewRecipients = (newrecipient) => async (dispatch, getState) => 
         a.splice(j--, 1);
     }
   }
-  localStorage.setItem(CONTACT_IDS_KEY,JSON.stringify(a))
+  localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(a))
   dispatch({ type: SET_NEW_RECIPIENT, newrecipient: a })
 }
 
@@ -1460,7 +1488,8 @@ export const initialState = {
   giftIds: [],
   doPage: 1,
   doPageSize: 6,
-  doCount: 0
+  doCount: 0,
+  shipping_cost: null
 }
 
 export default createReducer(initialState, {
@@ -1608,14 +1637,14 @@ export default createReducer(initialState, {
   [SET_DONATION_ORG]: (state, { donationOrg }) => ({
     donationOrg,
   }),
-  [GET_DONATION_ORGS_REQUEST]: (state, {params}) => ({
+  [GET_DONATION_ORGS_REQUEST]: (state, { params }) => ({
     doPage: params.pagination ? params.pagination.current : 1,
     loading: {
       ...state.loading,
       donationOrgs: true,
     }
   }),
-  [GET_DONATION_ORGS_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
+  [GET_DONATION_ORGS_SUCCESS]: (state, { res: { data, meta: { total } } }) => ({
     donationOrgs: data,
     doCount: total,
     loading: {
@@ -1752,6 +1781,9 @@ export default createReducer(initialState, {
   }),
   [SET_RECIPIENT_MODE]: (state, { recipientMode }) => ({
     recipientMode
+  }),
+  [GET_SHIPPINGTOTAL_SUCCESS]: (state, { shipping_cost }) => ({
+    shipping_cost
   }),
   [CLEAR]: (state, action) => RESET_STORE,
 })
