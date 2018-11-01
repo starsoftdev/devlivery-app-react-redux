@@ -401,7 +401,7 @@ class Purchase11 extends React.Component {
                         disabled={selOccasion && selOccasion.length > 0 ? true : false}
                         disabledDate={current => {
                           var date = new Date();
-                          date.setDate(date.getDate() - 1);
+                          date.setDate(date.getDate());
                           return current && current.valueOf() < (date)
                         }}
                         onChange={this.onChangeDatePicker}
