@@ -59,6 +59,7 @@
   color: var(--dark-color);
   text-transform: uppercase;
   word-break: break-all;
+  max-width: 220px;
 }
 
 .title {
