@@ -968,7 +968,6 @@ export const makeStripePayment = (card, isPaying = true, callback) => (dispatch,
       })
     },
     failure: (error) => {
-      console.log("error", error);
       if (callback) {
         callback(error)
       }
