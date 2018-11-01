@@ -10,6 +10,9 @@ import { sendEnquiries } from '../../reducers/contactUs'
 import { FloatingLabel } from '../../components';
 import contactusImage from '../../static/POSE_7.png'
 import formMessages from '../../formMessages'
+import axios from 'axios';
+import FormData from 'form-data'
+import { showErrorMessage } from '../../utils'
 
 const { TextArea } = Input;
 
@@ -30,21 +33,37 @@ class ContactUs extends React.Component {
   handleChangeInput = (name, e) => {
     this.setState({ [name]: e.target.value })
   }
-
   handleSubmit = (e) => {
     e.preventDefault()
+    var self = this;
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.sendEnquiries({...values,attachments:this.state.attachments}, (errors) => {
-          if (errors) {
-            console.log("errors", errors);
-            if (errors.hasOwnProperty('email') && errors.email.errors && errors.email.errors[0].message) {
-              message.warn( errors.email.errors[0].message);
-            }
+        let formdata = new FormData();
+        
+        formdata.append('email',values.email);
+        formdata.append('message',values.message);
+        formdata.append('name',values.name);
+        formdata.append('phone',values.phone);
+        formdata.append('subject',values.subject);
+        for(var i=0; i < this.state.attachments.length; i++)
+        {
+          let file = this.state.attachments[i];
+          formdata.append('attachments[' + i + ']', file);
+        }
+        
+        axios.post(window.App.apiUrl+`/enquiries`,formdata,{
+          headers: {
+            'accept': 'application/json',
+            'Accept-Language': 'en-US,en;q=0.8',
+            'Content-Type': 'multipart/form-data'
           }
-          else {
-            this.setState({ attachments: [] });
-            this.props.form.setFieldsValue({
+        })
+        .then(function (response) {
+          if(response.data)
+          {
+            message.success("Successfully sent message.");
+            self.setState({ attachments: [] });
+            self.props.form.setFieldsValue({
               name: '',
               email: '',
               phone: '',
@@ -52,7 +71,12 @@ class ContactUs extends React.Component {
               message: '',
             });
           }
+          console.log('error',response)
         })
+        .catch(function (error) {
+          console.log('error',error);
+          showErrorMessage(error.data)
+        });
       }
     })
   }
@@ -196,7 +220,7 @@ class ContactUs extends React.Component {
                 </label>
                 <ul>
                   {this.state.attachments &&
-                    this.state.attachments.map((attach, index) => <li key={index}>{attach.name}</li>)}
+                    this.state.attachments.map((attach, index) => <li key={index}>{attach && attach.name}</li>)}
                 </ul>
               </Col>
             </Row>
