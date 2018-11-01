@@ -15,7 +15,11 @@ import FormData from 'form-data'
 import { showErrorMessage } from '../../utils'
 
 const { TextArea } = Input;
-
+const allowFileType = [
+  'image/png',
+  'image/jpg',
+  'application/pdf',
+];
 class ContactUs extends React.Component {
   constructor(props) {
     super(props)
@@ -59,7 +63,7 @@ class ContactUs extends React.Component {
           }
         })
         .then(function (response) {
-          if(response.data)
+          if(response.data && response.data.success)
           {
             message.success("Successfully sent message.");
             self.setState({ attachments: [] });
@@ -71,11 +75,23 @@ class ContactUs extends React.Component {
               message: '',
             });
           }
-          console.log('error',response)
-        })
-        .catch(function (error) {
-          console.log('error',error);
-          showErrorMessage(error.data)
+        }).catch(function (error) {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            showErrorMessage(error.response.data);
+          } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            message.error('Something went wrong. Please try again.')
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            message.error('Something went wrong. Please try again.')
+            console.log('Error', error.message);
+          }
+          console.log(error.config);
         });
       }
     })
@@ -107,6 +123,7 @@ class ContactUs extends React.Component {
  */
   addAttachment = (e) => {
     const files = e.target.files
+    console.log('files',files);
     if (this.state.attachments.length < 5) {
       this.setState({
         attachments: [...this.state.attachments, files[files.length - 1]]
@@ -214,7 +231,7 @@ class ContactUs extends React.Component {
                   )}
                 </Form.Item>
                 <label className={s.attachBtn}>
-                  <Input type='file' onChange={this.addAttachment} />
+                  <Input type='file' onChange={this.addAttachment}/>
                   <PlusIcon />
                   {intl.formatMessage(messages.attachmentButton)}
                 </label>
