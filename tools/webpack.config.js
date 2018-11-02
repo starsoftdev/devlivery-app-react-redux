@@ -42,6 +42,8 @@ const config = {
 
   mode: isDebug ? 'development' : 'production',
 
+  performance: { hints: false },
+
   output: {
     path: resolvePath(BUILD_DIR, 'public/assets'),
     publicPath: '/assets/',
