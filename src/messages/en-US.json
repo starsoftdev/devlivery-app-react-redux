@@ -3453,6 +3453,22 @@
     ]
   },
   {
+    "id": "purchase11.coupon",
+    "defaultMessage": "Coupon:",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.applycoupon",
+    "defaultMessage": "Apply Coupon",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
     "id": "purchase11.shippingcost",
     "defaultMessage": "Shipping Cost:",
     "message": "",

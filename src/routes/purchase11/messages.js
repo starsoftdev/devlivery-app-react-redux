@@ -37,6 +37,14 @@ export default defineMessages({
     id: 'purchase11.subtotal',
     defaultMessage: 'Subtotal:',
   },
+  coupon: {
+    id: 'purchase11.coupon',
+    defaultMessage: 'Coupon',
+  },
+  applycoupon: {
+    id: 'purchase11.applycoupon',
+    defaultMessage: 'Apply Coupon',
+  },
   shippingcost : {
     id: 'purchase11.shippingcost',
     defaultMessage: 'Shipping Cost:',
