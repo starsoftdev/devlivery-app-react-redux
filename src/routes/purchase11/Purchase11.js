@@ -195,7 +195,7 @@ class Purchase11 extends React.Component {
             bundleName: this.props.form.getFieldValue('title')
           }
           localStorage.setItem(ORDER_CONFIRM_STATE, JSON.stringify(jsonData));
-          this.props.submitShipping(values)
+          this.props.submitShipping(values,()=>this.setState({ disableSubmit: false }))
         } else {
           this.setState({ disableSubmit: false })
         }

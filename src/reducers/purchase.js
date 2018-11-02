@@ -558,7 +558,7 @@ export const getGifts = (params = {}) => (dispatch, getState, { fetch }) => {
     })
 }
 
-export const submitShipping = (values) => (dispatch, getState, { fetch }) => {
+export const submitShipping = (values,callback) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   dispatch({ type: SUBMIT_SHIPPING_REQUEST, values })
   const { deliverable, delivery_occasion, schedule_date, title } = values;
@@ -573,7 +573,11 @@ export const submitShipping = (values) => (dispatch, getState, { fetch }) => {
 
   const saved = values.saved ? 1 : 0;
   dispatch({ type: SET_SAVED_VALUE, saved });
-
+  console.log(`/set-wheretosend`,{
+    order_id: orderId,
+    deliverable: deliverable,
+    ...deliverOpt
+  });
   return fetch(`/set-wheretosend`, {
     method: 'POST',
     body: {
@@ -583,6 +587,7 @@ export const submitShipping = (values) => (dispatch, getState, { fetch }) => {
     },
     token,
     success: (res) => {
+      console.log('res',res);
       dispatch({ type: SUBMIT_SHIPPING_SUCCESS })
       if (saved === 1) {
         const param = {
@@ -595,6 +600,11 @@ export const submitShipping = (values) => (dispatch, getState, { fetch }) => {
       dispatch(nextFlowStep())
     },
     failure: (err) => {
+      console.log('err',err);
+      if(callback)
+      {
+        callback();
+      }
       showErrorMessage(err);
       dispatch({ type: SUBMIT_SHIPPING_FAILURE })
     },
