@@ -866,6 +866,37 @@ export const recalculateTotal = (deliverable) => (dispatch, getState, { fetch })
     dispatch({ type: GET_SHIPPINGTOTAL_FAILURE })
   }
 }
+export const applycouponTotal = (coupon) => (dispatch, getState, { fetch }) => {
+  const { token } = dispatch(getToken())
+  const { orderId } = getState().purchase
+  if (orderId) {
+    dispatch({ type: GET_SHIPPINGTOTAL_REQUEST })
+    console.log(`/apply-coupon`,{
+      order_id: orderId,
+      coupon
+    })
+    return fetch(`/apply-coupon`, {
+      method: 'POST',
+      body: {
+        order_id: orderId,
+        coupon
+      },
+      token,
+      success: (res) => {
+        console.log('apply-coupon res:', res);
+        message.success('Successfully applied coupon');
+        dispatch({ type: GET_SHIPPINGTOTAL_SUCCESS, shipping_cost: res.data })
+      },
+      failure: (err) => {
+        console.log('apply-coupon err:', err);
+        showErrorMessage(err);
+        dispatch({ type: GET_SHIPPINGTOTAL_FAILURE })
+      },
+    })
+  }else {
+    dispatch({ type: GET_SHIPPINGTOTAL_FAILURE })
+  }
+}
 export const addCardBody = (orderId) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   const { cardDetails } = getState().purchase

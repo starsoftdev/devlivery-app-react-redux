@@ -7,7 +7,8 @@ import {
   toAddContactFlowStep,
   removeDontationFromBundle,
   removeVoucherFromBundle,
-  recalculateTotal
+  recalculateTotal,
+  applycouponTotal
 }
   from '../../reducers/purchase'
 import { Button, Col, DatePicker, Form, Row, Select, message, Checkbox, Input, Popconfirm } from 'antd'
@@ -61,7 +62,8 @@ class Purchase11 extends React.Component {
       contact: null,
       checkSave: props.saved || 0,
       bundleName: '',
-      recip_warnmsg: ''
+      recip_warnmsg: '',
+      couple:undefined
     }
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.onCheckSaved = this.onCheckSaved.bind(this);
@@ -195,7 +197,7 @@ class Purchase11 extends React.Component {
             bundleName: this.props.form.getFieldValue('title')
           }
           localStorage.setItem(ORDER_CONFIRM_STATE, JSON.stringify(jsonData));
-          this.props.submitShipping(values,()=>this.setState({ disableSubmit: false }))
+          this.props.submitShipping(values, () => this.setState({ disableSubmit: false }))
         } else {
           this.setState({ disableSubmit: false })
         }
@@ -209,7 +211,7 @@ class Purchase11 extends React.Component {
   }
   render() {
     const { currentRecipient, order, disableSubmit, contact, selOccasion, checkSave, selectedLocation } = this.state
-    const { flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation, flow, user, shipping_cost } = this.props
+    const { flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation, flow, user, shipping_cost,applycouponTotal } = this.props
     const { getFieldDecorator } = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
 
@@ -337,6 +339,21 @@ class Purchase11 extends React.Component {
               </Col>
             </Row>
           }
+
+          <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+            <Col xs={12}>
+              <FloatingLabel placeholder={intl.formatMessage(messages.coupon)} value={this.state.couple} onChange={(e)=>this.setState({couple:e.target.value})}/>
+            </Col>
+            <Col xs={12}>
+              <Button type='primary' size='small' style={{ marginRight: 10,marginTop:25 }} ghost onClick={() => {
+                if(this.state.couple && this.state.couple.length > 0)
+                  applycouponTotal(this.state.couple)
+              }}>
+                {intl.formatMessage(messages.applycoupon)}
+              </Button>
+            </Col>
+          </Row>
+
           <section className={s.section}>
             <h2 className={s.sectionHeader}>{intl.formatMessage(messages.shipping)}</h2>
             <h3 className={s.warnText}>{this.state.recip_warnmsg}</h3>
@@ -505,7 +522,7 @@ class Purchase11 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={() => { !disableSubmit && this.handleSubmit && shipping_cost}}
+            onKeyHandle={() => { !disableSubmit && this.handleSubmit && shipping_cost }}
           />
           <Button
             type='primary'
@@ -546,7 +563,8 @@ const mapDispatch = {
   removeDontationFromBundle,
   removeVoucherFromBundle,
   syncGifts_Bundle,
-  recalculateTotal
+  recalculateTotal,
+  applycouponTotal
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Purchase11)))
