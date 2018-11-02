@@ -19,7 +19,7 @@ import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import formMessages from '../../formMessages'
 import messages from './messages'
 import { DATE_FORMAT, DISPLAYED_DATE_FORMAT } from '../../constants'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 import { Editor } from '@tinymce/tinymce-react';
 import * as Contants from '../../constants';
@@ -97,6 +97,7 @@ class Purchase11 extends React.Component {
       `//fonts.googleapis.com/css?family=${font}`
     )
     this.setState(newState)
+    console.log('Zurich Time',moment().tz("Europe/Zurich").format());
   }
   onSelectLocation = (value) => {
     this.props.recalculateTotal(value);
@@ -418,7 +419,13 @@ class Purchase11 extends React.Component {
                         disabled={selOccasion && selOccasion.length > 0 ? true : false}
                         disabledDate={current => {
                           var date = new Date();
-                          date.setDate(date.getDate());
+                          let zurichtime = moment().tz("Europe/Zurich").format('HH');
+                          if(parseInt(zurichtime) < 12)
+                          {
+                            date.setDate(date.getDate()+3);
+                          }
+                          else date.setDate(date.getDate()+4);
+
                           return current && current.valueOf() < (date)
                         }}
                         onChange={this.onChangeDatePicker}
