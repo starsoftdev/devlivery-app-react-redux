@@ -87,6 +87,9 @@ class Purchase11 extends React.Component {
       } else this.setState({ order: nextProps.order });
       this.onSelectLocation(this.state.selectedLocation);
     }
+    if (nextProps && nextProps.order && nextProps.order.coupon && this.state.couple === undefined) {
+      this.setState({couple: nextProps.order.coupon && nextProps.order.coupon.coupon});
+    }
   }
   componentDidMount() {
     // load editor only on client side (not server side)
