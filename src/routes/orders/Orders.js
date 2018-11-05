@@ -147,7 +147,7 @@ class Orders extends React.Component {
             )}
           </section>
           {calendarEventsModalOpened && <CalendarEvents/>}
-          {orderDetailsModalOpened && <OrderDetails intl={intl}/>}
+          {orderDetailsModalOpened && <OrderDetails intl={intl} recipient_id = {this.props.recipient_id}/>}
         </div>
       </div>
     )

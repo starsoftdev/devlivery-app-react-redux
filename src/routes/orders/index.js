@@ -6,7 +6,7 @@ import moment from 'moment'
 import messages from './messages'
 import {getOccasions} from '../../reducers/cards'
 
-function action({params,store, route, intl}) {
+function action({params,store, route, intl, query}) {
   store.dispatch(setCurrentRouteName(route.name))
   store.dispatch(getOrders())
   store.dispatch(getEvents(moment()))
@@ -19,7 +19,7 @@ function action({params,store, route, intl}) {
     breadcrumbs: [
       {name: intl.formatMessage(messages.breadcrumb)},
     ],
-    component: <Orders intl={intl} orderID = {params && params.orderid}/>,
+    component: <Orders intl={intl} orderID = {params && params.orderid} recipient_id = {query && query.recipient_id}/>,
   }
 }
 
