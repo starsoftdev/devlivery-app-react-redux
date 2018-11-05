@@ -484,7 +484,7 @@
   {
     "id": "bundles.addBundle",
     "defaultMessage": "Create",
-    "message": "ERSTELLTE",
+    "message": "Bundel erstellen",
     "files": [
       "src/routes/bundles/messages.js"
     ]
