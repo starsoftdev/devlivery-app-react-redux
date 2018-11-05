@@ -11,8 +11,10 @@ import { register } from '../../reducers/purchase'
 import messages from './messages'
 import { FloatingLabel } from '../../components';
 import moment from 'moment'
-import {DATE_FORMAT} from '../../constants'
+import { DATE_FORMAT } from '../../constants'
 import Cleave from 'cleave.js/react';
+import {generateUrl} from '../../router'
+import history from '../../history'
 
 class Purchase9 extends React.Component {
   state = {
@@ -23,7 +25,7 @@ class Purchase9 extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       var dobValidation = false;
-      var birthday = moment(values.birthday,'DD/MM/YYYY');
+      var birthday = moment(values.birthday, 'DD/MM/YYYY');
       var expected = moment().subtract(18, 'years');
       if (birthday < expected)
         dobValidation = true;
@@ -36,7 +38,7 @@ class Purchase9 extends React.Component {
         });
       }
       if (!err && dobValidation) {
-        this.props.register({...values, birthday: birthday.format(DATE_FORMAT)}, this.props.form)
+        this.props.register({ ...values, birthday: birthday.format(DATE_FORMAT) }, this.props.form)
       }
     })
   }
@@ -75,18 +77,16 @@ class Purchase9 extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
-          <div>
-            <Link to={{ name: "login", params: { inpurchase: true } }}>
-              <h4 className={s.loginbutton}>{intl.formatMessage(messages.haveaccount)}</h4>
-            </Link>
-          </div>
+          <Button type='primary' ghost size={'small'} onClick={()=>{history.push(generateUrl("login", { inpurchase: true }))}}>
+            {intl.formatMessage(messages.haveaccount)}
+          </Button>
           <Form.Item>
             {getFieldDecorator('account_type', {
               rules: [
                 { required: true, message: intl.formatMessage(formMessages.required) },
               ],
             })(
-              <Select placeholder={intl.formatMessage(messages.type)} onChange={()=>this.setState({...this.state})}>
+              <Select placeholder={intl.formatMessage(messages.type)} onChange={() => this.setState({ ...this.state })}>
                 {[
                   { label: intl.formatMessage(messages.individual), value: INDIVIDUAL_ACCOUNT },
                   { label: intl.formatMessage(messages.team), value: TEAM_ACCOUNT },
@@ -173,7 +173,7 @@ class Purchase9 extends React.Component {
             <Form.Item>
               {getFieldDecorator('birthday', {
                 rules: [
-                  {required: true, message: intl.formatMessage(formMessages.required)},
+                  { required: true, message: intl.formatMessage(formMessages.required) },
                 ],
               })(
                 <Cleave
@@ -191,7 +191,7 @@ class Purchase9 extends React.Component {
             <Form.Item>
               {getFieldDecorator(`company`, {
                 rules: [
-                  {required: this.props.form.getFieldValue('account_type') === TEAM_ACCOUNT ? true:false , min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})},
+                  { required: this.props.form.getFieldValue('account_type') === TEAM_ACCOUNT ? true : false, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
                 ],
               })(
                 <FloatingLabel placeholder={intl.formatMessage(messages.company)} />
