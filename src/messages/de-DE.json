@@ -3002,6 +3002,7 @@
     "files": [
       "src/routes/contactGroup/messages.js",
       "src/routes/contactGroups/messages.js",
+      "src/routes/bundles/messages.js",
       "src/components/OrderItems/messages.js"
     ]
   },
@@ -3017,6 +3018,7 @@
       "src/routes/editContact/messages.js",
       "src/routes/purchase11/messages.js",
       "src/components/CardCheckout/messages.js",
+      "src/routes/bundles/messages.js",
       "src/components/OrderItems/messages.js"
     ]
   },
