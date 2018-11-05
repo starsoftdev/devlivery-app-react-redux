@@ -152,6 +152,7 @@ class Reminders extends React.Component {
                   placeholder={intl.formatMessage(messages.repeat)}
                 >
                   {[
+                    {value: '1', label: intl.locale === 'de-DE' ? 'Once' : 'Once'}, 
                     {value: 'm', label: intl.locale === 'de-DE' ? 'Monatlich' : 'Every month'}, 
                     {value: 'y', label: intl.locale === 'de-DE' ? 'Jährlich' : 'Every year'}
                   ].map((item) =>
