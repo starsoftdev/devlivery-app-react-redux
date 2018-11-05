@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button, Col, Input, Pagination, Row} from 'antd'
+import {Button, Col, Input, Pagination, Row, Popconfirm} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Bundles.css'
 import {clear, getBundles, openBundleDetailsModal, removeBundle} from '../../reducers/bundles'
@@ -63,9 +63,15 @@ class Bundles extends React.Component {
           {bundles.map((bundle) =>
             <Col key={bundle.id} xs={24} md={12}>
               <div className={s.bundle}>
-                <a className={s.removeBtn} onClick={() => removeBundle(bundle)}>
-                  <RemoveIcon/>
-                </a>
+                <Popconfirm
+                  title={intl.formatMessage(messages.confirmRemoving)}
+                  onConfirm={() => removeBundle(bundle)}
+                  okText={intl.formatMessage(messages.acceptRemoving)}
+                >
+                  <a className={s.removeBtn} >
+                    <RemoveIcon/>
+                  </a>
+                </Popconfirm>
                 <a className={s.bundleContent} onClick={() => openBundleDetailsModal(bundle)}>
                   <div className={s.cardWrapper}>
                     <div style={{backgroundImage: `url(${getItemImage(bundle.bundle_card.card, CARD_IMAGES_PROP)})`}} className={s.itemImage}/>

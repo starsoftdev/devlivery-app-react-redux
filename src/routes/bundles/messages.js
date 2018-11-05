@@ -29,4 +29,12 @@ export default defineMessages({
     id: 'bundles.tableItems',
     defaultMessage: '{range0}-{range1} of {total} items',
   },
+  confirmRemoving: {
+    id: 'contactGroups.confirmRemoving',
+    defaultMessage: 'Are you sure you want to delete?',
+  },
+  acceptRemoving: {
+    id: 'contactGroups.acceptRemoving',
+    defaultMessage: 'Yes',
+  }
 })
