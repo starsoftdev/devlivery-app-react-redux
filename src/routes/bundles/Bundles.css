@@ -95,6 +95,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .cardInfo {
@@ -133,6 +134,7 @@
 .bundleContent {
   display: flex;
   padding: var(--margin-sm);
+  cursor: pointer;
 }
 
 .bundleActions {
@@ -154,4 +156,20 @@
   top: 0;
   z-index: 1;
   background: var(--white-color);
+}
+.leftIcon{
+  float: left;
+  margin-top: 15px;
+  cursor: grab;
+}
+.rightIcon{
+  float: right;
+  margin-top: 15px;
+  cursor: grab;
+}
+.buttonBar{
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  padding: 0px 20px;
 }
