@@ -2704,7 +2704,7 @@
   {
     "id": "form.minLength",
     "defaultMessage": "The field must be at least {length} characters.",
-    "message": "Dieses Wort muss mindestens {length} Worte enthalten.",
+    "message": "Dieses Wort muss mindestens {length} Buchstaben enthalten.",
     "files": [
       "src/formMessages.js"
     ]
