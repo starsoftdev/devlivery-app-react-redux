@@ -2082,7 +2082,7 @@
   {
     "id": "register1.submit",
     "defaultMessage": "Submit",
-    "message": "Senden",
+    "message": "Weiter",
     "files": [
       "src/routes/register1/messages.js"
     ]
@@ -2090,7 +2090,7 @@
   {
     "id": "register2.submit",
     "defaultMessage": "Submit",
-    "message": "Senden",
+    "message": "Weiter",
     "files": [
       "src/routes/register2/messages.js"
     ]
