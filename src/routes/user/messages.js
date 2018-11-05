@@ -97,4 +97,8 @@ export default defineMessages({
     id: 'purchase13.cvc',
     defaultMessage: 'CVC',
   },
+  dateplaceholder:{
+    id: 'contactForm.dateplaceholder',
+    defaultMessage: 'DD/MM/YYYY',
+  }
 })

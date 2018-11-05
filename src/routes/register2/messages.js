@@ -65,4 +65,8 @@ export default defineMessages({
     id: 'user.company',
     defaultMessage: 'Company',
   },
+  dateplaceholder:{
+    id: 'contactForm.dateplaceholder',
+    defaultMessage: 'DD/MM/YYYY',
+  }
 })

@@ -16,6 +16,17 @@
     ]
   },
   {
+    "id": "contactForm.dateplaceholder",
+    "defaultMessage": "DD/MM/YYYY",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js",
+      "src/routes/purchase9/messages.js",
+      "src/routes/register2/messages.js",
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
     "id": "contactForm.birthday",
     "defaultMessage": "Birthday",
     "message": "",

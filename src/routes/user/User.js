@@ -266,7 +266,7 @@ class User extends React.Component {
                     ],
                   })(
                     <Cleave
-                      placeholder="DD/MM/YYYY"
+                      placeholder={intl.formatMessage(messages.dateplaceholder)}
                       options={{
                         date: true,
                         datePattern: ['d', 'm', 'Y']

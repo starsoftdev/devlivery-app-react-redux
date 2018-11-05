@@ -182,6 +182,17 @@
     ]
   },
   {
+    "id": "contactForm.dateplaceholder",
+    "defaultMessage": "DD/MM/YYYY",
+    "message": "TT/MM/JJJJ",
+    "files": [
+      "src/components/ContactForm/messages.js",
+      "src/routes/purchase9/messages.js",
+      "src/routes/register2/messages.js",
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
     "id": "purchase.purchase10",
     "defaultMessage": "Add Contact(s)",
     "message": "Kontakt(e) hinzufügen"
