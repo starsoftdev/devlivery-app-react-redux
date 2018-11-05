@@ -82,7 +82,8 @@ class OrderDetails extends React.Component {
     if (orderDetails && orderDetails.recipients && recipient_id) {
       recipient = orderDetails.recipients.filter(item => item.id+'' === recipient_id+'');
     }
-    
+    const recp_count =  orderDetails && orderDetails.recipients_count ? orderDetails.recipients_count : 0;
+    console.log('orderDetails',orderDetails);
     const columns = [
       {
         title: intl.formatMessage(messages.productColumn),
@@ -270,14 +271,14 @@ class OrderDetails extends React.Component {
                     <Row type='flex' justify='space-between' className={s.summaryRow}>
                       <Col>{intl.formatMessage(messages.summarySubtotal)}</Col>
                       <Col>
-                        {recipient ? orderDetails.bundle_subtotal.toFixed(2) : orderDetails.subtotal.toFixed(2)}
+                        {recipient ? orderDetails.bundle_subtotal.toFixed(2) :  (orderDetails.bundle_subtotal * recp_count).toFixed(2)}
                         <span className={s.currency}>{'CHF'}</span>
                       </Col>
                     </Row>
                     <Row type='flex' justify='space-between' className={s.summaryRow}>
                       <Col>{intl.formatMessage(messages.summaryTaxes)}</Col>
                       <Col>
-                        {recipient ? orderDetails.bundle_tax.toFixed(2) : (orderDetails.total - orderDetails.subtotal).toFixed(2)}
+                        {recipient ? orderDetails.bundle_tax.toFixed(2) : (orderDetails.bundle_tax * recp_count).toFixed(2)}
                         <span className={s.currency}>{'CHF'}</span>
                       </Col>
                     </Row>
@@ -288,6 +289,16 @@ class OrderDetails extends React.Component {
                         <span className={s.currency}>{'CHF'}</span>
                       </Col>
                     </Row>
+                    {
+                      orderDetails.coupon && recipient === null && 
+                      <Row type='flex' justify='space-between' className={s.summaryRow}>
+                        <Col>{'Coupon ('+orderDetails.coupon.coupon+')'}</Col>
+                        <Col>
+                          {orderDetails.coupon.value.toFixed(2)}
+                          <span className={s.currency}>{'CHF'}</span>
+                        </Col>
+                      </Row>
+                    }
                   </div>
                   <footer className={s.summaryFooter}>
                     <div>{intl.formatMessage(messages.summaryTotal)}</div>
