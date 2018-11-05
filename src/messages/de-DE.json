@@ -3789,7 +3789,7 @@
   {
     "id": "user.checkNotify",
     "defaultMessage": "Notify me of new reminders via email",
-    "message": "Erinnerungen per Mail sneden",
+    "message": "Erinnerungen per Mail senden",
     "files": [
       "src/routes/user/messages.js"
     ]
