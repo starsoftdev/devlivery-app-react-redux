@@ -7,10 +7,8 @@ import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import formMessages from '../../formMessages'
 import { register, TEAM_ACCOUNT } from '../../reducers/register'
 import messages from './messages'
-import { DATE_FORMAT, DISPLAYED_DATE_FORMAT } from '../../constants'
 import { Actions, SectionHeader } from '../../components'
 import { FloatingLabel } from '../../components';
-import { isMoment } from 'moment';
 import moment from 'moment'
 import Cleave from 'cleave.js/react';
 
