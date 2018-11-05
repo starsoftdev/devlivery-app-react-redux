@@ -6,10 +6,10 @@ import { connect } from 'react-redux'
 import { closeOrderDetailsModal } from '../../reducers/orders'
 import messages from './messages'
 import { getItemImage } from '../../utils'
-import { CARD_IMAGES_PROP, GIFT_IMAGES_PROP,GIFT_GALLERY_PROP } from '../../constants'
+import { CARD_IMAGES_PROP, GIFT_IMAGES_PROP, GIFT_GALLERY_PROP } from '../../constants'
 import cn from 'classnames';
 import BackIcon from '../../static/view_list.svg'
-import {setFlowPayment} from '../../reducers/purchase'
+import { setFlowPayment } from '../../reducers/purchase'
 
 const CARD_TYPE = 'card'
 const GIFT_TYPE = 'gift'
@@ -38,11 +38,50 @@ class OrderDetails extends React.Component {
       this.setState({ currentShipping: this.state.currentShipping + 1 })
     }
   }
-
+  renderRecipientInf = (recipients) => {
+    const {currentShipping} = this.state;
+    if (recipients && recipients.length > 0)
+      return (
+        <React.Fragment>
+          <div className={s.shippingDetails}>
+            <h3>Shipping details {currentShipping + 1} / {recipients.length}</h3>
+            <span>{recipients[currentShipping].contact.title}</span><br />
+            <span>{recipients[currentShipping].contact.first_name + ' ' + recipients[currentShipping].contact.last_name}</span><br />
+            <span>{recipients[currentShipping].receiving_address.address}</span><br />
+            <span>{recipients[currentShipping].receiving_address.postal_code ? recipients[currentShipping].receiving_address.postal_code : '' + ' ' + recipients[currentShipping].receiving_address.city ? recipients[currentShipping].receiving_address.city : ''}</span><br />
+            <span>{recipients[currentShipping].receiving_address.country ? recipients[currentShipping].receiving_address.country : ''}</span><br />
+          </div>
+          {
+            recipients.length > 1 &&
+            <div className={s.shippingButtons}>
+              <Button
+                type='primary'
+                onClick={this.prevShipping}
+                size='small'
+                ghost
+              >
+                Prev
+              </Button>
+              <Button
+                type='primary'
+                onClick={this.nextShipping}
+                size='small'
+              >
+                next
+              </Button>
+            </div>
+          }
+        </React.Fragment>
+      );
+    return (<React.Fragment/>);
+  }
   render() {
 
-    const currentShipping = this.state.currentShipping
-    const { closeOrderDetailsModal, orderDetails, intl, occasions,setFlowPayment } = this.props
+    const { closeOrderDetailsModal, orderDetails, intl, occasions, setFlowPayment, recipient_id } = this.props
+    let recipient = null;
+    if (orderDetails && orderDetails.recipients && recipient_id) {
+      recipient = orderDetails.recipients.filter(item => item.id+'' === recipient_id+'');
+    }
     
     const columns = [
       {
@@ -55,14 +94,14 @@ class OrderDetails extends React.Component {
             case CARD_TYPE:
               return (
                 <div className={cn(s.product, s.touch)} onClick={() => this.setState({ cardPreview: 'card' })}>
-                  <div style={{ backgroundImage: `url(${getItemImage(item, CARD_IMAGES_PROP)})`, minWidth:'150px' }} className={s.productImage} />
+                  <div style={{ backgroundImage: `url(${getItemImage(item, CARD_IMAGES_PROP)})`, minWidth: '150px' }} className={s.productImage} />
                   <div className={s.title}>{item.title}</div>
                 </div>
               )
             case GIFT_TYPE:
               return (
-                <div className={cn(s.product, s.touch)} onClick={() => this.setState({ cardPreview: 'gift',giftDetails: item })}>
-                  <div style={{ backgroundImage: `url(${getItemImage(item, GIFT_IMAGES_PROP)})`, minWidth:'150px'}} className={s.productImage} />
+                <div className={cn(s.product, s.touch)} onClick={() => this.setState({ cardPreview: 'gift', giftDetails: item })}>
+                  <div style={{ backgroundImage: `url(${getItemImage(item, GIFT_IMAGES_PROP)})`, minWidth: '150px' }} className={s.productImage} />
                   <div className={s.title}>{item.title}</div>
                 </div>
               )
@@ -177,9 +216,9 @@ class OrderDetails extends React.Component {
 
     //var giftDetails = null;
     //if (orderDetails && orderDetails.items['gifts'] && orderDetails.items['gifts'].length > 0)
-      //giftDetails = orderDetails.items['gifts'][0].gift;
-    const {giftDetails} = this.state;
-      
+    //giftDetails = orderDetails.items['gifts'][0].gift;
+    const { giftDetails } = this.state;
+
     // TODO add shipping price/info
     return (
       <Modal
@@ -231,21 +270,21 @@ class OrderDetails extends React.Component {
                     <Row type='flex' justify='space-between' className={s.summaryRow}>
                       <Col>{intl.formatMessage(messages.summarySubtotal)}</Col>
                       <Col>
-                        {orderDetails.subtotal}
+                        {recipient ? orderDetails.bundle_subtotal.toFixed(2) : orderDetails.subtotal.toFixed(2)}
                         <span className={s.currency}>{'CHF'}</span>
                       </Col>
                     </Row>
                     <Row type='flex' justify='space-between' className={s.summaryRow}>
                       <Col>{intl.formatMessage(messages.summaryTaxes)}</Col>
                       <Col>
-                        {(orderDetails.total - orderDetails.subtotal).toFixed(2)}
+                        {recipient ? orderDetails.bundle_tax.toFixed(2) : (orderDetails.total - orderDetails.subtotal).toFixed(2)}
                         <span className={s.currency}>{'CHF'}</span>
                       </Col>
                     </Row>
                     <Row type='flex' justify='space-between' className={s.summaryRow}>
                       <Col>{intl.formatMessage(messages.summaryShipping)}</Col>
                       <Col>
-                        {orderDetails.shipping_cost}
+                        {recipient ? orderDetails.recipient_shipping_cost : orderDetails.shipping_cost.toFixed(2)}
                         <span className={s.currency}>{'CHF'}</span>
                       </Col>
                     </Row>
@@ -253,44 +292,13 @@ class OrderDetails extends React.Component {
                   <footer className={s.summaryFooter}>
                     <div>{intl.formatMessage(messages.summaryTotal)}</div>
                     <div>
-                      {orderDetails.total}
+                      {recipient ? orderDetails.bundle_total.toFixed(2) : orderDetails.total.toFixed(2)}
                       <span className={s.currency}>{'CHF'}</span>
                     </div>
                   </footer>
                 </section>
                 <section>
-                  {orderDetails.recipients && orderDetails.recipients.length > 0 && (
-                    <React.Fragment>
-                      <div className={s.shippingDetails}>
-                        <h3>Shipping details {currentShipping + 1} / {orderDetails.recipients.length}</h3>
-                        <span>{orderDetails.recipients[currentShipping].contact.title}</span><br />
-                        <span>{orderDetails.recipients[currentShipping].contact.first_name + ' ' + orderDetails.recipients[currentShipping].contact.last_name}</span><br />
-                        <span>{orderDetails.recipients[currentShipping].receiving_address.address}</span><br />
-                        <span>{orderDetails.recipients[currentShipping].receiving_address.postal_code ? orderDetails.recipients[currentShipping].receiving_address.postal_code : '' + ' ' + orderDetails.recipients[currentShipping].receiving_address.city ? orderDetails.recipients[currentShipping].receiving_address.city : ''}</span><br />
-                        <span>{orderDetails.recipients[currentShipping].receiving_address.country ? orderDetails.recipients[currentShipping].receiving_address.country : ''}</span><br />
-                      </div>
-                      {
-                        orderDetails.recipients.length > 1 &&
-                        <div className={s.shippingButtons}>
-                          <Button
-                            type='primary'
-                            onClick={this.prevShipping}
-                            size='small'
-                            ghost
-                          >
-                            Prev
-                          </Button>
-                          <Button
-                            type='primary'
-                            onClick={this.nextShipping}
-                            size='small'
-                          >
-                            next
-                          </Button>
-                        </div>
-                      }
-                    </React.Fragment>
-                  )}
+                  {this.renderRecipientInf(recipient ? recipient : orderDetails.recipients)}
                 </section>
               </Col>
             </Row>
