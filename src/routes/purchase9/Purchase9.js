@@ -11,7 +11,7 @@ import { register } from '../../reducers/purchase'
 import messages from './messages'
 import { FloatingLabel } from '../../components';
 import moment from 'moment'
-import {DATE_FORMAT, DISPLAYED_DATE_FORMAT} from '../../constants'
+import {DATE_FORMAT} from '../../constants'
 import Cleave from 'cleave.js/react';
 
 class Purchase9 extends React.Component {
