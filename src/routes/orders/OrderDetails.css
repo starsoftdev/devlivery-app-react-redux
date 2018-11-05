@@ -94,6 +94,7 @@
 
 .summaryContent {
   padding: 12px 20px;
+  text-align: center;
 }
 
 .summaryFooter {
@@ -173,4 +174,8 @@
   margin-top: 20px;
   width: 100%;
   text-align: center;
+}
+.entirepaybtn{
+  margin-bottom: 5px;
+  align-self: center;
 }

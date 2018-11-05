@@ -23,7 +23,8 @@ class OrderDetails extends React.Component {
     this.state = {
       currentShipping: 0,
       cardPreview: false,
-      giftDetails: null
+      giftDetails: null,
+      entirePay: false
     }
   }
 
@@ -79,11 +80,11 @@ class OrderDetails extends React.Component {
 
     const { closeOrderDetailsModal, orderDetails, intl, occasions, setFlowPayment, recipient_id } = this.props
     let recipient = null;
-    if (orderDetails && orderDetails.recipients && recipient_id) {
+    if (orderDetails && orderDetails.recipients && recipient_id && !this.state.entirePay) {
       recipient = orderDetails.recipients.filter(item => item.id+'' === recipient_id+'');
     }
     const recp_count =  orderDetails && orderDetails.recipients_count ? orderDetails.recipients_count : 0;
-    console.log('orderDetails',orderDetails);
+    
     const columns = [
       {
         title: intl.formatMessage(messages.productColumn),
@@ -307,6 +308,14 @@ class OrderDetails extends React.Component {
                       <span className={s.currency}>{'CHF'}</span>
                     </div>
                   </footer>
+                  {
+                    orderDetails.incomplete_payment && recipient &&
+                    <div className={s.summaryContent}>
+                      <Button type='primary' ghost size={'small'} className={s.entirepaybtn} onClick={()=>{this.setState({entirePay: true})}}>
+                        {'Pay for Entire Order'}
+                      </Button>
+                    </div>
+                  }
                 </section>
                 <section>
                   {this.renderRecipientInf(recipient ? recipient : orderDetails.recipients)}
