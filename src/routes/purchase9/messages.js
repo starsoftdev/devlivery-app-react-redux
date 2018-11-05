@@ -88,5 +88,9 @@ export default defineMessages({
   birthday: {
     id: 'register2.birthday',
     defaultMessage: 'Birthday',
+  },
+  dateplaceholder:{
+    id: 'contactForm.dateplaceholder',
+    defaultMessage: 'DD/MM/YYYY',
   }
 })

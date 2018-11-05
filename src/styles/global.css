@@ -52,3 +52,10 @@ input[placeholder="DD/MM/YYYY"] {
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   min-height : 50px;
 }
+input[placeholder="TT/MM/JJJJ"] {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  min-height : 50px;
+}

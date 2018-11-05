@@ -89,4 +89,8 @@ export default defineMessages({
     id: 'contactForm.salt_famil',
     defaultMessage: 'Family',
   },
+  dateplaceholder:{
+    id: 'contactForm.dateplaceholder',
+    defaultMessage: 'DD/MM/YYYY',
+  }
 })

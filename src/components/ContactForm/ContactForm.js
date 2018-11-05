@@ -228,7 +228,7 @@ class ContactForm extends React.Component {
             initialValue: initialValues && initialValues.dob ? moment(initialValues.dob).format("DD/MM/YYYY") : undefined,
           })(
             <Cleave
-              placeholder="DD/MM/YYYY"
+              placeholder={intl.formatMessage(messages.dateplaceholder)}
               options={{
                 date: true,
                 datePattern: ['d', 'm', 'Y']
