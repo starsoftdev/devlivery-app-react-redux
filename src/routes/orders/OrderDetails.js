@@ -245,7 +245,7 @@ class OrderDetails extends React.Component {
                     <Row type='flex' justify='space-between' className={s.summaryRow}>
                       <Col>{intl.formatMessage(messages.summaryShipping)}</Col>
                       <Col>
-                        {'0.00'}
+                        {orderDetails.shipping_cost}
                         <span className={s.currency}>{'CHF'}</span>
                       </Col>
                     </Row>
