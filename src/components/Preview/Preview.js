@@ -21,6 +21,13 @@ injectGlobal`
 `
 
 class Preview extends React.Component {
+  triggerResizeEvent(){
+    // This can be your element on which to trigger the event
+    var el = document; 
+    var event = document.createEvent('HTMLEvents');
+    event.initEvent('resize', true, false);
+    el.dispatchEvent(event);
+  }
   render() {
     const {collapsed, onCollapse, item, imagesProp, header} = this.props
     var images =[];
@@ -34,7 +41,7 @@ class Preview extends React.Component {
       }
       else images = item[imagesProp];
     }
-    this.force
+    this.triggerResizeEvent();
     return item ? (
       <Layout.Sider
         className={s.previewWrapper}
@@ -60,11 +67,7 @@ class Preview extends React.Component {
               </div>
             )}
             afterChange ={() => {
-              // This can be your element on which to trigger the event
-              var el = document; 
-              var event = document.createEvent('HTMLEvents');
-              event.initEvent('resize', true, false);
-              el.dispatchEvent(event);
+              this.triggerResizeEvent();
             }}
           >
             {images.map((image, i) => image.url ? (
