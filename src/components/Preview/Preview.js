@@ -3,6 +3,22 @@ import {Carousel, Layout} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Preview.css'
 import CloseIcon from '../../static/close.svg'
+import Magnifier from 'react-magnifier';
+import { injectGlobal } from 'styled-components';
+
+injectGlobal`
+  .magnifier {
+    margin-bottom: 50px;
+  }
+  
+  .magnifier-image {
+    min-height: 200px;
+  }
+  
+  .magnifying-glass {
+    
+  }
+`
 
 class Preview extends React.Component {
   render() {
@@ -18,6 +34,7 @@ class Preview extends React.Component {
       }
       else images = item[imagesProp];
     }
+    this.force
     return item ? (
       <Layout.Sider
         className={s.previewWrapper}
@@ -42,11 +59,16 @@ class Preview extends React.Component {
                 <div className={s.dot}/>
               </div>
             )}
+            afterChange ={() => {
+              // This can be your element on which to trigger the event
+              var el = document; 
+              var event = document.createEvent('HTMLEvents');
+              event.initEvent('resize', true, false);
+              el.dispatchEvent(event);
+            }}
           >
             {images.map((image, i) => image.url ? (
-              <div key={i}>
-                <div style={{backgroundImage: `url(${image.url})`}} className={s.previewImage}/>
-              </div>
+              <Magnifier key={i} src={image.url} width={'100%'} />
               ) : null
             )}
           </Carousel>
