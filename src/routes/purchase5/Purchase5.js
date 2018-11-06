@@ -9,6 +9,7 @@ import cn from 'classnames'
 import messages from './messages'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import {CARD_IMAGES_PROP} from '../../constants'
+import { triggerResizeEvent } from '../../utils';
 
 // TODO remove no cards label
 class Purchase5 extends React.Component {
@@ -17,6 +18,7 @@ class Purchase5 extends React.Component {
   }
 
   onPreviewCollapse = (previewCollapsed) => {
+    triggerResizeEvent();
     this.setState({previewCollapsed})
   }
 
