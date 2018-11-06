@@ -72,6 +72,9 @@
   @custom-media --xxl-down (width <= 1600px);
   @custom-media --xxl-up (width > 1600px);
 
+  @custom-media --portrait-down (width <= 1024px);
+  @custom-media --portrait-up (width > 1024px);
+
   --screen-xs-min: 480px; /* Extra small screen / phone */
   --screen-sm-min: 576px; /* Small screen / tablet */
   --screen-md-min: 768px; /* Medium screen / desktop */
@@ -113,7 +116,8 @@
   --margin-md: 16px;
   --margin-lg: 24px;
   --margin-xl: 32px;
-
+  
+  
   /*
    * Custom selectors
    * ======================================================================== */
