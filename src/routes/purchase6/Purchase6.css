@@ -2,27 +2,32 @@
 
 .form {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex: auto;
   font-size: var(--font-size-base);
   color: var(--text-color);
+  justify-content: center;
 }
 
 .content {
   padding-bottom: var(--margin-md);
   padding-right: var(--margin-md);
   padding-left: var(--margin-md);
-
+  
   @media (--md-down) {
     padding-top: var(--margin-md);
   }
   @media (--md-up) {
     padding-top: var(--margin-xl);
   }
-  max-width: 1250px;
   flex: auto;
+  max-width: 1250px;
   margin-left : 60px;
   margin-right: 60px;
+  margin-bottom: 65px;
+  @media (min-width: 1250px) {
+    width: 1250px;
+  }
 }
 
 .headerPrefix {
@@ -35,15 +40,26 @@
 .editorContainer {
   display: flex;
   position: relative;
-  padding-right: 270px;
   margin-right: auto;
   margin-left: auto;
+  justify-content: space-around;
+  @media (--portrait-down) {
+    flex-direction: column;
+  }
 }
-
+.editorContainer_land {
+  display: flex;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  justify-content: space-around;
+  flex-direction: column;
+}
 .editorWrapper {
+  display: inline-block;
+  padding: 45px;
   background: var(--white-color);
   box-shadow: var(--card-box-shadow);
-  padding: 45px;
 }
 
 .editorIconWrapper {
@@ -54,16 +70,73 @@
   display: flex;
   top: 27px;
   z-index: 999;
+  width: 70px;
+  margin-left: -35px;
+  left: 50%;
 }
-
+.editorContent{
+  position: relative;
+  @media (--portrait-down) {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center
+  }
+}
+.editorContent_land{
+  position: relative;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center
+}
 .editorActions {
-  position: absolute;
+  position: relative;
   top: 0;
   right: 0;
   width: 230px;
   padding-top: 70px;
+  display: flex;
+  flex-direction: column;
+  @media (--portrait-down) {
+    position: relative;
+    margin-top: 35px;
+    flex-direction: row;
+    width: auto;
+    justify-content: center;
+  }
 }
-
+.editorActions_land {
+  position: relative;
+  top: 0;
+  right: 0;
+  width: 230px;
+  padding-top: 70px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 35px;
+  flex-direction: row;
+  width: auto;
+  justify-content: center;
+}
+.toolpanel{
+  position: relative;
+}
+.colorpanel{
+  @media (--portrait-down) {
+    max-width: 250px;
+    margin-left: 30px;
+    margin-right: 0;
+    margin-top:-30px;
+  }
+}
+.colorpanel_land{
+  max-width: 250px;
+  margin-left: 30px;
+  margin-right: 0;
+  margin-top:-30px;
+}
 .editorBody {
   padding: 5px 10px;
   border: 1px solid rgba(64,77,95,0.1);
@@ -84,8 +157,19 @@
   flex-wrap: wrap;
   margin-right: -10px;
   margin-left: -10px;
+  @media (--portrait-down) {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
-
+.colors_land {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -10px;
+  margin-left: -10px;
+  margin-left: 0;
+  margin-right: 0;
+}
 .colorWrapper {
   display: flex;
   margin-bottom: 10px;

@@ -93,7 +93,7 @@ class FontFamilyPicker extends React.Component {
   render() {
     return (
       <Select
-        style={{ width: '100%', marginBottom: 20, fontFamily: this.state.fontFamily }}
+        style={{ width: '100%', marginBottom: 20, fontFamily: this.state.fontFamily, top: -70 }}
         placeholder={'Font Family'}
         onSelect={this.toggleFontFamily}
         value={this.state.fontFamily}
@@ -118,7 +118,7 @@ class ColorPicker extends React.Component {
 
   render() {
     return (
-      <div className={s.colors}>
+      <div className={this.props.isLargeCard===true? s.colors_land : s.colors}>
         {Contants.COLORS.map((item) =>
           <div key={item} className={s.colorWrapper}>
             <a
@@ -249,10 +249,10 @@ class Purchase6 extends React.Component {
     var fonts = this.props.fontFamilies.map(font =>
       `<link id="${font}" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=${font}" media="all">`
     ).join('')
-    if(this.props.fontFamilies.length <= 0)
+    if (this.props.fontFamilies.length <= 0)
       fonts = `<link id="${Contants.FONTS[0]}" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=${Contants.FONTS[0]}" media="all">`
     const body = `<!doctype html><html lang="en"><head>${GLOBAL_META}${fonts}${GLOBAL_STYLES}</head><body>${html}</body></html>`;
-    
+
     this.props.submitCardDetails({ body })
   }
   handleEditorChange(content) {
@@ -276,6 +276,8 @@ class Purchase6 extends React.Component {
     const cardWidth = orientation && orientation == 'l' ? h : w;
     const cardHeight = orientation && orientation == 'l' ? w : h;
     
+    const isLargeCard = cardWidth > 144 ? true : false;
+    
     return (
       <div className={s.form}>
         <div className={s.content}>
@@ -284,16 +286,16 @@ class Purchase6 extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
-          <div className={s.editorContainer}>
-            <div className={s.editorWrapper}>
-              <div className={s.editorIconWrapper} style={{ left: `${(cardWidth / 2) + 3}mm` }}>
+          <div className={isLargeCard===true ? s.editorContainer_land : s.editorContainer}>
+            <div className={isLargeCard===true ? s.editorContent_land : s.editorContent}>
+              <div className={s.editorIconWrapper}>
                 <EditorIcon />
               </div>
-              <div>
+              <div className={s.editorWrapper}>
                 {mounted && (
                   <Editor
                     ref={editor => this.tinymce = editor}
-                    value={this.state.content.replace('<!doctype html>','')}
+                    value={this.state.content.replace('<!doctype html>', '')}
                     init={{
                       toolbar: false,
                       menubar: false,
@@ -311,16 +313,19 @@ class Purchase6 extends React.Component {
                   />
                 )}
               </div>
-              <div className={s.editorActions}>
+            </div>
+            <div className={isLargeCard===true ? s.editorActions_land : s.editorActions}>
+              <div className={s.toolpanel}>
                 <Template templates={templates} execCommand={this.insertConent} intl={intl} />
                 <ConnectedFontFamilyPicker execCommand={this.execTinyCommand} />
                 <FontWeightPicker execCommand={this.execTinyCommand} intl={intl} />
                 <FontSizePicker execCommand={this.execTinyCommand} />
                 <TextAlignmentPicker execCommand={this.execTinyCommand} intl={intl} />
-                <ColorPicker execCommand={this.execTinyCommand} />
+              </div>
+              <div className={isLargeCard===true? s.colorpanel_land: s.colorpanel}>
+                <ColorPicker execCommand={this.execTinyCommand} isLargeCard = {isLargeCard}/>
               </div>
             </div>
-
           </div>
         </div>
         <PurchaseActions>
