@@ -3087,7 +3087,7 @@
   {
     "id": "contactUs.header",
     "defaultMessage": "Contact Us",
-    "message": "Kontaktiere uns",
+    "message": "Anfrage senden",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
