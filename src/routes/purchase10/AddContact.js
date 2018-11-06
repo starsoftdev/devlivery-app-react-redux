@@ -5,7 +5,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './AddContact.css'
 import {ContactForm, PurchaseActions, SectionHeader} from '../../components'
 import {nextFlowStep,GROUP_ID_KEY,CONTACT_IDS_KEY,gotoConfirm,setNewRecipients} from '../../reducers/purchase'
-import {addContact, editContact,saveFields,setContact } from '../../reducers/contacts'
+import {addContact, editContact,saveFields,setContact,setupBirthday } from '../../reducers/contacts'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
 import messages from './messages'
 import isEmpty from 'lodash/isEmpty'
@@ -119,7 +119,8 @@ const mapDispatch = {
   editContact,
   setContact,
   gotoConfirm,
-  setNewRecipients
+  setNewRecipients,
+  setupBirthday
 }
 
 export default connect(mapState, mapDispatch)(Form.create({
