@@ -9,6 +9,7 @@ import cn from 'classnames'
 import messages from './messages'
 import { GIFT_IMAGES_PROP, GIFT_TYPES,GIFT_GALLERY_PROP } from '../../constants'
 import KeyHandler, { KEYPRESS } from 'react-key-handler'
+import { triggerResizeEvent } from '../../utils';
 
 class Purchase8 extends React.Component {
   state = {
@@ -17,6 +18,7 @@ class Purchase8 extends React.Component {
   }
 
   onPreviewCollapse = (previewCollapsed) => {
+    triggerResizeEvent();
     this.setState({ previewCollapsed })
   }
 

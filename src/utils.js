@@ -116,3 +116,11 @@ export const  isHavePaymentPermission =(permissions) =>{
     }
     return false;
   }
+
+export const triggerResizeEvent =() => {
+  // This can be your element on which to trigger the event
+  var el = document; 
+  var event = document.createEvent('HTMLEvents');
+  event.initEvent('resize', true, false);
+  el.dispatchEvent(event);
+}
