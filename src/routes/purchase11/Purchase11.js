@@ -28,6 +28,7 @@ import PlusIcon from '../../static/plus.svg'
 import RemoveIcon from '../../static/remove.svg'
 import { FloatingLabel } from '../../components';
 import { INDIVIDUAL_ACCOUNT, TEAM_ACCOUNT } from '../../reducers/register'
+import Loader from 'react-loader';
 
 import {
   ORDER_BUNDLE_FLOW,
@@ -238,6 +239,7 @@ class Purchase11 extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
+          <Loader loaded={shipping_cost ? true: false}>
           <OrderItems
             {...this.props}
             {...order}
@@ -527,6 +529,7 @@ class Purchase11 extends React.Component {
               </Col>
             </Row>
           </section>
+          </Loader>
         </div>
         <PurchaseActions>
           <KeyHandler
