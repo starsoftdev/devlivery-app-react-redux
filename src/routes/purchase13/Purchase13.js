@@ -24,6 +24,7 @@ import messages from './messages'
 import { FloatingLabel } from '../../components';
 import PlusIcon from '../../static/plus.svg'
 import { addCard } from '../../reducers/user'
+import Loader from 'react-loader';
 
 // TODO add validation for cards 'payment' library
 class Purchase13 extends React.Component {
@@ -369,18 +370,20 @@ class Purchase13 extends React.Component {
           }
         </div>
         <PurchaseActions>
-          <KeyHandler
-            keyEventName={KEYPRESS}
-            keyCode={13}
-            onKeyHandle={this.handleSubmit}
-          />
-          <Button
-            disabled={this.state.processing}
-            onClick={this.handleSubmit}
-            type='primary'
-          >
-            {intl.formatMessage(messages.submit)}
-          </Button>
+          <Loader loaded={!this.state.processing} top='-50px'> 
+            <KeyHandler
+              keyEventName={KEYPRESS}
+              keyCode={13}
+              onKeyHandle={this.handleSubmit}
+            />
+            <Button
+              disabled={this.state.processing}
+              onClick={this.handleSubmit}
+              type='primary'
+            >
+              {intl.formatMessage(messages.submit)}
+            </Button>
+          </Loader>
         </PurchaseActions>
       </React.Fragment>
     )
