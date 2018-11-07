@@ -71,6 +71,11 @@ class Contacts extends React.Component {
   changeView = (view) => {
     this.setState({ view })
   }
+  changeSearch = (e) => {
+    const search = e.target.value
+    this.setState({search})
+    this.getContacts({search})
+  }
   selectCell(id) {
     if (this.state.type === category[0])
       this.state.selGroupId = id;
@@ -286,9 +291,9 @@ class Contacts extends React.Component {
     const contactSortBy = [
       { value: 'first_name', label: 'A-Z' },
       { value: '-first_name', label: 'Z-A' },
-      { value: '-updated_at', label: intl.locale === "de-DE" ? 'Datum, letzes Update':'Last Update Date' },
-      { value: '-created_at', label: intl.locale === "de-DE" ? 'Datum hinzufügen':'Creation Date' },
-      { value: '-dob', label: intl.locale === "de-DE" ? 'anstehnde Geburtstage':'Upcoming birthdays' },
+      { value: '-updated_at', label: intl.locale === "de-DE" ? 'Datum, letzes Update' : 'Last Update Date' },
+      { value: '-created_at', label: intl.locale === "de-DE" ? 'Datum hinzufügen' : 'Creation Date' },
+      { value: '-dob', label: intl.locale === "de-DE" ? 'anstehnde Geburtstage' : 'Upcoming birthdays' },
     ]
 
     return (
@@ -299,33 +304,16 @@ class Contacts extends React.Component {
               header={this.props.headerTitle}
               prefixClassName={s.headerPrefix}
             />
-            {/*
-              <Select
-                className={s.search}
-                placeholder={intl.formatMessage(messages.groupBy)}
-                onChange={(type) => {
-                  if (type === category[0])
-                    getContactGroups(
-                      {
-                        page: 1,
-                        pageSize: 12
-                      });
-                  else getContacts(
-                    {
-                      page: 1,
-                      pageSize: 12
-                    });
-                  this.setState({ type, dataEntry: [], datacount: 0, page: 1, pageSize: 12, selGroupId: null, selContactIds: [] });
-                }}
-                value={this.state.type}
-              >
-                {category.map(item =>
-                  <Select.Option key={item} value={item}>{intl.formatMessage(messages[item.toLowerCase()])}</Select.Option>
-                )}
-              </Select>
-              */
-            }
             <div className={s.views}>
+              {
+                type === category[1] &&
+                <Input.Search
+                  className={s.search}
+                  placeholder={intl.formatMessage(messages.search)}
+                  value={search}
+                  onChange={this.changeSearch}
+                />
+              }
               <a className={s.viewBtn} onClick={() => this.changeView(GRID_VIEW)}>
                 <GridIcon />
               </a>

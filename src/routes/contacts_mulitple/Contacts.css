@@ -124,6 +124,7 @@
 .views {
   margin-left: auto;
   display: flex;
+  align-items: center;
 }
 
 .viewBtn {
@@ -147,4 +148,8 @@
   top: 0;
   right: 0;
   z-index: 1;
+}
+.search{
+  min-width: 250px;
+  margin-left: 0px;
 }
