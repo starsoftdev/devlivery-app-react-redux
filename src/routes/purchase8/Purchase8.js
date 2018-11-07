@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getGifts, setGift, submitGift,buyMoreGift } from '../../reducers/purchase'
+import { getGifts, setGift, submitGift, buyMoreGift } from '../../reducers/purchase'
 import { Button, Col, Layout, Row, Select } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase8.css'
 import { Card, Header, Preview, PurchaseActions, SectionHeader } from '../../components'
 import cn from 'classnames'
 import messages from './messages'
-import { GIFT_IMAGES_PROP, GIFT_TYPES,GIFT_GALLERY_PROP } from '../../constants'
+import { GIFT_IMAGES_PROP, GIFT_TYPES, GIFT_GALLERY_PROP } from '../../constants'
 import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import { triggerResizeEvent } from '../../utils';
 
@@ -24,8 +24,8 @@ class Purchase8 extends React.Component {
 
   render() {
     const { previewCollapsed, disableSubmit } = this.state
-    const { gift, giftIds, setGift,buyMoreGift, submitGift, intl, flowIndex, gifts, getGifts, giftType } = this.props
-    
+    const { gift, giftIds, setGift, buyMoreGift, submitGift, intl, flowIndex, gifts, getGifts, giftType } = this.props
+
     return (
       <React.Fragment>
         <div className={s.container}>
@@ -47,6 +47,7 @@ class Purchase8 extends React.Component {
                 number={flowIndex + 1}
                 prefixClassName={s.headerPrefix}
               >
+                {/*
                 <Select
                   className={s.giftType}
                   allowClear
@@ -58,6 +59,7 @@ class Purchase8 extends React.Component {
                     <Select.Option key={item.key} value={item.key}>{item.title}</Select.Option>
                   )}
                 </Select>
+                */}
               </SectionHeader>
               <Row className={s.items} gutter={20} type='flex' align='center'>
                 {gifts.map((item) =>
