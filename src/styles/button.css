@@ -2,6 +2,9 @@
 
 /*TODO add supporting icons, add lg/sm sizes*/
 :global {
+  .ant-radio-input {
+    cursor: pointer;
+  }
   .ant-btn {
     display: inline-flex;
     justify-content: center;

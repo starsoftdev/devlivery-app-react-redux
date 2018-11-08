@@ -176,7 +176,7 @@ class User extends React.Component {
   }
   render() {
     const { number, name, expiry, cvc, focused } = this.state
-    const { user, intl, cards } = this.props
+    const { user, intl, cards, loading } = this.props
     const { getFieldDecorator } = this.props.form
 
     const handwrittenDisabled = !(user && user.is_subscribed);
@@ -277,10 +277,9 @@ class User extends React.Component {
               </section>
               <section className={s.section}>
                 <h1 className={s.header}>{intl.formatMessage(messages.billingdetails)}</h1>
-                {
-                  cards && cards.length > 0 &&
-                  <CardCheckOut cards={cards} intl={intl}  removeable={true}/>
-                }
+                <div>
+                  <CardCheckOut cards={cards} intl={intl}  removeable={true} loading = {loading.cards}/>
+                </div>
                 <Row gutter={20} type='flex' align='middle' className={this.state.saveButton === true ? s.show : s.hidden}>
                   <Col xs={24} sm={24}>
                     <br />
@@ -495,7 +494,8 @@ class User extends React.Component {
 
 const mapState = state => ({
   user: state.user.user,
-  cards: state.user.cards
+  cards: state.user.cards,
+  loading: state.user.loading
 })
 
 const mapDispatch = {

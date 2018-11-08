@@ -200,7 +200,7 @@ class Purchase13 extends React.Component {
   }
   render() {
     const { number, name, expiry, cvc, focused } = this.state
-    const { flowIndex, intl, cards, order } = this.props
+    const { flowIndex, intl, cards, order,loading } = this.props
     const { getFieldDecorator } = this.props.form
 
     const disable_checkbox = cards && cards.length >= 4;
@@ -232,10 +232,7 @@ class Purchase13 extends React.Component {
           </div>
           <br />
           <div className={s.CardCheckOut}>
-            {
-              cards && cards.length > 0 &&
-              <CardCheckOut cards={cards} intl={intl} disableDefaultCard={this.state.processing || this.state.saveButton} />
-            }
+            <CardCheckOut cards={cards} intl={intl} disableDefaultCard={this.state.processing || this.state.saveButton} loading = {loading.cards}/>
           </div>
           <div className={s.checkbox}>
             {
@@ -354,6 +351,7 @@ const mapState = state => ({
   loading: state.purchase.loading.payment,
   cards: state.user.cards,
   order: state.purchase.order,
+  loading: state.user.loading
 })
 
 const mapDispatch = {

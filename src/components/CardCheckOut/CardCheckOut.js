@@ -26,7 +26,8 @@ class CardCheckOut extends React.Component {
     const {
       cards,intl,
       removeable,
-      disableDefaultCard
+      disableDefaultCard,
+      loading
     } = this.props
     
     const columns = [
@@ -110,7 +111,7 @@ class CardCheckOut extends React.Component {
     return (
       <div className={s.container}>
         <Table
-          loading = {true}
+          loading = {loading}
           showHeader = {false}
           columns={columns}
           dataSource={cards}

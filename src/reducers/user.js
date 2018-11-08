@@ -211,7 +211,7 @@ export const getAllCards = () => (dispatch, getState, { fetch }) => {
 }
 export const addCard = (card, callback) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
-  
+  dispatch({ type: GET_ALLCARDS_REQUEST })
   return fetch(`/user/add-card`, {
     method: 'POST',
     contentType: 'multipart/form-data',
@@ -229,11 +229,13 @@ export const addCard = (card, callback) => (dispatch, getState, { fetch }) => {
       showErrorMessage(error)
       if (callback)
         callback(false)
+      dispatch(getAllCards());
     }
   })
 }
 export const deleteCard = (cardid, callback) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
+  dispatch({ type: GET_ALLCARDS_REQUEST })
   return fetch(`/user/delete/card/${cardid}`, {
     method: 'POST',
     token,
@@ -247,11 +249,13 @@ export const deleteCard = (cardid, callback) => (dispatch, getState, { fetch }) 
       showErrorMessage(error)
       if (callback)
         callback(false)
+      dispatch(getAllCards());
     }
   })
 }
 export const setDefaultCard = (card_id,callback) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
+  dispatch({ type: GET_ALLCARDS_REQUEST })
   return fetch(`/user/set-default-card`, {
     method: 'POST',
     contentType: 'multipart/form-data',
