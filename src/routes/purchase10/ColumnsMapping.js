@@ -28,7 +28,6 @@ class ColumnsMapping extends React.Component {
       if (!err) {
         this.props.importContacts(values, (newrecipient) => {
           localStorage.removeItem(GROUP_ID_KEY)
-          //localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(newrecipient))
           this.props.setNewRecipients(newrecipient);
           if (newrecipient) {
             if (this.props.recipientMode)
