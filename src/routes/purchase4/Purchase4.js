@@ -40,20 +40,7 @@ class Purchase4 extends React.Component {
           )}
         </Row>
         <PurchaseActions>
-          {/*
-          <KeyHandler
-            keyEventName={KEYPRESS}
-            keyCode={13}
-            onKeyHandle={() => cardSize && nextFlowStep()}
-          />
-          <Button
-            type='primary'
-            disabled={!cardSize}
-            onClick={() => nextFlowStep()}
-          >
-            {intl.formatMessage(messages.submit)}
-          </Button>
-          */}
+          
         </PurchaseActions>
       </div>
     )

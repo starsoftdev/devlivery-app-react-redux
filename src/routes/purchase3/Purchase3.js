@@ -39,20 +39,7 @@ class Purchase3 extends React.Component {
           )}
         </Row>
         <PurchaseActions>
-          {/*
-          <KeyHandler
-            keyEventName={KEYPRESS}
-            keyCode={13}
-            onKeyHandle={() => cardStyle && nextFlowStep()}
-          />
-          <Button
-            type='primary'
-            disabled={!cardStyle}
-            onClick={() => nextFlowStep()}
-          >
-            {intl.formatMessage(messages.submit)}
-          </Button>
-          */}
+          
         </PurchaseActions>
       </div>
     )

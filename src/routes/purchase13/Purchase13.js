@@ -81,46 +81,6 @@ class Purchase13 extends React.Component {
     }
     this.resetCardInfo();
     this.setState({ saveButton: false });
-    /*
-    this.props.form.validateFields((err, values) => {
-      if (values.number && values.name && values.expiry && values.cvc) {
-        if (!err && this.state.isValid) {
-          // TODO validate card fields
-          const card = {
-            ...values,
-            expiry_month: values.expiry.slice(0, 2),
-            expiry_year: `20${values.expiry.slice(-2)}`,
-            ignore: true
-          }
-          this.setState({ processing: true });
-          switch (this.props.paymentMethod) {
-            case CREDIT_CARD:
-              this.props.makeStripePayment(card, false,
-                (data) => {
-                  if (data && data.id)
-                    this.props.addCard(data, (success) => {
-                      this.setState({ processing: false, saveButton: false });
-                      if (success) {
-                        this.resetCardInfo();
-                      }
-                    })
-                  else {
-                    this.setState({ showMark: true, requirmsg: data.message ? data.message : 'Invalid Card', processing: false });
-                    return;
-                  }
-                })
-              break
-
-            default:
-              this.props.nextFlowStep()
-              break
-          }
-        }
-      } else {
-        message.info('All fields must be filled in')
-      }
-    })
-    */
   }
   resetCardInfo() {
     if (this.number) this.number.input.value = '';
@@ -332,7 +292,6 @@ class Purchase13 extends React.Component {
                   <Row gutter={20}>
                     <Col xs={12}>
                       <Form.Item
-                      //{...this.validation(this.state.expiry, 4)}
                       >
                         {getFieldDecorator('expiry', {
                         })(
@@ -348,7 +307,6 @@ class Purchase13 extends React.Component {
                     </Col>
                     <Col xs={12}>
                       <Form.Item
-                      //{...this.validation(this.state.cvc, 3)}
                       >
                         {getFieldDecorator('cvc', {
                         })(

@@ -47,19 +47,7 @@ class Purchase8 extends React.Component {
                 number={flowIndex + 1}
                 prefixClassName={s.headerPrefix}
               >
-                {/*
-                <Select
-                  className={s.giftType}
-                  allowClear
-                  placeholder={intl.formatMessage(messages.filterByGiftType)}
-                  onChange={(giftType) => getGifts({ giftType })}
-                  value={giftType}
-                >
-                  {GIFT_TYPES(intl).map((item) =>
-                    <Select.Option key={item.key} value={item.key}>{item.title}</Select.Option>
-                  )}
-                </Select>
-                */}
+                
               </SectionHeader>
               <Row className={s.items} gutter={20} type='flex' align='center'>
                 {gifts.map((item) =>

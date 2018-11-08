@@ -18,15 +18,6 @@ class AddBundle extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         // send request depending on selected gift option
-        /*
-        if (this.props.donationOrg) {
-          this.props.confirmDonation(values)
-        } else if (this.props.voucher) {
-          this.props.confirmVoucher(values)
-        } else {
-          this.props.addBundle(values)
-        }
-        */
         this.props.updateBundle({ ...values, saved: 1, _method:'PUT' },()=>this.props.nextFlowStep() )
       }
     })
@@ -51,7 +42,6 @@ class AddBundle extends React.Component {
       total += donationAmount
     }
     if (voucher) {
-      // TODO do not use hardcoded values
       subtotal += voucher.price
       total += voucher.price_with_tax
     }

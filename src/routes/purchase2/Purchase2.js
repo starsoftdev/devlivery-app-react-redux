@@ -75,20 +75,7 @@ class Purchase2 extends React.Component {
           </Col>
         </Row>
         <PurchaseActions>
-          {/*}
-          <KeyHandler
-            keyEventName={KEYPRESS}
-            keyCode={13}
-            onKeyHandle={() => letteringTechnique && this.props.nextFlowStep()}
-          />
-          <Button
-            type='primary'
-            disabled={!letteringTechnique}
-            onClick={() => this.props.nextFlowStep()}
-          >
-            {intl.formatMessage(messages.submit)}
-          </Button>
-          */}
+          
         </PurchaseActions>
       </div>
     )

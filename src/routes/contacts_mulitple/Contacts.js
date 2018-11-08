@@ -216,31 +216,6 @@ class Contacts extends React.Component {
           dataIndex: 'dob',
           key: 'dob',
         },
-        /*
-        {
-          title: intl.formatMessage(messages.actionsColumn),
-          dataIndex: '',
-          key: 'actions',
-          render: (contact) => {
-            return (
-              <React.Fragment>
-                <Link to={{name: EDIT_CONTACT_ROUTE, params: {contactId: contact.id}}}>
-                  <EditIcon/>
-                </Link>
-                <Popconfirm
-                  title={intl.formatMessage(messages.confirmRemoving)}
-                  onConfirm={() => removeContact(contact)}
-                  okText={intl.formatMessage(messages.acceptRemoving)}
-                >
-                  <a className={s.removeIcon}>
-                    <RemoveIcon/>
-                  </a>
-                </Popconfirm>
-              </React.Fragment>
-            )
-          }
-        },
-        */
       ];
     //Group
     else columns = [

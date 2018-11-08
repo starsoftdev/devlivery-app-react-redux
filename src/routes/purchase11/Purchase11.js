@@ -248,9 +248,7 @@ class Purchase11 extends React.Component {
             card={order.items.card}
           />
           <div className={s.orderDetails}>
-            {/*
-            <h3 className={s.cardTitle}>{occasion && occasion.title}</h3>
-            */}
+            
             <h3 className={s.warnText}>{this.tinymce && this.tinymce.editor && (html === null || html === '' || html === undefined) && intl.formatMessage(messages.personalizedmsg)}</h3>
             {this.state.mounted && bundle && <Editor
               ref={editor => {
@@ -268,19 +266,6 @@ class Purchase11 extends React.Component {
               }}
               onEditorChange={this.handleEditorChange}
             />
-            }
-            {
-              /*
-              showDescription &&
-              <Row type='flex' align='center' gutter={20}>
-                <Col xs={24} sm={24}>
-                <section>
-                  <h5 className={s.cardTitle} style={{'margin-top':20}}>{order.items.gifts[0] && order.items.gifts[0].gift.description}</h5>
-                  {order.donation && order.donation.organization.description}
-                </section>
-                </Col>
-              </Row>
-              */
             }
           </div>
           <Row type='flex' align='center' gutter={20} className={s.subtotalSection}>

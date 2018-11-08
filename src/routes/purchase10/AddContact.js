@@ -61,7 +61,6 @@ class AddContact extends React.Component {
   onNextSubmit(values){
     this.props.addContact(values, this.props.form, (contact) => {
       localStorage.removeItem(GROUP_ID_KEY)
-      //localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify([contact.id]))
       this.props.setNewRecipients([contact.id]);
       if(this.props.recipientMode)
         this.props.gotoConfirm();
