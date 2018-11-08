@@ -631,10 +631,17 @@ export const setPaymentMethod = (paymentMethod) => ({ type: SET_PAYMENT_METHOD, 
 
 export const register = (values, form) => (dispatch, getState, { fetch }) => {
   dispatch({ type: REGISTER_REQUEST })
+  const params = JSON.parse(JSON.stringify(values));
+  if (params.phone === undefined || params.phone === null)
+  {
+    delete params.phone;
+  }
   return fetch(`/signup`, {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
-    body: values,
+    body: {
+      ...params
+    },
     success: (res) => {
       dispatch({ type: REGISTER_SUCCESS })
       dispatch(loginSuccess(res.data))
