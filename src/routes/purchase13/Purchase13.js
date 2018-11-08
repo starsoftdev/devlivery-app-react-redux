@@ -212,7 +212,7 @@ class Purchase13 extends React.Component {
             <Spin
               wrapperClassName='action-spin'
               indicator={<Icon style={{ fontSize: '16px' }} spin type='loading' />}
-              spinning={this.props.loading}
+              spinning={this.props.loading ? true: false}
             />
           </div>
         }
