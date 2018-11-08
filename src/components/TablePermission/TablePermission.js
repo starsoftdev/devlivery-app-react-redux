@@ -65,7 +65,7 @@ class PermissionsTable extends React.Component {
   }
 
   render() {
-    const {groups, removeGroup, intl, permissions, user} = this.props
+    const {groups, removeGroup, intl, permissions, user, loading} = this.props
     const groupedPermissions = groupby(permissions, 'group')
    
     const options = Object.keys(groupedPermissions)
