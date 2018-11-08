@@ -19,7 +19,7 @@ import {
 } from '../routes'
 import { generateUrl } from '../router'
 import qs from 'query-string'
-import { getToken } from './user'
+import { getToken,GET_ALLCARDS_REQUEST, getAllCards} from './user'
 import { CARD_SIZES, DATE_FORMAT, DEFAULT_OCCASION_TYPE, DONATION_TYPE, VOUCHER_TYPE } from '../constants'
 import has from 'lodash/has'
 import { getFormErrors, showErrorMessage } from '../utils'
@@ -964,6 +964,7 @@ export const makeStripePayment = (card, isPaying = true, callback) => (dispatch,
     return
   }
   dispatch({ type: MAKE_STRIPE_PAYMENT_REQUEST })
+  dispatch({ type: GET_ALLCARDS_REQUEST})
   const {
     number,
     expiry_month,
@@ -1021,6 +1022,7 @@ export const makeStripePayment = (card, isPaying = true, callback) => (dispatch,
         callback(error)
       }
       dispatch({ type: MAKE_STRIPE_PAYMENT_FAILURE })
+      dispatch(getAllCards());
       if (error && error.error && error.error.message) {
         message.error(error.error.message)
       }
