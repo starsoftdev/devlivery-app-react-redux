@@ -38,7 +38,6 @@ class Orders extends React.Component {
 
   render() {
     const {search} = this.state
-    // TODO add table loading
     const {
       ordersCount,
       orders,
@@ -102,6 +101,7 @@ class Orders extends React.Component {
           />
         </div>
         <Table
+          loading = {loading.orders}
           className={s.orders}
           columns={columns}
           dataSource={orders}
