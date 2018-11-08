@@ -1,15 +1,15 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Button, Col, Pagination, Row, Popconfirm} from 'antd'
+import { connect } from 'react-redux'
+import { Button, Col, Pagination, Row, Popconfirm, Spin } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './ContactGroups.css'
 import EditIcon from '../../static/edit.svg'
 import RemoveIcon from '../../static/remove.svg'
 import PlusIcon from '../../static/plus.svg'
-import {clear, getContactGroups} from '../../reducers/contactGroups'
-import {Link, PaginationItem} from '../../components'
+import { clear, getContactGroups } from '../../reducers/contactGroups'
+import { Link, PaginationItem } from '../../components'
 import messages from './messages'
-import {ADD_CONTACT_GROUP_ROUTE, EDIT_CONTACT_GROUP_ROUTE} from '../'
+import { ADD_CONTACT_GROUP_ROUTE, EDIT_CONTACT_GROUP_ROUTE } from '../'
 import cn from 'classnames'
 
 class ContactGroups extends React.Component {
@@ -33,26 +33,29 @@ class ContactGroups extends React.Component {
     return (
       <div className={s.container}>
         <Row type='flex' gutter={20}>
-          <Col xs={24} sm={readonly !== true ? 16:24}>
-            <Row type='flex' gutter={20}>
-              {contactGroups.map((group) =>
-                <Col key={group.id} xs={24} sm={12}>
-                  <div className={cn(s.group, readonly && s.cursorpoint)} onClick={()=>selectGroup && selectGroup(group.title)}>
-                    { readonly !== true &&
-                      <Link className={s.removeBtn}
-                            to={{name: EDIT_CONTACT_GROUP_ROUTE, params: {groupId: group.id, title: group.title}}}>
-                        <EditIcon/>
-                      </Link>
-                    }
-                    <p className={s.groupName}>{group.title}</p>
-                  </div>
-                </Col>
-              )}
-              {
-                contactGroups.length <= 0 &&
-                <div>{intl.formatMessage(messages.nogroup)}</div>
-              }
-            </Row>
+          <Col xs={24} sm={readonly !== true ? 16 : 24}>
+            <Spin spinning={loading}>
+              <Row type='flex' gutter={20}>
+                {contactGroups.map((group) =>
+                  <Col key={group.id} xs={24} sm={12}>
+                    <div className={cn(s.group, readonly && s.cursorpoint)} onClick={() => selectGroup && selectGroup(group.title)}>
+                      {readonly !== true &&
+                        <Link className={s.removeBtn}
+                          to={{ name: EDIT_CONTACT_GROUP_ROUTE, params: { groupId: group.id, title: group.title } }}>
+                          <EditIcon />
+                        </Link>
+                      }
+                      <p className={s.groupName}>{group.title}</p>
+                    </div>
+                  </Col>
+                )}
+                {
+                  contactGroups.length <= 0 &&
+                  <div>{intl.formatMessage(messages.nogroup)}</div>
+                }
+
+              </Row>
+            </Spin>
             <div className={s.footer}>
               <Pagination
                 current={page}
@@ -64,9 +67,9 @@ class ContactGroups extends React.Component {
                 })}
                 pageSize={pageSize}
                 showSizeChanger
-                onChange={(page, pageSize) => getContactGroups({page, pageSize})}
-                onShowSizeChange={(page, pageSize) => getContactGroups({page, pageSize})}
-                itemRender={(current, type, el) => <PaginationItem type={type} el={el}/>}
+                onChange={(page, pageSize) => getContactGroups({ page, pageSize })}
+                onShowSizeChange={(page, pageSize) => getContactGroups({ page, pageSize })}
+                itemRender={(current, type, el) => <PaginationItem type={type} el={el} />}
               />
             </div>
           </Col>
@@ -75,7 +78,7 @@ class ContactGroups extends React.Component {
             <Col xs={24} sm={8}>
               <Link to={ADD_CONTACT_GROUP_ROUTE}>
                 <Button type='primary' ghost>
-                  <PlusIcon className={s.addIcon}/>
+                  <PlusIcon className={s.addIcon} />
                   {intl.formatMessage(messages.addGroup)}
                 </Button>
               </Link>
