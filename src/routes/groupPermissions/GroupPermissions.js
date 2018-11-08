@@ -18,8 +18,7 @@ class GroupPermissions extends React.Component {
   }
 
   render() {
-    // TODO add table loading
-    const { addGroup, setPermissions, newRoleGroup, changeNewRoleGroup, intl, removeGroup, permissions,user } = this.props
+    const { loading,addGroup, setPermissions, newRoleGroup, changeNewRoleGroup, intl, removeGroup, permissions,user } = this.props
     const groups = this.props.user_created_roles
 
     return (
@@ -45,6 +44,7 @@ class GroupPermissions extends React.Component {
           </div>
         </div>
         <TablePermission
+          loading={loading.groups}
           removeGroup={removeGroup}
           intl={intl}
           groups={groups}
