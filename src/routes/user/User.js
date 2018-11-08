@@ -61,7 +61,7 @@ class User extends React.Component {
         });
       }
       if (!err && dobValidation) {
-        this.props.updateUser({...values, birthday: birthday.format(DATE_FORMAT)}, this.props.form, this.props.intl.locale === "de-DE" ? 'Angaben angepasst' : 'User updated.')
+        this.props.updateUser(values, this.props.form, this.props.intl.locale === "de-DE" ? 'Angaben angepasst' : 'User updated.')
       }
     })
   }
