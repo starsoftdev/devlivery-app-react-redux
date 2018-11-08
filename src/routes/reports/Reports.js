@@ -163,6 +163,7 @@ class Reports extends React.Component {
           </Select>
         </div>
         <Table
+          loading = {loading.reports}
           columns={columns}
           dataSource={reports}
           rowKey={record => record.id}

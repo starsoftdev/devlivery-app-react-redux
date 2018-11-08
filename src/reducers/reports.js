@@ -38,7 +38,10 @@ export const getReports = (params = {}) => (dispatch, getState, {fetch}) => {
     method: 'GET',
     token,
     success: (res) => dispatch({type: GET_REPORTS_SUCCESS, res}),
-    failure: () => dispatch({type: GET_REPORTS_FAILURE}),
+    failure: (err) =>{
+      console.log('err',err);
+      dispatch({type: GET_REPORTS_FAILURE})
+    }, 
   })
 }
 
