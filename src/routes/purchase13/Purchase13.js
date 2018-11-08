@@ -204,19 +204,15 @@ class Purchase13 extends React.Component {
     const { getFieldDecorator } = this.props.form
 
     const disable_checkbox = cards && cards.length >= 4;
-
+    if(this.props.paymentMethod !== CREDIT_CARD)
+      return (
+        <div className={s.loadingScreen}>
+          <Loader loaded={this.props.loading ? false: true} position="relative" top="50px"/> 
+          <PurchaseActions></PurchaseActions>
+        </div>
+      );
     return (
       <React.Fragment>
-        {this.props.paymentMethod !== CREDIT_CARD &&
-          <div className={s.loadingScreen}>
-            <Spin
-              wrapperClassName='action-spin'
-              indicator={<Icon style={{ fontSize: '16px' }} spin type='loading' />}
-              spinning={this.props.loading ? true: false}
-            />
-          </div>
-        }
-
         <div className={s.content}>
           <SectionHeader
             header={intl.formatMessage(messages.header)}
