@@ -48,7 +48,9 @@ class ManageTeam extends React.Component {
       intl,
       pendingMembers,
       getPendingTeam,
-      user
+      user,
+      loading_team,
+      loading_pending,
     } = this.props
     
     const columns = [
@@ -149,6 +151,7 @@ class ManageTeam extends React.Component {
           <h1 className={s.header}>{intl.formatMessage(messages.header)}</h1>
         </div>
         <Table
+          loading = {loading_team}
           columns={columns}
           dataSource={team}
           rowKey={record => record.id}
@@ -170,6 +173,7 @@ class ManageTeam extends React.Component {
           <h1 className={s.header}>{intl.formatMessage(messages.pendingTableTitle)}</h1>
         </div>
         <Table
+          loading = {loading_pending}
           columns={columnsPending}
           dataSource={pendingMembers.team}
           rowKey={(record) => record.id}
@@ -200,6 +204,8 @@ class ManageTeam extends React.Component {
 const mapState = state => ({
   ...state.team,
   pendingMembers: state.pendingMembers,
+  loading_team: state.team.loading,
+  loading_pending: state.pendingMembers.loading,
   user: state.user.user,
 })
 
