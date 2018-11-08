@@ -130,6 +130,7 @@ const initialState = {
   loading: {
     groupContacts: false,
     editingContactGroup: false,
+    contacts: false
   },
   contacts: [],
   contactsCount: 0,
@@ -145,10 +146,24 @@ export default createReducer(initialState, {
   [GET_CONTACTS_REQUEST]: (state, {params}) => ({
     page: params.pagination ? params.pagination.current : 1,
     pageSize: params.pagination ? params.pagination.pageSize : 12,
+    loading: {
+      ...state.loading,
+      contacts: true,
+    },
   }),
   [GET_CONTACTS_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
     contacts: data.sort((a,b)=> state.groupContacts.includes(a.id) ? -1 : 1),
     contactsCount: total,
+    loading: {
+      ...state.loading,
+      contacts: false,
+    },
+  }),
+  [GET_CONTACTS_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      contacts: false,
+    },
   }),
   [GET_GROUP_CONTACTS_REQUEST]: (state, {params}) => ({
     title: has(params, 'title') ? params.title : state.title,
