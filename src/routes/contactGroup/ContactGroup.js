@@ -81,6 +81,7 @@ class ContactGroup extends React.Component {
             )}
           </Form.Item>
           <Table
+            loading = {loading.contacts}
             className={s.contacts}
             columns={columns}
             dataSource={contacts}
