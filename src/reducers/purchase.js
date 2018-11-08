@@ -631,7 +631,7 @@ export const setPaymentMethod = (paymentMethod) => ({ type: SET_PAYMENT_METHOD, 
 
 export const register = (values, form) => (dispatch, getState, { fetch }) => {
   dispatch({ type: REGISTER_REQUEST })
-  const params = JSON.parse(JSON.stringify(values));
+  let params = JSON.parse(JSON.stringify(values));
   if (params.phone === undefined || params.phone === null)
   {
     delete params.phone;

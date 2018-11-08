@@ -1,7 +1,7 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import {loginSuccess} from './login'
 import {message} from 'antd'
-import {getToken,updateUser} from './user'
+import {getToken,updateUser,getUserDetails} from './user'
 import {DATE_FORMAT} from '../constants'
 import {getFormErrors,showErrorMessage,getBirthday} from '../utils'
 
@@ -38,26 +38,31 @@ export const CLEAR = 'Register.CLEAR'
 export const register = (values, form) => (dispatch, getState, {fetch, history}) => {
   dispatch({type: REGISTER_REQUEST, individualDetails: values})
   const {accountType, individualDetails: {birthday, ...otherDetails},inviteToken} = getState().register
+
+  let params = {
+    ...otherDetails,
+    account_type: accountType ? accountType : INDIVIDUAL_ACCOUNT,
+    ...birthday ? {
+      dob: getBirthday(birthday),//.format(DATE_FORMAT)
+    } : {},
+    ...inviteToken ? {
+      invitation_token:inviteToken
+    } : {},
+  };
+  if (params.phone === undefined || params.phone === null)
+  {
+    delete params.phone;
+  }
   return fetch(`/signup`, {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
-    body: {
-      ...otherDetails,
-      account_type: accountType ? accountType : INDIVIDUAL_ACCOUNT,
-      ...birthday ? {
-        dob: getBirthday(birthday),//.format(DATE_FORMAT)
-      } : {},
-      ...inviteToken ?{
-        invitation_token:inviteToken
-      } : {},
-      //address: otherDetails.company+otherDetails.address ? " "+otherDetails.address:""
-    },
+    body: params,
     success: (res) => {
       let inviteToken = null;
       dispatch({type:SET_INVITE_TOKEN,inviteToken})
       dispatch({type: REGISTER_SUCCESS})
       dispatch(loginSuccess(res.data))
-      
+      /*
       dispatch(updateUser({
         address:{
           address: otherDetails.company+otherDetails.address ? " "+otherDetails.address:"",
@@ -97,6 +102,7 @@ export const register = (values, form) => (dispatch, getState, {fetch, history})
         },
         birthday : birthday ? birthday:null
       }))
+      */
       if (accountType === TEAM_ACCOUNT) {
         history.push('/register/team-details')
       } else {
