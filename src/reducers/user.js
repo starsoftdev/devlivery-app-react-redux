@@ -24,6 +24,7 @@ export const UPLOAD_AVATAR_REQUEST = 'User.UPLOAD_AVATAR_REQUEST'
 export const UPLOAD_AVATAR_SUCCESS = 'User.UPLOAD_AVATAR_SUCCESS'
 export const UPLOAD_AVATAR_FAILURE = 'User.UPLOAD_AVATAR_FAILURE'
 
+export const GET_ALLCARDS_REQUEST = 'User.GET_ALLCARDS_REQUEST'
 export const GET_ALLCARDS_SUCCESS = 'User.GET_ALLCARDS_SUCCESS'
 
 // ------------------------------------
@@ -196,6 +197,7 @@ export const uploadLogo = (imageBlob) => (dispatch, getState, { fetch }) => {
 }
 export const getAllCards = () => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
+  dispatch({ type: GET_ALLCARDS_REQUEST })
   return fetch(`/user/get/all-cards`, {
     method: 'GET',
     token,
@@ -275,6 +277,7 @@ const initialState = {
     updatingUser: false,
     updatingPassword: false,
     uploadingAvatar: false,
+    cards: false,
   },
   loggedIn: false,
   error: null,
@@ -288,8 +291,18 @@ export default createReducer(initialState, {
     user,
     loggedIn: true,
   }),
+  [GET_ALLCARDS_REQUEST]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      cards: true,
+    }
+  }),
   [GET_ALLCARDS_SUCCESS]: (state, { cards }) => ({
     cards,
+    loading: {
+      ...state.loading,
+      cards: false,
+    }
   }),
   [UPDATE_USER_REQUEST]: (state, action) => ({
     loading: {
