@@ -38,7 +38,7 @@ class Purchase9 extends React.Component {
         });
       }
       if (!err && dobValidation) {
-        this.props.register({ ...values, birthday: birthday.format(DATE_FORMAT) }, this.props.form)
+        this.props.register({ ...values, dob: birthday.format(DATE_FORMAT) }, this.props.form)
       }
     })
   }
