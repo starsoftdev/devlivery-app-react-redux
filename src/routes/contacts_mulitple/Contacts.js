@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Col, Input, Pagination, Popconfirm, Row, Select, Table, Checkbox, message } from 'antd'
+import { Col, Input, Pagination, Popconfirm, Row, Select, Table, Checkbox, message, Spin } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Contacts.css'
 import EditIcon from '../../static/edit.svg'
@@ -152,7 +152,7 @@ class Contacts extends React.Component {
   render() {
     const { view, search, contactId, type, page, pageSize, selGroupId, selContactIds } = this.state
     // TODO add loading
-    const { contacts, contactsCount, loading, getContacts, removeContact, intl, ordering, withSearchGroup, contactGroups, getContactGroups, removeContactGroup, contactGroupsCount } = this.props
+    const { contacts, contactsCount, loading,loading_group, getContacts, removeContact, intl, ordering, withSearchGroup, contactGroups, getContactGroups, removeContactGroup, contactGroupsCount } = this.props
 
 
     var srcData = type === category[0] ? contactGroups : contacts;
@@ -299,6 +299,7 @@ class Contacts extends React.Component {
           </div>
         }
         {view === GRID_VIEW ? (
+          <Spin spinning = {loading.contacts || loading_group}>
           <React.Fragment>
             <Row type='flex' gutter={20}>
               {
@@ -377,8 +378,10 @@ class Contacts extends React.Component {
               </div>
             }
           </React.Fragment>
+          </Spin>
         ) : (
             <Table
+              loading = {loading.contacts || loading_group}
               columns={columns}
               dataSource={dataEntry}
               rowKey={record => record.id}
@@ -408,6 +411,7 @@ class Contacts extends React.Component {
 const mapState = state => ({
   ...state.contacts,
   contactGroups: state.contactGroups.contactGroups,
+  loading_group: state.contactGroups.loading,
   contactGroupsCount: state.contactGroups.contactGroupsCount,
   recipientMode: state.purchase.recipientMode,
 })
