@@ -110,6 +110,7 @@ class CardCheckOut extends React.Component {
     return (
       <div className={s.container}>
         <Table
+          loading = {true}
           showHeader = {false}
           columns={columns}
           dataSource={cards}
