@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Col, Input, Pagination, Popconfirm, Row, Select, Table} from 'antd'
+import {Col, Input, Pagination, Popconfirm, Row, Select, Table, Spin} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Contacts.css'
 import EditIcon from '../../static/edit.svg'
@@ -177,6 +177,7 @@ class Contacts extends React.Component {
           </div>
         }
         {view === GRID_VIEW ? (
+          <Spin spinning = {loading.contacts}>
           <React.Fragment>
             <Row type='flex' gutter={20}>
               {contacts.map((contact) =>
@@ -233,8 +234,10 @@ class Contacts extends React.Component {
               </div>
             }
           </React.Fragment>
+          </Spin>
         ) : (
           <Table
+            loading = {loading.contacts}
             columns={columns}
             dataSource={contacts}
             rowKey={record => record.id}
