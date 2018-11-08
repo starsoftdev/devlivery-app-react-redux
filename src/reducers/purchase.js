@@ -633,9 +633,9 @@ export const register = (values, form) => (dispatch, getState, { fetch }) => {
   dispatch({ type: REGISTER_REQUEST })
   let params = JSON.parse(JSON.stringify(values));
   if (params.phone === undefined || params.phone === null)
-  {
     delete params.phone;
-  }
+  if (params.company === undefined || params.company === null)
+      delete params.company;
   return fetch(`/signup`, {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
