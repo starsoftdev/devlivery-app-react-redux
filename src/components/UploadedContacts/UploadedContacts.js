@@ -9,7 +9,7 @@ import messages from './messages'
 
 class UploadedContacts extends React.Component {
   render() {
-    const {uploadedContacts, closeUploadedContactsModal, intl, selectedContacts, changeSelectedContacts} = this.props
+    const {uploadedContacts, closeUploadedContactsModal, intl, selectedContacts, changeSelectedContacts,loading} = this.props
 
     const columnsNames = uploadedContacts[0] ? Object.keys(uploadedContacts[0]) : []
     const columns = columnsNames.map(column => ({
@@ -28,6 +28,7 @@ class UploadedContacts extends React.Component {
         width={900}
       >
         <Table
+          loading= {loading.uploadedContacts}
           className={s.table}
           columns={columns}
           dataSource={uploadedContacts}
@@ -44,6 +45,7 @@ class UploadedContacts extends React.Component {
 }
 
 const mapState = state => ({
+  loading: state.contacts.loading,
   uploadedContacts: state.contacts.uploadedContacts,
   selectedContacts: state.contacts.selectedContacts,
 })

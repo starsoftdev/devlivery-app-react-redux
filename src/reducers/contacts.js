@@ -442,6 +442,7 @@ const initialState = {
     removingContact: false,
     occasions: false,
     groups: false,
+    uploadedContacts: false
   },
   contacts: [],
   contactsCount: 0,
@@ -626,9 +627,25 @@ export default createReducer(initialState, {
   [CLOSE_UPLOADED_CONTACTS_MODAL]: (state, action) => ({
     uploadedContactsModalOpened: false,
   }),
+  [UPLOAD_CONTACTS_REQUEST]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      uploadedContacts: true,
+    },
+  }),
   [UPLOAD_CONTACTS_SUCCESS]: (state, {uploadedContacts}) => ({
     uploadedContacts,
     selectedContacts: uploadedContacts.map((item, i) => i),
+    loading: {
+      ...state.loading,
+      uploadedContacts: false,
+    },
+  }),
+  [UPLOAD_CONTACTS_FAILURE]: (state, action) => ({
+    loading: {
+      ...state.loading,
+      uploadedContacts: false,
+    },
   }),
   [CHANGE_SELECTED_CONTACTS]: (state, {selectedContacts}) => ({
     selectedContacts,
