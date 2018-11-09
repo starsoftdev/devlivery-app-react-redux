@@ -88,7 +88,7 @@ export const PURCHASE_FLOW = {
   key: 'purchase-flow',
   routes: [
     PURCHASE1_ROUTE,
-    PURCHASE2_ROUTE,
+    //PURCHASE2_ROUTE,
     PURCHASE3_ROUTE,
     PURCHASE4_ROUTE,
     PURCHASE5_ROUTE,
@@ -108,7 +108,7 @@ export const AUTH_PURCHASE_FLOW = {
   key: 'auth-purchase-flow',
   routes: [
     PURCHASE1_ROUTE,
-    PURCHASE2_ROUTE,
+    //PURCHASE2_ROUTE,
     PURCHASE3_ROUTE,
     PURCHASE4_ROUTE,
     PURCHASE5_ROUTE,
@@ -125,7 +125,7 @@ export const AUTH_PURCHASE_FLOW = {
 export const AUTH_ORDER_CARD_FLOW = {
   key: 'auth_order-card-flow',
   routes: [
-    PURCHASE2_ROUTE,
+    //PURCHASE2_ROUTE,
     PURCHASE10_ROUTE,
     PURCHASE6_ROUTE,
     PURCHASE7_ROUTE,
@@ -140,7 +140,7 @@ export const AUTH_GIFT_PURCHASE_FLOW = {
   key: 'auth_gift-purchase-flow',
   routes: [
     PURCHASE1_ROUTE,
-    PURCHASE2_ROUTE,
+    //PURCHASE2_ROUTE,
     PURCHASE3_ROUTE,
     PURCHASE4_ROUTE,
     PURCHASE5_ROUTE,
@@ -157,7 +157,7 @@ export const AUTH_GIFT_PURCHASE_FLOW = {
 export const ORDER_CARD_FLOW = {
   key: 'order-card-flow',
   routes: [
-    PURCHASE2_ROUTE,
+    //PURCHASE2_ROUTE,
     PURCHASE9_ROUTE,
     PURCHASE10_ROUTE,
     PURCHASE6_ROUTE,
@@ -173,7 +173,7 @@ export const GIFT_PURCHASE_FLOW = {
   key: 'gift-purchase-flow',
   routes: [
     PURCHASE1_ROUTE,
-    PURCHASE2_ROUTE,
+    //PURCHASE2_ROUTE,
     PURCHASE3_ROUTE,
     PURCHASE4_ROUTE,
     PURCHASE5_ROUTE,
@@ -192,7 +192,7 @@ export const EVENT_PURCHASE_FLOW = {
   key: 'event-purchase-flow',
   routes: [
     PURCHASE1_ROUTE,
-    PURCHASE2_ROUTE,
+    //PURCHASE2_ROUTE,
     PURCHASE3_ROUTE,
     PURCHASE4_ROUTE,
     PURCHASE5_ROUTE,
@@ -234,7 +234,7 @@ export const EDIT_BUNDLE_FLOW = {
   key: 'edit-bundle-flow',
   routes: [
     PURCHASE1_ROUTE,
-    PURCHASE2_ROUTE,
+    //PURCHASE2_ROUTE,
     PURCHASE3_ROUTE,
     PURCHASE4_ROUTE,
     PURCHASE5_ROUTE,
