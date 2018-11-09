@@ -35,9 +35,11 @@ class Header extends React.Component {
         )}
       >
         <div className={cn(s.header, className || s.layoutHeader)}>
+          {/*
           <div className={s.leftMenu}>
             <LanguageSwitcher/>
           </div>
+          */}
           <Link to={HOME_ROUTE}>
             <Logo/>
           </Link>
