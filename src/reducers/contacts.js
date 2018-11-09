@@ -139,7 +139,8 @@ export const getRemindersArray = (reminders) => {
     // if one of the property undefined/null - don't send item
     return (item.custom_title || item.occasion_id) && item.date
   }).map(item => ({
-    recurring: item.recurring,
+    ...(item.recurring && item.recurring !== undefined && item.recurring !== '1') ?
+    {recurring: item.recurring}:{},
     // if user provided new occasion title
     ...isNaN(+item.occasion_id) ? {
       custom_title: item.occasion_id
@@ -182,7 +183,7 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
   dispatch({type: ADD_CONTACT_REQUEST})
   const {dob, reminders, groups, addresses, ...otherValues} = values
   const {token} = dispatch(getToken())
-  console.log('reminders',reminders);
+  
   return fetch(`/add-contact-manually`, {
     method: 'POST',
     body: {
