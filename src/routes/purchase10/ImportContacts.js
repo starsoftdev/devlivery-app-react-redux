@@ -32,10 +32,10 @@ class ImportContacts extends React.Component {
             exportGoogleContacts,
             exportOutlookContacts,
             exportCardContacts,
-            csvUploadButton,
-            xlsUploadButton,
+            //csvUploadButton,
+            //xlsUploadButton,
             xlsxUploadButton,
-            vcfUploadButton,
+            //vcfUploadButton,
           }) =>
             <React.Fragment>
               <div className={s.content}>
@@ -49,10 +49,10 @@ class ImportContacts extends React.Component {
                     {exportGoogleContacts}
                   </Col>
                   <Col xs={24} sm={12} className={cn(s.section, s.actionsSection)}>
-                    {csvUploadButton}
-                    {xlsUploadButton}
+                    {/*csvUploadButton*/}
+                    {/*xlsUploadButton*/}
                     {xlsxUploadButton}
-                    {vcfUploadButton}
+                    {/*vcfUploadButton*/}
                   </Col>
                   <Col xs={24} sm={12} className={s.section}>
                     {exportOutlookContacts}

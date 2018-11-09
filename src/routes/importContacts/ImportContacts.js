@@ -71,10 +71,10 @@ class ImportContacts extends React.Component {
                 exportGoogleContacts,
                 exportOutlookContacts,
                 exportCardContacts,
-                csvUploadButton,
-                xlsUploadButton,
+                //csvUploadButton,
+                //xlsUploadButton,
                 xlsxUploadButton,
-                vcfUploadButton,
+                //vcfUploadButton,
               }) =>
               <div className={s.content}>
                 <Row type='flex' gutter={20}>
@@ -89,10 +89,10 @@ class ImportContacts extends React.Component {
                   <Col xs={24} md={6}>
                     <section>
                       <h1 className={s.sectionHeader}>{intl.formatMessage(messages.upload)}</h1>
-                      {csvUploadButton}
-                      {xlsUploadButton}
+                      {/*csvUploadButton*/}
+                      {/*xlsUploadButton*/}
                       {xlsxUploadButton}
-                      {vcfUploadButton}
+                      {/*vcfUploadButton*/}
                     </section>
                   </Col>
                 </Row>
