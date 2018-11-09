@@ -182,6 +182,7 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
   dispatch({type: ADD_CONTACT_REQUEST})
   const {dob, reminders, groups, addresses, ...otherValues} = values
   const {token} = dispatch(getToken())
+  console.log('reminders',reminders);
   return fetch(`/add-contact-manually`, {
     method: 'POST',
     body: {
@@ -193,7 +194,10 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
         } : {},
       },
       addresses: getAddressesArray(addresses),
-      reminders: getRemindersArray(reminders),
+      ...(reminders && reminders!== undefined) ?
+      {
+        reminders: getRemindersArray(reminders),
+      }:{},
       groups: getGroupsArray(groups),
     },
     token,
