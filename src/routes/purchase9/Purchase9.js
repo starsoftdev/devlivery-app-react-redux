@@ -77,9 +77,11 @@ class Purchase9 extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
-          <Button type='primary' ghost size={'small'} onClick={()=>{history.push(generateUrl("login", { inpurchase: true }))}}>
-            {intl.formatMessage(messages.haveaccount)}
-          </Button>
+          <div className={s.loginbutton}>
+            <Button type='primary' ghost size={'small'} onClick={()=>{history.push(generateUrl("login", { inpurchase: true }))}}>
+              {intl.formatMessage(messages.haveaccount)}
+            </Button>
+          </div>
           <Form.Item>
             {getFieldDecorator('account_type', {
               rules: [

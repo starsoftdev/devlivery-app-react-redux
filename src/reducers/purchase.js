@@ -236,7 +236,11 @@ export const setFlowFromSelectCard = (card) => (dispatch, getState) => {
   dispatch({ type: SET_CARD_SIZE, cardSize })
   dispatch({ type: SET_CARD, card })
 
-  dispatch(setFlow(ORDER_CARD_FLOW))
+  const {loggedIn} = getState().user
+  if(loggedIn)
+    dispatch(setFlow(AUTH_ORDER_CARD_FLOW))
+  else  dispatch(setFlow(ORDER_CARD_FLOW))
+  
 }
 export const setFlowFromSelectGift = (gift) => (dispatch, getState) => {
   dispatch(clear())
@@ -1497,7 +1501,7 @@ export const initialState = {
   },
   occasions: [],
   occasion: null,
-  letteringTechnique: null,
+  letteringTechnique: "printed",
   cardStyle: null,
   cardSize: null,
   cardDetails: null,
