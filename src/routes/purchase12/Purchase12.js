@@ -68,6 +68,7 @@ class Purchase12 extends React.Component {
               disabled = {!havePermission}
             />
           </Col>
+          {/*
           <Col className={s.itemWrapper}>
             <Card
               className={s.item}
@@ -79,6 +80,8 @@ class Purchase12 extends React.Component {
               disabled = {!havePermission}
             />
           </Col>
+          */}
+          {/*
           <Col className={s.itemWrapper}>
             <Card
               className={s.item}
@@ -90,6 +93,7 @@ class Purchase12 extends React.Component {
               disabled = {!havePermission || handwrittenDisabled}
             />
           </Col>
+          */}
         </Row>
         <PurchaseActions>
           
