@@ -71,7 +71,7 @@ class Reminders extends React.Component {
   }
   getReminderRecurring(occasionId) {
     let Reminder_recurring = [
-      { value: '1', label: this.props.intl.locale === 'de-DE' ? 'Once' : 'Once' },
+      { value: '1', label: this.props.intl.locale === 'de-DE' ? 'Einmal' : 'Once' },
       { value: 'm', label: this.props.intl.locale === 'de-DE' ? 'Monatlich' : 'Every month' },
       { value: 'y', label: this.props.intl.locale === 'de-DE' ? 'Jährlich' : 'Every year' }
     ];
@@ -174,7 +174,7 @@ class Reminders extends React.Component {
               </Form.Item>
               <Form.Item>
                 {getFieldDecorator(`reminders[${k}].recurring`, {
-                  initialValue: initialValues && initialValues[k] && initialValues[k].recurring ? initialValues[k].recurring : undefined,
+                  initialValue: initialValues ? (initialValues[k] && initialValues[k].recurring ? initialValues[k].recurring : '1'):undefined,
                 })(
                   <Select
                     allowClear
