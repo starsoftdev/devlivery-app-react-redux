@@ -47,8 +47,11 @@ class ContactUs extends React.Component {
         formdata.append('email',values.email);
         formdata.append('message',values.message);
         formdata.append('name',values.name);
-        formdata.append('phone',values.phone);
-        formdata.append('subject',values.subject);
+        if(values.phone && values.phone !== undefined)
+          formdata.append('phone',values.phone);
+        if(values.subject && values.subject !== undefined)
+          formdata.append('subject',values.subject);
+
         for(var i=0; i < this.state.attachments.length; i++)
         {
           let file = this.state.attachments[i];
