@@ -77,7 +77,7 @@ class AddContact extends React.Component {
             birthdaySection,
             homeAddressSection,
             companyAddressSection,
-            remindersSection,
+            //remindersSection,
             groupsSection,
           }) => (
           <Form onSubmit={this.handleSubmit}>
@@ -94,7 +94,7 @@ class AddContact extends React.Component {
               }
               {homeAddressSection}
               {companyAddressSection}
-              {remindersSection}
+              {/*remindersSection*/}
               {groupsSection}
             </div>
           </Form>
