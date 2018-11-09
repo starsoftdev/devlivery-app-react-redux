@@ -485,7 +485,7 @@ class Purchase11 extends React.Component {
                 }
               </Col>
               <Col xs={12}>
-                {
+                {/*
                   flow.key !== ORDER_BUNDLE_FLOW.key && flow.key !== ORDER_VOUCHER_FLOW.key &&
                   <div>
                     <Form.Item>
@@ -510,6 +510,7 @@ class Purchase11 extends React.Component {
                       </Form.Item>
                     }
                   </div>
+                  */
                 }
               </Col>
             </Row>
