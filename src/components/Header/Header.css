@@ -44,9 +44,30 @@
 }
 
 .leftMenu {
+  /*
   @media (--md-down) {
     order: 1;
     margin-top: var(--margin-xs);
+  }
+  @media (--md-up) {
+    position: absolute;
+    left: var(--margin-md);
+  }
+  */
+  font-style: italic;
+
+  & > * {
+    padding-right: var(--margin-sm);
+    padding-left: var(--margin-sm);
+
+    &:not(:last-child) {
+      border-right: 1px solid var(--link-color);
+    }
+  }
+
+  @media (--md-down) {
+    margin-top: var(--margin-xs);
+    float: right;
   }
   @media (--md-up) {
     position: absolute;
