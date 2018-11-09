@@ -85,7 +85,7 @@ export const CARD_SIZES = (intl) => [
 ]
 
 export const FOOD_TYPE = 'Food'
-export const NON_FOOD_TYPE = 'Non-Food'
+export const NON_FOOD_TYPE = 'Non Food'
 export const DONATION_TYPE = 'Donation'
 export const VOUCHER_TYPE = 'Voucher'
 export const CONTINUE_WITHOUT_GIFT = 'Continue_without_gift'
