@@ -44,7 +44,7 @@ class Register2 extends React.Component {
           <section>
             <SectionHeader
               header={intl.formatMessage(messages.header)}
-              number={2}
+              //number={2}
               prefixClassName={s.headerPrefix}
             />
             <Row gutter={20}>

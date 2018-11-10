@@ -82,6 +82,7 @@ class Purchase9 extends React.Component {
               {intl.formatMessage(messages.haveaccount)}
             </Button>
           </div>
+          {/*
           <Form.Item>
             {getFieldDecorator('account_type', {
               rules: [
@@ -98,6 +99,7 @@ class Purchase9 extends React.Component {
               </Select>
             )}
           </Form.Item>
+          */}
           <Form.Item>
             {getFieldDecorator('email', {
               validateTrigger: 'onBlur',

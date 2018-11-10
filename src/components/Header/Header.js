@@ -14,7 +14,7 @@ import {
   LOGOUT_ROUTE,
   NEW_ARRIVALS_ROUTE,
   ORDERS_ROUTE,
-  REGISTER1_ROUTE,
+  REGISTER2_ROUTE,
   CONTACT_US_ROUTE,
 } from '../../routes'
 import { LanguageSwitcher, Link } from '../../components'
@@ -64,7 +64,7 @@ class Header extends React.Component {
                     <Link to={LOGIN_ROUTE}>
                       {intl.formatMessage(messages.login)}
                     </Link>
-                    <Link to={REGISTER1_ROUTE}>
+                    <Link to={REGISTER2_ROUTE}>
                       {intl.formatMessage(messages.signUp)}
                     </Link>
                   </React.Fragment>

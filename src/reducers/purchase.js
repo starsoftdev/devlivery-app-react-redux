@@ -28,6 +28,7 @@ import identity from 'lodash/identity'
 import uniq from 'lodash/uniq'
 import moment from 'moment'
 import localStorage from 'localStorage';
+import {INDIVIDUAL_ACCOUNT} from './register';
 
 // ------------------------------------
 // Constants
@@ -644,7 +645,8 @@ export const register = (values, form) => (dispatch, getState, { fetch }) => {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
     body: {
-      ...params
+      ...params,
+      account_type: INDIVIDUAL_ACCOUNT
     },
     success: (res) => {
       dispatch({ type: REGISTER_SUCCESS })
