@@ -20,7 +20,8 @@
     "defaultMessage": "{range0}-{range1} of {total} items",
     "message": "{range0}-{range1}von {total} Stücken",
     "files": [
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -49,7 +50,7 @@
   },
   {
     "id": "purchase2.printedHeader",
-    "defaultMessage": "",
+    "defaultMessage": "... oder getippt",
     "message": "... oder getippt",
     "files": [
       "src/routes/purchase2/messages.js"
@@ -73,7 +74,7 @@
   },
   {
     "id": "purchase2.handwrittenHeader",
-    "defaultMessage": "",
+    "defaultMessage": "Von Hand ...",
     "message": "Von Hand ...",
     "files": [
       "src/routes/purchase2/messages.js"
@@ -132,7 +133,8 @@
     "defaultMessage": "Actions",
     "message": "Handlungen",
     "files": [
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -224,8 +226,8 @@
     "defaultMessage": "Birthday",
     "message": "Geburtstag",
     "files": [
-      "src/routes/register2/messages.js",
-      "src/routes/purchase9/messages.js"
+      "src/routes/purchase9/messages.js",
+      "src/routes/register2/messages.js"
     ]
   },
   {
@@ -409,8 +411,8 @@
     "defaultMessage": "Contacts",
     "message": "Kontakte",
     "files": [
-      "src/routes/dashboard/messages.js",
-      "src/routes/contacts_mulitple/messages.js"
+      "src/routes/contacts_mulitple/messages.js",
+      "src/routes/dashboard/messages.js"
     ]
   },
   {
@@ -559,6 +561,7 @@
     "defaultMessage": "Edit Contact",
     "message": "Kontakt bearbeiten",
     "files": [
+      "src/components/ContactDetail/ContactDetail.js",
       "src/routes/editContact/messages.js"
     ]
   },
@@ -567,7 +570,7 @@
     "defaultMessage": "Email",
     "message": "Email",
     "files": [
-      "src/routes/editContact/messages.js"
+      "src/components/ContactDetail/ContactDetail.js"
     ]
   },
   {
@@ -575,7 +578,7 @@
     "defaultMessage": "Phone",
     "message": "Telfon",
     "files": [
-      "src/routes/editContact/messages.js"
+      "src/components/ContactDetail/ContactDetail.js"
     ]
   },
   {
@@ -583,7 +586,7 @@
     "defaultMessage": "Nickname",
     "message": "Rufname",
     "files": [
-      "src/routes/editContact/messages.js"
+      "src/components/ContactDetail/ContactDetail.js"
     ]
   },
   {
@@ -591,7 +594,7 @@
     "defaultMessage": "Relationship",
     "message": "Beziehungstyp",
     "files": [
-      "src/routes/editContact/messages.js"
+      "src/components/ContactDetail/ContactDetail.js"
     ]
   },
   {
@@ -599,7 +602,7 @@
     "defaultMessage": "Home",
     "message": "Wohnadresse",
     "files": [
-      "src/routes/editContact/messages.js"
+      "src/components/ContactDetail/ContactDetail.js"
     ]
   },
   {
@@ -689,8 +692,8 @@
     "defaultMessage": "From:",
     "message": "Von:",
     "files": [
-      "src/routes/reports/messages.js",
-      "src/routes/orders/messages.js"
+      "src/routes/orders/messages.js",
+      "src/routes/reports/messages.js"
     ]
   },
   {
@@ -698,8 +701,8 @@
     "defaultMessage": "To:",
     "message": "Zu:",
     "files": [
-      "src/routes/reports/messages.js",
-      "src/routes/orders/messages.js"
+      "src/routes/orders/messages.js",
+      "src/routes/reports/messages.js"
     ]
   },
   {
@@ -731,7 +734,8 @@
     "defaultMessage": "Find Contacts",
     "message": "Kontakte Finden",
     "files": [
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -739,7 +743,8 @@
     "defaultMessage": "Find Contacts",
     "message": "Kontakte Finden",
     "files": [
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -747,7 +752,8 @@
     "defaultMessage": "Find Contacts",
     "message": "Kontakte Finden",
     "files": [
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -924,7 +930,7 @@
     "message": "Gruppen",
     "files": [
       "src/components/ContactForm/messages.js",
-      "src/components/contacts_mulitple/messages.js"
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -1760,7 +1766,8 @@
     "defaultMessage": "Search",
     "message": "Suchen",
     "files": [
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -1773,7 +1780,7 @@
   },
   {
     "id": "home.chooseItDescription",
-    "defaultMessage": "Select a card from out exclusive online catalog",
+    "defaultMessage": "Select from out exclusive online catalog",
     "message": "Kreieren Sie grosse Emotionen: Wählen Sie die passende Karte aus unserem exklusiven Sortiment, gestaltet von Künstlern.",
     "files": [
       "src/routes/home/messages.js"
@@ -1967,8 +1974,8 @@
     "defaultMessage": "Size",
     "message": "Grösse",
     "files": [
-      "src/routes/purchase6/messages.js",
-      "src/routes/newArrivals/messages.js"
+      "src/routes/newArrivals/messages.js",
+      "src/routes/purchase6/messages.js"
     ]
   },
   {
@@ -1976,7 +1983,8 @@
     "defaultMessage": "Sort by",
     "message": "Sortieren nach",
     "files": [
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts/messages.js",
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -1993,8 +2001,7 @@
     "defaultMessage": "No Contact",
     "message": "kein Kontakt",
     "files": [
-      "src/routes/contacts/messages.js",
-      "src/routes/contacts_mulitple/messages.js"
+      "src/routes/contacts/messages.js"
     ]
   },
   {
@@ -2002,7 +2009,7 @@
     "defaultMessage": "No item",
     "message": "Kein Artikel ausgewählt",
     "files": [
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -2052,13 +2059,13 @@
     "message": "weiter",
     "files": [
       "src/routes/purchase1/messages.js",
+      "src/routes/purchase12/messages.js",
       "src/routes/purchase2/messages.js",
       "src/routes/purchase3/messages.js",
       "src/routes/purchase4/messages.js",
       "src/routes/purchase5/messages.js",
       "src/routes/purchase7/messages.js",
-      "src/routes/purchase8/messages.js",
-      "src/routes/purchase12/messages.js"
+      "src/routes/purchase8/messages.js"
     ]
   },
   {
@@ -2072,10 +2079,7 @@
   {
     "id": "purchase7.submit",
     "defaultMessage": "Submit",
-    "message": "Senden",
-    "files": [
-      "src/routes/purchase7/messages.js"
-    ]
+    "message": "Senden"
   },
   {
     "id": "purchase8.submit",
@@ -2343,7 +2347,8 @@
     "defaultMessage": "Upload",
     "message": "Hochladen",
     "files": [
-      "src/components/Avatar/messages.js"
+      "src/components/Avatar/messages.js",
+      "src/routes/importContacts/messages.js"
     ]
   },
   {
@@ -2415,8 +2420,8 @@
     "defaultMessage": "Select Groups",
     "message": "Gruppe wählen",
     "files": [
-      "src/routes/purchase10/messages.js",
-      "src/components/TeamExpandedRow/messages.js"
+      "src/components/TeamExpandedRow/messages.js",
+      "src/routes/purchase10/messages.js"
     ]
   },
   {
@@ -2562,7 +2567,7 @@
     "message": "Benutzerverwaltung",
     "files": [
       "src/components/Header/messages.js",
-      "src/components/purchaseCompleted/messages.js"
+      "src/routes/purchaseCompleted/messages.js"
     ]
   },
   {
@@ -3000,10 +3005,10 @@
     "defaultMessage": "Are you sure you want to delete?",
     "message": "Sind Sie sicher das Sie diesen Inhalt löschen wollen?",
     "files": [
-      "src/routes/contactGroup/messages.js",
-      "src/routes/contactGroups/messages.js",
+      "src/components/OrderItems/messages.js",
       "src/routes/bundles/messages.js",
-      "src/components/OrderItems/messages.js"
+      "src/routes/contactGroup/messages.js",
+      "src/routes/contactGroups/messages.js"
     ]
   },
   {
@@ -3011,15 +3016,15 @@
     "defaultMessage": "Yes",
     "message": "Ja",
     "files": [
+      "src/components/CardCheckOut/messages.js",
+      "src/components/OrderItems/messages.js",
+      "src/routes/bundles/messages.js",
       "src/routes/contactGroup/messages.js",
       "src/routes/contactGroups/messages.js",
       "src/routes/contacts/messages.js",
       "src/routes/contacts_mulitple/messages.js",
       "src/routes/editContact/messages.js",
-      "src/routes/purchase11/messages.js",
-      "src/components/CardCheckout/messages.js",
-      "src/routes/bundles/messages.js",
-      "src/components/OrderItems/messages.js"
+      "src/routes/purchase11/messages.js"
     ]
   },
   {
@@ -3044,11 +3049,11 @@
     "defaultMessage": "Are you sure you want to delete?",
     "message": "Sind Sie sicher das Sie diesen Inhalt löschen wollen?",
     "files": [
+      "src/components/CardCheckOut/messages.js",
       "src/routes/contacts/messages.js",
       "src/routes/contacts_mulitple/messages.js",
       "src/routes/editContact/messages.js",
-      "src/routes/purchase11/messages.js",
-      "src/components/CardCheckOut/messages.js"
+      "src/routes/purchase11/messages.js"
     ]
   },
   {
@@ -3209,9 +3214,9 @@
     "defaultMessage": "Price",
     "message": "Preis",
     "files": [
+      "src/routes/cardStore/messages.js",
       "src/routes/giftStore/messages.js",
-      "src/routes/newArrivals/messages.js",
-      "src/routes/cardStore/messages.js"
+      "src/routes/newArrivals/messages.js"
     ]
   },
   {
@@ -3602,7 +3607,7 @@
   },
   {
     "id": "purchase11.coupon",
-    "defaultMessage": "Coupon:",
+    "defaultMessage": "Coupon",
     "message": "Coupon:",
     "files": [
       "src/routes/purchase11/messages.js"
@@ -3773,9 +3778,9 @@
     "defaultMessage": "Address",
     "message": "Adresszusatz",
     "files": [
-      "src/routes/user/messages.js",
       "src/routes/purchase9/messages.js",
-      "src/routes/register2/messages.js"
+      "src/routes/register2/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -3783,9 +3788,9 @@
     "defaultMessage": "Shipping Address",
     "message": "Lieferanschrift",
     "files": [
-      "src/routes/user/messages.js",
       "src/routes/purchase9/messages.js",
-      "src/routes/register2/messages.js"
+      "src/routes/register2/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -3873,9 +3878,9 @@
     "defaultMessage": "City",
     "message": "Stadt",
     "files": [
-      "src/routes/user/messages.js",
       "src/routes/purchase9/messages.js",
-      "src/routes/register2/messages.js"
+      "src/routes/register2/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -3883,9 +3888,9 @@
     "defaultMessage": "Company",
     "message": "Unternehmen",
     "files": [
-      "src/routes/user/messages.js",
       "src/routes/purchase9/messages.js",
-      "src/routes/register2/messages.js"
+      "src/routes/register2/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -3917,9 +3922,9 @@
     "defaultMessage": "Country",
     "message": "Land",
     "files": [
-      "src/routes/user/messages.js",
       "src/routes/purchase9/messages.js",
-      "src/routes/register2/messages.js"
+      "src/routes/register2/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -3927,9 +3932,9 @@
     "defaultMessage": "Postal Code",
     "message": "PLZ",
     "files": [
-      "src/routes/user/messages.js",
       "src/routes/purchase9/messages.js",
-      "src/routes/register2/messages.js"
+      "src/routes/register2/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -3937,9 +3942,9 @@
     "defaultMessage": "State",
     "message": "Zustand",
     "files": [
-      "src/routes/user/messages.js",
       "src/routes/purchase9/messages.js",
-      "src/routes/register2/messages.js"
+      "src/routes/register2/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -3963,8 +3968,8 @@
     "defaultMessage": "From",
     "message": "Von",
     "files": [
-      "src/routes/voucher/messages.js",
-      "src/components/OrderItems/messages.js"
+      "src/components/OrderItems/messages.js",
+      "src/routes/voucher/messages.js"
     ]
   },
   {
@@ -3980,8 +3985,8 @@
     "defaultMessage": "To",
     "message": "Zu",
     "files": [
-      "src/routes/voucher/messages.js",
-      "src/components/OrderItems/messages.js"
+      "src/components/OrderItems/messages.js",
+      "src/routes/voucher/messages.js"
     ]
   },
   {
