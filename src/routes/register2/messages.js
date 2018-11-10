@@ -6,8 +6,8 @@ export default defineMessages({
     defaultMessage: 'Individual Details',
   },
   header: {
-    id: 'register2.header',
-    defaultMessage: 'Individual Details',
+    id: 'header.signUp',//'register2.header',
+    defaultMessage: 'Sign Up',//'Individual Details',
   },
   email: {
     id: 'register2.email',

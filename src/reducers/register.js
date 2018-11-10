@@ -53,7 +53,6 @@ export const register = (values, form) => (dispatch, getState, {fetch, history})
       delete params.phone;
   if (params.company === undefined || params.company === null)
       delete params.company;
-  
   return fetch(`/signup`, {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
@@ -112,6 +111,7 @@ export const register = (values, form) => (dispatch, getState, {fetch, history})
       }
     },
     failure: (res) => {
+      console.log('res',res);
       dispatch({type: REGISTER_FAILURE})
       const {formErrors} = getFormErrors({...res, values})
       if (formErrors)
