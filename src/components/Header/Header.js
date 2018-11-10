@@ -81,7 +81,8 @@ class Header extends React.Component {
               </div>
             )}
         </div>
-        {[
+        {/*
+        [
           ...HOME_ROUTES,
           ...DASHBOARD_ROUTES,
         ].includes(currentRouteName) && (
@@ -107,24 +108,24 @@ class Header extends React.Component {
                     <hr className={s.underline} />
                   </div>}
               </li>
-              {/*
-            <li>
-              <Link to={ABOUT_ROUTE}>{intl.formatMessage(messages.about)}</Link>
-              {ABOUT_ROUTE === currentRouteName &&
-              <div className={s.dashWrapper}>
-                <hr className={s.underline}/>
-              </div>}
-            </li>
-            <li>
-              <Link to={CONTACT_US_ROUTE}>{intl.formatMessage(messages.contact)}</Link>
-              {CONTACT_US_ROUTE === currentRouteName &&
-              <div className={s.dashWrapper}>
-                <hr className={s.underline}/>
-              </div>}
-            </li>
-            */}
+              <li>
+                <Link to={ABOUT_ROUTE}>{intl.formatMessage(messages.about)}</Link>
+                {ABOUT_ROUTE === currentRouteName &&
+                  <div className={s.dashWrapper}>
+                    <hr className={s.underline} />
+                  </div>}
+              </li>
+              <li>
+                <Link to={CONTACT_US_ROUTE}>{intl.formatMessage(messages.contact)}</Link>
+                {CONTACT_US_ROUTE === currentRouteName &&
+                  <div className={s.dashWrapper}>
+                    <hr className={s.underline} />
+                  </div>}
+              </li>
             </ul>
-          )}
+          )
+          */
+        }
       </header>
     )
   }
