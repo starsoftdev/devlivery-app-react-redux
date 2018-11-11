@@ -82,16 +82,20 @@ class ContactForm extends React.Component {
       this.setState({ requiredAddress })
   }
   onBirthdayBlur(e) {
+    var dobValidation = false;
     const dob = this.props.form.getFieldValue('dob');
     var birthday = moment(dob, 'DD/MM/YYYY');
+    var expected = moment().subtract(18, 'years');
     var errors = null;
     if (birthday.isValid() && dob.length === 10) {
-      if (moment().diff(birthday, 'days') > 0) {
-        errors = [new Error('This date must be today or in the future.')];
+      if (birthday < expected)
+        dobValidation = true;
+      else {
+        errors= [new Error('please select date older than 18 years.')];
       }
     }
     else {
-      if(dob && dob.length > 0)
+      if (dob && dob.length > 0)
         errors = [new Error('Invalid Date Format.')];
     }
     this.props.form.setFields({
@@ -100,7 +104,6 @@ class ContactForm extends React.Component {
         errors
       },
     });
-
     this.props.setupBirthday && this.props.setupBirthday(e.target.value ? true : false);
   }
   onBirthdayFocus(e) {
