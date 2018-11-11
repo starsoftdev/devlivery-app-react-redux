@@ -1,21 +1,20 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Button, Col, Row, message} from 'antd'
+import { connect } from 'react-redux'
+import { Button, Col, Row, message } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './ImportContacts.css'
-import {ColumnsMappingForm, ContactsImporting, UploadedContacts} from '../../components'
+import { ColumnsMappingForm, ContactsImporting, UploadedContacts } from '../../components'
 import messages from './messages'
-import {importContacts, openUploadedContactsModal} from '../../reducers/contacts'
+import { importContacts, openUploadedContactsModal } from '../../reducers/contacts'
 import PlusIcon from '../../static/plus.svg'
 import history from '../../history'
-import {generateUrl} from '../../router'
-import {CONTACTS_ROUTE} from '../'
+import { generateUrl } from '../../router'
+import { CONTACTS_ROUTE } from '../'
 
 class ImportContacts extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
-    if(this.props.selectedContacts.length <= 0)
-    {
+    if (this.props.selectedContacts.length <= 0) {
       message.warn("You have to select at least one contact.");
       return;
     }
@@ -27,7 +26,7 @@ class ImportContacts extends React.Component {
   }
 
   render() {
-    const {mappingColumns, intl, uploadedContactsModalOpened, openUploadedContactsModal} = this.props
+    const { mappingColumns, intl, uploadedContactsModalOpened, openUploadedContactsModal } = this.props
 
     return (
       <div className={s.container}>
@@ -58,48 +57,50 @@ class ImportContacts extends React.Component {
                   type='primary'
                   ghost
                 >
-                  <PlusIcon/>
+                  <PlusIcon />
                   {intl.formatMessage(messages.submit)}
                 </Button>
               </div>
             </div>
-            {uploadedContactsModalOpened && <UploadedContacts/>}
+            {uploadedContactsModalOpened && <UploadedContacts />}
           </React.Fragment>
         ) : (
-          <ContactsImporting sectionClassName={s.instructions}>
-            {({
-                exportGoogleContacts,
-                exportOutlookContacts,
-                exportCardContacts,
+            <ContactsImporting sectionClassName={s.instructions}>
+              {({
+                exportFromXLSX,
+                //exportGoogleContacts,
+                //exportOutlookContacts,
+                //exportCardContacts,
                 //csvUploadButton,
                 //xlsUploadButton,
                 xlsxUploadButton,
                 //vcfUploadButton,
               }) =>
-              <div className={s.content}>
-                <Row type='flex' gutter={20}>
-                  <Col xs={24} md={12}>
-                    <section>
-                      <h1 className={s.sectionHeader}>{intl.formatMessage(messages.howto)}</h1>
-                      {exportGoogleContacts}
-                      {exportOutlookContacts}
-                      {exportCardContacts}
-                    </section>
-                  </Col>
-                  <Col xs={24} md={6}>
-                    <section>
-                      <h1 className={s.sectionHeader}>{intl.formatMessage(messages.upload)}</h1>
-                      {/*csvUploadButton*/}
-                      {/*xlsUploadButton*/}
-                      {xlsxUploadButton}
-                      {/*vcfUploadButton*/}
-                    </section>
-                  </Col>
-                </Row>
-              </div>
-            }
-          </ContactsImporting>
-        )}
+                <div className={s.content}>
+                  <Row type='flex' gutter={20}>
+                    <Col xs={24} md={12}>
+                      <section>
+                        <h1 className={s.sectionHeader}>{intl.formatMessage(messages.howto)}</h1>
+                        {exportFromXLSX}
+                        {/*exportGoogleContacts*/}
+                        {/*exportOutlookContacts*/}
+                        {/*exportCardContacts*/}
+                      </section>
+                    </Col>
+                    <Col xs={24} md={6}>
+                      <section>
+                        <h1 className={s.sectionHeader}>{intl.formatMessage(messages.upload)}</h1>
+                        {/*csvUploadButton*/}
+                        {/*xlsUploadButton*/}
+                        {xlsxUploadButton}
+                        {/*vcfUploadButton*/}
+                      </section>
+                    </Col>
+                  </Row>
+                </div>
+              }
+            </ContactsImporting>
+          )}
       </div>
     )
   }

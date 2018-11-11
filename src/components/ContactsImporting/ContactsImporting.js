@@ -13,6 +13,24 @@ class ContactsImporting extends React.Component {
   render() {
     const {uploadContacts, children, intl, sectionClassName} = this.props
 
+    const exportFromXLSX = intl.locale === 'de-DE' ?
+    (
+      <ol className={cn(s.instructions, sectionClassName)}>
+        <li> Click on <b>.xlsx</b> button to import your file</li>
+        <li> <b>Select</b> the file you want to upload</li>
+        <li> <b>Match</b> the column headers</li>
+        <li> Press <b>Save</b> and your contacts will be imported</li>
+      </ol>
+    )
+    : (
+      <ol className={cn(s.instructions, sectionClassName)}>
+        <li> Click on <b>.xlsx</b> button to import your file</li>
+        <li> <b>Select</b> the file you want to upload</li>
+        <li> <b>Match</b> the column headers</li>
+        <li> Press <b>Save</b> and your contacts will be imported</li>
+      </ol>
+    )
+
     const exportGoogleContacts = intl.locale === 'de-DE' ?
     (
       <ol className={cn(s.instructions, sectionClassName)}>
@@ -151,6 +169,7 @@ class ContactsImporting extends React.Component {
     )
 
     return children({
+      exportFromXLSX,
       exportGoogleContacts,
       exportOutlookContacts,
       exportCardContacts,
