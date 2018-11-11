@@ -67,16 +67,31 @@ export const getEvents = (date) => (dispatch, getState, {fetch}) => {
   })
 }
 
-export const getUpcomingEvents = () => (dispatch, getState, {fetch}) => {
-  dispatch({type: GET_UPCOMING_EVENTS_REQUEST})
+export const getUpcomingEvents = (params = {}) => (dispatch, getState, {fetch}) => {
+  dispatch({type: GET_UPCOMING_EVENTS_REQUEST,params})
   const {token} = dispatch(getToken())
+  const {upcomingpage, upcomingpageSize} = getState().orders
+  console.log(`/contact-reminders?${qs.stringify({
+    upcoming: '',
+    page: upcomingpage,
+    per_page: upcomingpageSize,
+  })}`);
   return fetch(`/contact-reminders?${qs.stringify({
     upcoming: '',
+    sort_by_date:'',
+    page: upcomingpage,
+    per_page: upcomingpageSize,
   })}`, {
     method: 'GET',
     token,
-    success: (res) => dispatch({type: GET_UPCOMING_EVENTS_SUCCESS, upcomingEvents: res.data}),
-    failure: () => dispatch({type: GET_UPCOMING_EVENTS_FAILURE}),
+    success: (res) => {
+      console.log('upcoming',res);
+      dispatch({type: GET_UPCOMING_EVENTS_SUCCESS, res})
+    },
+    failure: (err) => {
+      console.log('error',err);
+      dispatch({type: GET_UPCOMING_EVENTS_FAILURE})
+    },
   })
 }
 
@@ -135,6 +150,9 @@ const initialState = {
   orderDetailsModalOpened: false,
   orderDetails: null,
   upcomingEvents: [],
+  upcomingCount: 0,
+  upcomingpage: 1,
+  upcomingpageSize: 3,
 }
 
 export default createReducer(initialState, {
@@ -215,14 +233,17 @@ export default createReducer(initialState, {
       orderDetails: false,
     },
   }),
-  [GET_UPCOMING_EVENTS_REQUEST]: (state, action) => ({
+  [GET_UPCOMING_EVENTS_REQUEST]: (state, {params}) => ({
+    upcomingpage: params.pagination ? params.pagination.current : 1,
+    upcomingpageSize: params.pagination ? params.pagination.pageSize : 3,
     loading: {
       ...state.loading,
       upcomingEvents: true,
     },
   }),
-  [GET_UPCOMING_EVENTS_SUCCESS]: (state, {upcomingEvents}) => ({
-    upcomingEvents,
+  [GET_UPCOMING_EVENTS_SUCCESS]: (state, {res: {data, total}}) => ({
+    upcomingEvents:data,
+    upcomingCount: total,
     loading: {
       ...state.loading,
       upcomingEvents: false,

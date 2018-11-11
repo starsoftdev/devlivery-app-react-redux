@@ -1,17 +1,17 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Calendar, Input, Table} from 'antd'
+import { connect } from 'react-redux'
+import { Calendar, Input, Table, Spin, Pagination, Row } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Orders.css'
-import {CalendarEvent, CalendarEvents, CalendarHeader, PaginationItem} from '../../components'
-import {clear, getEvents, getOrders, openCalendarEventsModal, openOrderDetailsModal} from '../../reducers/orders'
+import { CalendarEvent, CalendarEvents, CalendarHeader, PaginationItem } from '../../components'
+import { clear, getEvents, getOrders, openCalendarEventsModal, openOrderDetailsModal, getUpcomingEvents } from '../../reducers/orders'
 import debounce from 'lodash/debounce'
 import moment from 'moment'
 import cn from 'classnames'
 import messages from './messages'
-import {DEFAULT_DEBOUNCE_TIME} from '../../constants'
+import { DEFAULT_DEBOUNCE_TIME } from '../../constants'
 import OrderDetails from './OrderDetails'
-import {getEvent} from '../../utils'
+import { getEvent } from '../../utils'
 
 class Orders extends React.Component {
   constructor(props) {
@@ -21,8 +21,8 @@ class Orders extends React.Component {
       search: props.orderID ? props.orderID : undefined,
       orderID: props.orderID
     }
-    if(props.orderID)
-      props.openOrderDetailsModal({id:props.orderID})
+    if (props.orderID)
+      props.openOrderDetailsModal({ id: props.orderID })
     this.getOrders = debounce(this.props.getOrders, DEFAULT_DEBOUNCE_TIME)
   }
 
@@ -32,12 +32,12 @@ class Orders extends React.Component {
 
   changeSearch = (e) => {
     const search = e.target.value
-    this.setState({search})
-    this.getOrders({search})
+    this.setState({ search })
+    this.getOrders({ search })
   }
 
   render() {
-    const {search} = this.state
+    const { search } = this.state
     const {
       ordersCount,
       orders,
@@ -54,9 +54,13 @@ class Orders extends React.Component {
       openOrderDetailsModal,
       orderDetailsModalOpened,
       upcomingEvents,
+      upcomingCount,
+      upcomingpage,
+      upcomingpageSize,
+      getUpcomingEvents
     } = this.props
-    
-    
+
+
     const columns = [
       {
         title: intl.formatMessage(messages.orderColumn),
@@ -87,8 +91,14 @@ class Orders extends React.Component {
         render: (total) => <React.Fragment>{total} <span className={s.currency}>{'CHF'}</span></React.Fragment>
       },
     ]
+    const upcoming_columns = [
+      {
+        key: 'item',
+        render: (event) => <CalendarEvent key={event.id + ''} {...event} />
+      },
+    ]
     const today = moment()
-    
+    console.log('upcomingEvents', upcomingpageSize);
     return (
       <div className={s.container}>
         <div className={s.actions}>
@@ -101,12 +111,12 @@ class Orders extends React.Component {
           />
         </div>
         <Table
-          loading = {loading.orders}
+          loading={loading.orders}
           className={s.orders}
           columns={columns}
           dataSource={orders}
           rowKey={record => record.id}
-          onChange={(pagination, filters, sorter) => getOrders({pagination, filters, sorter})}
+          onChange={(pagination, filters, sorter) => getOrders({ pagination, filters, sorter })}
           pagination={{
             current: page,
             total: ordersCount,
@@ -117,21 +127,21 @@ class Orders extends React.Component {
             }),
             pageSize,
             showSizeChanger: true,
-            itemRender: (current, type, el) => <PaginationItem type={type} el={el}/>
+            itemRender: (current, type, el) => <PaginationItem type={type} el={el} />
           }}
         />
         <div className={s.calendarSection}>
           <section className={s.calendar}>
             <div className={s.calendarHeaderWrapper}>
               <h2 className={s.calendarHeader}>{intl.formatMessage(messages.calendar)}</h2>
-              <CalendarHeader value={moment(date)} onValueChange={getEvents}/>
+              <CalendarHeader value={moment(date)} onValueChange={getEvents} />
             </div>
             <Calendar
               fullscreen={false}
               value={moment(date)}
               dateCellRender={(current) => {
                 const hasEvents = events.find(event => getEvent(event, current))
-                return hasEvents ? <div className={cn(s.hasEvents, today.isSame(current, 'd') && s.inverted)}/> : null
+                return hasEvents ? <div className={cn(s.hasEvents, today.isSame(current, 'd') && s.inverted)} /> : null
               }}
               onSelect={(current) => {
                 const hasEvents = events.find(event => getEvent(event, current))
@@ -142,12 +152,64 @@ class Orders extends React.Component {
             />
           </section>
           <section className={s.events}>
-            {upcomingEvents.sort((a,b)=>{return new Date(a.contact_specific_date)-new Date(b.contact_specific_date)}).map((event, i) =>
+            {
+              /*
+              upcomingEvents.sort((a,b)=>{return new Date(a.contact_specific_date)-new Date(b.contact_specific_date)}).map((event, i) =>
               <CalendarEvent key={i} {...event}/>
-            )}
+              )
+              */
+              <Spin spinning={loading.upcomingEvents}>
+                <React.Fragment>
+                  {
+                    upcomingEvents.sort((a, b) => { return new Date(a.contact_specific_date) - new Date(b.contact_specific_date) }).map((event, i) =>
+                      <CalendarEvent key={i} {...event} />
+                    )
+                  }
+                  {
+                    <div className={s.footer}>
+                      <Pagination
+                        current={upcomingpage}
+                        total={upcomingCount}
+                        showTotal={(total, range) => intl.formatMessage(messages.tableItems, { range0: range[0], range1: range[1], total })}
+                        pageSize={upcomingpageSize}
+                        showSizeChanger
+                        onChange={(current, pageSize) => getUpcomingEvents({ pagination: { current, pageSize } })}
+                        onShowSizeChange={(current, pageSize) => getContacts({ pagination: { current, pageSize } })}
+                        itemRender={(current, type, el) => <PaginationItem type={type} el={el} />}
+                        //pageSizeOptions={pageSizeOptions}
+                        showSizeChanger = {false}
+                      />
+                    </div>
+                  }
+                </React.Fragment>
+              </Spin>
+              /*
+              <Table
+                loading={loading.upcomingEvents}
+                className={s.orders}
+                columns={upcoming_columns}
+                dataSource={upcomingEvents.sort((a, b) => { return new Date(a.contact_specific_date) - new Date(b.contact_specific_date) })}
+                rowKey={record => record.id}
+                onChange={(pagination, filters, sorter) => getUpcomingEvents({ pagination, filters, sorter })}
+                pagination={{
+                  current: upcomingpage,
+                  total: upcomingCount,
+                  showTotal: (total, range) => intl.formatMessage(messages.tableItems, {
+                    range0: range[0],
+                    range1: range[1],
+                    total
+                  }),
+                  pageSize: upcomingpageSize,
+                  showSizeChanger: false,
+                  itemRender: (current, type, el) => <PaginationItem type={type} el={el} />
+                }}
+                rowClassName={(record, index) => 'tablerow'}
+              />
+              */
+            }
           </section>
-          {calendarEventsModalOpened && <CalendarEvents/>}
-          {orderDetailsModalOpened && <OrderDetails intl={intl} recipient_id = {this.props.recipient_id}/>}
+          {calendarEventsModalOpened && <CalendarEvents />}
+          {orderDetailsModalOpened && <OrderDetails intl={intl} recipient_id={this.props.recipient_id} />}
         </div>
       </div>
     )
@@ -164,6 +226,7 @@ const mapDispatch = {
   openOrderDetailsModal,
   getOrders,
   clear,
+  getUpcomingEvents
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Orders))
