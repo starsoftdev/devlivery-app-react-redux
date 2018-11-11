@@ -69,7 +69,7 @@ app.get('*', async (req, res, next) => {
       stripeApiKey: config.stripe.apiKey,
     }))
 
-    const locale = cookies.get(LOCALE_COOKIE) || config.locales[1]
+    const locale = cookies.get(LOCALE_COOKIE) || config.locales[0]
 
     const {intl, antLocale} = await store.dispatch(setLocale({locale}))
 
