@@ -158,7 +158,7 @@ class CardStore extends React.Component {
                         {item.title}
                         <br />
                         <span className={s.price}>
-                          {item.price}
+                          {item.price_with_tax}
                           <span className={s.currency}>{item.currency}</span>
                         </span>
                       </React.Fragment>
@@ -233,7 +233,7 @@ class CardStore extends React.Component {
               </Col>
               <Col md={12}>
                 <span className={s.DetailTitle}>{intl.formatMessage(messages.price)}</span><br />
-                <span className={s.Detail}>{cardDetails.price + " " + cardDetails.currency}</span>
+                <span className={s.Detail}>{cardDetails.price_with_tax + " " + cardDetails.currency}</span>
               </Col>
             </Row>
 
