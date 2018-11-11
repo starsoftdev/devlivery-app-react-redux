@@ -29,9 +29,10 @@ class ImportContacts extends React.Component {
     ) : (
         <ContactsImporting >
           {({
-            exportGoogleContacts,
-            exportOutlookContacts,
-            exportCardContacts,
+            exportFromXLSX,
+            ///exportGoogleContacts,
+            //exportOutlookContacts,
+            //exportCardContacts,
             //csvUploadButton,
             //xlsUploadButton,
             xlsxUploadButton,
@@ -46,7 +47,8 @@ class ImportContacts extends React.Component {
                 />
                 <Row gutter={20} type='flex' align='center'>
                   <Col xs={24} sm={12} className={s.section}>
-                    {exportGoogleContacts}
+                    {exportFromXLSX}
+                    {/*exportGoogleContacts*/}
                   </Col>
                   <Col xs={24} sm={12} className={cn(s.section, s.actionsSection)}>
                     {/*csvUploadButton*/}
