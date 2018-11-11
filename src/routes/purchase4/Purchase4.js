@@ -22,7 +22,7 @@ class Purchase4 extends React.Component {
         />
         <Row className={s.items} gutter={20} type='flex' align='center'>
           {CARD_SIZES(intl).map((item, i) =>
-            <Col key={item.key} className={s.itemWrapper}>
+            <Col key={item.key} className={s.itemWrapper} md={12} lg={6}>
               <Card
                 className={s.item}
                 title={item.title}
