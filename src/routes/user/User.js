@@ -49,16 +49,25 @@ class User extends React.Component {
       var dobValidation = false;
       var birthday = moment(values.birthday,'DD/MM/YYYY');
       var expected = moment().subtract(18, 'years');
-      
-      if (birthday < expected)
-        dobValidation = true;
-      else {
-        this.props.form.setFields({
-          birthday: {
-            value: values.birthday,
-            errors: [new Error('please select date older than 18 years.')],
-          },
-        });
+      if (birthday.isValid() && values.birthday.length === 10) {
+        if (birthday < expected)
+          dobValidation = true;
+        else {
+          this.props.form.setFields({
+            birthday: {
+              value: values.birthday,
+              errors: [new Error('please select date older than 18 years.')],
+            },
+          });
+        }
+      }else{
+        if (values.birthday && values.birthday.length > 0)
+          this.props.form.setFields({
+            birthday: {
+              value: values.birthday,
+              errors: [new Error('Invalid Date Format.')],
+            },
+          });
       }
       if (!err && dobValidation) {
         this.props.updateUser(values, this.props.form, this.props.intl.locale === "de-DE" ? 'Angaben angepasst' : 'User updated.')
