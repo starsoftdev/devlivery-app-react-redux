@@ -1434,7 +1434,7 @@
   },
   {
     "id": "purchase13.thankyou_text",
-    "defaultMessage": "Your order is complete. If you want to see track your gift, you can control it from your Personal Account.",
+    "defaultMessage": "Your order is complete. If you want to track your gift, you can control it from your Personal Account.",
     "message": "Ihre Bestellung ist abgeschlossen. Wenn Sie Ihr Geschenk verfolgen möchten, können Sie das von Ihren persönlichen Account aus tun.",
     "files": [
       "src/routes/purchaseCompleted/messages.js"
