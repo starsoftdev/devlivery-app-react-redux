@@ -156,7 +156,7 @@ class Orders extends React.Component {
               <Spin spinning={loading.upcomingEvents}>
                 <React.Fragment>
                   {
-                    upcomingEvents.sort((a, b) => { return new Date(a.contact_specific_date) - new Date(b.contact_specific_date) }).map((event, i) =>
+                    upcomingEvents.map((event, i) =>
                       <CalendarEvent key={i} {...event} />
                     )
                   }
