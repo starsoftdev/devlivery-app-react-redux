@@ -110,6 +110,7 @@ class Orders extends React.Component {
           />
         </div>
         <Table
+          locale={{ emptyText: 'No Order' }}
           loading={loading.orders}
           className={s.orders}
           columns={columns}
