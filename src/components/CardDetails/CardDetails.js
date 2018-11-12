@@ -7,7 +7,7 @@ import messages from '../../routes/cardStore/messages';
 
 class CardDetails extends React.Component {
   render() {
-    const { cardDetails,visible,setVisible,makeorder,intl,occasionTitle } = this.props
+    const { cardDetails,visible,setVisible,makeorder,intl,occasionTitle,disableMakeOrder } = this.props
     
     return cardDetails ? (
       <Modal
@@ -55,13 +55,15 @@ class CardDetails extends React.Component {
             <span className={s.Detail}>{cardDetails.price_with_tax + " " + cardDetails.currency}</span>
           </Col>
         </Row>
-
-        <Row>
-          <Button type='primary' size={'small'} style={{ float: 'right' }} ghost onClick={() => makeorder(cardDetails)}>
-            <PlusIcon />
-            {intl.formatMessage(messages.makeOrder)}
-          </Button>
-        </Row>
+        {
+          disableMakeOrder !== true &&
+          <Row>
+            <Button type='primary' size={'small'} style={{ float: 'right' }} ghost onClick={() => makeorder(cardDetails)}>
+              <PlusIcon />
+              {intl.formatMessage(messages.makeOrder)}
+            </Button>
+          </Row>
+        }
       </Modal>
     ) : null
   }

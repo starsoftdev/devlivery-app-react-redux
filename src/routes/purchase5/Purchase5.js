@@ -4,7 +4,7 @@ import {getCards, nextFlowStep, setCard} from '../../reducers/purchase'
 import {Button, Col, Layout, Row, Select} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase5.css'
-import {Card, Header, PurchaseActions, SectionHeader, Preview} from '../../components'
+import {Card, Header, PurchaseActions, SectionHeader, Preview, CardDetails} from '../../components'
 import cn from 'classnames'
 import messages from './messages'
 import KeyHandler, {KEYPRESS} from 'react-key-handler'
@@ -15,6 +15,7 @@ import { triggerResizeEvent } from '../../utils';
 class Purchase5 extends React.Component {
   state = {
     previewCollapsed: false,
+    showCardDetails: false
   }
 
   onPreviewCollapse = (previewCollapsed) => {
@@ -24,8 +25,12 @@ class Purchase5 extends React.Component {
 
   render() {
     const {previewCollapsed} = this.state
-    const {cards, card, setCard, nextFlowStep, intl, flowIndex, loading, getCards, cardColors, cardColor} = this.props
+    const {occasions,cards, card, setCard, nextFlowStep, intl, flowIndex, loading, getCards, cardColors, cardColor} = this.props
     
+    var occasionByCardId = null;
+    if (card && occasions)
+      occasionByCardId = occasions.filter(item => item.id === card.occasion_id);
+
     return (
       <React.Fragment>
         <div className={s.container}>
@@ -94,6 +99,7 @@ class Purchase5 extends React.Component {
             header={intl.formatMessage(messages.previewHeader)}
             item={card}
             imagesProp={['front_image','images']}
+            onClickMagnifier= {()=>this.setState({showCardDetails:true})}
           />
         </div>
         <PurchaseActions>
@@ -110,6 +116,17 @@ class Purchase5 extends React.Component {
             {intl.formatMessage(messages.submit)}
           </Button>
         </PurchaseActions>
+        {
+          this.state.showCardDetails && card &&
+          <CardDetails
+            intl={intl}
+            cardDetails={card}
+            occasionTitle={occasionByCardId && occasionByCardId.length > 0 && occasionByCardId[0].title}
+            visible={this.state.showCardDetails}
+            setVisible={(visible)=>this.setState({showCardDetails:visible})}
+            disableMakeOrder={true}
+          />
+        }
       </React.Fragment>
     )
   }
@@ -121,7 +138,8 @@ const mapState = state => ({
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
   cardColors: state.purchase.cardColors,
-  cardColor: state.purchase.cardColor
+  cardColor: state.purchase.cardColor,
+  occasions: state.purchase.occasions
 })
 
 const mapDispatch = {
