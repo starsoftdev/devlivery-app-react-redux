@@ -9,7 +9,7 @@ import {DATE_FORMAT} from '../../constants'
 import {setFlow} from '../../reducers/purchase'
 
 const CalendarEvent = ({first_name, last_name, occasion, contact_specific_date, occasion_date, occasion_type, setFlow}) =>
-  <a className={s.event} onClick={() => setFlow(EVENT_PURCHASE_FLOW)}>
+  <a className={s.event} onClick={() => {/*setFlow(EVENT_PURCHASE_FLOW)*/}}>
     <div className={s.eventDate}>
       <div className={s.eventDay}>{moment(contact_specific_date || occasion_date, DATE_FORMAT).format('D')}</div>
       <div className={s.eventMonth}>{moment(contact_specific_date || occasion_date, DATE_FORMAT).format('MMMM')}</div>
@@ -17,7 +17,7 @@ const CalendarEvent = ({first_name, last_name, occasion, contact_specific_date, 
     <div className={s.eventDetails}>
       <div className={s.eventType}>{occasion} ({occasion_type})</div>
       <div className={s.eventName}>{first_name} {last_name}</div>
-      <LongArrowIcon className={s.eventArrowIcon}/>
+      {/*<LongArrowIcon className={s.eventArrowIcon}/>*/}
     </div>
   </a>
 
