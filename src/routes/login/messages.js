@@ -7,7 +7,7 @@ export default defineMessages({
   },
   header: {
     id: 'login.header',
-    defaultMessage: 'Login In To Your Account',
+    defaultMessage: 'Login in to your account',
   },
   email: {
     id: 'login.email',
