@@ -1144,7 +1144,7 @@
   },
   {
     "id": "login.header",
-    "defaultMessage": "Login In To Your Account",
+    "defaultMessage": "Login in to your account",
     "message": "Login",
     "files": [
       "src/routes/login/messages.js"

@@ -989,7 +989,7 @@
   },
   {
     "id": "login.header",
-    "defaultMessage": "Login In To Your Account",
+    "defaultMessage": "Login in to your account",
     "message": "",
     "files": [
       "src/routes/login/messages.js"
