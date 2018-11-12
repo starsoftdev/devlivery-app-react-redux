@@ -7,7 +7,7 @@ import debounce from 'lodash/debounce'
 import {DEFAULT_DEBOUNCE_TIME, GIFT_IMAGES_PROP, GIFT_TYPES, GIFT_GALLERY_PROP} from '../../constants'
 import {clearFilters, getGifts, clear} from '../../reducers/gifts'
 import {Button, Col, Input, Pagination, Row, Modal, Carousel} from 'antd'
-import {Card, PaginationItem} from '../../components'
+import {Card, PaginationItem, GiftDetails} from '../../components'
 import cn from 'classnames'
 import {setFlowFromSelectGift} from '../../reducers/purchase';
 import {getItemImage} from '../../utils'
@@ -118,51 +118,13 @@ class GiftStore extends React.Component {
         </div>
         {
           this.state.showGiftDetails && giftDetails &&
-          <Modal
-              className={s.DetailModal}
-              title={<div className={s.modaltitle}>{giftDetails.title}</div>}
-              visible = {this.state.showGiftDetails}
-              onCancel={()=>this.setState({showGiftDetails:false})}
-              footer={null}
-              width={800}
-            >
-              <Row className={s.detailRow}>
-                <Carousel
-                  loop
-                  customPaging={() => (
-                    <div className={s.dotWrapper}>
-                      <div className={s.dot}/>
-                    </div>
-                  )}
-                >
-                  {giftDetails[GIFT_GALLERY_PROP].map((image, i) => image.url ? (
-                    <div key={i}>
-                      <div style={{backgroundImage: `url(${image.url})`}} className={s.previewImage}/>
-                    </div>
-                    ) : null
-                  )}
-                </Carousel>
-              </Row>
-              <Row className={s.detailRow}>
-                <Col md={24}>
-                  <span className={s.DetailTitle}>{intl.formatMessage(messages.description)}</span><br/>
-                  <span className={s.Detail}>{giftDetails.description}</span>
-                </Col>
-              </Row>
-              <Row className={s.detailRow}>
-                <Col md={12}>
-                  <span className={s.DetailTitle}>{intl.formatMessage(messages.price)}</span><br/>
-                  <span className={s.Detail}>{giftDetails.price_with_tax +" "+giftDetails.currency}</span>
-                </Col>
-              </Row>
-              
-              <Row>
-                <Button type='primary' size={'small'} style={{float:'right'}} ghost onClick={() => setFlowFromSelectGift(giftDetails)}>
-                  <PlusIcon/>
-                  {intl.formatMessage(messages.makeOrder)}
-                </Button>
-              </Row>
-            </Modal>
+          <GiftDetails
+            intl={intl}
+            giftDetails={giftDetails}
+            visible={this.state.showGiftDetails}
+            setVisible={(visible)=>this.setState({showGiftDetails:visible})}
+            makeorder={(giftDetails)=>setFlowFromSelectGift(giftDetails)}
+          />
         }
       </div>
     )
