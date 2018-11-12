@@ -71,11 +71,6 @@ export const getUpcomingEvents = (params = {}) => (dispatch, getState, {fetch}) 
   dispatch({type: GET_UPCOMING_EVENTS_REQUEST,params})
   const {token} = dispatch(getToken())
   const {upcomingpage, upcomingpageSize} = getState().orders
-  console.log(`/contact-reminders?${qs.stringify({
-    upcoming: '',
-    page: upcomingpage,
-    per_page: upcomingpageSize,
-  })}`);
   return fetch(`/contact-reminders?${qs.stringify({
     upcoming: '',
     sort_by_date:'',
@@ -85,7 +80,6 @@ export const getUpcomingEvents = (params = {}) => (dispatch, getState, {fetch}) 
     method: 'GET',
     token,
     success: (res) => {
-      console.log('upcoming',res);
       dispatch({type: GET_UPCOMING_EVENTS_SUCCESS, res})
     },
     failure: (err) => {
