@@ -153,11 +153,6 @@ class Orders extends React.Component {
           </section>
           <section className={s.events}>
             {
-              /*
-              upcomingEvents.sort((a,b)=>{return new Date(a.contact_specific_date)-new Date(b.contact_specific_date)}).map((event, i) =>
-              <CalendarEvent key={i} {...event}/>
-              )
-              */
               <Spin spinning={loading.upcomingEvents}>
                 <React.Fragment>
                   {
@@ -166,6 +161,7 @@ class Orders extends React.Component {
                     )
                   }
                   {
+                    upcomingEvents.length > 0 &&
                     <div className={s.footer}>
                       <Pagination
                         current={upcomingpage}
@@ -183,29 +179,6 @@ class Orders extends React.Component {
                   }
                 </React.Fragment>
               </Spin>
-              /*
-              <Table
-                loading={loading.upcomingEvents}
-                className={s.orders}
-                columns={upcoming_columns}
-                dataSource={upcomingEvents.sort((a, b) => { return new Date(a.contact_specific_date) - new Date(b.contact_specific_date) })}
-                rowKey={record => record.id}
-                onChange={(pagination, filters, sorter) => getUpcomingEvents({ pagination, filters, sorter })}
-                pagination={{
-                  current: upcomingpage,
-                  total: upcomingCount,
-                  showTotal: (total, range) => intl.formatMessage(messages.tableItems, {
-                    range0: range[0],
-                    range1: range[1],
-                    total
-                  }),
-                  pageSize: upcomingpageSize,
-                  showSizeChanger: false,
-                  itemRender: (current, type, el) => <PaginationItem type={type} el={el} />
-                }}
-                rowClassName={(record, index) => 'tablerow'}
-              />
-              */
             }
           </section>
           {calendarEventsModalOpened && <CalendarEvents />}
