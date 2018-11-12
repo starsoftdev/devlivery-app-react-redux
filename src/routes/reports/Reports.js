@@ -163,6 +163,7 @@ class Reports extends React.Component {
           </Select>
         </div>
         <Table
+          locale={{ emptyText: 'No Scheduled' }}
           loading = {loading.reports}
           columns={columns}
           dataSource={reports}
