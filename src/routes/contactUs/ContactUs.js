@@ -13,6 +13,7 @@ import formMessages from '../../formMessages'
 import axios from 'axios';
 import FormData from 'form-data'
 import { showErrorMessage } from '../../utils'
+import RemoveIcon from '../../static/remove.svg'
 
 const { TextArea } = Input;
 const allowFileType = [
@@ -99,41 +100,19 @@ class ContactUs extends React.Component {
       }
     })
   }
-
-  /*
-   handleSubmit = (e) => {
-     e.preventDefault()
-     this.setState({ email_err: null });
-     this.props.sendEnquiries(this.state, (errors) => {
-       if (errors) {
-         console.log("errors", errors);
-         if (errors.hasOwnProperty('email') && errors.email.errors && errors.email.errors[0].message) {
-           this.setState({ email_err: errors.email.errors[0].message });
-         }
-       }
-       else {
-         Object.keys(this.state).map((k) => {
-           if (k !== 'attachment') {
-             this.setState({ [k]: '' })
-           } else {
-             this.setState({ attachments: [] })
-           }
-         })
-       }
-     })
- 
-   }
- */
   addAttachment = (e) => {
     const files = e.target.files
-    console.log('files',files);
     if (this.state.attachments.length < 5) {
       this.setState({
         attachments: [...this.state.attachments, files[files.length - 1]]
       })
     }
   }
-
+  removeFile = (index) => {
+    let attachments = this.state.attachments;
+    attachments.splice(index,1);
+    this.setState({attachments});
+  }
   render() {
     const { intl } = this.props
     const { getFieldDecorator } = this.props.form
@@ -236,9 +215,15 @@ class ContactUs extends React.Component {
                   <PlusIcon />
                   {intl.formatMessage(messages.attachmentButton)}
                 </label>
-                <ul>
+                <ul className={s.attachlist}>
                   {this.state.attachments &&
-                    this.state.attachments.map((attach, index) => <li key={index}>{attach && attach.name}</li>)}
+                    this.state.attachments.map((attach, index) => 
+                      <li key={index}>
+                        <div className={s.attachli}>
+                          <RemoveIcon className={s.removeIcon} onClick={()=>this.removeFile(index)}/>{attach && attach.name}
+                        </div>
+                      </li>)
+                    }
                 </ul>
               </Col>
             </Row>
