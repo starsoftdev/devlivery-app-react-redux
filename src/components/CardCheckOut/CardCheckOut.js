@@ -112,6 +112,7 @@ class CardCheckOut extends React.Component {
       <div className={s.container}>
         <Table
           loading = {loading}
+          locale={{ emptyText: 'No Card' }}
           showHeader = {false}
           columns={columns}
           dataSource={cards}
