@@ -4,7 +4,7 @@ import { getGifts, setGift, submitGift, buyMoreGift } from '../../reducers/purch
 import { Button, Col, Layout, Row, Select } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase8.css'
-import { Card, Header, Preview, PurchaseActions, SectionHeader } from '../../components'
+import { Card, Header, Preview, PurchaseActions, SectionHeader,GiftDetails } from '../../components'
 import cn from 'classnames'
 import messages from './messages'
 import { GIFT_IMAGES_PROP, GIFT_TYPES, GIFT_GALLERY_PROP } from '../../constants'
@@ -14,7 +14,8 @@ import { triggerResizeEvent } from '../../utils';
 class Purchase8 extends React.Component {
   state = {
     previewCollapsed: false,
-    disableSubmit: false
+    disableSubmit: false,
+    showGiftDetails: false
   }
 
   onPreviewCollapse = (previewCollapsed) => {
@@ -81,6 +82,7 @@ class Purchase8 extends React.Component {
             header={intl.formatMessage(messages.previewHeader)}
             item={gift}
             imagesProp={GIFT_GALLERY_PROP}
+            onClickMagnifier={()=>this.setState({showGiftDetails:true})}
           />
         </div>
         <PurchaseActions>
@@ -116,6 +118,16 @@ class Purchase8 extends React.Component {
             {intl.formatMessage(messages.submit)}
           </Button>
         </PurchaseActions>
+        {
+          this.state.showGiftDetails && gift &&
+          <GiftDetails
+            intl={intl}
+            giftDetails={gift}
+            visible={this.state.showGiftDetails}
+            setVisible={(visible)=>this.setState({showGiftDetails:visible})}
+            disableMakeOrder={true}
+          />
+        }
       </React.Fragment>
     )
   }

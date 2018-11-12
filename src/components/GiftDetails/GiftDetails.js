@@ -8,7 +8,7 @@ import {GIFT_GALLERY_PROP} from '../../constants'
 
 class GiftDetails extends React.Component {
   render() {
-    const { giftDetails, visible, setVisible, makeorder, intl } = this.props
+    const { giftDetails, visible, setVisible, makeorder, intl, disableMakeOrder } = this.props
 
     return giftDetails ? (
       <Modal
@@ -48,13 +48,15 @@ class GiftDetails extends React.Component {
             <span className={s.Detail}>{giftDetails.price_with_tax + " " + giftDetails.currency}</span>
           </Col>
         </Row>
-
-        <Row>
-          <Button type='primary' size={'small'} style={{ float: 'right' }} ghost onClick={() => makeorder(giftDetails)}>
-            <PlusIcon />
-            {intl.formatMessage(messages.makeOrder)}
-          </Button>
-        </Row>
+        {
+          disableMakeOrder !== true &&
+          <Row>
+            <Button type='primary' size={'small'} style={{ float: 'right' }} ghost onClick={() => makeorder(giftDetails)}>
+              <PlusIcon />
+              {intl.formatMessage(messages.makeOrder)}
+            </Button>
+          </Row>
+        }
       </Modal>
     ) : null
   }

@@ -23,7 +23,7 @@ injectGlobal`
 
 class Preview extends React.Component {
   render() {
-    const {collapsed, onCollapse, item, imagesProp, header} = this.props
+    const {collapsed, onCollapse, item, imagesProp, header, onClickMagnifier} = this.props
     var images =[];
     if(item)
     {
@@ -65,7 +65,9 @@ class Preview extends React.Component {
             }}
           >
             {images.map((image, i) => image.url ? (
-              <Magnifier key={i} src={image.url} width={'100%'} />
+              <div key={i} onClick={()=>onClickMagnifier()}>
+                <Magnifier key={i} src={image.url} width={'100%'} />
+              </div>
               ) : null
             )}
           </Carousel>

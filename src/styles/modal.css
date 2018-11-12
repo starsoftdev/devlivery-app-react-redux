@@ -18,6 +18,7 @@
       z-index: var(--zindex-modal);
       -webkit-overflow-scrolling: touch;
       outline: 0;
+      z-index: 10000;
     }
 
     &-title {
