@@ -220,11 +220,12 @@ class Purchase11 extends React.Component {
     const { getFieldDecorator } = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
 
+    
     const w = cardSize ? cardSize.width : 100
     const h = cardSize ? cardSize.height : 100
 
-    const cardWidth = orientation && orientation == 'l' ? h : w;
-    const cardHeight = orientation && orientation == 'l' ? w : h;
+    const cardWidth = orientation && orientation == 'l' ? Math.max(h,w): Math.min(h,w);
+    const cardHeight = orientation && orientation == 'l' ? Math.min(h,w): Math.max(h,w);
 
     const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
 
