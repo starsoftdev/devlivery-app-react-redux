@@ -119,3 +119,16 @@
 .formItem{
   min-height: 83px;
 }
+.attachlist{
+  list-style-type: none;
+}
+.attachli{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px 0;
+}
+.removeIcon{
+  margin-right: 10px;
+  cursor: pointer;
+}
