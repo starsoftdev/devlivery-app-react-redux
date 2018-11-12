@@ -8,7 +8,7 @@ import { CARD_IMAGES_PROP, CARD_SIZES, DEFAULT_DEBOUNCE_TIME } from '../../const
 import { clearFilters, getCards, getOccasions, clear } from '../../reducers/cards'
 import { setFlowFromSelectCard } from '../../reducers/purchase';
 import { Button, Col, Input, Pagination, Row, Select, Modal, Carousel } from 'antd'
-import { Card, PaginationItem } from '../../components'
+import { Card, PaginationItem,CardDetails } from '../../components'
 import cn from 'classnames'
 import { getItemImage } from '../../utils'
 import PlusIcon from '../../static/plus.svg'
@@ -191,59 +191,14 @@ class CardStore extends React.Component {
         </div>
         {
           this.state.showCardDetails && cardDetails &&
-          <Modal
-            className={s.DetailModal}
-            title={<div className={s.modaltitle}>{cardDetails.title}</div>}
+          <CardDetails
+            intl={intl}
+            cardDetails={cardDetails}
+            occasionTitle={occasionByCardId && occasionByCardId.length > 0 && occasionByCardId[0].title}
             visible={this.state.showCardDetails}
-            onCancel={() => this.setState({ showCardDetails: false })}
-            footer={null}
-            width={800}
-          >
-            <Row className={s.detailRow}>
-              <Carousel
-                loop
-                customPaging={() => (
-                  <div className={s.dotWrapper}>
-                    <div className={s.dot} />
-                  </div>
-                )}
-              >
-                {[...cardDetails.front_image, ...cardDetails.images].map((image, i) => image.url ? (
-                  <div key={i}>
-                    <div style={{ backgroundImage: `url(${image.url})` }} className={s.previewImage} />
-                  </div>
-                ) : null
-                )}
-              </Carousel>
-            </Row>
-            <Row className={s.detailRow}>
-              <Col md={12}>
-                <span className={s.DetailTitle}>{intl.formatMessage(messages.style)}</span><br />
-                <span className={s.Detail}>{cardDetails.style}</span>
-              </Col>
-              <Col md={12}>
-                <span className={s.DetailTitle}>{intl.formatMessage(messages.occasion)}</span><br />
-                <span className={s.Detail}>{occasionByCardId && occasionByCardId.length > 0 && occasionByCardId[0].title}</span>
-              </Col>
-            </Row>
-            <Row className={s.detailRow}>
-              <Col md={12}>
-                <span className={s.DetailTitle}>{intl.formatMessage(messages.size)}</span><br />
-                <span className={s.Detail}>{cardDetails.size}</span>
-              </Col>
-              <Col md={12}>
-                <span className={s.DetailTitle}>{intl.formatMessage(messages.price)}</span><br />
-                <span className={s.Detail}>{cardDetails.price_with_tax + " " + cardDetails.currency}</span>
-              </Col>
-            </Row>
-
-            <Row>
-              <Button type='primary' size={'small'} style={{ float: 'right' }} ghost onClick={() => setFlowFromSelectCard(cardDetails)}>
-                <PlusIcon />
-                {intl.formatMessage(messages.makeOrder)}
-              </Button>
-            </Row>
-          </Modal>
+            setVisible={(visible)=>this.setState({showCardDetails:visible})}
+            makeorder={(cardDetails)=>setFlowFromSelectCard(cardDetails)}
+          />
         }
       </div>
     )
