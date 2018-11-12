@@ -31,7 +31,8 @@ class ContactUs extends React.Component {
       subject: '',
       message: '',
       attachments: [],
-      email_err: null
+      email_err: null,
+      errors:[]
     }
   }
 
@@ -43,6 +44,7 @@ class ContactUs extends React.Component {
     var self = this;
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        self.setState({errors:[]});
         let formdata = new FormData();
         
         formdata.append('email',values.email);
@@ -83,7 +85,27 @@ class ContactUs extends React.Component {
           if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
-            showErrorMessage(error.response.data);
+            if(error.response && error.response.data && error.response.data.errors && error.response.data.errors.validation)
+            {
+              const validation = error.response.data.errors.validation;
+              let errors = [];
+              for(var key in validation){
+                if(key.includes('attachments.'))
+                {
+                  const index = parseInt(key.replace('attachments.',''))
+                  if(self.state.attachments[index])
+                  {
+                    errors.push(self.state.attachments[index].name);
+                  }
+                  else {
+                    message.error(validation[key],3);
+                  }
+                }
+                else message.error(validation[key],3);
+              }
+              self.setState({errors});
+            }
+            else showErrorMessage(error.response.data);
           } else if (error.request) {
             // The request was made but no response was received
             // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -108,10 +130,19 @@ class ContactUs extends React.Component {
       })
     }
   }
-  removeFile = (index) => {
+  removeFile = (index,filename) => {
     let attachments = this.state.attachments;
     attachments.splice(index,1);
-    this.setState({attachments});
+
+    let errors = this.state.errors;
+    if(errors.includes(filename))
+    {
+      var ix = errors.indexOf(filename);
+      if (ix > -1) {
+        errors.splice(ix, 1);
+      }
+    }
+    this.setState({attachments,errors});
   }
   render() {
     const { intl } = this.props
@@ -220,8 +251,12 @@ class ContactUs extends React.Component {
                     this.state.attachments.map((attach, index) => 
                       <li key={index}>
                         <div className={s.attachli}>
-                          <RemoveIcon className={s.removeIcon} onClick={()=>this.removeFile(index)}/>{attach && attach.name}
+                          <RemoveIcon className={s.removeIcon} onClick={()=>this.removeFile(index,attach.name)}/>{attach && attach.name}
                         </div>
+                        {
+                          this.state.errors.includes(attach.name) &&
+                          <div className={s.errormsg}>This file must be a file of type: pdf, jpeg, jpg, png.</div>
+                        }
                       </li>)
                     }
                 </ul>
