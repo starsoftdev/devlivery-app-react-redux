@@ -513,7 +513,10 @@ export const saveGiftType = () => (dispatch, getState, { fetch }) => {
 export const setGiftType = (giftType) => (dispatch, getState, { fetch }) => {
   dispatch({ type: SET_GIFT_TYPE, giftType })
 }
-export const setCard = (card) => ({ type: SET_CARD, card })
+export const setCard = (card) => (dispatch, getState, { fetch }) => {
+  dispatch({ type: SET_CARD, card })
+  dispatch({ type: ADD_BUNDLE_SUCCESS, bundle: null })
+}
 
 const GIFT_IDS = 'gift_ids'
 export const setGift = (gift) => (dispatch, getState, { fetch }) => {
@@ -1682,7 +1685,7 @@ export default createReducer(initialState, {
     paymentMethod,
   }),
   [ADD_BUNDLE_SUCCESS]: (state, { bundle }) => ({
-    bundleId: bundle.id,
+    bundleId: bundle && bundle.id,
     bundle,
   }),
   [MAKE_ORDER_SUCCESS]: (state, { order }) => ({
