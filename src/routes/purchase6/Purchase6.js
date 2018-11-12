@@ -213,7 +213,7 @@ class Purchase6 extends React.Component {
     super(props)
     this.state = {
       mounted: false,
-      content: '',
+      content: props.cardDetails ? props.cardDetails.body:'',
       fontlink: []
     }
 
@@ -223,7 +223,7 @@ class Purchase6 extends React.Component {
     this.insertConent = this.insertConent.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps && nextProps.cardDetails) {
+    if (nextProps && nextProps.cardDetails && nextProps.cardDetails !== this.props.cardDetails) {
       this.setState({ content: nextProps.cardDetails.body });
     }
   }
@@ -295,7 +295,7 @@ class Purchase6 extends React.Component {
                 {mounted && (
                   <Editor
                     ref={editor => this.tinymce = editor}
-                    value={this.state.content.replace('<!doctype html>', '')}
+                    value={this.state.content && this.state.content.replace('<!doctype html>', '')}
                     init={{
                       toolbar: false,
                       menubar: false,
