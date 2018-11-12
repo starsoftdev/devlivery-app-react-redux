@@ -57,10 +57,10 @@ class ImportContacts extends React.Component {
                     {/*vcfUploadButton*/}
                   </Col>
                   <Col xs={24} sm={12} className={s.section}>
-                    {exportOutlookContacts}
+                    {/*exportOutlookContacts*/}
                   </Col>
                   <Col xs={24} sm={12} className={s.section}>
-                    {exportCardContacts}
+                    {/*exportCardContacts*/}
                   </Col>
                 </Row>
               </div>
