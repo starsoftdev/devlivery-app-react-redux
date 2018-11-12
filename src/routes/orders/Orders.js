@@ -98,7 +98,6 @@ class Orders extends React.Component {
       },
     ]
     const today = moment()
-    console.log('upcomingEvents', upcomingpageSize);
     return (
       <div className={s.container}>
         <div className={s.actions}>
