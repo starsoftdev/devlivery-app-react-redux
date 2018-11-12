@@ -132,3 +132,7 @@
   margin-right: 10px;
   cursor: pointer;
 }
+.errormsg{
+  color:red;
+  margin-left: 25px;
+}
