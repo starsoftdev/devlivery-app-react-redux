@@ -34,7 +34,6 @@ const GLOBAL_META = `
 const GLOBAL_STYLES = `
 <style type='text/css'>
   body {
-    margin: 0;
     line-height: 1.3;
     font-size: 16px;
     font-family:'Anonymous Pro'
