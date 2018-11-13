@@ -479,11 +479,13 @@ class User extends React.Component {
               </section>
               <ChangePasswordForm />
               {
+                /*
                 !handwrittenDisabled &&
                 <section className={s.section}>
                   <h1 className={s.header}>{'Company  Logo'}</h1>
                   <Avatar isLogo = {true}/>
                 </section>
+                */
               }
             </Col>
           </Row>
