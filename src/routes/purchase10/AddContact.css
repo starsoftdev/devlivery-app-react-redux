@@ -28,8 +28,10 @@
   }
 }
 .requirAddress {
+  font-family: var(--font-family);
   color:red;
 }
 .norequirAddress {
-  color: black;
+  font-family: var(--font-family);
+  color: var(--heading-color);
 }
