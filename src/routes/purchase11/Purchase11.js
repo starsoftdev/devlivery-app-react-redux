@@ -64,7 +64,7 @@ class Purchase11 extends React.Component {
       checkSave: props.saved || 0,
       bundleName: '',
       recip_warnmsg: '',
-      couple:undefined
+      couple: undefined
     }
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.onCheckSaved = this.onCheckSaved.bind(this);
@@ -89,7 +89,7 @@ class Purchase11 extends React.Component {
       this.onSelectLocation(this.state.selectedLocation);
     }
     if (nextProps && nextProps.order && nextProps.order.coupon && this.state.couple === undefined) {
-      this.setState({couple: nextProps.order.coupon && nextProps.order.coupon.coupon});
+      this.setState({ couple: nextProps.order.coupon && nextProps.order.coupon.coupon });
     }
   }
   componentDidMount() {
@@ -101,7 +101,7 @@ class Purchase11 extends React.Component {
       `//fonts.googleapis.com/css?family=${font}`
     )
     this.setState(newState)
-    console.log('Zurich Time',moment().tz("Europe/Zurich").format());
+    console.log('Zurich Time', moment().tz("Europe/Zurich").format());
   }
   onSelectLocation = (value) => {
     this.props.recalculateTotal(value);
@@ -216,16 +216,16 @@ class Purchase11 extends React.Component {
   }
   render() {
     const { currentRecipient, order, disableSubmit, contact, selOccasion, checkSave, selectedLocation } = this.state
-    const { flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation, flow, user, shipping_cost,applycouponTotal } = this.props
+    const { flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation, flow, user, shipping_cost, applycouponTotal } = this.props
     const { getFieldDecorator } = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
 
-    
+
     const w = cardSize ? cardSize.width : 100
     const h = cardSize ? cardSize.height : 100
 
-    const cardWidth = orientation && orientation == 'l' ? Math.max(h,w): Math.min(h,w);
-    const cardHeight = orientation && orientation == 'l' ? Math.min(h,w): Math.max(h,w);
+    const cardWidth = orientation && orientation == 'l' ? Math.max(h, w) : Math.min(h, w);
+    const cardHeight = orientation && orientation == 'l' ? Math.min(h, w) : Math.max(h, w);
 
     const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
 
@@ -240,44 +240,45 @@ class Purchase11 extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
-          <Loader loaded={shipping_cost ? true: false}>
-          <OrderItems
-            {...this.props}
-            {...order}
-            gifts={order && order.items && order.items.gifts ? order.items.gifts : []}
-            gift={order.items.gifts[0] && order.items.gifts[0].gift}
-            card={order.items.card}
-          />
-          <div className={s.orderDetails}>
-            
-            <h3 className={s.warnText}>{this.tinymce && this.tinymce.editor && (html === null || html === '' || html === undefined) && intl.formatMessage(messages.personalizedmsg)}</h3>
-            {this.state.mounted && bundle && <Editor
-              ref={editor => {
-                this.tinymce = editor
-              }}
-              value={this.state.content.replace('<!doctype html>', '')}
-              init={{
-                toolbar: false,
-                menubar: false,
-                statusbar: false,
-                width: `${cardWidth}mm`,
-                height: `${cardHeight}mm`,
-                content_css: [...this.state.fontlink, '/styles/tinymce.css'],
-                readonly: true
-              }}
-              onEditorChange={this.handleEditorChange}
+          <Loader loaded={shipping_cost ? true : false}>
+            <OrderItems
+              {...this.props}
+              {...order}
+              gifts={order && order.items && order.items.gifts ? order.items.gifts : []}
+              gift={order.items.gifts[0] && order.items.gifts[0].gift}
+              card={order.items.card}
             />
-            }
-          </div>
-          <Row type='flex' align='center' gutter={20} className={s.subtotalSection}>
-            <Col xs={12}>
-              <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.subtotal)}</h2>
-            </Col>
-            <Col xs={12}>
-              <span className={s.subtotalValue}>{order.bundle_subtotal}</span>
-              <span className={s.subtotalCurrency}>{'CHF'}</span>
-            </Col>
-          </Row>
+            <div className={s.orderDetails}>
+
+              <h3 className={s.warnText}>{this.tinymce && this.tinymce.editor && (html === null || html === '' || html === undefined) && intl.formatMessage(messages.personalizedmsg)}</h3>
+              {this.state.mounted && bundle && <Editor
+                ref={editor => {
+                  this.tinymce = editor
+                }}
+                value={this.state.content.replace('<!doctype html>', '')}
+                init={{
+                  toolbar: false,
+                  menubar: false,
+                  statusbar: false,
+                  width: `${cardWidth}mm`,
+                  height: `${cardHeight}mm`,
+                  content_css: [...this.state.fontlink, '/styles/tinymce.css'],
+                  readonly: true
+                }}
+                onEditorChange={this.handleEditorChange}
+              />
+              }
+            </div>
+            <Row type='flex' align='center' gutter={20} className={s.subtotalSection}>
+              <Col xs={12}>
+                <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.subtotal)}</h2>
+              </Col>
+              <Col xs={12}>
+                <span className={s.subtotalValue}>{order.bundle_subtotal}</span>
+                <span className={s.subtotalCurrency}>{'CHF'}</span>
+              </Col>
+            </Row>
+            {/*
           <Row type='flex' align='center' gutter={20} className={s.totalSection}>
             <Col xs={12}>
               <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.tax)}</h2>
@@ -287,206 +288,227 @@ class Purchase11 extends React.Component {
               <span className={s.subtotalCurrency}>{'CHF'}</span>
             </Col>
           </Row>
-          <Row type='flex' align='center' gutter={20} className={s.totalSection}>
-            <Col xs={12}>
-              <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.recipients)}</h2>
-            </Col>
-            <Col xs={12}>
-              <span className={s.subtotalValue}>{order.recipients_count}</span>
-            </Col>
-          </Row>
-          {
-            shipping_cost &&
+          */}
+            {
+              shipping_cost &&
+              <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+                <Col xs={12}>
+                  <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.shippingcost)}</h2>
+                </Col>
+                <Col xs={12}>
+                  <span className={s.subtotalValue}>{shipping_cost.shipping_cost}</span>
+                  <span className={s.subtotalCurrency}>{'CHF'}</span>
+                </Col>
+              </Row>
+            }
+            {
+              shipping_cost &&
+              <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+                <Col xs={12}>
+                  <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.total)}</h2>
+                </Col>
+                <Col xs={12}>
+                  <span className={s.subtotalValue}>{shipping_cost.total_with_tax}</span>
+                  <span className={s.subtotalCurrency}>{'CHF'}</span>
+                </Col>
+              </Row>
+            }
+            {
+              user && user.account_type === TEAM_ACCOUNT && !user.is_team_owner &&
+              <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+                <Col xs={12}>
+                  <h2 className={s.subtotalHeader}>{'AVAILABLE BUDGET:'}</h2>
+                </Col>
+                <Col xs={12}>
+                  <span className={s.subtotalValue}>{user && user.budget && user.budget.remaining_budget ? user.budget.remaining_budget : '0'}</span>
+                  <span className={s.subtotalCurrency}>{'CHF'}</span>
+                </Col>
+              </Row>
+            }
+            {
+              order.coupon && order.coupon.value &&
+              <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+                <Col xs={12}>
+                  <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.coupon)}</h2>
+                </Col>
+                <Col xs={12}>
+                  <span className={s.subtotalValue}>{order.coupon.value}</span>
+                  <span className={s.subtotalCurrency}>{'CHF'}</span>
+                </Col>
+              </Row>
+            }
             <Row type='flex' align='center' gutter={20} className={s.totalSection}>
               <Col xs={12}>
-                <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.shippingcost)}</h2>
+                <FloatingLabel placeholder={intl.formatMessage(messages.coupon)} value={this.state.couple} onChange={(e) => this.setState({ couple: e.target.value })} />
               </Col>
               <Col xs={12}>
-                <span className={s.subtotalValue}>{shipping_cost.shipping_cost}</span>
-                <span className={s.subtotalCurrency}>{'CHF'}</span>
+                <Button type='primary' size='small' style={{ marginRight: 10, marginTop: 25 }} ghost onClick={() => {
+                  if (this.state.couple && this.state.couple.length > 0)
+                    applycouponTotal(this.state.couple)
+                }}>
+                  {intl.formatMessage(messages.applycoupon)}
+                </Button>
               </Col>
             </Row>
-          }
-          {
-            shipping_cost &&
-            <Row type='flex' align='center' gutter={20} className={s.totalSection}>
-              <Col xs={12}>
-                <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.total)}</h2>
-              </Col>
-              <Col xs={12}>
-                <span className={s.subtotalValue}>{shipping_cost.total_with_tax}</span>
-                <span className={s.subtotalCurrency}>{'CHF'}</span>
-              </Col>
-            </Row>
-          }
-          {
-            user && user.account_type === TEAM_ACCOUNT && !user.is_team_owner &&
-            <Row type='flex' align='center' gutter={20} className={s.totalSection}>
-              <Col xs={12}>
-                <h2 className={s.subtotalHeader}>{'AVAILABLE BUDGET:'}</h2>
-              </Col>
-              <Col xs={12}>
-                <span className={s.subtotalValue}>{user && user.budget && user.budget.remaining_budget ? user.budget.remaining_budget : '0'}</span>
-                <span className={s.subtotalCurrency}>{'CHF'}</span>
-              </Col>
-            </Row>
-          }
 
-          <Row type='flex' align='center' gutter={20} className={s.totalSection}>
-            <Col xs={12}>
-              <FloatingLabel placeholder={intl.formatMessage(messages.coupon)} value={this.state.couple} onChange={(e)=>this.setState({couple:e.target.value})}/>
-            </Col>
-            <Col xs={12}>
-              <Button type='primary' size='small' style={{ marginRight: 10,marginTop:25 }} ghost onClick={() => {
-                if(this.state.couple && this.state.couple.length > 0)
-                  applycouponTotal(this.state.couple)
-              }}>
-                {intl.formatMessage(messages.applycoupon)}
-              </Button>
-            </Col>
-          </Row>
-
-          <section className={s.section}>
-            <h2 className={s.sectionHeader}>{intl.formatMessage(messages.shipping)}</h2>
-            <h3 className={s.warnText}>{this.state.recip_warnmsg}</h3>
-            <Row gutter={20} type='flex' align='flex-start'>
-              <Col xs={24} sm={8}>
-                <Form.Item>
-                  {getFieldDecorator('deliverable', {
-                    initialValue: this.state.selectedLocation,
-                    rules: [
-                      { required: true, message: intl.formatMessage(formMessages.required) },
-                    ],
-                  })(
-                    <Select
-                      placeholder={intl.formatMessage(messages.deliveryPlace)}
-                      className={s.select}
-                      onChange={this.onSelectLocation}
-                    >
-                      {deliveryLocations && deliveryLocations.map((item) =>
-                        <Select.Option key={item.value} value={item.value}>{item.title}</Select.Option>
-                      )}
-                    </Select>
-                  )}
-                </Form.Item>
-              </Col>
+            <section className={s.section}>
+              <h2 className={s.sectionHeader}>{intl.formatMessage(messages.shipping)}</h2>
               {
-                deliveryOccations && deliveryOccations.length > 0 &&
+                <Row type='flex' align='center' gutter={20} className={s.recipientSection}>
+                  <Col xs={12}>
+                    <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.recipients)}</h2>
+                  </Col>
+                  <Col xs={12}>
+                    <span className={s.subtotalValue}>{order.recipients_count}</span>
+                  </Col>
+                </Row>
+              }
+              {
+                this.state.recip_warnmsg && this.state.recip_warnmsg !== '' &&
+                <h3 className={s.warnText}>{this.state.recip_warnmsg}</h3>
+              }
+              <Row gutter={20} type='flex' align='flex-start'>
                 <Col xs={24} sm={8}>
                   <Form.Item>
-                    {getFieldDecorator('delivery_occasion', {
-                      initialValue: this.state.selOccasion || undefined,
+                    {getFieldDecorator('deliverable', {
+                      initialValue: this.state.selectedLocation,
                       rules: [
-                        { required: false, message: intl.formatMessage(formMessages.required) },
+                        { required: true, message: intl.formatMessage(formMessages.required) },
                       ],
                     })(
                       <Select
-                        allowClear={true}
-                        disabled={deliveryOccations && deliveryOccations.length > 0 ? false : true}
-                        showArrow={deliveryOccations && deliveryOccations.length > 0 ? true : false}
-                        placeholder={intl.formatMessage(messages.deliveryOccasion)}
+                        placeholder={intl.formatMessage(messages.deliveryPlace)}
                         className={s.select}
-                        onChange={this.onSelectOccasion}>
-                        {deliveryOccations && deliveryOccations.map((item) =>
-                          <Select.Option key={item} value={item}>{item}</Select.Option>
+                        onChange={this.onSelectLocation}
+                      >
+                        {deliveryLocations && deliveryLocations.map((item) =>
+                          <Select.Option key={item.value} value={item.value}>{item.title}</Select.Option>
                         )}
                       </Select>
                     )}
                   </Form.Item>
-                </Col>
-              }
-              <Col xs={24} sm={8}>
-                {
-                  !(selOccasion && selOccasion.length > 0) &&
-                  <Form.Item>
-                    {getFieldDecorator('schedule_date', {
-                      initialValue: specialDate ? moment(specialDate, DATE_FORMAT) : undefined,
-                    })(
-                      <DatePicker
-                        ref={ref => this.datePicker = ref}
-                        className={s.select}
-                        placeholder={intl.formatMessage(messages.deliveryTime)}
-                        format={DISPLAYED_DATE_FORMAT}
-                        disabled={selOccasion && selOccasion.length > 0 ? true : false}
-                        disabledDate={current => {
-                          var date = new Date();
-                          let zurichtime = moment().tz("Europe/Zurich").format('HH');
-                          if(parseInt(zurichtime) < 12)
-                          {
-                            date.setDate(date.getDate()+3);
-                          }
-                          else date.setDate(date.getDate()+4);
-
-                          return current && current.valueOf() < (date)
-                        }}
-                        onChange={this.onChangeDatePicker}
-                      />
+                  <div className={s.recipients}>
+                    {contact && (
+                      <div className={s.recipient}>
+                        <div>{contact && contact.title ? contact.title : ' '}</div>
+                        <div>{`${contact && contact.first_name ? contact.first_name : ' '} ${contact && contact.last_name ? contact.last_name : ' '}`}</div>
+                        <div>{contact ? contact.address : " "/*order.recipients[currentRecipient].receiving_address.address*/}</div>
+                        <div>{`${contact && contact.postal_code ? contact.postal_code : " "/*order.recipients[currentRecipient].receiving_address.postal_code*/} ${contact && contact.city ? contact.city : " "/*order.recipients[currentRecipient].receiving_address.city*/}`}</div>
+                        <div>{contact ? contact.country : " "/*order.recipients[currentRecipient].receiving_address.country*/}</div>
+                      </div>
                     )}
-                  </Form.Item>
+                    {selectedLocation !== 'shipping' && order.recipients && order.recipients.length > 1 && (
+                      <div style={{ marginTop: 10 }}>
+                        <Button
+                          type='primary'
+                          onClick={this.prevRecipient}
+                          size='small'
+                          ghost
+                        >
+                          prev
+                      </Button>
+                        <Button
+                          type='primary'
+                          onClick={this.nextRecipient}
+                          size='small'
+                        >
+                          next
+                      </Button>
+
+                      </div>
+                    )}
+                  </div>
+                  {
+                    selectedLocation !== 'shipping' &&
+                    <div style={{ marginTop: 20 }}>
+                      <Button type='primary' size='small' style={{ marginRight: 10 }} ghost onClick={() => {
+                        this.props.toAddContactFlowStep();
+                      }}>
+                        <PlusIcon />
+                        {intl.formatMessage(messages.add)}
+                      </Button>
+
+                      <Popconfirm
+                        title={intl.formatMessage(messages.confirmRemoving)}
+                        onConfirm={() => {
+                          removeRecipientsOrder(order.recipients[currentRecipient].id)
+                          this.setState({ currentRecipient: 0 });
+                        }}
+                        okText={intl.formatMessage(messages.acceptRemoving)}
+                      >
+                        <Button type='primary' size='small' ghost >
+                          <RemoveIcon />
+                          {intl.formatMessage(messages.remove)}
+                        </Button>
+                      </Popconfirm>
+                    </div>
+                  }
+                </Col>
+                {
+                  deliveryOccations && deliveryOccations.length > 0 &&
+                  <Col xs={24} sm={8}>
+                    <Form.Item>
+                      {getFieldDecorator('delivery_occasion', {
+                        initialValue: this.state.selOccasion || undefined,
+                        rules: [
+                          { required: false, message: intl.formatMessage(formMessages.required) },
+                        ],
+                      })(
+                        <Select
+                          allowClear={true}
+                          disabled={deliveryOccations && deliveryOccations.length > 0 ? false : true}
+                          showArrow={deliveryOccations && deliveryOccations.length > 0 ? true : false}
+                          placeholder={intl.formatMessage(messages.deliveryOccasion)}
+                          className={s.select}
+                          onChange={this.onSelectOccasion}>
+                          {deliveryOccations && deliveryOccations.map((item) =>
+                            <Select.Option key={item} value={item}>{item}</Select.Option>
+                          )}
+                        </Select>
+                      )}
+                    </Form.Item>
+                    <div>
+                      {intl.formatMessage(messages.deliveryOccasion_text)}
+                  </div>
+                  </Col>
                 }
-              </Col>
-            </Row>
+                <Col xs={24} sm={8}>
+                  {
+                    !(selOccasion && selOccasion.length > 0) &&
+                    <Form.Item>
+                      {getFieldDecorator('schedule_date', {
+                        initialValue: specialDate ? moment(specialDate, DATE_FORMAT) : undefined,
+                      })(
+                        <DatePicker
+                          ref={ref => this.datePicker = ref}
+                          className={s.select}
+                          placeholder={intl.formatMessage(messages.deliveryTime)}
+                          format={DISPLAYED_DATE_FORMAT}
+                          disabled={selOccasion && selOccasion.length > 0 ? true : false}
+                          disabledDate={current => {
+                            var date = new Date();
+                            let zurichtime = moment().tz("Europe/Zurich").format('HH');
+                            if (parseInt(zurichtime) < 12) {
+                              date.setDate(date.getDate() + 3);
+                            }
+                            else date.setDate(date.getDate() + 4);
+
+                            return current && current.valueOf() < (date)
+                          }}
+                          onChange={this.onChangeDatePicker}
+                        />
+                      )}
+                    </Form.Item>
+                  }
+                  <div>
+                    {intl.formatMessage(messages.deliveryDate_text)}
+                  </div>
+                </Col>
+              </Row>
+              {/*
             <Row type='flex' align='center' gutter={20} className={s.totalSection}>
               <Col xs={12}>
-                <div className={s.recipients}>
-                  {contact && (
-                    <div className={s.recipient}>
-                      <div>{contact && contact.title ? contact.title : ' '}</div>
-                      <div>{`${contact && contact.first_name ? contact.first_name : ' '} ${contact && contact.last_name ? contact.last_name : ' '}`}</div>
-                      <div>{contact ? contact.address : " "/*order.recipients[currentRecipient].receiving_address.address*/}</div>
-                      <div>{`${contact && contact.postal_code ? contact.postal_code : " "/*order.recipients[currentRecipient].receiving_address.postal_code*/} ${contact && contact.city ? contact.city : " "/*order.recipients[currentRecipient].receiving_address.city*/}`}</div>
-                      <div>{contact ? contact.country : " "/*order.recipients[currentRecipient].receiving_address.country*/}</div>
-                    </div>
-                  )}
-                  {selectedLocation !== 'shipping' && order.recipients && order.recipients.length > 1 && (
-                    <div style={{ marginTop: 10 }}>
-                      <Button
-                        type='primary'
-                        onClick={this.prevRecipient}
-                        size='small'
-                        ghost
-                      >
-                        prev
-                      </Button>
-                      <Button
-                        type='primary'
-                        onClick={this.nextRecipient}
-                        size='small'
-                      >
-                        next
-                      </Button>
-
-                    </div>
-                  )}
-                </div>
                 {
-                  selectedLocation !== 'shipping' &&
-                  <div style={{ marginTop: 20 }}>
-                    <Button type='primary' size='small' style={{ marginRight: 10 }} ghost onClick={() => {
-                      this.props.toAddContactFlowStep();
-                    }}>
-                      <PlusIcon />
-                      {intl.formatMessage(messages.add)}
-                    </Button>
-
-                    <Popconfirm
-                      title={intl.formatMessage(messages.confirmRemoving)}
-                      onConfirm={() => {
-                        removeRecipientsOrder(order.recipients[currentRecipient].id)
-                        this.setState({ currentRecipient: 0 });
-                      }}
-                      okText={intl.formatMessage(messages.acceptRemoving)}
-                    >
-                      <Button type='primary' size='small' ghost >
-                        <RemoveIcon />
-                        {intl.formatMessage(messages.remove)}
-                      </Button>
-                    </Popconfirm>
-                  </div>
-                }
-              </Col>
-              <Col xs={12}>
-                {/*
                   flow.key !== ORDER_BUNDLE_FLOW.key && flow.key !== ORDER_VOUCHER_FLOW.key &&
                   <div>
                     <Form.Item>
@@ -511,11 +533,11 @@ class Purchase11 extends React.Component {
                       </Form.Item>
                     }
                   </div>
-                  */
                 }
               </Col>
             </Row>
-          </section>
+            */}
+            </section>
           </Loader>
         </div>
         <PurchaseActions>

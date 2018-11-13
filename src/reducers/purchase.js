@@ -901,6 +901,7 @@ export const applycouponTotal = (coupon) => (dispatch, getState, { fetch }) => {
       success: (res) => {
         console.log('apply-coupon res:', res);
         message.success('Successfully applied coupon');
+        dispatch(getOrderDetails(orderId));
         dispatch({ type: GET_SHIPPINGTOTAL_SUCCESS, shipping_cost: res.data })
       },
       failure: (err) => {

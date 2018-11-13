@@ -23,7 +23,7 @@
   @media (min-width: 821px) {
     margin-right: auto;
     margin-left: auto;
-    max-width: 680px;
+    max-width: 730px;
     width: 100%;
   }
 }
@@ -68,7 +68,6 @@
   font-size: 12px;
   font-weight: 100;
   letter-spacing: 1.15px;
-  margin-bottom: var(--margin-md);
   color: red;
 }
 .cardPreview {
@@ -117,7 +116,9 @@
 .totalSection {
   padding-bottom: var(--margin-sm);
 }
-
+.recipientSection{
+  padding-top: var(--margin-sm);
+}
 .recipients {
 
 }

@@ -21,6 +21,14 @@ export default defineMessages({
     id: 'purchase11.deliveryOccasion',
     defaultMessage: 'Delivery Occasion'
   },
+  deliveryOccasion_text : {
+    id: 'purchase11.deliveryOccasion_text',
+    defaultMessage: 'Your order will be delivered to your recipients in the date of the occasion you have selected or on the business day before if the date is on a weekend. If you want to receive the order on your address you\'ll receive it 1 day prior to the occasion date.'
+  },
+  deliveryDate_text : {
+    id: 'purchase11.deliveryDate_text',
+    defaultMessage: 'Your order will be delivered on the selected date or in the business day before if the date is on a weekend. If you don\'t select any date or occasion you\'ll receive your order in 3 business days.'
+  },
   deliveryTime: {
     id: 'purchase11.deliveryTime',
     defaultMessage: 'Delivery Date',
