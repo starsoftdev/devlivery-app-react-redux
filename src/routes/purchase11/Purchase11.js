@@ -205,7 +205,7 @@ class Purchase11 extends React.Component {
             bundleName: this.props.form.getFieldValue('title')
           }
           localStorage.setItem(ORDER_CONFIRM_STATE, JSON.stringify(jsonData));
-          this.props.submitShipping(values, () => this.setState({ disableSubmit: false }))
+          this.props.submitShipping(values, parseFloat(order.total), () => this.setState({ disableSubmit: false }))
         } else {
           this.setState({ disableSubmit: false })
         }
@@ -282,16 +282,16 @@ class Purchase11 extends React.Component {
               </Col>
             </Row>
             {/*
-          <Row type='flex' align='center' gutter={20} className={s.totalSection}>
-            <Col xs={12}>
-              <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.tax)}</h2>
-            </Col>
-            <Col xs={12}>
-              <span className={s.subtotalValue}>{order.bundle_tax}</span>
-              <span className={s.subtotalCurrency}>{'CHF'}</span>
-            </Col>
-          </Row>
-          */}
+            <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+              <Col xs={12}>
+                <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.tax)}</h2>
+              </Col>
+              <Col xs={12}>
+                <span className={s.subtotalValue}>{order.bundle_tax}</span>
+                <span className={s.subtotalCurrency}>{'CHF'}</span>
+              </Col>
+            </Row>
+            */}
             {
               shipping_cost &&
               <Row type='flex' align='center' gutter={20} className={s.totalSection}>

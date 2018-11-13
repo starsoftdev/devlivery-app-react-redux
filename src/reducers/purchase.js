@@ -566,7 +566,7 @@ export const getGifts = (params = {}) => (dispatch, getState, { fetch }) => {
     })
 }
 
-export const submitShipping = (values,callback) => (dispatch, getState, { fetch }) => {
+export const submitShipping = (values,total,callback) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   dispatch({ type: SUBMIT_SHIPPING_REQUEST, values })
   const { deliverable, delivery_occasion, schedule_date, title } = values;
@@ -605,7 +605,9 @@ export const submitShipping = (values,callback) => (dispatch, getState, { fetch 
         }
         dispatch(updateBundle(param));
       }
-      dispatch(nextFlowStep())
+      if(total <= 0)
+        dispatch(orderConfirmWithoutPrice(callback));
+      else dispatch(nextFlowStep())
     },
     failure: (err) => {
       console.log('err',err);
@@ -1102,7 +1104,30 @@ const returnToPaymentMethod = (keepOrder) => (dispatch, getState, { history }) =
   // let user choose another payment method or try again
   history.push('/purchase/payment-method')
 }
-
+export const orderConfirmWithoutPrice = (callback) => (dispatch, getState, { fetch,history }) => {
+  const { token } = dispatch(getToken())
+  const { orderId } = getState().purchase;
+  if (!orderId) {
+    return
+  }
+  console.log(`/order/${orderId}/confirm`);
+  return fetch(`/order/${orderId}/confirm`, {
+    method: 'GET',
+    token,
+    success: (res) => {
+      console.log('res',res);
+      localStorage.removeItem(TRANSACTION_ID_KEY)
+      localStorage.removeItem(ORDER_ID_KEY)
+      history.push('/purchase/completed')
+    },
+    failure: (err) => { 
+      console.log('err',err);
+      showErrorMessage(err);
+      if(callback)
+        callback();
+    },
+  })
+}
 export const executePaypalPayment = ({ paymentId, paypalToken, payerId }) => async (dispatch, getState, { fetch, history }) => {
   const { token } = dispatch(getToken())
   const transactionId = await localStorage.getItem(TRANSACTION_ID_KEY)
