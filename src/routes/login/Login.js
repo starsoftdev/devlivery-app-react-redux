@@ -5,7 +5,7 @@ import {clear, login} from '../../reducers/login'
 import {Alert, Button, Col, Form, Input, Row, message} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Login.css'
-import {RESET_PASSWORD_ROUTE, REGISTER1_ROUTE} from '../'
+import {RESET_PASSWORD_ROUTE, REGISTER2_ROUTE} from '../'
 import messages from './messages'
 import formMessages from '../../formMessages'
 import {nextFlowStep} from '../../reducers/purchase';
@@ -81,7 +81,7 @@ class Login extends React.Component {
           <Row gutter={16} type='flex' justify='space-between'>
             <Col>
               {intl.formatMessage(messages.newHere)}
-              <Link to={REGISTER1_ROUTE} className={s.registerBtn}>
+              <Link to={REGISTER2_ROUTE} className={s.registerBtn}>
                 {intl.formatMessage(messages.createAccount)}
               </Link>
             </Col>
