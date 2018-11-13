@@ -3,12 +3,12 @@ import Purchase13 from './Purchase13'
 import {setCurrentRouteName} from '../../reducers/global'
 import messages from './messages'
 import {getAllCards} from '../../reducers/user'
-import {makeOrder} from '../../reducers/purchase'
+import {getOrderDetails} from '../../reducers/purchase'
 
 function action({store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
   store.dispatch(getAllCards())
-  store.dispatch(makeOrder())
+  store.dispatch(getOrderDetails())
   return {
     chunks: ['purchase'],
     title: intl.formatMessage(messages.title),

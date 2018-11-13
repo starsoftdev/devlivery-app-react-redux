@@ -1408,12 +1408,13 @@ export const removeVoucherFromBundle = () => (dispatch, getState, { fetch }) => 
 }
 export const getOrderDetails = (orderId) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
-  if (!orderId) {
+  let order_id = orderId ? orderId : getState().purchase.orderId
+  if (!order_id) {
     return
   }
   dispatch({ type: GET_ORDER_DETAILS_REQUEST })
   return fetch(`/order-confirmation?${qs.stringify({
-    order_id: orderId,
+    order_id,
   })}`, {
       method: 'GET',
       token,
