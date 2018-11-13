@@ -13,7 +13,7 @@ class UploadedContacts extends React.Component {
 
     const columnsNames = uploadedContacts[0] ? Object.keys(uploadedContacts[0]) : []
     const columns = columnsNames.map(column => ({
-      title: column,
+      title: column === 'dob' ? 'date of birth' : column,
       dataIndex: column,
       key: column,
       render: (item) => JSON.stringify(item)
@@ -25,7 +25,7 @@ class UploadedContacts extends React.Component {
         title={intl.formatMessage(messages.header)}
         onOk={closeUploadedContactsModal}
         onCancel={closeUploadedContactsModal}
-        width={900}
+        width={1200}
       >
         <Table
           loading= {loading.uploadedContacts}

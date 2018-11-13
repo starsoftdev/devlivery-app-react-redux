@@ -27,7 +27,7 @@ class ImportContacts extends React.Component {
 
   render() {
     const { mappingColumns, intl, uploadedContactsModalOpened, openUploadedContactsModal } = this.props
-
+    
     return (
       <div className={s.container}>
         {mappingColumns ? (

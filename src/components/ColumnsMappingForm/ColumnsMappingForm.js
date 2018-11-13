@@ -31,7 +31,7 @@ class ColumnsMappingForm extends React.Component {
             className={s.row}
             {...formItemLayout}
             key={column}
-            label={column}
+            label={column === 'dob' ? 'date of birth' : column}
           >
             {getFieldDecorator(column, {
               rules: [
@@ -43,7 +43,7 @@ class ColumnsMappingForm extends React.Component {
                 placeholder={intl.formatMessage(messages.notInFile)}
               >
                 {mappingColumns.user_columns.map(item =>
-                  <Select.Option key={item}>{item}</Select.Option>
+                  <Select.Option key={item}>{item === 'dob' ? 'date of birth' : item}</Select.Option>
                 )}
               </Select>
             )}
