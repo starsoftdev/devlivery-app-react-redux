@@ -91,6 +91,9 @@ class Purchase11 extends React.Component {
     if (nextProps && nextProps.order && nextProps.order.coupon && this.state.couple === undefined) {
       this.setState({ couple: nextProps.order.coupon && nextProps.order.coupon.coupon });
     }
+    if (nextProps && nextProps.deliveryOccations.length > 0 && nextProps.deliveryOccations.length !==  this.props.deliveryOccations.length) {
+      this.setState({ selOccasion: nextProps.deliveryOccations[0] });
+    }
   }
   componentDidMount() {
     // load editor only on client side (not server side)
@@ -469,73 +472,75 @@ class Purchase11 extends React.Component {
                     </Form.Item>
                     <div>
                       {intl.formatMessage(messages.deliveryOccasion_text)}
-                  </div>
+                    </div>
                   </Col>
                 }
                 <Col xs={24} sm={8}>
                   {
                     !(selOccasion && selOccasion.length > 0) &&
-                    <Form.Item>
-                      {getFieldDecorator('schedule_date', {
-                        initialValue: specialDate ? moment(specialDate, DATE_FORMAT) : undefined,
-                      })(
-                        <DatePicker
-                          ref={ref => this.datePicker = ref}
-                          className={s.select}
-                          placeholder={intl.formatMessage(messages.deliveryTime)}
-                          format={DISPLAYED_DATE_FORMAT}
-                          disabled={selOccasion && selOccasion.length > 0 ? true : false}
-                          disabledDate={current => {
-                            var date = new Date();
-                            let zurichtime = moment().tz("Europe/Zurich").format('HH');
-                            if (parseInt(zurichtime) < 12) {
-                              date.setDate(date.getDate() + 3);
-                            }
-                            else date.setDate(date.getDate() + 4);
+                    <div>
+                      <Form.Item>
+                        {getFieldDecorator('schedule_date', {
+                          initialValue: specialDate ? moment(specialDate, DATE_FORMAT) : undefined,
+                        })(
+                          <DatePicker
+                            ref={ref => this.datePicker = ref}
+                            className={s.select}
+                            placeholder={intl.formatMessage(messages.deliveryTime)}
+                            format={DISPLAYED_DATE_FORMAT}
+                            disabled={selOccasion && selOccasion.length > 0 ? true : false}
+                            disabledDate={current => {
+                              var date = new Date();
+                              let zurichtime = moment().tz("Europe/Zurich").format('HH');
+                              if (parseInt(zurichtime) < 12) {
+                                date.setDate(date.getDate() + 3);
+                              }
+                              else date.setDate(date.getDate() + 4);
 
-                            return current && current.valueOf() < (date)
-                          }}
-                          onChange={this.onChangeDatePicker}
-                        />
-                      )}
-                    </Form.Item>
+                              return current && current.valueOf() < (date)
+                            }}
+                            onChange={this.onChangeDatePicker}
+                          />
+                        )}
+                      </Form.Item>
+                      <div>
+                        {intl.formatMessage(messages.deliveryDate_text)}
+                      </div>
+                    </div>
                   }
-                  <div>
-                    {intl.formatMessage(messages.deliveryDate_text)}
-                  </div>
                 </Col>
               </Row>
               {/*
-            <Row type='flex' align='center' gutter={20} className={s.totalSection}>
-              <Col xs={12}>
-                {
-                  flow.key !== ORDER_BUNDLE_FLOW.key && flow.key !== ORDER_VOUCHER_FLOW.key &&
-                  <div>
-                    <Form.Item>
-                      {getFieldDecorator('saved', {
-                        initialValue: saved === 1 || this.state.checkSave === 1 ? true : false,
-                        valuePropName: 'checked',
-                      })(
-                        <Checkbox onChange={this.onCheckSaved}>{intl.formatMessage(messages.saveasbundle)}</Checkbox>
-                      )}
-                    </Form.Item>
+                <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+                  <Col xs={12}>
                     {
-                      this.state.checkSave === 1 &&
-                      <Form.Item>
-                        {getFieldDecorator('title', {
-                          initialValue: this.state.bundleName,
-                          rules: [
-                            { required: this.state.checkSave === 1 ? true : false, min: this.state.checkSave === 1 ? 5 : 0, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
-                          ],
-                        })(
-                          <FloatingLabel placeholder={intl.formatMessage(messages.bundleName) + ' *'} />
-                        )}
-                      </Form.Item>
+                      flow.key !== ORDER_BUNDLE_FLOW.key && flow.key !== ORDER_VOUCHER_FLOW.key &&
+                      <div>
+                        <Form.Item>
+                          {getFieldDecorator('saved', {
+                            initialValue: saved === 1 || this.state.checkSave === 1 ? true : false,
+                            valuePropName: 'checked',
+                          })(
+                            <Checkbox onChange={this.onCheckSaved}>{intl.formatMessage(messages.saveasbundle)}</Checkbox>
+                          )}
+                        </Form.Item>
+                        {
+                          this.state.checkSave === 1 &&
+                          <Form.Item>
+                            {getFieldDecorator('title', {
+                              initialValue: this.state.bundleName,
+                              rules: [
+                                { required: this.state.checkSave === 1 ? true : false, min: this.state.checkSave === 1 ? 5 : 0, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
+                              ],
+                            })(
+                              <FloatingLabel placeholder={intl.formatMessage(messages.bundleName) + ' *'} />
+                            )}
+                          </Form.Item>
+                        }
+                      </div>
                     }
-                  </div>
-                }
-              </Col>
-            </Row>
+                  </Col>
+                </Row>
             */}
             </section>
           </Loader>

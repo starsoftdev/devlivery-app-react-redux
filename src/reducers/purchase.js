@@ -1549,7 +1549,8 @@ export const initialState = {
   doPage: 1,
   doPageSize: 6,
   doCount: 0,
-  shipping_cost: null
+  shipping_cost: null,
+  deliveryOccations:[]
 }
 
 export default createReducer(initialState, {
