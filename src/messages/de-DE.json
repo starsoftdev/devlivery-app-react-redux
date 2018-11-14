@@ -1780,7 +1780,7 @@
   },
   {
     "id": "home.chooseItDescription",
-    "defaultMessage": "Select from out exclusive online catalog",
+    "defaultMessage": "Select from our exclusive online catalog",
     "message": "Kreieren Sie grosse Emotionen: Wählen Sie die passende Karte aus unserem exklusiven Sortiment, gestaltet von Künstlern.",
     "files": [
       "src/routes/home/messages.js"

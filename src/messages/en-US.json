@@ -789,7 +789,7 @@
   },
   {
     "id": "home.chooseItDescription",
-    "defaultMessage": "Select from out exclusive online catalog",
+    "defaultMessage": "Select from our exclusive online catalog",
     "message": "",
     "files": [
       "src/routes/home/messages.js"

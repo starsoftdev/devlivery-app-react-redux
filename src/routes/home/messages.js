@@ -31,7 +31,7 @@ export default defineMessages({
   },
   chooseItDescription: {
     id: 'home.chooseItDescription',
-    defaultMessage: 'Select from out exclusive online catalog',
+    defaultMessage: 'Select from our exclusive online catalog',
   },
   personalizeIt: {
     id: 'home.personalizeIt',
