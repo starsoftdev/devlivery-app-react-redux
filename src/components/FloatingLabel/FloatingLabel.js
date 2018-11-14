@@ -56,6 +56,24 @@ export default class FloatingLabel extends React.Component {
         event.stopPropagation(); // Really this time.
       }
     }
+    if(this.props.type === 'name')
+    {
+      const keycode = event.keyCode;
+      var valid = 
+        (keycode > 47 && keycode < 58)   || // number keys
+        //keycode == 32 || keycode == 13   || // spacebar & return key(s) (if you want to allow carriage returns)
+        (keycode > 64 && keycode < 91)   || // letter keys
+        (keycode > 95 && keycode < 112)  || // numpad keys
+        (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
+        keycode == 16 || //shift
+        (keycode > 218 && keycode < 223);   // [\]' (in order)
+
+      if(valid && (keycode < 65 || keycode > 90))//letter
+      {
+        event.preventDefault(); // Let's stop this event.
+        event.stopPropagation(); // Really this time.
+      }
+    }
   }
   render () {
     const {autoComplete, errorMsg, id, isDisabled, pattern, placeholder, type, value, defaultValue,maxLength,required, autoFocus} = this.props;
@@ -73,7 +91,7 @@ export default class FloatingLabel extends React.Component {
           onFocus = {this.props.onFocus}
           defaultValue = {defaultValue}
           value = {value}
-          type={type === 'phone' ? 'text' : type}
+          type={type === 'phone' || type === 'name' ? 'text' : type}
           maxLength={maxLength}
           required = {required}
           autoFocus = {autoFocus}

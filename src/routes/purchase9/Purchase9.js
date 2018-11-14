@@ -154,7 +154,7 @@ class Purchase9 extends React.Component {
                     { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                   ],
                 })(
-                  <FloatingLabel placeholder={intl.formatMessage(messages.firstName)} />
+                  <FloatingLabel type="name" placeholder={intl.formatMessage(messages.firstName)} />
                 )}
               </Form.Item>
             </Col>
@@ -165,7 +165,7 @@ class Purchase9 extends React.Component {
                     { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                   ],
                 })(
-                  <FloatingLabel placeholder={intl.formatMessage(messages.lastName)} />
+                  <FloatingLabel type="name" placeholder={intl.formatMessage(messages.lastName)} />
                 )}
               </Form.Item>
             </Col>
