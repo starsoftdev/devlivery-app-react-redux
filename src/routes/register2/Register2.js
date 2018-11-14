@@ -103,7 +103,7 @@ class Register2 extends React.Component {
                   { required: false, message: intl.formatMessage(formMessages.required) },
                 ],
               })(
-                <FloatingLabel placeholder={intl.formatMessage(messages.phone)} />
+                <FloatingLabel type='phone' placeholder={intl.formatMessage(messages.phone)} />
               )}
             </Form.Item>
             <Form.Item>

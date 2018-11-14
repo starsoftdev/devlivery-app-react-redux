@@ -211,7 +211,7 @@ class ContactUs extends React.Component {
                     {getFieldDecorator('phone', {
                       initialValue: undefined,
                     })(
-                      <FloatingLabel placeholder={intl.formatMessage(messages.phoneInput)} />
+                      <FloatingLabel type='phone' placeholder={intl.formatMessage(messages.phoneInput)} />
                     )}
                   </Form.Item>
                 </div>

@@ -37,7 +37,26 @@ export default class FloatingLabel extends React.Component {
     });
     
   }
+  onKeyDown(event){
+    if(this.props.type === 'phone')
+    {
+      const keycode = event.keyCode;
+      var valid = 
+        (keycode > 47 && keycode < 58)   || // number keys
+        //keycode == 32 || keycode == 13   || // spacebar & return key(s) (if you want to allow carriage returns)
+        (keycode > 64 && keycode < 91)   || // letter keys
+        (keycode > 95 && keycode < 112)  || // numpad keys
+        (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
+        keycode == 16 || //shift
+        (keycode > 218 && keycode < 223);   // [\]' (in order)
 
+      if(valid && (event.keyCode < 48 || event.keyCode > 57) || event.shiftKey)//0~9
+      {
+        event.preventDefault(); // Let's stop this event.
+        event.stopPropagation(); // Really this time.
+      }
+    }
+  }
   render () {
     const {autoComplete, errorMsg, id, isDisabled, pattern, placeholder, type, value, defaultValue,maxLength,required, autoFocus} = this.props;
     const {hasValue, hasError} = this.state;
@@ -54,10 +73,11 @@ export default class FloatingLabel extends React.Component {
           onFocus = {this.props.onFocus}
           defaultValue = {defaultValue}
           value = {value}
-          type={type}
+          type={type === 'phone' ? 'text' : type}
           maxLength={maxLength}
           required = {required}
           autoFocus = {autoFocus}
+          onKeyDown = {this.onKeyDown.bind(this)}
           />
         <label className='fl-input-label' htmlFor={id}>{placeholder}</label>
         <span className='fl-input-bar'></span>
