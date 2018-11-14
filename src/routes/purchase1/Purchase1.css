@@ -44,7 +44,7 @@
   @media (min-width: 1118px) {
     margin-right: auto;
     margin-left: auto;
-    max-width: 995px;
+    max-width: 1060px;
     width: 100%;
   }
 }
@@ -71,7 +71,7 @@
 
   @media (--xs-up) {
     /*to split by 4*/
-    width: 146px;
+    width: 160px;
   }
 }
 
