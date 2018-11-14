@@ -99,7 +99,7 @@ export const getCardStyles = () => (dispatch, getState, {fetch}) => {
 
 export const clearFilters = () => (dispatch, getState) => {
   dispatch({type: CLEAR_FILTERS})
-  dispatch(getCards())
+  dispatch(getCards({search:undefined}))
 }
 
 export const clear = () => ({type: CLEAR})

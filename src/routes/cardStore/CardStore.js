@@ -140,7 +140,10 @@ class CardStore extends React.Component {
                 className={s.clearFilters}
                 type='primary'
                 ghost
-                onClick={clearFilters}
+                onClick={()=>{
+                  this.setState({search:''});
+                  clearFilters();
+                }}
               >
                 {intl.formatMessage(messages.clearFilters)}
               </Button>
