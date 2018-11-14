@@ -56,22 +56,25 @@ class ContactGroups extends React.Component {
 
               </Row>
             </Spin>
-            <div className={s.footer}>
-              <Pagination
-                current={page}
-                total={contactGroupsCount}
-                showTotal={(total, range) => intl.formatMessage(messages.tableItems, {
-                  range0: range[0],
-                  range1: range[1],
-                  total
-                })}
-                pageSize={pageSize}
-                showSizeChanger
-                onChange={(page, pageSize) => getContactGroups({ page, pageSize })}
-                onShowSizeChange={(page, pageSize) => getContactGroups({ page, pageSize })}
-                itemRender={(current, type, el) => <PaginationItem type={type} el={el} />}
-              />
-            </div>
+            {
+              contactGroups.length > 0 &&
+              <div className={s.footer}>
+                <Pagination
+                  current={page}
+                  total={contactGroupsCount}
+                  showTotal={(total, range) => intl.formatMessage(messages.tableItems, {
+                    range0: range[0],
+                    range1: range[1],
+                    total
+                  })}
+                  pageSize={pageSize}
+                  showSizeChanger
+                  onChange={(page, pageSize) => getContactGroups({ page, pageSize })}
+                  onShowSizeChange={(page, pageSize) => getContactGroups({ page, pageSize })}
+                  itemRender={(current, type, el) => <PaginationItem type={type} el={el} />}
+                />
+              </div>
+            }
           </Col>
           {
             readonly !== true &&

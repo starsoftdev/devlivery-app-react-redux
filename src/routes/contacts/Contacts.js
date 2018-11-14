@@ -219,6 +219,7 @@ class Contacts extends React.Component {
               }
             </Row>
             {
+              contacts.length > 0 &&
               <div className={s.footer}>
                 <Pagination
                   current={page}
