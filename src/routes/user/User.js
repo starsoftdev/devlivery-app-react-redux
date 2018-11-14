@@ -225,7 +225,7 @@ class User extends React.Component {
                           { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                         ],
                       })(
-                        <FloatingLabel placeholder={intl.formatMessage(messages.firstName)} />
+                        <FloatingLabel type="name" placeholder={intl.formatMessage(messages.firstName)} />
                       )}
                     </Form.Item>
                   </Col>
@@ -237,7 +237,7 @@ class User extends React.Component {
                           { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                         ],
                       })(
-                        <FloatingLabel placeholder={intl.formatMessage(messages.lastName)} />
+                        <FloatingLabel type="name" placeholder={intl.formatMessage(messages.lastName)} />
                       )}
                     </Form.Item>
                   </Col>
@@ -402,7 +402,7 @@ class User extends React.Component {
                       {getFieldDecorator('address.first_name', {
                         initialValue: address && address.first_name,
                       })(
-                        <FloatingLabel placeholder={intl.formatMessage(messages.firstName)} />
+                        <FloatingLabel type="name" placeholder={intl.formatMessage(messages.firstName)} />
                       )}
                     </Form.Item>
                   </Col>
@@ -411,7 +411,7 @@ class User extends React.Component {
                       {getFieldDecorator('address.last_name', {
                         initialValue: address && address.last_name,
                       })(
-                        <FloatingLabel placeholder={intl.formatMessage(messages.lastName)} />
+                        <FloatingLabel type="name" placeholder={intl.formatMessage(messages.lastName)} />
                       )}
                     </Form.Item>
                   </Col>
