@@ -28,7 +28,7 @@ const prepareRequestHeaders = (cookies, contentType = 'application/json', token)
   if (contentType !== 'multipart/form-data') {
     headers['Content-Type'] = contentType
   }
-  const locale = cookies.get(LOCALE_COOKIE) || 'en-US'
+  const locale = cookies.get(LOCALE_COOKIE) || 'de-DE'
   headers['lang'] = locale.substring(0, 2) // 'en'
   headers['zone'] = moment().format('Z') // 'zone'
   return headers
