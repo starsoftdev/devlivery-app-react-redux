@@ -19,7 +19,7 @@ export default defineMessages({
   },
   minLength: {
     id: 'form.minLength',
-    defaultMessage: 'The field must be at least {length} characters.',
+    defaultMessage: 'The field must be at least {length} characters long.',
   },
   passwordNotMatch: {
     id: 'form.passwordNotMatch',

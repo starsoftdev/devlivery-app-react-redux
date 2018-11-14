@@ -2709,7 +2709,7 @@
   },
   {
     "id": "form.minLength",
-    "defaultMessage": "The field must be at least {length} characters.",
+    "defaultMessage": "The field must be at least {length} characters long.",
     "message": "Dieses Wort muss mindestens {length} Buchstaben enthalten.",
     "files": [
       "src/formMessages.js"
