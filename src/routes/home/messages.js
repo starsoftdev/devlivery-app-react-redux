@@ -55,7 +55,7 @@ export default defineMessages({
   },
   cardsForEverythingDescription: {
     id: 'home.cardsForEverythingDescription',
-    defaultMessage: 'Access our ever-growing card catalog with ease on your desktop. Gifts connect people, make memories and transform relationship. That\'s why we create gifts of purpose for the moments that matter delivered with simplicity & ease. \n\nSend meaningful cards effortlessly for any occasion.',
+    defaultMessage: 'Access our ever-growing card catalog with ease on your desktop. Gifts connect people, make memories and transform relationships. That\'s why we create gifts of purpose for the moments that matter delivered with simplicity & ease. \n\nSend meaningful cards effortlessly for any occasion.',
   },
   allOurCards: {
     id: 'home.allOurCards',

@@ -114,7 +114,7 @@
   },
   {
     "id": "home.cardsForEverythingDescription",
-    "defaultMessage": "Access our ever-growing card catalog with ease on your desktop. Gifts connect people, make memories and transform relationship. That's why we create gifts of purpose for the moments that matter delivered with simplicity & ease. \n\nSend meaningful cards effortlessly for any occasion.",
+    "defaultMessage": "Access our ever-growing card catalog with ease on your desktop. Gifts connect people, make memories and transform relationships. That's why we create gifts of purpose for the moments that matter delivered with simplicity & ease. \n\nSend meaningful cards effortlessly for any occasion.",
     "message": "Lassen Sie wichtige Menschen Ihren Herzschlag fühlen. Eine schöne Karte, ein treffendes Wort und erst recht ein Geschenk festigt jede Beziehung. Und das alles geht für Sie ganz einfach, mit viel Spass. Denn Zumi bietet Ihnen besten Rundum-Service.",
     "files": [
       "src/routes/home/messages.js"
