@@ -2569,7 +2569,7 @@
   },
   {
     "id": "form.minLength",
-    "defaultMessage": "The field must be at least {length} characters.",
+    "defaultMessage": "The field must be at least {length} characters long.",
     "message": "",
     "files": [
       "src/formMessages.js"
