@@ -220,7 +220,7 @@ class OrderDetails extends React.Component {
     //if (orderDetails && orderDetails.items['gifts'] && orderDetails.items['gifts'].length > 0)
     //giftDetails = orderDetails.items['gifts'][0].gift;
     const { giftDetails } = this.state;
-
+    console.log('orderDetails',orderDetails);
     // TODO add shipping price/info
     return (
       <Modal
@@ -272,10 +272,11 @@ class OrderDetails extends React.Component {
                     <Row type='flex' justify='space-between' className={s.summaryRow}>
                       <Col>{intl.formatMessage(messages.summarySubtotal)}</Col>
                       <Col>
-                        {recipient ? orderDetails.bundle_subtotal.toFixed(2) :  (orderDetails.bundle_subtotal * recp_count).toFixed(2)}
+                        {recipient ? orderDetails.bundle_subtotal.toFixed(2) :  (orderDetails.bundle_total * recp_count).toFixed(2)}
                         <span className={s.currency}>{'CHF'}</span>
                       </Col>
                     </Row>
+                    {/*
                     <Row type='flex' justify='space-between' className={s.summaryRow}>
                       <Col>{intl.formatMessage(messages.summaryTaxes)}</Col>
                       <Col>
@@ -283,10 +284,11 @@ class OrderDetails extends React.Component {
                         <span className={s.currency}>{'CHF'}</span>
                       </Col>
                     </Row>
+                    */}
                     <Row type='flex' justify='space-between' className={s.summaryRow}>
                       <Col>{intl.formatMessage(messages.summaryShipping)}</Col>
                       <Col>
-                        {recipient ? orderDetails.recipient_shipping_cost : orderDetails.shipping_cost.toFixed(2)}
+                        {orderDetails.shipping_cost.toFixed(2)}
                         <span className={s.currency}>{'CHF'}</span>
                       </Col>
                     </Row>
@@ -304,7 +306,7 @@ class OrderDetails extends React.Component {
                   <footer className={s.summaryFooter}>
                     <div>{intl.formatMessage(messages.summaryTotal)}</div>
                     <div>
-                      {recipient ? orderDetails.bundle_total.toFixed(2) : orderDetails.total.toFixed(2)}
+                      {orderDetails.total.toFixed(2)}
                       <span className={s.currency}>{'CHF'}</span>
                     </div>
                   </footer>
