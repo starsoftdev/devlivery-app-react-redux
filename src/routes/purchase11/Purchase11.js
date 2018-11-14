@@ -277,7 +277,7 @@ class Purchase11 extends React.Component {
                 <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.subtotal)}</h2>
               </Col>
               <Col xs={12}>
-                <span className={s.subtotalValue}>{order.bundle_subtotal}</span>
+                <span className={s.subtotalValue}>{(order.bundle_total * order.recipients_count).toFixed(2)}</span>
                 <span className={s.subtotalCurrency}>{'CHF'}</span>
               </Col>
             </Row>

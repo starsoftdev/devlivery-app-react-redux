@@ -61,7 +61,7 @@ class Purchase8 extends React.Component {
                           {item.title}
                           <br />
                           <span className={s.price}>
-                            {item.price}
+                            {item.price_with_tax}
                             <span className={s.currency}>{item.currency}</span>
                           </span>
                         </React.Fragment>

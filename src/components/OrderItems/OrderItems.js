@@ -74,7 +74,7 @@ class OrderItems extends React.Component {
           <p className={s.cardInfo}>
             <span className={s.cardType}>{card.title}</span>
             <br />
-            <span className={s.cardPrice}>{card.price}</span>
+            <span className={s.cardPrice}>{card.price_with_tax}</span>
             <span className={s.cardPriceCurrency}>{card.currency}</span>
           </p>
         </div>
@@ -106,7 +106,7 @@ class OrderItems extends React.Component {
                   <br />
                   <span className={s.cardType}>{"(" +(giftIndex+1)+"/"+gifts.length + ")"}</span>
                   <br />
-                  <span className={s.cardPrice}>{gift.price}</span>
+                  <span className={s.cardPrice}>{gift.price_with_tax}</span>
                   <span className={s.cardPriceCurrency}>{gift.currency}</span>
                 </p>
                 {
@@ -137,7 +137,7 @@ class OrderItems extends React.Component {
             <p className={s.cardInfo}>
               <span className={s.cardType}>{voucher.title}</span>
               <br />
-              <span className={s.cardPrice}>{voucher.price}</span>
+              <span className={s.cardPrice}>{voucher.price_with_tax}</span>
               <span className={s.cardPriceCurrency}>{'CHF'}</span>
             </p>
           </div>
