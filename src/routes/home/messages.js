@@ -67,7 +67,7 @@ export default defineMessages({
   },
   giftingDescription: {
     id: 'home.giftingDescription',
-    defaultMessage: 'Whether you know exactly what you want or need some brilliant ideas; whether you need one gift or thirty - we\'ll take care of it - every last detail. Express your gratitude to customers, staff and everyone in between who keep your company thriving.',
+    defaultMessage: 'Whether you know exactly what you want or need some brilliant ideas; whether you need one gift or thirty - we\'ll take care of it - every last detail. Express your gratitude to customers, staff and everyone in between who keeps your company thriving.',
   },
   checkItOut: {
     id: 'home.checkItOut',
