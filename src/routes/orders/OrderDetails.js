@@ -169,7 +169,7 @@ class OrderDetails extends React.Component {
         render: (item) => {
           return (
             <React.Fragment>
-              {item.price}
+              {item.price_with_tax}
               <span className={s.currency}>{item.currency ? item.currency : ''}</span>
             </React.Fragment>
           )
@@ -220,7 +220,6 @@ class OrderDetails extends React.Component {
     //if (orderDetails && orderDetails.items['gifts'] && orderDetails.items['gifts'].length > 0)
     //giftDetails = orderDetails.items['gifts'][0].gift;
     const { giftDetails } = this.state;
-    console.log('orderDetails',orderDetails);
     // TODO add shipping price/info
     return (
       <Modal
@@ -367,7 +366,7 @@ class OrderDetails extends React.Component {
                     </Col>
                     <Col md={12}>
                       <span className={s.DetailTitle}>{intl.formatMessage(messages.priceColumn)}</span><br />
-                      <span className={s.Detail}>{cardDetails.price + " " + cardDetails.currency}</span>
+                      <span className={s.Detail}>{cardDetails.price_with_tax + " " + cardDetails.currency}</span>
                     </Col>
                   </Row>
                 </Col>
@@ -408,7 +407,7 @@ class OrderDetails extends React.Component {
                   <Row className={s.detailRow}>
                     <Col md={12}>
                       <span className={s.DetailTitle}>{intl.formatMessage(messages.priceColumn)}</span><br />
-                      <span className={s.Detail}>{giftDetails.price + " " + giftDetails.currency}</span>
+                      <span className={s.Detail}>{giftDetails.price_with_tax + " " + giftDetails.currency}</span>
                     </Col>
                   </Row>
                 </Col>
