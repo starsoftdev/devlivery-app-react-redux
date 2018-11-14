@@ -38,18 +38,19 @@ export default class FloatingLabel extends React.Component {
     
   }
   onKeyDown(event){
+    const keycode = event.keyCode;
+    var valid = 
+      (keycode > 47 && keycode < 58)   || // number keys
+      //keycode == 32 || keycode == 13   || // spacebar & return key(s) (if you want to allow carriage returns)
+      (keycode > 64 && keycode < 91)   || // letter keys
+      (keycode > 95 && keycode < 112)  || // numpad keys
+      (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
+      keycode == 16 || //shift
+      (keycode > 218 && keycode < 223);   // [\]' (in order)
+
     if(this.props.type === 'phone')
     {
-      const keycode = event.keyCode;
-      var valid = 
-        (keycode > 47 && keycode < 58)   || // number keys
-        //keycode == 32 || keycode == 13   || // spacebar & return key(s) (if you want to allow carriage returns)
-        (keycode > 64 && keycode < 91)   || // letter keys
-        (keycode > 95 && keycode < 112)  || // numpad keys
-        (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
-        keycode == 16 || //shift
-        (keycode > 218 && keycode < 223);   // [\]' (in order)
-
+      //number
       if(valid && (event.keyCode < 48 || event.keyCode > 57) || event.shiftKey)//0~9
       {
         event.preventDefault(); // Let's stop this event.
@@ -58,20 +59,11 @@ export default class FloatingLabel extends React.Component {
     }
     if(this.props.type === 'name')
     {
-      const keycode = event.keyCode;
-      var valid = 
-        (keycode > 47 && keycode < 58)   || // number keys
-        //keycode == 32 || keycode == 13   || // spacebar & return key(s) (if you want to allow carriage returns)
-        (keycode > 64 && keycode < 91)   || // letter keys
-        (keycode > 95 && keycode < 112)  || // numpad keys
-        (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
-        keycode == 16 || //shift
-        (keycode > 218 && keycode < 223);   // [\]' (in order)
-
+      //alphabet letter
       if(valid && (keycode < 65 || keycode > 90))//letter
       {
-        event.preventDefault(); // Let's stop this event.
-        event.stopPropagation(); // Really this time.
+        event.preventDefault(); 
+        event.stopPropagation();
       }
     }
   }
