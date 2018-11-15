@@ -41,7 +41,7 @@ class Dashboard extends React.Component {
       <div className={s.container}>
         <Menu className={s.menu} mode='inline'>
           <Menu.Item>
-            <Avatar />
+            <Avatar intl={intl}/>
           </Menu.Item>
           <Menu.Item key={ORDERS_ROUTE}>
             <Link to={ORDERS_ROUTE}>

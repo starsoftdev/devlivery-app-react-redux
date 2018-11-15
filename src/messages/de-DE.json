@@ -3844,6 +3844,22 @@
     ]
   },
   {
+    "id": "dashboard.editavatar",
+    "defaultMessage": "Edit Avatar",
+    "message": "Edit Avatar",
+    "files": [
+     "src/components/Avatar/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.editlogo",
+    "defaultMessage": "Edit Logo",
+    "message": "Edit Logo",
+    "files": [
+     "src/components/Avatar/messages.js"
+    ]
+  },
+  {
     "id": "user.addcard",
     "defaultMessage": "Add Card",
     "message": "Hinzufügen",

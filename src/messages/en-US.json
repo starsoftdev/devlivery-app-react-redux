@@ -3704,6 +3704,22 @@
     ]
   },
   {
+    "id": "dashboard.editavatar",
+    "defaultMessage": "Edit Avatar",
+    "message": "",
+    "files": [
+     "src/components/Avatar/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.editlogo",
+    "defaultMessage": "Edit Logo",
+    "message": "",
+    "files": [
+     "src/components/Avatar/messages.js"
+    ]
+  },
+  {
     "id": "user.addcard",
     "defaultMessage": "Add Card",
     "message": "",
