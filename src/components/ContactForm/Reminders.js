@@ -139,7 +139,7 @@ class Reminders extends React.Component {
                       form.setFieldsValue({[`reminders[${k}].recurring`]: undefined});
                       if (item && +item.key !== 0) {
                         const selectedOccasion = occasions.find(occasion => occasion.id === +value)
-                        form.setFieldsValue({ [`reminders[${k}].date`]: selectedOccasion.date ? moment(selectedOccasion.date, DATE_FORMAT) : undefined })
+                        form.setFieldsValue({ [`reminders[${k}].date`]: selectedOccasion && selectedOccasion.date ? moment(selectedOccasion.date, DATE_FORMAT) : undefined })
                       }
                       if (item && +item.key === 0) {
                         this.addOccasion(occasionTitle)
