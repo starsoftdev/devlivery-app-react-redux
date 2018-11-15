@@ -427,31 +427,6 @@ class Purchase11 extends React.Component {
                       </div>
                     )}
                   </div>
-                  {
-                    selectedLocation !== 'shipping' &&
-                    <div style={{ marginTop: 20 }}>
-                      <Button type='primary' size='small' style={{ marginRight: 10 }} ghost onClick={() => {
-                        this.props.toAddContactFlowStep();
-                      }}>
-                        <PlusIcon />
-                        {intl.formatMessage(messages.add)}
-                      </Button>
-
-                      <Popconfirm
-                        title={intl.formatMessage(messages.confirmRemoving)}
-                        onConfirm={() => {
-                          removeRecipientsOrder(order.recipients[currentRecipient].id)
-                          this.setState({ currentRecipient: 0 });
-                        }}
-                        okText={intl.formatMessage(messages.acceptRemoving)}
-                      >
-                        <Button type='primary' size='small' ghost >
-                          <RemoveIcon />
-                          {intl.formatMessage(messages.remove)}
-                        </Button>
-                      </Popconfirm>
-                    </div>
-                  }
                 </Col>
                 {
                   deliveryOccations && deliveryOccations.length > 0 &&
@@ -516,6 +491,31 @@ class Purchase11 extends React.Component {
                   }
                 </Col>
               </Row>
+              {
+                    selectedLocation !== 'shipping' &&
+                    <div style={{ marginTop: 20 }}>
+                      <Button type='primary' size='small' style={{ marginRight: 10 }} ghost onClick={() => {
+                        this.props.toAddContactFlowStep();
+                      }}>
+                        <PlusIcon />
+                        {intl.formatMessage(messages.add)}
+                      </Button>
+
+                      <Popconfirm
+                        title={intl.formatMessage(messages.confirmRemoving)}
+                        onConfirm={() => {
+                          removeRecipientsOrder(order.recipients[currentRecipient].id)
+                          this.setState({ currentRecipient: 0 });
+                        }}
+                        okText={intl.formatMessage(messages.acceptRemoving)}
+                      >
+                        <Button type='primary' size='small' ghost >
+                          <RemoveIcon />
+                          {intl.formatMessage(messages.remove)}
+                        </Button>
+                      </Popconfirm>
+                    </div>
+                  }
               {/*
                 <Row type='flex' align='center' gutter={20} className={s.totalSection}>
                   <Col xs={12}>

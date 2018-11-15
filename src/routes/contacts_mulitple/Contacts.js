@@ -17,7 +17,7 @@ import { getContactGroups, removeContactGroup } from '../../reducers/contactGrou
 import { setNewRecipients, GROUP_ID_KEY, CONTACT_IDS_KEY, gotoConfirm } from '../../reducers/purchase'
 import CheckIcon from '../../static/card_checkmark.svg'
 import { updateTeamMemberRole } from '../../reducers/team';
-import { SELECT_CONTACTS, SELECT_GROUPS } from '../../reducers/purchase'
+import { SELECT_GROUPS } from '../../reducers/purchase'
 
 const GRID_VIEW = 'grid'
 const LIST_VIEW = 'list'
@@ -140,12 +140,18 @@ class Contacts extends React.Component {
         message.info("please choose contacts.");
         return false;
       }
-      this.props.setNewRecipients(this.state.selContactIds);
       localStorage.removeItem(GROUP_ID_KEY);
       //localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(this.state.selContactIds))
       if (this.props.recipientMode)
+      {
+        this.props.setNewRecipients(this.state.selContactIds);
         this.props.gotoConfirm();
-      else this.props.nextFlowStep()
+      }
+      else {
+        localStorage.removeItem(CONTACT_IDS_KEY)
+        this.props.setNewRecipients(this.state.selContactIds);
+        this.props.nextFlowStep()
+      }
       return true;
     }
   }

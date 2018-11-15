@@ -840,9 +840,9 @@ export const makeOrder = () => (dispatch, getState, { fetch, history }) => {
         dispatch({ type: MAKE_ORDER_SUCCESS, order })
         await dispatch(addCardBody(order.id))
         await dispatch(getDeliveryLocations(order.id))
-        await dispatch(getDeliveryOccasions(order.id))
         await dispatch(addRecipientsOrder(order.id))
-
+        await dispatch(getDeliveryOccasions(order.id))
+        
 
         dispatch({ type: SET_ORIENTATION, orientation: order.print_orientation });
         //dispatch({type: GET_BUNDLE_DETAILS_SUCCESS, bundle: getState().purchase.cardDetails});
