@@ -92,7 +92,7 @@ class AvatarEditModal extends React.Component {
             </Button>
           </Upload>
 
-          <Button type='primary' onClick={this.onClickSave}>Save</Button>
+          <Button type='primary' onClick={this.onClickSave}>{intl.formatMessage(messages.save)}</Button>
         </div>
       </div>
     )

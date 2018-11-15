@@ -3839,7 +3839,8 @@
     "defaultMessage": "Save",
     "message": "Speichern",
     "files": [
-      "src/routes/user/messages.js"
+      "src/routes/user/messages.js",
+      "src/components/Avatar/messages.js"
     ]
   },
   {
