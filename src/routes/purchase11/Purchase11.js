@@ -64,7 +64,8 @@ class Purchase11 extends React.Component {
       checkSave: props.saved || 0,
       bundleName: '',
       recip_warnmsg: '',
-      couple: undefined
+      couple: undefined,
+      loadingEditor: false
     }
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.onCheckSaved = this.onCheckSaved.bind(this);
@@ -234,7 +235,7 @@ class Purchase11 extends React.Component {
 
     const html = this.tinymce && this.tinymce.editor && this.tinymce.editor.getContent();
 
-
+    let self = this;
     return order ? (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -253,7 +254,7 @@ class Purchase11 extends React.Component {
             />
             <div className={s.orderDetails}>
 
-              <h3 className={s.warnText}>{this.tinymce && this.tinymce.editor && (html === null || html === '' || html === undefined) && intl.formatMessage(messages.personalizedmsg)}</h3>
+              <h3 className={s.warnText}>{this.state.loadingEditor && (html === null || html === '' || html === undefined) && intl.formatMessage(messages.personalizedmsg)}</h3>
               {this.state.mounted && bundle && <Editor
                 ref={editor => {
                   this.tinymce = editor
@@ -266,7 +267,12 @@ class Purchase11 extends React.Component {
                   width: `${cardWidth}mm`,
                   height: `${cardHeight}mm`,
                   content_css: [...this.state.fontlink, '/styles/tinymce.css'],
-                  readonly: true
+                  readonly: true,
+                  setup: function (ed) {
+                    ed.on('init', function (e) {
+                      self.setState({loadingEditor:true});
+                    });
+                  }
                 }}
                 onEditorChange={this.handleEditorChange}
               />
