@@ -1,6 +1,14 @@
 import {defineMessages} from 'react-intl'
 
 export default defineMessages({
+  title: {
+    id: 'user.title',
+    defaultMessage: 'Settings',
+  },
+  breadcrumb: {
+    id: 'user.breadcrumb',
+    defaultMessage: 'Settings',
+  },
   address: {
     id: 'user.address',
     defaultMessage: 'Address',

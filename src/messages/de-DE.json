@@ -3801,6 +3801,22 @@
     ]
   },
   {
+    "id": "user.title",
+    "defaultMessage": "Settings",
+    "message": "Einstellungen",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.breadcrumb",
+    "defaultMessage": "Settings",
+    "message": "Einstellungen",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
     "id": "user.shipAddress",
     "defaultMessage": "Shipping Address",
     "message": "Lieferanschrift",

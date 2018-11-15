@@ -2,6 +2,7 @@ import React from 'react'
 import User from './User'
 import {setCurrentRouteName} from '../../reducers/global'
 import {getUserDetails,getAllCards} from '../../reducers/user'
+import messages from './messages'
 
 function action({store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
@@ -9,9 +10,9 @@ function action({store, route, intl}) {
   store.dispatch(getAllCards())
   return {
     chunks: ['dashboard'],
-    title: 'Settings',
+    title: intl.formatMessage(messages.title),
     breadcrumbs: [
-      {name: 'Settings'},
+      {name: intl.formatMessage(messages.breadcrumb)},
     ],
     component: <User intl={intl}/>,
   }

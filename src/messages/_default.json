@@ -3653,6 +3653,22 @@
     ]
   },
   {
+    "id": "user.title",
+    "defaultMessage": "Settings",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.breadcrumb",
+    "defaultMessage": "Settings",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
     "id": "user.shipAddress",
     "defaultMessage": "Shipping Address",
     "message": "",
