@@ -5,4 +5,8 @@ export default defineMessages({
         id: 'importContacts.upload',
         defaultMessage: 'Upload',
     },
+    save: {
+        id: 'user.save',
+        defaultMessage: 'Save',
+    },
 })
