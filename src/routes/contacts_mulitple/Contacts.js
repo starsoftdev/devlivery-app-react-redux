@@ -117,12 +117,18 @@ class Contacts extends React.Component {
           (data) => {
             if (data && data.length > 0) {
               var recipents = data.map(item => item.id);
-              this.props.setNewRecipients(recipents);
               localStorage.setItem(GROUP_ID_KEY, filter[0].id);
               //localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(recipents))
               if (this.props.recipientMode)
+              {
+                this.props.setNewRecipients(recipents);
                 this.props.gotoConfirm();
-              else this.props.nextFlowStep()
+              }
+              else {
+                localStorage.removeItem(CONTACT_IDS_KEY)
+                this.props.setNewRecipients(recipents);
+                this.props.nextFlowStep()
+              }
               return true;
             }
             else {

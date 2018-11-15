@@ -28,11 +28,17 @@ class ColumnsMapping extends React.Component {
       if (!err) {
         this.props.importContacts(values, (newrecipient) => {
           localStorage.removeItem(GROUP_ID_KEY)
-          this.props.setNewRecipients(newrecipient);
           if (newrecipient) {
             if (this.props.recipientMode)
+            {
+              this.props.setNewRecipients(newrecipient);
               this.props.gotoConfirm();
-            else this.props.nextFlowStep()
+            }
+            else {
+              localStorage.removeItem(CONTACT_IDS_KEY)
+              this.props.setNewRecipients(newrecipient);
+              this.props.nextFlowStep()
+            }
           }
           else this.props.refreshPage();
         })
