@@ -114,10 +114,10 @@ class Home extends React.Component {
               <h3 className={s.cardsForEverythingHeader}>{intl.formatMessage(messages.cardsForEverything)}</h3>
               <p className={s.cardsForEverythingDescription}>
                 {intl.formatMessage(messages.cardsForEverythingDescription)}
-                <Link to={CARD_STORE_ROUTE} className={s.sectionBtn}>
+                <a onClick={() => setFlow(AUTH_PURCHASE_FLOW)} className={s.sectionBtn}>
                   <PlusCircleIcon className={s.sectionBtnIcon}/>
                   <span className={s.sectionBtnLabel}>{intl.formatMessage(messages.allOurCards)}</span>
-                </Link>
+                </a>
               </p>
             </div>
           </div>
@@ -130,10 +130,10 @@ class Home extends React.Component {
               </h3>
               <p>
                 {intl.formatMessage(messages.giftingDescription)}
-                <Link to={NEW_ARRIVALS_ROUTE} className={s.sectionBtn}>
+                <a onClick={() => setFlow(AUTH_PURCHASE_FLOW)} className={s.sectionBtn}>
                   <PlusCircleIcon className={s.sectionBtnIcon}/>
                   <span className={s.sectionBtnLabel}>{intl.formatMessage(messages.checkItOut)}</span>
-                </Link>
+                </a>
               </p>
             </div>
             <div>
