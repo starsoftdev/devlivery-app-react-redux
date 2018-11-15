@@ -207,7 +207,7 @@
   {
     "id": "home.allOurCards",
     "defaultMessage": "All our cards",
-    "message": "Karten-Selektion",
+    "message": "Los Geht's",
     "files": [
       "src/routes/home/messages.js"
     ]
@@ -314,7 +314,7 @@
   {
     "id": "home.checkItOut",
     "defaultMessage": "Check it out",
-    "message": "Jetzt Ausprobieren!",
+    "message": "Los Geht's",
     "files": [
       "src/routes/home/messages.js"
     ]

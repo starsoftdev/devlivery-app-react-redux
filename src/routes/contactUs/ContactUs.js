@@ -153,6 +153,9 @@ class ContactUs extends React.Component {
         <div className={s.container}>
           <section className={intl.locale === "de-DE" ? s.contentContainer_de : s.contentContainer}>
             <Row type='flex' >
+              <Col sm={24} md={intl.locale === "de-DE" ? 8 : 8} className={s.titleContainer}>
+                <div style={{ backgroundImage: `url(${contactusImage})` }} className={s.cardImage} />
+              </Col>
               <Col sm={24} md={intl.locale === "de-DE" ? 16 : 16} className={s.titleContainer}>
                 {/*<h1 className={s.header}>{intl.formatMessage(messages.header)}</h1>*/}
                 {
@@ -168,9 +171,6 @@ class ContactUs extends React.Component {
                     Use the form below to send your comment or questions.
                   </p>
                 }
-              </Col>
-              <Col sm={24} md={intl.locale === "de-DE" ? 8 : 8} className={s.titleContainer}>
-                <div style={{ backgroundImage: `url(${contactusImage})` }} className={s.cardImage} />
               </Col>
             </Row>
           </section>
