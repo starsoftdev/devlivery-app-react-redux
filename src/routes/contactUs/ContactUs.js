@@ -255,7 +255,7 @@ class ContactUs extends React.Component {
                           <RemoveIcon className={s.removeIcon} onClick={()=>this.removeFile(index,attach.name)}/>{attach && attach.name}
                         </div>
                         {
-                          this.state.errors.includes(attach.name) &&
+                          attach && attach.name && this.state.errors.includes(attach.name) &&
                           <div className={s.errormsg}>This file must be a file of type: pdf, jpeg, jpg, png.</div>
                         }
                       </li>)
