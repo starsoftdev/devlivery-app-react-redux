@@ -7,6 +7,7 @@ import { Modal } from 'antd'
 import AvatarEditModal from './AvatarEditModal'
 import { connect } from 'react-redux'
 import { uploadAvatar, uploadLogo } from '../../reducers/user'
+import messages from './messages'
 
 class Avatar extends React.Component {
   state = {
@@ -24,7 +25,7 @@ class Avatar extends React.Component {
     return (
       <React.Fragment>
         <Modal
-          title={isLogo ? 'Edit Logo' : 'Edit avatar'}
+          title={intl.formatMessage(isLogo ? messages.editlogo : messages.editavatar)}
           visible={editAvatarModalOpened}
           onOk={this.handleOk}
           onCancel={this.toggleEditAvatarModal}

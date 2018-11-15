@@ -483,7 +483,7 @@ class User extends React.Component {
                 !handwrittenDisabled &&
                 <section className={s.section}>
                   <h1 className={s.header}>{'Company  Logo'}</h1>
-                  <Avatar isLogo = {true}/>
+                  <Avatar isLogo = {true} intl={intl}/>
                 </section>
                 */
               }
