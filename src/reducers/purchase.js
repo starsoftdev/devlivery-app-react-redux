@@ -1503,7 +1503,7 @@ export const setNewRecipients = (newrecipient) => async (dispatch, getState) => 
   if (orginRecipients === null) orginRecipients = [];
   else orginRecipients = JSON.parse(orginRecipients);
 
-  var a = newrecipient.concat(orginRecipients);
+  var a = newrecipient ? newrecipient.concat(orginRecipients) : orginRecipients;
   for (var i = 0; i < a.length; ++i) {
     for (var j = i + 1; j < a.length; ++j) {
       if (a[i] === a[j])
