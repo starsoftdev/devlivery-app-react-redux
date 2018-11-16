@@ -2,7 +2,7 @@
   {
     "id": "bundles.tableItems",
     "defaultMessage": "{range0}-{range1} of {total} items",
-    "message": "{range0}-{range1}von {total} Stücken",
+    "message": "{range0}-{range1} von {total} Stücken",
     "files": [
       "src/routes/bundles/messages.js"
     ]
@@ -10,7 +10,7 @@
   {
     "id": "contactGroups.tableItems",
     "defaultMessage": "{range0}-{range1} of {total} items",
-    "message": "{range0}-{range1}von {total} Stücken",
+    "message": "{range0}-{range1} von {total} Stücken",
     "files": [
       "src/routes/contactGroups/messages.js"
     ]
@@ -18,7 +18,7 @@
   {
     "id": "contacts.tableItems",
     "defaultMessage": "{range0}-{range1} of {total} items",
-    "message": "{range0}-{range1}von {total} Stücken",
+    "message": "{range0}-{range1} von {total} Stücken",
     "files": [
       "src/routes/contacts/messages.js",
       "src/routes/contacts_mulitple/messages.js"
@@ -27,7 +27,7 @@
   {
     "id": "manageTeam.tableItems",
     "defaultMessage": "{range0}-{range1} of {total} items",
-    "message": "{range0}-{range1}von {total} Stücken",
+    "message": "{range0}-{range1} von {total} Stücken",
     "files": [
       "src/routes/manageTeam/messages.js"
     ]
@@ -35,7 +35,7 @@
   {
     "id": "orders.tableItems",
     "defaultMessage": "{range0}-{range1} of {total} items",
-    "message": "{range0}-{range1}von {total} Stücken",
+    "message": "{range0}-{range1} von {total} Stücken",
     "files": [
       "src/routes/orders/messages.js"
     ]
@@ -43,7 +43,7 @@
   {
     "id": "reports.tableItems",
     "defaultMessage": "{range0}-{range1} of {total} items",
-    "message": "{range0}-{range1}von {total} Stücken",
+    "message": "{range0}-{range1} von {total} Stücken",
     "files": [
       "src/routes/reports/messages.js"
     ]
