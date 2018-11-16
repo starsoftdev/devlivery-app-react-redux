@@ -11,7 +11,7 @@ import {
   applycouponTotal
 }
   from '../../reducers/purchase'
-import { Button, Col, DatePicker, Form, Row, Select, message, Checkbox, Input, Popconfirm } from 'antd'
+import { Button, Col, DatePicker, Form, Row, Select, message, Checkbox, Input, Popconfirm, Modal } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase11.css'
 import { OrderItems, PurchaseActions, SectionHeader } from '../../components'
@@ -29,6 +29,7 @@ import RemoveIcon from '../../static/remove.svg'
 import { FloatingLabel } from '../../components';
 import { INDIVIDUAL_ACCOUNT, TEAM_ACCOUNT } from '../../reducers/register'
 import Loader from 'react-loader';
+import {BIRTH_GERMAN,BIRTH_EN} from '../../constants'
 
 import {
   ORDER_BUNDLE_FLOW,
@@ -65,10 +66,14 @@ class Purchase11 extends React.Component {
       bundleName: '',
       recip_warnmsg: '',
       couple: undefined,
-      loadingEditor: false
+      loadingEditor: false,
+      visible: false,
+      warnings: []
     }
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.onCheckSaved = this.onCheckSaved.bind(this);
+    this.onOk = this.onOk.bind(this);
+    this.onCancel = this.onCancel.bind(this);
   }
   componentWillMount() {
     this.loadLocalStorage();
@@ -194,32 +199,52 @@ class Purchase11 extends React.Component {
     const owner = user.account_type == INDIVIDUAL_ACCOUNT || user.is_team_owner == true;
 
     if (user && user.budget && user.budget.remaining_budget && parseFloat(order.total) <= parseFloat(user.budget.remaining_budget) || owner) {
-      this.setState({ disableSubmit: true })
-      this.props.form.validateFields((err, values) => {
-        if (!err) {
-          var jsonData = {
-            selectedLocation: this.state.selectedLocation,
-            selOccasion: this.state.selOccasion,
-            selDate: this.state.selDate,
-            contact: this.state.contact,
-            checkSave: this.state.checkSave,
-            bundleName: this.props.form.getFieldValue('title')
-          }
-          localStorage.setItem(ORDER_CONFIRM_STATE, JSON.stringify(jsonData));
-          this.props.submitShipping(values, parseFloat(order.total), () => this.setState({ disableSubmit: false }))
-        } else {
-          this.setState({ disableSubmit: false })
-        }
-      })
+      var warnings = order.recipients.filter(item => item.warning);
+      if(warnings.length > 0 &&
+          this.state.selOccasion && this.state.selOccasion !== undefined &&
+          (this.state.selOccasion.toUpperCase() === BIRTH_EN || this.state.selOccasion.toUpperCase() === BIRTH_GERMAN))
+      {
+        this.setState({visible: true, warnings});
+      }
+      else {
+        this.proceedwithcheckout();
+      }
     } else {
       message.warn("Insufficient budget available");
     }
+  }
+  onOk() {
+    this.setState({ visible: false });
+    this.proceedwithcheckout();
+  }
+  onCancel(e) {
+    this.setState({ visible: false });
+  }
+  proceedwithcheckout(){
+    const { order, user } = this.props;
+    this.setState({ disableSubmit: true })
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        var jsonData = {
+          selectedLocation: this.state.selectedLocation,
+          selOccasion: this.state.selOccasion,
+          selDate: this.state.selDate,
+          contact: this.state.contact,
+          checkSave: this.state.checkSave,
+          bundleName: this.props.form.getFieldValue('title')
+        }
+        localStorage.setItem(ORDER_CONFIRM_STATE, JSON.stringify(jsonData));
+        this.props.submitShipping(values, parseFloat(order.total), () => this.setState({ disableSubmit: false }))
+      } else {
+        this.setState({ disableSubmit: false })
+      }
+    })
   }
   handleEditorChange(content) {
     this.setState({ content });
   }
   render() {
-    const { currentRecipient, order, disableSubmit, contact, selOccasion, checkSave, selectedLocation } = this.state
+    const { currentRecipient, order, disableSubmit, contact, selOccasion, checkSave, selectedLocation,warnings } = this.state
     const { flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation, flow, user, shipping_cost, applycouponTotal } = this.props
     const { getFieldDecorator } = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
@@ -234,9 +259,28 @@ class Purchase11 extends React.Component {
     const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
 
     const html = this.tinymce && this.tinymce.editor && this.tinymce.editor.getContent();
-
+    console.log('deliveryOccations',this.state.selOccasion);
     let self = this;
     return order ? (
+      <div>
+        <Modal
+          title="Confirm"
+          visible={this.state.visible}
+          onOk={this.onOk}
+          onCancel={this.onCancel}
+          okText="Confirm"
+          cancelText="No"
+          width ={570}
+        >
+          {
+            warnings.map(item =>(
+              <div key={item.id}>
+                <h4>{item.contact.first_name+" "+ item.contact.last_name }</h4>
+                <p>{item.warning}</p>
+              </div>
+            ))
+          }
+        </Modal>
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
           <SectionHeader
@@ -566,6 +610,7 @@ class Purchase11 extends React.Component {
           </Button>
         </PurchaseActions>
       </Form>
+      </div>
     ) : null
   }
 }
