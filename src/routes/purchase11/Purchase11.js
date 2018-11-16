@@ -259,7 +259,7 @@ class Purchase11 extends React.Component {
     const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
 
     const html = this.tinymce && this.tinymce.editor && this.tinymce.editor.getContent();
-    console.log('deliveryOccations',this.state.selOccasion);
+    
     let self = this;
     return order ? (
       <div>
@@ -521,8 +521,8 @@ class Purchase11 extends React.Component {
                                 date.setDate(date.getDate() + 4);
                               }
                               else date.setDate(date.getDate() + 5);
-
-                              return current && current.valueOf() < (date)
+                              var n = current && current.day();
+                              return current && (current.valueOf() < (date) || n === 6 || n === 0)
                             }}
                             onChange={this.onChangeDatePicker}
                           />
