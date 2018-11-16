@@ -18,7 +18,7 @@ class PurchaseCompleted extends React.Component {
         <p className={s.description}>
           {intl.formatMessage(messages.thankyou_text)}
           <br/>
-          {intl.formatMessage(messages.thankyou_shorttext)}
+          {/*intl.formatMessage(messages.thankyou_shorttext)*/}
         </p>
         <Link to={ORDERS_ROUTE} className={s.dashboardBtn}>
           <Button type='primary'>{this.props.intl.formatMessage(messages.dashboard)}</Button>
