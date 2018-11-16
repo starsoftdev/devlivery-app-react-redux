@@ -11,9 +11,8 @@ import messages from './messages'
 import moment from 'moment/moment'
 import { createArray } from '../../utils'
 import formMessages from '../../formMessages'
+import {BIRTH_GERMAN,BIRTH_EN} from '../../constants'
 
-const BIRTH_GERMAN = 'GEBURTSTAG';
-const BIRTH_EN = 'BIRTHDAY';
 // TODO add loading
 // TODO refactor occasion custom title
 // TODO add all translations
