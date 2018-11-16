@@ -75,4 +75,5 @@
 }
 .voucherarea {
   max-height: 160px;
+  min-height: 140px;
 }
