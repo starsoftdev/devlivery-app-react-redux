@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Checkbox, Col, DatePicker, Form, Input, Row, Select } from 'antd'
+import { Button, Checkbox, Col, DatePicker, Form, Input, Row, Select,Modal } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './User.css'
 import formMessages from '../../formMessages'
@@ -8,7 +8,7 @@ import moment from 'moment'
 import PlusIcon from '../../static/plus.svg'
 import { DATE_FORMAT } from '../../constants'
 import { ChangePasswordForm } from '../../components'
-import { updateUser, getAllCards, addCard } from '../../reducers/user'
+import { updateUser, getAllCards, addCard, setChangingStatusSetting } from '../../reducers/user'
 import messages from './messages'
 import { FloatingLabel, CardCheckOut, Avatar } from '../../components';
 import ReactCreditCard from 'react-credit-cards'
@@ -16,9 +16,12 @@ import creditCardStyles from 'react-credit-cards/es/styles-compiled.css'
 import { makeStripePayment } from '../../reducers/purchase'
 import { TEAM_ACCOUNT } from '../../reducers/register'
 import Cleave from 'cleave.js/react';
+import { setNextRouteName, navigateToNextRouteName } from '../../reducers/global';
 
 class User extends React.Component {
   state = {
+    visible: false,
+    nextPathname: null,
     number: '',
     name: '',
     expiry: '',
@@ -37,6 +40,20 @@ class User extends React.Component {
     this.handleBlurCardNumber = this.handleBlurCardNumber.bind(this);
     this.handleAddCardButton = this.handleAddCardButton.bind(this);
     this.resetCardInf = this.resetCardInf.bind(this);
+    this.onOk = this.onOk.bind(this);
+    this.onCancel = this.onCancel.bind(this);
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.global && nextProps.global.nextPathname && !this.state.visible) {
+      if (nextProps.changedSetting) {
+        this.setState({ visible: true, nextPathname: nextProps.global.nextPathname });
+        this.props.setNextRouteName(null);
+      }
+      else {
+        this.props.setNextRouteName(null);
+        this.props.navigateToNextRouteName(nextProps.global.nextPathname);
+      }
+    }
   }
   componentDidMount() {
     Payment.formatCardNumber(document.querySelector('input.cardnumber'));
@@ -44,10 +61,11 @@ class User extends React.Component {
     Payment.formatCardCVC(document.querySelector('input.cardcvc'));
   }
   handleSubmit = (e) => {
-    e.preventDefault()
+    if(e)
+      e.preventDefault()
     this.props.form.validateFields((err, values) => {
       var dobValidation = false;
-      var birthday = moment(values.birthday,'DD/MM/YYYY');
+      var birthday = moment(values.birthday, 'DD/MM/YYYY');
       var expected = moment().subtract(18, 'years');
       if (birthday.isValid() && values.birthday.length === 10) {
         if (birthday < expected)
@@ -60,7 +78,7 @@ class User extends React.Component {
             },
           });
         }
-      }else{
+      } else {
         if (values.birthday && values.birthday.length > 0)
           this.props.form.setFields({
             birthday: {
@@ -70,7 +88,7 @@ class User extends React.Component {
           });
       }
       if (!err && dobValidation) {
-        this.props.updateUser(values, this.props.form, this.props.intl.locale === "de-DE" ? 'Angaben angepasst' : 'User updated.')
+        this.props.updateUser(values, this.props.form, this.props.intl.locale === "de-DE" ? 'Angaben angepasst' : 'User updated.', e ? null : this.state.nextPathname)
       }
     })
   }
@@ -183,6 +201,14 @@ class User extends React.Component {
       this.setState({ requirmsg: 'Invalid credit card number', isValid });
     } else this.setState({ requirmsg: null, isValid, cardtype: type.issuer });
   }
+  onOk() {
+    this.setState({ visible: false });
+    this.handleSubmit();
+  }
+  onCancel() {
+    this.setState({ visible: false });
+    this.props.navigateToNextRouteName(this.state.nextPathname);
+  }
   render() {
     const { number, name, expiry, cvc, focused } = this.state
     const { user, intl, cards, loading } = this.props
@@ -204,6 +230,16 @@ class User extends React.Component {
     ]
     return (
       <div className={s.container}>
+        <Modal
+          title="Confirm"
+          visible={this.state.visible}
+          onOk={this.onOk}
+          onCancel={this.onCancel}
+          okText="Yes"
+          cancelText="No"
+        >
+          <h2>Do you wish save the information you've edited?</h2>
+        </Modal>
         <div className={s.form}>
           <Row type='flex' gutter={20} className={s.leftColumn}>
             <Col xs={24} md={12}>
@@ -287,7 +323,7 @@ class User extends React.Component {
               <section className={s.section}>
                 <h1 className={s.header}>{intl.formatMessage(messages.billingdetails)}</h1>
                 <div>
-                  <CardCheckOut cards={cards} intl={intl}  removeable={true} loading = {loading.cards}/>
+                  <CardCheckOut cards={cards} intl={intl} removeable={true} loading={loading.cards} />
                 </div>
                 <Row gutter={20} type='flex' align='middle' className={this.state.saveButton === true ? s.show : s.hidden}>
                   <Col xs={24} sm={24}>
@@ -381,7 +417,7 @@ class User extends React.Component {
                       className={s.select}
                     >
                       {reminderTimes.map((item) =>
-                        <Select.Option key={item.value} value={item.value}>{intl.locale==='de-DE'? item.label_de : item.label}</Select.Option>
+                        <Select.Option key={item.value} value={item.value}>{intl.locale === 'de-DE' ? item.label_de : item.label}</Select.Option>
                       )}
                     </Select>
                   )}
@@ -506,14 +542,23 @@ class User extends React.Component {
 const mapState = state => ({
   user: state.user.user,
   cards: state.user.cards,
-  loading: state.user.loading
+  loading: state.user.loading,
+  changedSetting: state.user.changedSetting,
+  global: state.global
 })
 
 const mapDispatch = {
   updateUser,
   getAllCards,
   makeStripePayment,
-  addCard
+  addCard,
+  setChangingStatusSetting,
+  setNextRouteName,
+  navigateToNextRouteName
 }
 
-export default connect(mapState, mapDispatch)(Form.create()(withStyles(s, creditCardStyles)(User)))
+export default connect(mapState, mapDispatch)(Form.create({
+  onValuesChange(props, fields, values) {
+    props.setChangingStatusSetting(true);
+  },
+})(withStyles(s, creditCardStyles)(User)))
