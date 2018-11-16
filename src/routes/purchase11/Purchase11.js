@@ -305,7 +305,7 @@ class Purchase11 extends React.Component {
                   <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.shippingcost)}</h2>
                 </Col>
                 <Col xs={12}>
-                  <span className={s.subtotalValue}>{shipping_cost.shipping_cost}</span>
+                  <span className={s.subtotalValue}>{shipping_cost.shipping_cost && shipping_cost.shipping_cost.toFixed(2)}</span>
                   <span className={s.subtotalCurrency}>{'CHF'}</span>
                 </Col>
               </Row>
@@ -317,7 +317,7 @@ class Purchase11 extends React.Component {
                   <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.total)}</h2>
                 </Col>
                 <Col xs={12}>
-                  <span className={s.subtotalValue}>{shipping_cost.total_with_tax}</span>
+                  <span className={s.subtotalValue}>{shipping_cost.total_with_tax.toFixed(2)}</span>
                   <span className={s.subtotalCurrency}>{'CHF'}</span>
                 </Col>
               </Row>
@@ -329,7 +329,7 @@ class Purchase11 extends React.Component {
                   <h2 className={s.subtotalHeader}>{'AVAILABLE BUDGET:'}</h2>
                 </Col>
                 <Col xs={12}>
-                  <span className={s.subtotalValue}>{user && user.budget && user.budget.remaining_budget ? user.budget.remaining_budget : '0'}</span>
+                  <span className={s.subtotalValue}>{user && user.budget && user.budget.remaining_budget ? user.budget.remaining_budget.toFixed(2) : '0.00'}</span>
                   <span className={s.subtotalCurrency}>{'CHF'}</span>
                 </Col>
               </Row>
@@ -341,7 +341,7 @@ class Purchase11 extends React.Component {
                   <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.coupon)}</h2>
                 </Col>
                 <Col xs={12}>
-                  <span className={s.subtotalValue}>{order.coupon.value}</span>
+                  <span className={s.subtotalValue}>{order.coupon.value && order.coupon.value.toFixed(2)}</span>
                   <span className={s.subtotalCurrency}>{'CHF'}</span>
                 </Col>
               </Row>
