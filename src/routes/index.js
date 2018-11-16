@@ -552,7 +552,7 @@ const routes = {
       await context.store.dispatch(setNextRouteName(curPathName));
       return { redirect: prevPathName }
     }
-    if(prevPathName === '/dashboard/settings' && curPathName !== prevPathName)
+    if(prevPathName === '/dashboard/settings' && curPathName !== prevPathName && !isLeaveEditContactPage(curPathName))
     {
       await context.store.dispatch(setNextRouteName(curPathName));
       return { redirect: prevPathName }
