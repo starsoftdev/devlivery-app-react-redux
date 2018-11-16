@@ -474,9 +474,9 @@ class Purchase11 extends React.Component {
                               var date = new Date();
                               let zurichtime = moment().tz("Europe/Zurich").format('HH');
                               if (parseInt(zurichtime) < 12) {
-                                date.setDate(date.getDate() + 3);
+                                date.setDate(date.getDate() + 4);
                               }
-                              else date.setDate(date.getDate() + 4);
+                              else date.setDate(date.getDate() + 5);
 
                               return current && current.valueOf() < (date)
                             }}
