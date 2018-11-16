@@ -109,7 +109,7 @@ class Register2 extends React.Component {
             <Form.Item>
               {getFieldDecorator('password', {
                 rules: [
-                  { required: true, message: intl.formatMessage(formMessages.required) },
+                  { required: true, min: 6, message: intl.formatMessage(formMessages.minLength, { length: 6 }) },
                 ],
               })(
                 <FloatingLabel type='password' placeholder={intl.formatMessage(messages.password)} />
