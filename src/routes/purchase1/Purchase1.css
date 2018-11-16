@@ -57,8 +57,12 @@
     width: 100%;
   }
   @media (min-width: 1118px) {
-    margin-right: var(--margin-md);
-    margin-left: var(--margin-md);
+    /*margin-right: var(--margin-md);
+    margin-left: var(--margin-md);*/
+  }
+  @media (--xs-up) {
+    /*to split by 4*/
+    min-height: 240px;
   }
 }
 
@@ -68,10 +72,9 @@
   padding-right: var(--margin-sm);
   padding-left: var(--margin-sm);
   height: 100%;
-
   @media (--xs-up) {
     /*to split by 4*/
-    width: 160px;
+    width: 190px;
   }
 }
 
