@@ -98,7 +98,7 @@ export const GIFT_TYPES = (intl) => [
 
 export const ADDITIONAL_GIFT_TYPES = (intl) => [
   {key: DONATION_TYPE, title: intl.formatMessage(purchase7_messages.Donation), svg: DonationImage},
-  //{key: VOUCHER_TYPE, title: intl.formatMessage(purchase7_messages.Voucher), svg: VoucherImage},
+  {key: VOUCHER_TYPE, title: intl.formatMessage(purchase7_messages.Voucher), svg: VoucherImage},
 ]
 export const OTHER_TYPES = (intl) => [
   {key: CONTINUE_WITHOUT_GIFT, title: intl.formatMessage(purchase7_messages.continueWithoutGift), svg: ContinueWithoutImage},

@@ -31,7 +31,7 @@ class Purchase7 extends React.Component {
           />
           <Row className={s.items} gutter={20} type='flex' align='center'>
             {[...GIFT_TYPES(intl), ...ADDITIONAL_GIFT_TYPES(intl), ...OTHER_TYPES(intl)].map((item, i) =>
-              <Col key={item.key} className={s.itemWrapper} xs={10}>
+              <Col key={item.key} className={s.itemWrapper} xs={8}>
                 <Card
                   className={s.item}
                   title={item.title}
