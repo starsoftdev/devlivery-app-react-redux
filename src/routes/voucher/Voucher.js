@@ -153,6 +153,7 @@ class Voucher extends React.Component {
                   initialValue: voucher ? voucher.text : '',
                   rules: [
                     { required: true, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
+                    { required: true, max: 90, message: intl.formatMessage(formMessages.maxLength, { length: 90 }) },
                   ],
                 })(
                   <TextArea className={s.voucherarea} />
