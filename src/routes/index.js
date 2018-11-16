@@ -552,6 +552,11 @@ const routes = {
       await context.store.dispatch(setNextRouteName(curPathName));
       return { redirect: prevPathName }
     }
+    if(prevPathName === '/dashboard/settings' && curPathName !== prevPathName)
+    {
+      await context.store.dispatch(setNextRouteName(curPathName));
+      return { redirect: prevPathName }
+    }
     await context.store.dispatch(getUser())
     // Execute each child route until one of them return the result
     const route = await context.next()

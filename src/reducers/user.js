@@ -3,6 +3,7 @@ import { STATE_COOKIE, TOKEN_COOKIE, DAY } from '../constants'
 import { getBirthday } from '../utils'
 import { message } from 'antd'
 import { getFormErrors, showErrorMessage, getOrdering } from '../utils'
+import { navigateToNextRouteName } from './global';
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -26,6 +27,8 @@ export const UPLOAD_AVATAR_FAILURE = 'User.UPLOAD_AVATAR_FAILURE'
 
 export const GET_ALLCARDS_REQUEST = 'User.GET_ALLCARDS_REQUEST'
 export const GET_ALLCARDS_SUCCESS = 'User.GET_ALLCARDS_SUCCESS'
+
+export const SET_CHANGE_SETTIING = "Contacts.SET_CHANGE_SETTIING"
 
 // ------------------------------------
 // Actions
@@ -84,7 +87,7 @@ export const getUserDetails = () => (dispatch, getState, { fetch }) => {
   })
 }
 
-export const updateUser = ({ user, birthday, preference, ...values }, form, msg) => (dispatch, getState, { fetch }) => {
+export const updateUser = ({ user, birthday, preference, ...values }, form, msg, redrict) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   dispatch({ type: UPDATE_USER_REQUEST })
   console.log(`/edit-settings`,{
@@ -119,6 +122,13 @@ export const updateUser = ({ user, birthday, preference, ...values }, form, msg)
       if(msg)
         message.success(msg)
       dispatch(getUserDetails())
+      const changedSetting = false;
+      dispatch({type:SET_CHANGE_SETTIING,changedSetting});
+
+      if(redrict)
+      {
+        dispatch(navigateToNextRouteName(redrict));
+      }
     },
     failure: (res) => {
       console.log('error',res);
@@ -273,6 +283,9 @@ export const setDefaultCard = (card_id,callback) => (dispatch, getState, { fetch
     }
   })
 }
+export const setChangingStatusSetting = (changedSetting) => (dispatch, getState, {fetch, history}) => {
+  dispatch({type:SET_CHANGE_SETTIING,changedSetting});
+}
 // ------------------------------------
 // Reducer
 // ------------------------------------
@@ -364,4 +377,8 @@ export default createReducer(initialState, {
       uploadingAvatar: false,
     }
   }),
+  [SET_CHANGE_SETTIING]: (state, {changedSetting}) => ({
+    changedSetting,
+  }),
+  
 })

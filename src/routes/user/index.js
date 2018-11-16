@@ -6,8 +6,11 @@ import messages from './messages'
 
 function action({store, route, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
-  store.dispatch(getUserDetails())
-  store.dispatch(getAllCards())
+  if(store.getState().global.nextPathname == null)
+  {
+    store.dispatch(getUserDetails())
+    store.dispatch(getAllCards())
+  }
   return {
     chunks: ['dashboard'],
     title: intl.formatMessage(messages.title),
