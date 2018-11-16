@@ -275,7 +275,7 @@ class Purchase6 extends React.Component {
     const cardWidth = orientation && orientation == 'l' ? Math.max(h,w): Math.min(h,w);
     const cardHeight = orientation && orientation == 'l' ? Math.min(h,w): Math.max(h,w);
 
-    const isLargeCard = cardWidth > 144 ? true : false;
+    const isLargeCard = cardWidth > 182 ? true : false;
     
     return (
       <div className={s.form}>
