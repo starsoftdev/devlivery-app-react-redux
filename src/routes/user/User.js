@@ -205,9 +205,10 @@ class User extends React.Component {
     this.setState({ visible: false });
     this.handleSubmit();
   }
-  onCancel() {
+  onCancel(e) {
     this.setState({ visible: false });
-    this.props.navigateToNextRouteName(this.state.nextPathname);
+    if(e.target.value !== undefined)
+      this.props.navigateToNextRouteName(this.state.nextPathname);
   }
   render() {
     const { number, name, expiry, cvc, focused } = this.state
