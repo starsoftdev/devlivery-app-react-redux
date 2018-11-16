@@ -84,7 +84,7 @@ class Reminders extends React.Component {
       {
         for(let i= 0; i< filter.length; i++)
         {
-          if(filter[i].title === BIRTH_EN || filter[i].title === BIRTH_GERMAN)
+          if(filter[i].title && (filter[i].title.toUpperCase() === BIRTH_EN || filter[i].title.toUpperCase() === BIRTH_GERMAN))
           {
             Reminder_recurring.splice(1, 1);
           }
