@@ -91,7 +91,7 @@ class GiftStore extends React.Component {
                       </React.Fragment>
                     }
                     bordered={false}
-                    description={item.short_description}
+                    description={intl.locale === 'de-DE' ? item.short_description_german : item.short_description}
                     onClick={() => {
                       //setFlowFromSelectGift(item);
                       this.setState({showGiftDetails: true,giftDetails:item});

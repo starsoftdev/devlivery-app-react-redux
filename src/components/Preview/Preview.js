@@ -23,7 +23,7 @@ injectGlobal`
 
 class Preview extends React.Component {
   render() {
-    const {collapsed, onCollapse, item, imagesProp, header, onClickMagnifier} = this.props
+    const {collapsed, onCollapse, item, imagesProp, header, onClickMagnifier,intl} = this.props
     var images =[];
     if(item)
     {
@@ -76,11 +76,11 @@ class Preview extends React.Component {
               {item.title}
             </p>
           )}
-          {item.short_description && (
+          {
             <p className={s.previewShortDescription}>
-              {item.short_description}
+              {intl.locale === 'de-DE' ? item.short_description_german : item.short_description}
             </p>
-          )}
+          }
         </section>
       </Layout.Sider>
     ) : null
