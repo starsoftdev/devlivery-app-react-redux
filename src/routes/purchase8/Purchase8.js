@@ -67,7 +67,7 @@ class Purchase8 extends React.Component {
                         </React.Fragment>
                       }
                       bordered={false}
-                      description={item.short_description}
+                      description={intl.locale === 'de-DE' ? item.short_description_german : item.short_description}
                       onClick={() => setGift(item)}
                       active={giftIds && giftIds.includes(item.id)}
                     />
@@ -77,6 +77,7 @@ class Purchase8 extends React.Component {
             </div>
           </Layout.Content>
           <Preview
+            intl = {intl}
             onCollapse={this.onPreviewCollapse}
             collapsed={previewCollapsed}
             header={intl.formatMessage(messages.previewHeader)}

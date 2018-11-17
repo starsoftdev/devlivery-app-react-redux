@@ -94,6 +94,7 @@ class Purchase5 extends React.Component {
             </div>
           </Layout.Content>
           <Preview
+            intl = {intl}
             onCollapse={this.onPreviewCollapse}
             collapsed={previewCollapsed}
             header={intl.formatMessage(messages.previewHeader)}
