@@ -409,10 +409,10 @@ class Purchase11 extends React.Component {
               {
                 <Row type='flex' align='center' gutter={20} className={s.recipientSection}>
                   <Col xs={12}>
-                    <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.recipients)}</h2>
+                    <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.recipients)+': '+order.recipients_count}</h2>
                   </Col>
                   <Col xs={12}>
-                    <span className={s.subtotalValue}>{order.recipients_count}</span>
+                    {/*<span className={s.subtotalValue}>{order.recipients_count}</span>*/}
                   </Col>
                 </Row>
               }
