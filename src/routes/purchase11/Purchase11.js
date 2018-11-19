@@ -94,6 +94,9 @@ class Purchase11 extends React.Component {
       } else this.setState({ order: nextProps.order });
       this.onSelectLocation(this.state.selectedLocation);
     }
+    if (nextProps && nextProps.user !== this.props.user) {
+      this.onSelectLocation(this.state.selectedLocation);
+    }
     if (nextProps && nextProps.order && nextProps.order.coupon && this.state.couple === undefined) {
       this.setState({ couple: nextProps.order.coupon && nextProps.order.coupon.coupon });
     }
@@ -119,8 +122,21 @@ class Purchase11 extends React.Component {
     if (value === 'shipping') {
       const { user } = this.props;
       const address = user && user.addresses && user.addresses.find(item => item.default !== null)
-
-      this.setState({ selectedLocation: value, contact: { ...address, ...user, title: ' ' }, recip_warnmsg: '' });
+      this.setState({ 
+        selectedLocation: value, 
+        recip_warnmsg: '', 
+        contact: { 
+          title: ' ',
+          first_name: user.first_name,
+          last_name: user.last_name,
+          ...address ? {
+            address: (address.company ? address.company+' ':'')+ (address.address && address.address.length > 0 ?address.address.join(' '):''),
+            postal_code: address.postal_code,
+            city: address.city,
+            country: address.city
+          } : null
+        }
+      });
       return;
     }
     else if (order && order.recipients && order.recipients[currentRecipient]) {
@@ -134,7 +150,20 @@ class Purchase11 extends React.Component {
       }
       if (filter_contact) {
         const contact = filter_contact.length > 0 ? filter_contact[0] : null;
-        this.setState({ selectedLocation: value, contact: { ...contact, ...selRecipient.contact } });
+        this.setState({ 
+          selectedLocation: value, 
+          contact: { 
+            title: selRecipient.contact.title,
+            first_name: selRecipient.contact.first_name,
+            last_name: selRecipient.contact.last_name,
+            ...contact ? {
+              address: (contact.address && contact.address.length > 0 ? contact.address.join(' '):''),
+              postal_code: contact.postal_code,
+              city: contact.city,
+              country: contact.city
+            } : null
+          } 
+        });
       }
       else this.setState({ selectedLocation: value, contact: null });
     }
@@ -445,9 +474,9 @@ class Purchase11 extends React.Component {
                       <div className={s.recipient}>
                         <div>{contact && contact.title ? contact.title : ' '}</div>
                         <div>{`${contact && contact.first_name ? contact.first_name : ' '} ${contact && contact.last_name ? contact.last_name : ' '}`}</div>
-                        <div>{contact ? contact.address : " "/*order.recipients[currentRecipient].receiving_address.address*/}</div>
-                        <div>{`${contact && contact.postal_code ? contact.postal_code : " "/*order.recipients[currentRecipient].receiving_address.postal_code*/} ${contact && contact.city ? contact.city : " "/*order.recipients[currentRecipient].receiving_address.city*/}`}</div>
-                        <div>{contact ? contact.country : " "/*order.recipients[currentRecipient].receiving_address.country*/}</div>
+                        <div>{contact ? contact.address : " "}</div>
+                        <div>{`${contact && contact.postal_code ? contact.postal_code : " "} ${contact && contact.city ? contact.city : " "}`}</div>
+                        <div>{contact ? contact.country : " "}</div>
                       </div>
                     )}
                     {selectedLocation !== 'shipping' && order.recipients && order.recipients.length > 1 && (
