@@ -117,7 +117,7 @@
   padding-bottom: var(--margin-sm);
 }
 .recipientSection{
-  padding-top: var(--margin-sm);
+  /*padding-top: var(--margin-sm);*/
 }
 .recipients {
 
@@ -125,6 +125,10 @@
 
 .recipient {
 
+}
+.recipientCol {
+  display:flex;
+  align-items:flex-end;
 }
 .editorActions {
   display: none;
