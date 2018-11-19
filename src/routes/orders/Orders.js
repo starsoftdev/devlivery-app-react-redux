@@ -97,7 +97,7 @@ class Orders extends React.Component {
         render: (event) => <CalendarEvent key={event.id + ''} {...event} />
       },
     ]
-    console.log('upcomingEvents',upcomingEvents);
+    
     const today = moment()
     return (
       <div className={s.container}>
@@ -117,7 +117,10 @@ class Orders extends React.Component {
           columns={columns}
           dataSource={orders}
           rowKey={record => record.id}
-          onChange={(pagination, filters, sorter) => getOrders({ pagination, filters, sorter })}
+          onChange={(pagination, filters, sorter) => {
+            window.scrollTo(0, 0)
+            getOrders({ pagination, filters, sorter })
+          }}
           pagination={{
             current: page,
             total: ordersCount,
