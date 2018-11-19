@@ -68,32 +68,36 @@ class ImportContacts extends React.Component {
             <ContactsImporting sectionClassName={s.instructions}>
               {({
                 exportFromXLSX,
-                //exportGoogleContacts,
-                //exportOutlookContacts,
-                //exportCardContacts,
-                //csvUploadButton,
-                //xlsUploadButton,
+                exportGoogleContacts,
+                exportOutlookContacts,
+                exportCardContacts,
+                csvUploadButton,
+                xlsUploadButton,
                 xlsxUploadButton,
-                //vcfUploadButton,
+                vcfUploadButton,
               }) =>
                 <div className={s.content}>
                   <Row type='flex' gutter={20}>
+                    <Col xs={24} md={24}>
+                      <h1 className={s.sectionHeader}>{intl.formatMessage(messages.howto)}</h1>
+                    </Col>
+                  </Row>
+                  <Row type='flex' gutter={20}>
                     <Col xs={24} md={12}>
                       <section>
-                        <h1 className={s.sectionHeader}>{intl.formatMessage(messages.howto)}</h1>
-                        {exportFromXLSX}
-                        {/*exportGoogleContacts*/}
-                        {/*exportOutlookContacts*/}
-                        {/*exportCardContacts*/}
+                        {exportGoogleContacts}
+                        {exportOutlookContacts}
+                        {exportCardContacts}
                       </section>
                     </Col>
-                    <Col xs={24} md={6}>
+                    <Col xs={24} md={12}>
                       <section>
+                        {exportFromXLSX}
                         <h1 className={s.sectionHeader}>{intl.formatMessage(messages.upload)}</h1>
-                        {/*csvUploadButton*/}
-                        {/*xlsUploadButton*/}
+                        {csvUploadButton}
+                        {xlsUploadButton}
                         {xlsxUploadButton}
-                        {/*vcfUploadButton*/}
+                        {vcfUploadButton}
                       </section>
                     </Col>
                   </Row>
