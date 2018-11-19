@@ -30,13 +30,13 @@ class ImportContacts extends React.Component {
         <ContactsImporting >
           {({
             exportFromXLSX,
-            ///exportGoogleContacts,
-            //exportOutlookContacts,
-            //exportCardContacts,
-            //csvUploadButton,
-            //xlsUploadButton,
+            exportGoogleContacts,
+            exportOutlookContacts,
+            exportCardContacts,
+            csvUploadButton,
+            xlsUploadButton,
             xlsxUploadButton,
-            //vcfUploadButton,
+            vcfUploadButton,
           }) =>
             <React.Fragment>
               <div className={s.content}>
@@ -47,20 +47,21 @@ class ImportContacts extends React.Component {
                 />
                 <Row gutter={20} type='flex' align='center'>
                   <Col xs={24} sm={12} className={s.section}>
+                    {exportGoogleContacts}
+                  </Col>
+                  <Col xs={24} sm={12} className={s.section}>
                     {exportFromXLSX}
-                    {/*exportGoogleContacts*/}
+                  </Col>
+                  <Col xs={24} sm={12} className={s.section}>
+                    {exportOutlookContacts}
+                    <br/>
+                    {exportCardContacts}
                   </Col>
                   <Col xs={24} sm={12} className={cn(s.section, s.actionsSection)}>
-                    {/*csvUploadButton*/}
-                    {/*xlsUploadButton*/}
+                    {csvUploadButton}
+                    {xlsUploadButton}
                     {xlsxUploadButton}
-                    {/*vcfUploadButton*/}
-                  </Col>
-                  <Col xs={24} sm={12} className={s.section}>
-                    {/*exportOutlookContacts*/}
-                  </Col>
-                  <Col xs={24} sm={12} className={s.section}>
-                    {/*exportCardContacts*/}
+                    {vcfUploadButton}
                   </Col>
                 </Row>
               </div>
