@@ -437,11 +437,43 @@ class Purchase11 extends React.Component {
               <h2 className={s.sectionHeader}>{intl.formatMessage(messages.shipping)}</h2>
               {
                 <Row type='flex' align='center' gutter={20} className={s.recipientSection}>
-                  <Col xs={12}>
-                    <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.recipients)+': '+order.recipients_count}</h2>
+                  <Col xs={24} sm={8} className={s.recipientCol}>
+                    <p className={s.subtotalHeader}>{intl.formatMessage(messages.recipients)+': '+order.recipients_count}</p>
                   </Col>
-                  <Col xs={12}>
-                    {/*<span className={s.subtotalValue}>{order.recipients_count}</span>*/}
+                  <Col xs={24} sm={8} className={s.recipientCol}>
+                    {
+                      flow.key !== ORDER_BUNDLE_FLOW.key && flow.key !== ORDER_VOUCHER_FLOW.key &&
+                      <div>
+                        <Form.Item>
+                          {getFieldDecorator('saved', {
+                            initialValue: saved === 1 || this.state.checkSave === 1 ? true : false,
+                            valuePropName: 'checked',
+                          })(
+                            <Checkbox onChange={this.onCheckSaved}>{intl.formatMessage(messages.saveasbundle)}</Checkbox>
+                          )}
+                        </Form.Item>
+                      </div>
+                    }
+                  </Col>
+                  <Col xs={24} sm={8} className={s.recipientCol}>
+                    {
+                      flow.key !== ORDER_BUNDLE_FLOW.key && flow.key !== ORDER_VOUCHER_FLOW.key &&
+                      <div>
+                        {
+                          this.state.checkSave === 1 &&
+                          <Form.Item>
+                            {getFieldDecorator('title', {
+                              initialValue: this.state.bundleName,
+                              rules: [
+                                { required: this.state.checkSave === 1 ? true : false, min: this.state.checkSave === 1 ? 5 : 0, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
+                              ],
+                            })(
+                              <FloatingLabel placeholder={intl.formatMessage(messages.bundleName) + ' *'} />
+                            )}
+                          </Form.Item>
+                        }
+                      </div>
+                    }
                   </Col>
                 </Row>
               }
