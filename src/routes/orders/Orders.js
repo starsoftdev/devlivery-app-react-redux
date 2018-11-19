@@ -97,6 +97,7 @@ class Orders extends React.Component {
         render: (event) => <CalendarEvent key={event.id + ''} {...event} />
       },
     ]
+    console.log('upcomingEvents',upcomingEvents);
     const today = moment()
     return (
       <div className={s.container}>
@@ -157,7 +158,7 @@ class Orders extends React.Component {
                 <React.Fragment>
                   {
                     upcomingEvents.map((event, i) =>
-                      <CalendarEvent key={i} {...event} />
+                      <CalendarEvent key={event.id+''} {...event} />
                     )
                   }
                   {
