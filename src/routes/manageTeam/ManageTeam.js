@@ -86,8 +86,8 @@ class ManageTeam extends React.Component {
           return (
             <React.Fragment>
               {this.state.invited !== record.id ?
-                <EditIcon onClick={() => this.onEditClick(record, 'invited')}/> :
-                <PlusIcon onClick={() => this.closeEditRow('invited')}/>
+                <EditIcon style={{'cursor':'pointer'}} onClick={() => this.onEditClick(record, 'invited')}/> :
+                <PlusIcon style={{'cursor':'pointer'}} onClick={() => this.closeEditRow('invited')}/>
               }
             </React.Fragment>
           )
