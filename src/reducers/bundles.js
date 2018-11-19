@@ -78,7 +78,7 @@ const initialState = {
   bundles: [],
   bundlesCount: 0,
   page: 1,
-  pageSize: DEFAULT_PAGE_SIZE,
+  pageSize: 4,
   bundleDetailsModalOpened: false,
   bundleDetails: null,
 }

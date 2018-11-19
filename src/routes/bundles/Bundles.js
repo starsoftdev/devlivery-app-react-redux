@@ -17,6 +17,7 @@ import { getItemImage } from '../../utils'
 import LeftIcon from '../../static/left-arrow.svg'
 import RightIcon from '../../static/right-arrow.svg'
 
+const pageSizeOptions = [4,8,12,16];
 class BundleItem extends React.Component {
   state = {
     giftIndex: 0
@@ -161,6 +162,7 @@ class Bundles extends React.Component {
             onChange={(page, pageSize) => getBundles({ page, pageSize })}
             onShowSizeChange={(page, pageSize) => getBundles({ page, pageSize })}
             itemRender={(current, type, el) => <PaginationItem type={type} el={el} />}
+            pageSizeOptions={pageSizeOptions}
           />
         </div>
         {bundleDetailsModalOpened && <BundleDetails />}

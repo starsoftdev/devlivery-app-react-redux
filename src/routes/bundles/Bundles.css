@@ -21,7 +21,6 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
-
   @media (--sm-up) {
     align-items: flex-end;
   }
@@ -87,6 +86,8 @@
   background-color: var(--white-color);
   box-shadow: 0 1px 2px 0 rgba(0,39,36,0.1);
   margin-bottom: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
   position: relative;
 }
 
