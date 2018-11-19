@@ -35,11 +35,10 @@ class Header extends React.Component {
         )}
       >
         <div className={cn(s.header, className || s.layoutHeader)}>
-          {/*
           <div className={s.leftMenu}>
             <LanguageSwitcher/>
           </div>
-          */}
+          {/*
           {[
             ...HOME_ROUTES,
             ...DASHBOARD_ROUTES,
@@ -51,6 +50,7 @@ class Header extends React.Component {
                 </React.Fragment>
               </div>
             )}
+          */}
           <Link to={HOME_ROUTE}>
             <Logo />
           </Link>
@@ -81,12 +81,13 @@ class Header extends React.Component {
               </div>
             )}
         </div>
-        {/*
+        {
         [
           ...HOME_ROUTES,
           ...DASHBOARD_ROUTES,
         ].includes(currentRouteName) && (
             <ul className={s.bottomMenu}>
+              {/*
               <li onClick={this.getLocation}>
                 <Link to={NEW_ARRIVALS_ROUTE}>{intl.formatMessage(messages.newArrivals)}</Link>
                 {NEW_ARRIVALS_ROUTE === currentRouteName &&
@@ -108,6 +109,7 @@ class Header extends React.Component {
                     <hr className={s.underline} />
                   </div>}
               </li>
+              */}
               <li>
                 <Link to={ABOUT_ROUTE}>{intl.formatMessage(messages.about)}</Link>
                 {ABOUT_ROUTE === currentRouteName &&
@@ -124,7 +126,6 @@ class Header extends React.Component {
               </li>
             </ul>
           )
-          */
         }
       </header>
     )
