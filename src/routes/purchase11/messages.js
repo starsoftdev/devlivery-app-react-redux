@@ -63,7 +63,7 @@ export default defineMessages({
   },
   recipients: {
     id: 'purchase11.recipients',
-    defaultMessage: 'Recipients:',
+    defaultMessage: 'Recipients',
   },
   shipping: {
     id: 'purchase11.shipping',
