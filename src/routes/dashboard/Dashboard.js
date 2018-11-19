@@ -49,14 +49,12 @@ class Dashboard extends React.Component {
               {intl.formatMessage(messages.orders)}
             </Link>
           </Menu.Item>
-          {/*
           <Menu.Item key={BUNDLES_ROUTE}>
             <Link to={BUNDLES_ROUTE}>
               <BundlesIcon/>
               {intl.formatMessage(messages.bundles)}
             </Link>
           </Menu.Item>
-          */}
           <Menu.SubMenu
             className={s.subMenu}
             title={
