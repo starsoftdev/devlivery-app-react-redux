@@ -1,7 +1,7 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import qs from 'query-string'
 import {getToken} from './user'
-import {DATE_FORMAT} from '../constants'
+import {DATE_FORMAT,BIRTH_GERMAN,BIRTH_EN} from '../constants'
 import {message} from 'antd'
 import {generateUrl} from '../router'
 import {CONTACTS_ROUTE} from '../routes'
@@ -137,7 +137,7 @@ export const setContact = (contact) => (dispatch, getState, {fetch}) => {
 export const getRemindersArray = (reminders) => {
   return reminders.filter(item => {
     // if one of the property undefined/null - don't send item
-    return (item.custom_title || item.occasion_id) && item.date
+    return (item.custom_title || item.occasion_id) && item.date && (item.occasion_id !== BIRTH_GERMAN) && (item.occasion_id !== BIRTH_EN)
   }).map(item => ({
     ...(item.recurring && item.recurring !== undefined && item.recurring !== '1') ?
     {recurring: item.recurring}:{},
@@ -305,7 +305,7 @@ export const getOccasions = ({search} = {}) => (dispatch, getState, {fetch}) => 
   const {token} = dispatch(getToken())
  
   const {setupBirthday} = getState().contacts;
-  
+  /*
   var url = `/occasions?${qs.stringify({
     //take: 10,
     ...search ? {
@@ -315,7 +315,8 @@ export const getOccasions = ({search} = {}) => (dispatch, getState, {fetch}) => 
   })}`;
   
   if(setupBirthday)
-    url = `/occasions?filter_key=title&filter_value=Birthday&not_equal`;
+  */
+  var url = `/occasions?filter_key=title&filter_value=Birthday&not_equal`;
  
   return fetch(url, {
     method: 'GET',
