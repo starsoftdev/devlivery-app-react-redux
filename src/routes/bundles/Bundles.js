@@ -17,7 +17,7 @@ import { getItemImage } from '../../utils'
 import LeftIcon from '../../static/left-arrow.svg'
 import RightIcon from '../../static/right-arrow.svg'
 
-const pageSizeOptions = [4,8,12,16];
+const pageSizeOptions = ['4','8','12','16'];
 class BundleItem extends React.Component {
   state = {
     giftIndex: 0
