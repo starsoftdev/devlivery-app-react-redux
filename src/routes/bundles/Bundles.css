@@ -70,6 +70,7 @@
   transform: translateY(-50%);
   right: -34px;
   z-index: 1;
+  opacity: 0.8;
 }
 
 .itemImage {
