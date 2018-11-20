@@ -25,6 +25,8 @@ class OrderItems extends React.Component {
     this.setState({giftIndex: giftIndex < (gifts.length-1) ? (giftIndex+1):0});
   }
   wraptext(str){
+    if(str === null || str === undefined)
+      return '';
     var maxlen = 20;
     if(this.props.voucher)
       maxlen -= 6;
