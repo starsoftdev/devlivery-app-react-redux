@@ -3879,7 +3879,8 @@
     "message": "",
     "files": [
       "src/components/OrderItems/messages.js",
-      "src/routes/voucher/messages.js"
+      "src/routes/voucher/messages.js",
+      "src/routes/bundles/messages.js"
     ]
   },
   {
@@ -3896,7 +3897,8 @@
     "message": "",
     "files": [
       "src/components/OrderItems/messages.js",
-      "src/routes/voucher/messages.js"
+      "src/routes/voucher/messages.js",
+      "src/routes/bundles/messages.js"
     ]
   },
   {

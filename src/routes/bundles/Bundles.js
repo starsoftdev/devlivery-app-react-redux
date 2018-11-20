@@ -36,7 +36,6 @@ class BundleItem extends React.Component {
   }
   render() {
     const {bundle,intl,openBundleDetailsModal,removeBundle,setBundle} = this.props;
-    
     return (
       <Col xs={24} md={12}>
         <div className={s.bundle}>
@@ -70,6 +69,22 @@ class BundleItem extends React.Component {
                     </div>
                   </div>
                 }
+              </div>
+            )}
+            {bundle.voucher && (
+              <div className={s.cardWrapper}>
+                <div>
+                  <span className={s.cardType}>{intl.formatMessage(messages.giver)}: {bundle.voucher.from}</span><br />
+                  <span className={s.cardType}>{intl.formatMessage(messages.receiver)}: {bundle.voucher.to}</span>
+                </div>
+              </div>
+            )}
+            {bundle.donation && (
+              <div className={s.cardWrapper}>
+                <div
+                  style={{ backgroundImage: `url(${getItemImage(bundle.donation.organization, 'logo')})`, backgroundSize:'contain' }}
+                  className={s.itemImage}
+                />
               </div>
             )}
           </div>

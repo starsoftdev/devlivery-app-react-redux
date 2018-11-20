@@ -36,5 +36,13 @@ export default defineMessages({
   acceptRemoving: {
     id: 'contactGroups.acceptRemoving',
     defaultMessage: 'Yes',
-  }
+  },
+  receiver: {
+    id: 'voucher.receiver',
+    defaultMessage: 'To',
+  },
+  giver: {
+    id: 'voucher.giver',
+    defaultMessage: 'From',
+  },
 })
