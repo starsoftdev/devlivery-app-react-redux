@@ -364,7 +364,18 @@ export const uploadContacts = (file, fileType) => (dispatch, getState, {fetch}) 
     },
     token,
     success: ({data}) => {
-      dispatch({type: UPLOAD_CONTACTS_SUCCESS, uploadedContacts: data.contacts})
+      const maps = data.contacts.map(item => {
+        let ret = item;
+        for(var key in item)
+        {
+          if(item[key] && typeof item[key] === 'object' && item[key].hasOwnProperty('date'))
+          {
+            ret[key] = moment(item[key].date).format(DATE_FORMAT);
+          }
+        }
+        return ret;
+      });
+      dispatch({type: UPLOAD_CONTACTS_SUCCESS, uploadedContacts: maps})
       if (data.db_columns) {
         dispatch({type: MAPPING_COLUMNS, mappingColumns: data})
       }
