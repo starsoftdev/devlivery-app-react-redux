@@ -74,21 +74,9 @@ class Reminders extends React.Component {
       { value: 'm', label: this.props.intl.locale === 'de-DE' ? 'Monatlich' : 'Every month' },
       { value: 'y', label: this.props.intl.locale === 'de-DE' ? 'Jährlich' : 'Every year' }
     ];
-    if(occasionId !== undefined && occasionId)
+    if(occasionId === BIRTH_EN || occasionId === BIRTH_GERMAN)
     {
-      const { occasions,initialValues } = this.props
-      const maps = initialValues && initialValues.length > 0 ? [...occasions,...initialValues] : occasions;
-      const filter =  maps.filter(item => item.id+'' === occasionId+'' || item.occasion_id+'' === occasionId);
-      if(filter.length > 0)
-      {
-        for(let i= 0; i< filter.length; i++)
-        {
-          if(filter[i].title && (filter[i].title.toUpperCase() === BIRTH_EN || filter[i].title.toUpperCase() === BIRTH_GERMAN))
-          {
-            Reminder_recurring.splice(1, 1);
-          }
-        }
-      }
+      Reminder_recurring.splice(1, 1);
     }
     return Reminder_recurring;
   }
@@ -110,6 +98,19 @@ class Reminders extends React.Component {
       <React.Fragment>
         {keys.map((k, i) => {
           const Reminder_recurring = this.getReminderRecurring(getFieldValue(`reminders[${k}].occasion_id`));
+          let occasion = undefined;
+          if(initialValues && initialValues[k])
+          {
+            if(initialValues[k].title &&(initialValues[k].title.toUpperCase() === BIRTH_EN || initialValues[k].title.toUpperCase() === BIRTH_GERMAN))
+            {
+              occasion = initialValues[k].title.toUpperCase();
+            } else if(initialValues[k].occasion_id !== null){
+              occasion = initialValues[k].occasion_id+'';
+            } else if(initialValues[k].title !== null)
+            {
+              occasion = initialValues[k].title;
+            }
+          }
           return (
             <div key={k} className={s.item}>
               {initialValues && initialValues[k] && initialValues[k].id && getFieldDecorator(`reminders[${k}].id`, {
@@ -119,7 +120,7 @@ class Reminders extends React.Component {
               )}
               <Form.Item>
                 {getFieldDecorator(`reminders[${k}].occasion_id`, {
-                  initialValue: initialValues && initialValues[k] ? (initialValues[k].occasion_id !== null ? `${initialValues[k].occasion_id}` : initialValues[k].title) : undefined,
+                  initialValue: occasion,
                   rules: [
                     { validator: this.validateMinLength }
                   ]
