@@ -85,13 +85,13 @@ class ContactForm extends React.Component {
     var dobValidation = false;
     const dob = this.props.form.getFieldValue('dob');
     var birthday = moment(dob, 'DD/MM/YYYY');
-    var expected = moment().subtract(18, 'years');
+    var expected = moment().subtract(1, 'days');
     var errors = null;
     if (birthday.isValid() && dob.length === 10) {
       if (birthday < expected)
         dobValidation = true;
       else {
-        errors= [new Error('please select date older than 18 years.')];
+        errors= [new Error('please enter a date in the past.')];
       }
     }
     else {
