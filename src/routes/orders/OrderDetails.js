@@ -49,7 +49,7 @@ class OrderDetails extends React.Component {
             <span>{recipients[currentShipping].contact.title}</span><br />
             <span>{recipients[currentShipping].contact.first_name + ' ' + recipients[currentShipping].contact.last_name}</span><br />
             <span>{recipients[currentShipping].receiving_address.address}</span><br />
-            <span>{recipients[currentShipping].receiving_address.postal_code ? recipients[currentShipping].receiving_address.postal_code : '' + ' ' + recipients[currentShipping].receiving_address.city ? recipients[currentShipping].receiving_address.city : ''}</span><br />
+            <span>{(recipients[currentShipping].receiving_address.postal_code ? recipients[currentShipping].receiving_address.postal_code : '') + ' ' + (recipients[currentShipping].receiving_address.city ? recipients[currentShipping].receiving_address.city : '')}</span><br />
             <span>{recipients[currentShipping].receiving_address.country ? recipients[currentShipping].receiving_address.country : ''}</span><br />
           </div>
           {
