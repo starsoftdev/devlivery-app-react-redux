@@ -130,7 +130,7 @@ class EditContact extends React.Component {
                       onConfirm={() => removeContact(contact)}
                       okText={intl.formatMessage(messages.acceptRemoving)}
                     >
-                      <Button type='danger' type='primary' ghost style={{ float: 'right' }}>
+                      <Button type='danger' type='primary' disabled = {contact.is_connected_to_order} ghost style={{ float: 'right' }}>
                         <RemoveIcon />
                         {intl.formatMessage(messages.delete)}
                       </Button>
