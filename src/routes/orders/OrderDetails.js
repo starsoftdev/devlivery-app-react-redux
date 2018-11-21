@@ -52,16 +52,14 @@ class OrderDetails extends React.Component {
         if(this.props.orderDetails.deliverable==='shipping')
           shipping_name = this.props.user.first_name+' '+this.props.user.last_name;
       }
+      const recipient_name = selRecipient.contact.first_name + ' ' + selRecipient.contact.last_name;
+
       return (
         <React.Fragment>
           <div className={s.shippingDetails}>
             <h3>Shipping details {currentShipping + 1} / {recipients.length}</h3>
-            <span>{selRecipient.receiving_address.title}</span><br />
-            <span>{selRecipient.contact.first_name + ' ' + selRecipient.contact.last_name}</span><br />
-            {
-              shipping_name && <span>{shipping_name}</span>
-            }
-            { shipping_name && <br/>}
+            {/*<span>{selRecipient.receiving_address.title}</span><br />*/}
+            <span>{shipping_name ? (shipping_name+' (For: '+recipient_name+')'):recipient_name}</span><br />
             <span>{selRecipient.receiving_address.address}</span><br />
             <span>{(selRecipient.receiving_address.postal_code ? selRecipient.receiving_address.postal_code : '') + ' ' + (selRecipient.receiving_address.city ? selRecipient.receiving_address.city : '')}</span><br />
             <span>{selRecipient.receiving_address.country ? selRecipient.receiving_address.country : ''}</span><br />
