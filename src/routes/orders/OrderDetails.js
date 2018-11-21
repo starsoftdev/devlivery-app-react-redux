@@ -79,12 +79,13 @@ class OrderDetails extends React.Component {
   render() {
 
     const { closeOrderDetailsModal, orderDetails, intl, occasions, setFlowPayment, recipient_id } = this.props
+    const { currentShipping } = this.state;
     let recipient = null;
     if (orderDetails && orderDetails.recipients && recipient_id && !this.state.entirePay) {
       recipient = orderDetails.recipients.filter(item => item.id+'' === recipient_id+'');
     }
     const recp_count =  orderDetails && orderDetails.recipients_count ? orderDetails.recipients_count : 0;
-    
+    const recipients = orderDetails && (recipient ? recipient : orderDetails.recipients);
     const columns = [
       {
         title: intl.formatMessage(messages.productColumn),
@@ -119,7 +120,7 @@ class OrderDetails extends React.Component {
                       <br />
                       <span className={s.title}>
                         <strong>{intl.formatMessage(messages.dateto)}</strong>
-                        {" " + item.to}
+                        {" " + recipients ? (recipients[currentShipping].contact.first_name + ' ' + recipients[currentShipping].contact.last_name):item.to}
                       </span>
                     </div>
                   </div>
@@ -319,7 +320,7 @@ class OrderDetails extends React.Component {
                   }
                 </section>
                 <section>
-                  {this.renderRecipientInf(recipient ? recipient : orderDetails.recipients)}
+                  {this.renderRecipientInf(recipients)}
                 </section>
               </Col>
             </Row>

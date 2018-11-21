@@ -137,14 +137,14 @@ class Voucher extends React.Component {
                   <FloatingLabel placeholder={intl.formatMessage(messages.giver)} />
                 )}
               </Form.Item>
-              <Form.Item className={cn(s.voucherFormItem)}>
+              <Form.Item className={cn(s.voucherFormItem,s.voucherDisable)}>
                 {getFieldDecorator('to', {
-                  initialValue: voucher ? voucher.to : '',
+                  initialValue: 'Your recipient name',
                   rules: [
                     { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                   ],
                 })(
-                  <FloatingLabel placeholder={intl.formatMessage(messages.receiver)} />
+                  <FloatingLabel placeholder={intl.formatMessage(messages.receiver)} isDisabled/>
                 )}
               </Form.Item>
               <label className={s.messageTitle}>{intl.formatMessage(messages.freeText)}</label>

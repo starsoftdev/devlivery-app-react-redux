@@ -54,6 +54,9 @@
   display: flex;
   justify-content: center;
 }
+.voucherDisable{
+  background-color: rgba(200,200,200,0.2)
+}
 .messageTitle {
   font-size: 15px;
   font-family: "Proxima Nova";
