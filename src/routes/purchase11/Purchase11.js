@@ -122,18 +122,27 @@ class Purchase11 extends React.Component {
     if (value === 'shipping') {
       const { user } = this.props;
       const address = user && user.addresses && user.addresses.find(item => item.default !== null)
+      
+      let first_name = user.first_name;
+      let last_name = user.last_name;
+      if(address && (address.first_name || address.last_name))
+      {
+        first_name = address.first_name;
+        last_name = address.last_name;
+      }
       this.setState({ 
         selectedLocation: value, 
         recip_warnmsg: '', 
         contact: { 
           title: ' ',
-          first_name: user.first_name,
-          last_name: user.last_name,
+          first_name: first_name,
+          last_name: last_name,
           ...address ? {
             address: (address.company ? address.company+' ':'')+ (address.address && address.address.length > 0 ?address.address.join(' '):''),
             postal_code: address.postal_code,
             city: address.city,
-            country: address.country
+            country: address.country,
+            title: ' '
           } : null
         }
       });
@@ -153,7 +162,7 @@ class Purchase11 extends React.Component {
         this.setState({ 
           selectedLocation: value, 
           contact: { 
-            title: selRecipient.contact.title,
+            title: contact.title,
             first_name: selRecipient.contact.first_name,
             last_name: selRecipient.contact.last_name,
             ...contact ? {
