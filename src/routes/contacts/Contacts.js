@@ -94,6 +94,16 @@ class Contacts extends React.Component {
         dataIndex: '',
         key: 'actions',
         render: (contact) => {
+          if(contact.is_connected_to_order)
+          {
+            return (
+              <React.Fragment>
+                <Link to={{name: EDIT_CONTACT_ROUTE, params: {contactId: contact.id}}}>
+                  <EditIcon/>
+                </Link>
+              </React.Fragment>
+            )
+          }
           return (
             <React.Fragment>
               <Link to={{name: EDIT_CONTACT_ROUTE, params: {contactId: contact.id}}}>
