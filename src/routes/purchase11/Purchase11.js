@@ -133,7 +133,7 @@ class Purchase11 extends React.Component {
             address: (address.company ? address.company+' ':'')+ (address.address && address.address.length > 0 ?address.address.join(' '):''),
             postal_code: address.postal_code,
             city: address.city,
-            country: address.city
+            country: address.country
           } : null
         }
       });
@@ -160,7 +160,7 @@ class Purchase11 extends React.Component {
               address: (contact.address && contact.address.length > 0 ? contact.address.join(' '):''),
               postal_code: contact.postal_code,
               city: contact.city,
-              country: contact.city
+              country: contact.country
             } : null
           } 
         });
