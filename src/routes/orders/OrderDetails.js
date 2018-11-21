@@ -56,7 +56,7 @@ class OrderDetails extends React.Component {
         <React.Fragment>
           <div className={s.shippingDetails}>
             <h3>Shipping details {currentShipping + 1} / {recipients.length}</h3>
-            <span>{selRecipient.contact.title}</span><br />
+            <span>{selRecipient.receiving_address.title}</span><br />
             <span>{selRecipient.contact.first_name + ' ' + selRecipient.contact.last_name}</span><br />
             {
               shipping_name && <span>{shipping_name}</span>
