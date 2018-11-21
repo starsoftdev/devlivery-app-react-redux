@@ -44,7 +44,7 @@ class Purchase extends React.Component {
 
     const flowNames = {
       [PURCHASE1_ROUTE]: intl.formatMessage(messages.purchase1),
-      //[PURCHASE2_ROUTE]: intl.formatMessage(messages.purchase2),
+      [PURCHASE2_ROUTE]: intl.formatMessage(messages.purchase2),
       [PURCHASE3_ROUTE]: intl.formatMessage(messages.purchase3),
       [PURCHASE4_ROUTE]: intl.formatMessage(messages.purchase4),
       [PURCHASE5_ROUTE]: intl.formatMessage(messages.purchase5),

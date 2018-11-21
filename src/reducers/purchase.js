@@ -1533,7 +1533,7 @@ export const initialState = {
   },
   occasions: [],
   occasion: null,
-  letteringTechnique: "printed",
+  letteringTechnique: null,
   cardStyle: null,
   cardSize: null,
   cardDetails: null,
