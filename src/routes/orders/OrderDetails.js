@@ -296,8 +296,8 @@ class OrderDetails extends React.Component {
                       <Row type='flex' justify='space-between' className={s.summaryRow}>
                         <Col>{'Coupon ('+orderDetails.coupon.coupon+')'}</Col>
                         <Col>
-                          {orderDetails.coupon.value.toFixed(2)}
-                          <span className={s.currency}>{'CHF'}</span>
+                          {'-'}{orderDetails.coupon.value.toFixed(2)}
+                          <span className={s.currency}>{orderDetails.coupon.type==='absolute'?'CHF':'%'}</span>
                         </Col>
                       </Row>
                     }

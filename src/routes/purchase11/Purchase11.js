@@ -414,8 +414,8 @@ class Purchase11 extends React.Component {
                   <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.coupon)}</h2>
                 </Col>
                 <Col xs={12}>
-                  <span className={s.subtotalValue}>{order.coupon.value && order.coupon.value.toFixed(2)}</span>
-                  <span className={s.subtotalCurrency}>{'CHF'}</span>
+                  <span className={s.subtotalValue}>{'-'}{order.coupon.value && order.coupon.value.toFixed(2)}</span>
+                  <span className={s.subtotalCurrency}>{order.coupon.type==='absolute'?'CHF':'%'}</span>
                 </Col>
               </Row>
             }
