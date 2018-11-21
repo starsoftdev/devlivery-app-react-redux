@@ -42,15 +42,26 @@ class OrderDetails extends React.Component {
   renderRecipientInf = (recipients) => {
     const {currentShipping} = this.state;
     if (recipients && recipients.length > 0)
+    {
+      const selRecipient = recipients[currentShipping];
+      let shipping_name = null;
+      if(selRecipient.receiving_address.first_name || selRecipient.receiving_address.last_name)
+      {
+        shipping_name = (selRecipient.receiving_address.first_name?selRecipient.receiving_address.first_name+' ':'')+(selRecipient.receiving_address.last_name ? selRecipient.receiving_address.last_name:'')
+      }
       return (
         <React.Fragment>
           <div className={s.shippingDetails}>
             <h3>Shipping details {currentShipping + 1} / {recipients.length}</h3>
-            <span>{recipients[currentShipping].contact.title}</span><br />
-            <span>{recipients[currentShipping].contact.first_name + ' ' + recipients[currentShipping].contact.last_name}</span><br />
-            <span>{recipients[currentShipping].receiving_address.address}</span><br />
-            <span>{(recipients[currentShipping].receiving_address.postal_code ? recipients[currentShipping].receiving_address.postal_code : '') + ' ' + (recipients[currentShipping].receiving_address.city ? recipients[currentShipping].receiving_address.city : '')}</span><br />
-            <span>{recipients[currentShipping].receiving_address.country ? recipients[currentShipping].receiving_address.country : ''}</span><br />
+            <span>{selRecipient.contact.title}</span><br />
+            <span>{selRecipient.contact.first_name + ' ' + selRecipient.contact.last_name}</span><br />
+            {
+              shipping_name && <span>{shipping_name}</span>
+            }
+            { shipping_name && <br/>}
+            <span>{selRecipient.receiving_address.address}</span><br />
+            <span>{(selRecipient.receiving_address.postal_code ? selRecipient.receiving_address.postal_code : '') + ' ' + (selRecipient.receiving_address.city ? selRecipient.receiving_address.city : '')}</span><br />
+            <span>{selRecipient.receiving_address.country ? selRecipient.receiving_address.country : ''}</span><br />
           </div>
           {
             recipients.length > 1 &&
@@ -74,6 +85,7 @@ class OrderDetails extends React.Component {
           }
         </React.Fragment>
       );
+    }
     return (<React.Fragment/>);
   }
   render() {
