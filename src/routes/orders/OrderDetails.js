@@ -48,6 +48,9 @@ class OrderDetails extends React.Component {
       if(selRecipient.receiving_address.first_name || selRecipient.receiving_address.last_name)
       {
         shipping_name = (selRecipient.receiving_address.first_name?selRecipient.receiving_address.first_name+' ':'')+(selRecipient.receiving_address.last_name ? selRecipient.receiving_address.last_name:'')
+      } else {
+        if(this.props.orderDetails.deliverable==='shipping')
+          shipping_name = this.props.user.first_name+' '+this.props.user.last_name;
       }
       return (
         <React.Fragment>
@@ -435,7 +438,8 @@ class OrderDetails extends React.Component {
 
 const mapState = state => ({
   orderDetails: state.orders.orderDetails,
-  occasions: state.cards.occasions
+  occasions: state.cards.occasions,
+  user: state.user.user
 })
 
 const mapDispatch = {
