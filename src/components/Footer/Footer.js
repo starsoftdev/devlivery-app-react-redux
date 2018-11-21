@@ -44,13 +44,13 @@ class Footer extends React.Component {
           </ul>
           <ul className={s.socialMedia}>
             <li>
-              <a><Instagram/></a>
+              {/*<a><Instagram/></a>*/}
             </li>
             <li>
-              <a><Linkedin/></a>
+              {/*<a><Linkedin/></a>*/}
             </li>
             <li>
-              <a><Facebook/></a>
+              {/*<a><Facebook/></a>*/}
             </li>
           </ul>
         </div>
