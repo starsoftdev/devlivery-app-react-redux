@@ -131,7 +131,7 @@ class OrderDetails extends React.Component {
                       </span>
                       <br />
                       <span className={s.title}>
-                        <strong>{intl.formatMessage(messages.dateto)}</strong>
+                        <strong>{intl.formatMessage(messages.dateto)+':'}</strong>
                         {" " + recipients ? (recipients[currentShipping].contact.first_name + ' ' + recipients[currentShipping].contact.last_name):item.to}
                       </span>
                     </div>
