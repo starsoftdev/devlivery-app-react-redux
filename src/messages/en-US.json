@@ -2905,6 +2905,14 @@
     ]
   },
   {
+    "id": "contacts.warningRemoving",
+    "defaultMessage": "This contact can't be deleted because is a recipient in one of your orders.",
+    "message": "",
+    "files": [
+      "src/routes/contacts/messages.js"
+    ]
+  },
+  {
     "id": "contacts.confirmRemoving",
     "defaultMessage": "Are you sure you want to delete?",
     "message": "",

@@ -61,4 +61,8 @@ export default defineMessages({
     id: 'contactGroups.acceptRemoving',
     defaultMessage: 'Yes',
   },
+  warningRemoving: {
+    id: 'contactGroups.warningRemoving',
+    defaultMessage: 'This contact can\'t be deleted because is a recipient in one of your orders.',
+  }
 })
