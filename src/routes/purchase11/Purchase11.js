@@ -482,10 +482,10 @@ class Purchase11 extends React.Component {
                     {contact && (
                       <div className={s.recipient}>
                         <div>{contact && contact.title ? contact.title : ' '}</div>
-                        <div>{`${contact && contact.first_name ? contact.first_name : ' '} ${contact && contact.last_name ? contact.last_name : ' '}`}</div>
-                        <div>{contact ? contact.address : " "}</div>
-                        <div>{`${contact && contact.postal_code ? contact.postal_code : " "} ${contact && contact.city ? contact.city : " "}`}</div>
-                        <div>{contact ? contact.country : " "}</div>
+                        <p className={s.recp_ele}>{`${contact && contact.first_name ? contact.first_name : ' '} ${contact && contact.last_name ? contact.last_name : ' '}`}</p>
+                        <p className={s.recp_ele}>{contact ? contact.address : " "}</p>
+                        <p className={s.recp_ele}>{`${contact && contact.postal_code ? contact.postal_code : " "} ${contact && contact.city ? contact.city : " "}`}</p>
+                        <p className={s.recp_ele}>{contact ? contact.country : " "}</p>
                       </div>
                     )}
                     {selectedLocation !== 'shipping' && order.recipients && order.recipients.length > 1 && (
