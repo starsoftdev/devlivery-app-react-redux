@@ -2897,7 +2897,7 @@
     ]
   },
   {
-    "id": "contacts.warningRemoving",
+    "id": "contactGroups.warningRemoving",
     "defaultMessage": "This contact can't be deleted because is a recipient in one of your orders.",
     "message": "",
     "files": [

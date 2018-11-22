@@ -17,6 +17,7 @@ import PlusIcon from '../../static/plus.svg'
 import formMessages from '../../formMessages'
 import {removeContactGroup} from '../../reducers/contactGroups'
 import {FloatingLabel} from '../../components';
+import moment from 'moment'
 
 class ContactGroup extends React.Component {
   componentWillUnmount() {
@@ -62,6 +63,7 @@ class ContactGroup extends React.Component {
         title: intl.formatMessage(messages.birthdayColumn),
         dataIndex: 'dob',
         key: 'dob',
+        render: (dob) => dob && dob !== undefined ? moment(dob,"YYYY-MM-DD").format("DD/MM/YYYY") :''
       },
     ]
     return (
