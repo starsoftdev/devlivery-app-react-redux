@@ -155,8 +155,8 @@ export const updatePassword = (values, form) => (dispatch, getState, { fetch }) 
       form.resetFields()
     },
     failure: (error) => {
+      showErrorMessage(error);
       dispatch({ type: UPDATE_PASSWORD_FAILURE, error })
-      message.error('Something went wrong. Please try again.')
     }
   })
 }
