@@ -13,6 +13,7 @@ import debounce from 'lodash/debounce'
 import messages from './messages'
 import { DEFAULT_DEBOUNCE_TIME } from '../../constants'
 import { EDIT_CONTACT_ROUTE } from '../'
+import moment from 'moment'
 
 const GRID_VIEW = 'grid'
 const LIST_VIEW = 'list'
@@ -88,6 +89,7 @@ class Contacts extends React.Component {
         title: intl.formatMessage(messages.birthdayColumn),
         dataIndex: 'dob',
         key: 'dob',
+        render: (dob) => dob && dob !== undefined ? moment(dob,"YYYY-MM-DD").format("DD/MM/YYYY") :''
       },
       {
         title: intl.formatMessage(messages.actionsColumn),

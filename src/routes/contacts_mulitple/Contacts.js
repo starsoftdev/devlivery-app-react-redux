@@ -18,6 +18,7 @@ import { setNewRecipients, GROUP_ID_KEY, CONTACT_IDS_KEY, gotoConfirm } from '..
 import CheckIcon from '../../static/card_checkmark.svg'
 import { updateTeamMemberRole } from '../../reducers/team';
 import { SELECT_GROUPS } from '../../reducers/purchase'
+import moment from 'moment'
 
 const GRID_VIEW = 'grid'
 const LIST_VIEW = 'list'
@@ -227,6 +228,7 @@ class Contacts extends React.Component {
           title: intl.formatMessage(messages.birthdayColumn),
           dataIndex: 'dob',
           key: 'dob',
+          render: (dob) => dob && dob !== undefined ? moment(dob,"YYYY-MM-DD").format("DD/MM/YYYY") :''
         },
       ];
     //Group
