@@ -214,7 +214,7 @@ class User extends React.Component {
     const { number, name, expiry, cvc, focused } = this.state
     const { user, intl, cards, loading } = this.props
     const { getFieldDecorator } = this.props.form
-
+   
     const handwrittenDisabled = !(user && user.is_subscribed);
 
     const address = user && user.addresses && user.addresses.find(item => item.default !== null)
@@ -516,13 +516,11 @@ class User extends React.Component {
               </section>
               <ChangePasswordForm />
               {
-                /*
                 !handwrittenDisabled &&
                 <section className={s.section}>
                   <h1 className={s.header}>{'Company  Logo'}</h1>
                   <Avatar isLogo = {true} intl={intl}/>
                 </section>
-                */
               }
             </Col>
           </Row>
