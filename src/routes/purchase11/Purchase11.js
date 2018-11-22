@@ -336,7 +336,7 @@ class Purchase11 extends React.Component {
             />
             <div className={s.orderDetails}>
 
-              <h3 className={s.warnText}>{this.state.loadingEditor && (html === null || html === '' || html === undefined) && intl.formatMessage(messages.personalizedmsg)}</h3>
+              <div className={s.warnText}>{this.state.loadingEditor && (html === null || html === '' || html === undefined) && intl.formatMessage(messages.personalizedmsg)}</div>
               {this.state.mounted && bundle && <Editor
                 ref={editor => {
                   this.tinymce = editor
@@ -456,7 +456,7 @@ class Purchase11 extends React.Component {
               }
               {
                 this.state.recip_warnmsg && this.state.recip_warnmsg !== '' &&
-                <h3 className={s.warnText}>{this.state.recip_warnmsg}</h3>
+                <div className={s.warnText}>{this.state.recip_warnmsg}</div>
               }
               <Row gutter={20} type='flex' align='flex-start'>
                 <Col xs={24} sm={8}>
