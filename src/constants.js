@@ -42,8 +42,6 @@ export const ADDRESS_FIELDS = [
 export const REQUIRED_FIELDS = [
   'first_name',
   'last_name',
-  'email',
-  'phone',
   ...ADDRESS_FIELDS,
 ]
 
