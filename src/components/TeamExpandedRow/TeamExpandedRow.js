@@ -93,6 +93,9 @@ class TeamExpandedRow extends React.Component {
     }
     if (record.is_team_owner == true)
       payment_enable = false;
+    if(user && user.id === record.id)
+      payment_enable = false;
+    
     return (
       <Row className={s.container}>
         <Col md={12} className={s.column}>
