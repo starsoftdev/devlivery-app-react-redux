@@ -79,6 +79,11 @@ class Reports extends React.Component {
         key: 'delivery_date',
       },
       {
+        title: intl.formatMessage(messages.shippingdate),
+        dataIndex: 'shipping_date',
+        key: 'shipping_date',
+      },
+      {
         title: intl.formatMessage(messages.itemsColumn),
         dataIndex: '',
         key: 'card',
@@ -100,7 +105,7 @@ class Reports extends React.Component {
         key: 'total',
       },
     ]
-
+    
     return (
       <div className={s.container}>
         <div className={s.actions}>

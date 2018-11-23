@@ -41,6 +41,10 @@ export default defineMessages({
     id: 'reports.totalColumn',
     defaultMessage: 'Total Price',
   },
+  shippingdate: {
+    id: 'reports.shippingdate',
+    defaultMessage: 'Shipping Date',
+  },
   export: {
     id: 'reports.export',
     defaultMessage: 'Export .XLS',
