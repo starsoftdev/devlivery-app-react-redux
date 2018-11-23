@@ -8,10 +8,10 @@ import { connect } from 'react-redux'
 import { getOccasions } from '../../reducers/contacts'
 import debounce from 'lodash/debounce'
 import messages from './messages'
-import moment from 'moment/moment'
+import moment from 'moment-timezone'
 import { createArray } from '../../utils'
 import formMessages from '../../formMessages'
-import {BIRTH_GERMAN,BIRTH_EN} from '../../constants'
+import { BIRTH_GERMAN, BIRTH_EN } from '../../constants'
 
 // TODO add loading
 // TODO refactor occasion custom title
@@ -74,8 +74,7 @@ class Reminders extends React.Component {
       { value: 'm', label: this.props.intl.locale === 'de-DE' ? 'Monatlich' : 'Every month' },
       { value: 'y', label: this.props.intl.locale === 'de-DE' ? 'Jährlich' : 'Every year' }
     ];
-    if(occasionId === BIRTH_EN || occasionId === BIRTH_GERMAN)
-    {
+    if (occasionId === BIRTH_EN || occasionId === BIRTH_GERMAN) {
       Reminder_recurring.splice(1, 1);
     }
     return Reminder_recurring;
@@ -84,7 +83,7 @@ class Reminders extends React.Component {
     const { occasionTitle, newOccasion } = this.state
     const { occasions, loading, intl, initialValues, form } = this.props
     const { getFieldDecorator, getFieldValue } = form
-    
+
     form.getFieldDecorator('reminderKeys', { initialValue: createArray(initialValues && initialValues.length ? initialValues.length : 1) })
 
     let occasionsList = [...occasions]
@@ -93,21 +92,18 @@ class Reminders extends React.Component {
       occasionsList = [{ title: newOccasion }, ...occasions.filter(item => item.title !== newOccasion)]
     }
     const keys = getFieldValue('reminderKeys')
-    
+
     return (
       <React.Fragment>
         {keys.map((k, i) => {
           const Reminder_recurring = this.getReminderRecurring(getFieldValue(`reminders[${k}].occasion_id`));
           let occasion = undefined;
-          if(initialValues && initialValues[k])
-          {
-            if(initialValues[k].title &&(initialValues[k].title.toUpperCase() === BIRTH_EN || initialValues[k].title.toUpperCase() === BIRTH_GERMAN))
-            {
+          if (initialValues && initialValues[k]) {
+            if (initialValues[k].title && (initialValues[k].title.toUpperCase() === BIRTH_EN || initialValues[k].title.toUpperCase() === BIRTH_GERMAN)) {
               occasion = initialValues[k].title.toUpperCase();
-            } else if(initialValues[k].occasion_id !== null){
-              occasion = initialValues[k].occasion_id+'';
-            } else if(initialValues[k].title !== null)
-            {
+            } else if (initialValues[k].occasion_id !== null) {
+              occasion = initialValues[k].occasion_id + '';
+            } else if (initialValues[k].title !== null) {
               occasion = initialValues[k].title;
             }
           }
@@ -136,7 +132,7 @@ class Reminders extends React.Component {
                       this.setState({ occasionTitle: search })
                     }}
                     onChange={(value, item) => {
-                      form.setFieldsValue({[`reminders[${k}].recurring`]: undefined});
+                      form.setFieldsValue({ [`reminders[${k}].recurring`]: undefined });
                       if (item && +item.key !== 0) {
                         const selectedOccasion = occasions.find(occasion => occasion.id === +value)
                         form.setFieldsValue({ [`reminders[${k}].date`]: selectedOccasion && selectedOccasion.date ? moment(selectedOccasion.date, DATE_FORMAT) : undefined })
@@ -166,15 +162,20 @@ class Reminders extends React.Component {
                     className={s.date}
                     disabledDate={current => {
                       var date = new Date();
-                      date.setDate(date.getDate() - 1);
-                      return current && current.valueOf() < (date)
+                      let zurichtime = moment().tz("Europe/Zurich").format('HH');
+                      if (parseInt(zurichtime) < 12) {
+                        date.setDate(date.getDate() + 3);
+                      }
+                      else date.setDate(date.getDate() + 4);
+                      var n = current && current.day();
+                      return current && (current.valueOf() < (date) || n === 6 || n === 0)
                     }}
                     format={DISPLAYED_DATE_FORMAT} />
                 )}
               </Form.Item>
               <Form.Item>
                 {getFieldDecorator(`reminders[${k}].recurring`, {
-                  initialValue: initialValues ? (initialValues[k] && initialValues[k].recurring ? initialValues[k].recurring : '1'):undefined,
+                  initialValue: initialValues ? (initialValues[k] && initialValues[k].recurring ? initialValues[k].recurring : '1') : undefined,
                 })(
                   <Select
                     allowClear
