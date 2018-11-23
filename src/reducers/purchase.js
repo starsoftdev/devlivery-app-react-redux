@@ -858,7 +858,7 @@ export const makeOrder = () => (dispatch, getState, { fetch, history }) => {
 export const recalculateTotal = (deliverable) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   const { orderId } = getState().purchase
-  if (orderId) {
+  if (orderId && deliverable ) {
     dispatch({ type: GET_SHIPPINGTOTAL_REQUEST })
     console.log(`/recalculate-total`,{
       order_id: orderId,

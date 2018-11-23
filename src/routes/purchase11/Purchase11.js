@@ -58,7 +58,7 @@ class Purchase11 extends React.Component {
       fontlink: [],
       order: props.order,
       disableSubmit: false,
-      selectedLocation: 'shipping',
+      selectedLocation: null,
       selOccasion: null,
       selDate: (props.newrecipient && props.newrecipient.dob) || props.deliveryTime,
       contact: null,
@@ -88,10 +88,7 @@ class Purchase11 extends React.Component {
       this.setState({ content: nextProps.cardDetails.body ? nextProps.cardDetails.body : '' });
     }
     if (nextProps && nextProps.order !== this.state.order) {
-
-      if (this.state.contact) {
-        this.state.order = nextProps.order;
-      } else this.setState({ order: nextProps.order });
+      this.state.order = nextProps.order;
       this.onSelectLocation(this.state.selectedLocation);
     }
     if (nextProps && nextProps.user !== this.props.user) {
@@ -148,7 +145,7 @@ class Purchase11 extends React.Component {
       });
       return;
     }
-    else if (order && order.recipients && order.recipients[currentRecipient]) {
+    else if (value && order && order.recipients && order.recipients[currentRecipient]) {
       this.validateRecipientsAddress(value)
 
       var selRecipient = order.recipients[currentRecipient];
@@ -177,7 +174,7 @@ class Purchase11 extends React.Component {
       else this.setState({ selectedLocation: value, contact: null });
     }
     else {
-      this.setState({ ...this.state, selectedLocation: value, contact: null })
+      this.setState({ ...this.state, selectedLocation: value, contact: null, recip_warnmsg:'' })
     }
   }
   validateRecipientsAddress(value) {
@@ -326,7 +323,7 @@ class Purchase11 extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
-          <Loader loaded={shipping_cost ? true : false}>
+          <Loader loaded={order && order.recipients_count > 0 ? true : false}>
             <OrderItems
               {...this.props}
               {...order}
@@ -336,7 +333,7 @@ class Purchase11 extends React.Component {
             />
             <div className={s.orderDetails}>
 
-              <div className={s.warnText}>{this.state.loadingEditor && (html === null || html === '' || html === undefined) && intl.formatMessage(messages.personalizedmsg)}</div>
+              <div className={s.warnText} style={{marginBottom:10}}>{this.state.loadingEditor && (html === null || html === '' || html === undefined) && intl.formatMessage(messages.personalizedmsg)}</div>
               {this.state.mounted && bundle && <Editor
                 ref={editor => {
                   this.tinymce = editor
@@ -381,25 +378,25 @@ class Purchase11 extends React.Component {
             </Row>
             */}
             {
-              shipping_cost &&
               <Row type='flex' align='center' gutter={20} className={s.totalSection}>
                 <Col xs={12}>
                   <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.shippingcost)}</h2>
                 </Col>
                 <Col xs={12}>
-                  <span className={s.subtotalValue}>{shipping_cost.shipping_cost && shipping_cost.shipping_cost.toFixed(2)}</span>
+                  <span className={s.subtotalValue}>
+                    {shipping_cost ? (shipping_cost.shipping_cost && shipping_cost.shipping_cost.toFixed(2)): (order.recipient_shipping_cost*order.recipients_count).toFixed(2)}
+                  </span>
                   <span className={s.subtotalCurrency}>{'CHF'}</span>
                 </Col>
               </Row>
             }
             {
-              shipping_cost &&
               <Row type='flex' align='center' gutter={20} className={s.totalSection}>
                 <Col xs={12}>
                   <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.total)}</h2>
                 </Col>
                 <Col xs={12}>
-                  <span className={s.subtotalValue}>{shipping_cost.total_with_tax.toFixed(2)}</span>
+                  <span className={s.subtotalValue}>{shipping_cost ? shipping_cost.total_with_tax.toFixed(2):order.total.toFixed(2)}</span>
                   <span className={s.subtotalCurrency}>{'CHF'}</span>
                 </Col>
               </Row>
@@ -462,7 +459,7 @@ class Purchase11 extends React.Component {
                 <Col xs={24} sm={8}>
                   <Form.Item>
                     {getFieldDecorator('deliverable', {
-                      initialValue: this.state.selectedLocation,
+                      initialValue: this.state.selectedLocation ? this.state.selectedLocation : undefined,
                       rules: [
                         { required: true, message: intl.formatMessage(formMessages.required) },
                       ],
@@ -471,6 +468,7 @@ class Purchase11 extends React.Component {
                         placeholder={intl.formatMessage(messages.deliveryPlace)}
                         className={s.select}
                         onChange={this.onSelectLocation}
+                        allowClear
                       >
                         {deliveryLocations && deliveryLocations.map((item) =>
                           <Select.Option key={item.value} value={item.value}>{item.title}</Select.Option>
@@ -488,7 +486,7 @@ class Purchase11 extends React.Component {
                         <p className={s.recp_ele}>{contact ? contact.country : " "}</p>
                       </div>
                     )}
-                    {selectedLocation !== 'shipping' && order.recipients && order.recipients.length > 1 && (
+                    {selectedLocation && selectedLocation !== 'shipping' && order.recipients && order.recipients.length > 1 && (
                       <div style={{ marginTop: 10 }}>
                         <Button
                           type='primary'
@@ -574,7 +572,7 @@ class Purchase11 extends React.Component {
                 </Col>
               </Row>
               {
-                    selectedLocation !== 'shipping' &&
+                    selectedLocation && selectedLocation !== 'shipping' &&
                     <div style={{ marginTop: 20 }}>
                       <Button type='primary' size='small' style={{ marginRight: 10 }} ghost onClick={() => {
                         this.props.toAddContactFlowStep();
@@ -637,12 +635,12 @@ class Purchase11 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={() => { !disableSubmit && this.handleSubmit && shipping_cost }}
+            onKeyHandle={() => { !disableSubmit && this.handleSubmit }}
           />
           <Button
             type='primary'
             htmlType='submit'
-            disabled={disableSubmit || shipping_cost === null}
+            disabled={disableSubmit}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
