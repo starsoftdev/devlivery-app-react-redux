@@ -2231,6 +2231,14 @@
     ]
   },
   {
+    "id": "reports.shippingdate",
+    "defaultMessage": "Shipping Date",
+    "message": "Shipping Date",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
     "id": "purchase9.type",
     "defaultMessage": "Type",
     "message": "Typ",

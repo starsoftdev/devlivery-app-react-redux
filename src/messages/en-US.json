@@ -2091,6 +2091,14 @@
     ]
   },
   {
+    "id": "reports.shippingdate",
+    "defaultMessage": "Shipping Date",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
     "id": "resetPassword.email",
     "defaultMessage": "Email",
     "message": "",
