@@ -26,7 +26,7 @@ class Purchase8 extends React.Component {
   render() {
     const { previewCollapsed, disableSubmit } = this.state
     const { gift, giftIds, setGift, buyMoreGift, submitGift, intl, flowIndex, gifts, getGifts, giftType } = this.props
-
+    
     return (
       <React.Fragment>
         <div className={s.container}>
@@ -82,7 +82,7 @@ class Purchase8 extends React.Component {
             collapsed={previewCollapsed}
             header={intl.formatMessage(messages.previewHeader)}
             item={gift}
-            imagesProp={GIFT_GALLERY_PROP}
+            imagesProp={gift && gift[GIFT_GALLERY_PROP] && gift[GIFT_GALLERY_PROP].length > 0 ? GIFT_GALLERY_PROP : GIFT_IMAGES_PROP}
             onClickMagnifier={()=>this.setState({showGiftDetails:true})}
           />
         </div>
