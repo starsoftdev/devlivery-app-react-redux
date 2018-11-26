@@ -38,7 +38,7 @@
   flex-direction: column;
   justify-content: center;
   padding-left: 24px;
-  padding-right: 60px;
+  padding-right: 30px;
   position: relative;
 }
 
@@ -56,6 +56,10 @@
   color: var(--dark-color);
   text-transform: uppercase;
   letter-spacing: 3.15px;
+  width: 325px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .eventArrowIcon {
