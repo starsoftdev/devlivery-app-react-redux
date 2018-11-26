@@ -41,7 +41,7 @@ class SetPassword extends React.Component {
           <Form.Item>
             {getFieldDecorator('password', {
               rules: [
-                {required: true, message: intl.formatMessage(formMessages.required)},
+                { required: true, min: 6, message: intl.formatMessage(formMessages.minLength, { length: 6 }) }
               ],
             })(
               <FloatingLabel
