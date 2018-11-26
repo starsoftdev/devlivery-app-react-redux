@@ -79,7 +79,7 @@ export const CARD_SIZES = (intl) => [
     title: intl && intl.formatMessage(messages.foldedCardWithInlay),
     subtitle:'CHF 7.50',
     svg: BigFoldedCardImage,
-    extra: 'Format 4" × 9"',
+    extra: 'Format 9" × 4"',
     height: 99,
     width: 226,
   },
