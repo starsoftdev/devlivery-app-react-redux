@@ -1,7 +1,7 @@
 @import '../../styles/variables.css';
 
 .item {
-  margin-bottom: var(--margin-xl);
+  margin-bottom: var(--margin-md);
   position: relative;
 }
 
@@ -15,4 +15,10 @@
   top: 50%;
   right: -30px;
   transform: translateY(-50%);
+}
+.reminderDate{
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-base);
+  color: var(--text-color);
+  margin-bottom: 0;
 }
