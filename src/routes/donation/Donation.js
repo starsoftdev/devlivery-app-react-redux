@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { submitDonation, setDonationOrg,getDonationOrgs } from '../../reducers/purchase'
-import { Button, Col, Form, Input, Row, Checkbox, Pagination } from 'antd'
+import { Button, Col, Form, Input, Row, Checkbox, Pagination, message } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Donation.css'
 import { Actions, Card, PurchaseActions, SectionHeader,PaginationItem } from '../../components'
@@ -24,6 +24,16 @@ class Donation extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err && this.props.donationOrg) {
+        if(values['donationAmount'] < 0)
+        {
+          this.props.form.setFields({
+            donationAmount: {
+              value: values['donationAmount'],
+              errors: [new Error('This field must be positive.')],
+            },
+          });
+          return;
+        }
         localStorage.setItem(DONATION_STATE, JSON.stringify(values));
         this.props.submitDonation(values,refresh)
       }
@@ -90,7 +100,7 @@ class Donation extends React.Component {
                   { required: true, message: intl.formatMessage(formMessages.required) },
                 ],
               })(
-                <Input placeholder={intl.formatMessage(messages.amount)} />
+                <Input type='number' placeholder={intl.formatMessage(messages.amount)} />
               )}
             </Form.Item>
             <Form.Item>
