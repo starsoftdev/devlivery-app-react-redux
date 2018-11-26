@@ -7,7 +7,7 @@ import {generateUrl} from '../router'
 import {CONTACTS_ROUTE} from '../routes'
 import mapValues from 'lodash/mapValues'
 import has from 'lodash/has'
-import {getBirthday, getFormErrors, getOrdering} from '../utils'
+import {getBirthday, getFormErrors, getOrdering, showErrorMessage} from '../utils'
 import { navigateToNextRouteName } from './global';
 import { SET_NEW_RECIPIENT } from './purchase';
 import moment from 'moment'
@@ -430,7 +430,30 @@ export const importContacts = (columnsMapping, callback) => (dispatch, getState,
     },
   })
 }
-
+export const getReminderDate = (date,recurring,callback) => (dispatch, getState, { fetch }) => {
+  const { token } = dispatch(getToken())
+  
+  return fetch(`/get-reminder-date?${qs.stringify({
+    date,
+    recurring : recurring!=='1' ? recurring :null
+  })}`, {
+    method: 'GET',
+    token,
+    success: (res) => {
+      if(callback)
+      {
+        callback(res.data);
+      }
+    },
+    failure: (err) => {
+      if(err.errors && err.errors.recurring)
+      {
+        message.error(err.errors.recurring[0])
+      }
+      else showErrorMessage(err.errors);
+    },
+  })
+}
 export const openUploadedContactsModal = () => ({type: OPEN_UPLOADED_CONTACTS_MODAL})
 
 export const closeUploadedContactsModal = () => ({type: CLOSE_UPLOADED_CONTACTS_MODAL})

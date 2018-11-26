@@ -1,11 +1,11 @@
 import React from 'react'
-import { Button, DatePicker, Form, Icon, Input, Select } from 'antd'
+import { Button, DatePicker, Form, Icon, Input, Select, Row, Col } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Reminders.css'
 import PlusIcon from '../../static/plus.svg'
 import { DATE_FORMAT, DEFAULT_DEBOUNCE_TIME, DISPLAYED_DATE_FORMAT } from '../../constants'
 import { connect } from 'react-redux'
-import { getOccasions } from '../../reducers/contacts'
+import { getOccasions, getReminderDate } from '../../reducers/contacts'
 import debounce from 'lodash/debounce'
 import messages from './messages'
 import moment from 'moment-timezone'
@@ -28,6 +28,8 @@ class Reminders extends React.Component {
     }
 
     this.getOccasions = debounce(props.getOccasions, DEFAULT_DEBOUNCE_TIME)
+    this.changeDatePicker = this.changeDatePicker.bind(this);
+    this.changeRecurring = this.changeRecurring.bind(this);
   }
 
   componentWillMount() {
@@ -80,6 +82,37 @@ class Reminders extends React.Component {
     }
     return Reminder_recurring;
   }
+  changeDatePicker = (k,value) => {
+    const { getFieldValue,setFieldsValue } = this.props.form
+    if(value === null || getFieldValue(`reminders[${k}].recurring`) === undefined)
+    {
+      setFieldsValue({ [`reminders[${k}].reminder_date`]: null })
+      return ;
+    }
+    this.getReminderDate(k,value,getFieldValue(`reminders[${k}].recurring`));
+  }
+  changeRecurring = (k,value) => {
+    const { getFieldValue,setFieldsValue } = this.props.form
+    if(value === undefined || getFieldValue(`reminders[${k}].date`) === null)
+    {
+      setFieldsValue({ [`reminders[${k}].reminder_date`]: null })
+      return ;
+    }
+    this.getReminderDate(k,getFieldValue(`reminders[${k}].date`),value);
+  }
+  getReminderDate(k,date,recurring) {
+    const { getFieldValue,setFieldsValue } = this.props.form
+    this.props.getReminderDate(
+      date.format('YYYY-MM-DD'),
+      recurring,
+      (res)=>{
+        if(res.reminder_date)
+        {
+          setFieldsValue({ [`reminders[${k}].reminder_date`]: res.reminder_date });
+        }
+      }
+    );
+  }
   render() {
     const { occasionTitle, newOccasion } = this.state
     const { occasions, loading, intl, initialValues, form } = this.props
@@ -93,11 +126,11 @@ class Reminders extends React.Component {
       occasionsList = [{ title: newOccasion }, ...occasions.filter(item => item.title !== newOccasion)]
     }
     const keys = getFieldValue('reminderKeys')
-    
     return (
       <React.Fragment>
         {keys.map((k, i) => {
           const Reminder_recurring = this.getReminderRecurring(getFieldValue(`reminders[${k}].occasion_id`));
+          
           let occasion = undefined;
           if(initialValues && initialValues[k])
           {
@@ -111,6 +144,7 @@ class Reminders extends React.Component {
               occasion = initialValues[k].title;
             }
           }
+          
           return (
             <div key={k} className={s.item}>
               {initialValues && initialValues[k] && initialValues[k].id && getFieldDecorator(`reminders[${k}].id`, {
@@ -136,10 +170,10 @@ class Reminders extends React.Component {
                       this.setState({ occasionTitle: search })
                     }}
                     onChange={(value, item) => {
-                      form.setFieldsValue({[`reminders[${k}].recurring`]: undefined});
+                      //form.setFieldsValue({[`reminders[${k}].recurring`]: undefined});
                       if (item && +item.key !== 0) {
                         const selectedOccasion = occasions.find(occasion => occasion.id === +value)
-                        form.setFieldsValue({ [`reminders[${k}].date`]: selectedOccasion && selectedOccasion.date ? moment(selectedOccasion.date, DATE_FORMAT) : undefined })
+                        //form.setFieldsValue({ [`reminders[${k}].date`]: selectedOccasion && selectedOccasion.date ? moment(selectedOccasion.date, DATE_FORMAT) : undefined })
                       }
                       if (item && +item.key === 0) {
                         this.addOccasion(occasionTitle)
@@ -173,7 +207,9 @@ class Reminders extends React.Component {
                       else date.setDate(date.getDate());
                       return current && current.valueOf() < (date)
                     }}
-                    format={DISPLAYED_DATE_FORMAT} />
+                    format={DISPLAYED_DATE_FORMAT} 
+                    onChange = {(value)=>this.changeDatePicker(k,value)}
+                  />
                 )}
               </Form.Item>
               <Form.Item>
@@ -183,12 +219,22 @@ class Reminders extends React.Component {
                   <Select
                     allowClear
                     placeholder={intl.formatMessage(messages.repeat)}
+                    onChange = {(value)=>this.changeRecurring(k,value)}
                   >
                     {Reminder_recurring.map((item) =>
                       <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>
                     )}
                   </Select>
                 )}
+              </Form.Item>
+              <Form.Item>
+                {getFieldDecorator(`reminders[${k}].reminder_date`, {
+                    initialValue: initialValues && initialValues[k] && initialValues[k].reminder_date ? initialValues[k].reminder_date :undefined,
+                  })(
+                    <p className={s.reminderDate}>
+                      {getFieldValue(`reminders[${k}].reminder_date`) ? ('Reminder Date :  ' + getFieldValue(`reminders[${k}].reminder_date`)) :''}
+                    </p>
+                  )}
               </Form.Item>
               {i > 0 && (
                 <Icon type='close' onClick={() => this.removeItem(k)} className={s.removeIcon} />
@@ -213,6 +259,7 @@ const mapState = state => ({
 
 const mapDispatch = {
   getOccasions,
+  getReminderDate
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Reminders))

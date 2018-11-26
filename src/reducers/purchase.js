@@ -393,6 +393,7 @@ export const addRecipientsOrder = (orderId) => (dispatch, getState, { fetch }) =
     method: 'POST',
     contentType: 'application/json',
     token,
+    accept: 'application/json',
     body: {
       contacts: newrecipient,
     },
