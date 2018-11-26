@@ -10,6 +10,7 @@ import { CARD_IMAGES_PROP, GIFT_IMAGES_PROP, GIFT_GALLERY_PROP } from '../../con
 import cn from 'classnames';
 import BackIcon from '../../static/view_list.svg'
 import { setFlowPayment } from '../../reducers/purchase'
+import moment from 'moment'
 
 const CARD_TYPE = 'card'
 const GIFT_TYPE = 'gift'
@@ -281,6 +282,29 @@ class OrderDetails extends React.Component {
                   <header className={s.summaryHeader}>
                     {intl.formatMessage(messages.summary)}
                   </header>
+                  {
+                    (orderDetails.delivery_occasion || orderDetails.delivery_date) &&
+                    <div className={s.summaryInfoContent}>
+                      {
+                        orderDetails.delivery_occasion &&
+                        <Row type='flex' justify='space-between' className={s.summaryRow}>
+                          <Col>{intl.formatMessage(messages.deliveryoccasion)}</Col>
+                          <Col>
+                            {orderDetails.delivery_occasion}
+                          </Col>
+                        </Row>
+                      }
+                      {
+                        orderDetails.delivery_date &&
+                        <Row type='flex' justify='space-between' className={s.summaryRow}>
+                          <Col>{intl.formatMessage(messages.deliveryDate)}</Col>
+                          <Col>
+                            {moment(orderDetails.delivery_date).format('DD-MM-YYYY')}
+                          </Col>
+                        </Row>
+                      }
+                    </div>
+                  }
                   <div className={s.summaryContent}>
                     <Row type='flex' justify='space-between' className={s.summaryRow}>
                       <Col>{intl.formatMessage(messages.summarySubtotal)}</Col>
@@ -376,7 +400,7 @@ class OrderDetails extends React.Component {
                   <Row className={s.detailRow}>
                     <Col md={12}>
                       <span className={s.DetailTitle}>{intl.formatMessage(messages.size)}</span><br />
-                      <span className={s.Detail}>{cardDetails.size}</span>
+                      <span className={s.Detail}>{cardDetails.size === '4" X 9"' ? '9" X 4"':cardDetails.size}</span>
                     </Col>
                     <Col md={12}>
                       <span className={s.DetailTitle}>{intl.formatMessage(messages.priceColumn)}</span><br />

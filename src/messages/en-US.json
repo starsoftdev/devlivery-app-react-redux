@@ -3394,6 +3394,22 @@
     ]
   },
   {
+    "id": "orders.deliveryoccasion",
+    "defaultMessage": "Delivery Occasion",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "orders.deliveryDate",
+    "defaultMessage": "Delivery Date",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
     "id": "purchase11.deliveryPlace",
     "defaultMessage": "Where to send",
     "message": "",

@@ -3534,6 +3534,22 @@
     ]
   },
   {
+    "id": "orders.deliveryoccasion",
+    "defaultMessage": "Delivery Occasion",
+    "message": "Anlass der Lieferung",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "orders.deliveryDate",
+    "defaultMessage": "Delivery Date",
+    "message": "Liefertermin",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
     "id": "purchase11.deliveryPlace",
     "defaultMessage": "Where to send",
     "message": "Senden an",
