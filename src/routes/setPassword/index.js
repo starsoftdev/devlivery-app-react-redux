@@ -4,7 +4,7 @@ import SetPassword from './SetPassword'
 import {setCurrentRouteName} from '../../reducers/global'
 import messages from './messages'
 
-function action({store, route, query}) {
+function action({store, route, query, intl}) {
   store.dispatch(setCurrentRouteName(route.name))
 
   if (!query.token) {
