@@ -16,7 +16,7 @@ const CalendarEvent = ({first_name, last_name, occasion, reminder_date, occasion
     </div>
     <div className={s.eventDetails}>
       <div className={s.eventType}>{occasion ? occasion : custom_title} ({occasion ? occasion_type : 'custom'})</div>
-      <div className={s.eventName}>{first_name} {last_name}</div>
+      <div className={s.eventName} title={first_name+'\n'+last_name}>{first_name} {last_name}</div>
       {/*<LongArrowIcon className={s.eventArrowIcon}/>*/}
     </div>
   </a>
