@@ -77,8 +77,6 @@
 .events {
   padding-left: 60px;
   flex: 1;
-  max-height: 352px;
-  
   margin-top: 58px;
 }
 
@@ -106,7 +104,7 @@
   }
 }
 .footer {
-  margin-top: 2px;
+  margin-top: 5px;
   display: flex;
   justify-content: flex-end;
 }
