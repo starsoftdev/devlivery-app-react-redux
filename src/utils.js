@@ -6,7 +6,11 @@ import {message} from 'antd'
 
 export const getSuccessMessage = (res) => res && typeof res.data === 'string' ? res.data : null
 
-export const getErrorMessage = (res) => res && (typeof res.data === 'string' || typeof res.errors === 'string') ? res.data||res.errors : 'Something went wrong. Please try again.'
+export const getErrorMessage = (res) => {
+  if(res && res.message)
+    return res.message;
+  return res && (typeof res.data === 'string' || typeof res.errors === 'string') ? res.data||res.errors : 'Something went wrong. Please try again.';
+}
 
 export const showErrorMessage = (res) => {
   if(res)

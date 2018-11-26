@@ -28,7 +28,6 @@ export const setPassword = (values) => (dispatch, getState, {fetch, history}) =>
       if (successMessage) message.success(successMessage)
     },
     failure: (res) => {
-      showErrorMessage(res);
       dispatch({type: SET_PASSWORD_FAILURE, error: getErrorMessage(res)})
     },
   })
