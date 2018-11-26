@@ -8,6 +8,10 @@ import {EDIT_CONTACT_ROUTE} from '../../routes'
 import {Link} from '../';
 import {defineMessages} from 'react-intl'
 
+const trans_adr = {
+  office:'Geschäfts',
+  home:'Wohn'
+}
 const messages = defineMessages({
   editbutton: {
     id: 'editContact.breadcrumb',
@@ -43,7 +47,7 @@ class ContactDetail extends React.Component {
 
   render() {
     const {intl,last_name, first_name, email, phone, nickname, relationship, addresses,contactId} = this.props
-    console.log('addresses',addresses);
+    
     return (
       <Modal
         className={s.contactDetailModal}
@@ -77,7 +81,11 @@ class ContactDetail extends React.Component {
           {addresses && addresses.map((address) =>
             <Col key={address.id} md={12}>
               <span className={s.contactDetail}>
-                {address.address2 ? `${address.address} ${address.address2}` : address.address}
+                {intl.locale == 'de-DE' ? trans_adr[address.title] : address.title}
+              </span>
+              <br/>
+              <span className={s.contactDetail}>
+                {address.address2 ? `${address.address} ${address.address2}` : address.address.join('\n')}
               </span>
               <br/>
               <span className={s.contactDetail}>{address.city}</span><br/>
