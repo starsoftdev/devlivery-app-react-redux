@@ -267,15 +267,15 @@ class Purchase6 extends React.Component {
   }
   render() {
     const { mounted } = this.state
-    const { intl, flowIndex, cardSize, templates, orientation } = this.props
+    const { intl, flowIndex, cardSize,cardSizeKey, templates, orientation } = this.props
 
     const w = cardSize ? cardSize.width : 100
     const h = cardSize ? cardSize.height : 100
 
-    const cardWidth = orientation && orientation == 'l' ? Math.max(h,w): Math.min(h,w);
-    const cardHeight = orientation && orientation == 'l' ? Math.min(h,w): Math.max(h,w);
+    const cardWidth = orientation && orientation == 'l' || cardSizeKey === '4" X 9"'? Math.max(h,w): Math.min(h,w);
+    const cardHeight = orientation && orientation == 'l' || cardSizeKey === '4" X 9"'? Math.min(h,w): Math.max(h,w);
 
-    const isLargeCard = cardWidth > 182 ? true : false;
+    const isLargeCard = cardWidth > 182 || cardSizeKey === '4" X 9"'? true : false;
     
     return (
       <div className={s.form}>
@@ -347,6 +347,7 @@ class Purchase6 extends React.Component {
 
 const mapState = state => ({
   cardDetails: state.purchase.cardDetails,
+  cardSizeKey: state.purchase.cardSizeKey,
   cardSize: state.purchase.cardSize,
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,

@@ -280,7 +280,7 @@ class Purchase11 extends React.Component {
   }
   render() {
     const { currentRecipient, order, disableSubmit, contact, selOccasion, checkSave, selectedLocation,warnings } = this.state
-    const { flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation, flow, user, shipping_cost, applycouponTotal } = this.props
+    const { flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation, flow, user, shipping_cost, applycouponTotal, cardSizeKey } = this.props
     const { getFieldDecorator } = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
 
@@ -288,8 +288,8 @@ class Purchase11 extends React.Component {
     const w = cardSize ? cardSize.width : 100
     const h = cardSize ? cardSize.height : 100
 
-    const cardWidth = orientation && orientation == 'l' ? Math.max(h, w) : Math.min(h, w);
-    const cardHeight = orientation && orientation == 'l' ? Math.min(h, w) : Math.max(h, w);
+    const cardWidth = orientation && orientation == 'l' || cardSizeKey === '4" X 9"' ? Math.max(h, w) : Math.min(h, w);
+    const cardHeight = orientation && orientation == 'l' || cardSizeKey === '4" X 9"' ? Math.min(h, w) : Math.max(h, w);
 
     const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
 
@@ -667,7 +667,8 @@ const mapState = state => ({
   deliveryOccations: state.purchase.deliveryOccations,
   user: state.user.user,
   orientation: state.purchase.orientation,
-  shipping_cost: state.purchase.shipping_cost
+  shipping_cost: state.purchase.shipping_cost,
+  cardSizeKey: state.purchase.cardSizeKey
 })
 
 const mapDispatch = {
