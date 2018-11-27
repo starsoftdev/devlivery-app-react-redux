@@ -267,7 +267,9 @@ class Purchase6 extends React.Component {
   }
   render() {
     const { mounted } = this.state
-    const { intl, flowIndex, cardSize,cardSizeKey, templates, orientation } = this.props
+    const { intl, flowIndex, cardSizeKey, templates, orientation } = this.props
+
+    const cardSize = Contants.CARD_SIZES(intl).find(item => item.key === cardSizeKey);
 
     const w = cardSize ? cardSize.width : 100
     const h = cardSize ? cardSize.height : 100
@@ -348,7 +350,6 @@ class Purchase6 extends React.Component {
 const mapState = state => ({
   cardDetails: state.purchase.cardDetails,
   cardSizeKey: state.purchase.cardSizeKey,
-  cardSize: state.purchase.cardSize,
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
   templates: state.purchase.templates,

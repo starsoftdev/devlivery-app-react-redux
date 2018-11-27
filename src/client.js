@@ -57,7 +57,7 @@ store.subscribe(() => {
     'cardId',
     'cardColor',
     'cardStyle',
-    'cardSize',
+    //'cardSize',
     'cardSizeKey',
     'orientation',
     //'cardDetails',

@@ -29,7 +29,7 @@ import RemoveIcon from '../../static/remove.svg'
 import { FloatingLabel } from '../../components';
 import { INDIVIDUAL_ACCOUNT, TEAM_ACCOUNT } from '../../reducers/register'
 import Loader from 'react-loader';
-import {BIRTH_GERMAN,BIRTH_EN} from '../../constants'
+import {BIRTH_GERMAN,BIRTH_EN,CARD_SIZES} from '../../constants'
 
 import {
   ORDER_BUNDLE_FLOW,
@@ -280,11 +280,11 @@ class Purchase11 extends React.Component {
   }
   render() {
     const { currentRecipient, order, disableSubmit, contact, selOccasion, checkSave, selectedLocation,warnings } = this.state
-    const { flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation, flow, user, shipping_cost, applycouponTotal, cardSizeKey } = this.props
+    const { flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, newrecipient, saved, removeRecipientsOrder, orientation, flow, user, shipping_cost, applycouponTotal, cardSizeKey } = this.props
     const { getFieldDecorator } = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
 
-
+    const cardSize = CARD_SIZES(intl).find(item => item.key === cardSizeKey);
     const w = cardSize ? cardSize.width : 100
     const h = cardSize ? cardSize.height : 100
 
@@ -661,7 +661,6 @@ const mapState = state => ({
   deliveryLocations: state.purchase.deliveryLocations,
   deliveryLocation: state.purchase.deliveryLocation,
   deliveryTime: state.purchase.deliveryTime,
-  cardSize: state.purchase.cardSize,
   cardDetails: state.purchase.cardDetails,
   newrecipient: state.purchase.newrecipient,
   deliveryOccations: state.purchase.deliveryOccations,
