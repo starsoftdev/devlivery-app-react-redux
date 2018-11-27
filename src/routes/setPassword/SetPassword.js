@@ -17,7 +17,7 @@ class SetPassword extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.setPassword({...values, token: this.props.query.token})
+        this.props.setPassword({...values, token: this.props.query.token, email: this.props.query.email})
       }
     })
   }
