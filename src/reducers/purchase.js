@@ -219,6 +219,7 @@ export const setBundle = (bundle) => (dispatch, getState) => {
     gift: bundle.bundle_gifts[0] && bundle.bundle_gifts[0].gift,
     giftType: bundle.voucher ? VOUCHER_TYPE : bundle.bundle_gifts[0] && bundle.bundle_gifts[0].gift.type,
     cardSize: CARD_SIZES().find(item => item.key === bundle.bundle_card.card.size),
+    cardSizeKey: bundle.bundle_card.card.size,
     cardStyle: bundle.bundle_card.card.style,
     orientation: bundle.bundle_card.card.orientation,
     orderId: null,
@@ -1537,6 +1538,7 @@ export const initialState = {
   letteringTechnique: "printed",
   cardStyle: null,
   cardSize: null,
+  cardSizeKey: null,
   cardDetails: null,
   giftType: undefined,
   card: null,
@@ -1581,7 +1583,7 @@ export const initialState = {
 }
 
 export default createReducer(initialState, {
-  [SET_BUNDLE]: (state, { bundle, letteringTechnique, card, gift, giftType, cardSize, cardStyle, orderId }) => {
+  [SET_BUNDLE]: (state, { bundle, letteringTechnique, card, gift, giftType, cardSize, cardSizeKey, cardStyle, orderId }) => {
     return {
       // bundleId should be saved in cookies - bundle obj is too big
       bundle,
@@ -1592,6 +1594,7 @@ export default createReducer(initialState, {
       gift,
       giftType,
       cardSize,
+      cardSizeKey,
       cardStyle,
       cardDetails: { body: '' },
       orderId,
