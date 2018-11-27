@@ -22,10 +22,12 @@ export const setPassword = (values) => (dispatch, getState, {fetch, history}) =>
     method: 'POST',
     body: values,
     success: (res) => {
+      
+      if (res.data && res.data.message) message.success(res.data.message)
+
       dispatch({type: SET_PASSWORD_SUCCESS})
       history.push(generateUrl(LOGIN_ROUTE))
-      const successMessage = getSuccessMessage(res)
-      if (successMessage) message.success(successMessage)
+      
     },
     failure: (res) => {
       dispatch({type: SET_PASSWORD_FAILURE, error: getErrorMessage(res)})
