@@ -52,7 +52,7 @@ class CardDetails extends React.Component {
           </Col>
           <Col md={12}>
             <span className={s.DetailTitle}>{intl.formatMessage(messages.price)}</span><br />
-            <span className={s.Detail}>{cardDetails.price_with_tax + " " + cardDetails.currency}</span>
+            <span className={s.Detail}>{cardDetails.currency+" "+cardDetails.price_with_tax}</span>
           </Col>
         </Row>
         {

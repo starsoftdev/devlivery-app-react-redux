@@ -51,7 +51,7 @@ class GiftDetails extends React.Component {
         <Row className={s.detailRow}>
           <Col md={12}>
             <span className={s.DetailTitle}>{intl.formatMessage(messages.price)}</span><br />
-            <span className={s.Detail}>{giftDetails.price_with_tax + " " + giftDetails.currency}</span>
+            <span className={s.Detail}>{giftDetails.currency+" "+giftDetails.price_with_tax}</span>
           </Col>
         </Row>
         {

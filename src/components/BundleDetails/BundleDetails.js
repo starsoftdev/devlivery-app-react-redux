@@ -22,16 +22,17 @@ class BundleDetails extends React.Component {
         <div style={{backgroundImage: `url(${getItemImage(bundleDetails.bundle_card.card, CARD_IMAGES_PROP)})`}} className={s.itemImage}/>
         <h3 className={s.cardTitle}>{bundleDetails.bundle_card.card.title}</h3>
         <p>
+          <span className={s.currency}>CHF </span>
           <span className={s.price}>{bundleDetails.bundle_card.card.price}</span>
-          <span className={s.currency}>CHF</span>
+          
         </p>
         {bundleDetails.bundle_gifts.map((bundleGift) =>
           <React.Fragment key={bundleGift.gift.id}>
             <div style={{backgroundImage: `url(${getItemImage(bundleGift.gift, GIFT_IMAGES_PROP)})`}} className={s.itemImage}/>
             <h3 className={s.giftTitle}>{bundleGift.gift.title}</h3>
             <p>
+              <span className={s.currency}>CHF </span>
               <span className={s.price}>{bundleGift.gift.price}</span>
-              <span className={s.currency}>CHF</span>
             </p>
           </React.Fragment>
         )}

@@ -125,7 +125,7 @@
 .cardPriceCurrency {
   font-family: var(--font-family-secondary);
   color: var(--muted-color);
-  margin-left: 4px;
+  margin-right: 4px;
   font-size: 18px;
   letter-spacing: 3.15px;
   font-weight: 300;

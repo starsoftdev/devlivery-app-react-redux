@@ -222,8 +222,8 @@ class Purchase13 extends React.Component {
           <div className={s.checkbox}>
             <label>
               <span className={s.subtotalHeader}>{intl.formatMessage(messages.amount) + ': '}</span>
+              <span className={s.subtotalCurrency}>{'CHF'}</span>
               <span className={s.subtotalValue}>{order && order.total}</span>
-              <span className={s.subtotalCurrency}>{' CHF'}</span>
             </label>
           </div>
           <br />

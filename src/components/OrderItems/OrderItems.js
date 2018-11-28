@@ -76,8 +76,8 @@ class OrderItems extends React.Component {
           <p className={s.cardInfo}>
             <span className={s.cardType}>{card.title}</span>
             <br />
-            <span className={s.cardPrice}>{card.price_with_tax}</span>
             <span className={s.cardPriceCurrency}>{card.currency}</span>
+            <span className={s.cardPrice}>{card.price_with_tax}</span>
           </p>
         </div>
         {gift && (
@@ -108,8 +108,8 @@ class OrderItems extends React.Component {
                   <br />
                   <span className={s.cardType}>{"(" +(giftIndex+1)+"/"+gifts.length + ")"}</span>
                   <br />
-                  <span className={s.cardPrice}>{gift.price_with_tax}</span>
                   <span className={s.cardPriceCurrency}>{gift.currency}</span>
+                  <span className={s.cardPrice}>{gift.price_with_tax}</span>
                 </p>
                 {
                   gifts.length > 0 &&
@@ -139,8 +139,8 @@ class OrderItems extends React.Component {
             <p className={s.cardInfo}>
               <span className={s.cardType}>{voucher.title}</span>
               <br />
-              <span className={s.cardPrice}>{voucher.price_with_tax}</span>
               <span className={s.cardPriceCurrency}>{'CHF'}</span>
+              <span className={s.cardPrice}>{voucher.price_with_tax}</span>
             </p>
           </div>
         )}
@@ -163,8 +163,9 @@ class OrderItems extends React.Component {
             <p className={s.cardInfo}>
               <span className={s.cardType}>{donation.organization.name}</span>
               <br />
-              <span className={s.cardPrice}>{donation.amount}</span>
               <span className={s.cardPriceCurrency}>{'CHF'}</span>
+              <span className={s.cardPrice}>{donation.amount}</span>
+              
             </p>
           </div>
         )}
@@ -176,8 +177,8 @@ class OrderItems extends React.Component {
             <p className={s.cardInfo}>
               <span className={s.cardType}></span>
               <br />
-              <span className={s.cardPrice}></span>
               <span className={s.cardPriceCurrency}></span>
+              <span className={s.cardPrice}></span>
             </p>
           </div>
         )}
