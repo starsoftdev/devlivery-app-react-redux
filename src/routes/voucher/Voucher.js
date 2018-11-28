@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { submitVoucher } from '../../reducers/purchase'
-import { Button, Form, Input } from 'antd'
+import { Button, Form, Input, Select } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Voucher.css'
 import { Actions, PurchaseActions, SectionHeader, FloatingLabel } from '../../components'
@@ -92,9 +92,18 @@ const voucherStyles = {
 
 // TODO add recipient/receiver fields as dropdowns
 class Voucher extends React.Component {
+  state = {
+    template: undefined
+  }
   componentDidMount() {
     loadFont('Abril Fatface')
     loadFont('Alex Brush')
+    if(this.props.voucher && this.props.voucher.from && this.props.templates)
+    {
+      const selItem = this.props.templates.find(item => item.template === this.props.voucher.from);
+      if(selItem)
+        this.setState({template: selItem.template});    
+    }
   }
 
   handleSubmit = (e, refresh = false) => {
@@ -111,7 +120,7 @@ class Voucher extends React.Component {
   }
 
   render() {
-    const { intl, flowIndex, loading, voucher } = this.props
+    const { intl, flowIndex, loading, voucher, templates } = this.props
     // TODO fix  The prop `html` is marked as required in `ContentEditable`, but its value is `undefined`
     const { getFieldDecorator } = this.props.form
 
@@ -127,14 +136,27 @@ class Voucher extends React.Component {
           <p className={s.description}>{intl.formatMessage(messages.description)}</p>
           <div className={s.container}>
             <div className={cn(s.voucherForm)}>
-              <Form.Item className={cn(s.voucherFormItem)}>
+              <Select
+                placeholder={intl.formatMessage(messages.recipient)}
+                onChange={(value)=>{
+                  this.props.form.setFieldsValue({from:value})
+                  this.setState({template: value});
+                }}
+                allowClear
+                value = {this.state.template}
+              >
+                {templates && templates.map((item) =>
+                  <Select.Option key={item.name} value={item.template}>{item.name}</Select.Option>
+                )}
+              </Select>
+              <Form.Item className={cn(s.voucherFormItem,this.state.template !== undefined && s.voucherDisable)}>
                 {getFieldDecorator('from', {
                   initialValue: voucher ? voucher.from : '',
                   rules: [
                     { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                   ],
                 })(
-                  <FloatingLabel placeholder={intl.formatMessage(messages.giver)} />
+                  <FloatingLabel placeholder={intl.formatMessage(messages.giver)} isDisabled = {this.state.template !== undefined}/>
                 )}
               </Form.Item>
               <Form.Item className={cn(s.voucherFormItem,s.voucherDisable)}>
@@ -252,6 +274,7 @@ const mapState = state => ({
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
   voucher: state.purchase.voucher,
+  templates: state.purchase.templates,
 })
 
 const mapDispatch = {
