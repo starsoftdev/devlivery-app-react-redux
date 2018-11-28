@@ -51,7 +51,7 @@ class ContactDetail extends React.Component {
     return (
       <Modal
         className={s.contactDetailModal}
-        title={`${first_name} ${last_name}`}
+        title={(<p className={s.headertitle} title={first_name+'\n'+last_name}>{first_name} {last_name}</p>)}
         visible
         onCancel={this.props.closeDetailContactView}
         footer={null}
