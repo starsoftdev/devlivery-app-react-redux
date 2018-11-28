@@ -184,8 +184,8 @@ class OrderDetails extends React.Component {
         render: (item) => {
           return (
             <React.Fragment>
-              {item.productType === DONATION_TYPE ? item.amount:item.price_with_tax}
               <span className={s.currency}>{item.currency ? item.currency : 'CHF'}</span>
+              {item.productType === DONATION_TYPE ? item.amount:item.price_with_tax}
             </React.Fragment>
           )
         }
@@ -309,24 +309,24 @@ class OrderDetails extends React.Component {
                     <Row type='flex' justify='space-between' className={s.summaryRow}>
                       <Col>{intl.formatMessage(messages.summarySubtotal)}</Col>
                       <Col>
-                        {recipient ? orderDetails.bundle_subtotal.toFixed(2) :  (orderDetails.bundle_total * recp_count).toFixed(2)}
                         <span className={s.currency}>{'CHF'}</span>
+                        {recipient ? orderDetails.bundle_subtotal.toFixed(2) :  (orderDetails.bundle_total * recp_count).toFixed(2)}
                       </Col>
                     </Row>
                     {/*
                     <Row type='flex' justify='space-between' className={s.summaryRow}>
                       <Col>{intl.formatMessage(messages.summaryTaxes)}</Col>
                       <Col>
-                        {recipient ? orderDetails.bundle_tax.toFixed(2) : (orderDetails.bundle_tax * recp_count).toFixed(2)}
                         <span className={s.currency}>{'CHF'}</span>
+                        {recipient ? orderDetails.bundle_tax.toFixed(2) : (orderDetails.bundle_tax * recp_count).toFixed(2)}
                       </Col>
                     </Row>
                     */}
                     <Row type='flex' justify='space-between' className={s.summaryRow}>
                       <Col>{intl.formatMessage(messages.summaryShipping)}</Col>
                       <Col>
-                        {orderDetails.shipping_cost.toFixed(2)}
                         <span className={s.currency}>{'CHF'}</span>
+                        {orderDetails.shipping_cost.toFixed(2)}
                       </Col>
                     </Row>
                     {
@@ -334,8 +334,15 @@ class OrderDetails extends React.Component {
                       <Row type='flex' justify='space-between' className={s.summaryRow}>
                         <Col>{'Coupon ('+orderDetails.coupon.coupon+')'}</Col>
                         <Col>
+                          {
+                            orderDetails.coupon.type==='absolute' &&
+                            <span className={s.currency}>{'CHF'}</span>
+                          }
                           {'-'}{orderDetails.coupon.value.toFixed(2)}
-                          <span className={s.currency}>{orderDetails.coupon.type==='absolute'?'CHF':'%'}</span>
+                          {
+                            orderDetails.coupon.type!=='absolute' &&
+                            <span className={s.currency}>{' %'}</span>
+                          }
                         </Col>
                       </Row>
                     }
@@ -343,8 +350,8 @@ class OrderDetails extends React.Component {
                   <footer className={s.summaryFooter}>
                     <div>{intl.formatMessage(messages.summaryTotal)}</div>
                     <div>
-                      {orderDetails.total.toFixed(2)}
                       <span className={s.currency}>{'CHF'}</span>
+                      {orderDetails.total.toFixed(2)}
                     </div>
                   </footer>
                   {
@@ -404,7 +411,7 @@ class OrderDetails extends React.Component {
                     </Col>
                     <Col md={12}>
                       <span className={s.DetailTitle}>{intl.formatMessage(messages.priceColumn)}</span><br />
-                      <span className={s.Detail}>{cardDetails.price_with_tax + " " + cardDetails.currency}</span>
+                      <span className={s.Detail}>{cardDetails.currency+" "+cardDetails.price_with_tax}</span>
                     </Col>
                   </Row>
                 </Col>
@@ -445,7 +452,7 @@ class OrderDetails extends React.Component {
                   <Row className={s.detailRow}>
                     <Col md={12}>
                       <span className={s.DetailTitle}>{intl.formatMessage(messages.priceColumn)}</span><br />
-                      <span className={s.Detail}>{giftDetails.price_with_tax + " " + giftDetails.currency}</span>
+                      <span className={s.Detail}>{giftDetails.currency+" "+giftDetails.price_with_tax }</span>
                     </Col>
                   </Row>
                 </Col>

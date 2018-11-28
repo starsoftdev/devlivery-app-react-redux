@@ -88,7 +88,7 @@ class Orders extends React.Component {
         title: intl.formatMessage(messages.totalColumn),
         dataIndex: 'total',
         key: 'total',
-        render: (total) => <React.Fragment>{total} <span className={s.currency}>{'CHF'}</span></React.Fragment>
+        render: (total) => <React.Fragment><span className={s.currency}>{'CHF'}</span> {total}</React.Fragment>
       },
     ]
     const upcoming_columns = [

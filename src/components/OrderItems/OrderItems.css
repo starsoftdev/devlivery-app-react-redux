@@ -60,7 +60,7 @@
   font-family: var(--font-family-secondary);
   font-size: 12px;
   color: var(--muted-color);
-  margin-left: 4px;
+  margin-right: 4px;
 }
 .removeIcon {
   cursor: pointer;

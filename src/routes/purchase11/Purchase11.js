@@ -362,8 +362,8 @@ class Purchase11 extends React.Component {
                 <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.subtotal)}</h2>
               </Col>
               <Col xs={12}>
+                <span className={s.subtotalCurrency}>{'CHF '}</span>
                 <span className={s.subtotalValue}>{(order.bundle_total * order.recipients_count).toFixed(2)}</span>
-                <span className={s.subtotalCurrency}>{'CHF'}</span>
               </Col>
             </Row>
             {/*
@@ -372,8 +372,8 @@ class Purchase11 extends React.Component {
                 <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.tax)}</h2>
               </Col>
               <Col xs={12}>
+                <span className={s.subtotalCurrency}>{'CHF '}</span>  
                 <span className={s.subtotalValue}>{order.bundle_tax}</span>
-                <span className={s.subtotalCurrency}>{'CHF'}</span>
               </Col>
             </Row>
             */}
@@ -383,10 +383,10 @@ class Purchase11 extends React.Component {
                   <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.shippingcost)}</h2>
                 </Col>
                 <Col xs={12}>
+                  <span className={s.subtotalCurrency}>{'CHF '}</span>
                   <span className={s.subtotalValue}>
                     {shipping_cost ? (shipping_cost.shipping_cost && shipping_cost.shipping_cost.toFixed(2)): (order.recipient_shipping_cost*order.recipients_count).toFixed(2)}
                   </span>
-                  <span className={s.subtotalCurrency}>{'CHF'}</span>
                 </Col>
               </Row>
             }
@@ -396,8 +396,8 @@ class Purchase11 extends React.Component {
                   <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.total)}</h2>
                 </Col>
                 <Col xs={12}>
+                  <span className={s.subtotalCurrency}>{'CHF '}</span>
                   <span className={s.subtotalValue}>{shipping_cost ? shipping_cost.total_with_tax.toFixed(2):order.total.toFixed(2)}</span>
-                  <span className={s.subtotalCurrency}>{'CHF'}</span>
                 </Col>
               </Row>
             }
@@ -408,8 +408,8 @@ class Purchase11 extends React.Component {
                   <h2 className={s.subtotalHeader}>{'AVAILABLE BUDGET:'}</h2>
                 </Col>
                 <Col xs={12}>
+                  <span className={s.subtotalCurrency}>{'CHF '}</span>
                   <span className={s.subtotalValue}>{user && user.budget && user.budget.remaining_budget ? user.budget.remaining_budget.toFixed(2) : '0.00'}</span>
-                  <span className={s.subtotalCurrency}>{'CHF'}</span>
                 </Col>
               </Row>
             }
@@ -420,8 +420,15 @@ class Purchase11 extends React.Component {
                   <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.coupon)}</h2>
                 </Col>
                 <Col xs={12}>
+                  {
+                    order.coupon.type==='absolute' &&
+                    <span className={s.subtotalCurrency}>{'CHF '}</span>
+                  }
                   <span className={s.subtotalValue}>{'-'}{order.coupon.value && order.coupon.value.toFixed(2)}</span>
-                  <span className={s.subtotalCurrency}>{order.coupon.type==='absolute'?'CHF':'%'}</span>
+                  {
+                     order.coupon.type!=='absolute' &&
+                    <span className={s.subtotalCurrency}>{'%'}</span>
+                  }
                 </Col>
               </Row>
             }
