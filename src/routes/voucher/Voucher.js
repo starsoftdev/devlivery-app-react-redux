@@ -98,9 +98,9 @@ class Voucher extends React.Component {
   componentDidMount() {
     loadFont('Abril Fatface')
     loadFont('Alex Brush')
-    if(this.props.voucher && this.props.voucher.from && this.props.templates)
+    if(this.props.voucher && this.props.voucher.to && this.props.templates)
     {
-      const selItem = this.props.templates.find(item => item.template === this.props.voucher.from);
+      const selItem = this.props.templates.find(item => item.template === this.props.voucher.to);
       if(selItem)
         this.setState({template: selItem.template});    
     }
@@ -111,8 +111,8 @@ class Voucher extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.props.submitVoucher({
-          html: values.text,
-          title: this.props.intl.formatMessage(messages.voucherHeader),
+          //html: values.text,
+          //title: this.props.intl.formatMessage(messages.voucherHeader),
           ...values,
         }, refresh)
       }
@@ -139,7 +139,8 @@ class Voucher extends React.Component {
               <Select
                 placeholder={intl.formatMessage(messages.recipient)}
                 onChange={(value)=>{
-                  this.props.form.setFieldsValue({from:value})
+                  console.log('value',value);
+                  this.props.form.setFieldsValue({to:value})
                   this.setState({template: value});
                 }}
                 allowClear
@@ -149,21 +150,21 @@ class Voucher extends React.Component {
                   <Select.Option key={item.name} value={item.template}>{item.name}</Select.Option>
                 )}
               </Select>
-              <Form.Item className={cn(s.voucherFormItem,this.state.template !== undefined && s.voucherDisable)}>
+              <Form.Item className={cn(s.voucherFormItem)}>
                 {getFieldDecorator('from', {
                   initialValue: voucher ? voucher.from : '',
                   rules: [
                     { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                   ],
                 })(
-                  <FloatingLabel placeholder={intl.formatMessage(messages.giver)} isDisabled = {this.state.template !== undefined}/>
+                  <FloatingLabel placeholder={intl.formatMessage(messages.giver)}/>
                 )}
               </Form.Item>
               <Form.Item className={cn(s.voucherFormItem,s.voucherDisable)}>
                 {getFieldDecorator('to', {
-                  initialValue: 'Your recipient name',
+                  initialValue: voucher ? voucher.to : '',
                   rules: [
-                    { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
+                   
                   ],
                 })(
                   <FloatingLabel placeholder={intl.formatMessage(messages.receiver)} isDisabled/>

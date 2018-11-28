@@ -133,8 +133,11 @@ class OrderItems extends React.Component {
               </a>
             </Popconfirm>
             <div>
-              <span className={s.cardType}>{intl.formatMessage(messages.giver)}: {voucher.from}</span><br />
-              <span className={s.cardType}>{intl.formatMessage(messages.receiver)}: {voucher.to}</span>
+              <span className={s.cardType}>{intl.formatMessage(messages.giver)} :{voucher.from}</span><br />
+              {
+                voucher.to &&
+                <span className={s.cardType}>{intl.formatMessage(messages.receiver)} {voucher.to}</span>
+              }
             </div>
             <p className={s.cardInfo}>
               <span className={s.cardType}>{voucher.title}</span>
