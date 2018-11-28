@@ -136,7 +136,7 @@ class Reminders extends React.Component {
           {
             if(initialValues[k].title &&(initialValues[k].title.toUpperCase() === BIRTH_EN || initialValues[k].title.toUpperCase() === BIRTH_GERMAN))
             {
-              occasion = initialValues[k].title.toUpperCase();
+              occasion = intl.locale === 'de-DE' ? BIRTH_GERMAN : BIRTH_EN;
             } else if(initialValues[k].occasion_id !== null){
               occasion = initialValues[k].occasion_id+'';
             } else if(initialValues[k].title !== null)
