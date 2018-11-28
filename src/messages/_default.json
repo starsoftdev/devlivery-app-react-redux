@@ -2909,7 +2909,8 @@
     "defaultMessage": "This contact can't be deleted because is a recipient in one of your orders.",
     "message": "",
     "files": [
-      "src/routes/contacts/messages.js"
+      "src/routes/contacts/messages.js",
+      "src/routes/editContact/messages.js"
     ]
   },
   {

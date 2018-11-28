@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Col, Form, Row, Modal, Popconfirm } from 'antd'
+import { Button, Col, Form, Row, Modal, Popconfirm, message } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './EditContact.css'
 import PlusIcon from '../../static/plus.svg'
@@ -127,10 +127,14 @@ class EditContact extends React.Component {
                     </Button>
                     <Popconfirm
                       title={intl.formatMessage(messages.confirmRemoving)}
-                      onConfirm={() => removeContact(contact)}
+                      onConfirm={() => {
+                        if(contact.is_connected_to_order)
+                          message.warn(intl.formatMessage(messages.warningRemoving));
+                        else removeContact(contact)
+                      }}
                       okText={intl.formatMessage(messages.acceptRemoving)}
                     >
-                      <Button type='danger' type='primary' disabled = {contact.is_connected_to_order} ghost style={{ float: 'right' }}>
+                      <Button type='danger' type='primary' ghost style={{ float: 'right' }}>
                         <RemoveIcon />
                         {intl.formatMessage(messages.delete)}
                       </Button>
