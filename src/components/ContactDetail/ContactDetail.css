@@ -34,3 +34,9 @@
   padding: 5px 15px;
   color: white;
 }
+.headertitle{
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
