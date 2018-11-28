@@ -16,7 +16,7 @@ const CalendarEvent = ({first_name, last_name, occasion, reminder_date, occasion
       <div className={s.eventYear}>{moment(reminder_date || occasion_date, DATE_FORMAT).format('YYYY')}</div>
     </div>
     <div className={s.eventDetails}>
-      <div className={s.eventType}>{occasion ? occasion : custom_title} ({occasion ? occasion_type : 'custom'})</div>
+      <div className={s.eventType}>{occasion ? occasion : custom_title} {occasion ? '('+occasion_type+')' : ''}</div>
       <div className={s.eventName} title={first_name+'\n'+last_name}>{first_name} {last_name}</div>
       <div className={s.eventOccationDate} >{moment(contact_specific_date).format('DD-MM-YYYY')}</div>
       {/*<LongArrowIcon className={s.eventArrowIcon}/>*/}
