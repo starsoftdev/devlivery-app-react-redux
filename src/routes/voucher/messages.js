@@ -17,6 +17,10 @@ export default defineMessages({
     id: 'voucher.voucherHeader',
     defaultMessage: 'Voucher',
   },
+  recipient: {
+    id: 'voucher.recipient',
+    defaultMessage: 'Recipient details',
+  },
   receiver: {
     id: 'voucher.receiver',
     defaultMessage: 'To',

@@ -4095,5 +4095,13 @@
     "files": [
       "src/routes/voucher/messages.js"
     ]
+  },
+  {
+    "id": "voucher.recipient",
+    "defaultMessage": "Recipient details",
+    "message": "Empfänger",
+    "files": [
+      "src/routes/voucher/messages.js"
+    ]
   }
 ]
