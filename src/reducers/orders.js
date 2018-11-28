@@ -80,6 +80,7 @@ export const getUpcomingEvents = (params = {}) => (dispatch, getState, {fetch}) 
     method: 'GET',
     token,
     success: (res) => {
+      console.log('res',res);
       dispatch({type: GET_UPCOMING_EVENTS_SUCCESS, res})
     },
     failure: (err) => {
@@ -235,7 +236,7 @@ export default createReducer(initialState, {
       upcomingEvents: true,
     },
   }),
-  [GET_UPCOMING_EVENTS_SUCCESS]: (state, {res: {data, total}}) => ({
+  [GET_UPCOMING_EVENTS_SUCCESS]: (state, {res: {data, meta:{total}}}) => ({
     upcomingEvents:data,
     upcomingCount: total,
     loading: {
