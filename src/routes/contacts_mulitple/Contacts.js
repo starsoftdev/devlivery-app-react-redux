@@ -325,7 +325,7 @@ class Contacts extends React.Component {
                       md={6}
                       key={data.id}
                     >
-                      <div className={s.contact} onClick={() => { this.selectCell(data.id) }}>
+                      <div className={s.contact} onClick={() => { this.selectCell(data.id) }} title={data.first_name+'\n'+data.last_name}>
                         {data.checked && <CheckIcon className={s.checkIcon} />}
                         {
                           /*

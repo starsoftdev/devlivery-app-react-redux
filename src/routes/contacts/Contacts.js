@@ -192,7 +192,7 @@ class Contacts extends React.Component {
                     md={6}
                     key={contact.id}
                   >
-                    <div className={s.contact}>
+                    <div className={s.contact} title={contact.first_name+'\n'+contact.last_name}>
                       {
                         withSearchGroup !== true &&
                         <Link
