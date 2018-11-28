@@ -88,9 +88,9 @@ class ContactDetail extends React.Component {
                 {address.address2 ? `${address.address} ${address.address2}` : address.address.join('\n')}
               </span>
               <br/>
-              <span className={s.contactDetail}>{address.city}</span><br/>
+              <span className={s.contactDetail}>{address.postal_code} {address.city}</span><br/>
               <span className={s.contactDetail}>{address.country}</span><br/>
-              <span className={s.contactDetail}>{address.postal_code}</span><br/>
+              <span className={s.contactDetail}></span>
             </Col>
           )}
         </Row>
