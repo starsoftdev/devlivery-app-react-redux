@@ -68,22 +68,22 @@ class Dashboard extends React.Component {
           >
             <Menu.Item key={CONTACTS_ROUTE}>
               <Link to={CONTACTS_ROUTE}>
-                {intl.formatMessage(messages.findContacts)}
+                <div>{intl.formatMessage(messages.findContacts)}</div>
               </Link>
             </Menu.Item>
             <Menu.Item key={IMPORT_CONTACTS_ROUTE}>
               <Link to={IMPORT_CONTACTS_ROUTE}>
-                {intl.formatMessage(messages.importContacts)}
+                <div>{intl.formatMessage(messages.importContacts)}</div>
               </Link>
             </Menu.Item>
             <Menu.Item key={ADD_CONTACT_ROUTE}>
               <Link to={ADD_CONTACT_ROUTE}>
-                {intl.formatMessage(messages.addContacts)}
+                <div>{intl.formatMessage(messages.addContacts)}</div>
               </Link>
             </Menu.Item>
             <Menu.Item key={CONTACT_GROUPS_ROUTE}>
               <Link to={CONTACT_GROUPS_ROUTE}>
-                {intl.formatMessage(messages.contactGroups)}
+                <div>{intl.formatMessage(messages.contactGroups)}</div>
               </Link>
             </Menu.Item>
           </Menu.SubMenu>
@@ -105,12 +105,12 @@ class Dashboard extends React.Component {
             >
               <Menu.Item key={MANAGE_TEAM_ROUTE}>
                 <Link to={MANAGE_TEAM_ROUTE}>
-                  {intl.formatMessage(messages.manageTeam)}
+                  <div>{intl.formatMessage(messages.manageTeam)}</div>
                 </Link>
               </Menu.Item>
               <Menu.Item key={GROUP_PERMISSION_ROUTE}>
                 <Link to={GROUP_PERMISSION_ROUTE}>
-                  {intl.formatMessage(messages.permissionGroup)}
+                  <div>{intl.formatMessage(messages.permissionGroup)}</div>
                 </Link>
               </Menu.Item>
             </Menu.SubMenu>
