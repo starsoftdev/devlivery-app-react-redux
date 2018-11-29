@@ -168,6 +168,7 @@ class Orders extends React.Component {
                     upcomingEvents.length > 0 &&
                     <div className={s.footer}>
                       <Pagination
+                        size="small"
                         current={upcomingpage}
                         total={upcomingCount}
                         showTotal={(total, range) => intl.formatMessage(messages.tableItems, { range0: range[0], range1: range[1], total })}
