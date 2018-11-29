@@ -135,6 +135,8 @@ export const setContact = (contact) => (dispatch, getState, {fetch}) => {
     dispatch({type: GET_CONTACT_SUCCESS, contact})
 }
 export const getRemindersArray = (reminders) => {
+  if(reminders === null || reminders === undefined)
+    return [];
   return reminders.filter(item => {
     // if one of the property undefined/null - don't send item
     return (item.custom_title || item.occasion_id) && item.date && (item.occasion_id !== BIRTH_GERMAN) && (item.occasion_id !== BIRTH_EN)
