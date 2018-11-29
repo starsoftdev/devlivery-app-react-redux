@@ -195,6 +195,38 @@
     ]
   },
   {
+    "id": "contactForm.reminderFor",
+    "defaultMessage": "Reminder for :",
+    "message": "Reminder for :",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.occasionDate",
+    "defaultMessage": "Occasion date :",
+    "message": "Occasion date :",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.reminderDate",
+    "defaultMessage": "Reminder date :",
+    "message": "Reminder date :",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.frequency",
+    "defaultMessage": "Frequency :",
+    "message": "Frequency :",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
     "id": "purchase.purchase10",
     "defaultMessage": "Add Contact(s)",
     "message": "Kontakt(e) hinzufügen"
@@ -3888,7 +3920,8 @@
     "message": "Speichern",
     "files": [
       "src/routes/user/messages.js",
-      "src/components/Avatar/messages.js"
+      "src/components/Avatar/messages.js",
+      "src/components/ContactForm/messages.js"
     ]
   },
   {

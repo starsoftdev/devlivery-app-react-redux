@@ -27,6 +27,38 @@
     ]
   },
   {
+    "id": "contactForm.reminderFor",
+    "defaultMessage": "Reminder for :",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.occasionDate",
+    "defaultMessage": "Occasion date :",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.reminderDate",
+    "defaultMessage": "Reminder date :",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.frequency",
+    "defaultMessage": "Frequency :",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
     "id": "contactForm.birthday",
     "defaultMessage": "Birthday",
     "message": "",
@@ -3740,7 +3772,8 @@
     "message": "",
     "files": [
       "src/routes/user/messages.js",
-      "src/components/Avatar/messages.js"
+      "src/components/Avatar/messages.js",
+      "src/components/ContactForm/messages.js"
     ]
   },
   {

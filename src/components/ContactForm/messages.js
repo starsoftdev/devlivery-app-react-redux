@@ -92,5 +92,25 @@ export default defineMessages({
   dateplaceholder:{
     id: 'contactForm.dateplaceholder',
     defaultMessage: 'DD/MM/YYYY',
-  }
+  },
+  save:{
+    id: 'user.save',
+    defaultMessage: 'Save',
+  },
+  reminderFor:{
+    id: 'contactForm.reminderFor',
+    defaultMessage: 'Reminder for :',
+  },
+  occasionDate:{
+    id: 'contactForm.occasionDate',
+    defaultMessage: 'Occasion date :',
+  },
+  reminderDate:{
+    id: 'contactForm.reminderDate',
+    defaultMessage: 'Reminder date :',
+  },
+  frequency:{
+    id: 'contactForm.frequency',
+    defaultMessage: 'Frequency :',
+  },
 })
