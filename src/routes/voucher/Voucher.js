@@ -100,20 +100,20 @@ class Voucher extends React.Component {
     loadFont('Alex Brush')
     if(this.props.voucher && this.props.voucher.to && this.props.templates)
     {
-      const selItem = this.props.templates.find(item => item.template === this.props.voucher.to);
-      if(selItem)
-        this.setState({template: selItem.template});    
+      this.setState({template:this.props.voucher.to.split(' ')});
     }
   }
 
   handleSubmit = (e, refresh = false) => {
     e.preventDefault()
+    const {template} = this.state;
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.props.submitVoucher({
           //html: values.text,
           //title: this.props.intl.formatMessage(messages.voucherHeader),
           ...values,
+          to:(template !== undefined&&template&&template.length > 0)?template.join(' '):''
         }, refresh)
       }
     })
@@ -122,8 +122,9 @@ class Voucher extends React.Component {
   render() {
     const { intl, flowIndex, loading, voucher, templates } = this.props
     // TODO fix  The prop `html` is marked as required in `ContentEditable`, but its value is `undefined`
-    const { getFieldDecorator } = this.props.form
-
+    const { getFieldDecorator, getFieldValue } = this.props.form
+    const {template} = this.state;
+    
     return (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -136,20 +137,6 @@ class Voucher extends React.Component {
           <p className={s.description}>{intl.formatMessage(messages.description)}</p>
           <div className={s.container}>
             <div className={cn(s.voucherForm)}>
-              <Select
-                placeholder={intl.formatMessage(messages.recipient)}
-                onChange={(value)=>{
-                  console.log('value',value);
-                  this.props.form.setFieldsValue({to:value})
-                  this.setState({template: value});
-                }}
-                allowClear
-                value = {this.state.template}
-              >
-                {templates && templates.map((item) =>
-                  <Select.Option key={item.name} value={item.template}>{item.name}</Select.Option>
-                )}
-              </Select>
               <Form.Item className={cn(s.voucherFormItem)}>
                 {getFieldDecorator('from', {
                   initialValue: voucher ? voucher.from : '',
@@ -160,16 +147,33 @@ class Voucher extends React.Component {
                   <FloatingLabel placeholder={intl.formatMessage(messages.giver)}/>
                 )}
               </Form.Item>
-              <Form.Item className={cn(s.voucherFormItem,s.voucherDisable)}>
+              <Form.Item className={cn(s.voucherToItem)}>
                 {getFieldDecorator('to', {
-                  initialValue: voucher ? voucher.to : '',
-                  rules: [
-                   
-                  ],
+                  initialValue: [],
+                  rules: [],
                 })(
-                  <FloatingLabel placeholder={intl.formatMessage(messages.receiver)} isDisabled/>
+                  <div>
+                    {
+                      (template !== undefined && template && template.length > 0) &&
+                      <p className={s.inputlabel}>{intl.formatMessage(messages.receiver)}</p>
+                    }
+                    <Select
+                      mode="multiple"
+                      placeholder={intl.formatMessage(messages.receiver)}
+                      onChange={(value)=>{
+                        this.setState({template: value});
+                      }}
+                      allowClear
+                      value={template}
+                    >
+                      {templates && templates.map((item) =>
+                        <Select.Option key={item.name} value={item.template}>{item.name}</Select.Option>
+                      )}
+                    </Select>
+                  </div>
                 )}
               </Form.Item>
+              
               <label className={s.messageTitle}>{intl.formatMessage(messages.freeText)}</label>
               <Form.Item className={cn(s.voucherFormItem)}>
                 {getFieldDecorator('text', {
