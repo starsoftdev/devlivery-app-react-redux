@@ -522,6 +522,7 @@ export const setCard = (card) => (dispatch, getState, { fetch }) => {
 
 const GIFT_IDS = 'gift_ids'
 export const setGift = (gift) => (dispatch, getState, { fetch }) => {
+  const {gifts,giftType} = getState().purchase;
   var giftIds = JSON.parse(JSON.stringify(getState().purchase.giftIds));
   if (giftIds.includes(gift.id)) {
     //remove gift id
@@ -529,14 +530,23 @@ export const setGift = (gift) => (dispatch, getState, { fetch }) => {
     if (index > -1) {
       giftIds.splice(index, 1);
     }
+    if(giftIds.length <= 0)
+    {
+      dispatch({ type: SET_GIFT, gift:null })
+    }
+    else {
+      dispatch({ type: SET_GIFT, gift: gifts ? gifts.find(item=>item.id===giftIds[giftIds.length-1]):null })
+    }
   }
-  else giftIds.push(gift.id)
+  else {
+    giftIds.push(gift.id)
+    dispatch({ type: SET_GIFT, gift })
+  }
   localStorage.setItem(GIFT_IDS, JSON.stringify(giftIds))
   dispatch({ type: SET_GIFTIDS, giftIds })
-  dispatch({ type: SET_GIFT, gift })
 }
 export const buyMoreGift = () => (dispatch, getState, { fetch }) => {
-  const { giftId } = getState().purchase;
+  const { giftId, gifts } = getState().purchase;
 
   var giftIds = localStorage.getItem(GIFT_IDS);
 
