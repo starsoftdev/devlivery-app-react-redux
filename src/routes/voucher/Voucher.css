@@ -77,7 +77,37 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+.voucherToItem{
+  margin-top: 20px;
+  margin-bottom: 0;
+}
 .voucherarea {
   max-height: 160px;
   min-height: 90px;
+}
+.inputlabel {
+  -moz-transform-origin: left top;
+  -moz-transform: scale(1) translate3d(0, 35px, 0);
+  -moz-transition: 200ms ease all;
+  -ms-flex-order: 1;
+  -webkit-order: 1;
+  -webkit-transform-origin: left top;
+  -webkit-transform: scale(1) translate3d(0, 35px, 0);
+  -webkit-transition: 200ms ease all;
+  color: var(--input-color);
+  font-weight: normal;
+  opacity: 0.75;
+  order: 1;
+  pointer-events: none;
+  text-transform: capitalize;
+  transform-origin: left top;
+  transform: scale(1) translate3d(0, 35px, 0);
+  transition: 200ms ease all;
+  line-height: 1;
+  outline: 0;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Roboto', sans-serif;
+  text-shadow: none;
+  position: absolute;
+  top: -40px;
 }
