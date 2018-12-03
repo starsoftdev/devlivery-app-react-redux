@@ -98,3 +98,18 @@
 .giftType {
   width: 325px;
 }
+.cardimage{
+  padding-bottom: 20%;
+}
+.cardimage {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  position: relative;
+  &:after{
+    content:'';
+    display: block;
+    padding-bottom: 67%;  
+  }
+}

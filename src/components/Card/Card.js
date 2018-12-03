@@ -37,7 +37,7 @@ class Card extends React.Component {
             isSvg ? (
               <img src={image} className={s.svgView}/>
             ) : (
-              <div className={s.image} style={{backgroundImage: `url(${image})`,...imageStyle}}/>
+              <div className={cn(s.image,imageStyle)} style={{backgroundImage: `url(${image})`,...imageStyle}}/>
             )
             : null}
           {svg && React.createElement(svg)}
