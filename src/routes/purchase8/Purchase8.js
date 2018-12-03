@@ -70,6 +70,7 @@ class Purchase8 extends React.Component {
                       description={intl.locale === 'de-DE' ? item.short_description_german : item.short_description}
                       onClick={() => setGift(item)}
                       active={giftIds && giftIds.includes(item.id)}
+                      imageStyle={s.cardimage}
                     />
                   </Col>
                 )}
