@@ -2265,7 +2265,7 @@
   {
     "id": "reports.shippingdate",
     "defaultMessage": "Shipping Date",
-    "message": "Shipping Date",
+    "message": "Versanddatum",
     "files": [
       "src/routes/reports/messages.js"
     ]
