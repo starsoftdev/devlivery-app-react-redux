@@ -39,7 +39,6 @@ export const getReports = (params = {}) => (dispatch, getState, {fetch}) => {
     token,
     success: (res) => dispatch({type: GET_REPORTS_SUCCESS, res}),
     failure: (err) =>{
-      console.log('err',err);
       dispatch({type: GET_REPORTS_FAILURE})
     }, 
   })

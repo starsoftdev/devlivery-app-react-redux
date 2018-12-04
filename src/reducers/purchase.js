@@ -306,14 +306,7 @@ export const setOccasion = (occasion) => ({ type: SET_OCCASION, occasion })
 export const getOccasions = (params = {}) => (dispatch, getState, { fetch }) => {
   dispatch({ type: GET_OCCASIONS_REQUEST, params })
   const { occasionType } = getState().purchase
-  console.log(`/occasions?${qs.stringify({
-    take: 100,
-    order_by: params && params.locale == params.defaultLocale ? 'title' : 'german_title',
-    ...occasionType ? {
-      filter_key: 'type',
-      filter_value: occasionType,
-    } : {},
-  })}`);
+  
   return fetch(`/occasions?${qs.stringify({
     take: 100,
     order_by: params && params.locale == params.defaultLocale ? 'title' : 'german_title',
@@ -324,11 +317,9 @@ export const getOccasions = (params = {}) => (dispatch, getState, { fetch }) => 
   })}`, {
       method: 'GET',
       success: (res) => {
-        console.log('res', res);
         dispatch({ type: GET_OCCASIONS_SUCCESS, occasions: res.data })
       },
       failure: (err) => {
-        console.log('err', err);
         dispatch({ type: GET_OCCASIONS_FAILURE })
       }
     })
@@ -593,11 +584,6 @@ export const submitShipping = (values,total,callback) => (dispatch, getState, { 
 
   const saved = values.saved ? 1 : 0;
   dispatch({ type: SET_SAVED_VALUE, saved });
-  console.log(`/set-wheretosend`,{
-    order_id: orderId,
-    deliverable: deliverable,
-    ...deliverOpt
-  });
   return fetch(`/set-wheretosend`, {
     method: 'POST',
     body: {
@@ -607,7 +593,6 @@ export const submitShipping = (values,total,callback) => (dispatch, getState, { 
     },
     token,
     success: (res) => {
-      console.log('res',res);
       dispatch({ type: SUBMIT_SHIPPING_SUCCESS })
       if (saved === 1) {
         const param = {
@@ -622,7 +607,6 @@ export const submitShipping = (values,total,callback) => (dispatch, getState, { 
       else dispatch(nextFlowStep())
     },
     failure: (err) => {
-      console.log('err',err);
       if(callback)
       {
         callback();
@@ -634,19 +618,17 @@ export const submitShipping = (values,total,callback) => (dispatch, getState, { 
 }
 export const updateBundle = (param, callback) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
-  console.log(`/bundles/${getState().purchase.bundleId}`, param)
   return fetch(`/bundles/${getState().purchase.bundleId}`, {
     method: 'POST',
     token,
     body: param,
     success: (res) => {
-      console.log('res', res);
       if (callback)
         callback();
       const saved = 0;
       dispatch({ type: SET_SAVED_VALUE, saved })
     },
-    failure: (err) => { console.log('err', err); },
+    failure: (err) => {  },
   })
 }
 export const setPaymentMethod = (paymentMethod) => ({ type: SET_PAYMENT_METHOD, paymentMethod })
@@ -716,10 +698,7 @@ export const syncGifts_Bundle = (giftIds, goToNext = true) => (dispatch, getStat
   const { bundleId, orderId } = getState().purchase
   dispatch({ type: ADD_BUNDLE_REQUEST })
   if (bundleId) {
-    console.log(`/sync-bundle-gifts`, {
-      bundle_id: bundleId,
-      gift_ids: giftIds,
-    });
+    
     return fetch(`/sync-bundle-gifts`, {
       method: 'POST',
       contentType: 'application/json',
@@ -735,7 +714,6 @@ export const syncGifts_Bundle = (giftIds, goToNext = true) => (dispatch, getStat
         dispatch(getOrderDetails(orderId));
       },
       failure: (err) => {
-        console.log("err", err);
         showErrorMessage(err);
         dispatch({ type: ADD_BUNDLE_FAILURE })
       },
@@ -754,10 +732,7 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
   }
 
   if (bundleId) {
-    console.log(`/sync-bundle-gifts`, {
-      bundle_id: bundleId,
-      gift_ids,
-    });
+    
     return fetch(`/sync-bundle-gifts`, {
       method: 'POST',
       contentType: 'application/json',
@@ -775,21 +750,12 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
         }
       },
       failure: (err) => {
-        console.log("err", err);
         showErrorMessage(err);
         dispatch({ type: ADD_BUNDLE_FAILURE })
       },
     })
   }
-  console.log(`/create-bundle`, {
-    lettering: letteringTechnique,
-    card_id: cardId,
-    gift_ids,
-    ...(values && values.title) && {
-      title: values.title
-    },
-    saved: 0
-  });
+  
   return fetch(`/create-bundle`, {
     method: 'POST',
     contentType: 'application/json',
@@ -812,7 +778,6 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
       }
     },
     failure: (err) => {
-      console.log("err", err);
       showErrorMessage(err);
       dispatch({ type: ADD_BUNDLE_FAILURE })
     },
@@ -836,9 +801,7 @@ export const makeOrder = () => (dispatch, getState, { fetch, history }) => {
   } else {
 
     //dispatch({type: MAKE_ORDER_REQUEST})
-    console.log(`/make-order-from-bundle`, {
-      bundle_id: parseInt(bundleId),
-    })
+    
     return fetch(`/make-order-from-bundle`, {
       method: 'POST',
       contentType: 'application/x-www-form-urlencoded',
@@ -860,7 +823,6 @@ export const makeOrder = () => (dispatch, getState, { fetch, history }) => {
         //dispatch({type: GET_BUNDLE_DETAILS_SUCCESS, bundle: getState().purchase.cardDetails});
       },
       failure: (err) => {
-        console.log('err', err);
         history.goBack();
         //dispatch({type: MAKE_ORDER_FAILURE})
       },
@@ -872,10 +834,7 @@ export const recalculateTotal = (deliverable) => (dispatch, getState, { fetch })
   const { orderId } = getState().purchase
   if (orderId && deliverable ) {
     dispatch({ type: GET_SHIPPINGTOTAL_REQUEST })
-    console.log(`/recalculate-total`,{
-      order_id: orderId,
-      deliverable: deliverable ? deliverable : 'shipping'
-    })
+    
     return fetch(`/recalculate-total`, {
       method: 'POST',
       body: {
@@ -884,11 +843,9 @@ export const recalculateTotal = (deliverable) => (dispatch, getState, { fetch })
       },
       token,
       success: (res) => {
-        console.log('recalculate-total res:', res);
         dispatch({ type: GET_SHIPPINGTOTAL_SUCCESS, shipping_cost: res.data })
       },
       failure: (err) => {
-        console.log('recalculate-total err:', err);
         dispatch({ type: GET_SHIPPINGTOTAL_FAILURE })
       },
     })
@@ -901,10 +858,7 @@ export const applycouponTotal = (coupon) => (dispatch, getState, { fetch }) => {
   const { orderId } = getState().purchase
   if (orderId) {
     dispatch({ type: GET_SHIPPINGTOTAL_REQUEST })
-    console.log(`/apply-coupon`,{
-      order_id: orderId,
-      coupon
-    })
+    
     return fetch(`/apply-coupon`, {
       method: 'POST',
       body: {
@@ -913,13 +867,11 @@ export const applycouponTotal = (coupon) => (dispatch, getState, { fetch }) => {
       },
       token,
       success: (res) => {
-        console.log('apply-coupon res:', res);
         message.success('Successfully applied coupon');
         dispatch(getOrderDetails(orderId));
         dispatch({ type: GET_SHIPPINGTOTAL_SUCCESS, shipping_cost: res.data })
       },
       failure: (err) => {
-        console.log('apply-coupon err:', err);
         showErrorMessage(err);
         dispatch({ type: GET_SHIPPINGTOTAL_FAILURE })
       },
@@ -954,9 +906,7 @@ export const makeDefaultStripePayment = (tokenid, callback) => (dispatch, getSta
     return
   }
   dispatch({ type: MAKE_STRIPE_PAYMENT_REQUEST })
-  console.log(`/payments/stripe/charge/${orderId}`, {
-    card_id: tokenid,
-  })
+  
   return fetch(`/payments/stripe/charge/${orderId}`, {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
@@ -975,7 +925,6 @@ export const makeDefaultStripePayment = (tokenid, callback) => (dispatch, getSta
       if (callback) {
         callback()
       }
-      console.log("err", err);
       showErrorMessage(err);
       dispatch({ type: MAKE_STRIPE_PAYMENT_FAILURE })
     },
@@ -996,12 +945,7 @@ export const makeStripePayment = (card, isPaying = true, callback) => (dispatch,
     cvc,
   } = card
   const { stripeApiKey } = getState().global
-  console.log('https://api.stripe.com/v1/tokens', {
-    'card[number]': number,
-    'card[exp_month]': expiry_month,
-    'card[exp_year]': expiry_year,
-    'card[cvc]': cvc,
-  });
+  
   return fetch('https://api.stripe.com/v1/tokens', {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
@@ -1041,7 +985,6 @@ export const makeStripePayment = (card, isPaying = true, callback) => (dispatch,
       })
     },
     failure: (error) => {
-      console.log('error',error);
       if (callback) {
         callback(error)
       }
@@ -1089,16 +1032,14 @@ export const makeInvoicePayment = () => (dispatch, getState, { fetch }) => {
   if (!orderId) {
     return
   }
-  console.log(`/order/${orderId}/pay_by_invoice`);
+  
   return fetch(`/order/${orderId}/pay_by_invoice`, {
     method: 'GET',
     token,
     success: (res) => {
-      console.log("res", res);
       dispatch(nextFlowStep());
     },
     failure: (error) => {
-      console.log('error', error);
       if (error && error.error && error.error.message) {
         message.error(error.error.message)
       }
@@ -1122,18 +1063,16 @@ export const orderConfirmWithoutPrice = (callback) => (dispatch, getState, { fet
   if (!orderId) {
     return
   }
-  console.log(`/order/${orderId}/confirm`);
+  
   return fetch(`/order/${orderId}/confirm`, {
     method: 'GET',
     token,
     success: (res) => {
-      console.log('res',res);
       localStorage.removeItem(TRANSACTION_ID_KEY)
       localStorage.removeItem(ORDER_ID_KEY)
       history.push('/purchase/completed')
     },
     failure: (err) => { 
-      console.log('err',err);
       showErrorMessage(err);
       if(callback)
         callback();
@@ -1150,12 +1089,7 @@ export const executePaypalPayment = ({ paymentId, paypalToken, payerId }) => asy
     return
   }
   dispatch({ type: EXECUTE_PAYPAL_PAYMENT_REQUEST })
-  console.log('/payments/paypal/execute', {
-    transaction_id: transactionId,
-    token: paymentId,
-    paymentId,
-    payerId,
-  });
+  
   return fetch('/payments/paypal/execute', {
     method: 'POST',
     contentType: 'application/x-www-form-urlencoded',
@@ -1173,7 +1107,7 @@ export const executePaypalPayment = ({ paymentId, paypalToken, payerId }) => asy
       dispatch({ type: EXECUTE_PAYPAL_PAYMENT_SUCCESS })
     },
     failure: (err) => {
-      console.log('err', err);
+      
       showErrorMessage(err);
       dispatch(returnToPaymentMethod())
       dispatch({ type: EXECUTE_PAYPAL_PAYMENT_FAILURE })
@@ -1333,7 +1267,7 @@ export const confirmDonation = (bundleValues, refresh) => async (dispatch, getSt
   const { token } = dispatch(getToken())
   const { donationOrg, bundleId, donationAmount, hideAmount } = getState().purchase
   if (bundleId === null) {
-    message.error('Bundle is incorrect.');
+    message.error("Bundle Id doesn't exist.");
     return;
   }
   dispatch({ type: CONFIRM_DONATION_REQUEST })
@@ -1467,9 +1401,6 @@ export const getOrderDetails = (orderId) => (dispatch, getState, { fetch }) => {
         dispatch({ type: GET_ORDER_DETAILS_SUCCESS, order: res.data })
       },
       failure: (err) => {
-        console.log(`/order-confirmation?${qs.stringify({
-          order_id: orderId,
-        })}`, err);
         dispatch({ type: GET_ORDER_DETAILS_FAILURE })
       },
     })

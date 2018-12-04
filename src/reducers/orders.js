@@ -80,11 +80,9 @@ export const getUpcomingEvents = (params = {}) => (dispatch, getState, {fetch}) 
     method: 'GET',
     token,
     success: (res) => {
-      console.log('res',res);
       dispatch({type: GET_UPCOMING_EVENTS_SUCCESS, res})
     },
     failure: (err) => {
-      console.log('error',err);
       dispatch({type: GET_UPCOMING_EVENTS_FAILURE})
     },
   })
