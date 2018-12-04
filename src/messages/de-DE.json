@@ -4098,7 +4098,7 @@
   {
     "id": "voucher.receiver",
     "defaultMessage": "To",
-    "message": "Zu",
+    "message": "An",
     "files": [
       "src/routes/orders/messages.js",
       "src/components/OrderItems/messages.js",
