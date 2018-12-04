@@ -144,4 +144,5 @@
 .recp_ele{
   margin-bottom: 0;
   min-height: 22px;
+  word-break: break-all;
 }
