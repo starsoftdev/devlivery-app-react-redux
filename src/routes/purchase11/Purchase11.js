@@ -110,7 +110,6 @@ class Purchase11 extends React.Component {
       `//fonts.googleapis.com/css?family=${font}`
     )
     this.setState(newState)
-    console.log('Zurich Time', moment().tz("Europe/Zurich").format());
   }
   onSelectLocation = (value) => {
     this.props.recalculateTotal(value);

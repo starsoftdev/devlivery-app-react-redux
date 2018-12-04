@@ -220,7 +220,6 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
           form.setFields(formErrors)
         }
         catch(e){
-          console.log('crash 1:',res);
           message.error('Something went wrong. Please try again.')
         }
       }

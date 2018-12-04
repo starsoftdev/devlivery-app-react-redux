@@ -90,18 +90,7 @@ export const getUserDetails = () => (dispatch, getState, { fetch }) => {
 export const updateUser = ({ user, birthday, preference, ...values }, form, msg, redrict) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   dispatch({ type: UPDATE_USER_REQUEST })
-  console.log(`/edit-settings`,{
-    ...values,
-    user: {
-      ...user,
-      dob: getBirthday(birthday),
-    },
-    preference: {
-      notify_on_reminders: preference.notify_on_reminders ? preference.notify_on_reminders : false,
-      receive_promotional_emails: preference.receive_promotional_emails ? preference.receive_promotional_emails : false,
-      remind: preference.remind || 0,
-    },
-  });
+  
   return fetch(`/edit-settings`, {
     method: 'POST',
     token,
@@ -131,7 +120,6 @@ export const updateUser = ({ user, birthday, preference, ...values }, form, msg,
       }
     },
     failure: (res) => {
-      console.log('error',res);
       dispatch({ type: UPDATE_USER_FAILURE })
       const { formErrors } = getFormErrors({ ...res, values })
       if (formErrors)
