@@ -1649,7 +1649,7 @@
   {
     "id": "contactForm.reminders",
     "defaultMessage": "Reminders",
-    "message": "Erinnerungen",
+    "message": "Erinneringen",
     "files": [
       "src/components/ContactForm/messages.js"
     ]
@@ -3893,7 +3893,7 @@
   {
     "id": "user.checkNotify",
     "defaultMessage": "Notify me of new reminders via email",
-    "message": "Erinnerungen per Mail senden",
+    "message": "Erinneringen per Mail senden",
     "files": [
       "src/routes/user/messages.js"
     ]
@@ -3909,7 +3909,7 @@
   {
     "id": "user.checkPlaceholder",
     "defaultMessage": "Notification Time for Upcoming Reminders",
-    "message": "Ich möchte so viele Tage oder Wochen vorab über meine Erinnerungen  informiert werden.",
+    "message": "Ich möchte so viele Tage oder Wochen vorab über meine Erinneringen  informiert werden.",
     "files": [
       "src/routes/user/messages.js"
     ]
@@ -4019,7 +4019,7 @@
   {
     "id": "user.contactpreference",
     "defaultMessage": "Contact Preferences",
-    "message": "News & Erinnerungen",
+    "message": "News & Erinneringen",
     "files": [
       "src/routes/user/messages.js"
     ]
