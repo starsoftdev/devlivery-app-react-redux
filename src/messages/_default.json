@@ -3819,7 +3819,7 @@
   {
     "id": "user.newpswd",
     "defaultMessage": "New Password",
-    "message": "Neues Kennwort",
+    "message": "",
     "files": [
       "src/components/ChangePasswordForm/messages.js"
     ]

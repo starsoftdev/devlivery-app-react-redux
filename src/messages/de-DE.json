@@ -3967,7 +3967,7 @@
   {
     "id": "user.newpswd",
     "defaultMessage": "New Password",
-    "message": "Neues Kennwort",
+    "message": "Neues Passwort",
     "files": [
       "src/components/ChangePasswordForm/messages.js"
     ]
