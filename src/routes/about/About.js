@@ -54,8 +54,7 @@ class About extends React.Component {
                   <Col xs={16} sm={16} className={s.quoteCotainer}>
                     <p className={s.feedback}>
                       {intl.formatMessage(messages.quote)}
-                      <br/>
-                      <b>- Adam Smith</b>
+                      
                     </p>
                   </Col>
                   <Col xs={8} sm={8}  className={s.quoteImageCotanier}>

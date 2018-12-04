@@ -2781,7 +2781,7 @@
   {
     "id": "about.quote",
     "defaultMessage": "“ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make a type specimen book. ”",
-    "message": "“ Hinter Zumi stecken wir – ein interdisziplinäres Team mit frischen Ideen und langjährigem Erfolgsausweis in der Kundenbetreuung, der Unternehmensberatung sowie im digitalen Marketing. Die beiden verschiedenen Namen sind verwirrend. GAC Services AG tönt nicht wie eine Kurzform. ”",
+    "message": "“ Hinter Zumi stecken wir – ein interdisziplinäres Team mit frischen Ideen und langjährigem Erfolgsausweis in der Kundenbetreuung, der Unternehmensberatung sowie im digitalen Marketing. Die beiden verschiedenen Namen sind verwirrend. GAC Services AG tönt nicht wie eine Kurzform 🙂”",
     "files": [
       "src/routes/about/messages.js"
     ]
