@@ -558,13 +558,9 @@ class Purchase11 extends React.Component {
                             disabled={selOccasion && selOccasion.length > 0 ? true : false}
                             disabledDate={current => {
                               var date = new Date();
-                              let zurichtime = moment().tz("Europe/Zurich").format('HH');
-                              if (parseInt(zurichtime) < 12) {
-                                date.setDate(date.getDate() + 3);
-                              }
-                              else date.setDate(date.getDate() + 4);
+                              date.setDate(date.getDate() + 1);
                               var n = current && current.day();
-                              return current && (current.valueOf() < (date) || n === 6 || n === 0)
+                              return current && (current.valueOf() < (date) || n === 0)
                             }}
                             onChange={this.onChangeDatePicker}
                           />
