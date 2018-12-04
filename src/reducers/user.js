@@ -75,16 +75,22 @@ export const getUser = () => (dispatch, getState, { fetch, cookies }) => {
   }
 }
 
-export const getUserDetails = () => (dispatch, getState, { fetch }) => {
+export const getUserDetails = () => (dispatch, getState, { fetch, history }) => {
   const { token } = dispatch(getToken())
   const { user } = getState().user
   dispatch({ type: GET_USER_REQUEST })
-  return fetch(`/users?filter_key=id&filter_value=${user.id}&with=addresses,preference,billing`, {
-    method: 'GET',
-    token,
-    success: (res) => dispatch(getUserSuccess(res.data[0])),
-    failure: () => dispatch({ type: GET_USER_FAILURE })
-  })
+  if(user && user.id)
+  {
+    return fetch(`/users?filter_key=id&filter_value=${user.id}&with=addresses,preference,billing`, {
+      method: 'GET',
+      token,
+      success: (res) => dispatch(getUserSuccess(res.data[0])),
+      failure: () => dispatch({ type: GET_USER_FAILURE })
+    })
+  }
+  else {
+    history.push('/login');
+  }
 }
 
 export const updateUser = ({ user, birthday, preference, ...values }, form, msg, redrict) => (dispatch, getState, { fetch }) => {
