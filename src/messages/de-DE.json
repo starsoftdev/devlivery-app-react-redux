@@ -608,7 +608,7 @@
   {
     "id": "editContact.phone",
     "defaultMessage": "Phone",
-    "message": "Telfon",
+    "message": "Telefon",
     "files": [
       "src/components/ContactDetail/ContactDetail.js"
     ]
