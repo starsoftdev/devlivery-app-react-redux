@@ -282,7 +282,7 @@ class Contacts extends React.Component {
       { value: '-first_name', label: 'Z-A' },
       { value: '-updated_at', label: intl.locale === "de-DE" ? 'Datum, letzes Update' : 'Last Update Date' },
       { value: '-created_at', label: intl.locale === "de-DE" ? 'Datum hinzufügen' : 'Creation Date' },
-      { value: '-dob', label: intl.locale === "de-DE" ? 'anstehnde Geburtstage' : 'Upcoming birthdays' },
+      { value: '-dob', label: intl.locale === "de-DE" ? 'anstehende Geburtstage' : 'Upcoming birthdays' },
     ]
 
     return (
