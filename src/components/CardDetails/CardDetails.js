@@ -48,7 +48,7 @@ class CardDetails extends React.Component {
         <Row className={s.detailRow}>
           <Col md={12}>
             <span className={s.DetailTitle}>{intl.formatMessage(messages.size)}</span><br />
-            <span className={s.Detail}>{cardDetails.size}</span>
+            <span className={s.Detail}>{cardDetails.size === '4" X 9"' ? '9" X 4"' : cardDetails.size}</span>
           </Col>
           <Col md={12}>
             <span className={s.DetailTitle}>{intl.formatMessage(messages.price)}</span><br />
