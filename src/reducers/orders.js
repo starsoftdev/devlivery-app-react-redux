@@ -39,7 +39,7 @@ export const getOrders = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_ORDERS_REQUEST, params})
   const {token} = dispatch(getToken())
   const {search, ordering, page, pageSize} = getState().orders
-  return fetch(`/suborders/history?${qs.stringify({
+  return fetch(`/orders-history?${qs.stringify({
     search,
     ordering,
     page,
@@ -107,7 +107,10 @@ export const closeOrderDetailsModal = () => (dispatch, getState, {fetch,history}
 export const getOrderDetails = (order) => (dispatch, getState, {fetch}) => {
   const {token} = dispatch(getToken())
   dispatch({type: GET_ORDER_DETAILS_REQUEST})
-  return fetch(`/suborders/details/${order.id}`, {
+  return fetch(`/order-confirmation?${qs.stringify({
+    order_id: order.id,
+  })}`
+  , {
     method: 'GET',
     token,
     success: (res) => {
