@@ -37,7 +37,7 @@ class ReminderCard extends React.Component {
         </Row>
         <Row>
           <Col xs={10}><div className={s.info_item}>{intl.formatMessage(messages.occasionDate)}</div></Col>
-          <Col xs={14}><div className={s.info_item}>{reminder.date ? reminder.date.format(DATE_FORMAT):''}</div></Col>
+          <Col xs={14}><div className={s.info_item}>{reminder.date ? reminder.date.format('DD-MM-YYYY'):''}</div></Col>
         </Row>
         <Row>
           <Col xs={10}><div className={s.info_item}>{intl.formatMessage(messages.reminderDate)}</div></Col>
@@ -296,7 +296,7 @@ class Reminders extends React.Component {
                 </Form.Item>
                 <Form.Item>
                   {getFieldDecorator(`reminders[${k}].date`, {
-                    initialValue: initialValues && initialValues[k] ? moment(initialValues[k].date, DATE_FORMAT) : undefined,
+                    initialValue: initialValues && initialValues[k] ? moment(initialValues[k].date,'DD-MM-YYYY') : undefined,
                   })(
                     <DatePicker
                       className={s.date}
