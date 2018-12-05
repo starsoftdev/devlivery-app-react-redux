@@ -297,11 +297,11 @@ class OrderDetails extends React.Component {
                         </Row>
                       }
                       {
-                        orderDetails.delivery_date &&
+                        recipients && recipients[this.state.currentShipping] &&
                         <Row type='flex' justify='space-between' className={s.summaryRow}>
                           <Col>{intl.formatMessage(messages.deliveryDate)}</Col>
                           <Col>
-                            {moment(orderDetails.delivery_date).format('DD-MM-YYYY')}
+                            {moment(recipients[this.state.currentShipping].delivery_date).format('DD-MM-YYYY')}
                           </Col>
                         </Row>
                       }
