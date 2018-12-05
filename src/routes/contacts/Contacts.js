@@ -89,7 +89,7 @@ class Contacts extends React.Component {
         title: intl.formatMessage(messages.birthdayColumn),
         dataIndex: 'dob',
         key: 'dob',
-        render: (dob) => dob && dob !== undefined ? moment(dob,"YYYY-MM-DD").format("DD/MM/YYYY") :''
+        render: (dob) => dob
       },
       {
         title: intl.formatMessage(messages.actionsColumn),
