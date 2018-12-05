@@ -98,8 +98,9 @@ class OrderDetails extends React.Component {
     if (orderDetails && orderDetails.recipients && recipient_id && !this.state.entirePay) {
       recipient = orderDetails.recipients.filter(item => item.id+'' === recipient_id+'');
     }
-    const recp_count =  orderDetails && orderDetails.recipients_count ? orderDetails.recipients_count : 1;
-    const recipients = [orderDetails && (recipient ? recipient : orderDetails.recipients)];
+    const recp_count =  orderDetails && orderDetails.recipients_count ? orderDetails.recipients_count : 0;
+    const recipients = orderDetails && (recipient ? recipient : orderDetails.recipients);
+
    
     const columns = [
       {
@@ -330,7 +331,7 @@ class OrderDetails extends React.Component {
                         {orderDetails.shipping_cost.toFixed(2)}
                       </Col>
                     </Row>
-                    {/*
+                    {
                       orderDetails.coupon && recipient === null && 
                       <Row type='flex' justify='space-between' className={s.summaryRow}>
                         <Col>{'Coupon ('+orderDetails.coupon.coupon+')'}</Col>
@@ -345,7 +346,7 @@ class OrderDetails extends React.Component {
                             <span className={s.currency}>{' %'}</span>
                           }
                         </Col>
-                      </Row>*/
+                      </Row>
                     }
                   </div>
                   <footer className={s.summaryFooter}>

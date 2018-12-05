@@ -1663,7 +1663,7 @@ export default createReducer(initialState, {
   }),
   [MAKE_ORDER_SUCCESS]: (state, { order }) => ({
     // orderId should be saved in cookies - order obj is too big
-    orderId: order && (order.order_id ? order.order_id : order.id),
+    orderId: order && order.id,
     order,
   }),
   [SET_DONATION_ORG]: (state, { donationOrg }) => ({
