@@ -1420,7 +1420,7 @@ export const updateOrderMeta = () => (dispatch, getState, { fetch }) => {
       incomplete_payment: 1,
     },
     success: (res) => { },
-    failure: (err) => { },
+    failure: (err) => {console.log('err',err); },
   })
 }
 export const getBundleDetails = (bundleId) => (dispatch, getState, { fetch }) => {
@@ -1663,7 +1663,7 @@ export default createReducer(initialState, {
   }),
   [MAKE_ORDER_SUCCESS]: (state, { order }) => ({
     // orderId should be saved in cookies - order obj is too big
-    orderId: order && order.id,
+    orderId: order && (order.order_id ? order.order_id : order.id),
     order,
   }),
   [SET_DONATION_ORG]: (state, { donationOrg }) => ({
