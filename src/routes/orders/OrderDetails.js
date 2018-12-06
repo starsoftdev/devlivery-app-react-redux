@@ -301,7 +301,25 @@ class OrderDetails extends React.Component {
                         <Row type='flex' justify='space-between' className={s.summaryRow}>
                           <Col>{intl.formatMessage(messages.deliveryDate)}</Col>
                           <Col>
-                            {moment(recipients[this.state.currentShipping].delivery_date).format('DD-MM-YYYY')}
+                            {recipients[this.state.currentShipping].delivery_date}
+                          </Col>
+                        </Row>
+                      }
+                      {
+                        recipients && recipients[this.state.currentShipping] &&
+                        <Row type='flex' justify='space-between' className={s.summaryRow}>
+                          <Col>{intl.formatMessage(messages.shippingdate)}</Col>
+                          <Col>
+                            {recipients[this.state.currentShipping].shipping_date}
+                          </Col>
+                        </Row>
+                      }
+                      {
+                        recipients && recipients[this.state.currentShipping] &&
+                        <Row type='flex' justify='space-between' className={s.summaryRow}>
+                          <Col>{intl.formatMessage(messages.statusColumn)}</Col>
+                          <Col>
+                            {recipients[this.state.currentShipping].status}
                           </Col>
                         </Row>
                       }
