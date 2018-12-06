@@ -24,7 +24,7 @@ import Raven from 'raven-js';
 
 !__DEV__ && Raven
     .config('https://0905932c6d084f0482d4ea11b0bc40b8@sentry.io/1272883',{
-      release: '28d432cab74611e88f564201c0a8d039'
+      release: '3.1.21'
     })
     .install();
 /* @intl-code-template addLocaleData(${lang}) */
