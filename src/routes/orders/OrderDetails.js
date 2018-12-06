@@ -305,7 +305,7 @@ class OrderDetails extends React.Component {
                           </Col>
                         </Row>
                       }
-                      {
+                      {/*
                         recipients && recipients[this.state.currentShipping] &&
                         <Row type='flex' justify='space-between' className={s.summaryRow}>
                           <Col>{intl.formatMessage(messages.shippingdate)}</Col>
@@ -313,6 +313,7 @@ class OrderDetails extends React.Component {
                             {recipients[this.state.currentShipping].shipping_date}
                           </Col>
                         </Row>
+                        */
                       }
                       {
                         recipients && recipients[this.state.currentShipping] &&
