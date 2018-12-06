@@ -2267,7 +2267,8 @@
     "defaultMessage": "Shipping Date",
     "message": "Versanddatum",
     "files": [
-      "src/routes/reports/messages.js"
+      "src/routes/reports/messages.js",
+      "src/routes/orders/messages.js"
     ]
   },
   {
