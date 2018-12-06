@@ -109,6 +109,10 @@ export default defineMessages({
     id: 'reports.datefrom',
     defaultMessage: 'From:',
   },
+  shippingdate: {
+    id: 'reports.shippingdate',
+    defaultMessage: 'Shipping Date',
+  },
   dateto: {
     id: 'voucher.receiver',
     defaultMessage: 'To',
