@@ -52,7 +52,7 @@
   text-align: center;
   font-family: var(--font-family-secondary);
   font-size: var(--font-size-base);
-  word-break: break-all;
+  word-break: break-word;
 }
 .preview {
   align-self: center;
