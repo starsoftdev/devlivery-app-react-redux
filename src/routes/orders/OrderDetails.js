@@ -323,6 +323,15 @@ class OrderDetails extends React.Component {
                           </Col>
                         </Row>
                       }
+                      {
+                        recipients && recipients[this.state.currentShipping] && recipients[this.state.currentShipping].shipped_at &&
+                        <Row type='flex' justify='space-between' className={s.summaryRow}>
+                          <Col>{'shipped at'}</Col>
+                          <Col>
+                            {recipients[this.state.currentShipping].shipped_at}
+                          </Col>
+                        </Row>
+                      }
                     </div>
                   }
                   <div className={s.summaryContent}>
