@@ -87,6 +87,7 @@
   background: color-mod(var(--white-color) a(90%));
   padding: var(--margin-md);
   font-size: 15px;
+  white-space: pre-line;
 }
 
 .content {
