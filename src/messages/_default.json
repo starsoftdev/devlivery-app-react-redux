@@ -3132,6 +3132,30 @@
     ]
   },
   {
+    "id": "giftStore.stock",
+    "defaultMessage": "Stock",
+    "message": "",
+    "files": [
+      "src/routes/giftStore/messages.js"
+    ]
+  },
+  {
+    "id": "giftStore.SKU",
+    "defaultMessage": "SKU",
+    "message": "",
+    "files": [
+      "src/routes/giftStore/messages.js"
+    ]
+  },
+  {
+    "id": "giftStore.unlimited",
+    "defaultMessage": "Unlimited",
+    "message": "",
+    "files": [
+      "src/routes/giftStore/messages.js"
+    ]
+  },
+  {
     "id": "giftStore.collections",
     "defaultMessage": "Collections",
     "message": "",
