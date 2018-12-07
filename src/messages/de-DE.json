@@ -3274,7 +3274,8 @@
     "defaultMessage": "Stock",
     "message": "Stock",
     "files": [
-      "src/routes/giftStore/messages.js"
+      "src/routes/giftStore/messages.js",
+      "src/routes/orders/messages.js"
     ]
   },
   {
@@ -3282,7 +3283,8 @@
     "defaultMessage": "SKU",
     "message": "SKU",
     "files": [
-      "src/routes/giftStore/messages.js"
+      "src/routes/giftStore/messages.js",
+      "src/routes/orders/messages.js"
     ]
   },
   {
@@ -3290,7 +3292,8 @@
     "defaultMessage": "Unlimited",
     "message": "Unlimited",
     "files": [
-      "src/routes/giftStore/messages.js"
+      "src/routes/giftStore/messages.js",
+      "src/routes/orders/messages.js"
     ]
   },
   {
