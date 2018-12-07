@@ -67,7 +67,7 @@ class AddContact extends React.Component {
         this.props.gotoConfirm();
       }
       else {
-        localStorage.removeItem(CONTACT_IDS_KEY)
+        //localStorage.removeItem(CONTACT_IDS_KEY)
         this.props.setNewRecipients([contact.id]);
         this.props.nextFlowStep()
       }
