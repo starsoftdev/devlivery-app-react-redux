@@ -16,6 +16,7 @@ class GiftDetails extends React.Component {
         dataSource = giftDetails[GIFT_GALLERY_PROP];
       else dataSource = giftDetails[GIFT_IMAGES_PROP];
     }
+    
     return giftDetails ? (
       <Modal
         className={s.DetailModal}
@@ -49,9 +50,17 @@ class GiftDetails extends React.Component {
           </Col>
         </Row>
         <Row className={s.detailRow}>
-          <Col md={12}>
+          <Col md={8}>
             <span className={s.DetailTitle}>{intl.formatMessage(messages.price)}</span><br />
             <span className={s.Detail}>{giftDetails.currency+" "+giftDetails.price_with_tax}</span>
+          </Col>
+          <Col md={8}>
+            <span className={s.DetailTitle}>{intl.formatMessage(messages.stock)}</span><br />
+            <span className={s.Detail}>{giftDetails.stock && giftDetails.stock < 0 ? intl.formatMessage(messages.unlimited) : giftDetails.stock}</span>
+          </Col>
+          <Col md={8}>
+            <span className={s.DetailTitle}>{intl.formatMessage(messages.SKU)}</span><br />
+            <span className={s.Detail}>{giftDetails.sku}</span>
           </Col>
         </Row>
         {
