@@ -117,4 +117,16 @@ export default defineMessages({
     id: 'voucher.receiver',
     defaultMessage: 'To',
   },
+  stock: {
+    id: 'giftStore.stock',
+    defaultMessage: 'Stock',
+  },
+  SKU: {
+    id: 'giftStore.SKU',
+    defaultMessage: 'SKU',
+  },
+  unlimited: {
+    id: 'giftStore.unlimited',
+    defaultMessage: 'Unlimited',
+  },
 })
