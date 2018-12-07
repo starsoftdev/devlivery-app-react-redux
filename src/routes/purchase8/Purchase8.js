@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getGifts, setGift, submitGift, buyMoreGift } from '../../reducers/purchase'
-import { Button, Col, Layout, Row, Select } from 'antd'
+import { Button, Col, Layout, Row, Select, message } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase8.css'
 import { Card, Header, Preview, PurchaseActions, SectionHeader,GiftDetails } from '../../components'
@@ -25,7 +25,7 @@ class Purchase8 extends React.Component {
 
   render() {
     const { previewCollapsed, disableSubmit } = this.state
-    const { gift, giftIds, setGift, buyMoreGift, submitGift, intl, flowIndex, gifts, getGifts, giftType } = this.props
+    const { gift, giftIds, setGift, buyMoreGift, submitGift, intl, flowIndex, gifts, getGifts, giftType,newrecipient } = this.props
     const gift_preview = gift ? gift: (gifts && giftIds && giftIds.length > 0 ? gifts.find(item=>item.id===giftIds[giftIds.length-1]):null)
     return (
       <React.Fragment>
@@ -68,7 +68,14 @@ class Purchase8 extends React.Component {
                       }
                       bordered={false}
                       description={intl.locale === 'de-DE' ? item.short_description_german : item.short_description}
-                      onClick={() => setGift(item)}
+                      onClick={() => {
+                        if((item.stock > 0 && item.stock < newrecipient.length) || item.stock == 0)
+                        {
+                          message.warn('This gift have no enough stock.');
+                          return ;
+                        }  
+                        setGift(item)
+                      }}
                       active={giftIds && giftIds.includes(item.id)}
                       imageStyle={s.cardimage}
                     />
@@ -141,7 +148,8 @@ const mapState = state => ({
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
   giftType: state.purchase.giftType,
-  giftIds: state.purchase.giftIds
+  giftIds: state.purchase.giftIds,
+  newrecipient: state.purchase.newrecipient
 })
 
 const mapDispatch = {
