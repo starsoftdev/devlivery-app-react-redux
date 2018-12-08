@@ -557,7 +557,6 @@ class Purchase11 extends React.Component {
                             format={DISPLAYED_DATE_FORMAT}
                             disabled={selOccasion && selOccasion.length > 0 ? true : false}
                             disabledDate={current => {
-                              //Mon=1 Tues=2 Wedn=3 thrs=4 fri=5 sat=6 sun=0
                               var date = new Date();
                               
                               switch (date.getDay()) {

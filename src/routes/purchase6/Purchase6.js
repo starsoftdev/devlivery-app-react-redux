@@ -243,7 +243,7 @@ class Purchase6 extends React.Component {
     this.setState(newState)
   }
 
-  handleSubmit = () => {
+  handleSubmit = (stayPage) => {
     const html = this.tinymce.editor && this.tinymce.editor.getContent();
     var fonts = this.props.fontFamilies.map(font =>
       `<link id="${font}" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=${font}" media="all">`
@@ -252,10 +252,11 @@ class Purchase6 extends React.Component {
       fonts = `<link id="${Contants.FONTS[0]}" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=${Contants.FONTS[0]}" media="all">`
     const body = `<!doctype html><html lang="en"><head>${GLOBAL_META}${fonts}${GLOBAL_STYLES}</head><body><span><span/>${html && html !== undefined? html:''}</body></html>`;
 
-    this.props.submitCardDetails({ body })
+    this.props.submitCardDetails({ body },stayPage)
   }
   handleEditorChange(content) {
     this.setState({ content });
+    this.handleSubmit(true);
   }
   execTinyCommand(type, flag, value) {
     if (this.tinymce)
@@ -333,11 +334,11 @@ class Purchase6 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={this.handleSubmit}
+            onKeyHandle={()=>this.handleSubmit(false)}
           />
           <Button
             type='primary'
-            onClick={this.handleSubmit}
+            onClick={()=>this.handleSubmit(false)}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
