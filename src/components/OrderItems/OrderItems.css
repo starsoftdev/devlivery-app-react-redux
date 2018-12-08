@@ -24,6 +24,13 @@
   min-height: 200px;
   width: 100%;
 }
+.itemImage_gift{
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  min-height: 200px;
+  width: 100%;
+}
 .container{
   width:'100%';
   text-align: center;

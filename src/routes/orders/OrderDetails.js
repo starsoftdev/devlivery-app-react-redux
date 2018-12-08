@@ -64,6 +64,13 @@ class OrderDetails extends React.Component {
             <span>{selRecipient.receiving_address.address}</span><br />
             <span>{(selRecipient.receiving_address.postal_code ? selRecipient.receiving_address.postal_code : '') + ' ' + (selRecipient.receiving_address.city ? selRecipient.receiving_address.city : '')}</span><br />
             <span>{selRecipient.receiving_address.country ? selRecipient.receiving_address.country : ''}</span><br />
+            {
+              recipients.length > 1 &&
+              <span>
+              <strong>{this.props.intl.formatMessage(messages.deliveryDate)}: </strong><span>{selRecipient.delivery_date}</span><br />
+              <strong>{this.props.intl.formatMessage(messages.statusColumn)}: </strong><span>{selRecipient.status}</span><br />
+              </span>
+            }
           </div>
           {
             recipients.length > 1 &&
@@ -120,7 +127,7 @@ class OrderDetails extends React.Component {
             case GIFT_TYPE:
               return (
                 <div className={cn(s.product, s.touch)} onClick={() => this.setState({ cardPreview: 'gift', giftDetails: item })}>
-                  <div style={{ backgroundImage: `url(${getItemImage(item, GIFT_IMAGES_PROP)})`, minWidth: '150px' }} className={s.productImage} />
+                  <div style={{ backgroundImage: `url(${getItemImage(item, GIFT_IMAGES_PROP)})`, minWidth: '150px', backgroundSize:'contain' }} className={s.productImage} />
                   <div className={s.title}>{item.title}</div>
                 </div>
               )
@@ -297,39 +304,20 @@ class OrderDetails extends React.Component {
                         </Row>
                       }
                       {
-                        recipients && recipients[this.state.currentShipping] &&
+                        orderDetails.delivery_date && recipients.length === 1 &&
                         <Row type='flex' justify='space-between' className={s.summaryRow}>
                           <Col>{intl.formatMessage(messages.deliveryDate)}</Col>
                           <Col>
-                            {recipients[this.state.currentShipping].delivery_date}
+                            {orderDetails.delivery_date}
                           </Col>
                         </Row>
-                      }
-                      {/*
-                        recipients && recipients[this.state.currentShipping] &&
-                        <Row type='flex' justify='space-between' className={s.summaryRow}>
-                          <Col>{intl.formatMessage(messages.shippingdate)}</Col>
-                          <Col>
-                            {recipients[this.state.currentShipping].shipping_date}
-                          </Col>
-                        </Row>
-                        */
                       }
                       {
-                        recipients && recipients[this.state.currentShipping] &&
+                        orderDetails.status &&
                         <Row type='flex' justify='space-between' className={s.summaryRow}>
                           <Col>{intl.formatMessage(messages.statusColumn)}</Col>
                           <Col>
-                            {recipients[this.state.currentShipping].status}
-                          </Col>
-                        </Row>
-                      }
-                      {
-                        recipients && recipients[this.state.currentShipping] && recipients[this.state.currentShipping].shipped_at &&
-                        <Row type='flex' justify='space-between' className={s.summaryRow}>
-                          <Col>{'shipped at'}</Col>
-                          <Col>
-                            {recipients[this.state.currentShipping].shipped_at}
+                            {orderDetails.status}
                           </Col>
                         </Row>
                       }
