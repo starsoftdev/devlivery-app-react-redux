@@ -470,13 +470,14 @@ export const getCards = (params = {}) => (dispatch, getState, { fetch }) => {
 export const setCardSize = (cardSize) => ({ type: SET_CARD_SIZE, cardSize })
 
 export const CARDDETAILS = "card_details";
-export const submitCardDetails = (cardDetails) => async (dispatch, getState) => {
-  dispatch({ type: SET_CARD_DETAILS, cardDetails })
+export const submitCardDetails = (cardDetails, stayPage) => async (dispatch, getState) => {
   localStorage.setItem(CARDDETAILS, JSON.stringify(cardDetails));
+  if(stayPage)
+    return;
+  dispatch({ type: SET_CARD_DETAILS, cardDetails })
   const { bundle, flow } = getState().purchase;
   if (bundle && bundle.id)
     dispatch({ type: UPDATE_BUNDLE_BODY, cardDetails })
-
 
   if (flow.key === GIFT_PURCHASE_FLOW.key || flow.key === AUTH_GIFT_PURCHASE_FLOW.key) {
     await dispatch(addBundle())
