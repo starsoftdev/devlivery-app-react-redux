@@ -167,10 +167,11 @@ class ContactForm extends React.Component {
         </Row>
         <Form.Item>
           {getFieldDecorator('contact.email', {
-            validateTrigger: 'onSubmit',//'onBlur'
+            validateTrigger: 'onBlur',//'onSubmit'
             initialValue: initialValues && initialValues.email,
             rules: [
               { required: false, message: intl.formatMessage(formMessages.required) },
+              { type: 'email', message: intl.formatMessage(formMessages.emailInvalid) },
             ],
           })(
             <FloatingLabel placeholder={intl.formatMessage(messages.email)} />
