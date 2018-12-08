@@ -21,6 +21,8 @@ class ReminderCard extends React.Component {
     const {k, index, reminder, intl, occasion,Reminder_recurring, removeItem, editItem} = this.props;
     const recurring  = Reminder_recurring.find(item => item.value === reminder.recurring);
     
+    if(reminder.date === undefined || reminder.reminder_date === undefined || reminder.date === null || reminder.reminder_date === null)
+      return <div/>;
     return (
       <div className={s.carditem}>
         {
