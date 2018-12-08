@@ -30,10 +30,10 @@ class Address extends React.Component {
   }
   checkingEmptyForm(index){
     const {getFieldValue} = this.props.form;
-    if(getFieldValue(`addresses[${index}].address2`) === null &&
-      getFieldValue(`addresses[${index}].city`) === null &&
-      getFieldValue(`addresses[${index}].postal_code`) === null &&
-      getFieldValue(`addresses[${index}].country`) === null
+    if((getFieldValue(`addresses[${index}].address2`) === null || getFieldValue(`addresses[${index}].address2`) === undefined) &&
+      (getFieldValue(`addresses[${index}].city`) === null || getFieldValue(`addresses[${index}].city`) === undefined) &&
+      (getFieldValue(`addresses[${index}].postal_code`) === null || getFieldValue(`addresses[${index}].postal_code`) === undefined) &&
+      (getFieldValue(`addresses[${index}].country`) === null || getFieldValue(`addresses[${index}].country`) === undefined)
       )
       return true;
     return false;
@@ -44,6 +44,7 @@ class Address extends React.Component {
       {required, message: intl.formatMessage(formMessages.required)}
     ]
     const expand = collapseActiveIndex === index ? true : false;
+    
     return (
       <section className={s.section}>
         {/*<h1 className={s.header}>{header}</h1>*/}
