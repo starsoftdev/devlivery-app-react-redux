@@ -192,7 +192,7 @@ class Reminders extends React.Component {
     );
   }
   render() {
-    const { occasionTitle, newOccasion } = this.state
+    const { occasionTitle, newOccasion, isAdding } = this.state
     const { occasions, loading, intl, initialValues, form } = this.props
     const { getFieldDecorator, getFieldValue } = form
 
@@ -376,7 +376,7 @@ class Reminders extends React.Component {
           !this.state.isEditing &&
           <Button type='primary' ghost onClick={this.addItem}>
             <PlusIcon />
-            {intl.formatMessage(messages.addReminder)}
+            {intl.formatMessage(!isAdding ? messages.addReminder: messages.saveReminder)}
           </Button>
         }
       </React.Fragment>
