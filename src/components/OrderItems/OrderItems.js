@@ -9,6 +9,7 @@ import LeftIcon from '../../static/left-arrow.svg'
 import RightIcon from '../../static/right-arrow.svg'
 import { Popconfirm } from 'antd'
 import messages from './messages'
+import cn from 'classnames';
 
 class OrderItems extends React.Component {
   state = {
@@ -64,7 +65,8 @@ class OrderItems extends React.Component {
     }
     
     return (
-      <div className={s.orderInfo}>
+      <div className={s.container}>
+      <div className={cn(s.orderInfo, !gift && !voucher && !donation && s.singleInfo)}>
         <div className={s.cardWrapper}>
           <div
             style={{ backgroundImage: `url(${getItemImage(card, CARD_IMAGES_PROP)})` }}
@@ -172,7 +174,8 @@ class OrderItems extends React.Component {
             </p>
           </div>
         )}
-        {!gift && !voucher && !donation && (
+        {/*
+          !gift && !voucher && !donation && (
           <div className={s.cardWrapper}>
             <div
               className={s.itemImage}
@@ -184,7 +187,9 @@ class OrderItems extends React.Component {
               <span className={s.cardPrice}></span>
             </p>
           </div>
-        )}
+        )*/
+        }
+      </div>
       </div>
     )
   }
