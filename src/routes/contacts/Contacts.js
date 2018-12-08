@@ -163,7 +163,7 @@ class Contacts extends React.Component {
                 <Select
                   className={s.sortBy}
                   placeholder={intl.formatMessage(messages.sortBy)}
-                  onChange={(ordering) => getContacts({ ordering })}
+                  onChange={(ordering) => getContacts({ ordering, search: this.state.search })}
                   value={ordering}
                 >
                   {contactSortBy.map(item =>
