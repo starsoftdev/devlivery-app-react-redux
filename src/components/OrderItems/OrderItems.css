@@ -24,7 +24,10 @@
   min-height: 200px;
   width: 100%;
 }
-
+.container{
+  width:'100%';
+  text-align: center;
+}
 .orderInfo {
   display: flex;
   background-color: var(--white-color);
@@ -91,4 +94,8 @@
 .rightIcon{
   float: right;
   margin-top: 15px;
+}
+.singleInfo{
+  width: 325px;
+  display: inline-block;
 }
