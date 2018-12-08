@@ -557,8 +557,31 @@ class Purchase11 extends React.Component {
                             format={DISPLAYED_DATE_FORMAT}
                             disabled={selOccasion && selOccasion.length > 0 ? true : false}
                             disabledDate={current => {
+                              //Mon=1 Tues=2 Wedn=3 thrs=4 fri=5 sat=6 sun=0
                               var date = new Date();
-                              date.setDate(date.getDate() + 1);
+                              
+                              switch (date.getDay()) {
+                                case 0://"Sunday" => "Wednesday"
+                                  date.setDate(date.getDate() + 2);
+                                  break;
+                                case 1://"Monday" => "Thursday" 
+                                  date.setDate(date.getDate() + 2);
+                                  break;
+                                case 2://"Tuesday" => "Friday"
+                                  date.setDate(date.getDate() + 2);
+                                  break;
+                                case 3://"Wednesday" => "Saturday"
+                                  date.setDate(date.getDate() + 2);
+                                  break;
+                                case 4://"Thursday" => "Monday"
+                                  date.setDate(date.getDate() + 3);
+                                  break;
+                                case 5://"Friday" => "Tuesday"
+                                  date.setDate(date.getDate() + 3);
+                                  break;
+                                case 6://"Saturday" => "Wednesday"
+                                  date.setDate(date.getDate() + 3);
+                              }
                               var n = current && current.day();
                               return current && (current.valueOf() < (date) || n === 0)
                             }}
