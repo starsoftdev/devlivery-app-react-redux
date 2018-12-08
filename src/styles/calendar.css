@@ -99,7 +99,7 @@
       color: var(--dark-color);
 
       &:hover {
-        cursor: pointer;
+        cursor: default;
       }
 
       &:active {

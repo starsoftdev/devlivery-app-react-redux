@@ -91,7 +91,7 @@
   bottom: 2px;
   left: 0;
   right: 0;
-
+  cursor: pointer;
   &:after {
     content: "•";
     font-size: 18px;
