@@ -28,13 +28,22 @@ class Address extends React.Component {
       else this.props.onExpand(this.props.index,true);
     })
   }
+  checkingEmptyForm(index){
+    const {getFieldValue} = this.props.form;
+    if(getFieldValue(`addresses[${index}].address2`) === null &&
+      getFieldValue(`addresses[${index}].city`) === null &&
+      getFieldValue(`addresses[${index}].postal_code`) === null &&
+      getFieldValue(`addresses[${index}].country`) === null
+      )
+      return true;
+    return false;
+  }
   render() {
     const {getFieldDecorator, index, header, intl, initialValues, required, onAddressChange, title, collapseActiveIndex} = this.props
     const rules = [
       {required, message: intl.formatMessage(formMessages.required)}
     ]
     const expand = collapseActiveIndex === index ? true : false;
-    
     return (
       <section className={s.section}>
         {/*<h1 className={s.header}>{header}</h1>*/}
@@ -58,7 +67,7 @@ class Address extends React.Component {
               initialValue: initialValues && initialValues.address ? (typeof initialValues.address === 'string' ? initialValues.address : initialValues.address[0]) : undefined,
               rules: [
                 ...rules,
-                {min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})}
+                {required: index==1 && !this.checkingEmptyForm(index), min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})}
               ],
             })(
               <FloatingLabel placeholder={intl.formatMessage(index==1 ? messages.companyname: messages.address0)+(required?" *":"")} onChange={(e) => onAddressChange(e.target.value)}/>
