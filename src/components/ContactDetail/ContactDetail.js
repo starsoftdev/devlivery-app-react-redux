@@ -7,6 +7,7 @@ import withStyles from "isomorphic-style-loader/lib/withStyles";
 import {EDIT_CONTACT_ROUTE} from '../../routes'
 import {Link} from '../';
 import {defineMessages} from 'react-intl'
+import moment from 'moment'
 
 const trans_adr = {
   office:'Geschäfts',
@@ -37,6 +38,10 @@ const messages = defineMessages({
     id: 'editContact.home',
     defaultMessage: 'Home',
   },
+  birthday: {
+    id: 'contactForm.birthday',
+    defaultMessage: 'Birthday',
+  },
 })
 
 
@@ -46,7 +51,7 @@ class ContactDetail extends React.Component {
   }
 
   render() {
-    const {intl,last_name, first_name, email, phone, nickname, relationship, addresses,contactId} = this.props
+    const {intl,last_name, first_name, email, phone, nickname, relationship, addresses,contactId ,dob} = this.props
     
     return (
       <Modal
@@ -76,6 +81,15 @@ class ContactDetail extends React.Component {
             <span className={s.contactDetail}>{relationship}</span>
           </Col>
         </Row>
+        {
+          dob && 
+          <Row className={s.detailRow}>
+            <Col md={12}>
+              <span className={s.contactDetailTitle}>{intl.formatMessage(messages.birthday)}</span><br/>
+              <span className={s.contactDetail}>{moment(dob).format("DD/MM/YYYY")}</span>
+            </Col>
+          </Row>
+        }
         <Row className={s.detailRow}>
           <span className={s.contactDetailTitle}>{intl.formatMessage(messages.home)}</span><br/>
           {addresses && addresses.map((address) =>
