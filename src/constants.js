@@ -75,7 +75,7 @@ export const CARD_SIZES = (intl) => [
     width: 144,
   },
   {
-    key: '4" X 9"',
+    key: '9" X 4"',
     title: intl && intl.formatMessage(messages.foldedCardWithInlay),
     subtitle:'CHF 7.50',
     svg: BigFoldedCardImage,
