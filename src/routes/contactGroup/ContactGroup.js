@@ -116,16 +116,19 @@ class ContactGroup extends React.Component {
               <PlusIcon/>
               {intl.formatMessage(messages.submit)}
             </Button>
-            <Popconfirm
-              title={intl.formatMessage(messages.confirmRemoving)}
-              onConfirm={() => removeContactGroup(currentGroup)}
-              okText={intl.formatMessage(messages.acceptRemoving)}
-            >
-              <Button type='danger' type='primary' ghost style={{float:'right'}}>
-                <RemoveIcon/>
-                {intl.formatMessage(messages.delete)}
-              </Button>
-            </Popconfirm>
+            {
+              this.props.groupId &&
+              <Popconfirm
+                title={intl.formatMessage(messages.confirmRemoving)}
+                onConfirm={() => removeContactGroup(currentGroup)}
+                okText={intl.formatMessage(messages.acceptRemoving)}
+              >
+                <Button type='danger' type='primary' ghost style={{float:'right'}}>
+                  <RemoveIcon/>
+                  {intl.formatMessage(messages.delete)}
+                </Button>
+              </Popconfirm>
+            }
           </div>
         </div>
       </React.Fragment>
