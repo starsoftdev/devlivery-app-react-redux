@@ -134,7 +134,7 @@ class Purchase11 extends React.Component {
           first_name: first_name,
           last_name: last_name,
           ...address ? {
-            address: (address.company ? address.company+' ':'')+ (address.address && address.address.length > 0 ?address.address.join(' '):''),
+            address: (address.company ? address.company+'\n':'')+ (address.address && address.address.length > 0 ?address.address.join('\n'):''),
             postal_code: address.postal_code,
             city: address.city,
             country: address.country,
@@ -162,7 +162,7 @@ class Purchase11 extends React.Component {
             first_name: selRecipient.contact.first_name,
             last_name: selRecipient.contact.last_name,
             ...contact ? {
-              address: (contact.address && contact.address.length > 0 ? contact.address.join(' '):''),
+              address: (contact.address && contact.address.length > 0 ? contact.address.join('\n'):''),
               postal_code: contact.postal_code,
               city: contact.city,
               country: contact.country
