@@ -44,6 +44,11 @@
   justify-content: center;
   align-items: center;
   word-break: break-all;
+  min-width: 150px;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
 }
 .voucherContain{
   justify-content: flex-start
