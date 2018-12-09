@@ -71,7 +71,8 @@ class Reminders extends React.Component {
       isAdding: false,
       isEditing: false,
       editIndex: 0,
-      InvalidIndex: null
+      InvalidIndex: null,
+      errorMessage: null,
     }
 
     this.getOccasions = debounce(props.getOccasions, DEFAULT_DEBOUNCE_TIME)
@@ -134,10 +135,13 @@ class Reminders extends React.Component {
     return true;
   }
   isValidateReminder = (k) =>{
-    const {reminder_date, occasion_id} = this.props.form.getFieldValue(`reminders[${k}]`)
-    if(occasion_id === null || occasion_id === undefined || reminder_date === null || reminder_date === undefined)
+    const {reminder_date, occasion_id, recurring} = this.props.form.getFieldValue(`reminders[${k}]`)
+    if(occasion_id === null || occasion_id === undefined || reminder_date === null || reminder_date === undefined || recurring === undefined || recurring === null || recurring === '1')
     {
-      this.setState({InvalidIndex:k});
+      var errMessage = (occasion_id === null || occasion_id === undefined) ? "Required Occasion Field!" :
+                       (reminder_date === null || reminder_date === undefined) ? "Required Reminder Date Field!" :
+                       (recurring === null || recurring === undefined) ? "Should have value for Repeat!" : "Shouldn't be Once for Repeat!";
+      this.setState({InvalidIndex:k, errorMessage:errMessage});
       return false;
     }
     this.setState({InvalidIndex:null});
@@ -192,7 +196,7 @@ class Reminders extends React.Component {
     );
   }
   render() {
-    const { occasionTitle, newOccasion } = this.state
+    const { occasionTitle, newOccasion, isAdding } = this.state
     const { occasions, loading, intl, initialValues, form } = this.props
     const { getFieldDecorator, getFieldValue } = form
 
@@ -356,7 +360,7 @@ class Reminders extends React.Component {
                 {
                   this.state.InvalidIndex === k &&
                   <Row>
-                    <Col xs={24}><div className={s.error_item}>Invalid Reminder</div></Col>
+                    <Col xs={24}><div className={s.error_item}>{this.state.errorMessage}</div></Col>
                   </Row>
                 }
         
@@ -376,7 +380,7 @@ class Reminders extends React.Component {
           !this.state.isEditing &&
           <Button type='primary' ghost onClick={this.addItem}>
             <PlusIcon />
-            {intl.formatMessage(messages.addReminder)}
+            {intl.formatMessage(!isAdding ? messages.addReminder: messages.saveReminder)}
           </Button>
         }
       </React.Fragment>
