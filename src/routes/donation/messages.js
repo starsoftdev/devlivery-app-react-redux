@@ -11,7 +11,7 @@ export default defineMessages({
   },
   submit: {
     id: 'donation.submit',
-    defaultMessage: 'Next',
+    defaultMessage: 'SAVE AND NEXT STEP',
   },
   amount: {
     id: 'donation.amount',
