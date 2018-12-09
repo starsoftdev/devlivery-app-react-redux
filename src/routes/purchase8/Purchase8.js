@@ -99,7 +99,7 @@ class Purchase8 extends React.Component {
               submitGift(-2)
             }}
           >
-            {'buy more products'}
+            {'SAVE AND BUY MORE PRODUCTS'}
           </Button>
           <KeyHandler
             keyEventName={KEYPRESS}

@@ -194,7 +194,7 @@ class Voucher extends React.Component {
             type='primary'
             onClick={(e) => this.handleSubmit(e, true)}
           >
-            {'buy more products'}
+            {'SAVE AND BUY MORE PRODUCTS'}
           </Button>
           <KeyHandler
             keyEventName={KEYPRESS}
