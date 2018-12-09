@@ -1258,6 +1258,11 @@ export const confirmVoucher = (bundleValues, refresh) => async (dispatch, getSta
 }
 
 export const submitDonation = (donation, refresh = false) => async (dispatch, getState) => {
+  if(donation === null && refresh)
+  {
+    dispatch(nextFlowStep(-2))
+    return;
+  }
   await dispatch({ type: SUBMIT_DONATION, donation })
   const { flow } = getState().purchase
   dispatch(confirmDonation(null, refresh))

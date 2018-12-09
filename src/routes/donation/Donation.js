@@ -13,6 +13,7 @@ import { FloatingLabel } from '../../components';
 const DONATION_STATE = 'donation_state'
 class Donation extends React.Component {
   state = {
+    donationOrg: null,
     amountValue: '',
     hideAmount: false
   }
@@ -23,7 +24,7 @@ class Donation extends React.Component {
   handleSubmit = (e,refresh=false) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
-      if (!err && this.props.donationOrg) {
+      if (!err && this.state.donationOrg) {
         if(values['donationAmount'] < 0)
         {
           this.props.form.setFields({
@@ -34,8 +35,11 @@ class Donation extends React.Component {
           });
           return;
         }
+        this.props.setDonationOrg(this.state.donationOrg);
         localStorage.setItem(DONATION_STATE, JSON.stringify(values));
         this.props.submitDonation(values,refresh)
+      } else {
+        this.props.submitDonation(null,refresh)
       }
     })
   }
@@ -45,11 +49,12 @@ class Donation extends React.Component {
   async loadLocalStorage() {
     var initState = await localStorage.getItem(DONATION_STATE);
     initState = JSON.parse(initState);
-    this.setState({ ...initState });
+    this.setState({ ...initState, donationOrg: this.props.donationOrg});
   }
   render() {
-    const { donationOrg, setDonationOrg, donationOrgs, intl, flowIndex, loading, donationAmount, hideAmount, doCount, doPage, doPageSize, getDonationOrgs } = this.props
+    const { setDonationOrg, donationOrgs, intl, flowIndex, loading, donationAmount, hideAmount, doCount, doPage, doPageSize, getDonationOrgs } = this.props
     const { getFieldDecorator } = this.props.form
+    const { donationOrg } = this.state;
     // TODO make amount input as InputNumber field
     return (
       <React.Fragment>
@@ -69,7 +74,7 @@ class Donation extends React.Component {
                     title={item.name}
                     item={item}
                     imagesProp={'logo'}
-                    onClick={() => setDonationOrg(item)}
+                    onClick={() => this.setState({donationOrg:item})}
                     bordered={false}
                     description={item.description}
                     active={donationOrg && donationOrg.id === item.id}
@@ -116,7 +121,6 @@ class Donation extends React.Component {
         <PurchaseActions>
           <Button
             type='primary'
-            disabled={!donationOrg}
             onClick={(e)=>this.handleSubmit(e,true)}
           >
             {'buy more products'}
