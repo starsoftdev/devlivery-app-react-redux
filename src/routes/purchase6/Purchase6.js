@@ -244,7 +244,8 @@ class Purchase6 extends React.Component {
   }
 
   handleSubmit = (stayPage) => {
-    const html = this.tinymce.editor && this.tinymce.editor.getContent();
+    
+    const html = this.tinymce && this.tinymce.editor && this.tinymce.editor.getContent();
     var fonts = this.props.fontFamilies.map(font =>
       `<link id="${font}" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=${font}" media="all">`
     ).join('')
