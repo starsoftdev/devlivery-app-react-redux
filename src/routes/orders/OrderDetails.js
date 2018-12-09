@@ -17,6 +17,7 @@ const GIFT_TYPE = 'gift'
 // TODO add info in table for voucher and donation
 const VOUCHER_TYPE = 'voucher'
 const DONATION_TYPE = 'donation'
+const TOTAL_TYPE = 'Total'
 
 class OrderDetails extends React.Component {
   constructor(props) {
@@ -157,6 +158,12 @@ class OrderDetails extends React.Component {
                   <div className={s.title}>{item.name}</div>
                 </div>
               )
+            case TOTAL_TYPE:
+              return (
+                <div className={s.product}>
+
+                </div>
+              )
             default:
               return null
           }
@@ -178,6 +185,8 @@ class OrderDetails extends React.Component {
             quantity = 1
           } else if (item.productType === DONATION_TYPE) {
             //quantity = item.amount
+          } else if (item.productType === TOTAL_TYPE) {
+            quantity = TOTAL_TYPE
           }
 
           return (
@@ -194,7 +203,7 @@ class OrderDetails extends React.Component {
           return (
             <React.Fragment>
               <span className={s.currency}>{item.currency ? item.currency : 'CHF'}</span>
-              {item.productType === DONATION_TYPE ? item.amount:item.price_with_tax}
+              {item.productType === DONATION_TYPE ? item.amount:item.productType === TOTAL_TYPE ? item.value:item.price_with_tax}
             </React.Fragment>
           )
         }
@@ -231,6 +240,14 @@ class OrderDetails extends React.Component {
       dataSource.push({
         ...orderDetails.voucher,
         productType: VOUCHER_TYPE,
+        key
+      });
+      key++;
+    }
+    if (orderDetails) {
+      dataSource.push({
+        value: recipient ? orderDetails.bundle_subtotal.toFixed(2) :  orderDetails.bundle_total.toFixed(2),
+        productType: TOTAL_TYPE,
         key
       });
       key++;
@@ -275,6 +292,18 @@ class OrderDetails extends React.Component {
                   rowKey={record => record.key}
                   pagination={false}
                 />
+                {
+                  orderDetails.incomplete_payment &&
+                  <div className={s.paybutton}>
+                    <Button type='primary' onClick={() => {
+                      setFlowPayment(orderDetails)
+                    }}>
+                      {'Pay'}
+                    </Button>
+                  </div>
+                }
+              </Col>
+              <Col xs={24} sm={8}>
                 <section className={s.summary}>
                   <header className={s.summaryHeader}>
                     {intl.formatMessage(messages.summary)}
@@ -369,18 +398,6 @@ class OrderDetails extends React.Component {
                     </div>
                   }
                 </section>
-                {
-                  orderDetails.incomplete_payment &&
-                  <div className={s.paybutton}>
-                    <Button type='primary' onClick={() => {
-                      setFlowPayment(orderDetails)
-                    }}>
-                      {'Pay'}
-                    </Button>
-                  </div>
-                }
-              </Col>
-              <Col xs={24} sm={8}>
                 <section>
                   {this.renderRecipientInf(recipients)}
                 </section>
