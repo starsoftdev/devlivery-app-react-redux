@@ -27,6 +27,7 @@ class Purchase3 extends React.Component {
                 title={item.title}
                 item={item}
                 imagesProp={'image'}
+                disabled={item.number_of_cards === 0}
                 onClick={() => {
                   setCardStyle(item.title)
                   nextFlowStep()
