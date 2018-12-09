@@ -112,10 +112,9 @@ export const updateUser = ({ user, birthday, preference, ...values }, form, msg,
         remind: preference.remind || 0,
       },
     },
-    success: () => {
+    success: (res) => {
       dispatch({ type: UPDATE_USER_SUCCESS })
-      if(msg)
-        message.success(msg)
+      message.success(res.data)
       dispatch(getUserDetails())
       const changedSetting = false;
       dispatch({type:SET_CHANGE_SETTIING,changedSetting});
