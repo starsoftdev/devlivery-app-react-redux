@@ -3750,7 +3750,7 @@
   },
   {
     "id": "purchase11.recipients",
-    "defaultMessage": "Recipients:",
+    "defaultMessage": "Recipients",
     "message": "Empfänger",
     "files": [
       "src/routes/purchase11/messages.js"

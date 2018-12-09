@@ -3607,7 +3607,7 @@
   },
   {
     "id": "purchase11.recipients",
-    "defaultMessage": "Recipients:",
+    "defaultMessage": "Recipients",
     "message": "",
     "files": [
       "src/routes/purchase11/messages.js"
