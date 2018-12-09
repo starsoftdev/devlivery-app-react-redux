@@ -27,7 +27,7 @@ class Purchase7 extends React.Component {
     {
       let has_Food = false;
       let has_nonFood = false;
-      for(var i=0; i<nextProps.giftIds; i++)
+      for(var i=0; i<nextProps.giftIds.length; i++)
       {
         const gift = nextProps.gifts.find(item => item.id+'' === nextProps.giftIds[i]+'')
         if(gift)
