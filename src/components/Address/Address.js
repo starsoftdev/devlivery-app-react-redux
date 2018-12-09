@@ -66,10 +66,6 @@ class Address extends React.Component {
           <Form.Item>
             {getFieldDecorator(`addresses[${index}].address`, {
               initialValue: initialValues && initialValues.address ? (typeof initialValues.address === 'string' ? initialValues.address : initialValues.address[0]) : undefined,
-              rules: [
-                ...rules,
-                {required: index==1 && !this.checkingEmptyForm(index), min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})}
-              ],
             })(
               <FloatingLabel placeholder={intl.formatMessage(index==1 ? messages.companyname: messages.address0)+(required?" *":"")} onChange={(e) => onAddressChange(e.target.value)}/>
             )}
