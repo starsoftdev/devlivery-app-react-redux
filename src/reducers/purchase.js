@@ -699,7 +699,6 @@ export const syncGifts_Bundle = (giftIds, goToNext = true) => (dispatch, getStat
   const { bundleId, orderId } = getState().purchase
   dispatch({ type: ADD_BUNDLE_REQUEST })
   if (bundleId) {
-    
     return fetch(`/sync-bundle-gifts`, {
       method: 'POST',
       contentType: 'application/json',
@@ -711,6 +710,7 @@ export const syncGifts_Bundle = (giftIds, goToNext = true) => (dispatch, getStat
       success: (res) => {
         dispatch({ type: ADD_BUNDLE_SUCCESS, bundle: res.data })
         localStorage.setItem(GIFT_IDS, JSON.stringify(giftIds))
+        dispatch({ type: SET_GIFTIDS, giftIds })
         dispatch(getOrderDetails(orderId));
       },
       failure: (err) => {
@@ -724,15 +724,15 @@ export const addBundle = (values = {}, goToNext = true) => (dispatch, getState, 
   const { token } = dispatch(getToken())
   const { letteringTechnique, cardId, gift, giftId, flow, giftIds, saved, bundleId } = getState().purchase
   dispatch({ type: ADD_BUNDLE_REQUEST })
-
+  
   var gift_ids = giftIds;
+  /*
   if (!gift_ids.includes(giftId) && giftId) {
     gift_ids.push(giftId);
     dispatch(buyMoreGift())
   }
-
+  */
   if (bundleId) {
-    
     return fetch(`/sync-bundle-gifts`, {
       method: 'POST',
       contentType: 'application/json',
@@ -1398,6 +1398,7 @@ export const getOrderDetails = (orderId) => (dispatch, getState, { fetch }) => {
         const giftIds = res.data.items && res.data.items.gifts ?
           res.data.items.gifts.map(item => item.gift.id) : [];
         localStorage.setItem(GIFT_IDS, JSON.stringify(giftIds))
+        dispatch({ type: SET_GIFTIDS, giftIds })
 
         const newrecipient = res.data.recipients ? res.data.recipients.map(item => item.contact.id) : [];
         dispatch({ type: SET_NEW_RECIPIENT, newrecipient })
