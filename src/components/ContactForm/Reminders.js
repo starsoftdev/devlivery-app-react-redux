@@ -140,7 +140,7 @@ class Reminders extends React.Component {
     {
       var errMessage = (occasion_id === null || occasion_id === undefined) ? "Required Occasion Field!" :
                        (reminder_date === null || reminder_date === undefined) ? "Required Reminder Date Field!" :
-                       (recurring === null || recurring === undefined) ? "Should have value for Repeat!" : "Shouldn't be Once for Repeat!";
+                       (recurring === null || recurring === undefined) ? "Required Repeat Field!" : "Shouldn't be Once!";
       this.setState({InvalidIndex:k, errorMessage:errMessage});
       return false;
     }
