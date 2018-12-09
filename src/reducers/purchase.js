@@ -710,8 +710,7 @@ export const syncGifts_Bundle = (giftIds, goToNext = true) => (dispatch, getStat
       token,
       success: (res) => {
         dispatch({ type: ADD_BUNDLE_SUCCESS, bundle: res.data })
-        if (orderId == null)
-          localStorage.setItem(GIFT_IDS, JSON.stringify(giftIds))
+        localStorage.setItem(GIFT_IDS, JSON.stringify(giftIds))
         dispatch(getOrderDetails(orderId));
       },
       failure: (err) => {
