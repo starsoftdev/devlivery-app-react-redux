@@ -1462,7 +1462,14 @@ export const setNewRecipients = (newrecipient) => async (dispatch, getState) => 
   localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(a))
   dispatch({ type: SET_NEW_RECIPIENT, newrecipient: a })
 }
-
+export const clearVoucherAndDonation = () => (dispatch, getState) => {
+  var multi_products = JSON.parse(localStorage.getItem(MULTIPRODUCT));
+  if(multi_products === null)
+    multi_products = [];
+  localStorage.setItem(MULTIPRODUCT, JSON.stringify(multi_products.filter(item => item !=='Donation' && item !== 'Voucher')));
+  dispatch({ type: SUBMIT_VOUCHER, voucher:null })
+  dispatch({ type: SET_DONATION_ORG, donationOrg:null })
+}
 export const clear = () => (dispatch, getState) => {
   localStorage.clear();
   dispatch({ type: CLEAR })
