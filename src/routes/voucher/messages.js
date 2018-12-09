@@ -11,7 +11,7 @@ export default defineMessages({
   },
   submit: {
     id: 'voucher.submit',
-    defaultMessage: 'Next',
+    defaultMessage: 'SAVE AND NEXT STEP',
   },
   voucherHeader: {
     id: 'voucher.voucherHeader',

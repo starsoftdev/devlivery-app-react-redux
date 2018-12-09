@@ -1515,7 +1515,14 @@
       "src/routes/purchase3/messages.js",
       "src/routes/purchase4/messages.js",
       "src/routes/purchase5/messages.js",
-      "src/routes/purchase7/messages.js",
+      "src/routes/purchase7/messages.js"
+    ]
+  },
+  {
+    "id": "purchase8.submit",
+    "defaultMessage": "SAVE AND NEXT STEP",
+    "message": "",
+    "files": [
       "src/routes/purchase8/messages.js"
     ]
   },
@@ -3987,7 +3994,7 @@
   },
   {
     "id": "voucher.submit",
-    "defaultMessage": "Next",
+    "defaultMessage": "SAVE AND NEXT STEP",
     "message": "",
     "files": [
       "src/routes/voucher/messages.js"

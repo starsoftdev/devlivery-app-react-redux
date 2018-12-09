@@ -2096,8 +2096,7 @@
       "src/routes/purchase3/messages.js",
       "src/routes/purchase4/messages.js",
       "src/routes/purchase5/messages.js",
-      "src/routes/purchase7/messages.js",
-      "src/routes/purchase8/messages.js"
+      "src/routes/purchase7/messages.js"
     ]
   },
   {
@@ -2115,8 +2114,11 @@
   },
   {
     "id": "purchase8.submit",
-    "defaultMessage": "Submit",
-    "message": "Senden"
+    "defaultMessage": "SAVE AND NEXT STEP",
+    "message": "SAVE AND NEXT STEP",
+    "files": [
+      "src/routes/purchase8/messages.js"
+    ]
   },
   {
     "id": "purchase9.submit",
@@ -4135,8 +4137,8 @@
   },
   {
     "id": "voucher.submit",
-    "defaultMessage": "Next",
-    "message": "weiter",
+    "defaultMessage": "SAVE AND NEXT STEP",
+    "message": "SAVE AND NEXT STEP",
     "files": [
       "src/routes/voucher/messages.js"
     ]
