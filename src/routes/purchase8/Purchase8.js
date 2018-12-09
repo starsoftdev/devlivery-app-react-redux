@@ -51,7 +51,7 @@ class Purchase8 extends React.Component {
                 
               </SectionHeader>
               <Row className={s.items} gutter={20} type='flex' align='center'>
-                {gifts.map((item) =>
+                {gifts.filter(item=>!((item.stock > 0 && item.stock < newrecipient.length) || item.stock == 0)).map((item) =>
                   <Col key={item.id} className={s.itemWrapper} xs={8}>
                     <Card
                       item={item}
@@ -69,11 +69,6 @@ class Purchase8 extends React.Component {
                       bordered={false}
                       description={intl.locale === 'de-DE' ? item.short_description_german : item.short_description}
                       onClick={() => {
-                        if((item.stock > 0 && item.stock < newrecipient.length) || item.stock == 0)
-                        {
-                          message.warn('This gift have no enough stock.');
-                          return ;
-                        }  
                         setGift(item)
                       }}
                       active={giftIds && giftIds.includes(item.id)}
