@@ -97,7 +97,7 @@ class Purchase8 extends React.Component {
         <PurchaseActions>
           <Button
             type='primary'
-            disabled={!gift || disableSubmit}
+            //disabled={!gift || disableSubmit}
             onClick={() => {
               this.setState({ disableSubmit: true });
               buyMoreGift();
