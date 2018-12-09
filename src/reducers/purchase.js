@@ -550,12 +550,12 @@ export const buyMoreGift = () => (dispatch, getState, { fetch }) => {
 
   dispatch({ type: SET_GIFTIDS, giftIds })
 }
-export const getGifts = (params = {}) => (dispatch, getState, { fetch }) => {
+export const getGifts = (params = {}, isAll) => (dispatch, getState, { fetch }) => {
   dispatch({ type: GET_GIFTS_REQUEST, params })
   const { giftType } = getState().purchase
   return fetch(`/gifts?${qs.stringify({
     take: 100,
-    ...giftType ? {
+    ...giftType && !isAll ? {
       filter_key: 'type',
       filter_value: giftType,
     } : {},

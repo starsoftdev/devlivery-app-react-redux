@@ -11,7 +11,9 @@ import messages from './messages'
 
 class Purchase7 extends React.Component {
   state = {
-    multi_products: []
+    multi_products: [],
+    has_Food: false,
+    has_nonFood: false,
   }
   async componentWillMount(){
     var multi_products = JSON.parse(localStorage.getItem(MULTIPRODUCT));
@@ -19,8 +21,27 @@ class Purchase7 extends React.Component {
       multi_products = [];
     this.setState({multi_products})
   }
+  componentWillReceiveProps(nextProps)
+  {
+    if(nextProps.gifts !== this.props.gifts)
+    {
+      let has_Food = false;
+      let has_nonFood = false;
+      for(var i=0; i<nextProps.giftIds; i++)
+      {
+        const gift = nextProps.gifts.find(item => item.id+'' === nextProps.giftIds[i]+'')
+        if(gift)
+        {
+          if(gift.type === 'Non Food')
+            has_nonFood = true;
+          else has_Food = true;
+        }
+      }
+      this.setState({has_nonFood,has_Food});
+    }
+  }
   render() {
-    const { giftType, setGiftType, submitGift, bundleId, giftIds, submitGiftType, intl, flowIndex, continueWithoutGift } = this.props
+    const { giftType, setGiftType, submitGift, bundleId, gifts, giftIds, submitGiftType, intl, flowIndex, continueWithoutGift } = this.props
     return (
       <React.Fragment>
         <div className={s.content}>
@@ -30,7 +51,28 @@ class Purchase7 extends React.Component {
             prefixClassName={s.headerPrefix}
           />
           <Row className={s.items} gutter={20} type='flex' align='center'>
-            {[...GIFT_TYPES(intl), ...ADDITIONAL_GIFT_TYPES(intl), ...OTHER_TYPES(intl)].map((item, i) =>
+            {GIFT_TYPES(intl).map((item, i) =>
+              <Col key={item.key} className={s.itemWrapper} xs={8}>
+                <Card
+                  className={s.item}
+                  title={item.title}
+                  svg={item.svg}
+                  onClick={() => {
+                    if (item.key === CONTINUE_WITHOUT_GIFT) {
+                      continueWithoutGift()
+                    }
+                    else {
+                      setGiftType(item.key)
+                      submitGiftType()
+                    }
+                  }}
+                  active={item.key === 'Food' ? this.state.has_Food : this.state.has_nonFood}
+                  keyValue={ALPHABET[i]}
+                  extra={item.extra}
+                />
+              </Col>
+            )}
+            {[...ADDITIONAL_GIFT_TYPES(intl), ...OTHER_TYPES(intl)].map((item, i) =>
               <Col key={item.key} className={s.itemWrapper} xs={8}>
                 <Card
                   className={s.item}
@@ -83,6 +125,7 @@ const mapState = state => ({
   flowIndex: state.purchase.flowIndex,
   bundleId: state.purchase.bundleId,
   giftIds: state.purchase.giftIds,
+  gifts: state.purchase.gifts,
 })
 
 const mapDispatch = {
