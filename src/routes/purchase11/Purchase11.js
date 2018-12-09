@@ -82,6 +82,7 @@ class Purchase11 extends React.Component {
     var initState = await localStorage.getItem(ORDER_CONFIRM_STATE);
     initState = JSON.parse(initState);
     this.setState({ ...initState });
+    this.props.recalculateTotal(this.state.selectedLocation?this.state.selectedLocation:'shipping');
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps && nextProps.cardDetails) {
@@ -110,6 +111,17 @@ class Purchase11 extends React.Component {
       `//fonts.googleapis.com/css?family=${font}`
     )
     this.setState(newState)
+  }
+  componentWillUnmount(){
+    var jsonData = {
+      selectedLocation: this.state.selectedLocation,
+      selOccasion: this.state.selOccasion,
+      selDate: this.state.selDate,
+      contact: this.state.contact,
+      checkSave: this.state.checkSave,
+      bundleName: this.props.form.getFieldValue('title')
+    }
+    localStorage.setItem(ORDER_CONFIRM_STATE, JSON.stringify(jsonData));
   }
   onSelectLocation = (value) => {
     this.props.recalculateTotal(value);
@@ -259,15 +271,6 @@ class Purchase11 extends React.Component {
     this.setState({ disableSubmit: true })
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        var jsonData = {
-          selectedLocation: this.state.selectedLocation,
-          selOccasion: this.state.selOccasion,
-          selDate: this.state.selDate,
-          contact: this.state.contact,
-          checkSave: this.state.checkSave,
-          bundleName: this.props.form.getFieldValue('title')
-        }
-        localStorage.setItem(ORDER_CONFIRM_STATE, JSON.stringify(jsonData));
         this.props.submitShipping(values, parseFloat(order.total), () => this.setState({ disableSubmit: false }))
       } else {
         this.setState({ disableSubmit: false })
