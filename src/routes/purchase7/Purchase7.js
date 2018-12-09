@@ -62,8 +62,7 @@ class Purchase7 extends React.Component {
                 onKeyHandle={() => submitGift(1)}
               />
               <Button
-                type='primary'
-                ghost
+                type='primary' 
                 onClick={() => {
                   submitGift(1);
                 }}
