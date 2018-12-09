@@ -242,7 +242,9 @@ class Purchase6 extends React.Component {
     )
     this.setState(newState)
   }
-
+  componentWillUnmount(){
+    this.handleSubmit(true);
+  }
   handleSubmit = (stayPage) => {
     
     const html = this.tinymce && this.tinymce.editor && this.tinymce.editor.getContent();
@@ -252,12 +254,11 @@ class Purchase6 extends React.Component {
     if (this.props.fontFamilies.length <= 0)
       fonts = `<link id="${Contants.FONTS[0]}" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=${Contants.FONTS[0]}" media="all">`
     const body = `<!doctype html><html lang="en"><head>${GLOBAL_META}${fonts}${GLOBAL_STYLES}</head><body><span><span/>${html && html !== undefined? html:''}</body></html>`;
-
+    console.log('html',html);
     this.props.submitCardDetails({ body },stayPage)
   }
   handleEditorChange(content) {
     this.setState({ content });
-    this.handleSubmit(true);
   }
   execTinyCommand(type, flag, value) {
     if (this.tinymce)
