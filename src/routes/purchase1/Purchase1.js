@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getOccasions, nextFlowStep, setOccasion} from '../../reducers/purchase'
+import {getOccasions, nextFlowStep, setOccasion,clearVoucherAndDonation} from '../../reducers/purchase'
 import {Col, Row, Select, Button} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase1.css'
@@ -22,6 +22,9 @@ class Purchase1 extends React.Component {
       occasionType: type
     }
     this.selectSeasonal = this.selectSeasonal.bind(this);
+  }
+  componentWillMount(){
+    this.props.clearVoucherAndDonation();
   }
   selectSeasonal(occasionType){
     this.setState({occasionType});
@@ -96,6 +99,7 @@ const mapDispatch = {
   getOccasions,
   setOccasion,
   nextFlowStep,
+  clearVoucherAndDonation
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase1))
