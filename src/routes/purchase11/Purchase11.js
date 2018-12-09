@@ -390,6 +390,25 @@ class Purchase11 extends React.Component {
               </Row>
             }
             {
+              order.coupon && order.coupon.value &&
+              <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+                <Col xs={12}>
+                  <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.coupon)}</h2>
+                </Col>
+                <Col xs={12}>
+                  {
+                    order.coupon.type==='absolute' &&
+                    <span className={s.subtotalCurrency}>{'CHF '}</span>
+                  }
+                  <span className={s.subtotalValue}>{'-'}{order.coupon.value && order.coupon.value.toFixed(2)}</span>
+                  {
+                     order.coupon.type!=='absolute' &&
+                    <span className={s.subtotalCurrency}>{'%'}</span>
+                  }
+                </Col>
+              </Row>
+            }
+            {
               <Row type='flex' align='center' gutter={20} className={s.totalSection}>
                 <Col xs={12}>
                   <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.total)}</h2>
@@ -409,25 +428,6 @@ class Purchase11 extends React.Component {
                 <Col xs={12}>
                   <span className={s.subtotalCurrency}>{'CHF '}</span>
                   <span className={s.subtotalValue}>{user && user.budget && user.budget.remaining_budget ? user.budget.remaining_budget.toFixed(2) : '0.00'}</span>
-                </Col>
-              </Row>
-            }
-            {
-              order.coupon && order.coupon.value &&
-              <Row type='flex' align='center' gutter={20} className={s.totalSection}>
-                <Col xs={12}>
-                  <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.coupon)}</h2>
-                </Col>
-                <Col xs={12}>
-                  {
-                    order.coupon.type==='absolute' &&
-                    <span className={s.subtotalCurrency}>{'CHF '}</span>
-                  }
-                  <span className={s.subtotalValue}>{'-'}{order.coupon.value && order.coupon.value.toFixed(2)}</span>
-                  {
-                     order.coupon.type!=='absolute' &&
-                    <span className={s.subtotalCurrency}>{'%'}</span>
-                  }
                 </Col>
               </Row>
             }
