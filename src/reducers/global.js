@@ -31,8 +31,9 @@ export const isLeaveEditContactPage = (path) => {
     return false;
   var splits = path.split(absoultePath);
   if(splits.length !== 2 || splits[0] != "")
-    return false;  
-  if(splits[1])
+    return false;
+  
+  if(!isNaN(splits[1]))
   {
     return true;
   }
