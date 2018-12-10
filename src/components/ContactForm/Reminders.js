@@ -195,6 +195,9 @@ class Reminders extends React.Component {
       }
     );
   }
+  cancelEdit = () => {
+    this.setState({ isAdding: false });
+  }
   render() {
     const { occasionTitle, newOccasion, isAdding } = this.state
     const { occasions, loading, intl, initialValues, form } = this.props
@@ -378,10 +381,21 @@ class Reminders extends React.Component {
         )}
         {
           !this.state.isEditing &&
-          <Button type='primary' ghost onClick={this.addItem}>
-            <PlusIcon />
-            {intl.formatMessage(!isAdding ? messages.addReminder: messages.saveReminder)}
-          </Button>
+          <Row>
+            <Col span={12}>
+              <Button type='primary' ghost onClick={this.addItem}>
+                <PlusIcon />
+                {intl.formatMessage(!isAdding ? messages.addReminder: messages.saveReminder)}
+              </Button>
+            </Col>
+            {isAdding &&
+              <Col span={12} className={s.textAlignRight}>
+                <Button type='primary' ghost onClick={this.cancelEdit}>
+                  {intl.formatMessage(messages.cancelEdit)}
+                </Button>
+              </Col>
+            }
+          </Row>
         }
       </React.Fragment>
     )

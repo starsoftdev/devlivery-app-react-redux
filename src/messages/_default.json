@@ -16,6 +16,14 @@
     ]
   },
   {
+    "id": "contactForm.cancelEdit",
+    "defaultMessage": "Cancel",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
     "id": "contactForm.dateplaceholder",
     "defaultMessage": "DD/MM/YYYY",
     "message": "",
