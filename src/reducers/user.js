@@ -138,13 +138,12 @@ export const updateUser = ({ user, birthday, preference, ...values }, form, msg,
 export const updatePassword = (values, form) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   dispatch({ type: UPDATE_PASSWORD_REQUEST })
-  console.log(`/update-password`,values)
+  
   return fetch(`/update-password`, {
     method: 'POST',
     token,
     body: values,
     success: (res) => {
-      console.log('res',res);
       dispatch({ type: UPDATE_PASSWORD_SUCCESS })
       message.success('Password changed.')
       form.resetFields()
