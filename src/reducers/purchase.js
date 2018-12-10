@@ -1280,6 +1280,8 @@ export const submitDonation = (donation, refresh = false) => async (dispatch, ge
     dispatch(nextFlowStep(-2))
     return;
   }
+  if(donation === null)
+    return;
   await dispatch({ type: SUBMIT_DONATION, donation })
   const { flow } = getState().purchase
   dispatch(confirmDonation(null, refresh))
