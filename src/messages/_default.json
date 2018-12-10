@@ -2099,7 +2099,7 @@
   },
   {
     "id": "reports.sentColumn",
-    "defaultMessage": "Sent",
+    "defaultMessage": "Recipients",
     "message": "",
     "files": [
       "src/routes/reports/messages.js"
