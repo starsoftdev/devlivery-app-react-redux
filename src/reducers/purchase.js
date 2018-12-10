@@ -336,7 +336,14 @@ export const getOccasionTypes = () => (dispatch, getState, { fetch }) => {
   })
 }
 
-export const setLetteringTechnique = (letteringTechnique) => ({ type: SET_LETTERING_TECHNIQUE, letteringTechnique })
+export const setLetteringTechnique = (letteringTechnique) => (dispatch, getState, { fetch }) => {
+  const {bundleId} = getState().purchase;
+  if(bundleId && letteringTechnique)
+  {
+    dispatch(updateBundle({lettering: letteringTechnique, _method :'PUT'}));
+  }
+  ({ type: SET_LETTERING_TECHNIQUE, letteringTechnique })
+}
 
 export const getCardStyles = () => (dispatch, getState, { fetch }) => {
   dispatch({ type: GET_CARD_STYLES_REQUEST })
@@ -496,8 +503,21 @@ export const setGiftType = (giftType) => (dispatch, getState, { fetch }) => {
   dispatch({ type: SET_GIFT_TYPE, giftType })
 }
 export const setCard = (card) => (dispatch, getState, { fetch }) => {
+  const {bundleId} = getState().purchase;
+  if(bundleId && card)
+  {
+    const { token } = dispatch(getToken())
+    fetch(`/update-bundle-card/bundle/${getState().purchase.bundleId}/card/${card.id}`, {
+      method: 'POST',
+      token,
+      body:{},
+      success: (res) => {
+        console.log('res',res)
+      },
+      failure: (err) => { console.log('err',err)},
+    })
+  }
   dispatch({ type: SET_CARD, card })
-  dispatch({ type: ADD_BUNDLE_SUCCESS, bundle: null })
 }
 
 const GIFT_IDS = 'gift_ids'
@@ -617,7 +637,7 @@ export const updateBundle = (param, callback) => (dispatch, getState, { fetch })
       const saved = 0;
       dispatch({ type: SET_SAVED_VALUE, saved })
     },
-    failure: (err) => {  },
+    failure: (err) => { },
   })
 }
 export const setPaymentMethod = (paymentMethod) => ({ type: SET_PAYMENT_METHOD, paymentMethod })
