@@ -1890,8 +1890,8 @@
   },
   {
     "id": "reports.sentColumn",
-    "defaultMessage": "Sent",
-    "message": "Gesendet",
+    "defaultMessage": "Recipients",
+    "message": "Empfänger",
     "files": [
       "src/routes/reports/messages.js"
     ]
