@@ -101,11 +101,6 @@ class Reminders extends React.Component {
     })
   }
   editItem = (k) => {
-    if(this.state.isAdding)
-    {
-      if(!this.addItem())
-        return;
-    }
     this.setState({editIndex: k, isEditing: true, isAdding: false});
   }
   removeItem = (k) => {
