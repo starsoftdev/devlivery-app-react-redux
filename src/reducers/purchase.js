@@ -1374,6 +1374,7 @@ export const getDeliveryOccasions = (orderId) => (dispatch, getState, { fetch })
     }
   })
 }
+export const DONATION_STATE = 'donation_state'
 export const removeDontationFromBundle = () => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   const { bundleId, orderId } = getState().purchase
@@ -1387,12 +1388,15 @@ export const removeDontationFromBundle = () => (dispatch, getState, { fetch }) =
     success: (res) => {
       dispatch(getOrderDetails(orderId))
       dispatch(getBundleDetails())
+      dispatch(setDonationOrg(null));
+      localStorage.removeItem(DONATION_STATE);
     },
     failure: (err) => {
       showErrorMessage(err);
     }
   })
 }
+export const VOUCHER_STATE = 'VOUCHER_STATE'
 export const removeVoucherFromBundle = () => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   const { bundleId, orderId } = getState().purchase
@@ -1406,6 +1410,8 @@ export const removeVoucherFromBundle = () => (dispatch, getState, { fetch }) => 
     success: (res) => {
       dispatch(getOrderDetails(orderId))
       dispatch(getBundleDetails())
+      dispatch({type:SUBMIT_VOUCHER, voucher:null});
+      localStorage.removeItem(VOUCHER_STATE);
     },
     failure: (err) => {
       showErrorMessage(err);
@@ -1469,7 +1475,9 @@ export const getBundleDetails = (bundleId) => (dispatch, getState, { fetch }) =>
   })}`, {
       method: 'GET',
       token,
-      success: (res) => dispatch({ type: GET_BUNDLE_DETAILS_SUCCESS, bundle: res.data[0] }),
+      success: (res) => {
+        dispatch({ type: GET_BUNDLE_DETAILS_SUCCESS, bundle: res.data[0] })
+      },
       failure: () => dispatch({ type: GET_BUNDLE_DETAILS_FAILURE }),
     })
 }
