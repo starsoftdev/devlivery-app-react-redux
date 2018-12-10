@@ -1323,6 +1323,38 @@
     ]
   },
   {
+    "id": "reports.filterType",
+    "defaultMessage": "Filter Type",
+    "message": "Filter Typ",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.delivery",
+    "defaultMessage": "Delivery",
+    "message": "Lieferung",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.shipping",
+    "defaultMessage": "Shipping",
+    "message": "Versand",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.ordered",
+    "defaultMessage": "Ordered",
+    "message": "Bestellt",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
     "id": "reports.occasionColumn",
     "defaultMessage": "Occasion",
     "message": "Anlass",

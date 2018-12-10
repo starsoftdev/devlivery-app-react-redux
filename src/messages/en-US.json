@@ -2090,6 +2090,38 @@
     ]
   },
   {
+    "id": "reports.filterType",
+    "defaultMessage": "Filter Type",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.delivery",
+    "defaultMessage": "Delivery",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.shipping",
+    "defaultMessage": "Shipping",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.ordered",
+    "defaultMessage": "Ordered",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
     "id": "reports.occasionColumn",
     "defaultMessage": "Occasion",
     "message": "",
