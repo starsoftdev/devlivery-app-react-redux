@@ -178,11 +178,11 @@ class OrderDetails extends React.Component {
           let quantity = ''
 
           if (item.productType === CARD_TYPE) {
-            quantity = 1
+            quantity = recp_count
           } else if (item.productType === GIFT_TYPE) {
-            quantity = item.quantity
+            quantity = parseInt(item.quantity) * recp_count
           } else if (item.productType === VOUCHER_TYPE) {
-            quantity = 1
+            quantity = recp_count
           } else if (item.productType === DONATION_TYPE) {
             //quantity = item.amount
           } else if (item.productType === TOTAL_TYPE) {
