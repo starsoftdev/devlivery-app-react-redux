@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { submitDonation, setDonationOrg,getDonationOrgs } from '../../reducers/purchase'
+import { submitDonation, setDonationOrg,getDonationOrgs,DONATION_STATE } from '../../reducers/purchase'
 import { Button, Col, Form, Input, Row, Checkbox, Pagination, message } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Donation.css'
@@ -10,7 +10,7 @@ import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import messages from './messages'
 import formMessages from '../../formMessages'
 import { FloatingLabel } from '../../components';
-const DONATION_STATE = 'donation_state'
+
 class Donation extends React.Component {
   state = {
     donationOrg: null,
