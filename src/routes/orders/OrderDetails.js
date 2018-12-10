@@ -203,7 +203,7 @@ class OrderDetails extends React.Component {
           return (
             <React.Fragment>
               <span className={s.currency}>{item.currency ? item.currency : 'CHF'}</span>
-              {item.productType === DONATION_TYPE ? item.amount:item.productType === TOTAL_TYPE ? item.value:item.price_with_tax}
+              {item.productType === DONATION_TYPE ? item.amount:item.productType === TOTAL_TYPE ? item.value:recp_count * item.price_with_tax}
             </React.Fragment>
           )
         }
