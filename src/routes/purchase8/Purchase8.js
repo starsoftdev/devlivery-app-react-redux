@@ -95,6 +95,7 @@ class Purchase8 extends React.Component {
             //disabled={!gift || disableSubmit}
             onClick={() => {
               this.setState({ disableSubmit: true });
+              localStorage.setItem('gift_ids', JSON.stringify(giftIds))
               buyMoreGift();
               submitGift(-2)
             }}
@@ -105,7 +106,7 @@ class Purchase8 extends React.Component {
             keyEventName={KEYPRESS}
             keyCode={13}
             onKeyHandle={() => {
-              if (gift || !disableSubmit) {
+              if (!disableSubmit) {
                 this.setState({ disableSubmit: true });
                 submitGift()
               }
@@ -113,7 +114,7 @@ class Purchase8 extends React.Component {
           />
           <Button
             type='primary'
-            disabled={!gift || disableSubmit}
+            disabled={disableSubmit}
             onClick={() => {
               this.setState({ disableSubmit: true });
               submitGift()
