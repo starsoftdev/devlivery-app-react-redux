@@ -561,7 +561,6 @@ class Purchase11 extends React.Component {
                             disabled={selOccasion && selOccasion.length > 0 ? true : false}
                             disabledDate={current => {
                               var date = new Date();
-                              
                               switch (date.getDay()) {
                                 case 0://"Sunday" => "Wednesday"
                                   date.setDate(date.getDate() + 2);
@@ -578,8 +577,8 @@ class Purchase11 extends React.Component {
                                 case 4://"Thursday" => "Monday"
                                   date.setDate(date.getDate() + 3);
                                   break;
-                                case 5://"Friday" => "Tuesday"
-                                  date.setDate(date.getDate() + 3);
+                                case 5://"Friday" => "Wednesday"
+                                  date.setDate(date.getDate() + 4);
                                   break;
                                 case 6://"Saturday" => "Wednesday"
                                   date.setDate(date.getDate() + 3);
