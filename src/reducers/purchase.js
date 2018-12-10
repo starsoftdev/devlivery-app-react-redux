@@ -522,7 +522,7 @@ export const setGift = (gift) => (dispatch, getState, { fetch }) => {
     giftIds.push(gift.id)
     dispatch({ type: SET_GIFT, gift })
   }
-  localStorage.setItem(GIFT_IDS, JSON.stringify(giftIds))
+  //localStorage.setItem(GIFT_IDS, JSON.stringify(giftIds))
   dispatch({ type: SET_GIFTIDS, giftIds })
 }
 export const buyMoreGift = () => (dispatch, getState, { fetch }) => {
