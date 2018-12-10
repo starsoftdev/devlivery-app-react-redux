@@ -13,6 +13,7 @@
 .contactDetail {
   color: var(--dark-color);
   font-family: var(--font-family-secondary);
+  white-space: pre-line;
 }
 
 .contactDetailTitle {
