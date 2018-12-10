@@ -39,7 +39,6 @@ export const getReports = (params = {}) => (dispatch, getState, {fetch}) => {
     from_ordered: from_ordered ? from_ordered.format(DATE_FORMAT) : undefined,
     to_ordered: to_ordered ? to_ordered.format(DATE_FORMAT) : undefined,
   };
-  console.log('query params:', queryParams);
   return fetch(`/reports/scheduled-orders?${qs.stringify(queryParams)}`, {
     method: 'GET',
     token,
