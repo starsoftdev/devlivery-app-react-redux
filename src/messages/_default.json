@@ -3104,7 +3104,7 @@
   },
   {
     "id": "donation.submit",
-    "defaultMessage": "Next",
+    "defaultMessage": "SAVE AND NEXT STEP",
     "message": "",
     "files": [
       "src/routes/donation/messages.js"
