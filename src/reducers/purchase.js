@@ -678,6 +678,7 @@ export const continueWithoutGift = () => async (dispatch, getState) => {
   const { flow } = getState().purchase
   dispatch(setGiftType(null))
   if (loggedIn && flow.key !== EDIT_BUNDLE_FLOW.key) {
+    await dispatch({ type: SET_GIFTIDS, giftIds:[] });
     await dispatch(addBundle())
     await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
   }
@@ -1249,10 +1250,13 @@ export const submitGiftType = () => (dispatch, getState) => {
 
 export const submitVoucher = (voucher, refresh = false) => async (dispatch, getState) => {
   await dispatch({ type: SUBMIT_VOUCHER, voucher })
+  localStorage.setItem(VOUCHER_STATE, JSON.stringify(voucher));
   const { flow } = getState().purchase
   dispatch(confirmVoucher(null, refresh))
 }
-
+export const setVoucher = (voucher) => (dispatch, getState) => {
+  dispatch({ type: SUBMIT_VOUCHER, voucher })
+}
 export const confirmVoucher = (bundleValues, refresh) => async (dispatch, getState, { fetch }) => {
   await dispatch(addBundle(bundleValues, false))
   const { token } = dispatch(getToken())
@@ -1379,7 +1383,6 @@ export const removeDontationFromBundle = () => (dispatch, getState, { fetch }) =
   const { token } = dispatch(getToken())
   const { bundleId, orderId } = getState().purchase
   if (bundleId === null) {
-    message.error("Bundle Id doesn't exist.");
     return;
   }
   return fetch(`/removeDonationFromBundle/${bundleId}`, {
@@ -1401,7 +1404,6 @@ export const removeVoucherFromBundle = () => (dispatch, getState, { fetch }) => 
   const { token } = dispatch(getToken())
   const { bundleId, orderId } = getState().purchase
   if (bundleId === null) {
-    message.error("Bundle Id doesn't exist.");
     return;
   }
   return fetch(`/removeVoucherFromBundle/${bundleId}`, {

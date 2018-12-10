@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { continueWithoutGift, setGiftType, submitGiftType, submitGift } from '../../reducers/purchase'
+import { continueWithoutGift, setGiftType, submitGiftType, submitGift,setVoucher,VOUCHER_STATE } from '../../reducers/purchase'
 import { Button, Col, Row } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase7.css'
@@ -14,6 +14,16 @@ class Purchase7 extends React.Component {
     multi_products: [],
     has_Food: false,
     has_nonFood: false,
+  }
+  componentWillMount() {
+    this.loadLocalStorage();
+  }
+  async loadLocalStorage() {
+    var initState = await localStorage.getItem(VOUCHER_STATE);
+    if(initState)
+    {
+      this.props.setVoucher(JSON.parse(initState));
+    }
   }
   componentWillReceiveProps(nextProps)
   {
@@ -114,7 +124,7 @@ class Purchase7 extends React.Component {
           </Row>
         </div>
         {
-          giftIds.length > 0 ?
+          giftIds.length > 0 || voucher || donationOrg?
             <PurchaseActions>
               <KeyHandler
                 keyEventName={KEYPRESS}
@@ -152,7 +162,8 @@ const mapDispatch = {
   setGiftType,
   submitGiftType,
   continueWithoutGift,
-  submitGift
+  submitGift,
+  setVoucher
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase7))

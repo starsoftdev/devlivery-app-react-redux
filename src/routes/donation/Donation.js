@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { submitDonation, setDonationOrg,getDonationOrgs,DONATION_STATE } from '../../reducers/purchase'
+import { submitDonation, setDonationOrg,getDonationOrgs,DONATION_STATE,removeDontationFromBundle } from '../../reducers/purchase'
 import { Button, Col, Form, Input, Row, Checkbox, Pagination, message } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Donation.css'
@@ -24,34 +24,36 @@ class Donation extends React.Component {
   handleSubmit = (e,refresh=false) => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
-      if (!err && this.state.donationOrg) {
-        if(values['donationAmount'] < 0)
+      if(this.state.donationOrg)
+      {
+        if(!err)
         {
-          this.props.form.setFields({
-            donationAmount: {
-              value: values['donationAmount'],
-              errors: [new Error('This field must be positive.')],
-            },
-          });
-          return;
+          let errmsg = null;
+          if(values['donationAmount'] < 0){errmsg = 'This field must be positive.';}
+          if(values['donationAmount'] == 0){errmsg = 'Sorry, but donation needs to be bigger than 0';}
+          if(errmsg)
+          {
+            this.props.form.setFields({
+              donationAmount: {
+                value: values['donationAmount'],
+                errors: [new Error(errmsg)],
+              },
+            });
+            return;
+          }
+          this.props.setDonationOrg(this.state.donationOrg);
+          localStorage.setItem(DONATION_STATE, JSON.stringify(values));
+          this.props.submitDonation(values,refresh)
         }
-        if(values['donationAmount'] == 0)
+      }
+      else {
+        if(refresh)
         {
-          this.props.form.setFields({
-            donationAmount: {
-              value: values['donationAmount'],
-              errors: [new Error('Sorry, but donation needs to be bigger than 0')],
-            },
-          });
-          return;
+          this.props.setDonationOrg(null);
+          localStorage.removeItem(DONATION_STATE);
+          this.props.removeDontationFromBundle()
+          this.props.submitDonation(null,refresh)
         }
-        this.props.setDonationOrg(this.state.donationOrg);
-        localStorage.setItem(DONATION_STATE, JSON.stringify(values));
-        this.props.submitDonation(values,refresh)
-      } else {
-        this.props.setDonationOrg(null);
-        localStorage.removeItem(DONATION_STATE);
-        this.props.submitDonation(null,refresh)
       }
     })
   }
@@ -61,7 +63,7 @@ class Donation extends React.Component {
   async loadLocalStorage() {
     var initState = await localStorage.getItem(DONATION_STATE);
     initState = JSON.parse(initState);
-    this.setState({ ...initState, donationOrg: this.props.donationOrg});
+    this.setState({ ...initState, donationOrg: this.props.donationOrg, init_donation: this.props.donationOrg});
   }
   render() {
     const { setDonationOrg, donationOrgs, intl, flowIndex, loading, donationAmount, hideAmount, doCount, doPage, doPageSize, getDonationOrgs } = this.props
@@ -176,7 +178,8 @@ const mapState = state => ({
 const mapDispatch = {
   setDonationOrg,
   submitDonation,
-  getDonationOrgs
+  getDonationOrgs,
+  removeDontationFromBundle
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Donation)))
