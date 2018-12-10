@@ -184,6 +184,14 @@
     ]
   },
   {
+    "id": "contactForm.cancelEdit",
+    "defaultMessage": "Cancel",
+    "message": "Abrechen",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
     "id": "contactForm.dateplaceholder",
     "defaultMessage": "DD/MM/YYYY",
     "message": "TT/MM/JJJJ",
@@ -1890,8 +1898,8 @@
   },
   {
     "id": "reports.sentColumn",
-    "defaultMessage": "Sent",
-    "message": "Gesendet",
+    "defaultMessage": "Recipients",
+    "message": "Empfänger",
     "files": [
       "src/routes/reports/messages.js"
     ]
