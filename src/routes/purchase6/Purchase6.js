@@ -254,7 +254,7 @@ class Purchase6 extends React.Component {
     if (this.props.fontFamilies.length <= 0)
       fonts = `<link id="${Contants.FONTS[0]}" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=${Contants.FONTS[0]}" media="all">`
     const body = `<!doctype html><html lang="en"><head>${GLOBAL_META}${fonts}${GLOBAL_STYLES}</head><body><span><span/>${html && html !== undefined? html:''}</body></html>`;
-    console.log('html',html);
+    
     this.props.submitCardDetails({ body },stayPage)
   }
   handleEditorChange(content) {

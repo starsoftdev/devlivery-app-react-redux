@@ -821,6 +821,7 @@ export const makeOrder = () => (dispatch, getState, { fetch, history }) => {
 
         dispatch({ type: SET_ORIENTATION, orientation: order.print_orientation });
         //dispatch({type: GET_BUNDLE_DETAILS_SUCCESS, bundle: getState().purchase.cardDetails});
+        dispatch(restoreCouponFromLocal(order));
       },
       failure: (err) => {
         history.goBack();
@@ -853,7 +854,19 @@ export const recalculateTotal = (deliverable) => (dispatch, getState, { fetch })
     dispatch({ type: GET_SHIPPINGTOTAL_FAILURE })
   }
 }
-export const applycouponTotal = (coupon) => (dispatch, getState, { fetch }) => {
+export const CouponStatus='CouponStatus';
+export const restoreCouponFromLocal = (order) => (dispatch, getState, { fetch }) => {
+  const coupon = localStorage.getItem(CouponStatus);
+  if(coupon)
+  {
+    if(order.coupon && order.coupon.coupon === coupon)
+    {
+      return ;
+    }
+    dispatch(applycouponTotal(coupon, true))
+  }
+}
+export const applycouponTotal = (coupon, hide_msg) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   const { orderId } = getState().purchase
   if (orderId) {
@@ -867,7 +880,12 @@ export const applycouponTotal = (coupon) => (dispatch, getState, { fetch }) => {
       },
       token,
       success: (res) => {
-        message.success('Successfully applied coupon');
+        if(!hide_msg)
+        {
+          if(res.data && res.data.coupon && res.data.coupon.coupon)
+            localStorage.setItem(CouponStatus,res.data.coupon.coupon);
+          message.success('Successfully applied coupon');
+        }
         dispatch(getOrderDetails(orderId));
         dispatch({ type: GET_SHIPPINGTOTAL_SUCCESS, shipping_cost: res.data })
       },
@@ -1405,6 +1423,7 @@ export const getOrderDetails = (orderId) => (dispatch, getState, { fetch }) => {
         localStorage.setItem(CONTACT_IDS_KEY, JSON.stringify(newrecipient))
 
         dispatch({ type: GET_ORDER_DETAILS_SUCCESS, order: res.data })
+        dispatch(restoreCouponFromLocal(res.data));
       },
       failure: (err) => {
         dispatch({ type: GET_ORDER_DETAILS_FAILURE })
