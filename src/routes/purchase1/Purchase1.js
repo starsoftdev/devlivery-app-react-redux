@@ -24,7 +24,7 @@ class Purchase1 extends React.Component {
     this.selectSeasonal = this.selectSeasonal.bind(this);
   }
   componentWillMount(){
-    this.props.clearVoucherAndDonation();
+    //this.props.clearVoucherAndDonation();
   }
   selectSeasonal(occasionType){
     this.setState({occasionType});
