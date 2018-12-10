@@ -434,8 +434,9 @@ export const removeRecipientsOrder = (repId) => (dispatch, getState, { fetch }) 
     body: {
       _method: 'DELETE',
     },
-    success: (res) => {
-      dispatch(getOrderDetails(orderId));
+    success: async (res) => {
+      await dispatch(getOrderDetails(orderId));
+      await dispatch(getDeliveryOccasions(orderId))
       //dispatch({type: ADD_RECIPIENTS_SUCCESS})
     },
     failure: (err) => {
