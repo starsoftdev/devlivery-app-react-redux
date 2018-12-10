@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { submitVoucher } from '../../reducers/purchase'
+import { submitVoucher,VOUCHER_STATE,setVoucher } from '../../reducers/purchase'
 import { Button, Form, Input, Select } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Voucher.css'
@@ -98,12 +98,23 @@ class Voucher extends React.Component {
   componentDidMount() {
     loadFont('Abril Fatface')
     loadFont('Alex Brush')
-    if(this.props.voucher && this.props.voucher.to && this.props.templates)
+  }
+  componentWillReceiveProps(nextprops){
+    if(nextprops.voucher && nextprops.voucher.to && nextprops.templates && nextprops.voucher !== this.props.voucher)
     {
-      this.setState({template:this.props.voucher.to.split(' ')});
+      this.setState({template:nextprops.voucher.to.split(' ')});
     }
   }
-
+  componentWillMount() {
+    this.loadLocalStorage();
+  }
+  async loadLocalStorage() {
+    var initState = await localStorage.getItem(VOUCHER_STATE);
+    if(initState)
+    {
+      this.props.setVoucher(JSON.parse(initState));
+    }
+  }
   handleSubmit = (e, refresh = false) => {
     e.preventDefault()
     const {template} = this.state;
@@ -284,6 +295,7 @@ const mapState = state => ({
 
 const mapDispatch = {
   submitVoucher,
+  setVoucher
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Voucher)))
