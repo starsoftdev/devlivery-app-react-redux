@@ -35,7 +35,7 @@ export default defineMessages({
   },
   sentColumn: {
     id: 'reports.sentColumn',
-    defaultMessage: 'Sent',
+    defaultMessage: 'Recipients',
   },
   totalColumn: {
     id: 'reports.totalColumn',

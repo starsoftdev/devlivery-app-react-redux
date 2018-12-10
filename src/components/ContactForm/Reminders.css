@@ -68,3 +68,6 @@
   z-index: 1;
   cursor: pointer;
 }
+.textAlignRight {
+  text-align: right;
+}
