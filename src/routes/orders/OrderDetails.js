@@ -485,15 +485,17 @@ class OrderDetails extends React.Component {
                     </Col>
                   </Row>
                   <Row className={s.detailRow}>
-                    <Col md={8}>
+                    <Col md={12}>
                       <span className={s.DetailTitle}>{intl.formatMessage(messages.priceColumn)}</span><br />
                       <span className={s.Detail}>{giftDetails.currency+" "+giftDetails.price_with_tax }</span>
                     </Col>
+                    {/*
                     <Col md={8}>
                       <span className={s.DetailTitle}>{intl.formatMessage(messages.stock)}</span><br />
                       <span className={s.Detail}>{giftDetails.stock && giftDetails.stock < 0 ? intl.formatMessage(messages.unlimited) : giftDetails.stock}</span>
                     </Col>
-                    <Col md={8}>
+                    */}
+                    <Col md={12}>
                       <span className={s.DetailTitle}>{intl.formatMessage(messages.SKU)}</span><br />
                       <span className={s.Detail}>{giftDetails.sku}</span>
                     </Col>
