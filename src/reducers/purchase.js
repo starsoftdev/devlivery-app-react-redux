@@ -491,19 +491,7 @@ export const loadCardDetails = () => async (dispatch, getState) => {
   cardDetails = JSON.parse(cardDetails)
   dispatch({ type: SET_CARD_DETAILS, cardDetails })
 }
-export const MULTIPRODUCT = 'multiproduct';
-export const saveGiftType = () => (dispatch, getState, { fetch }) => {
-  const { giftType } = getState().purchase;
-  if (giftType) {
-    var multi_products = JSON.parse(localStorage.getItem(MULTIPRODUCT));
-    if (multi_products == null)
-      multi_products = [];
-    if (!multi_products.includes(giftType)) {
-      multi_products.push(giftType);
-      localStorage.setItem(MULTIPRODUCT, JSON.stringify(multi_products));
-    }
-  }
-}
+
 export const setGiftType = (giftType) => (dispatch, getState, { fetch }) => {
   dispatch({ type: SET_GIFT_TYPE, giftType })
 }
@@ -686,7 +674,6 @@ export const submitGift = (gotoNext = 0) => async (dispatch, getState) => {
   */
   await dispatch(addBundle())
   await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
-  dispatch(saveGiftType())
   if (gotoNext === 0) {
     dispatch(nextFlowStep())
   }
@@ -1198,7 +1185,13 @@ export const getDonationOrgs = (params = {}) => (dispatch, getState, { fetch }) 
     })
 }
 
-export const setDonationOrg = (donationOrg) => ({ type: SET_DONATION_ORG, donationOrg })
+export const setDonationOrg = (donationOrg) => (dispatch) => {
+  dispatch({ type: SET_DONATION_ORG, donationOrg })
+  if(donationOrg === null)
+  {
+    dispatch({ type: SUBMIT_DONATION, donation:{donationAmount:null,hideAmount :false} })
+  }
+}
 
 export const submitGiftType = () => (dispatch, getState) => {
   const { flow, giftType } = getState().purchase
@@ -1261,7 +1254,6 @@ export const confirmVoucher = (bundleValues, refresh) => async (dispatch, getSta
     success: async (res) => {
       await dispatch({ type: CONFIRM_VOUCHER_SUCCESS })
       await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
-      dispatch(saveGiftType())
       if (refresh) {
         dispatch(nextFlowStep(-2))
       }
@@ -1286,7 +1278,6 @@ export const submitDonation = (donation, refresh = false) => async (dispatch, ge
   const { flow } = getState().purchase
   dispatch(confirmDonation(null, refresh))
 }
-
 export const confirmDonation = (bundleValues, refresh) => async (dispatch, getState, { fetch }) => {
   await dispatch(addBundle(bundleValues, false))
   const { token } = dispatch(getToken())
@@ -1307,7 +1298,6 @@ export const confirmDonation = (bundleValues, refresh) => async (dispatch, getSt
     token,
     success: () => {
       dispatch({ type: CONFIRM_DONATION_SUCCESS })
-      dispatch(saveGiftType())
       if (refresh)
         dispatch(nextFlowStep(-2))
       else dispatch(nextFlowStep())
@@ -1484,10 +1474,6 @@ export const setNewRecipients = (newrecipient) => async (dispatch, getState) => 
   dispatch({ type: SET_NEW_RECIPIENT, newrecipient: a })
 }
 export const clearVoucherAndDonation = () => (dispatch, getState) => {
-  var multi_products = JSON.parse(localStorage.getItem(MULTIPRODUCT));
-  if(multi_products === null)
-    multi_products = [];
-  localStorage.setItem(MULTIPRODUCT, JSON.stringify(multi_products.filter(item => item !=='Donation' && item !== 'Voucher')));
   dispatch({ type: SUBMIT_VOUCHER, voucher:null })
   dispatch({ type: SET_DONATION_ORG, donationOrg:null })
 }
@@ -1725,7 +1711,7 @@ export default createReducer(initialState, {
     }
   }),
   [SUBMIT_DONATION]: (state, { donation }) => ({
-    donationAmount: donation.donationAmount && +donation.donationAmount,
+    donationAmount: donation.donationAmount ? +donation.donationAmount:undefined,
     hideAmount: donation.hideAmount,
   }),
   [MAKE_STRIPE_PAYMENT_REQUEST]: (state, action) => ({
