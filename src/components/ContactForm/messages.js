@@ -117,4 +117,8 @@ export default defineMessages({
     id: 'contactForm.frequency',
     defaultMessage: 'Frequency :',
   },
+  cancelEdit: {
+    id: 'contactForm.cancelEdit',
+    defaultMessage: 'Cancel',
+  }
 })
