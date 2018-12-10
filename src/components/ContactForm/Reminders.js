@@ -15,6 +15,7 @@ import { BIRTH_GERMAN, BIRTH_EN } from '../../constants'
 import cn from 'classnames'
 import EditIcon from '../../static/edit.svg'
 import { Link } from '../'
+import Cleave from 'cleave.js/react';
 
 class ReminderCard extends React.Component {
   render() {
@@ -39,7 +40,7 @@ class ReminderCard extends React.Component {
         </Row>
         <Row>
           <Col xs={10}><div className={s.info_item}>{intl.formatMessage(messages.occasionDate)}</div></Col>
-          <Col xs={14}><div className={s.info_item}>{reminder.date ? reminder.date.format('DD-MM-YYYY'):''}</div></Col>
+          <Col xs={14}><div className={s.info_item}>{reminder.date ? reminder.date:''}</div></Col>
         </Row>
         <Row>
           <Col xs={10}><div className={s.info_item}>{intl.formatMessage(messages.reminderDate)}</div></Col>
@@ -169,19 +170,41 @@ class Reminders extends React.Component {
   }
   changeDatePicker = (k, value) => {
     const { getFieldValue, setFieldsValue } = this.props.form
-    if (value === null || getFieldValue(`reminders[${k}].recurring`) === undefined) {
-      setFieldsValue({ [`reminders[${k}].reminder_date`]: null })
-      return;
+    if(this.isValidOccasionDate(k,value.target.value))
+    {
+      if (value === null || getFieldValue(`reminders[${k}].recurring`) === undefined) {
+        setFieldsValue({ [`reminders[${k}].reminder_date`]: null })
+        return;
+      }
+      this.getReminderDate(k, moment(value.target.value,'DD/MM/YYYY'), getFieldValue(`reminders[${k}].recurring`));
     }
-    this.getReminderDate(k, value, getFieldValue(`reminders[${k}].recurring`));
+    else {
+      setFieldsValue({ [`reminders[${k}].reminder_date`]: null })
+    }
+  }
+  isValidOccasionDate(k,value){
+    if(value.length !== 10)
+    {
+      this.setState({InvalidIndex:k,errorMessage:'Invalid Occasion Date'});
+      return false;
+    }
+    const occasion_date = moment(value,'DD/MM/YYYY');
+    const diff = moment().add(1, 'days').diff(occasion_date, 'days');
+    if(diff > 0)
+    {
+      this.setState({InvalidIndex:k,errorMessage:'Invalid Occasion Date'});
+      return false;
+    }
+    this.setState({InvalidIndex:k,errorMessage:null});
+    return true
   }
   changeRecurring = (k, value) => {
     const { getFieldValue, setFieldsValue } = this.props.form
-    if (value === undefined || getFieldValue(`reminders[${k}].date`) === null) {
+    if (value === undefined || !this.isValidOccasionDate(k,getFieldValue(`reminders[${k}].date`))) {
       setFieldsValue({ [`reminders[${k}].reminder_date`]: null })
       return;
     }
-    this.getReminderDate(k, getFieldValue(`reminders[${k}].date`), value);
+    this.getReminderDate(k, moment(getFieldValue(`reminders[${k}].date`)), value);
   }
   getReminderDate(k, date, recurring) {
     const { getFieldValue, setFieldsValue } = this.props.form
@@ -305,20 +328,14 @@ class Reminders extends React.Component {
                 </Form.Item>
                 <Form.Item>
                   {getFieldDecorator(`reminders[${k}].date`, {
-                    initialValue: initialValues && initialValues[k] ? moment(initialValues[k].date,'DD-MM-YYYY') : undefined,
+                    initialValue: initialValues && initialValues[k] ? initialValues[k].date : undefined,
                   })(
-                    <DatePicker
-                      className={s.date}
-                      disabledDate={current => {
-                        var date = new Date();
-                        let zurichtime = moment().tz("Europe/Zurich").format('HH');
-                        if (parseInt(zurichtime) < 12) {
-                          date.setDate(date.getDate() - 1);
-                        }
-                        else date.setDate(date.getDate());
-                        return current && current.valueOf() < (date)
+                    <Cleave
+                      placeholder={intl.formatMessage(messages.dateplaceholder)}
+                      options={{
+                        date: true,
+                        datePattern: ['d', 'm', 'Y']
                       }}
-                      format={DISPLAYED_DATE_FORMAT}
                       onChange={(value) => this.changeDatePicker(k, value)}
                     />
                   )}
