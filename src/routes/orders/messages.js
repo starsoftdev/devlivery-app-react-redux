@@ -129,4 +129,8 @@ export default defineMessages({
     id: 'giftStore.unlimited',
     defaultMessage: 'Unlimited',
   },
+  contactsColumn: {
+    id: 'reports.contactsColumn',
+    defaultMessage: 'Contacts',
+  },
 })

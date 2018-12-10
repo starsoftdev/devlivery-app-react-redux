@@ -12,6 +12,7 @@ import messages from './messages'
 import { DEFAULT_DEBOUNCE_TIME } from '../../constants'
 import OrderDetails from './OrderDetails'
 import { getEvent } from '../../utils'
+import LinesEllipsis from 'react-lines-ellipsis'
 
 class Orders extends React.Component {
   constructor(props) {
@@ -67,6 +68,18 @@ class Orders extends React.Component {
         dataIndex: 'order_number',
         key: 'order_number',
         render: (orderNumber, order) => <a onClick={() => openOrderDetailsModal(order)}>{orderNumber}</a>
+      },
+      {
+        title: intl.formatMessage(messages.contactsColumn),
+        dataIndex: 'contacts',
+        key: 'contacts',
+        render: (contacts) => <LinesEllipsis
+                                text={contacts}
+                                maxLine='2'
+                                ellipsis='...'
+                                trimRight={false}
+                                basedOn='words'
+                              />
       },
       {
         title: intl.formatMessage(messages.dateColumn),
