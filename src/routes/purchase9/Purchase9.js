@@ -195,7 +195,7 @@ class Purchase9 extends React.Component {
             <Form.Item>
               {getFieldDecorator(`company`, {
                 rules: [
-                  { required: this.props.form.getFieldValue('account_type') === TEAM_ACCOUNT ? true : false, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
+                  { required: this.props.form.getFieldValue('account_type') === TEAM_ACCOUNT ? true : false },
                 ],
               })(
                 <FloatingLabel placeholder={intl.formatMessage(messages.company)} />
