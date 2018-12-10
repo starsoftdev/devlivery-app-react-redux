@@ -1723,7 +1723,7 @@ export default createReducer(initialState, {
     }
   }),
   [SUBMIT_DONATION]: (state, { donation }) => ({
-    donationAmount: +donation.donationAmount,
+    donationAmount: donation.donationAmount && +donation.donationAmount,
     hideAmount: donation.hideAmount,
   }),
   [MAKE_STRIPE_PAYMENT_REQUEST]: (state, action) => ({
