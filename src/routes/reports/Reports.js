@@ -9,6 +9,7 @@ import {PaginationItem} from '../../components'
 import debounce from 'lodash/debounce'
 import {DATE_FORMAT, DEFAULT_DEBOUNCE_TIME, DISPLAYED_DATE_FORMAT} from '../../constants'
 import messages from './messages'
+import LinesEllipsis from 'react-lines-ellipsis'
 
 class Reports extends React.Component {
   constructor(props) {
@@ -108,6 +109,13 @@ class Reports extends React.Component {
         title: intl.formatMessage(messages.contactsColumn),
         dataIndex: 'contacts',
         key: 'contacts',
+        render: (contacts) => <LinesEllipsis
+                                text={contacts}
+                                maxLine='2'
+                                ellipsis='...'
+                                trimRight={false}
+                                basedOn='words'
+                              />
       },
       {
         title: intl.formatMessage(messages.scheduledAtColumn),
