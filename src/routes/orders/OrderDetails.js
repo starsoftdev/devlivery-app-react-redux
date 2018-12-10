@@ -244,6 +244,7 @@ class OrderDetails extends React.Component {
       });
       key++;
     }
+    /*
     if (orderDetails) {
       dataSource.push({
         value: recipient ? orderDetails.bundle_subtotal.toFixed(2) :  orderDetails.bundle_total.toFixed(2),
@@ -252,6 +253,7 @@ class OrderDetails extends React.Component {
       });
       key++;
     }
+    */
     const cardDetails = orderDetails && orderDetails.items['card'];
     var occasionByCardId = null;
     if (cardDetails && occasions)
@@ -292,18 +294,6 @@ class OrderDetails extends React.Component {
                   rowKey={record => record.key}
                   pagination={false}
                 />
-                {
-                  orderDetails.incomplete_payment &&
-                  <div className={s.paybutton}>
-                    <Button type='primary' onClick={() => {
-                      setFlowPayment(orderDetails)
-                    }}>
-                      {'Pay'}
-                    </Button>
-                  </div>
-                }
-              </Col>
-              <Col xs={24} sm={8}>
                 <section className={s.summary}>
                   <header className={s.summaryHeader}>
                     {intl.formatMessage(messages.summary)}
@@ -398,6 +388,19 @@ class OrderDetails extends React.Component {
                     </div>
                   }
                 </section>
+                {
+                  orderDetails.incomplete_payment &&
+                  <div className={s.paybutton}>
+                    <Button type='primary' onClick={() => {
+                      setFlowPayment(orderDetails)
+                    }}>
+                      {'Pay'}
+                    </Button>
+                  </div>
+                }
+              </Col>
+              <Col xs={24} sm={8}>
+                
                 <section>
                   {this.renderRecipientInf(recipients)}
                 </section>
