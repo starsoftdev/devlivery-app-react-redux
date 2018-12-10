@@ -53,6 +53,22 @@ export default defineMessages({
     id: 'reports.occasion',
     defaultMessage: 'Occasion',
   },
+  filterType: {
+    id: 'reports.filterType',
+    defaultMessage: 'Filter Type',
+  },
+  delivery: {
+    id: 'reports.delivery',
+    defaultMessage: 'Delivery',
+  },
+  shipping: {
+    id: 'reports.shipping',
+    defaultMessage: 'Shipping',
+  },
+  ordered: {
+    id: 'reports.ordered',
+    defaultMessage: 'Ordered',
+  },
   datefrom: {
     id: 'reports.datefrom',
     defaultMessage: 'From:',

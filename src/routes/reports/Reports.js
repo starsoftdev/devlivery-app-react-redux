@@ -25,6 +25,7 @@ class Reports extends React.Component {
     startValue: null,
     endValue: null,
     endOpen: false,
+    filterType: 'delivery',
   }
 
   disabledStartDate = (startValue) => {
@@ -44,13 +45,33 @@ class Reports extends React.Component {
   }
 
   onStartChange = (value) => {
-    this.setState({startValue: value})
-    this.props.getReports({from: value})
+    const { filterType } = this.state;
+    this.setState({ startValue: value });
+    switch (filterType) {
+      case 'shipping':
+        this.props.getReports({ from_shipping: value, to: undefined, from: undefined, from_ordered: undefined, to_ordered: undefined });
+        break;
+      case 'ordered':
+        this.props.getReports({ from_ordered: value, from_shipping: undefined, to_shipping: undefined, to: undefined, from: undefined });
+        break;
+      default:
+        this.props.getReports({ from: value, from_shipping: undefined, to_shipping: undefined, from_ordered: undefined, to_ordered: undefined });
+    }
   }
 
   onEndChange = (value) => {
-    this.setState({endValue: value})
-    this.props.getReports({to: value})
+    const { filterType } = this.state;
+    this.setState({ endValue: value });
+    switch (filterType) {
+      case 'shipping':
+        this.props.getReports({ to_shipping: value,  to: undefined, from: undefined, from_ordered: undefined, to_ordered: undefined });
+        break;
+      case 'ordered':
+        this.props.getReports({ to_ordered: value, from_shipping: undefined, to_shipping: undefined, to: undefined, from: undefined });
+        break;
+      default:
+        this.props.getReports({ to: value, from_shipping: undefined, to_shipping: undefined, from_ordered: undefined, to_ordered: undefined });
+    }
   }
 
   handleStartOpenChange = (open) => {
@@ -63,9 +84,24 @@ class Reports extends React.Component {
     this.setState({endOpen: open})
   }
 
+  changeFilterType = (type) => {
+    const { startValue, endValue } = this.state;
+    this.setState({ filterType: type });
+    switch (type) {
+      case 'shipping':
+        this.props.getReports({ from_shipping: startValue, to_shipping: endValue,  to: undefined, from: undefined, from_ordered: undefined, to_ordered: undefined });
+        break;
+      case 'ordered':
+        this.props.getReports({ from_shipping: startValue, to_ordered: endValue, from_shipping: undefined, to_shipping: undefined, to: undefined, from: undefined });
+        break;
+      default:
+        this.props.getReports({ from: startValue, to: endValue, from_shipping: undefined, to_shipping: undefined, from_ordered: undefined, to_ordered: undefined });
+    }
+  }
+
   render() {
     // TODO add loading
-    const { startValue, endValue, endOpen } = this.state
+    const { startValue, endValue, endOpen, filterType } = this.state
     const {reports, reportsCount, page, pageSize, loading, getReports, occasions, occasion, intl, exportReport} = this.props
     const columns = [
       {
@@ -152,6 +188,17 @@ class Reports extends React.Component {
               />
             </Col>
           </Row>
+          <Select
+            className={s.filterType}
+            placeholder={intl.formatMessage(messages.filterType)}
+            filterOption={false}
+            value={filterType}
+            onChange={(type) => this.changeFilterType(type)}
+          >
+            <Select.Option value="delivery">{intl.formatMessage(messages.delivery)}</Select.Option>
+            <Select.Option value="shipping">{intl.formatMessage(messages.shipping)}</Select.Option>
+            <Select.Option value="ordered">{intl.formatMessage(messages.ordered)}</Select.Option>
+          </Select>
           <Select
             className={s.occasion}
             allowClear
