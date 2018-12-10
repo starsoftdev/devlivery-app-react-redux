@@ -49,6 +49,8 @@ class Donation extends React.Component {
         localStorage.setItem(DONATION_STATE, JSON.stringify(values));
         this.props.submitDonation(values,refresh)
       } else {
+        this.props.setDonationOrg(null);
+        localStorage.removeItem(DONATION_STATE);
         this.props.submitDonation(null,refresh)
       }
     })
@@ -84,7 +86,13 @@ class Donation extends React.Component {
                     title={item.name}
                     item={item}
                     imagesProp={'logo'}
-                    onClick={() => this.setState({donationOrg:item})}
+                    onClick={() => {
+                      if(donationOrg && donationOrg.id === item.id)
+                      {
+                        this.setState({donationOrg:null})
+                      }
+                      else this.setState({donationOrg:item})}
+                    }
                     bordered={false}
                     description={item.description}
                     active={donationOrg && donationOrg.id === item.id}
