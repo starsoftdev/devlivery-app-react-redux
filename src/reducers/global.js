@@ -33,7 +33,7 @@ export const isLeaveEditContactPage = (path) => {
   if(splits.length !== 2 || splits[0] != "")
     return false;
   
-  if(!isNaN(splits[1]))
+  if(!isNaN(splits[1]) || splits[1] === 'new')
   {
     return true;
   }
