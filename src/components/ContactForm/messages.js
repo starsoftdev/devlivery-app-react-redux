@@ -120,5 +120,13 @@ export default defineMessages({
   cancelEdit: {
     id: 'contactForm.cancelEdit',
     defaultMessage: 'Cancel',
-  }
+  },
+  deleteReminderMessage: {
+    id: 'contactForm.deleteReminderMessage',
+    defaultMessage: 'Are you sure?',
+  },
+  deleteReminderYes: {
+    id: 'contactForm.deleteReminderYes',
+    defaultMessage: 'Yes',
+  },
 })

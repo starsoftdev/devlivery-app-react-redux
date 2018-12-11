@@ -32,6 +32,22 @@
     ]
   },
   {
+    "id": "contactForm.deleteReminderMessage",
+    "defaultMessage": "Are you sure?",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.deleteReminderYes",
+    "defaultMessage": "Yes",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
     "id": "contactForm.dateplaceholder",
     "defaultMessage": "DD/MM/YYYY",
     "message": "",

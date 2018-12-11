@@ -54,9 +54,9 @@ class ReminderCard extends React.Component {
         {
           <div className={s.removeIcon}>
             <Popconfirm
-              title="Are you sure?"
+              title={intl.formatMessage(messages.deleteReminderMessage)}
               onConfirm={() => removeItem(k)}
-              okText="Yes"
+              okText={intl.formatMessage(messages.deleteReminderYes)}
             >
               <Icon type='close' />
             </Popconfirm>
