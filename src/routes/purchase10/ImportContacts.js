@@ -46,21 +46,15 @@ class ImportContacts extends React.Component {
                   prefixClassName={s.headerPrefix}
                 />
                 <Row gutter={20} type='flex' align='center'>
-                  <Col xs={24} sm={12} className={s.section}>
+                  <Col xs={24} sm={18} className={s.section}>
                     {exportFromXLSX}
                     {/*exportGoogleContacts*/}
                   </Col>
-                  <Col xs={24} sm={12} className={cn(s.section, s.actionsSection)}>
+                  <Col xs={24} sm={6} className={cn(s.section, s.actionsSection)}>
                     {/*csvUploadButton*/}
                     {/*xlsUploadButton*/}
                     {xlsxUploadButton}
                     {/*vcfUploadButton*/}
-                  </Col>
-                  <Col xs={24} sm={12} className={s.section}>
-                    {/*exportOutlookContacts*/}
-                  </Col>
-                  <Col xs={24} sm={12} className={s.section}>
-                    {/*exportCardContacts*/}
                   </Col>
                 </Row>
               </div>
