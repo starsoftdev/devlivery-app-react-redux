@@ -547,7 +547,7 @@ const routes = {
     context.store.dispatch(checkToken())
     var prevPathName = context.store.getState().global.prevPathname;
     var curPathName = context.store.getState().global.currentPathname;
-    if(isLeaveEditContactPage(prevPathName) && curPathName !== prevPathName)
+    if(isLeaveEditContactPage(prevPathName, curPathName) && curPathName !== prevPathName)
     {
       await context.store.dispatch(setNextRouteName(curPathName));
       return { redirect: prevPathName }
