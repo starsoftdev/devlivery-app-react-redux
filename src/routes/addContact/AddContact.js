@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Col, Form, Row, Modal } from 'antd'
+import { Button, Col, Form, Row, Modal, message } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './AddContact.css'
 import PlusIcon from '../../static/plus.svg'
@@ -12,6 +12,7 @@ import { generateUrl } from '../../router'
 import { setNextRouteName, navigateToNextRouteName } from '../../reducers/global';
 import { CONTACTS_ROUTE } from '../'
 import moment from 'moment'
+import { isNull, isUndefined } from 'lodash';
 
 class AddContact extends React.Component {
   state = {
@@ -51,7 +52,23 @@ class AddContact extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields({ force: true }, (err, values) => {
-      if (!err && this.props.form.getFieldsError().dob == null) {
+      let reminderError = false;
+      values.reminders && values.reminders.map(reminder => {
+        if (
+          isUndefined(reminder.date) ||
+          isUndefined(reminder.occasion_id) ||
+          isUndefined(reminder.recurring) ||
+          isNull(reminder.reminder_date) ||
+          isUndefined(reminder.reminder_date)
+        ) {
+          reminderError = true;
+        }
+      });
+      if (reminderError) {
+        message.error(this.props.intl.formatMessage(messages.reminderError));
+        return false;
+      }
+      if (!reminderError && !err && this.props.form.getFieldsError().dob == null) {
         var addresses = this.props.form.getFieldValue('addresses')
           if (addresses === null) {
             this.props.addContact(values, this.props.form, () => history.push(generateUrl(CONTACTS_ROUTE)))
