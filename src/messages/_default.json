@@ -337,6 +337,15 @@
     ]
   },
   {
+    "id": "addContact.reminderError",
+    "defaultMessage": "Please Complete Reminder Forms.",
+    "message": "",
+    "files": [
+      "src/routes/addContact/messages.js",
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
     "id": "addContact.header",
     "defaultMessage": "Add Contact",
     "message": "",
