@@ -20,5 +20,9 @@ export default defineMessages({
   requireadres: {
     id: 'addContact.requireadres',
     defaultMessage: 'Home address or Company address is required.',
+  },
+  reminderError: {
+    id: 'addContact.reminderError',
+    defaultMessage: 'Please Complete Reminder Forms.',
   }
 })
