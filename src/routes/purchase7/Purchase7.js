@@ -116,7 +116,7 @@ class Purchase7 extends React.Component {
                       submitGiftType()
                     }
                   }}
-                  keyValue={ALPHABET[i]}
+                  keyValue={ALPHABET[4]}
                   extra={item.extra}
                 />
               </Col>
