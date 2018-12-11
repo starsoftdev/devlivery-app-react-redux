@@ -5,7 +5,7 @@ async function action() {
   return {
     title: 'Not Found',
     status: 404,
-    component: <AppLayout>Not Found</AppLayout>,
+    component: <AppLayout><span style={{textAlign:'center'}}>Not Found</span></AppLayout>,
   }
 }
 
