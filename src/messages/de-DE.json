@@ -184,6 +184,14 @@
     ]
   },
   {
+    "id": "contactForm.saveReminder",
+    "defaultMessage": "Save reminder",
+    "message": "Save reminder",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
     "id": "contactForm.cancelEdit",
     "defaultMessage": "Cancel",
     "message": "Abrechen",
