@@ -36,5 +36,9 @@ export default defineMessages({
   warningRemoving: {
     id: 'contactGroups.warningRemoving',
     defaultMessage: 'This contact can\'t be deleted because is a recipient in one of your orders.',
+  },
+  reminderError: {
+    id: 'addContact.reminderError',
+    defaultMessage: 'Please Complete Reminder Forms.',
   }
 })
