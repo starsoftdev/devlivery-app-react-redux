@@ -9,8 +9,12 @@ import messages from './messages'
 import { injectIntl } from 'react-intl'
 import { importContacts, openUploadedContactsModal } from '../../reducers/contacts'
 import { nextFlowStep, GROUP_ID_KEY, CONTACT_IDS_KEY, gotoConfirm,setNewRecipients } from '../../reducers/purchase'
+import {contact_map,address_map} from '../../constants';
 
 class ColumnsMapping extends React.Component {
+  state = {
+    isRequireAddress: false
+  }
   componentDidMount() {
     this.props.onRef(this)
   }
@@ -26,29 +30,44 @@ class ColumnsMapping extends React.Component {
     }
     this.columnsMappingForm.validateFields((err, values) => {
       if (!err) {
-        this.props.importContacts(values, (newrecipient) => {
-          localStorage.removeItem(GROUP_ID_KEY)
-          if (newrecipient) {
-            if (this.props.recipientMode)
-            {
-              this.props.setNewRecipients(newrecipient);
-              this.props.gotoConfirm();
+        this.setState({isRequireAddress: false});
+        if(this.validateAddress(values))
+        {
+          this.props.importContacts(values, this.columnsMappingForm,this.props.intl, (newrecipient) => {
+            localStorage.removeItem(GROUP_ID_KEY)
+            if (newrecipient) {
+              if (this.props.recipientMode)
+              {
+                this.props.setNewRecipients(newrecipient);
+                this.props.gotoConfirm();
+              }
+              else {
+                localStorage.removeItem(CONTACT_IDS_KEY)
+                this.props.setNewRecipients(newrecipient);
+                this.props.nextFlowStep()
+              }
             }
-            else {
-              localStorage.removeItem(CONTACT_IDS_KEY)
-              this.props.setNewRecipients(newrecipient);
-              this.props.nextFlowStep()
-            }
-          }
-          else this.props.refreshPage();
-        })
+            else this.props.refreshPage();
+          })
+        } else this.setState({isRequireAddress: true});
         return true;
       }
       return false;
     })
     return false;
   }
-
+  validateAddress(values){
+    let result = false;
+    address_map.map(item => {
+      if(values['home_'+item] !== undefined)
+        result = true;
+    });
+    address_map.map(item => {
+      if(values['office_'+item] !== undefined)
+        result = true;
+    });
+    return result;
+  }
   render() {
     const { flowIndex, intl, uploadedContactsModalOpened, openUploadedContactsModal } = this.props
 
@@ -75,6 +94,7 @@ class ColumnsMapping extends React.Component {
             className={s.columnsMappingForm}
             ref={ref => this.columnsMappingForm = ref}
             onSubmit={this.handleSubmit}
+            isRequireAddress={this.state.isRequireAddress}
           />
         </div>
         <PurchaseActions>
