@@ -261,7 +261,7 @@ class Reminders extends React.Component {
 
           if(occasion_title == '' || getFieldValue(`reminders[${k}].occasion_id`) !== initialValues[k].occasion_id) {
             const find_occasion = occasions.find(item=> item.id+'' === getFieldValue(`reminders[${k}].occasion_id`)+'');
-            occasion_title = find_occasion && find_occasion.title ? find_occasion.title : '';
+            occasion_title = find_occasion && find_occasion.title ? find_occasion.title : getFieldValue(`reminders[${k}].occasion_id`);
           }
          
           const isAdding = this.state.isAdding && (k === (this.uuid-1));
