@@ -86,6 +86,8 @@ export const CARD_SIZES = (intl) => [
 ]
 export const exampleXLSX_url_de= 'http://139.59.175.153:8081/byZumiExample-de.xlsx';
 export const exampleXLSX_url_en= 'http://139.59.175.153:8081/byZumiExample-en.xlsx';
+export const contact_map = ["title", "first_name", "last_name", "nickname", "relationship", "dob", "email", "phone"];
+export const address_map = ["street", "city", "country", "postal_code"];
 
 export const FOOD_TYPE = 'Food'
 export const NON_FOOD_TYPE = 'Non Food'

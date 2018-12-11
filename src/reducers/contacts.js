@@ -11,6 +11,7 @@ import {getBirthday, getFormErrors, getOrdering, showErrorMessage} from '../util
 import { navigateToNextRouteName } from './global';
 import { SET_NEW_RECIPIENT } from './purchase';
 import moment from 'moment'
+import formMessages from '../formMessages'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -385,20 +386,105 @@ export const uploadContacts = (file, fileType) => (dispatch, getState, {fetch}) 
     failure: () => dispatch({type: UPLOAD_CONTACTS_FAILURE}),
   })
 }
-
-export const importContacts = (columnsMapping, callback) => (dispatch, getState, {fetch}) => {
+const validateContact = (title,street,city,country,postal_code,form,intl) =>{
+  if(street == null && (city || country || postal_code))
+  {
+    form.setFields({
+      ...(title ==='office') ?
+      {office_street: {
+        errors: [new Error(intl.formatMessage(formMessages.required))],
+      }} :
+      {home_street: {
+        errors: [new Error(intl.formatMessage(formMessages.required))],
+      }},
+    });
+    return false;
+  }
+  if(street && (street+'').length < 5)
+  {
+    form.setFields({
+      ...(title ==='office') ?
+      {office_street: {
+        errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 5 }))],
+      }} :
+      {home_street: {
+        errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 5 }))],
+      }},
+    });
+    return false;
+  }
+  if(!city || (city+'').length < 1)
+  {
+    form.setFields({
+      ...(title ==='office') ?
+      {office_city: {
+        errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 1 }))],
+      }} :
+      {home_city: {
+        errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 1 }))],
+      }},
+    });
+    return false;
+  }
+  if(!country || (country+'').length < 1)
+  {
+    form.setFields({
+      ...(title ==='office') ?
+      {office_country: {
+        errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 1 }))],
+      }} :
+      {home_country: {
+        errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 1 }))],
+      }},
+    });
+    return false;
+  }
+  if(!postal_code ||(postal_code+'').length < 1)
+  {
+    form.setFields({
+      ...(title ==='office') ?
+      {office_postal_code: {
+        errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 1 }))],
+      }} :
+      {home_postal_code: {
+        errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 1 }))],
+      }},
+    });
+    return false;
+  }
+  return true;
+}
+export const importContacts = (columnsMapping,form,intl, callback) => (dispatch, getState, {fetch}) => {
   dispatch({type: IMPORT_CONTACTS_REQUEST})
   const {token} = dispatch(getToken())
   const {uploadedContacts, selectedContacts} = getState().contacts
   // TODO modify contacts obj for vcf/xls
+  let err = null;
   const contacts = uploadedContacts
     .filter((contact, i) => selectedContacts.includes(i))
     .map(contact => {
-      const {street, city, country, state, postal_code, ...otherFields} = mapValues(columnsMapping, (value) => contact[value])
-      const addresses = [{address: street, city, country, state, postal_code, title:'home'}]
+      const {home_street, home_city, home_country, home_postal_code, office_street, office_city, office_country, office_postal_code, ...otherFields} = mapValues(columnsMapping, (value) => contact[value] !== undefined ? contact[value] : null)
+      let addresses = [];
+      
+      if(home_street || home_city || home_country || home_postal_code)
+      {
+        if(!validateContact('home',home_street , home_city , home_country , home_postal_code, form, intl))
+          err = 'Home invalid'; 
+        addresses.push({address:home_street, city:home_city, country:home_country, postal_code:home_postal_code, title:'home'})
+      }
+      if(office_street || office_city || office_country || office_postal_code)
+      {
+        if(!validateContact('office',office_street , office_city , office_country , office_postal_code, form, intl))
+          err = 'Office invalid'; 
+        addresses.push({address:office_street, city:office_city, country:office_country, postal_code:office_postal_code, title:'office'})
+      }
       return {...otherFields, addresses}
     })
-  
+    
+  if(err)
+  {
+    return callback(null);
+  }
   return fetch(`/contact/import-final`, {
     method: 'POST',
     body: {

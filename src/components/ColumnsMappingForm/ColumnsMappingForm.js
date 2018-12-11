@@ -7,10 +7,11 @@ import formMessages from '../../formMessages'
 import {REQUIRED_FIELDS} from '../../constants'
 import {connect} from 'react-redux'
 import messages from './messages'
+import {contact_map,address_map} from '../../constants';
 
 class ColumnsMappingForm extends React.Component {
   render() {
-    const {mappingColumns, intl, className} = this.props
+    const {mappingColumns, intl, className, isRequireAddress} = this.props
     const {getFieldDecorator} = this.props.form
 
     const formItemLayout = {
@@ -23,10 +24,10 @@ class ColumnsMappingForm extends React.Component {
         sm: { span: 16 },
       },
     }
-
+    
     return (
       <Form layout='vertical' hideRequiredMark className={className}>
-        {mappingColumns.db_columns.map(column =>
+        {contact_map.map(column =>
           <Form.Item
             className={s.row}
             {...formItemLayout}
@@ -44,6 +45,55 @@ class ColumnsMappingForm extends React.Component {
               >
                 {mappingColumns.user_columns.map(item =>
                   <Select.Option key={item}>{item === 'dob' ? 'date of birth' : item}</Select.Option>
+                )}
+              </Select>
+            )}
+          </Form.Item>
+        )}
+        <h4 className={isRequireAddress? s.requirAddress :s.norequirAddress}>{intl.formatMessage(messages.requireadres)}</h4>
+        <h1 className={s.header}>{intl.formatMessage(messages.homeAddress)}</h1>
+        {address_map.map(column =>
+          <Form.Item
+            className={s.row}
+            {...formItemLayout}
+            key={column}
+            label={column}
+          >
+            {getFieldDecorator('home_'+column, {
+              rules: [
+                {required: false, message: intl.formatMessage(formMessages.required)},
+              ],
+            })(
+              <Select
+                allowClear
+                placeholder={intl.formatMessage(messages.notInFile)}
+              >
+                {mappingColumns.user_columns.map(item =>
+                  <Select.Option key={item}>{item}</Select.Option>
+                )}
+              </Select>
+            )}
+          </Form.Item>
+        )}
+        <h1 className={s.header}>{intl.formatMessage(messages.companyAddress)}</h1>
+        {address_map.map(column =>
+          <Form.Item
+            className={s.row}
+            {...formItemLayout}
+            key={column}
+            label={column}
+          >
+            {getFieldDecorator('office_'+column, {
+              rules: [
+                {required: false, message: intl.formatMessage(formMessages.required)},
+              ],
+            })(
+              <Select
+                allowClear
+                placeholder={intl.formatMessage(messages.notInFile)}
+              >
+                {mappingColumns.user_columns.map(item =>
+                  <Select.Option key={item}>{item}</Select.Option>
                 )}
               </Select>
             )}

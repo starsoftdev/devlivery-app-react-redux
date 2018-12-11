@@ -11,7 +11,7 @@ import moment from 'moment'
 class UploadedContacts extends React.Component {
   render() {
     const {uploadedContacts, closeUploadedContactsModal, intl, selectedContacts, changeSelectedContacts,loading} = this.props
-
+    console.log('uploadedContacts',uploadedContacts);
     const columnsNames = uploadedContacts[0] ? Object.keys(uploadedContacts[0]) : []
     const columns = columnsNames.map(column => ({
       title: column === 'dob' ? 'date of birth' : column,

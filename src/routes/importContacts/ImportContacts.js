@@ -10,8 +10,12 @@ import PlusIcon from '../../static/plus.svg'
 import history from '../../history'
 import { generateUrl } from '../../router'
 import { CONTACTS_ROUTE } from '../'
+import {contact_map,address_map} from '../../constants';
 
 class ImportContacts extends React.Component {
+  state = {
+    isRequireAddress: false
+  }
   handleSubmit = (e) => {
     e.preventDefault()
     if (this.props.selectedContacts.length <= 0) {
@@ -20,11 +24,27 @@ class ImportContacts extends React.Component {
     }
     this.columnsMappingForm.validateFields((err, values) => {
       if (!err) {
-        this.props.importContacts(values, () => history.push(generateUrl(CONTACTS_ROUTE)))
+        this.setState({isRequireAddress: false});
+        if(this.validateAddress(values))
+        {
+          this.props.importContacts(values,this.columnsMappingForm,this.props.intl, (callback) => callback && history.push(generateUrl(CONTACTS_ROUTE)))
+        }
+        else this.setState({isRequireAddress: true});
       }
     })
   }
-
+  validateAddress(values){
+    let result = false;
+    address_map.map(item => {
+      if(values['home_'+item] !== undefined)
+        result = true;
+    });
+    address_map.map(item => {
+      if(values['office_'+item] !== undefined)
+        result = true;
+    });
+    return result;
+  }
   render() {
     const { mappingColumns, intl, uploadedContactsModalOpened, openUploadedContactsModal } = this.props
     
@@ -48,6 +68,7 @@ class ImportContacts extends React.Component {
                 className={s.columnsMappingForm}
                 ref={ref => this.columnsMappingForm = ref}
                 onSubmit={this.handleSubmit}
+                isRequireAddress={this.state.isRequireAddress}
               />
             </div>
             <div className={s.actionsWrapper}>
