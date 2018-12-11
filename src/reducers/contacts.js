@@ -137,6 +137,7 @@ export const setContact = (contact) => (dispatch, getState, {fetch}) => {
 export const getRemindersArray = (reminders) => {
   if(reminders === null || reminders === undefined)
     return [];
+   
   return reminders.filter(item => {
     // if one of the property undefined/null - don't send item
     return (item.custom_title || item.occasion_id) && item.date && (item.occasion_id !== BIRTH_GERMAN) && (item.occasion_id !== BIRTH_EN)
@@ -149,7 +150,7 @@ export const getRemindersArray = (reminders) => {
     } : {
       occasion_id: +item.occasion_id
     },
-    date: item.date.format(DATE_FORMAT)
+    date: moment(item.date,'DD/MM/YYYY').format(DATE_FORMAT)
   }))
 }
 
@@ -433,7 +434,6 @@ export const importContacts = (columnsMapping, callback) => (dispatch, getState,
 }
 export const getReminderDate = (date,recurring,callback) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
-  
   return fetch(`/get-reminder-date?${qs.stringify({
     date,
     recurring : recurring!=='1' ? recurring :null
