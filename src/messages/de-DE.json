@@ -1298,6 +1298,15 @@
     ]
   },
   {
+    "id": "addContact.reminderError",
+    "defaultMessage": "Please Complete Reminder Forms.",
+    "message": "Bitte füllen Sie Erinnerungsformulare aus.",
+    "files": [
+      "src/routes/addContact/messages.js",
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
     "id": "addContact.title",
     "defaultMessage": "New Contact",
     "message": "Neuer Kontakt",
