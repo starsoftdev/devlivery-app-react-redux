@@ -132,11 +132,18 @@ class Reminders extends React.Component {
   }
   isValidateReminder = (k) =>{
     const {reminder_date, occasion_id, recurring} = this.props.form.getFieldValue(`reminders[${k}]`)
-    if(occasion_id === null || occasion_id === undefined || reminder_date === null || reminder_date === undefined || recurring === undefined || recurring === null || recurring === '1')
+    if(this.state.errorMessage)
+      return false;
+    if(occasion_id === null || 
+      occasion_id === undefined || 
+      reminder_date === null || 
+      reminder_date === undefined || 
+      recurring === undefined || 
+      recurring === null)
     {
       var errMessage = (occasion_id === null || occasion_id === undefined) ? "Required Occasion Field!" :
                        (reminder_date === null || reminder_date === undefined) ? "Required Reminder Date Field!" :
-                       (recurring === null || recurring === undefined) ? "Should have value for Repeat!" : "Shouldn't be Once for Repeat!";
+                       (recurring === null || recurring === undefined) ? "Should have value for Reminder Date!" : "Shouldn't be Once for Repeat!";
       this.setState({InvalidIndex:k, errorMessage:errMessage});
       return false;
     }
@@ -199,7 +206,7 @@ class Reminders extends React.Component {
       setFieldsValue({ [`reminders[${k}].reminder_date`]: null })
       return;
     }
-    this.getReminderDate(k, moment(getFieldValue(`reminders[${k}].date`)), value);
+    this.getReminderDate(k, moment(getFieldValue(`reminders[${k}].date`),'DD/MM/YYYY'), value);
   }
   getReminderDate(k, date, recurring) {
     const { getFieldValue, setFieldsValue } = this.props.form
@@ -243,7 +250,7 @@ class Reminders extends React.Component {
               occasion_title = intl.locale === 'de-DE' ? BIRTH_GERMAN : BIRTH_EN;
             } else if (initialValues[k].occasion_id !== null) {
               occasion = initialValues[k].occasion_id + '';
-              const find_occasion = occasions.find(item=> item.id === initialValues[k].occasion_id );
+              const find_occasion = occasions.find(item=> item.id === initialValues[k].occasion_id);
               occasion_title = find_occasion && find_occasion.title ? find_occasion.title : '';
               
             } else if (initialValues[k].title !== null) {
@@ -252,7 +259,7 @@ class Reminders extends React.Component {
             }
           }
 
-          if(occasion_title == '') {
+          if(occasion_title == '' || getFieldValue(`reminders[${k}].occasion_id`) !== initialValues[k].occasion_id) {
             const find_occasion = occasions.find(item=> item.id+'' === getFieldValue(`reminders[${k}].occasion_id`)+'');
             occasion_title = find_occasion && find_occasion.title ? find_occasion.title : '';
           }
