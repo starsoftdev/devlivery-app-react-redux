@@ -206,7 +206,7 @@ class Reminders extends React.Component {
       setFieldsValue({ [`reminders[${k}].reminder_date`]: null })
       return;
     }
-    this.getReminderDate(k, moment(getFieldValue(`reminders[${k}].date`),'DD/MM/YYYY'), value);
+    this.getReminderDate(k, moment(getFieldValue(`reminders[${k}].date`), 'DD/MM/YYYY'), value);
   }
   getReminderDate(k, date, recurring) {
     const { getFieldValue, setFieldsValue } = this.props.form
