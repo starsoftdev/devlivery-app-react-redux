@@ -7,7 +7,7 @@ import PlusIcon from '../../static/plus.svg'
 import {uploadContacts} from '../../reducers/contacts'
 import {injectIntl} from 'react-intl'
 import cn from 'classnames'
-import {exampleXLSX_url} from '../../constants';
+import {exampleXLSX_url_de,exampleXLSX_url_en} from '../../constants';
 
 // TODO add translations
 class ContactsImporting extends React.Component {
@@ -34,7 +34,7 @@ class ContactsImporting extends React.Component {
           <li><b>Address, First Name, Last Name</b> is mandatory for all contacts or import will fail.</li>
         </ol>
         <p>Please find attached below an <b>example XLSX</b> to facilitate your import.</p>
-        <a href={exampleXLSX_url} download>
+        <a href={exampleXLSX_url_de} download>
           <Button type='primary' size={'small'} ghost className={s.importBtn}>
             Example XLSX
           </Button>
@@ -60,7 +60,7 @@ class ContactsImporting extends React.Component {
           <li><b>Address, First Name, Last Name</b> is mandatory for all contacts or import will fail.</li>
         </ol>
         <p>Please find attached below an <b>example XLSX</b> to facilitate your import.</p>
-        <a href={exampleXLSX_url} download>
+        <a href={exampleXLSX_url_en} download>
           <Button type='primary' size={'small'} ghost className={s.importBtn}>
             Example XLSX
           </Button>
