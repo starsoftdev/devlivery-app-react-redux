@@ -78,7 +78,7 @@ class ImportContacts extends React.Component {
               }) =>
                 <div className={s.content}>
                   <Row type='flex' gutter={20}>
-                    <Col xs={24} md={12}>
+                    <Col xs={24} md={18}>
                       <section>
                         <h1 className={s.sectionHeader}>{intl.formatMessage(messages.howto)}</h1>
                         {exportFromXLSX}
