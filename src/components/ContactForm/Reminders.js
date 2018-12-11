@@ -16,6 +16,7 @@ import cn from 'classnames'
 import EditIcon from '../../static/edit.svg'
 import { Link } from '../'
 import Cleave from 'cleave.js/react';
+import { cloneDeep, isUndefined } from 'lodash';
 
 class ReminderCard extends React.Component {
   render() {
@@ -233,6 +234,10 @@ class Reminders extends React.Component {
     );
   }
   cancelEdit = () => {
+    const keys = this.props.form.getFieldValue('reminderKeys')
+    keys.pop();
+    const newKeys = cloneDeep(keys);
+    this.props.form.setFieldsValue({ reminderKeys: newKeys })
     this.setState({ isAdding: false });
   }
   render() {

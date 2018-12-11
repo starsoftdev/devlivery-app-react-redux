@@ -10,6 +10,7 @@ import { ContactForm } from '../../components'
 import messages from './messages'
 import { setNextRouteName, navigateToNextRouteName } from '../../reducers/global';
 import moment from 'moment'
+import { isUndefined, isNull } from 'lodash';
 
 class EditContact extends React.Component {
   constructor(props) {
@@ -51,6 +52,22 @@ class EditContact extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields({ force: true }, (err, values) => {
+      let reminderError = false;
+      values.reminders && values.reminders.map(reminder => {
+        if (
+          isUndefined(reminder.date) ||
+          isUndefined(reminder.occasion_id) ||
+          isUndefined(reminder.recurring) ||
+          isNull(reminder.reminder_date) ||
+          isUndefined(reminder.reminder_date)
+        ) {
+          reminderError = true;
+        }
+      });
+      if (reminderError) {
+        message.error(this.props.intl.formatMessage(messages.reminderError));
+        return false;
+      }
       if (!err && this.props.form.getFieldsError().dob == null) {
         var addresses = this.props.form.getFieldValue('addresses')
           if (addresses === null) {
