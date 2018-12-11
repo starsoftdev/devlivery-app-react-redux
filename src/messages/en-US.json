@@ -177,7 +177,7 @@
   },
   {
     "id": "contactForm.deleteReminderMessage",
-    "defaultMessage": "Are you sure?",
+    "defaultMessage": "Are you sure you want to delete?",
     "message": "",
     "files": [
       "src/components/ContactForm/messages.js"
