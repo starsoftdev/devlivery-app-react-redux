@@ -150,7 +150,7 @@ export const getRemindersArray = (reminders) => {
     } : {
       occasion_id: +item.occasion_id
     },
-    date: moment(item.date,'DD/MM/YYYY').format(DATE_FORMAT)
+    date: moment(item.date, 'DD/MM/YYYY').format(DATE_FORMAT)
   }))
 }
 
@@ -186,7 +186,6 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
   dispatch({type: ADD_CONTACT_REQUEST})
   const {dob, reminders, groups, addresses, ...otherValues} = values
   const {token} = dispatch(getToken())
-  
   return fetch(`/add-contact-manually`, {
     method: 'POST',
     body: {
