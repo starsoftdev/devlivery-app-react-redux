@@ -84,7 +84,8 @@ export const CARD_SIZES = (intl) => [
     width: 226,
   },
 ]
-
+export const exampleXLSX_url= 'http://139.59.175.153:8081/ExampleXlsx.xlsx';
+  
 export const FOOD_TYPE = 'Food'
 export const NON_FOOD_TYPE = 'Non Food'
 export const DONATION_TYPE = 'Donation'
