@@ -123,7 +123,7 @@ export default defineMessages({
   },
   deleteReminderMessage: {
     id: 'contactForm.deleteReminderMessage',
-    defaultMessage: 'Are you sure?',
+    defaultMessage: 'Are you sure you want to delete?',
   },
   deleteReminderYes: {
     id: 'contactForm.deleteReminderYes',

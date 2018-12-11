@@ -201,8 +201,8 @@
   },
   {
     "id": "contactForm.deleteReminderMessage",
-    "defaultMessage": "Are you sure?",
-    "message": "bist du sicher?",
+    "defaultMessage": "Are you sure you want to delete?",
+    "message": "Sind Sie sicher das Sie diesen Inhalt löschen wollen?",
     "files": [
       "src/components/ContactForm/messages.js"
     ]
