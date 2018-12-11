@@ -465,7 +465,24 @@ export const importContacts = (columnsMapping,form,intl, callback) => (dispatch,
     .map(contact => {
       const {home_street, home_city, home_country, home_postal_code, office_street, office_city, office_country, office_postal_code, ...otherFields} = mapValues(columnsMapping, (value) => contact[value] !== undefined ? contact[value] : null)
       let addresses = [];
-      
+      if(otherFields.first_name === null || otherFields.first_name === undefined)
+      {
+        err = 'first name invalid'; 
+        form.setFields({
+          first_name: {
+            errors: [new Error(intl.formatMessage(formMessages.required))],
+          } 
+        });
+      }
+      if(otherFields.last_name === null || otherFields.last_name === undefined)
+      {
+        err = 'first name invalid'; 
+        form.setFields({
+          last_name: {
+            errors: [new Error(intl.formatMessage(formMessages.required))],
+          } 
+        });
+      }
       if(home_street || home_city || home_country || home_postal_code)
       {
         if(!validateContact('home',home_street , home_city , home_country , home_postal_code, form, intl))
