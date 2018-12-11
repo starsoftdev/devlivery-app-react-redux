@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, DatePicker, Form, Icon, Input, Select, Row, Col } from 'antd'
+import { Button, DatePicker, Form, Icon, Input, Select, Row, Col, Modal } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Reminders.css'
 import PlusIcon from '../../static/plus.svg'
@@ -74,6 +74,8 @@ class Reminders extends React.Component {
       editIndex: 0,
       InvalidIndex: null,
       errorMessage: null,
+      visible: false,
+      removeItemKey: null,
     }
 
     this.getOccasions = debounce(props.getOccasions, DEFAULT_DEBOUNCE_TIME)
@@ -104,10 +106,20 @@ class Reminders extends React.Component {
     this.setState({editIndex: k, isEditing: true, isAdding: false});
   }
   removeItem = (k) => {
+    this.setState({ visible: true, removeItemKey: k });
+  }
+
+  onOk = () => {
+    const { removeItemKey: k } = this.state;
     const keys = this.props.form.getFieldValue('reminderKeys')
     const newKeys = keys.filter(key => key !== k)
     this.props.form.setFieldsValue({ reminderKeys: newKeys })
+    this.setState({ visible: false });
   }
+  onCancel = () => {
+    this.setState({ visible: false });
+  }
+
   saveItem = (k) => {
     if(!this.isValidateReminder(k))
       return;
@@ -283,6 +295,16 @@ class Reminders extends React.Component {
                   />
               }
               <div className={cn(s.item, (!isEditing) && s.hiddenItem)}>
+                <Modal
+                  title="Confirm"
+                  visible={this.state.visible}
+                  onOk={this.onOk}
+                  onCancel={this.onCancel}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <h2>Are you sure to delete this reminder?</h2>
+                </Modal>
                 {initialValues && initialValues[k] && initialValues[k].id && getFieldDecorator(`reminders[${k}].id`, {
                   initialValue: initialValues[k].id,
                 })(
