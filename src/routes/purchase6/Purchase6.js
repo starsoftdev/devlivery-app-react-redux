@@ -271,16 +271,15 @@ class Purchase6 extends React.Component {
   render() {
     const { mounted } = this.state
     const { intl, flowIndex, cardSizeKey, templates, orientation } = this.props
-
     const cardSize = Contants.CARD_SIZES(intl).find(item => item.key === cardSizeKey);
 
     const w = cardSize ? cardSize.width : 100
     const h = cardSize ? cardSize.height : 100
 
-    const cardWidth = orientation && orientation == 'l' || cardSizeKey === '4" X 9"'? Math.max(h,w): Math.min(h,w);
-    const cardHeight = orientation && orientation == 'l' || cardSizeKey === '4" X 9"'? Math.min(h,w): Math.max(h,w);
+    const cardWidth = orientation && orientation == 'l' || cardSizeKey === '9" X 4"'? Math.max(h,w): Math.min(h,w);
+    const cardHeight = orientation && orientation == 'l' || cardSizeKey === '9" X 4"'? Math.min(h,w): Math.max(h,w);
 
-    const isLargeCard = cardWidth > 182 || cardSizeKey === '4" X 9"'? true : false;
+    const isLargeCard = cardWidth > 182 || cardSizeKey === '9" X 4"'? true : false;
     
     return (
       <div className={s.form}>
