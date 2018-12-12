@@ -5,13 +5,14 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './ImportContacts.css'
 import { ColumnsMappingForm, ContactsImporting, UploadedContacts } from '../../components'
 import messages from './messages'
-import { importContacts, openUploadedContactsModal } from '../../reducers/contacts'
+import { importContacts, openUploadedContactsModal,clearMapColums } from '../../reducers/contacts'
 import PlusIcon from '../../static/plus.svg'
 import history from '../../history'
 import { generateUrl } from '../../router'
 import { CONTACTS_ROUTE } from '../'
 import {contact_map,address_map} from '../../constants';
 import formMessages from '../../formMessages'
+import RemoveIcon from '../../static/remove.svg'
 
 class ImportContacts extends React.Component {
   state = {
@@ -96,6 +97,16 @@ class ImportContacts extends React.Component {
                   <PlusIcon />
                   {intl.formatMessage(messages.submit)}
                 </Button>
+                <div className={s.actionsRight}>
+                <Button
+                  onClick={()=>this.props.clearMapColums()}
+                  type='primary'
+                  ghost
+                >
+                  <RemoveIcon/>
+                  {intl.formatMessage(messages.cancelEdit)}
+                </Button>
+                </div>
               </div>
             </div>
             {uploadedContactsModalOpened && <UploadedContacts />}
@@ -151,6 +162,7 @@ const mapState = state => ({
 const mapDispatch = {
   openUploadedContactsModal,
   importContacts,
+  clearMapColums
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(ImportContacts))

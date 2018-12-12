@@ -33,4 +33,8 @@ export default defineMessages({
     id: 'importContacts.upload',
     defaultMessage: 'Upload',
   },
+  cancelEdit: {
+    id: 'contactForm.cancelEdit',
+    defaultMessage: 'Cancel',
+  },
 })

@@ -592,6 +592,7 @@ export const setupBirthday = (setupBirthday) => async(dispatch, getState) => {
   await dispatch({type: SET_BIRTHDAY_SETUP, setupBirthday})
   dispatch(getOccasions());
 }
+export const clearMapColums =()=>({type: MAPPING_COLUMNS, mappingColumns: null})
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
