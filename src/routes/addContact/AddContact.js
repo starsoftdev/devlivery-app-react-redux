@@ -4,7 +4,7 @@ import { Button, Col, Form, Row, Modal, message } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './AddContact.css'
 import PlusIcon from '../../static/plus.svg'
-import { addContact, clear, setChangingStatusEditForm, setupBirthday } from '../../reducers/contacts'
+import { addContact, clear, setChangingStatusAddForm, setupBirthday } from '../../reducers/contacts'
 import { ContactForm } from '../../components'
 import messages from './messages'
 import history from '../../history'
@@ -24,7 +24,7 @@ class AddContact extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.global && nextProps.global.nextPathname && !this.state.visible) {
-      if (nextProps.changedForm) {
+      if (nextProps.changedAddForm) {
         this.setState({ visible: true, nextPathname: nextProps.global.nextPathname });
         this.props.setNextRouteName(null);
       }
@@ -41,6 +41,54 @@ class AddContact extends React.Component {
 
   onOk = () => {
     this.setState({ visible: false });
+    this.props.form.validateFields({ force: true }, (err, values) => {
+      let reminderError = false;
+      values.reminders && values.reminders.map(reminder => {
+        if (
+          isUndefined(reminder.date) &&
+          isUndefined(reminder.occasion_id) &&
+          isUndefined(reminder.recurring) &&
+          (isNull(reminder.reminder_date) ||
+          isUndefined(reminder.reminder_date))
+        ) {
+          
+        }else{
+          if (
+            isUndefined(reminder.date) ||
+            isUndefined(reminder.occasion_id) ||
+            isUndefined(reminder.recurring) ||
+            isNull(reminder.reminder_date) ||
+            isUndefined(reminder.reminder_date)
+          ) {
+            reminderError = true;
+          }
+        }
+      });
+      if (reminderError) {
+        message.error(this.props.intl.formatMessage(messages.reminderError));
+        return false;
+      }
+      if (!reminderError && !err && this.props.form.getFieldsError().dob == null) {
+        var addresses = this.props.form.getFieldValue('addresses')
+          if (addresses === null) {
+            this.props.addContact(values, this.props.form, () => this.props.navigateToNextRouteName(this.state.nextPathname))
+            return true;
+          } else {
+            var validate = false;
+            addresses.map(item => {
+              if (item.address != undefined && item.address != null && item.address !== '')
+                validate = true;
+            });
+            if (validate) {
+              this.props.addContact(values, this.props.form, () => this.props.navigateToNextRouteName(this.state.nextPathname))
+              return true;
+            }
+            this.setState({ requirAddress: true });
+            return false;
+          }
+      }
+      return false;
+    })
   }
 
   onCancel = (e) => {
@@ -162,7 +210,7 @@ const mapState = state => ({
   loading: state.contacts.loading,
   contact: state.contacts.contact,
   global: state.global,
-  changedForm: state.contacts.changedForm
+  changedAddForm: state.contacts.changedAddForm
 })
 
 const mapDispatch = {
@@ -171,11 +219,11 @@ const mapDispatch = {
   clear,
   setNextRouteName,
   navigateToNextRouteName,
-  setChangingStatusEditForm,
+  setChangingStatusAddForm,
 }
 
 export default connect(mapState, mapDispatch)(Form.create({
   onValuesChange(props, fields, values) {
-    props.setChangingStatusEditForm(true);
+    props.setChangingStatusAddForm(true);
   },
 })(withStyles(s)(AddContact)))

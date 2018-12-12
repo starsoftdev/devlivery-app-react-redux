@@ -35,7 +35,7 @@ export const isLeaveEditContactPage = (path, path2 = '') => {
   const splits2 = path2.split(absoultePath);
   if(!isNaN(splits[1]) || splits[1] === 'new')
   {
-    if (path2 === '/dashboard/contacts') return false;
+    //if (path2 === '/dashboard/contacts') return false;
     if (splits2.length >= 2 && !isNaN(splits2[1])) return false;
     return true;
   }
