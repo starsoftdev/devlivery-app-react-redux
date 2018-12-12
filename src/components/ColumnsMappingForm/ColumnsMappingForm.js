@@ -76,6 +76,26 @@ class ColumnsMappingForm extends React.Component {
           </Form.Item>
         )}
         <h1 className={s.header}>{intl.formatMessage(messages.companyAddress)}</h1>
+        <Form.Item
+            className={s.row}
+            {...formItemLayout}
+            label={'company name'}
+          >
+          {getFieldDecorator('company', {
+            rules: [
+              {required: false, message: intl.formatMessage(formMessages.required)},
+            ],
+          })(
+            <Select
+              allowClear
+              placeholder={intl.formatMessage(messages.notInFile)}
+            >
+              {mappingColumns.user_columns.map(item =>
+                <Select.Option key={item}>{item}</Select.Option>
+              )}
+            </Select>
+          )}
+        </Form.Item>
         {address_map.map(column =>
           <Form.Item
             className={s.row}
