@@ -65,14 +65,14 @@ class Address extends React.Component {
           )}
           <Form.Item>
             {getFieldDecorator(`addresses[${index}].address`, {
-              initialValue: initialValues && initialValues.address ? (typeof initialValues.address === 'string' ? initialValues.address : initialValues.address[0]) : undefined,
+              initialValue: initialValues && (index==1 ? initialValues.company_name : (initialValues.address ? (typeof initialValues.address === 'string' ? initialValues.address : initialValues.address[0]) : undefined)),
             })(
               <FloatingLabel placeholder={intl.formatMessage(index==1 ? messages.companyname: messages.address0)+(required?" *":"")} onChange={(e) => onAddressChange(e.target.value)}/>
             )}
           </Form.Item>
           <Form.Item>
             {getFieldDecorator(`addresses[${index}].address2`, {
-              initialValue: initialValues && initialValues.address ? (typeof initialValues.address === 'string' ? initialValues.address : initialValues.address[1]) : undefined,
+              initialValue: initialValues && initialValues.address ? (typeof initialValues.address === 'string' ? initialValues.address : initialValues.address[index==1 ? initialValues.address.length-1:1]) : undefined,
               rules: [
                 {required: index==1 && required, min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})}
               ],
