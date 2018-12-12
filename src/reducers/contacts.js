@@ -170,7 +170,7 @@ export const getAddressesArray = (addresses) => {
       {
         return {
           ...item,
-          address: `${item.address}\n${address2}`,
+          address: `${address2}`,
           company_name: item.address
         }
       }
