@@ -27,7 +27,7 @@ export const DEFAULT_PAGE_SIZE = 10
 export const DEFAULT_DEBOUNCE_TIME = 800
 
 export const DATE_FORMAT = 'YYYY-MM-DD'
-export const DISPLAYED_DATE_FORMAT = 'DD/MM/YYYY'
+export const DISPLAYED_DATE_FORMAT = 'DD-MM-YYYY'
 
 export const DEFAULT_OCCASION_TYPE = 'Standard'
 export const DEFAULT_OCCASION_TYPE_DE = 'Standart'

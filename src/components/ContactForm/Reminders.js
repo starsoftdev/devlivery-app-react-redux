@@ -187,7 +187,7 @@ class Reminders extends React.Component {
         setFieldsValue({ [`reminders[${k}].reminder_date`]: null })
         return;
       }
-      this.getReminderDate(k, moment(value.target.value,'DD/MM/YYYY'), getFieldValue(`reminders[${k}].recurring`));
+      this.getReminderDate(k, moment(value.target.value,'DD-MM-YYYY'), getFieldValue(`reminders[${k}].recurring`));
     }
     else {
       setFieldsValue({ [`reminders[${k}].reminder_date`]: null })
@@ -199,7 +199,7 @@ class Reminders extends React.Component {
       this.setState({InvalidIndex:k,errorMessage:'Invalid Occasion Date'});
       return false;
     }
-    const occasion_date = moment(value,'DD/MM/YYYY');
+    const occasion_date = moment(value,'DD-MM-YYYY');
     const diff = moment().add(1, 'days').diff(occasion_date, 'days');
     if(diff > 0)
     {
@@ -215,7 +215,7 @@ class Reminders extends React.Component {
       setFieldsValue({ [`reminders[${k}].reminder_date`]: null })
       return;
     }
-    this.getReminderDate(k, moment(getFieldValue(`reminders[${k}].date`), 'DD/MM/YYYY'), value);
+    this.getReminderDate(k, moment(getFieldValue(`reminders[${k}].date`), 'DD-MM-YYYY'), value);
   }
   getReminderDate(k, date, recurring) {
     const { getFieldValue, setFieldsValue } = this.props.form
@@ -349,7 +349,8 @@ class Reminders extends React.Component {
                       placeholder={intl.formatMessage(messages.dateplaceholder)}
                       options={{
                         date: true,
-                        datePattern: ['d', 'm', 'Y']
+                        datePattern: ['d', 'm', 'Y'],
+                        delimiter: '-'
                       }}
                       onChange={(value) => this.changeDatePicker(k, value)}
                     />

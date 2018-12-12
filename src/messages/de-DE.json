@@ -217,8 +217,8 @@
   },
   {
     "id": "contactForm.dateplaceholder",
-    "defaultMessage": "DD/MM/YYYY",
-    "message": "TT/MM/JJJJ",
+    "defaultMessage": "DD-MM-YYYY",
+    "message": "TT-MM-JJJJ",
     "files": [
       "src/components/ContactForm/messages.js",
       "src/routes/purchase9/messages.js",

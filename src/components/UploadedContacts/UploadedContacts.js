@@ -17,7 +17,7 @@ class UploadedContacts extends React.Component {
       title: column === 'dob' ? 'date of birth' : column,
       dataIndex: column,
       key: column,
-      render: (item) => column === 'dob' ? (item && item !== undefined ? moment(item,"YYYY-MM-DD").format("DD/MM/YYYY") :'') : JSON.stringify(item)
+      render: (item) => column === 'dob' ? (item && item !== undefined ? moment(item,"YYYY-MM-DD").format("DD-MM-YYYY") :'') : JSON.stringify(item)
     }))
 
     return (

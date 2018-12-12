@@ -64,7 +64,7 @@ export const getFormErrors = ({values, errors}) => {
   }
 }
 
-export const getBirthday = (birthday) => birthday ? moment(birthday,'DD/MM/YYYY').format(DATE_FORMAT) : null
+export const getBirthday = (birthday) => birthday ? moment(birthday,'DD-MM-YYYY').format(DATE_FORMAT) : null
 
 export const getOrdering = (ordering) => {
   const orderDesc = ordering.substring(0, 1) === '-'

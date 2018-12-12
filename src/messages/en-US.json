@@ -25,7 +25,7 @@
   },
   {
     "id": "contactForm.dateplaceholder",
-    "defaultMessage": "DD/MM/YYYY",
+    "defaultMessage": "DD-MM-YYYY",
     "message": "",
     "files": [
       "src/components/ContactForm/messages.js",
