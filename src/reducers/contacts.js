@@ -64,6 +64,7 @@ export const CHANGE_SELECTED_CONTACTS = 'Contacts.CHANGE_SELECTED_CONTACTS'
 export const SAVE_FIELDS = 'Contacts.SAVE_FIELDS'
 
 export const SET_CHANGE_EDITFORM = "Contacts.SET_CHANGE_EDITFORM"
+export const SET_ADD_EDITFORM = "Contacts.SET_ADD_EDITFORM"
 export const SET_BIRTHDAY_SETUP = "Contacts.SET_BIRTHDAY_SETUP"
 
 export const CLEAR = 'Contacts.CLEAR'
@@ -206,6 +207,9 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
     },
     token,
     success: (res) => {
+      const changedAddForm = false;
+      dispatch({type:SET_ADD_EDITFORM,changedAddForm});
+
       dispatch({type: ADD_CONTACT_SUCCESS, res})
       if (form) form.resetFields()
       if (callback) callback(res.data)
@@ -231,6 +235,9 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
 }
 export const setChangingStatusEditForm = (changedForm) => (dispatch, getState, {fetch, history}) => {
   dispatch({type:SET_CHANGE_EDITFORM,changedForm});
+}
+export const setChangingStatusAddForm = (changedAddForm) => (dispatch, getState, {fetch, history}) => {
+  dispatch({type:SET_ADD_EDITFORM,changedAddForm});
 }
 export const editContact = (values, form, redrict,callback) => (dispatch, getState, {fetch, history}) => {
   dispatch({type: EDIT_CONTACT_REQUEST})
@@ -806,6 +813,9 @@ export default createReducer(initialState, {
   }),
   [SET_CHANGE_EDITFORM]: (state, {changedForm}) => ({
     changedForm,
+  }),
+  [SET_ADD_EDITFORM]: (state, {changedAddForm}) => ({
+    changedAddForm,
   }),
   [SET_BIRTHDAY_SETUP]: (state, {setupBirthday}) => ({
     setupBirthday,
