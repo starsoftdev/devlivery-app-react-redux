@@ -470,7 +470,7 @@ export const importContacts = (columnsMapping,form,intl, callback) => (dispatch,
   const contacts = uploadedContacts
     .filter((contact, i) => selectedContacts.includes(i))
     .map(contact => {
-      const {home_street, home_city, home_country, home_postal_code, office_street, office_city, office_country, office_postal_code, ...otherFields} = mapValues(columnsMapping, (value) => contact[value] !== undefined ? contact[value] : null)
+      const {company, home_street, home_city, home_country, home_postal_code, office_street, office_city, office_country, office_postal_code, ...otherFields} = mapValues(columnsMapping, (value) => contact[value] !== undefined ? contact[value] : null)
       let addresses = [];
       if(otherFields.first_name === null || otherFields.first_name === undefined)
       {
@@ -498,9 +498,22 @@ export const importContacts = (columnsMapping,form,intl, callback) => (dispatch,
       }
       if(office_street || office_city || office_country || office_postal_code)
       {
+        if(company === null)
+          err = 'Company invalid'; 
         if(!validateContact('office',office_street , office_city , office_country , office_postal_code, form, intl))
           err = 'Office invalid'; 
-        addresses.push({address:office_street, city:office_city, country:office_country, postal_code:office_postal_code, title:'office'})
+        addresses.push({address:office_street, city:office_city, country:office_country, postal_code:office_postal_code,company_name:company, title:'office'})
+      }
+      else {
+        if(company)
+        {
+          form.setFields({
+            office_street: {
+              errors: [new Error(intl.formatMessage(formMessages.required))],
+            }
+          });
+          err = 'Company invalid'; 
+        }
       }
       return {...otherFields, addresses}
     })

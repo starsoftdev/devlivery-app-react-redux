@@ -11,6 +11,7 @@ import history from '../../history'
 import { generateUrl } from '../../router'
 import { CONTACTS_ROUTE } from '../'
 import {contact_map,address_map} from '../../constants';
+import formMessages from '../../formMessages'
 
 class ImportContacts extends React.Component {
   state = {
@@ -39,10 +40,24 @@ class ImportContacts extends React.Component {
       if(values['home_'+item] !== undefined)
         result = true;
     });
+    let office = false;
     address_map.map(item => {
       if(values['office_'+item] !== undefined)
+      {
         result = true;
+        office = true;
+      }
     });
+    if(office && values['company'] === undefined)
+    {
+      this.columnsMappingForm.setFields({
+        company: {
+          value:values['company'],
+          errors: [new Error(this.props.intl.formatMessage(formMessages.required))],
+        }
+      });
+      return false;
+    }
     return result;
   }
   render() {
