@@ -68,7 +68,8 @@ class Purchase11 extends React.Component {
       couple: undefined,
       loadingEditor: false,
       visible: false,
-      warnings: []
+      warnings: [],
+      birthday_warning: false
     }
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.onCheckSaved = this.onCheckSaved.bind(this);
@@ -245,18 +246,30 @@ class Purchase11 extends React.Component {
     const owner = user.account_type == null || user.account_type == INDIVIDUAL_ACCOUNT || user.is_team_owner == true;
 
     if (user && user.budget && user.budget.remaining_budget && parseFloat(order.total) <= parseFloat(user.budget.remaining_budget) || owner) {
-      var warnings = order.recipients.filter(item => item.warning);
-      if(warnings.length > 0 &&
-          this.state.selOccasion && this.state.selOccasion !== undefined &&
-          (this.state.selOccasion.toUpperCase() === BIRTH_EN || this.state.selOccasion.toUpperCase() === BIRTH_GERMAN))
+      var has_birth = order.recipients.filter(item => item.contact.dob);
+      if(has_birth.length <= 0 && this.state.selOccasion && this.state.selOccasion !== undefined &&
+        (this.state.selOccasion.toUpperCase() === BIRTH_EN || this.state.selOccasion.toUpperCase() === BIRTH_GERMAN))
       {
-        this.setState({visible: true, warnings});
+        this.setState({birthday_warning: true});
       }
-      else {
-        this.proceedwithcheckout();
+      else{
+        this.checkWarningRecipient();
       }
     } else {
       message.warn("Insufficient budget available");
+    }
+  }
+  checkWarningRecipient(){
+    const { order, user } = this.props;
+    var warnings = order.recipients.filter(item => item.warning);
+    if(warnings.length > 0 &&
+        this.state.selOccasion && this.state.selOccasion !== undefined &&
+        (this.state.selOccasion.toUpperCase() === BIRTH_EN || this.state.selOccasion.toUpperCase() === BIRTH_GERMAN))
+    {
+      this.setState({visible: true, warnings});
+    }
+    else {
+      this.proceedwithcheckout();
     }
   }
   onOk() {
@@ -317,6 +330,17 @@ class Purchase11 extends React.Component {
               </div>
             ))
           }
+        </Modal>
+      <Modal
+          title="Confirm"
+          visible={this.state.birthday_warning}
+          onOk={()=>{this.setState({birthday_warning: false}); this.checkWarningRecipient()}}
+          onCancel={()=>this.setState({birthday_warning: false})}
+          okText="Confirm"
+          cancelText="No"
+          width ={570}
+        >
+          <h4>{'The contacts you have selected don\'t have a birthdate. Are you sure you want to proceed?'}</h4>
         </Modal>
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
