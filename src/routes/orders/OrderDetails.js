@@ -62,6 +62,11 @@ class OrderDetails extends React.Component {
             <h3>Shipping details {currentShipping + 1} / {recipients.length}</h3>
             {/*<span>{selRecipient.receiving_address.title}</span><br />*/}
             <span>{shipping_name ? (shipping_name+' (For: '+recipient_name+')'):recipient_name}</span><br />
+            {
+              selRecipient.receiving_address.title == 'office' &&
+              <span>{selRecipient.receiving_address.title == 'office' && selRecipient.receiving_address.company_name}
+              </span>
+            } {selRecipient.receiving_address.title == 'office' &&<br />}
             <span>{selRecipient.receiving_address.address}</span><br />
             <span>{(selRecipient.receiving_address.postal_code ? selRecipient.receiving_address.postal_code : '') + ' ' + (selRecipient.receiving_address.city ? selRecipient.receiving_address.city : '')}</span><br />
             <span>{selRecipient.receiving_address.country ? selRecipient.receiving_address.country : ''}</span><br />
