@@ -28,7 +28,8 @@
     "defaultMessage": "Cancel",
     "message": "",
     "files": [
-      "src/components/ContactForm/messages.js"
+      "src/components/ContactForm/messages.js",
+      "src/routes/importContacts/messages.js"
     ]
   },
   {
