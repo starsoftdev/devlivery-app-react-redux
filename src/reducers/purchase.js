@@ -830,7 +830,8 @@ export const makeOrder = () => (dispatch, getState, { fetch, history }) => {
 
         dispatch({ type: SET_ORIENTATION, orientation: order.print_orientation });
         //dispatch({type: GET_BUNDLE_DETAILS_SUCCESS, bundle: getState().purchase.cardDetails});
-        dispatch(restoreCouponFromLocal(order));
+        await dispatch(restoreCouponFromLocal(order));
+        await dispatch(recalculateTotal('shipping'));
       },
       failure: (err) => {
         history.goBack();
