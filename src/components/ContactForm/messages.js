@@ -95,7 +95,7 @@ export default defineMessages({
   },
   dateplaceholder:{
     id: 'contactForm.dateplaceholder',
-    defaultMessage: 'DD/MM/YYYY',
+    defaultMessage: 'DD-MM-YYYY',
   },
   save:{
     id: 'user.save',

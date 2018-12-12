@@ -45,14 +45,14 @@ button span {
 ::-webkit-inner-spin-button { margin-top: 12px; margin-left: 5px }
 ::-webkit-calendar-picker-indicator { display: none; }
 
-input[placeholder="DD/MM/YYYY"] {
+input[placeholder="DD-MM-YYYY"] {
   width: 100%;
   background-color: transparent;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   min-height : 50px;
 }
-input[placeholder="TT/MM/JJJJ"] {
+input[placeholder="TT-MM-JJJJ"] {
   width: 100%;
   background-color: transparent;
   border: none;

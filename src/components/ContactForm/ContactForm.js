@@ -84,7 +84,7 @@ class ContactForm extends React.Component {
   onBirthdayBlur(e) {
     var dobValidation = false;
     const dob = this.props.form.getFieldValue('dob');
-    var birthday = moment(dob, 'DD/MM/YYYY');
+    var birthday = moment(dob, 'DD-MM-YYYY');
     var expected = moment().subtract(1, 'days');
     var errors = null;
     if (birthday.isValid() && dob.length === 10) {
@@ -229,13 +229,14 @@ class ContactForm extends React.Component {
         <h1 className={s.header}>{intl.formatMessage(messages.birthday)}</h1>
         <Form.Item>
           {getFieldDecorator('dob', {
-            initialValue: initialValues && initialValues.dob ? moment(initialValues.dob).format("DD/MM/YYYY") : undefined,
+            initialValue: initialValues && initialValues.dob ? moment(initialValues.dob).format("DD-MM-YYYY") : undefined,
           })(
             <Cleave
               placeholder={intl.formatMessage(messages.dateplaceholder)}
               options={{
                 date: true,
-                datePattern: ['d', 'm', 'Y']
+                datePattern: ['d', 'm', 'Y'],
+                delimiter: '-'
               }}
               onBlur={this.onBirthdayBlur.bind(this)}
               onFocus={this.onBirthdayFocus.bind(this)}

@@ -86,7 +86,7 @@ class ContactDetail extends React.Component {
           <Row className={s.detailRow}>
             <Col md={12}>
               <span className={s.contactDetailTitle}>{intl.formatMessage(messages.birthday)}</span><br/>
-              <span className={s.contactDetail}>{moment(dob).format("DD/MM/YYYY")}</span>
+              <span className={s.contactDetail}>{moment(dob).format("DD-MM-YYYY")}</span>
             </Col>
           </Row>
         }

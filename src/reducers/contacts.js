@@ -151,7 +151,7 @@ export const getRemindersArray = (reminders) => {
     } : {
       occasion_id: +item.occasion_id
     },
-    date: moment(item.date, 'DD/MM/YYYY').format(DATE_FORMAT)
+    date: moment(item.date, 'DD-MM-YYYY').format(DATE_FORMAT)
   }))
 }
 
@@ -194,7 +194,7 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
       contact: {
         ...otherValues.contact,
         ...dob ? {
-          dob: moment(dob,'DD/MM/YYYY').format(DATE_FORMAT)
+          dob: moment(dob,'DD-MM-YYYY').format(DATE_FORMAT)
         } : {},
       },
       addresses: getAddressesArray(addresses),

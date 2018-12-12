@@ -25,7 +25,7 @@ class Purchase9 extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       var dobValidation = false;
-      var birthday = moment(values.birthday, 'DD/MM/YYYY');
+      var birthday = moment(values.birthday, 'DD-MM-YYYY');
       var expected = moment().subtract(18, 'years');
       if (birthday < expected)
         dobValidation = true;
@@ -184,7 +184,8 @@ class Purchase9 extends React.Component {
                   placeholder={intl.formatMessage(messages.dateplaceholder)}
                   options={{
                     date: true,
-                    datePattern: ['d', 'm', 'Y']
+                    datePattern: ['d', 'm', 'Y'],
+                    delimiter: '-'
                   }}
                 />
               )}
