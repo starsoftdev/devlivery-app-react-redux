@@ -184,7 +184,7 @@ class OrderDetails extends React.Component {
           } else if (item.productType === VOUCHER_TYPE) {
             quantity = recp_count
           } else if (item.productType === DONATION_TYPE) {
-            //quantity = item.amount
+            quantity = recp_count
           } else if (item.productType === TOTAL_TYPE) {
             quantity = TOTAL_TYPE
           }
@@ -203,7 +203,7 @@ class OrderDetails extends React.Component {
           return (
             <React.Fragment>
               <span className={s.currency}>{item.currency ? item.currency : 'CHF'}</span>
-              {item.productType === DONATION_TYPE ? item.amount:item.productType === TOTAL_TYPE ? item.value:recp_count * item.price_with_tax}
+              {item.productType === DONATION_TYPE ? item.amount * recp_count:item.productType === TOTAL_TYPE ? item.value:recp_count * item.price_with_tax}
             </React.Fragment>
           )
         }
