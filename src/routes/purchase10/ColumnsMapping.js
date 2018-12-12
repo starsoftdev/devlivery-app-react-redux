@@ -10,6 +10,7 @@ import { injectIntl } from 'react-intl'
 import { importContacts, openUploadedContactsModal } from '../../reducers/contacts'
 import { nextFlowStep, GROUP_ID_KEY, CONTACT_IDS_KEY, gotoConfirm,setNewRecipients } from '../../reducers/purchase'
 import {contact_map,address_map} from '../../constants';
+import formMessages from '../../formMessages'
 
 class ColumnsMapping extends React.Component {
   state = {
@@ -62,10 +63,24 @@ class ColumnsMapping extends React.Component {
       if(values['home_'+item] !== undefined)
         result = true;
     });
+    let office = false;
     address_map.map(item => {
       if(values['office_'+item] !== undefined)
+      {
         result = true;
+        office = true;
+      }
     });
+    if(office && values['company'] === undefined)
+    {
+      this.columnsMappingForm.setFields({
+        company: {
+          value:values['company'],
+          errors: [new Error(this.props.intl.formatMessage(formMessages.required))],
+        }
+      });
+      return false;
+    }
     return result;
   }
   render() {
