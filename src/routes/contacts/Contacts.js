@@ -71,7 +71,7 @@ class Contacts extends React.Component {
             else
               this.showDetailContactView(contact.id)
           }}>
-            {`${contact.first_name} ${contact.last_name}`}
+            {contact.first_name+' '+contact.last_name}
           </a>
         )
       },
