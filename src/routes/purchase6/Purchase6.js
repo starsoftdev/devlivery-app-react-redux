@@ -212,7 +212,7 @@ class Purchase6 extends React.Component {
     super(props)
     this.state = {
       mounted: false,
-      content: props.cardDetails ? props.cardDetails.body:'',
+      content: props.cardDetails ? /<body.*?>([\s\S]*)<\/body>/.exec(props.cardDetails.body)[1]:'',
       fontlink: []
     }
 
@@ -223,7 +223,7 @@ class Purchase6 extends React.Component {
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps && nextProps.cardDetails && nextProps.cardDetails !== this.props.cardDetails) {
-      this.setState({ content: nextProps.cardDetails.body });
+      this.setState({ content: /<body.*?>([\s\S]*)<\/body>/.exec(nextProps.cardDetails.body)[1]});
     }
   }
   componentDidMount() {
@@ -280,7 +280,7 @@ class Purchase6 extends React.Component {
     const cardHeight = orientation && orientation == 'l' || cardSizeKey === '9" X 4"'? Math.min(h,w): Math.max(h,w);
 
     const isLargeCard = cardWidth > 182 || cardSizeKey === '9" X 4"'? true : false;
-    
+    console.log('this.state.content',this.state.content);
     return (
       <div className={s.form}>
         <div className={s.content}>
@@ -298,7 +298,7 @@ class Purchase6 extends React.Component {
                 {mounted && (
                   <Editor
                     ref={editor => this.tinymce = editor}
-                    value={this.state.content && this.state.content.replace('<!doctype html>', '')}
+                    value={this.state.content}
                     init={{
                       toolbar: false,
                       menubar: false,
