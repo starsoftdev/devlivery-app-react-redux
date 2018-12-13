@@ -135,6 +135,11 @@ class Reports extends React.Component {
         key: 'shipping_date',
       },
       {
+        title: 'OrderedAt',
+        dataIndex: 'created_at',
+        key: 'created_at',
+      },
+      {
         title: intl.formatMessage(messages.itemsColumn),
         dataIndex: '',
         key: 'card',
