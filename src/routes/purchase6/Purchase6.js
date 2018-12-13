@@ -15,6 +15,7 @@ import { Editor } from '@tinymce/tinymce-react';
 // TODO move font sizes/colors/etc to constants
 import { injectGlobal } from 'styled-components';
 
+const retina_width = 1353;
 injectGlobal`
   .mce-notification-warning{
     display: none !important;
@@ -214,13 +215,20 @@ class Purchase6 extends React.Component {
     this.state = {
       mounted: false,
       content: props.cardDetails ? /<body.*?>([\s\S]*)<\/body>/.exec(props.cardDetails.body)[1]:'',
-      fontlink: []
+      fontlink: [],
+      width: 0, 
+      height: 0
     }
 
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.execTinyCommand = this.execTinyCommand.bind(this);
     this.insertConent = this.insertConent.bind(this);
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+  }
+  
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps && nextProps.cardDetails && nextProps.cardDetails !== this.props.cardDetails) {
@@ -228,6 +236,9 @@ class Purchase6 extends React.Component {
     }
   }
   componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+
     this.props.getMessageTemplate()
     // load all fonts to show them on Select
     Contants.FONTS.forEach(font => loadFont(font))
@@ -244,6 +255,7 @@ class Purchase6 extends React.Component {
     this.setState(newState)
   }
   componentWillUnmount(){
+    window.removeEventListener('resize', this.updateWindowDimensions);
     this.handleSubmit(true);
   }
   handleSubmit = (stayPage) => {
@@ -280,8 +292,11 @@ class Purchase6 extends React.Component {
     const cardWidth = orientation && orientation == 'l' || cardSizeKey === '9" X 4"'? Math.max(h,w): Math.min(h,w);
     const cardHeight = orientation && orientation == 'l' || cardSizeKey === '9" X 4"'? Math.min(h,w): Math.max(h,w);
 
-    const isLargeCard = cardWidth > 182 || cardSizeKey === '9" X 4"'? true : false;
-    
+    let isLargeCard = cardWidth > 182 || cardSizeKey === '9" X 4"'? true : false;
+    if(this.state.width >= retina_width)
+    {
+      isLargeCard = false;
+    }
     return (
       <div className={s.form}>
         <div className={s.content}>
