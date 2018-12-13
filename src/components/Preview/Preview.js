@@ -33,7 +33,7 @@ class Preview extends React.Component {
           images = [...images,...item[name]];
         });
       }
-      else images = item[imagesProp];
+      else images = [...item[imagesProp]];
     }
     //this.triggerResizeEvent();
     return item ? (
