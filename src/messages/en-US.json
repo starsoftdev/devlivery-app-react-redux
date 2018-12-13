@@ -4049,6 +4049,14 @@
     ]
   },
   {
+    "id": "voucher.cancel",
+    "defaultMessage": "Cancel",
+    "message": "",
+    "files": [
+      "src/routes/voucher/messages.js"
+    ]
+  },
+  {
     "id": "voucher.giver",
     "defaultMessage": "From",
     "message": "",
