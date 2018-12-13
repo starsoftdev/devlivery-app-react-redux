@@ -173,7 +173,8 @@
     "message": "",
     "files": [
       "src/components/ContactForm/messages.js",
-      "src/routes/importContacts/messages.js"
+      "src/routes/importContacts/messages.js",
+      "src/routes/purchase10/messages.js"
     ]
   },
   {

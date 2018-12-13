@@ -43,7 +43,7 @@ class ColumnsMappingForm extends React.Component {
                 allowClear
                 placeholder={intl.formatMessage(messages.notInFile)}
               >
-                {mappingColumns.user_columns.map(item =>
+                {mappingColumns && mappingColumns.user_columns.map(item =>
                   <Select.Option key={item}>{item === 'dob' ? 'date of birth' : item}</Select.Option>
                 )}
               </Select>

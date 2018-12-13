@@ -18,7 +18,7 @@ import { getContactsByName } from '../../reducers/contacts'
 import { getContactGroups } from '../../reducers/contactGroups'
 import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import { message } from 'antd'
-import { getContacts } from '../../reducers/contacts'
+import { getContacts,clearMapColums } from '../../reducers/contacts'
 import localStorage from 'localStorage';
 
 
@@ -48,6 +48,7 @@ class Purchase10 extends React.Component {
   setAddingContactsMode = (addingContactMode) => {
     localStorage.setItem(ADDCONTACTMODE, addingContactMode)
     this.setState({ addingContactMode, selectMode:true })
+    this.props.clearMapColums();
   }
 
   setDisableButton(disableButton) {
@@ -55,7 +56,9 @@ class Purchase10 extends React.Component {
   }
   refreshPage() {
     this.setState({
-      disableButton: false
+      disableButton: false,
+      addingContactMode: null,
+      selectMode: false
     })
     this.props.getContactGroups();
     this.props.getContacts();
@@ -212,6 +215,6 @@ const mapState = state => ({
   contacts: state.contacts.contacts
 })
 
-const mapDispatch = { getContactsByName, getContactGroups, nextFlowStep, getContacts, getRecipientMode }
+const mapDispatch = { getContactsByName, getContactGroups, nextFlowStep, getContacts, getRecipientMode,clearMapColums }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Purchase10))
