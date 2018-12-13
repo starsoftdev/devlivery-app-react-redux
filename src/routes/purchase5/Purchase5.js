@@ -82,7 +82,10 @@ class Purchase5 extends React.Component {
                         }
                         bordered={false}
                         description={item.description}
-                        onClick={() => setCard(item)}
+                        onClick={() => {
+                          this.onPreviewCollapse(false)
+                          setCard(item)
+                        }}
                         active={card && card.id === item.id}
                       />
                     </Col>

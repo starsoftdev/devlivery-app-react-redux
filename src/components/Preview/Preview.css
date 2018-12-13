@@ -105,6 +105,12 @@
 }
 
 .closeBtn {
+  position: absolute;
+  padding: var(--margin-xl) var(--margin-lg);
+  top: 0;
+  right: 0;
+  display: flex;
+  /*
   @media (--xl-up) {
     display: none;
   }
@@ -115,4 +121,5 @@
     right: 0;
     display: flex;
   }
+  */
 }

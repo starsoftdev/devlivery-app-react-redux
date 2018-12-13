@@ -69,6 +69,8 @@ class Purchase8 extends React.Component {
                       bordered={false}
                       description={intl.locale === 'de-DE' ? item.short_description_german : item.short_description}
                       onClick={() => {
+                        if(!giftIds.includes(item.id))
+                          this.onPreviewCollapse(false)
                         setGift(item)
                       }}
                       active={giftIds && giftIds.includes(item.id)}
