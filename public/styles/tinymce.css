@@ -14,3 +14,6 @@ span {
 p {
     word-break: break-all;
 }
+#_mce_caret {
+    display: inline-block;
+}
