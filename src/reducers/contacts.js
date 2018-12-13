@@ -110,7 +110,10 @@ export const getContactsByName = (title,callback) => (dispatch, getState, {fetch
       if(callback)
         callback(res.data);
     },
-    failure: () => dispatch({type: GET_CONTACTS_FAILURE}),
+    failure: (err) => {
+      showErrorMessage(err);
+      dispatch({type: GET_CONTACTS_FAILURE})
+    },
   })
 }
 export const getContact = (contactId) => (dispatch, getState, {fetch}) => {
@@ -637,9 +640,9 @@ export default createReducer(initialState, {
       contacts: true,
     },
   }),
-  [GET_CONTACTS_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
+  [GET_CONTACTS_SUCCESS]: (state, {res: {data}}) => ({
     contacts: data,
-    contactsCount: total,
+    contactsCount: data ? data.length:0,
     loading: {
       ...state.loading,
       contacts: false,
