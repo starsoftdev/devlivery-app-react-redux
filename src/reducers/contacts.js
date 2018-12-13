@@ -517,12 +517,12 @@ export const importContacts = (columnsMapping,form,intl, callback) => (dispatch,
       }
       return {...otherFields, addresses}
     })
-    
+  
   if(err)
   {
-    return callback(null);
+    return ;
   }
-  console.log(`/contact/import-final`,contacts);
+  
   return fetch(`/contact/import-final`, {
     method: 'POST',
     body: {
@@ -542,7 +542,6 @@ export const importContacts = (columnsMapping,form,intl, callback) => (dispatch,
         callback(newrecipient)
     },
     failure: (err) => {
-      console.log('err',err);
       if(callback)
         callback(null);
       if(err.errors && err.errors.validation)
