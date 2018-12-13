@@ -112,7 +112,7 @@ class Contacts extends React.Component {
         message.info("please choose one group.");
         return false;
       }
-      var filter = this.state.dataEntry.filter(item => item.id === this.state.selGroupId);
+      var filter = this.state.dataEntry.filter(item => item.id+'' === this.state.selGroupId+'');
       if (filter && filter.length > 0) {
         this.props.getContactsByName(filter[0].title,
           (data) => {
