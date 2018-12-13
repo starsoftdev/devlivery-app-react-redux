@@ -252,6 +252,7 @@ class Contacts extends React.Component {
           </a>
         )
       },
+      /*
       {
         title: intl.formatMessage(messages.actionsColumn),
         dataIndex: '',
@@ -275,6 +276,7 @@ class Contacts extends React.Component {
           )
         }
       },
+      */
     ];
 
     const contactSortBy = [
