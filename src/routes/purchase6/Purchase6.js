@@ -280,7 +280,7 @@ class Purchase6 extends React.Component {
     const cardHeight = orientation && orientation == 'l' || cardSizeKey === '9" X 4"'? Math.min(h,w): Math.max(h,w);
 
     const isLargeCard = cardWidth > 182 || cardSizeKey === '9" X 4"'? true : false;
-    console.log('this.state.content',this.state.content);
+    
     return (
       <div className={s.form}>
         <div className={s.content}>

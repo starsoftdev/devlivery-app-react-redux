@@ -7,7 +7,7 @@ import { PurchaseActions, ColumnsMappingForm, SectionHeader, UploadedContacts } 
 import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import messages from './messages'
 import { injectIntl } from 'react-intl'
-import { importContacts, openUploadedContactsModal } from '../../reducers/contacts'
+import { importContacts, openUploadedContactsModal,clearMapColums } from '../../reducers/contacts'
 import { nextFlowStep, GROUP_ID_KEY, CONTACT_IDS_KEY, gotoConfirm,setNewRecipients } from '../../reducers/purchase'
 import {contact_map,address_map} from '../../constants';
 import formMessages from '../../formMessages'
@@ -35,6 +35,7 @@ class ColumnsMapping extends React.Component {
         if(this.validateAddress(values))
         {
           this.props.importContacts(values, this.columnsMappingForm,this.props.intl, (newrecipient) => {
+            /*
             localStorage.removeItem(GROUP_ID_KEY)
             if (newrecipient) {
               if (this.props.recipientMode)
@@ -49,6 +50,8 @@ class ColumnsMapping extends React.Component {
               }
             }
             else this.props.refreshPage();
+            */
+            this.props.refreshPage();
           })
         } else this.setState({isRequireAddress: true});
         return true;
@@ -102,6 +105,13 @@ class ColumnsMapping extends React.Component {
             >
               {intl.formatMessage(messages.selectContacts)}
             </Button>
+            <Button
+              onClick={()=>this.props.clearMapColums()}
+              type='primary'
+              ghost
+            >
+              {intl.formatMessage(messages.cancelEdit)}
+            </Button>
           </SectionHeader>
           <p>{intl.formatMessage(messages.importDescription)}</p>
 
@@ -144,7 +154,8 @@ const mapDispatch = {
   importContacts,
   nextFlowStep,
   gotoConfirm,
-  setNewRecipients
+  setNewRecipients,
+  clearMapColums
 }
 
 export default injectIntl(connect(mapState, mapDispatch)(withStyles(s)(ColumnsMapping)))

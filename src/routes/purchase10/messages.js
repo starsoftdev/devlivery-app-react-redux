@@ -36,5 +36,9 @@ export default defineMessages({
   importDescription: {
     id: 'addContact.importDescription',
     defaultMessage: 'Match the labels below with the corresponding options in the dropdown select field.',
-  }
+  },
+  cancelEdit: {
+    id: 'contactForm.cancelEdit',
+    defaultMessage: 'Cancel',
+  },
 })
