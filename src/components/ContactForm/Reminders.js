@@ -194,7 +194,7 @@ class Reminders extends React.Component {
     }
   }
   isValidOccasionDate(k,value){
-    if(value.length !== 10)
+    if(value === undefined || (value!== undefined && value.length !== 10))
     {
       this.setState({InvalidIndex:k,errorMessage:'Invalid Occasion Date'});
       return false;
@@ -358,7 +358,7 @@ class Reminders extends React.Component {
                 </Form.Item>
                 <Form.Item>
                   {getFieldDecorator(`reminders[${k}].recurring`, {
-                    initialValue: initialValues ? (initialValues[k] && initialValues[k].recurring ? initialValues[k].recurring : '1') : undefined,
+                    initialValue: initialValues ? (initialValues[k] && initialValues[k].recurring ? initialValues[k].recurring : (initialValues[k] && initialValues[k].date ? '1':undefined)) : undefined,
                   })(
                     <Select
                       allowClear
