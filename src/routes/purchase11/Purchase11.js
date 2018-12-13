@@ -246,9 +246,7 @@ class Purchase11 extends React.Component {
     const owner = user.account_type == null || user.account_type == INDIVIDUAL_ACCOUNT || user.is_team_owner == true;
 
     if (user && user.budget && user.budget.remaining_budget && parseFloat(order.total) <= parseFloat(user.budget.remaining_budget) || owner) {
-      var has_birth = order.recipients.filter(item => item.contact.dob);
-      if(has_birth.length <= 0 && this.state.selOccasion && this.state.selOccasion !== undefined &&
-        (this.state.selOccasion.toUpperCase() === BIRTH_EN || this.state.selOccasion.toUpperCase() === BIRTH_GERMAN))
+      if(order.birthday_warning)
       {
         this.setState({birthday_warning: true});
       }
