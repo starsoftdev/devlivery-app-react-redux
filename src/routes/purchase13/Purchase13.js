@@ -109,7 +109,7 @@ class Purchase13 extends React.Component {
       if (defaultcard.length > 0) {
         this.setState({ processing: true });
         this.props.makeDefaultStripePayment(defaultcard[0].id, (data) => {
-          this.setState && this.setState({ processing: false });
+          this.setState && this.setState({ processing: false, saveButton:false });
         });
       }
       else {
@@ -131,7 +131,7 @@ class Purchase13 extends React.Component {
                 {
                   this.setState({ processing: true });
                   this.props.makeStripePayment(card, true, (data) => {
-                    this.setState && this.setState({ processing: false });
+                    this.setState && this.setState({ processing: false, saveButton:false });
                   })
                   break
                 }
