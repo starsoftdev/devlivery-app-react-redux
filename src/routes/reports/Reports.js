@@ -42,7 +42,14 @@ class Reports extends React.Component {
     if (!endValue || !startValue) {
       return false
     }
-    return endValue.valueOf() <= startValue.valueOf()
+    let ordered = false;
+    if(this.state.filterType === 'ordered')
+    {
+      var date = new Date();
+      date.setDate(date.getDate());
+      ordered = endValue.valueOf() > (date);
+    }
+    return (endValue.valueOf() <= startValue.valueOf()) || ordered
   }
 
   onStartChange = (value) => {
