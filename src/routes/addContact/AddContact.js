@@ -45,7 +45,7 @@ class AddContact extends React.Component {
       let reminderError = false;
       values.reminders && values.reminders.map(reminder => {
         if (
-          isUndefined(reminder.date) &&
+          (isUndefined(reminder.date)||reminder.date === '') &&
           isUndefined(reminder.occasion_id) &&
           isUndefined(reminder.recurring) &&
           (isNull(reminder.reminder_date) ||
@@ -54,7 +54,7 @@ class AddContact extends React.Component {
           
         }else{
           if (
-            isUndefined(reminder.date) ||
+            (isUndefined(reminder.date)||reminder.date === '') ||
             isUndefined(reminder.occasion_id) ||
             isUndefined(reminder.recurring) ||
             isNull(reminder.reminder_date) ||
@@ -103,7 +103,7 @@ class AddContact extends React.Component {
       let reminderError = false;
       values.reminders && values.reminders.map(reminder => {
         if (
-          isUndefined(reminder.date) &&
+          (isUndefined(reminder.date)||reminder.date === '') &&
           isUndefined(reminder.occasion_id) &&
           isUndefined(reminder.recurring) &&
           (isNull(reminder.reminder_date) ||
@@ -112,7 +112,7 @@ class AddContact extends React.Component {
           
         }else{
           if (
-            isUndefined(reminder.date) ||
+            (isUndefined(reminder.date)||reminder.date === '') ||
             isUndefined(reminder.occasion_id) ||
             isUndefined(reminder.recurring) ||
             isNull(reminder.reminder_date) ||
