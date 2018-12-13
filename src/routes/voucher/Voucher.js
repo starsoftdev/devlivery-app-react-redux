@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { submitVoucher,VOUCHER_STATE,setVoucher } from '../../reducers/purchase'
+import { submitVoucher,VOUCHER_STATE,setVoucher,removeVoucherFromBundle,nextFlowStep } from '../../reducers/purchase'
 import { Button, Form, Input, Select } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Voucher.css'
@@ -199,6 +199,22 @@ class Voucher extends React.Component {
               </Form.Item>
             </div>
           </div>
+          {
+            voucher &&
+            <div className={s.cancelBtn}>
+              <Button
+                type='primary'
+                size={'small'}
+                onClick={()=>{
+                  this.setState({template:[]});
+                  this.props.removeVoucherFromBundle()
+                  this.props.nextFlowStep(-2)
+                }}
+              >
+                {intl.formatMessage(messages.cancel)}
+              </Button>
+            </div>
+          }
         </div>
         <PurchaseActions>
           <Button
@@ -295,7 +311,9 @@ const mapState = state => ({
 
 const mapDispatch = {
   submitVoucher,
-  setVoucher
+  setVoucher,
+  removeVoucherFromBundle,
+  nextFlowStep
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Voucher)))
