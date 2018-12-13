@@ -1007,8 +1007,13 @@ export const makeStripePayment = (card, isPaying = true, callback) => (dispatch,
           dispatch(nextFlowStep())
           dispatch({ type: MAKE_STRIPE_PAYMENT_SUCCESS })
         },
-        failure: () => {
+        failure: (err) => {
+          if (callback) {
+            callback(null)
+          }
+          showErrorMessage(err)
           dispatch({ type: MAKE_STRIPE_PAYMENT_FAILURE })
+          dispatch(getAllCards());
         },
       })
     },
