@@ -26,7 +26,7 @@ class ColumnsMapping extends React.Component {
     //e.preventDefault()
     if(this.props.selectedContacts.length <= 0)
     {
-      message.warn("You have to select at least one contact.");
+      message.warn(this.props.formatMessage(messages.msg_atleast));
       return false;
     }
     this.columnsMappingForm.validateFields((err, values) => {
