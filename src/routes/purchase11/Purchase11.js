@@ -198,7 +198,7 @@ class Purchase11 extends React.Component {
       })
       if (filterRecp.length !== order.recipients.length) {
         this.setState({
-          recip_warnmsg: value === 'home' ? 'Home address is not available for all recipients, in this case we will use Company address instead.' : 'Company address is not available for all recipients, in this case we will use Home address instead.'
+          recip_warnmsg: value === 'home' ? this.props.intl.formatMessage(messages.msg_notHome) : this.props.intl.formatMessage(messages.msg_notOffice)
         });
         return;
       }
@@ -254,7 +254,7 @@ class Purchase11 extends React.Component {
         this.checkWarningRecipient();
       }
     } else {
-      message.warn("Insufficient budget available");
+      message.warn(this.props.intl.formatMessage(messages.msg_budget));
     }
   }
   checkWarningRecipient(){
@@ -338,7 +338,7 @@ class Purchase11 extends React.Component {
           cancelText="No"
           width ={570}
         >
-          <h4>{'The contacts you have selected don\'t have a birthdate. Are you sure you want to proceed?'}</h4>
+          <h4>{intl.formatMessage(messages.msg_contacts)}</h4>
         </Modal>
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
