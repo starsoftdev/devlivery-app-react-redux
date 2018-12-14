@@ -48,5 +48,13 @@ export default defineMessages({
   confirm: {
     id: 'addContact.confirm',
     defaultMessage: 'Confirm',
+  },
+  yes: {
+    id: 'addContact.yes',
+    defaultMessage: 'Yes',
+  },
+  no: {
+    id: 'addContact.no',
+    defaultMessage: 'No',
   }
 })
