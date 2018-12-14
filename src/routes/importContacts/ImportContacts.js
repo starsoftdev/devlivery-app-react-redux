@@ -21,7 +21,7 @@ class ImportContacts extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     if (this.props.selectedContacts.length <= 0) {
-      message.warn("You have to select at least one contact.");
+      message.warn(this.props.intl.formatMessage(messages.msg_atleast));
       return;
     }
     this.columnsMappingForm.validateFields((err, values) => {

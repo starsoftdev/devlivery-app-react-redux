@@ -68,5 +68,9 @@ export default defineMessages({
   dateplaceholder:{
     id: 'contactForm.dateplaceholder',
     defaultMessage: 'DD-MM-YYYY',
-  }
+  },
+  msg_older18:{
+    id: 'user.msg_older18',
+    defaultMessage: 'please select date older than 18 years.',
+  },
 })

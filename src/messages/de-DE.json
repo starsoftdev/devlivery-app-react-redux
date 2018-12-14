@@ -2510,6 +2510,15 @@
     ]
   },
   {
+    "id": "importContacts.msg_atleast",
+    "defaultMessage": "You have to select at least one contact.",
+    "message": "You have to select at least one contact.",
+    "files": [
+      "src/routes/importContacts/messages.js",
+      "src/routes/purchase10/messages.js"
+    ]
+  },
+  {
     "id": "importContacts.subHeader",
     "defaultMessage": "Match the labels below with the corresponding options in the dropdown select field.",
     "message": "Ordnen Sie die Spalten den entsprechenden Optionen im Dropdown-Auswahlfeld zu.",
@@ -4081,6 +4090,16 @@
     "message": "Ich möchte so viele Tage oder Wochen vorab über meine Erinneringen  informiert werden.",
     "files": [
       "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.msg_older18",
+    "defaultMessage": "please select date older than 18 years.",
+    "message": "please select date older than 18 years.",
+    "files": [
+      "src/routes/user/messages.js",
+      "src/routes/register2/messages.js",
+      "src/routes/purchase9/messages.js"
     ]
   },
   {

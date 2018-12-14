@@ -2375,6 +2375,15 @@
     ]
   },
   {
+    "id": "importContacts.msg_atleast",
+    "defaultMessage": "You have to select at least one contact.",
+    "message": "",
+    "files": [
+      "src/routes/importContacts/messages.js",
+      "src/routes/purchase10/messages.js"
+    ]
+  },
+  {
     "id": "importContacts.subHeader",
     "defaultMessage": "Match the labels below with the corresponding options in the dropdown select field.",
     "message": "",
@@ -3946,6 +3955,16 @@
     "message": "",
     "files": [
       "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.msg_older18",
+    "defaultMessage": "please select date older than 18 years.",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js",
+      "src/routes/register2/messages.js",
+      "src/routes/purchase9/messages.js"
     ]
   },
   {

@@ -61,6 +61,10 @@ export default defineMessages({
     id: 'user.checkPlaceholder',
     defaultMessage: 'Notification Time for Upcoming Reminders',
   },
+  msg_older18:{
+    id: 'user.msg_older18',
+    defaultMessage: 'please select date older than 18 years.',
+  },
   birthday: {
     id: 'contactForm.birthday',
     defaultMessage: 'Birthday',

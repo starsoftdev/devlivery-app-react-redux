@@ -26,7 +26,7 @@ class Register2 extends React.Component {
           this.props.form.setFields({
             birthday: {
               value: values.birthday,
-              errors: [new Error('please select date older than 18 years.')],
+              errors: [new Error(this.props.intl.formatMessage(messages.msg_older18))],
             },
           });
         }
