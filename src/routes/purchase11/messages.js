@@ -108,5 +108,9 @@ export default defineMessages({
   personalizedmsg: {
     id:'purchase11.personalizedmsg',
     defaultMessage:'You are going to send this personalized message empty.'
+  },
+  availablebudget: {
+    id:'purchase11.availablebudget',
+    defaultMessage:'AVAILABLE BUDGET:'
   }
 })
