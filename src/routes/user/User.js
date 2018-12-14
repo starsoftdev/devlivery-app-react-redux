@@ -232,14 +232,14 @@ class User extends React.Component {
     return (
       <div className={s.container}>
         <Modal
-          title="Confirm"
+          title={intl.formatMessage(messages.confirm)}
           visible={this.state.visible}
           onOk={this.onOk}
           onCancel={this.onCancel}
-          okText="Yes"
-          cancelText="No"
+          okText={intl.formatMessage(messages.yes)}
+          cancelText={intl.formatMessage(messages.no)}
         >
-          <h2>Do you wish save the information you've edited?</h2>
+          <h2>{intl.formatMessage(messages.saveConfirm)}</h2>
         </Modal>
         <div className={s.form}>
           <Row type='flex' gutter={20} className={s.leftColumn}>

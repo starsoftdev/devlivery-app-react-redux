@@ -108,5 +108,13 @@ export default defineMessages({
   dateplaceholder:{
     id: 'contactForm.dateplaceholder',
     defaultMessage: 'DD-MM-YYYY',
+  },
+  saveConfirm: {
+    id: 'addContact.saveConfirm',
+    defaultMessage: 'Do you wish save the information you\'ve edited?',
+  },
+  confirm: {
+    id: 'addContact.confirm',
+    defaultMessage: 'Confirm',
   }
 })

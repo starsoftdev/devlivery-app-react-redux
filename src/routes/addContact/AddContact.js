@@ -154,14 +154,14 @@ class AddContact extends React.Component {
     return (
       <React.Fragment>
         <Modal
-          title="Confirm"
+          title={intl.formatMessage(messages.confirm)}
           visible={this.state.visible}
           onOk={this.onOk}
           onCancel={this.onCancel}
-          okText="Yes"
-          cancelText="No"
+          okText={intl.formatMessage(messages.yes)}
+          cancelText={intl.formatMessage(messages.no)}
         >
-          <h2>Do you wish save the information you've edited?</h2>
+          <h2>{intl.formatMessage(messages.saveConfirm)}</h2>
         </Modal>
         <ContactForm form={this.props.form} header={intl.formatMessage(messages.header)} setupBirthday={setupBirthday}>
           {({
