@@ -8,6 +8,7 @@ import messages from './messages'
 import g from '../../styles/global.css';
 import cn from 'classnames'
 import {FloatingLabel} from '../../components';
+import {isEmptyData} from '../../utils';
 
 class Address extends React.Component {
   constructor(props){
@@ -30,18 +31,24 @@ class Address extends React.Component {
   }
   checkingEmptyForm(index){
     const {getFieldValue} = this.props.form;
-    if((getFieldValue(`addresses[${index}].address2`) === null || getFieldValue(`addresses[${index}].address2`) === undefined) &&
-      (getFieldValue(`addresses[${index}].city`) === null || getFieldValue(`addresses[${index}].city`) === undefined) &&
-      (getFieldValue(`addresses[${index}].postal_code`) === null || getFieldValue(`addresses[${index}].postal_code`) === undefined) &&
-      (getFieldValue(`addresses[${index}].country`) === null || getFieldValue(`addresses[${index}].country`) === undefined)
+    if(
+      isEmptyData(getFieldValue(`addresses[${index}].address`)) &&
+      isEmptyData(getFieldValue(`addresses[${index}].address2`)) &&
+      isEmptyData(getFieldValue(`addresses[${index}].city`))&&
+      isEmptyData(getFieldValue(`addresses[${index}].postal_code`)) &&
+      isEmptyData (getFieldValue(`addresses[${index}].country`))
       )
+    {
+      //this.props.onExpand(this.props.index,true);
       return true;
+    }
     return false;
   }
   render() {
     const {getFieldDecorator, index, header, intl, initialValues, required, onAddressChange, title, collapseActiveIndex} = this.props
+    const innerRequire = !this.checkingEmptyForm(index);
     const rules = [
-      {required, message: intl.formatMessage(formMessages.required)}
+      {required : innerRequire, message: intl.formatMessage(formMessages.required)}
     ]
     const expand = collapseActiveIndex === index ? true : false;
     
@@ -74,7 +81,7 @@ class Address extends React.Component {
             {getFieldDecorator(`addresses[${index}].address2`, {
               initialValue: initialValues && initialValues.address ? (typeof initialValues.address === 'string' ? initialValues.address : initialValues.address[index==1 ? initialValues.address.length-1:1]) : undefined,
               rules: [
-                {required: index==1 && required, min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})}
+                {required: required && innerRequire, min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})}
               ],
             })(
               <FloatingLabel placeholder={intl.formatMessage(messages.address)+ (index==1 && required ? " *":'')}/>

@@ -128,3 +128,8 @@ export const triggerResizeEvent =() => {
   event.initEvent('resize', true, false);
   el.dispatchEvent(event);
 }
+export const isEmptyData = (data)=>{
+  if(data === null || data === undefined || data === '')
+    return true;
+  return false;
+}
