@@ -113,7 +113,7 @@ class Purchase13 extends React.Component {
         });
       }
       else {
-        message.info("Please add new card.")
+        message.info(this.props.intl.formatMessage(messages.msg_addcard))
       }
     }
     else {
@@ -141,7 +141,7 @@ class Purchase13 extends React.Component {
             }
           }
         } else {
-          message.info('All fields must be filled in')
+          message.info(this.props.intl.formatMessage(messages.msg_filledin))
         }
       })
     }
@@ -152,7 +152,7 @@ class Purchase13 extends React.Component {
       if (defaultcard.length > 0) {
         this.props.makeDefaultStripePayment(defaultcard[0].id);
       }
-      else message.info('All fields must be filled in')
+      else message.info(this.props.intl.formatMessage(messages.msg_filledin))
     }
   }
   handleInputChange = (e, field) => {
@@ -195,7 +195,7 @@ class Purchase13 extends React.Component {
   }
   handleCallback(type, isValid) {
     if (type && type.issuer == 'unknown' || !isValid) {
-      this.setState({ requirmsg: 'Invalid credit card number', isValid });
+      this.setState({ requirmsg: this.props.intl.formatMessage(messages.msg_invalidcard), isValid });
     } else this.setState({ requirmsg: null, isValid, cardtype: type.issuer });
   }
   render() {
