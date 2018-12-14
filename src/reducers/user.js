@@ -35,8 +35,6 @@ export const SET_CHANGE_SETTIING = "Contacts.SET_CHANGE_SETTIING"
 // ------------------------------------
 export const getToken = () => (dispatch, getState, { cookies }) => {
   const token = cookies.get(TOKEN_COOKIE, { path: '/' })
-  if(token !== null && token !== undefined)
-    cookies.set(TOKEN_COOKIE, token, {maxAge: DAY, path: '/'})
   return { token }
 }
 
