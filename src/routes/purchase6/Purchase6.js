@@ -112,9 +112,19 @@ const ConnectedFontFamilyPicker = connect(null, {
 })(FontFamilyPicker)
 
 class ColorPicker extends React.Component {
+  state = {
+    color: null
+  }
   toggleColor = (color) => {
     //this.props.onChange('color', color)
-    this.props.execCommand('ForeColor', false, color);
+    if(this.state.color !== color)
+    {
+      this.setState({color});
+      this.props.execCommand('ForeColor', true, color);
+    }
+    else {
+      this.props.execCommand('mceFocus',false,'mceu_2');
+    }
   }
 
   render() {
