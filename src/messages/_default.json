@@ -3081,6 +3081,30 @@
     ]
   },
   {
+    "id": "contacts.msg_onegroup",
+    "defaultMessage": "please choose one group.",
+    "message": "",
+    "files": [
+      "src/routes/contacts_mulitple/messages.js"
+    ]
+  },
+  {
+    "id": "contacts.msg_nocontacts",
+    "defaultMessage": "The group have no contacts.",
+    "message": "",
+    "files": [
+      "src/routes/contacts_mulitple/messages.js"
+    ]
+  },
+  {
+    "id": "contacts.msg_choosecontact",
+    "defaultMessage": "please choose contacts.",
+    "message": "",
+    "files": [
+      "src/routes/contacts_mulitple/messages.js"
+    ]
+  },
+  {
     "id": "contacts.phoneColumn",
     "defaultMessage": "Phone",
     "message": "",

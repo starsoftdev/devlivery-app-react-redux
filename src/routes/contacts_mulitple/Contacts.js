@@ -109,7 +109,7 @@ class Contacts extends React.Component {
   handleSubmit() {
     if (this.state.type === category[0]) {
       if (this.state.selGroupId === null) {
-        message.info("please choose one group.");
+        message.info(this.props.intl.formatMessage(messages.msg_onegroup));
         return false;
       }
       var filter = this.state.dataEntry.filter(item => item.id+'' === this.state.selGroupId+'');
@@ -134,7 +134,7 @@ class Contacts extends React.Component {
             }
             else {
               this.setState({ selGroupId: null });
-              message.info("The group have no contacts.");
+              message.info(this.props.intl.formatMessage(messages.msg_nocontacts));
               this.props.setDisableButton(false);
             }
           });
@@ -144,7 +144,7 @@ class Contacts extends React.Component {
     }
     else {
       if (this.state.selContactIds.length <= 0) {
-        message.info("please choose contacts.");
+        message.info(this.props.intl.formatMessage(messages.msg_choosecontact));
         return false;
       }
       localStorage.removeItem(GROUP_ID_KEY);
