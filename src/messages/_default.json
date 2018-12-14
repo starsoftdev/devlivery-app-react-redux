@@ -3698,6 +3698,38 @@
     ]
   },
   {
+    "id": "purchase11.msg_contacts",
+    "defaultMessage": "The contacts you have selected don't have a birthdate. Are you sure you want to proceed?",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.msg_notHome",
+    "defaultMessage": "Home address is not available for all recipients, in this case we will use Company address instead.",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.msg_notOffice",
+    "defaultMessage": "Company address is not available for all recipients, in this case we will use Home address instead.",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.msg_budget",
+    "defaultMessage": "Insufficient budget available",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
     "id": "purchase11.personalizedmsg",
     "defaultMessage": "You are going to send this personalized message empty.",
     "message": "",

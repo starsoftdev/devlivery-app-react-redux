@@ -77,6 +77,22 @@ export default defineMessages({
     id: 'purchase11.remove',
     defaultMessage: 'Remove',
   },
+  msg_contacts: {
+    id: 'purchase11.msg_contacts',
+    defaultMessage: 'The contacts you have selected don\'t have a birthdate. Are you sure you want to proceed?',
+  },
+  msg_notHome: {
+    id: 'purchase11.msg_notHome',
+    defaultMessage: 'Home address is not available for all recipients, in this case we will use Company address instead.',
+  },
+  msg_notOffice: {
+    id: 'purchase11.msg_notOffice',
+    defaultMessage: 'Company address is not available for all recipients, in this case we will use Home address instead.',
+  },
+  msg_budget: {
+    id: 'purchase11.msg_budget',
+    defaultMessage: 'Insufficient budget available',
+  },
   confirmRemoving: {
     id: 'contacts.confirmRemoving',
     defaultMessage: 'Are you sure you want to delete?',
