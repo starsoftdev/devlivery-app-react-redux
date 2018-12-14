@@ -348,6 +348,46 @@
     ]
   },
   {
+    "id": "addContact.saveConfirm",
+    "defaultMessage": "Do you wish save the information you've edited?",
+    "message": "",
+    "files": [
+      "src/routes/addContact/messages.js",
+      "src/routes/editContact/messages.js",
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "addContact.confirm",
+    "defaultMessage": "Confirm",
+    "message": "",
+    "files": [
+      "src/routes/addContact/messages.js",
+      "src/routes/editContact/messages.js",
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "addContact.yes",
+    "defaultMessage": "Yes",
+    "message": "",
+    "files": [
+      "src/routes/addContact/messages.js",
+      "src/routes/editContact/messages.js",
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "addContact.no",
+    "defaultMessage": "No",
+    "message": "",
+    "files": [
+      "src/routes/addContact/messages.js",
+      "src/routes/editContact/messages.js",
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
     "id": "addContact.header",
     "defaultMessage": "Add Contact",
     "message": "",

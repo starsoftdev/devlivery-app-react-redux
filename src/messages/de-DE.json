@@ -1309,6 +1309,46 @@
     ]
   },
   {
+    "id": "addContact.saveConfirm",
+    "defaultMessage": "Do you wish save the information you've edited?",
+    "message": "Do you wish save the information you've edited?",
+    "files": [
+      "src/routes/addContact/messages.js",
+      "src/routes/editContact/messages.js",
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "addContact.confirm",
+    "defaultMessage": "Confirm",
+    "message": "Confirm",
+    "files": [
+      "src/routes/addContact/messages.js",
+      "src/routes/editContact/messages.js",
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "addContact.yes",
+    "defaultMessage": "Yes",
+    "message": "Ja",
+    "files": [
+      "src/routes/addContact/messages.js",
+      "src/routes/editContact/messages.js",
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "addContact.no",
+    "defaultMessage": "No",
+    "message": "No",
+    "files": [
+      "src/routes/addContact/messages.js",
+      "src/routes/editContact/messages.js",
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
     "id": "addContact.title",
     "defaultMessage": "New Contact",
     "message": "Neuer Kontakt",
