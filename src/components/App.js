@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import {Provider as ReduxProvider} from 'react-redux'
 import {IntlProvider} from 'react-intl'
 import {LocaleProvider} from 'antd'
+import IdleTimer from 'react-idle-timer'
+import { DAY, TOKEN_COOKIE, STATE_COOKIE } from '../constants'
 
 const ContextType = {
   // Enables critical path CSS rendering
@@ -55,17 +57,51 @@ class App extends React.PureComponent {
   constructor(props)
   {
     super(props)
+    this.idleTimer = null
+    this.onAction = this._onAction.bind(this)
+    this.onActive = this._onActive.bind(this)
+    this.onIdle = this._onIdle.bind(this)
     
-    
+  }
+  _onAction(e) {
+    //console.log('user did something', e)
+    const token = this.props.context.cookies.get(TOKEN_COOKIE, { path: '/' })
+    if(token !== null && token !== undefined)
+    {
+      this.props.context.cookies.set(TOKEN_COOKIE, token, {maxAge: DAY, path: '/'})
+    }
+  }
+  _onActive(e) {
+    //console.log('user is active', e)
+    //console.log('time remaining', this.idleTimer.getRemainingTime())
+  }
+  _onIdle(e) {
+    //console.log('user is idle', e)
+    //console.log('last active', this.idleTimer.getLastActiveTime())
+    this.props.context.cookies.remove(TOKEN_COOKIE, { path: '/' })
+    this.props.context.cookies.remove(STATE_COOKIE, { path: '/' })
   }
   getChildContext() {
     return this.props.context
   }
-
+  getChildComponent() {
+    return React.Children.only(this.props.children)
+  }
   render() {
     // NOTE: If you need to add or modify header, footer etc. of the app,
     // please do that inside the Layout component.
-    return React.Children.only(this.props.children)
+    return (
+      <div>
+        <IdleTimer
+          ref={ref => { this.idleTimer = ref }}
+          onActive={this.onActive}
+          onIdle={this.onIdle}
+          onAction={this.onAction}
+          debounce={250}
+          timeout={1000 * 60 * 60} />
+        {this.getChildComponent()}
+      </div>
+    )
   }
 
 }
