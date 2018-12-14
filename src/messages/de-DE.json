@@ -1571,6 +1571,30 @@
     ]
   },
   {
+    "id": "purchase13.msg_addcard",
+    "defaultMessage": "Please add new card.",
+    "message": "Please add new card.",
+    "files": [
+      "src/routes/purchase13/messages.js"
+    ]
+  },
+  {
+    "id": "purchase13.msg_filledin",
+    "defaultMessage": "All fields must be filled in",
+    "message": "All fields must be filled in",
+    "files": [
+      "src/routes/purchase13/messages.js"
+    ]
+  },
+  {
+    "id": "purchase13.msg_invalidcard",
+    "defaultMessage": "Invalid credit card number",
+    "message": "Invalid credit card number",
+    "files": [
+      "src/routes/purchase13/messages.js"
+    ]
+  },
+  {
     "id": "purchase13.thankyou",
     "defaultMessage": "Thank You",
     "message": "Danke für Ihre Bestellung",
