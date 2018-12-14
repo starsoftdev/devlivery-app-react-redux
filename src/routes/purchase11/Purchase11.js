@@ -448,7 +448,7 @@ class Purchase11 extends React.Component {
               user && user.account_type === TEAM_ACCOUNT && !user.is_team_owner &&
               <Row type='flex' align='center' gutter={20} className={s.totalSection}>
                 <Col xs={12}>
-                  <h2 className={s.subtotalHeader}>{'AVAILABLE BUDGET:'}</h2>
+                  <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.availablebudget)}</h2>
                 </Col>
                 <Col xs={12}>
                   <span className={s.subtotalCurrency}>{'CHF '}</span>

@@ -3770,6 +3770,14 @@
     ]
   },
   {
+    "id": "purchase11.availablebudget",
+    "defaultMessage": "AVAILABLE BUDGET:",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
     "id": "purchase11.submit",
     "defaultMessage": "Proceed to checkout",
     "message": "",
