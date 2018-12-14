@@ -150,9 +150,9 @@ class Reminders extends React.Component {
       recurring === undefined || 
       recurring === null)
     {
-      var errMessage = (occasion_id === null || occasion_id === undefined) ? "Required Occasion Field!" :
-                       (reminder_date === null || reminder_date === undefined) ? "Required Reminder Date Field!" :
-                       (recurring === null || recurring === undefined) ? "Should have value for Reminder Date!" : "Shouldn't be Once for Repeat!";
+      var errMessage = (occasion_id === null || occasion_id === undefined) ? this.props.intl.formatMessage(messages.requirOccasion) :
+                       (reminder_date === null || reminder_date === undefined) ? this.props.intl.formatMessage(messages.requirOccasion) :
+                       (recurring === null || recurring === undefined) ? this.props.intl.formatMessage(messages.requireRecurring) : this.props.intl.formatMessage(messages.requireNotOnce);
       this.setState({InvalidIndex:k, errorMessage:errMessage});
       return false;
     }
@@ -196,14 +196,14 @@ class Reminders extends React.Component {
   isValidOccasionDate(k,value){
     if(value === undefined || (value!== undefined && value.length !== 10))
     {
-      this.setState({InvalidIndex:k,errorMessage:'Invalid Occasion Date'});
+      this.setState({InvalidIndex:k,errorMessage:this.props.intl.formatMessage(messages.invalidoccasion)});
       return false;
     }
     const occasion_date = moment(value,'DD-MM-YYYY');
     const diff = moment().add(1, 'days').diff(occasion_date, 'days');
     if(diff > 0)
     {
-      this.setState({InvalidIndex:k,errorMessage:'Invalid Occasion Date'});
+      this.setState({InvalidIndex:k,errorMessage:this.props.intl.formatMessage(messages.invalidoccasion)});
       return false;
     }
     this.setState({InvalidIndex:k,errorMessage:null});

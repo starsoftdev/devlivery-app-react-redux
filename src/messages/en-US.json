@@ -194,6 +194,46 @@
     ]
   },
   {
+    "id": "contactForm.requirOccasion",
+    "defaultMessage": "Required Occasion Field!",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.requirReminder",
+    "defaultMessage": "Required Reminder Date Field!",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.requireRecurring",
+    "defaultMessage": "Should have value for Reminder Date!",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.requireNotOnce",
+    "defaultMessage": "Shouldn't be Once for Repeat!",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.invalidoccasion",
+    "defaultMessage": "Invalid Occasion Date",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
     "id": "footer.faq",
     "defaultMessage": "FAQ",
     "message": "",

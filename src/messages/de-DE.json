@@ -218,6 +218,46 @@
     ]
   },
   {
+    "id": "contactForm.requirOccasion",
+    "defaultMessage": "Required Occasion Field!",
+    "message": "Required Occasion Field!",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.requirReminder",
+    "defaultMessage": "Required Reminder Date Field!",
+    "message": "Required Reminder Date Field!",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.requireRecurring",
+    "defaultMessage": "Should have value for Reminder Date!",
+    "message": "Should have value for Reminder Date!",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.requireNotOnce",
+    "defaultMessage": "Shouldn't be Once for Repeat!",
+    "message": "Shouldn't be Once for Repeat!",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.invalidoccasion",
+    "defaultMessage": "Invalid Occasion Date",
+    "message": "Invalid Occasion Date",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
     "id": "contactForm.dateplaceholder",
     "defaultMessage": "DD-MM-YYYY",
     "message": "TT-MM-JJJJ",
