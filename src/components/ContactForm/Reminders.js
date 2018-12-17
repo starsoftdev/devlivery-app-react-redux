@@ -20,7 +20,7 @@ import { cloneDeep, isUndefined } from 'lodash';
 
 class ReminderCard extends React.Component {
   render() {
-    const {k, index, reminder, intl, occasion,Reminder_recurring, removeItem, editItem} = this.props;
+    const {k, index, reminder, intl, occasion,Reminder_recurring, removeItem, editItem, editable} = this.props;
     const recurring  = Reminder_recurring.find(item => item.value === reminder.recurring);
     
     if(reminder.date === undefined || reminder.reminder_date === undefined || reminder.date === null || reminder.reminder_date === null)
@@ -28,6 +28,7 @@ class ReminderCard extends React.Component {
     return (
       <div className={s.carditem}>
         {
+          editable !== false &&
           <div
             className={s.gridEditBtn}
             onClick={() => editItem(k)}
@@ -52,6 +53,7 @@ class ReminderCard extends React.Component {
           <Col xs={14}><div className={s.info_item}>{recurring ? recurring.label : Reminder_recurring[0].label}</div></Col>
         </Row>
         {
+          editable !== false &&
           <div className={s.removeIcon}>
             <Popconfirm
               title={intl.formatMessage(messages.deleteReminderMessage)}
@@ -293,6 +295,7 @@ class Reminders extends React.Component {
                   Reminder_recurring={Reminder_recurring} 
                   removeItem={this.removeItem} 
                   editItem={this.editItem}
+                  editable = {initialValues[k] && initialValues[k].editable !== null ? initialValues[k].editable : true}
                 />
               }
               <div className={cn(s.item, (!isEditing) && s.hiddenItem)}>
