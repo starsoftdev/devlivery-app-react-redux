@@ -15,7 +15,6 @@ import ReactCreditCard from 'react-credit-cards'
 import creditCardStyles from 'react-credit-cards/es/styles-compiled.css'
 import { makeStripePayment } from '../../reducers/purchase'
 import { TEAM_ACCOUNT } from '../../reducers/register'
-import Cleave from 'cleave.js/react';
 import { setNextRouteName, navigateToNextRouteName } from '../../reducers/global';
 import COUNTRY from '../../messages/country';
 
@@ -312,14 +311,7 @@ class User extends React.Component {
                       { required: true, message: intl.formatMessage(formMessages.required) },
                     ],
                   })(
-                    <Cleave
-                      placeholder={intl.formatMessage(messages.dateplaceholder)}
-                      options={{
-                        date: true,
-                        datePattern: ['d', 'm', 'Y'],
-                        delimiter: '-'
-                      }}
-                    />
+                    <FloatingLabel type="dob" placeholder={intl.formatMessage(messages.dateplaceholder)} />
                   )}
                 </Form.Item>
               </section>
