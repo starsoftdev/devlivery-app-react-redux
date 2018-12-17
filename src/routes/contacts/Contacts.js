@@ -84,6 +84,11 @@ class Contacts extends React.Component {
         title: intl.formatMessage(messages.phoneColumn),
         dataIndex: 'phone',
         key: 'phone',
+        render: (phone) => (
+          <div className={s.phoneItem}>
+            {phone}
+          </div>
+        )
       },
       {
         title: intl.formatMessage(messages.birthdayColumn),
