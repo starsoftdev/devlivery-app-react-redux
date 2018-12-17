@@ -141,3 +141,6 @@
 .removeIcon {
   margin-left: var(--margin-xs);
 }
+.phoneItem {
+  white-space: nowrap ;
+}
