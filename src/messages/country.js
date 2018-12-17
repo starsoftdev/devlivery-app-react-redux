@@ -1,5 +1,6 @@
 var COUNTRY = {    
     'en-US' : [
+        'CH|Switzerland',
         'AF|Afghanistan',
         'AX|Åland Islands',
         'AL|Albania',
@@ -215,7 +216,6 @@ var COUNTRY = {
         'SJ|Svalbard and Jan Mayen',
         'SZ|Swaziland',
         'SE|Sweden',
-        'CH|Switzerland',
         'SY|Syrian Arab Republic',
         'TW|Taiwan (Province of China)',
         'TJ|Tajikistan',
@@ -251,9 +251,9 @@ var COUNTRY = {
         'ZW|Zimbabwe'
     ],
     'de-DE' : [
+        'CH|Schweiz',
         'DE|Deutschland',
         'AT|Österreich',
-        'CH|Schweiz',
         'LU|Luxemburg',
         'AF|Afghanistan',
         'EG|Ägypten',
