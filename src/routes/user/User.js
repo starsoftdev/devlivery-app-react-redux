@@ -17,6 +17,7 @@ import { makeStripePayment } from '../../reducers/purchase'
 import { TEAM_ACCOUNT } from '../../reducers/register'
 import Cleave from 'cleave.js/react';
 import { setNextRouteName, navigateToNextRouteName } from '../../reducers/global';
+import COUNTRY from '../../messages/country';
 
 class User extends React.Component {
   state = {
@@ -509,7 +510,15 @@ class User extends React.Component {
                           { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                         ],
                       })(
-                        <FloatingLabel placeholder={intl.formatMessage(messages.country)} />
+                        <Select
+                          allowClear
+                          placeholder={intl.formatMessage(messages.country)}
+                          className={s.country_select}
+                        >
+                          {COUNTRY[intl.locale].map((item) =>
+                            <Select.Option key={item.split('|')[1]} value={item.split('|')[1]}>{item.split('|')[1]}</Select.Option>
+                          )}
+                        </Select>
                       )}
                     </Form.Item>
                   </Col>
