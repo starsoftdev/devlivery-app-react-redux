@@ -3766,7 +3766,8 @@
     "defaultMessage": "Remove",
     "message": "",
     "files": [
-      "src/routes/purchase11/messages.js"
+      "src/routes/purchase11/messages.js",
+      "src/routes/donation/messages.js"
     ]
   },
   {

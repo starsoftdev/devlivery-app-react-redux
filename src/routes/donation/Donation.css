@@ -71,3 +71,7 @@
 .dontationImg {
   background-size: contain
 }
+.removeBtn{
+  float: right;
+  margin-top: 10px;
+}
