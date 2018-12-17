@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Col, DatePicker, Form, Input, Row } from 'antd'
+import { Button, Col, DatePicker, Form, Input, Row, Select } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Register2.css'
 import KeyHandler, { KEYPRESS } from 'react-key-handler'
@@ -11,6 +11,7 @@ import { Actions, SectionHeader } from '../../components'
 import { FloatingLabel } from '../../components';
 import moment from 'moment'
 import Cleave from 'cleave.js/react';
+import COUNTRY from '../../messages/country';
 
 class Register2 extends React.Component {
   handleSubmit = (e) => {
@@ -191,12 +192,20 @@ class Register2 extends React.Component {
               <Col xs={24} sm={12}>
                 <Form.Item>
                   {getFieldDecorator(`country`, {
-                    initialValue: individualDetails && individualDetails.country,
+                    initialValue: individualDetails && individualDetails.country ? individualDetails.country : undefined,
                     rules: [
                       { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                     ],
                   })(
-                    <FloatingLabel placeholder={intl.formatMessage(messages.country)} />
+                    <Select
+                      allowClear
+                      placeholder={intl.formatMessage(messages.country)}
+                      className={s.country_select}
+                    >
+                      {COUNTRY[intl.locale].map((item) =>
+                        <Select.Option key={item.split('|')[1]} value={item.split('|')[1]}>{item.split('|')[1]}</Select.Option>
+                      )}
+                    </Select>
                   )}
                 </Form.Item>
               </Col>
