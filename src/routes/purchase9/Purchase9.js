@@ -12,7 +12,6 @@ import messages from './messages'
 import { FloatingLabel } from '../../components';
 import moment from 'moment'
 import { DATE_FORMAT } from '../../constants'
-import Cleave from 'cleave.js/react';
 import {generateUrl} from '../../router'
 import history from '../../history'
 import COUNTRY from '../../messages/country';
@@ -28,15 +27,26 @@ class Purchase9 extends React.Component {
       var dobValidation = false;
       var birthday = moment(values.birthday, 'DD-MM-YYYY');
       var expected = moment().subtract(18, 'years');
-      if (birthday < expected)
-        dobValidation = true;
+      if (birthday.isValid() && values.birthday.length === 10) {
+        if (birthday < expected)
+          dobValidation = true;
+        else {
+          this.props.form.setFields({
+            birthday: {
+              value: values.birthday,
+              errors: [new Error(this.props.intl.formatMessage(messages.msg_older18))],
+            },
+          });
+        }
+      }
       else {
-        this.props.form.setFields({
-          birthday: {
-            value: values.birthday,
-            errors: [new Error(this.props.intl.formatMessage(messages.msg_older18))],
-          },
-        });
+        if (values.birthday && values.birthday.length > 0)
+          this.props.form.setFields({
+            birthday: {
+              value: values.birthday,
+              errors: [new Error('Invalid Date Format.')],
+            },
+          });
       }
       if (!err && dobValidation) {
         this.props.register({ ...values, dob: birthday.format(DATE_FORMAT) }, this.props.form)
@@ -181,14 +191,7 @@ class Purchase9 extends React.Component {
                   { required: true, message: intl.formatMessage(formMessages.required) },
                 ],
               })(
-                <Cleave
-                  placeholder={intl.formatMessage(messages.dateplaceholder)}
-                  options={{
-                    date: true,
-                    datePattern: ['d', 'm', 'Y'],
-                    delimiter: '-'
-                  }}
-                />
+                <FloatingLabel type="dob" placeholder={intl.formatMessage(messages.dateplaceholder)} />
               )}
             </Form.Item>
           </section>
