@@ -1269,7 +1269,7 @@ export const confirmVoucher = (bundleValues, refresh) => async (dispatch, getSta
   const { token } = dispatch(getToken())
   const { bundleId, voucher: { html, ...values } } = getState().purchase
   if (bundleId === null) {
-    message.error('Bundle is incorrect.');
+    message.error("Bundle Id doesn't exist.");
     return;
   }
 

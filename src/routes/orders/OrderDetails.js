@@ -99,7 +99,7 @@ class OrderDetails extends React.Component {
                 onClick={this.nextShipping}
                 size='small'
               >
-                next
+                Next
               </Button>
             </div>
           }
