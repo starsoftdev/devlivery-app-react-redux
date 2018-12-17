@@ -118,29 +118,55 @@ class Donation extends React.Component {
             />
           </div>
           <Form>
-            <Form.Item className={s.amount}>
-              {getFieldDecorator('donationAmount', {
-                initialValue: donationAmount,
-                rules: [
-                  { required: true, message: 'Sorry, you must select a donation amount.' },
-                ],
-              })(
-                <Input type='number' placeholder={intl.formatMessage(messages.amount)} />
-              )}
-            </Form.Item>
-            <Form.Item>
-              {getFieldDecorator('hideAmount', {
-                initialValue: hideAmount,
-                valuePropName: 'checked',
-              })(
-                <Checkbox>{intl.formatMessage(messages.hideamount)}</Checkbox>
-              )}
-            </Form.Item>
+            <Row>
+              <Col xs={18}>
+                <Form.Item className={s.amount}>
+                  {getFieldDecorator('donationAmount', {
+                    initialValue: donationAmount,
+                    rules: [
+                      { required: true, message: 'Sorry, you must select a donation amount.' },
+                    ],
+                  })(
+                    <Input type='number' placeholder={intl.formatMessage(messages.amount)} />
+                  )}
+                </Form.Item>
+                <Form.Item>
+                  {getFieldDecorator('hideAmount', {
+                    initialValue: hideAmount,
+                    valuePropName: 'checked',
+                  })(
+                    <Checkbox>{intl.formatMessage(messages.hideamount)}</Checkbox>
+                  )}
+                </Form.Item>
+              </Col>
+              <Col xs={6}>
+                {
+                  donationOrg && 
+                  <div className={s.removeBtn}>
+                    <Button
+                      type='primary'
+                      size={'small'}
+                      onClick={()=>{
+                        this.props.setDonationOrg(null);
+                        localStorage.removeItem(DONATION_STATE);
+                        this.props.removeDontationFromBundle()
+                        this.props.submitDonation(null,true)
+                      }}
+                    >
+                      {intl.formatMessage(messages.remove)}
+                    </Button>
+                  </div>
+                }
+              </Col>
+            </Row>
+            
+           
           </Form>
         </div>
         <PurchaseActions>
           <Button
             type='primary'
+            disabled={!donationOrg}
             onClick={(e)=>this.handleSubmit(e,true)}
           >
             {'SAVE AND BUY MORE PRODUCTS'}
