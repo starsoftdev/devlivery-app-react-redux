@@ -17,6 +17,7 @@ import EditIcon from '../../static/edit.svg'
 import { Link } from '../'
 import Cleave from 'cleave.js/react';
 import { cloneDeep, isUndefined } from 'lodash';
+import isEmpty from 'lodash/isEmpty'
 
 class ReminderCard extends React.Component {
   render() {
@@ -295,7 +296,7 @@ class Reminders extends React.Component {
                   Reminder_recurring={Reminder_recurring} 
                   removeItem={this.removeItem} 
                   editItem={this.editItem}
-                  editable = {initialValues[k] && initialValues[k].editable !== null ? initialValues[k].editable : true}
+                  editable = {!isEmpty(initialValues)  && initialValues[k] && initialValues[k].editable !== null ? initialValues[k].editable : true}
                 />
               }
               <div className={cn(s.item, (!isEditing) && s.hiddenItem)}>
