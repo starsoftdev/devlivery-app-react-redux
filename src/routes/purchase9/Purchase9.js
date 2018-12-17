@@ -15,6 +15,7 @@ import { DATE_FORMAT } from '../../constants'
 import Cleave from 'cleave.js/react';
 import {generateUrl} from '../../router'
 import history from '../../history'
+import COUNTRY from '../../messages/country';
 
 class Purchase9 extends React.Component {
   state = {
@@ -243,7 +244,15 @@ class Purchase9 extends React.Component {
                       { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                     ],
                   })(
-                    <FloatingLabel placeholder={intl.formatMessage(messages.country)} />
+                    <Select
+                      allowClear
+                      placeholder={intl.formatMessage(messages.country)}
+                      className={s.country_select}
+                    >
+                      {COUNTRY[intl.locale].map((item) =>
+                        <Select.Option key={item.split('|')[1]} value={item.split('|')[1]}>{item.split('|')[1]}</Select.Option>
+                      )}
+                    </Select>
                   )}
                 </Form.Item>
               </Col>
