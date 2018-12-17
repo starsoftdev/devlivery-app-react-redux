@@ -640,9 +640,9 @@ export default createReducer(initialState, {
       contacts: true,
     },
   }),
-  [GET_CONTACTS_SUCCESS]: (state, {res: {data}}) => ({
+  [GET_CONTACTS_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
     contacts: data,
-    contactsCount: data ? data.length:0,
+    contactsCount: total ? total:0,
     loading: {
       ...state.loading,
       contacts: false,
