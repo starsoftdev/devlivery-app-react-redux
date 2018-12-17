@@ -24,3 +24,7 @@
 .show {
   display: block;
 }
+.country_select{
+  margin-top: 14px;
+  width: 100%
+}

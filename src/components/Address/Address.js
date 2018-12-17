@@ -1,7 +1,7 @@
 import React from 'react'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Address.css'
-import {Col, Form, Input, Row, Button, Icon} from 'antd'
+import {Col, Form, Input, Row, Select, Icon} from 'antd'
 import formMessages from '../../formMessages'
 import {injectIntl} from 'react-intl'
 import messages from './messages'
@@ -9,6 +9,7 @@ import g from '../../styles/global.css';
 import cn from 'classnames'
 import {FloatingLabel} from '../../components';
 import {isEmptyData} from '../../utils';
+import COUNTRY from '../../messages/country';
 
 class Address extends React.Component {
   constructor(props){
@@ -109,10 +110,18 @@ class Address extends React.Component {
             <Col xs={24} sm={12}>
               <Form.Item>
                 {getFieldDecorator(`addresses[${index}].country`, {
-                  initialValue: initialValues && initialValues.country,
+                  initialValue: initialValues && initialValues.country ? initialValues.country : undefined,
                   rules,
                 })(
-                  <FloatingLabel placeholder={intl.formatMessage(messages.country)+ (required?" *":'')} onPressEnter={this.onPressEnter}/>
+                  <Select
+                    allowClear
+                    placeholder={intl.formatMessage(messages.country)+ (required?" *":'')}
+                    className={s.country_select}
+                  >
+                    {COUNTRY[intl.locale].map((item) =>
+                      <Select.Option key={item.split('|')[1]} value={item.split('|')[1]}>{item.split('|')[1]}</Select.Option>
+                    )}
+                  </Select>
                 )}
               </Form.Item>
             </Col>
