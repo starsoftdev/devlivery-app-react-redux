@@ -52,7 +52,7 @@ class Header extends React.Component {
             cookieName='CookieConsent'
             cookieValue={true}
             onAccept={() => {this.setState({_cookieconsent: true})}}
-            buttonStyle={{background: "green", color:"white", fontWeight: "bolder", fontSize:'15px', alignSelf:'center'}}
+            buttonStyle={{background: "#3f8084", color:"white", fontWeight: "bolder", fontSize:'15px', alignSelf:'center'}}
             style={{
                 alignItems: "baseline",
                 background: "#404D5F",
