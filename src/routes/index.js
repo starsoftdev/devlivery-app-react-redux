@@ -9,6 +9,7 @@ export const CARD_STORE_ROUTE = 'card-store'
 export const NEW_ARRIVALS_ROUTE = 'new-arrivals'
 export const ABOUT_ROUTE = 'about'
 export const TERMS_ROUTE = 'terms'
+export const PRIVACY_ROUTE = 'privacy'
 export const CONTACT_US_ROUTE = 'contact-us'
 export const LOGIN_ROUTE = 'login'
 export const REGISTER1_ROUTE = 'register1'
@@ -41,7 +42,8 @@ export const HOME_ROUTES = [
   NEW_ARRIVALS_ROUTE,
   ABOUT_ROUTE,
   CONTACT_US_ROUTE,
-  TERMS_ROUTE
+  TERMS_ROUTE,
+  PRIVACY_ROUTE
 ]
 
 export const DASHBOARD_ROUTES = [
@@ -386,9 +388,14 @@ const routes = {
       load: () => import(/* webpackChunkName: 'about' */ './about'),
     },
     {
-      path: '/terms',
+      path: '/terms-of-services',
       name: TERMS_ROUTE,
       load: () => import(/* webpackChunkName: 'terms' */ './terms'),
+    },
+    {
+      path: '/privacy-policy',
+      name: PRIVACY_ROUTE,
+      load: () => import(/* webpackChunkName: 'terms' */ './privacy'),
     },
     {
       path: '/contact-us',
