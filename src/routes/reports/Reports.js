@@ -100,7 +100,7 @@ class Reports extends React.Component {
         this.props.getReports({ from_shipping: startValue, to_shipping: endValue,  to: undefined, from: undefined, from_ordered: undefined, to_ordered: undefined });
         break;
       case 'ordered':
-        this.props.getReports({ from_shipping: startValue, to_ordered: endValue, from_shipping: undefined, to_shipping: undefined, to: undefined, from: undefined });
+        this.props.getReports({ from_ordered: startValue, to_ordered: endValue, from_shipping: undefined, to_shipping: undefined, to: undefined, from: undefined });
         break;
       default:
         this.props.getReports({ from: startValue, to: endValue, from_shipping: undefined, to_shipping: undefined, from_ordered: undefined, to_ordered: undefined });
