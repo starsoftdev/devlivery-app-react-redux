@@ -30,6 +30,7 @@ import { FloatingLabel } from '../../components';
 import { INDIVIDUAL_ACCOUNT, TEAM_ACCOUNT } from '../../reducers/register'
 import Loader from 'react-loader';
 import {BIRTH_GERMAN,BIRTH_EN,CARD_SIZES} from '../../constants'
+import {getUserDetails} from '../../reducers/user';
 
 import {
   ORDER_BUNDLE_FLOW,
@@ -89,7 +90,7 @@ class Purchase11 extends React.Component {
     if (nextProps && nextProps.cardDetails) {
       this.setState({ content: nextProps.cardDetails.body ? nextProps.cardDetails.body : '' });
     }
-    if (nextProps && nextProps.order !== this.state.order) {
+    if (nextProps && nextProps.order !== this.props.order) {
       this.state.order = nextProps.order;
       this.onSelectLocation(this.state.selectedLocation);
     }
@@ -125,11 +126,23 @@ class Purchase11 extends React.Component {
     localStorage.setItem(ORDER_CONFIRM_STATE, JSON.stringify(jsonData));
   }
   onSelectLocation = (value) => {
-    this.props.recalculateTotal(value);
-
-    const { order, currentRecipient, selectedLocation } = this.state;
+    if(value ==='shipping')
+    {
+      this.props.getUserDetails((user)=>{
+        this.showCurrentRecipientFromSelectedLocation(value,this.state.order,user);
+      });
+    }
+    else {
+      this.props.recalculateTotal(value, (order_data)=>{
+        this.state.order = order_data;
+        this.showCurrentRecipientFromSelectedLocation(value,order_data,this.props.user);
+      });
+    }
+    this.showCurrentRecipientFromSelectedLocation(value,this.state.order,this.props.user);
+  }
+  showCurrentRecipientFromSelectedLocation(value,order,user){
+    const { currentRecipient, selectedLocation } = this.state;
     if (value === 'shipping') {
-      const { user } = this.props;
       const address = user && user.addresses && user.addresses.find(item => item.default !== null)
       
       let first_name = user.first_name;
@@ -726,7 +739,8 @@ const mapDispatch = {
   removeVoucherFromBundle,
   syncGifts_Bundle,
   recalculateTotal,
-  applycouponTotal
+  applycouponTotal,
+  getUserDetails
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Purchase11)))
