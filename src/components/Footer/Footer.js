@@ -10,6 +10,8 @@ import {DASHBOARD_ROUTES, HOME_ROUTES} from '../../routes'
 import cn from 'classnames'
 import {injectIntl} from 'react-intl'
 import messages from './messages'
+import {TERMS_ROUTE} from '../../routes'
+import { Link } from '../../components'
 
 class Footer extends React.Component {
   render() {
@@ -33,7 +35,9 @@ class Footer extends React.Component {
               <a>{intl.formatMessage(messages.faq)}</a>
             </li>
             <li>
-              <a>{intl.formatMessage(messages.terms)}</a>
+              <Link to={TERMS_ROUTE}>
+                {intl.formatMessage(messages.terms)}
+              </Link>
             </li>
             <li>
               <a>{intl.formatMessage(messages.privacy)}</a>
