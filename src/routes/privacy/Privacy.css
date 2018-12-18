@@ -180,3 +180,8 @@
 .footerDate{
   text-align: center;
 }
+.knowmore{
+  background: "green";
+  color:"white";
+  font-weight: "bolder";
+}

@@ -43,6 +43,7 @@
     "react-async-script": "^0.9.1",
     "react-avatar-editor": "^11.0.4",
     "react-contenteditable": "^2.1.5",
+    "react-cookie-consent": "^2.0.0",
     "react-credit-cards": "^0.7.0",
     "react-dom": "^16.3.2",
     "react-idle-timer": "^4.1.3",
