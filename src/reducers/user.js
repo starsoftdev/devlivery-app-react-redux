@@ -73,16 +73,20 @@ export const getUser = () => (dispatch, getState, { fetch, cookies }) => {
   }
 }
 
-export const getUserDetails = () => (dispatch, getState, { fetch, history }) => {
+export const getUserDetails = (callback) => (dispatch, getState, { fetch, history }) => {
   const { token } = dispatch(getToken())
   const { user } = getState().user
   dispatch({ type: GET_USER_REQUEST })
-  if(user && user.id)
+  if(user && user.id || callback)
   {
     return fetch(`/users?filter_key=id&filter_value=${user.id}&with=addresses,preference,billing`, {
       method: 'GET',
       token,
-      success: (res) => dispatch(getUserSuccess(res.data[0])),
+      success: (res) => {
+        if(callback)
+         callback(res.data[0])
+        else dispatch(getUserSuccess(res.data[0]))
+      },
       failure: () => dispatch({ type: GET_USER_FAILURE })
     })
   }

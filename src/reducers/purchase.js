@@ -840,7 +840,7 @@ export const makeOrder = () => (dispatch, getState, { fetch, history }) => {
     })
   }
 }
-export const recalculateTotal = (deliverable) => (dispatch, getState, { fetch }) => {
+export const recalculateTotal = (deliverable, callback) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   const { orderId } = getState().purchase
   if (orderId && deliverable ) {
@@ -855,6 +855,17 @@ export const recalculateTotal = (deliverable) => (dispatch, getState, { fetch })
       token,
       success: (res) => {
         dispatch({ type: GET_SHIPPINGTOTAL_SUCCESS, shipping_cost: res.data })
+        if(callback)
+          return fetch(`/order-confirmation?${qs.stringify({order_id: orderId,})}`, {
+              method: 'GET',
+              token,
+              success: (res) => {
+                callback(res.data);
+              },
+              failure: (err) => {
+                dispatch({ type: GET_ORDER_DETAILS_FAILURE })
+              },
+            })
       },
       failure: (err) => {
         dispatch({ type: GET_SHIPPINGTOTAL_FAILURE })
