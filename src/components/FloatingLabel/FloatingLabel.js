@@ -69,48 +69,12 @@ export default class FloatingLabel extends React.Component {
         event.stopPropagation();
       }
     }
-    if(this.props.type === 'dob')
-    {
-      var valid = 
-      (keycode > 47 && keycode < 58)   || // number keys
-      keycode == 32 || keycode == 13 || keycode == 8 ||
-      (keycode > 34 && keycode < 47)   || //arrow
-      (keycode > 95 && keycode < 112)  || // numpad keys
-      keycode == 189 ;   // 
-
-      //number
-      if(!valid || event.shiftKey)//0~9
-      {
-        event.preventDefault(); // Let's stop this event.
-        event.stopPropagation(); // Really this time.
-      }
-    }
   }
   render () {
     const {autoComplete, errorMsg, id, isDisabled, pattern, placeholder, type, value, defaultValue,maxLength,required, autoFocus} = this.props;
     const {hasValue, hasError} = this.state;
     const inputClasses = classNames('fl-input', {'fl-valid': hasValue && !hasError}, {'fl-invalid': hasValue && hasError});
-    if(type === 'dob')
-    {
-      return(
-        <Input
-            autoComplete={autoComplete}
-            className={inputClasses}
-            disabled={isDisabled}
-            onBlur={this.onBlur.bind(this)}
-            onChange={this.props.onChange}
-            onFocus = {this.props.onFocus}
-            defaultValue = {defaultValue}
-            value = {value}
-            type={type === 'phone' || type === 'name' ? 'text' : type}
-            maxLength={maxLength}
-            required = {required}
-            autoFocus = {autoFocus}
-            onKeyDown = {this.onKeyDown.bind(this)}
-            placeholder = {placeholder}
-          />
-      );
-    }
+    
     return(
       <div className='fl-input-container'>
         <Input
