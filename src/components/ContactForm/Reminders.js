@@ -15,9 +15,9 @@ import { BIRTH_GERMAN, BIRTH_EN } from '../../constants'
 import cn from 'classnames'
 import EditIcon from '../../static/edit.svg'
 import { Link } from '../'
+import Cleave from 'cleave.js/react';
 import { cloneDeep, isUndefined } from 'lodash';
 import isEmpty from 'lodash/isEmpty'
-import { FloatingLabel } from '../../components';
 
 class ReminderCard extends React.Component {
   render() {
@@ -203,15 +203,10 @@ class Reminders extends React.Component {
       return false;
     }
     const occasion_date = moment(value,'DD-MM-YYYY');
-    if(!occasion_date.isValid())
-    {
-      this.setState({InvalidIndex:k,errorMessage:this.props.intl.formatMessage(messages.invalidoccasion)});
-      return false;
-    }
     const diff = moment().add(1, 'days').diff(occasion_date, 'days');
     if(diff > 0)
     {
-      this.setState({InvalidIndex:k,errorMessage:'please enter a date in the past.'});
+      this.setState({InvalidIndex:k,errorMessage:this.props.intl.formatMessage(messages.invalidoccasion)});
       return false;
     }
     this.setState({InvalidIndex:k,errorMessage:null});
@@ -354,7 +349,15 @@ class Reminders extends React.Component {
                   {getFieldDecorator(`reminders[${k}].date`, {
                     initialValue: initialValues && initialValues[k] ? initialValues[k].date : undefined,
                   })(
-                    <FloatingLabel type="dob" placeholder={intl.formatMessage(messages.dateplaceholder)} onChange={(value) => this.changeDatePicker(k, value)}/>
+                    <Cleave
+                      placeholder={intl.formatMessage(messages.dateplaceholder)}
+                      options={{
+                        date: true,
+                        datePattern: ['d', 'm', 'Y'],
+                        delimiter: '-'
+                      }}
+                      onChange={(value) => this.changeDatePicker(k, value)}
+                    />
                   )}
                 </Form.Item>
                 <Form.Item>

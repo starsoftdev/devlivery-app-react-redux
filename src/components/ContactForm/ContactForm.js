@@ -11,6 +11,7 @@ import Reminders from './Reminders'
 import Groups from './Groups'
 import moment from 'moment'
 import { FloatingLabel } from '../../components';
+import Cleave from 'cleave.js/react';
 
 const SALUTATIONS = ['Mr.', 'Ms.', 'Dr.', 'Family']
 
@@ -230,11 +231,16 @@ class ContactForm extends React.Component {
           {getFieldDecorator('dob', {
             initialValue: initialValues && initialValues.dob ? moment(initialValues.dob).format("DD-MM-YYYY") : undefined,
           })(
-            <FloatingLabel type="dob" 
-              placeholder={intl.formatMessage(messages.dateplaceholder)} 
+            <Cleave
+              placeholder={intl.formatMessage(messages.dateplaceholder)}
+              options={{
+                date: true,
+                datePattern: ['d', 'm', 'Y'],
+                delimiter: '-'
+              }}
               onBlur={this.onBirthdayBlur.bind(this)}
               onFocus={this.onBirthdayFocus.bind(this)}
-              />
+            />
           )}
         </Form.Item>
       </section>

@@ -10,6 +10,7 @@ import messages from './messages'
 import { Actions, SectionHeader } from '../../components'
 import { FloatingLabel } from '../../components';
 import moment from 'moment'
+import Cleave from 'cleave.js/react';
 import COUNTRY from '../../messages/country';
 
 class Register2 extends React.Component {
@@ -127,7 +128,14 @@ class Register2 extends React.Component {
                   { required: true, message: intl.formatMessage(formMessages.required) },
                 ],
               })(
-                <FloatingLabel type="dob" placeholder={intl.formatMessage(messages.dateplaceholder)} />
+                <Cleave
+                  placeholder={intl.formatMessage(messages.dateplaceholder)}  
+                  options={{
+                    date: true,
+                    datePattern: ['d', 'm', 'Y'],
+                    delimiter: '-'
+                  }}
+                />
               )}
             </Form.Item>
           </section>
