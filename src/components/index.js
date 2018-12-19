@@ -30,3 +30,4 @@ export {default as FloatingLabel} from './FloatingLabel/FloatingLabel'
 export {default as CardCheckOut} from './CardCheckOut/CardCheckOut'
 export {default as CardDetails} from './CardDetails/CardDetails'
 export {default as GiftDetails} from './GiftDetails/GiftDetails'
+export {default as InputDate} from './InputDate/InputDate';

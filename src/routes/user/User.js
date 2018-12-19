@@ -7,7 +7,7 @@ import formMessages from '../../formMessages'
 import moment from 'moment'
 import PlusIcon from '../../static/plus.svg'
 import { DATE_FORMAT } from '../../constants'
-import { ChangePasswordForm } from '../../components'
+import { ChangePasswordForm,InputDate } from '../../components'
 import { updateUser, getAllCards, addCard, setChangingStatusSetting } from '../../reducers/user'
 import messages from './messages'
 import { FloatingLabel, CardCheckOut, Avatar } from '../../components';
@@ -15,7 +15,6 @@ import ReactCreditCard from 'react-credit-cards'
 import creditCardStyles from 'react-credit-cards/es/styles-compiled.css'
 import { makeStripePayment } from '../../reducers/purchase'
 import { TEAM_ACCOUNT } from '../../reducers/register'
-import Cleave from 'cleave.js/react';
 import { setNextRouteName, navigateToNextRouteName } from '../../reducers/global';
 import COUNTRY from '../../messages/country';
 
@@ -312,13 +311,8 @@ class User extends React.Component {
                       { required: true, message: intl.formatMessage(formMessages.required) },
                     ],
                   })(
-                    <Cleave
+                    <InputDate
                       placeholder={intl.formatMessage(messages.dateplaceholder)}
-                      options={{
-                        date: true,
-                        datePattern: ['d', 'm', 'Y'],
-                        delimiter: '-'
-                      }}
                     />
                   )}
                 </Form.Item>

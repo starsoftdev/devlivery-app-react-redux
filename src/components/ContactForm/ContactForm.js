@@ -10,8 +10,7 @@ import { injectIntl } from 'react-intl'
 import Reminders from './Reminders'
 import Groups from './Groups'
 import moment from 'moment'
-import { FloatingLabel } from '../../components';
-import Cleave from 'cleave.js/react';
+import { FloatingLabel,InputDate } from '../../components';
 
 const SALUTATIONS = ['Mr.', 'Ms.', 'Dr.', 'Family']
 
@@ -91,7 +90,7 @@ class ContactForm extends React.Component {
       if (birthday < expected)
         dobValidation = true;
       else {
-        errors= [new Error('please enter a date in the past.')];
+        errors = [new Error('please enter a date in the past.')];
       }
     }
     else {
@@ -231,13 +230,8 @@ class ContactForm extends React.Component {
           {getFieldDecorator('dob', {
             initialValue: initialValues && initialValues.dob ? moment(initialValues.dob).format("DD-MM-YYYY") : undefined,
           })(
-            <Cleave
+            <InputDate
               placeholder={intl.formatMessage(messages.dateplaceholder)}
-              options={{
-                date: true,
-                datePattern: ['d', 'm', 'Y'],
-                delimiter: '-'
-              }}
               onBlur={this.onBirthdayBlur.bind(this)}
               onFocus={this.onBirthdayFocus.bind(this)}
             />
