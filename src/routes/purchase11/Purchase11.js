@@ -129,7 +129,10 @@ class Purchase11 extends React.Component {
     if(value ==='shipping')
     {
       this.props.getUserDetails((user)=>{
-        this.showCurrentRecipientFromSelectedLocation(value,this.state.order,user);
+        this.props.recalculateTotal(value, (order_data)=>{
+          this.state.order = order_data;
+          this.showCurrentRecipientFromSelectedLocation(value,order_data,user);
+        });
       });
     }
     else {
