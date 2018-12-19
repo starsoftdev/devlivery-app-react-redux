@@ -137,6 +137,7 @@
     "defaultMessage": "Birthday",
     "message": "",
     "files": [
+      "src/components/ContactDetail/ContactDetail.js",
       "src/components/ContactForm/messages.js",
       "src/routes/user/messages.js"
     ]
@@ -146,6 +147,7 @@
     "defaultMessage": "Company Address",
     "message": "",
     "files": [
+      "src/components/ColumnsMappingForm/messages.js",
       "src/components/ContactForm/messages.js"
     ]
   },
@@ -172,6 +174,7 @@
     "defaultMessage": "Home Address",
     "message": "",
     "files": [
+      "src/components/ColumnsMappingForm/messages.js",
       "src/components/ContactForm/messages.js"
     ]
   },
@@ -448,6 +451,7 @@
     "defaultMessage": "Home address or Company address is required.",
     "message": "",
     "files": [
+      "src/components/ColumnsMappingForm/messages.js",
       "src/routes/addContact/messages.js",
       "src/routes/editContact/messages.js",
       "src/routes/purchase10/messages.js"
@@ -2020,14 +2024,6 @@
     ]
   },
   {
-    "id": "register2.header",
-    "defaultMessage": "Individual Details",
-    "message": "",
-    "files": [
-      "src/routes/register2/messages.js"
-    ]
-  },
-  {
     "id": "register2.lastName",
     "defaultMessage": "Last Name",
     "message": "",
@@ -2160,6 +2156,7 @@
     "defaultMessage": "Contacts",
     "message": "",
     "files": [
+      "src/routes/orders/messages.js",
       "src/routes/reports/messages.js"
     ]
   },
@@ -2313,8 +2310,8 @@
     "defaultMessage": "Shipping Date",
     "message": "",
     "files": [
-      "src/routes/reports/messages.js",
-      "src/routes/orders/messages.js"
+      "src/routes/orders/messages.js",
+      "src/routes/reports/messages.js"
     ]
   },
   {
@@ -2807,7 +2804,9 @@
     "defaultMessage": "About Us",
     "message": "",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2815,7 +2814,9 @@
     "defaultMessage": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     "message": "",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2823,7 +2824,9 @@
     "defaultMessage": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     "message": "",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2831,7 +2834,9 @@
     "defaultMessage": "“ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make a type specimen book. ”",
     "message": "",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2839,7 +2844,9 @@
     "defaultMessage": "Enter your email address",
     "message": "",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2847,7 +2854,9 @@
     "defaultMessage": "Sign up to get first access, curated notes about new styles, sales and events.",
     "message": "",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2855,7 +2864,9 @@
     "defaultMessage": "Submit",
     "message": "",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2863,7 +2874,9 @@
     "defaultMessage": "ByZumi",
     "message": "",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -3758,8 +3771,8 @@
     "defaultMessage": "Remove",
     "message": "",
     "files": [
-      "src/routes/purchase11/messages.js",
-      "src/routes/donation/messages.js"
+      "src/routes/donation/messages.js",
+      "src/routes/purchase11/messages.js"
     ]
   },
   {
@@ -4059,9 +4072,9 @@
     "defaultMessage": "please select date older than 18 years.",
     "message": "",
     "files": [
-      "src/routes/user/messages.js",
+      "src/routes/purchase9/messages.js",
       "src/routes/register2/messages.js",
-      "src/routes/purchase9/messages.js"
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -4069,9 +4082,9 @@
     "defaultMessage": "Save",
     "message": "",
     "files": [
-      "src/routes/user/messages.js",
       "src/components/Avatar/messages.js",
-      "src/components/ContactForm/messages.js"
+      "src/components/ContactForm/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -4079,7 +4092,7 @@
     "defaultMessage": "Edit Avatar",
     "message": "",
     "files": [
-     "src/components/Avatar/messages.js"
+      "src/components/Avatar/messages.js"
     ]
   },
   {
@@ -4087,7 +4100,7 @@
     "defaultMessage": "Edit Logo",
     "message": "",
     "files": [
-     "src/components/Avatar/messages.js"
+      "src/components/Avatar/messages.js"
     ]
   },
   {
@@ -4258,8 +4271,8 @@
     "defaultMessage": "To",
     "message": "",
     "files": [
-      "src/routes/orders/messages.js",
       "src/components/OrderItems/messages.js",
+      "src/routes/orders/messages.js",
       "src/routes/voucher/messages.js"
     ]
   },

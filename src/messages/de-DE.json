@@ -323,6 +323,7 @@
     "defaultMessage": "Birthday",
     "message": "Geburtstag",
     "files": [
+      "src/components/ContactDetail/ContactDetail.js",
       "src/components/ContactForm/messages.js",
       "src/routes/user/messages.js"
     ]
@@ -477,6 +478,7 @@
     "defaultMessage": "Company Address",
     "message": "Geschäftsadresse",
     "files": [
+      "src/components/ColumnsMappingForm/messages.js",
       "src/components/ContactForm/messages.js"
     ]
   },
@@ -526,6 +528,7 @@
     "defaultMessage": "Contacts",
     "message": "Kontakte",
     "files": [
+      "src/routes/orders/messages.js",
       "src/routes/reports/messages.js"
     ]
   },
@@ -1067,6 +1070,7 @@
     "defaultMessage": "Home Address",
     "message": "Wohnadresse",
     "files": [
+      "src/components/ColumnsMappingForm/messages.js",
       "src/components/ContactForm/messages.js"
     ]
   },
@@ -1105,10 +1109,7 @@
   {
     "id": "register2.header",
     "defaultMessage": "Individual Details",
-    "message": "Details",
-    "files": [
-      "src/routes/register2/messages.js"
-    ]
+    "message": "Details"
   },
   {
     "id": "register2.title",
@@ -1910,6 +1911,7 @@
     "defaultMessage": "Home address or Company address is required.",
     "message": "Mindestens eine Adresse wird benötigt, entweder die Privat- oder die Geschäftsadresse.",
     "files": [
+      "src/components/ColumnsMappingForm/messages.js",
       "src/routes/addContact/messages.js",
       "src/routes/editContact/messages.js",
       "src/routes/purchase10/messages.js"
@@ -2448,8 +2450,8 @@
     "defaultMessage": "Shipping Date",
     "message": "Versanddatum",
     "files": [
-      "src/routes/reports/messages.js",
-      "src/routes/orders/messages.js"
+      "src/routes/orders/messages.js",
+      "src/routes/reports/messages.js"
     ]
   },
   {
@@ -2950,7 +2952,9 @@
     "defaultMessage": "About Us",
     "message": "Kundenverblüffung leicht gemacht",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2958,7 +2962,9 @@
     "defaultMessage": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     "message": "Mein Name ist Zumi.  Zumi ist Ihre rechte Hand, die Sie schon lange gesucht haben: Ihre virtuelle Assistentin für die Kundenbetreuung. Sie vergisst keinen Geburtstag und Ihr entgeht kein Firmenjubiläum. Mit Professionalität und Liebe zum Detail stellt sie sicher, dass die Menschen, die Ihnen am Herz liegen, die passenden Karten und Geschenke erhalten. Versprochen!",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2966,7 +2972,9 @@
     "defaultMessage": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     "message": "Mit Zumi gehen wir neue Wege in Sachen Kundenbetreuung. Möglich ist das, weil wir auf starke Partner zählen können, die in ihrem Bereich führend sind: die Schweizerischen Post, Lettershop Output Management, Mövenpick Wein und Wunderpen.",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2974,7 +2982,9 @@
     "defaultMessage": "“ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make a type specimen book. ”",
     "message": "“ Hinter Zumi stecken wir – ein interdisziplinäres Team mit frischen Ideen und langjährigem Erfolgsausweis in der Kundenbetreuung, der Unternehmensberatung sowie im digitalen Marketing. Die beiden verschiedenen Namen sind verwirrend. GAC Services AG tönt nicht wie eine Kurzform 🙂”",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2982,7 +2992,9 @@
     "defaultMessage": "Enter your email address",
     "message": "Geben Sie Ihre Email Addresse ein",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2990,7 +3002,9 @@
     "defaultMessage": "Sign up to get first access, curated notes about new styles, sales and events.",
     "message": "Melden Sie sich bei unserem Newsletter an, um über neue Kartenkollektionen und Geschenken informiert zu bleiben.",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2998,7 +3012,9 @@
     "defaultMessage": "Submit",
     "message": "Senden",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -3006,7 +3022,9 @@
     "defaultMessage": "ByZumi",
     "message": "ByZumi",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -3901,8 +3919,8 @@
     "defaultMessage": "Remove",
     "message": "Entfernen",
     "files": [
-      "src/routes/purchase11/messages.js",
-      "src/routes/donation/messages.js"
+      "src/routes/donation/messages.js",
+      "src/routes/purchase11/messages.js"
     ]
   },
   {
@@ -4202,9 +4220,9 @@
     "defaultMessage": "please select date older than 18 years.",
     "message": "please select date older than 18 years.",
     "files": [
-      "src/routes/user/messages.js",
+      "src/routes/purchase9/messages.js",
       "src/routes/register2/messages.js",
-      "src/routes/purchase9/messages.js"
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -4212,9 +4230,9 @@
     "defaultMessage": "Save",
     "message": "Speichern",
     "files": [
-      "src/routes/user/messages.js",
       "src/components/Avatar/messages.js",
-      "src/components/ContactForm/messages.js"
+      "src/components/ContactForm/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -4222,7 +4240,7 @@
     "defaultMessage": "Edit Avatar",
     "message": "Edit Avatar",
     "files": [
-     "src/components/Avatar/messages.js"
+      "src/components/Avatar/messages.js"
     ]
   },
   {
@@ -4230,7 +4248,7 @@
     "defaultMessage": "Edit Logo",
     "message": "Edit Logo",
     "files": [
-     "src/components/Avatar/messages.js"
+      "src/components/Avatar/messages.js"
     ]
   },
   {
@@ -4357,7 +4375,7 @@
   },
   {
     "id": "voucher.description",
-    "defaultMessage": "Description on how voucher works. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,  electronic typesetting, remaining essentially unchanged remaining.",
+    "defaultMessage": "Description on how donation works. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,  electronic typesetting, remaining essentially unchanged remaining.",
     "message": "muss noch erstellt werden",
     "files": [
       "src/routes/voucher/messages.js"
@@ -4401,8 +4419,8 @@
     "defaultMessage": "To",
     "message": "An",
     "files": [
-      "src/routes/orders/messages.js",
       "src/components/OrderItems/messages.js",
+      "src/routes/orders/messages.js",
       "src/routes/voucher/messages.js"
     ]
   },
