@@ -4148,7 +4148,8 @@
     "defaultMessage": "Password Confirmation",
     "message": "",
     "files": [
-      "src/components/ChangePasswordForm/messages.js"
+      "src/components/ChangePasswordForm/messages.js",
+      "src/routes/setPassword/messages.js"
     ]
   },
   {
