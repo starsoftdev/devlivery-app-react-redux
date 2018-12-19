@@ -9,6 +9,9 @@ import messages from './messages'
 import {FloatingLabel} from '../../components';
 
 class SetPassword extends React.Component {
+  state = {
+    confirmDirty: false,
+  }
   componentWillUnmount() {
     this.props.clear()
   }
@@ -17,11 +20,43 @@ class SetPassword extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        if(values['password'] !== values['password_confirmation'])
+        {
+          this.props.form.setFields({
+            password_confirmation: {
+              value: values['password_confirmation'],
+              errors: [new Error(this.props.intl.formatMessage(formMessages.passwordNotMatch))],
+            },
+          });
+          return;
+        }
         this.props.setPassword({...values, token: this.props.query.token, email: this.props.query.email})
       }
     })
   }
+  handleConfirmBlur = (e) => {
+    const value = e.target.value
+    this.setState({ confirmDirty: this.state.confirmDirty || !!value })
+  }
 
+  compareToFirstPassword = (rule, value, callback) => {
+    const { intl } = this.props
+    const form = this.props.form
+    if (value && value !== form.getFieldValue('password')) {
+      callback(intl.formatMessage(formMessages.passwordNotMatch))
+    } else {
+      callback()
+    }
+  }
+
+  validateToNextPassword = (rule, value, callback) => {
+    const { intl } = this.props
+    const form = this.props.form
+    if (value && this.state.confirmDirty) {
+      form.validateFields(['password_confirmation'], { force: true })
+    }
+    callback()
+  }
   render() {
     const {loading, error, intl} = this.props
     const {getFieldDecorator} = this.props.form
@@ -41,7 +76,8 @@ class SetPassword extends React.Component {
           <Form.Item>
             {getFieldDecorator('password', {
               rules: [
-                { required: true, min: 6, message: intl.formatMessage(formMessages.minLength, { length: 6 }) }
+                { required: true, message: intl.formatMessage(formMessages.required) },
+                { validator: this.validateToNextPassword },
               ],
             })(
               <FloatingLabel
@@ -50,6 +86,16 @@ class SetPassword extends React.Component {
               />
             )}
           </Form.Item>
+          <Form.Item>
+              {getFieldDecorator('password_confirmation', {
+                rules: [
+                  { required: true, message: intl.formatMessage(formMessages.required) },
+                  { validator: this.compareToFirstPassword },
+                ],
+              })(
+                <FloatingLabel type='password' placeholder={intl.formatMessage(messages.confirmpswd)} onBlur={this.handleConfirmBlur} />
+              )}
+            </Form.Item>
         </div>
         <div className={s.actions}>
           <Button type='primary' htmlType='submit' className={s.submitBtn} loading={loading}>

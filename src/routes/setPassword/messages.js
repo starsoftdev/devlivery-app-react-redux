@@ -17,4 +17,8 @@ export default defineMessages({
     id: 'setPassword.submit',
     defaultMessage: 'Submit',
   },
+  confirmpswd: {
+    id: 'user.confirmpswd',
+    defaultMessage: 'Password Confirmation',
+  },
 })
