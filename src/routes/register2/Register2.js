@@ -7,10 +7,9 @@ import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import formMessages from '../../formMessages'
 import { register, TEAM_ACCOUNT } from '../../reducers/register'
 import messages from './messages'
-import { Actions, SectionHeader } from '../../components'
+import { Actions, SectionHeader,InputDate } from '../../components'
 import { FloatingLabel } from '../../components';
 import moment from 'moment'
-import Cleave from 'cleave.js/react';
 import COUNTRY from '../../messages/country';
 
 class Register2 extends React.Component {
@@ -128,13 +127,8 @@ class Register2 extends React.Component {
                   { required: true, message: intl.formatMessage(formMessages.required) },
                 ],
               })(
-                <Cleave
+                <InputDate
                   placeholder={intl.formatMessage(messages.dateplaceholder)}  
-                  options={{
-                    date: true,
-                    datePattern: ['d', 'm', 'Y'],
-                    delimiter: '-'
-                  }}
                 />
               )}
             </Form.Item>

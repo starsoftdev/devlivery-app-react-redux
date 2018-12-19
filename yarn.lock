@@ -1992,10 +1992,6 @@ classnames@2.x, classnames@^2.2.0, classnames@^2.2.1, classnames@^2.2.3, classna
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
-cleave.js@^1.4.4:
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/cleave.js/-/cleave.js-1.4.4.tgz#7dc5a14384402328cb931a1de55288af5fa97694"
-
 cli-cursor@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/cli-cursor/-/cli-cursor-2.1.0.tgz#b35dac376479facc3e94747d41d0d0f5238ffcb5"
@@ -3902,6 +3898,11 @@ inherits@2.0.1:
 ini@^1.3.4, ini@~1.3.0:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
+
+inputmask-core@^2.1.1:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/inputmask-core/-/inputmask-core-2.2.0.tgz#79a75f7f3a4d3312ae95fd2b55a2366a7c91dfba"
+  integrity sha1-eadffzpNMxKulf0rVaI2anyR37o=
 
 inquirer@3.3.0:
   version "3.3.0"
@@ -6841,6 +6842,14 @@ react-magnifier@^2.0.0:
     lodash.debounce "^4.0.8"
     lodash.throttle "^4.1.1"
     prop-types "^15.6.2"
+
+react-maskedinput@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/react-maskedinput/-/react-maskedinput-4.0.1.tgz#e9ccfeff39c19b15ac62e4dcedc7275a3ab446df"
+  integrity sha512-wWIGtJOYmFJFJl7ojJgE2oB7MKLE3QkXtB54UoXyYtvGL3Jni51a1LKAK39U/6Gh5OR3VAgFMdiPApbFw2ALrg==
+  dependencies:
+    inputmask-core "^2.1.1"
+    prop-types "^15.5.7"
 
 react-redux@^5.0.7:
   version "5.0.7"

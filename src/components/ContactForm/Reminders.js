@@ -15,7 +15,7 @@ import { BIRTH_GERMAN, BIRTH_EN } from '../../constants'
 import cn from 'classnames'
 import EditIcon from '../../static/edit.svg'
 import { Link } from '../'
-import Cleave from 'cleave.js/react';
+import { InputDate } from '../../components';
 import { cloneDeep, isUndefined } from 'lodash';
 import isEmpty from 'lodash/isEmpty'
 
@@ -349,13 +349,7 @@ class Reminders extends React.Component {
                   {getFieldDecorator(`reminders[${k}].date`, {
                     initialValue: initialValues && initialValues[k] ? initialValues[k].date : undefined,
                   })(
-                    <Cleave
-                      placeholder={intl.formatMessage(messages.dateplaceholder)}
-                      options={{
-                        date: true,
-                        datePattern: ['d', 'm', 'Y'],
-                        delimiter: '-'
-                      }}
+                    <InputDate
                       onChange={(value) => this.changeDatePicker(k, value)}
                     />
                   )}
