@@ -111,7 +111,7 @@ class Contacts extends React.Component {
                 onConfirm={() => {
                   if(contact.is_connected_to_order)
                     message.warn(intl.formatMessage(messages.warningRemoving));
-                  else removeContact(contact)}
+                  else removeContact(contact, true)}
                 }
                 okText={intl.formatMessage(messages.acceptRemoving)}
               >
