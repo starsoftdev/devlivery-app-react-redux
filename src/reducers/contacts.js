@@ -297,16 +297,22 @@ export const editContact = (values, form, redrict,callback) => (dispatch, getSta
   })
 }
 
-export const removeContact = (contact) => (dispatch, getState, {fetch}) => {
+export const removeContact = (contact,noRefresh) => (dispatch, getState, {fetch}) => {
   dispatch({type: REMOVE_CONTACT_REQUEST})
   const {token} = dispatch(getToken())
+  const {ordering, search} = getState().contacts;
+
   return fetch(`/contacts/${contact.id}`, {
     method: 'DELETE',
     token,
     success: () => {
       dispatch({type: REMOVE_CONTACT_SUCCESS})
-      dispatch(getContacts())
-      dispatch(navigateToNextRouteName(generateUrl(CONTACTS_ROUTE)));
+      dispatch(getContacts({ordering, search}))
+      if(noRefresh)
+      {
+
+      }
+      else dispatch(navigateToNextRouteName(generateUrl(CONTACTS_ROUTE)));
     },
     failure: () => dispatch({type: REMOVE_CONTACT_FAILURE}),
   })
