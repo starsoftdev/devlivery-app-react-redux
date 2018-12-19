@@ -572,6 +572,21 @@ const routes = {
       return { redirect: prevPathName }
     }
     await context.store.dispatch(getUser())
+    //authenticate Puchase flow
+    const {loggedIn} = context.store.getState().user
+    if(context.pathname.includes('/purchase/') && !loggedIn)
+    {
+      if(
+        context.pathname === '/purchase/card-style' ||
+        context.pathname === '/purchase/card-size' ||
+        context.pathname === '/purchase/lettering-technique' ||
+        context.pathname === '/purchase/card'||
+        context.pathname === '/purchase/create-account')
+        {
+
+        }
+        else return await {redirect: `/login`}
+    }
     // Execute each child route until one of them return the result
     const route = await context.next()
 
