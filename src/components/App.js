@@ -80,6 +80,7 @@ class App extends React.PureComponent {
     //console.log('last active', this.idleTimer.getLastActiveTime())
     this.props.context.cookies.remove(TOKEN_COOKIE, { path: '/' })
     this.props.context.cookies.remove(STATE_COOKIE, { path: '/' })
+    window.location.reload()
   }
   getChildContext() {
     return this.props.context
