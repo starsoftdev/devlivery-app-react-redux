@@ -537,11 +537,14 @@ export const importContacts = (columnsMapping,form,intl, callback) => (dispatch,
       else {
         if(company)
         {
+          /*
           form.setFields({
             office_street: {
               errors: [new Error(intl.formatMessage(formMessages.required))],
             }
           });
+          */
+          message.error("Company Name column isn't complete. ")
           err = 'Company invalid'; 
         }
       }
