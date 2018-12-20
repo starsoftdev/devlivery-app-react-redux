@@ -22,10 +22,10 @@ class About extends React.Component {
               <li className={'custom_li_parent'}>Geltungsbereich
                 <ol className={'custom_ol'}>
                   <li className={'custom_li'}>
-                  Die nachstehenden allgemeinen Geschäftsbedingungen gelten für den Geschäftsbereich "byzumi" der Get a Concierge AG für sämtliche Rechtsgeschäfte welche der Vertragspartner, nachfolgend "Kunde" genannt, über die Web Plattform "byZumi" unter [www.byzumi.com] (nachfolgend "Web Plattform" genannt) abschliesst, soweit zwischen den Parteien nicht ausdrücklich schriftlich etwas anderes vereinbart worden ist.
+                  Die nachstehenden allgemeinen Geschäftsbedingungen gelten für den Geschäftsbereich "byzumi" der Get a Concierge AG für sämtliche Rechtsgeschäfte welche der Vertragspartner, nachfolgend "<b>Kunde</b>" genannt, über die Web Plattform "byZumi" unter [<a>www.byzumi.com</a>] (nachfolgend "<b>Web Plattform</b>" genannt) abschliesst, soweit zwischen den Parteien nicht ausdrücklich schriftlich etwas anderes vereinbart worden ist.
                   </li>
                   <li className={'custom_li'}>
-                  Zusammen mit der in der Bestellung über die Web Plattform enthaltenen individuellen Bedingungen stellen diese Allgemeinen Geschäftsbedingungen die abschliessende Vereinbarung (nachfolgend "Vereinbarung" genannt) zwischen dem Kunden und der Get a Concierge AG dar.
+                  Zusammen mit der in der Bestellung über die Web Plattform enthaltenen individuellen Bedingungen stellen diese Allgemeinen Geschäftsbedingungen die abschliessende Vereinbarung (nachfolgend "<b>Vereinbarung</b>" genannt) zwischen dem Kunden und der Get a Concierge AG dar.
                   </li>
                 </ol>
               </li>
@@ -100,9 +100,9 @@ class About extends React.Component {
                 </li>
                 <li className={'custom_li'}>
                 Vor Abschluss des Bestellvorgangs hat der Kunde die Möglichkeit, die Zahlungsart zu wählen. Es stehen folgende Möglichkeiten zur Verfügung:<br/>
-                -	Beim Kauf mit der Kreditkarte (VISA, Master Card und AMEX) oder mit der PostFinance Card erfolgt die Belastung zum Zeitpunkt der Bestellung.<br/>
-                -	Beim Kauf per PayPal erfolgt die Belastung gemäss den AGB von PayPal. Mit der Bestätigung der Bestellung erklärt der Kunde sich damit einverstanden.<br/>
-                -	Beim Kauf auf Rechnung verpflichtet sich der Kunde, den Betrag innert 14 Kalendertagen ab Rechnungsdatum zu bezahlen.
+                <b>-</b>	 Beim Kauf mit der Kreditkarte (VISA, Master Card und AMEX) oder mit der PostFinance Card erfolgt die Belastung zum Zeitpunkt der Bestellung.<br/>
+                <b>-</b>	 Beim Kauf per PayPal erfolgt die Belastung gemäss den AGB von PayPal. Mit der Bestätigung der Bestellung erklärt der Kunde sich damit einverstanden.<br/>
+                <b>-</b>	 Beim Kauf auf Rechnung verpflichtet sich der Kunde, den Betrag innert 14 Kalendertagen ab Rechnungsdatum zu bezahlen.
                 </li>
                 <li className={'custom_li'}>
                 Die aktuellen Gebühren für die Zahlungsmittel werden im Bestellprozess detailliert ausgewiesen. Get a Concierge AG hat das Recht, einzelne Zahlungsmittel ohne Begründung generell oder für einzelne Kunden auszuschliessen.
@@ -135,7 +135,7 @@ class About extends React.Component {
 
               <li className={'custom_li_parent'}>Datenschutz<ol className={'custom_ol'}>
                 <li className={'custom_li'}>
-                Über Art, Umfang und Zweck der Erhebung, Verarbeitung und Nutzung der für die Durchführung von Bestellungen erforderlichen personenbezogenen Daten durch die Get a Concierge AG wird der Kunde ausführlich in der Datenschutzerklärung unterrichtet und informiert. Die Datenschutzerklärung unter [www.byzumi.com(Datenschutzerklärung] ist integrierter Bestandteil dieser AGB. Mit dem Akzeptieren dieser AGB stimmt Der auch der Datenschutzerklärung zu.
+                Über Art, Umfang und Zweck der Erhebung, Verarbeitung und Nutzung der für die Durchführung von Bestellungen erforderlichen personenbezogenen Daten durch die Get a Concierge AG wird der Kunde ausführlich in der Datenschutzerklärung unterrichtet und informiert. Die Datenschutzerklärung unter [<b>www.byzumi.com</b>(Datenschutzerklärung] ist integrierter Bestandteil dieser AGB. Mit dem Akzeptieren dieser AGB stimmt Der auch der Datenschutzerklärung zu.
                 </li>
               </ol></li>
 
@@ -213,7 +213,7 @@ class About extends React.Component {
                 </li>
               </ol></li>
             </ol>
-            <p className={s.footerDate}>Stand: 11. Dezember 2018</p>
+            <p className={s.footerDate}><b>Stand: 11. Dezember 2018</b></p>
           </div>
         </section>
       </React.Fragment>
