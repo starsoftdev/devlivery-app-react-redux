@@ -13,7 +13,7 @@ class ColumnsMappingForm extends React.Component {
   render() {
     const {mappingColumns, intl, className, isRequireAddress} = this.props
     const {getFieldDecorator} = this.props.form
-
+    
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -24,7 +24,14 @@ class ColumnsMappingForm extends React.Component {
         sm: { span: 16 },
       },
     }
-    
+    let dataSrc = mappingColumns ? 
+                    (Array.isArray(mappingColumns.user_columns) ? 
+                        mappingColumns.user_columns
+                        : Object.keys(mappingColumns.user_columns)
+                                .map(function(key) {
+                                  return mappingColumns.user_columns[key];
+                                })) 
+                        : [];
     return (
       <Form layout='vertical' hideRequiredMark className={className}>
         {contact_map.map(column =>
@@ -43,7 +50,7 @@ class ColumnsMappingForm extends React.Component {
                 allowClear
                 placeholder={intl.formatMessage(messages.notInFile)}
               >
-                {mappingColumns && mappingColumns.user_columns.map(item =>
+                {dataSrc.map(item =>
                   <Select.Option key={item}>{item === 'dob' ? 'date of birth' : item}</Select.Option>
                 )}
               </Select>
@@ -68,7 +75,7 @@ class ColumnsMappingForm extends React.Component {
                 allowClear
                 placeholder={intl.formatMessage(messages.notInFile)}
               >
-                {mappingColumns.user_columns.map(item =>
+                {dataSrc.map(item =>
                   <Select.Option key={item}>{item}</Select.Option>
                 )}
               </Select>
@@ -90,7 +97,7 @@ class ColumnsMappingForm extends React.Component {
               allowClear
               placeholder={intl.formatMessage(messages.notInFile)}
             >
-              {mappingColumns.user_columns.map(item =>
+              {dataSrc.map(item =>
                 <Select.Option key={item}>{item}</Select.Option>
               )}
             </Select>
@@ -112,7 +119,7 @@ class ColumnsMappingForm extends React.Component {
                 allowClear
                 placeholder={intl.formatMessage(messages.notInFile)}
               >
-                {mappingColumns.user_columns.map(item =>
+                {dataSrc.map(item =>
                   <Select.Option key={item}>{item}</Select.Option>
                 )}
               </Select>
