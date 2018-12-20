@@ -20,7 +20,7 @@ class About extends React.Component {
           <div className={s.aboutUsSection}>
             <h3 className={s.aboutUsHeader}>I.	Wer wir sind | Verantwortliche Stelle</h3>
             <p className={s.aboutCommonDescription}>
-            Für Ihre Personendaten ist beim Angebot von "byZumi" die Gesellschaft Get a Concierge AG, Sonnhaldenstrasse 10, 8903 Birmensdorf, Schweiz, verantwortlich. Verweise in dieser Datenschutzerklärung (die «Erklärung») auf «wir» oder «uns» sind Verweise auf Get a Concierge AG. <br/>
+            Für Ihre Personendaten ist beim Angebot von "byZumi" die Gesellschaft Get a Concierge AG, Sonnhaldenstrasse 10, 8903 Birmensdorf, Schweiz, verantwortlich. Verweise in dieser Datenschutzerklärung (die «<b>Erklärung</b>») auf «wir» oder «uns» sind Verweise auf Get a Concierge AG. <br/>
             Kontakt:<br/>
             Get a Concierge AG<br/>
             Sonnhaldenstrasse 10<br/>
@@ -75,18 +75,18 @@ class About extends React.Component {
             <b>II.1.2	Zahlungsdaten</b><br/>
             Im Rahmen des Bestellvorgangs werden Zahlungsdaten erhoben. Für Bestellungen auf unserer Seite haben Sie die Möglichkeit, zwischen verschiedenen Zahlungsarten zu wählen.<br/>
             <br/>
-            <b>Kreditkarte</b><br/>
+            <b><u>Kreditkarte</u></b><br/>
             Sofern Sie mittels Kreditkarte zahlen, erhebt die die [SIX Payment Services AG, Hardturmstrasse 201, CH-8005 Zürich,] folgende Daten:<br/>
             -	Name des Kreditkarteninhabers<br/>
             -	Kreditkartennummer<br/>
             -	Gültigkeitsdauer der Kreditkarte<br/>
             -	Sicherheitscode.<br/>
             <br/>
-            Wir erheben und speichern die Zahlungsdaten nicht selbst, sondern diese werden unmittelbar vom Zahlungsdienstleister erhoben. Der Dienstleister hat über die angegebenen Zahlungsdaten hinaus lediglich Kenntnis über die Auftragsnummer und den Rechnungsbetrag, ohne diese Informationen anderen Informationen (wie etwa Ihrer Adresse oder E-Mail-Adresse) zuordnen zu können. Wir halten bei der Zusammenarbeit mit der SIX Payment Services höchste Sicherheits- und Datenschutzvorgaben ein. Der Zahlungsdienstleister beachtet die Vorgaben der «Payment Card Industry (PCI) Data Security Standards». Bitte beachten Sie die jeweiligen Datenschutzerklärungen von SIX Payment Services (www.six-payment-services.com).
+            Wir erheben und speichern die Zahlungsdaten nicht selbst, sondern diese werden unmittelbar vom Zahlungsdienstleister erhoben. Der Dienstleister hat über die angegebenen Zahlungsdaten hinaus lediglich Kenntnis über die Auftragsnummer und den Rechnungsbetrag, ohne diese Informationen anderen Informationen (wie etwa Ihrer Adresse oder E-Mail-Adresse) zuordnen zu können. Wir halten bei der Zusammenarbeit mit der SIX Payment Services höchste Sicherheits- und Datenschutzvorgaben ein. Der Zahlungsdienstleister beachtet die Vorgaben der «Payment Card Industry (PCI) Data Security Standards». Bitte beachten Sie die jeweiligen Datenschutzerklärungen von SIX Payment Services (<a href="https://www.six-payment-services.com/de/home.html" target="_blank">www.six-payment-services.com</a>).
             <br/>
             Rechtsgrundlage für die Datenverarbeitung ist im Anwendungsbereich der DSGVO Art. 6 Abs. 1 b) DSGVO, da die Verarbeitung der Daten für die Bezahlung per Kreditkarte oder Lastschrift und damit für die Durchführung des Vertrages erforderlich ist.<br/>
             <br/>
-            <b>PayPal</b><br/>
+            <b><u>PayPal</u></b><br/>
             Weiter besteht die Möglichkeit, den Zahlungsvorgang mit dem Online-Zahlungsservice PayPal abzuwickeln. PayPal ermöglicht es, Online-Zahlungen an Dritte vorzunehmen. Die Europäische Betreibergesellschaft von PayPal ist die PayPal (Europe) S.à.r.l. & Cie. S.C.A., 22-24 Boulevard Royal, 2449 Luxembourg. Wenn Sie PayPal als Zahlungsmethode wählen, werden Ihre, für den Bezahlvorgang erforderlichen Daten automatisch an PayPal übermittelt. Hierbei handelte es regelmässig um folgende Daten:<br/>
             -	Name<br/>
             -	Adresse<br/>
@@ -94,11 +94,11 @@ class About extends React.Component {
             -	E-Mail-Adresse<br/>
             -	Telefonnummer<br/>
             -	IP-Adresse<br/>
-            Die an PayPal übermittelten Daten werden von PayPal unter Umständen an Wirtschaftsauskunfteien übermittelt. Diese Übermittlung bezweckt die Identitäts- und Bonitätsprüfung. PayPal gibt Ihre Daten möglicherweise auch an Dritte weiter, soweit dies zur Erfüllung der vertraglichen Verpflichtungen erforderlich ist oder die Daten im Auftrag verarbeitet werden sollen. Die Datenschutzbestimmungen von PayPal können Sie unter https://www.paypal.com/de/webapps/mpp/ua/privacy-full/ einsehen.<br/>
+            Die an PayPal übermittelten Daten werden von PayPal unter Umständen an Wirtschaftsauskunfteien übermittelt. Diese Übermittlung bezweckt die Identitäts- und Bonitätsprüfung. PayPal gibt Ihre Daten möglicherweise auch an Dritte weiter, soweit dies zur Erfüllung der vertraglichen Verpflichtungen erforderlich ist oder die Daten im Auftrag verarbeitet werden sollen. Die Datenschutzbestimmungen von PayPal können Sie unter <a href="https://www.paypal.com/de/webapps/mpp/ua/privacy-full/" target="_blank">https://www.paypal.com/de/webapps/mpp/ua/privacy-full/</a> einsehen.<br/>
             <br/>
             Rechtsgrundlage für die Datenverarbeitung ist im Anwendungsbereich der DSGVO Art. 6 Abs. 1 b) DSGVO, da die Verarbeitung der Daten für die Bezahlung mit PayPal und damit für die Durchführung des Vertrages erforderlich ist.<br/>
             <br/>
-            <b>Rechnung</b><br/>
+            <b><u>Rechnung</u></b><br/>
             Wenn Sie unsere Dienste mittels Rechnung begleichen möchten, erfassen wir regelmässig folgende Daten:<br/>
             -	Name<br/>
             -	Adresse<br/>
@@ -142,7 +142,7 @@ class About extends React.Component {
             <b>3.2 	Cookies</b><br/>
             Wir sind stets bemüht, die Qualität unseres Angebots zu verbessern und unsere Website zielgerichtet zu gestalten. Hierzu verwenden wir so genannte Cookies. Ein Cookie ist ein von einem Server erzeugter Datensatz, der an Ihren Browser gesendet und von Ihrem Computer lokal abgelegt wird. Unsere Systeme können so Ihren Browser erkennen. Es wird hierbei zwischen so genannten Session-Cookies, die auf den Zeitraum des Besuchs unserer Website begrenzt sind, und so genannten sessionübergreifenden (persistenten) Cookies unterschieden. 
             Was machen Cookies?
-            Beim Besuch von [www.byzumi.com] wird ein Cookie auf Ihrem Computer abgelegt, der uns beispielsweise mitteilt, welche Waren und/oder Dienstleistungen Sie in Ihren Warenkorb legen werden, wie oft Sie auf unserer Website sind und welche Produkte Sie schliesslich erwerben. Das Cookie bietet uns somit einen Überblick über das Verhalten unserer Kunden auf unserer Website. Die Informationen ermöglichen es, uns einen Überblick darüber zu verschaffen, welche Waren und Dienstleistungen unsere Kunden besonders interessieren. Darüber hinaus helfen Cookies, um bestimmte Einstellungen und Funktionalitäten auf unserer Webseite über Ihren Browser sicherzustellen.
+            Beim Besuch von [<a>www.byzumi.com</a>] wird ein Cookie auf Ihrem Computer abgelegt, der uns beispielsweise mitteilt, welche Waren und/oder Dienstleistungen Sie in Ihren Warenkorb legen werden, wie oft Sie auf unserer Website sind und welche Produkte Sie schliesslich erwerben. Das Cookie bietet uns somit einen Überblick über das Verhalten unserer Kunden auf unserer Website. Die Informationen ermöglichen es, uns einen Überblick darüber zu verschaffen, welche Waren und Dienstleistungen unsere Kunden besonders interessieren. Darüber hinaus helfen Cookies, um bestimmte Einstellungen und Funktionalitäten auf unserer Webseite über Ihren Browser sicherzustellen.
             Das hat folgende Vorteile für Sie: Cookies unterstützen ein sicheres und nutzerfreundliches Einkaufserlebnis. Wir bieten unseren Kunden ein auf Ihre Interessen und Wünsche zugeschnittenes, effektives Produktangebot und machen das Surfen so komfortabel wie möglich. So können Sie auf erfasste, aber noch nicht abgeschlossene Aufträge auch dann zugreifen, wenn Sie zwischendurch weiter im Internet gesurft haben.
             Cookies werden darüber hinaus auch bei unseren Newslettern und von anderen Internetseiten eingesetzt, sodass wir anhand der vorhandenen Cookies auf Ihrem Computer nachvollziehen können, auf welcher Website Sie auf uns aufmerksam geworden sind und ob unsere dortige Werbung Ihr Interesse an unseren Produkten geweckt hat. Cookies ermöglichen uns damit, z.B. die Effektivität unserer Werbung im Internet zu gewährleisten und unsere Werbung an den richtigen Stellen zu platzieren.
             Dies funktioniert so: Sofern Sie auf unsere Website durch z.B. Klicken auf eine Bannerwerbung gelangt sind, speichert das Cookie Informationen über diejenige Website ab, auf der die von Ihnen angeklickte Werbung platziert war. Auf dem Cookie werden nun die Informationen verknüpft und auf unserer Website gesammelt, so dass unsere Marketing-Abteilung ermitteln kann, welche Werbung auf welcher Website unsere Kunden besonders interessiert hat.
@@ -240,19 +240,19 @@ class About extends React.Component {
 
             <h3 className={s.aboutUsHeader}>VI.	Rechtliche Grundlage</h3>
             <p className={s.aboutCommonDescription}>
-            Bei der Bearbeitung Ihrer Daten berücksichtigen wir nicht nur das Schweizer Datenschutzgesetz und seine Verordnung, sondern – sofern und soweit anwendbar – auch die Datenschutzgrundverordnung der Europäischen Union ("DSGVO").
+            Bei der Bearbeitung Ihrer Daten berücksichtigen wir nicht nur das Schweizer Datenschutzgesetz und seine Verordnung, sondern – sofern und soweit anwendbar – auch die Datenschutzgrundverordnung der Europäischen Union ("<b>DSGVO</b>").
             </p>
 
 
             <h3 className={s.aboutUsHeader}>VII.	Änderungen und Zustimmung zu diesen Datenschutzbestimmungen</h3>
             <p className={s.aboutCommonDescription}>
             Wir passen diese Datenschutzbestimmungen jeweils neuen oder sich ändernden Bedürfnissen an. Die jeweils neue Fassung wird Ihnen an geeigneter Stelle zugänglich gemacht.
-            Es gelten jeweils die aktuellen, von uns veröffentlichten Datenschutzbestimmungen. Mit der fortgesetzten Nutzung der Webseite von [www.byzumi.com] stimmen die Nutzer den jeweils geltenden Datenschutzbestimmungen zu.
+            Es gelten jeweils die aktuellen, von uns veröffentlichten Datenschutzbestimmungen. Mit der fortgesetzten Nutzung der Webseite von [<a>www.byzumi.com</a>] stimmen die Nutzer den jeweils geltenden Datenschutzbestimmungen zu.
 
             </p>
 
             <div className={s.aboutUsSection}>
-              <p className={s.footerDate}>Stand: 11. Dezember 2018</p>
+              <p className={s.footerDate}><b>Stand: 11. Dezember 2018</b></p>
             </div>
           </div>
         </section>
