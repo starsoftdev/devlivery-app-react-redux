@@ -106,13 +106,13 @@ export const getContactsByName = (title,callback) => (dispatch, getState, {fetch
     method: 'GET',
     token,
     success: (res) => {
-      dispatch({type: GET_CONTACTS_SUCCESS, res})
+      //dispatch({type: GET_CONTACTS_SUCCESS, res})
       if(callback)
         callback(res.data);
     },
     failure: (err) => {
       showErrorMessage(err);
-      dispatch({type: GET_CONTACTS_FAILURE})
+      //dispatch({type: GET_CONTACTS_FAILURE})
     },
   })
 }
