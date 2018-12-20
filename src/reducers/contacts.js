@@ -405,6 +405,7 @@ export const uploadContacts = (file, fileType) => (dispatch, getState, {fetch}) 
 const validateContact = (title,street,city,country,postal_code,form,intl) =>{
   if(street == null && (city || country || postal_code))
   {
+    /*
     form.setFields({
       ...(title ==='office') ?
       {office_street: {
@@ -414,10 +415,13 @@ const validateContact = (title,street,city,country,postal_code,form,intl) =>{
         errors: [new Error(intl.formatMessage(formMessages.required))],
       }},
     });
+    */
+    message.error(title+" street column isn't complete.")
     return false;
   }
   if(street && (street+'').length < 5)
   {
+    /*
     form.setFields({
       ...(title ==='office') ?
       {office_street: {
@@ -427,10 +431,13 @@ const validateContact = (title,street,city,country,postal_code,form,intl) =>{
         errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 5 }))],
       }},
     });
+    */
+    message.error(title+" street column isn't complete. " +intl.formatMessage(formMessages.minLength, { length: 5 }))
     return false;
   }
   if(!city || (city+'').length < 1)
   {
+    /*
     form.setFields({
       ...(title ==='office') ?
       {office_city: {
@@ -440,10 +447,13 @@ const validateContact = (title,street,city,country,postal_code,form,intl) =>{
         errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 1 }))],
       }},
     });
+    */
+    message.error(title+" city column isn't complete. ")
     return false;
   }
   if(!country || (country+'').length < 1)
   {
+    /*
     form.setFields({
       ...(title ==='office') ?
       {office_country: {
@@ -453,10 +463,13 @@ const validateContact = (title,street,city,country,postal_code,form,intl) =>{
         errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 1 }))],
       }},
     });
+    */
+    message.error(title+" city column isn't complete. ")
     return false;
   }
   if(!postal_code ||(postal_code+'').length < 1)
   {
+    /*
     form.setFields({
       ...(title ==='office') ?
       {office_postal_code: {
@@ -466,6 +479,8 @@ const validateContact = (title,street,city,country,postal_code,form,intl) =>{
         errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 1 }))],
       }},
     });
+    */
+    message.error(title+" postal_code column isn't complete. ")
     return false;
   }
   return true;
@@ -484,20 +499,26 @@ export const importContacts = (columnsMapping,form,intl, callback) => (dispatch,
       if(otherFields.first_name === null || otherFields.first_name === undefined)
       {
         err = 'first name invalid'; 
+        /*
         form.setFields({
           first_name: {
             errors: [new Error(intl.formatMessage(formMessages.required))],
           } 
         });
+        */
+       message.error("first name column isn't complete. ")
       }
       if(otherFields.last_name === null || otherFields.last_name === undefined)
       {
-        err = 'first name invalid'; 
+        err = 'last name invalid'; 
+        /*
         form.setFields({
           last_name: {
             errors: [new Error(intl.formatMessage(formMessages.required))],
           } 
         });
+        */
+        message.error("last name column isn't complete. ")
       }
       if(home_street || home_city || home_country || home_postal_code)
       {
