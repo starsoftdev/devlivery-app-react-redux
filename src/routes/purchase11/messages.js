@@ -116,5 +116,13 @@ export default defineMessages({
   partialBirthError: {
     id:'purchase11.partialBirthError',
     defaultMessage:'Some of the recipients has no birthdate set.'
+  },
+  confirm: {
+    id: 'addContact.confirm',
+    defaultMessage: 'Confirm',
+  },
+  no: {
+    id: 'addContact.no',
+    defaultMessage: 'No',
   }
 })

@@ -164,7 +164,7 @@ class Donation extends React.Component {
             disabled={!donationOrg}
             onClick={(e) => this.handleSubmit(e, true)}
           >
-            {'SAVE AND BUY MORE PRODUCTS'}
+            {intl.formatMessage(messages.savemoreproducts)}
           </Button>
           <KeyHandler
             keyEventName={KEYPRESS}

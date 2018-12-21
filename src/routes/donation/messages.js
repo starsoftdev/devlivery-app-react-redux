@@ -29,4 +29,8 @@ export default defineMessages({
     id: 'purchase11.remove',
     defaultMessage: 'Remove',
   },
+  savemoreproducts: {
+    id: 'purchase8.savemoreproducts',
+    defaultMessage: 'SAVE AND BUY MORE PRODUCTS',
+  }
 })

@@ -329,12 +329,12 @@ class Purchase11 extends React.Component {
     return order ? (
       <div>
         <Modal
-          title="Confirm"
+          title={intl.formatMessage(messages.confirm)}
           visible={this.state.visible}
           onOk={this.onOk}
           onCancel={this.onCancel}
-          okText="Confirm"
-          cancelText="No"
+          okText={intl.formatMessage(messages.confirm)}
+          cancelText={intl.formatMessage(messages.no)}
           width ={570}
         >
           {
@@ -347,16 +347,16 @@ class Purchase11 extends React.Component {
           }
         </Modal>
       <Modal
-          title="Confirm"
+          title={intl.formatMessage(messages.confirm)}
           visible={this.state.birthday_warning}
           onOk={()=>{this.setState({birthday_warning: false}); this.checkWarningRecipient()}}
           onCancel={()=>this.setState({birthday_warning: false})}
-          okText="Confirm"
-          cancelText="No"
+          okText={intl.formatMessage(messages.confirm)}
+          cancelText={intl.formatMessage(messages.no)}
           width ={570}
         >
           <h4>{intl.formatMessage(messages.msg_contacts)}</h4>
-        </Modal>
+      </Modal>
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
           <SectionHeader

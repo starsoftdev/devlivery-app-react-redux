@@ -25,4 +25,8 @@ export default defineMessages({
     id: 'purchase8.previewHeader',
     defaultMessage: 'Gift Preview',
   },
+  savemoreproducts: {
+    id: 'purchase8.savemoreproducts',
+    defaultMessage: 'SAVE AND BUY MORE PRODUCTS',
+  }
 })

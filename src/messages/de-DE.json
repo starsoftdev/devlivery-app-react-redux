@@ -1366,6 +1366,7 @@
     "files": [
       "src/routes/addContact/messages.js",
       "src/routes/editContact/messages.js",
+      "src/routes/purchase11/messages.js",
       "src/routes/user/messages.js"
     ]
   },
@@ -1386,6 +1387,7 @@
     "files": [
       "src/routes/addContact/messages.js",
       "src/routes/editContact/messages.js",
+      "src/routes/purchase11/messages.js",
       "src/routes/user/messages.js"
     ]
   },
@@ -4463,6 +4465,16 @@
     "message": "",
     "files": [
       "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "purchase8.savemoreproducts",
+    "defaultMessage": "SAVE AND BUY MORE PRODUCTS",
+    "message": "",
+    "files": [
+      "src/routes/donation/messages.js",
+      "src/routes/purchase8/messages.js",
+      "src/routes/voucher/messages.js"
     ]
   }
 ]

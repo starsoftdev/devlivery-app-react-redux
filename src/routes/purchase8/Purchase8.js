@@ -102,7 +102,7 @@ class Purchase8 extends React.Component {
               submitGift(-2)
             }}
           >
-            {'SAVE AND BUY MORE PRODUCTS'}
+            {intl.formatMessage(messages.savemoreproducts)}
           </Button>
           <KeyHandler
             keyEventName={KEYPRESS}
