@@ -103,7 +103,7 @@ class Contacts extends React.Component {
         render: (contact) => {
           return (
             <React.Fragment>
-              <Link to={{ name: EDIT_CONTACT_ROUTE, params: { contactId: contact.id } }}>
+              <Link to={{ name: EDIT_CONTACT_ROUTE, params: { contactId: contact.id } }} title={intl.formatMessage(messages.title_edit)}>
                 <EditIcon />
               </Link>
               <Popconfirm
@@ -115,7 +115,7 @@ class Contacts extends React.Component {
                 }
                 okText={intl.formatMessage(messages.acceptRemoving)}
               >
-                <a className={s.removeIcon}>
+                <a className={s.removeIcon} title={intl.formatMessage(messages.title_remove)}>
                   <RemoveIcon />
                 </a>
               </Popconfirm>
