@@ -404,7 +404,7 @@ class OrderDetails extends React.Component {
                     <Button type='primary' onClick={() => {
                       setFlowPayment(orderDetails)
                     }}>
-                      {'Pay'}
+                      {intl.formatMessage(messages.btn_pay)}
                     </Button>
                   </div>
                 }

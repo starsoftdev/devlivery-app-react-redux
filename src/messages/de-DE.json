@@ -4766,5 +4766,13 @@
     "files": [
       "src/components/CardCheckOut/messages.js"
     ]
+  },
+  {
+    "id": "orders.btn_pay",
+    "defaultMessage": "Pay",
+    "message": "Zahlen",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
   }
 ]
