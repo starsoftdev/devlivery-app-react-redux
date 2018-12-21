@@ -112,5 +112,9 @@ export default defineMessages({
   availablebudget: {
     id:'purchase11.availablebudget',
     defaultMessage:'AVAILABLE BUDGET:'
+  },
+  partialBirthError: {
+    id:'purchase11.partialBirthError',
+    defaultMessage:'Some of the recipients has no birthdate set.'
   }
 })

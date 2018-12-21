@@ -1505,7 +1505,7 @@
   },
   {
     "id": "purchase13.thankyou_shorttext",
-    "defaultMessage": "Create in 4 simple steps!",
+    "defaultMessage": "Creat your own account in 4 simple steps!",
     "message": "",
     "files": [
       "src/routes/purchaseCompleted/messages.js"
@@ -4077,7 +4077,7 @@
   },
   {
     "id": "user.msg_older18",
-    "defaultMessage": "please select date older than 18 years.",
+    "defaultMessage": "To be able to create an account you must be minimum 18 years old",
     "message": "",
     "files": [
       "src/routes/purchase9/messages.js",
@@ -4236,7 +4236,7 @@
   },
   {
     "id": "voucher.description",
-    "defaultMessage": "Description on how donation works. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,  electronic typesetting, remaining essentially unchanged remaining.",
+    "defaultMessage": "Description on how voucher works. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,  electronic typesetting, remaining essentially unchanged remaining.",
     "message": "",
     "files": [
       "src/routes/voucher/messages.js"
@@ -4315,6 +4315,14 @@
     "message": "",
     "files": [
       "src/routes/voucher/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.partialBirthError",
+    "defaultMessage": "Some of the recipients has no birthdate set.",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
     ]
   }
 ]

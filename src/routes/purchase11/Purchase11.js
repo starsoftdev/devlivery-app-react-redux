@@ -501,7 +501,7 @@ class Purchase11 extends React.Component {
               }
               {
                 partial_birth_warning && 
-                <div className={s.warnText}>{'Some of the recipients has no birthdate set.'}</div>
+                <div className={s.warnText}>{intl.formatMessage(messages.partialBirthError)}</div>
               }
               {
                 this.state.recip_warnmsg && this.state.recip_warnmsg !== '' &&

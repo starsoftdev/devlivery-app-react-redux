@@ -15,6 +15,6 @@ export default defineMessages({
   },
   thankyou_shorttext: {
     id: 'purchase13.thankyou_shorttext',
-    defaultMessage: 'Create in 4 simple steps!',
+    defaultMessage: 'Creat your own account in 4 simple steps!',
   },
 })
