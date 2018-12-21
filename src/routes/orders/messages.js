@@ -141,4 +141,8 @@ export default defineMessages({
     id: 'orders.events_on',
     defaultMessage: 'Events on',
   },
+  noorder: {
+    id: 'orders.noorder',
+    defaultMessage: 'No Order',
+  }
 })

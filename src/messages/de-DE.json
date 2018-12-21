@@ -4750,5 +4750,13 @@
     "files": [
       "src/components/UploadedContacts/messages.js"
     ]
+  },
+  {
+    "id": "orders.noorder",
+    "defaultMessage": "No Order",
+    "message": "Keine Bestellung",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
   }
 ]
