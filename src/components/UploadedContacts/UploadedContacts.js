@@ -26,6 +26,7 @@ class UploadedContacts extends React.Component {
         onOk={closeUploadedContactsModal}
         onCancel={closeUploadedContactsModal}
         width={1200}
+        okText={intl.formatMessage(messages.btnOk)}
       >
         <Table
           loading= {loading.uploadedContacts}
