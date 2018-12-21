@@ -77,7 +77,13 @@
 }
 .multiline{
   white-space: pre-line;
+  @media (--lg-down) {
+    font-size: var(--margin-xs);
+  }
 }
 .restrictedBtn{
-  max-width: 200px;
+  max-width: 230px;
+  @media (--lg-down) {
+    max-width: 200px;
+  }
 }
