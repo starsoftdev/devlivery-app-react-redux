@@ -41,4 +41,8 @@ export default defineMessages({
     id: 'voucher.description',
     defaultMessage: 'Description on how voucher works. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s,  electronic typesetting, remaining essentially unchanged remaining.',
   },
+  savemoreproducts: {
+    id: 'purchase8.savemoreproducts',
+    defaultMessage: 'SAVE AND BUY MORE PRODUCTS',
+  }
 })
