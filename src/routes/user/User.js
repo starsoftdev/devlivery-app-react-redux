@@ -220,7 +220,7 @@ class User extends React.Component {
     const address = user && user.addresses && user.addresses.find(item => item.default !== null)
 
     const reminderTimes = [
-      { value: 0, label: 'Same Day', label_de: 'Same Day' },
+      { value: 0, label: 'Same Day', label_de: 'Gleicher Tag' },
       { value: 1, label: 'Day Before', label_de: '1 Tag vorher' },
       { value: 2, label: '2 Days Before', label_de: '2 Tage vorher' },
       { value: 3, label: '3 Days Before', label_de: '3 Tage vorher' },
