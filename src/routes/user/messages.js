@@ -129,6 +129,10 @@ export default defineMessages({
     id: 'purchase13.cvc',
     defaultMessage: 'CVC',
   },
+  cardname: {
+    id: 'purchase13.cardname',
+    defaultMessage: 'YOUR NAME HERE',
+  },
   dateplaceholder:{
     id: 'contactForm.dateplaceholder',
     defaultMessage: 'DD-MM-YYYY',

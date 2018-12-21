@@ -332,6 +332,7 @@ class User extends React.Component {
                       cvc={cvc}
                       focused={focused}
                       callback={this.handleCallback}
+                      placeholders={{ name: intl.formatMessage(messages.cardname) }}
                     />
                     <br />
                   </Col>

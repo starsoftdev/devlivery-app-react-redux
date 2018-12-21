@@ -4774,5 +4774,14 @@
     "files": [
       "src/routes/orders/messages.js"
     ]
+  },
+  {
+    "id": "purchase13.cardname",
+    "defaultMessage": "YOUR NAME HERE",
+    "message": "DEINEN NAMEN HIER",
+    "files": [
+      "src/routes/purchase13/messages.js",
+      "src/routes/user/messages.js"
+    ]
   }
 ]
