@@ -16,5 +16,9 @@ export default defineMessages({
   requireadres: {
     id: 'addContact.requireadres',
     defaultMessage: 'Home address or Company address is required.',
-  }
+  },
+  companyname: {
+    id: 'address.companyname',
+    defaultMessage: 'Company Name',
+  },
 })
