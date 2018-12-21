@@ -4456,5 +4456,13 @@
     "files": [
       "src/routes/voucher/messages.js"
     ]
+  },
+  {
+    "id": "purchase11.partialBirthError",
+    "defaultMessage": "Some of the recipients has no birthdate set.",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
   }
 ]

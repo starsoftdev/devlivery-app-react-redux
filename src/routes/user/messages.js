@@ -63,7 +63,7 @@ export default defineMessages({
   },
   msg_older18:{
     id: 'user.msg_older18',
-    defaultMessage: 'please select date older than 18 years.',
+    defaultMessage: 'To be able to create an account you must be minimum 18 years old',
   },
   birthday: {
     id: 'contactForm.birthday',
