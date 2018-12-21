@@ -125,7 +125,7 @@ class Donation extends React.Component {
               )}
             </Row>
           ) : !loading.donationOrgs ? (
-            <div style={{ textAlign: 'center' }}>{'No organizations.'}</div>
+            <div style={{ textAlign: 'center' }}>{intl.formatMessage(messages.noorganization)}</div>
           ) : null}
           <div className={s.footer}>
             <Pagination

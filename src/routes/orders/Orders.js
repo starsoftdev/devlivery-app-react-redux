@@ -199,7 +199,7 @@ class Orders extends React.Component {
               </Spin>
             }
           </section>
-          {calendarEventsModalOpened && <CalendarEvents />}
+          {calendarEventsModalOpened && <CalendarEvents intl={intl}/>}
           {orderDetailsModalOpened && <OrderDetails intl={intl} recipient_id={this.props.recipient_id} />}
         </div>
       </div>

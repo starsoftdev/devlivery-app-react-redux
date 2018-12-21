@@ -44,7 +44,7 @@ class Purchase9 extends React.Component {
           this.props.form.setFields({
             birthday: {
               value: values.birthday,
-              errors: [new Error('Invalid Date Format.')],
+              errors: [new Error(this.props.intl.formatMessage(formMessages.invalidDate))],
             },
           });
       }

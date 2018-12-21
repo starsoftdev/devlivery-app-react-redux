@@ -16,5 +16,13 @@ export default defineMessages({
     editlogo: {
         id: 'dashboard.editlogo',
         defaultMessage: 'Edit Logo',
+    },
+    uploadlogo: {
+        id: 'dashboard.uploadlogo',
+        defaultMessage: 'Upload logo',
+    },
+    msg_filesize: {
+        id: 'dashboard.msg_filesize',
+        defaultMessage: 'The image may not be greater than 2048 kilobytes.',
     }
 })

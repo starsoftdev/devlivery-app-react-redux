@@ -4440,5 +4440,61 @@
     "files": [
       "src/routes/user/messages.js"
     ]
+  },
+  {
+    "id": "dashboard.msg_filesize",
+    "defaultMessage": "The image may not be greater than 2048 kilobytes.",
+    "message": "",
+    "files": [
+      "src/components/Avatar/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.uploadlogo",
+    "defaultMessage": "Upload logo",
+    "message": "",
+    "files": [
+      "src/components/Avatar/messages.js"
+    ]
+  },
+  {
+    "id": "form.invalidDate",
+    "defaultMessage": "Invalid Date Format.",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
+    ]
+  },
+  {
+    "id": "form.pastdate",
+    "defaultMessage": "please enter a date in the past.",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
+    ]
+  },
+  {
+    "id": "contactUs.msg_filetype",
+    "defaultMessage": "This file must be a file of type: pdf, jpeg, jpg, png.",
+    "message": "",
+    "files": [
+      "src/routes/contactUs/messages.js"
+    ]
+  },
+  {
+    "id": "donation.noorganization",
+    "defaultMessage": "No organizations.",
+    "message": "",
+    "files": [
+      "src/routes/donation/messages.js"
+    ]
+  },
+  {
+    "id": "orders.events_on",
+    "defaultMessage": "Events on",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
   }
 ]

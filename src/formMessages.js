@@ -36,5 +36,13 @@ export default defineMessages({
   amount_bigger:{
     id: 'form.amount_bigger',
     defaultMessage: 'Sorry, but donation needs to be bigger than 0',
+  },
+  pastdate:{
+    id: 'form.pastdate',
+    defaultMessage: 'please enter a date in the past.',
+  },
+  invalidDate:{
+    id: 'form.invalidDate',
+    defaultMessage: 'Invalid Date Format.',
   }
 })
