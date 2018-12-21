@@ -140,7 +140,7 @@ export default defineMessages({
   },
   requireRecurring: {
     id: 'contactForm.requireRecurring',
-    defaultMessage: 'Should have value for Reminder Date!',
+    defaultMessage: 'Required Frequency Field!',
   },
   requireNotOnce: {
     id: 'contactForm.requireNotOnce',
