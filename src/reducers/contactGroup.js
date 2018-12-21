@@ -4,6 +4,9 @@ import {getToken} from './user'
 import {message} from 'antd'
 import has from 'lodash/has'
 import {showErrorMessage} from '../utils'
+import {getIntl} from './intl';
+import formMessages from '../formMessages'
+
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -62,13 +65,14 @@ export const getGroupContacts = (params = {}) => (dispatch, getState, {fetch}) =
 }
 
 export const addContactGroup = (values) => (dispatch, getState, {fetch, history}) => {
+  const {intl} = dispatch(getIntl());
   dispatch({type: ADD_CONTACT_GROUP_REQUEST})
   const {token} = dispatch(getToken())
   const {user} = getState().user
   const {groupContacts} = getState().contactGroup
   if(groupContacts <= 0)
   {
-    message.warn("You have to select at least one contact.");
+    message.warn(intl.formatMessage(formMessages.msg_atleast));
     return;
   }
   return fetch(`/contact-groups`, {
@@ -91,12 +95,14 @@ export const addContactGroup = (values) => (dispatch, getState, {fetch, history}
 }
 
 export const editContactGroup = (values) => (dispatch, getState, {fetch, history}) => {
+  const {intl} = dispatch(getIntl());
+
   dispatch({type: EDIT_CONTACT_GROUP_REQUEST})
   const {token} = dispatch(getToken())
   const {groupId, groupContacts} = getState().contactGroup
   if(groupContacts <= 0)
   {
-    message.warn("You have to select at least one contact.");
+    message.warn(intl.formatMessage(formMessages.msg_atleast));
     return;
   }
   return fetch(`/contact-groups/${groupId}`, {

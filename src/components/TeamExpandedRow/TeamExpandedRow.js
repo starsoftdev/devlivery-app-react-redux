@@ -131,7 +131,7 @@ class TeamExpandedRow extends React.Component {
                   }}
                   type='primary'
                 >
-                  {record.budget && record.budget.budget > 0 ? 'Save' : 'Save new budget'}
+                  {record.budget && record.budget.budget > 0 ? intl.formatMessage(messages.save) : intl.formatMessage(messages.save_newbudget)}
                 </Button>
               </div>
             </React.Fragment>}

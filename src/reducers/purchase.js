@@ -29,6 +29,8 @@ import uniq from 'lodash/uniq'
 import moment from 'moment'
 import localStorage from 'localStorage';
 import {INDIVIDUAL_ACCOUNT} from './register';
+import {getIntl} from './intl';
+import formMessages from '../formMessages'
 
 // ------------------------------------
 // Constants
@@ -888,6 +890,7 @@ export const restoreCouponFromLocal = (order) => (dispatch, getState, { fetch })
   }
 }
 export const applycouponTotal = (coupon, hide_msg) => (dispatch, getState, { fetch }) => {
+  const {intl} = dispatch(getIntl());
   const { token } = dispatch(getToken())
   const { orderId } = getState().purchase
   if (orderId) {
@@ -905,7 +908,7 @@ export const applycouponTotal = (coupon, hide_msg) => (dispatch, getState, { fet
         {
           if(res.data && res.data.coupon && res.data.coupon.coupon)
             localStorage.setItem(CouponStatus,res.data.coupon.coupon);
-          message.success('Successfully applied coupon');
+          message.success(intl.formatMessage(formMessages.success_coupon));
         }
         dispatch(getOrderDetails(orderId));
         dispatch({ type: GET_SHIPPINGTOTAL_SUCCESS, shipping_cost: res.data })
@@ -1124,10 +1127,11 @@ export const orderConfirmWithoutPrice = (callback) => (dispatch, getState, { fet
   })
 }
 export const executePaypalPayment = ({ paymentId, paypalToken, payerId }) => async (dispatch, getState, { fetch, history }) => {
+  const {intl} = dispatch(getIntl());
   const { token } = dispatch(getToken())
   const transactionId = await localStorage.getItem(TRANSACTION_ID_KEY)
   if (!transactionId) {
-    message.error("transaction id doesn't exist");
+    message.error(intl.formatMessage(formMessages.error_transactionid));
     dispatch(returnToPaymentMethod(true))
     dispatch({ type: CANCEL_PAYPAL_PAYMENT_SUCCESS })
     return

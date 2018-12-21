@@ -5,6 +5,9 @@ import {DEFAULT_PAGE_SIZE} from '../constants'
 import has from 'lodash/has'
 import {message} from 'antd'
 import { getFormErrors, showErrorMessage } from '../utils'
+import {getIntl} from './intl';
+import formMessages from '../formMessages'
+
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -44,13 +47,14 @@ export const getBundles = (params = {}) => (dispatch, getState, {fetch}) => {
 }
 
 export const removeBundle = (bundle) => (dispatch, getState, {fetch}) => {
+  const {intl} = dispatch(getIntl());
   dispatch({type: REMOVE_BUNDLE_REQUEST})
   const {token} = dispatch(getToken())
   return fetch(`/bundles/${bundle.id}`, {
     method: 'DELETE',
     token,
     success: (res) => {
-      message.success("Bundle is successfully removed.");
+      message.success(intl.formatMessage(formMessages.removed_bundle));
       dispatch({type: REMOVE_BUNDLE_SUCCESS})
       dispatch(getBundles())
     },

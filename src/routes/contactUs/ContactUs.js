@@ -6,7 +6,6 @@ import s from './ContactUs.css'
 import { Form, Row, Col, Input, Button, message } from 'antd'
 import PlusIcon from '../../static/plus.svg'
 import messages from './messages'
-import { sendEnquiries } from '../../reducers/contactUs'
 import { FloatingLabel } from '../../components';
 import contactusImage from '../../static/POSE_7.png'
 import formMessages from '../../formMessages'
@@ -42,6 +41,7 @@ class ContactUs extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     var self = this;
+    const {intl} = this.props;
     this.props.form.validateFields((err, values) => {
       if (!err) {
         self.setState({errors:[]});
@@ -71,7 +71,7 @@ class ContactUs extends React.Component {
         .then(function (response) {
           if(response.data && response.data.success)
           {
-            message.success("Successfully sent message.");
+            message.success(intl.formatMessage(messages.sent_msg));
             self.setState({ attachments: [] });
             self.props.form.setFieldsValue({
               name: '',
@@ -277,7 +277,6 @@ const mapState = state => ({
 })
 
 const mapDispatch = {
-  sendEnquiries,
   clear,
 }
 
