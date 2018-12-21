@@ -4476,5 +4476,13 @@
       "src/routes/purchase8/messages.js",
       "src/routes/voucher/messages.js"
     ]
+  },
+  {
+    "id": "reports.orderat",
+    "defaultMessage": "OrderedAt",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
   }
 ]
