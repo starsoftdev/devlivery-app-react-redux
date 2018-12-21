@@ -343,10 +343,10 @@ export const getOccasions = ({search} = {}) => (dispatch, getState, {fetch}) => 
     token,
     success: (res) => {
       const occasions = res.data.filter(item =>{
-        const title = item.title.toUpperCase();
+        const title = item.title;//.toUpperCase();
         return title !== 'PERSONAL DESIGN' &&
         title !== 'SEASONAL' &&
-        title !== 'PERSONAL DESIGN' &&
+        title !== 'Persönliches Design' &&
         title !== 'SAISONAL' ;
       }).sort((a,b)=>{return a.id-b.id});
       
