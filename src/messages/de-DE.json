@@ -4472,7 +4472,7 @@
   {
     "id": "purchase8.savemoreproducts",
     "defaultMessage": "SAVE AND BUY MORE PRODUCTS",
-    "message": "SAVE AND BUY MORE PRODUCTS",
+    "message": "Sparen Sie und kaufen Sie weitere Produkte",
     "files": [
       "src/routes/donation/messages.js",
       "src/routes/purchase8/messages.js",
