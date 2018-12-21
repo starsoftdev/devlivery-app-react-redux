@@ -4602,5 +4602,13 @@
     "files": [
       "src/routes/contacts/messages.js"
     ]
+  },
+  {
+    "id": "uploadedContacts.btnOk",
+    "defaultMessage": "Ok",
+    "message": "",
+    "files": [
+      "src/components/UploadedContacts/messages.js"
+    ]
   }
 ]

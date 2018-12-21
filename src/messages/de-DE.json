@@ -4742,5 +4742,13 @@
     "files": [
       "src/routes/contacts/messages.js"
     ]
+  },
+  {
+    "id": "uploadedContacts.btnOk",
+    "defaultMessage": "Ok",
+    "message": "JA",
+    "files": [
+      "src/components/UploadedContacts/messages.js"
+    ]
   }
 ]
