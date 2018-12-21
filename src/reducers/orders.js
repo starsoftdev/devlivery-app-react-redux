@@ -101,7 +101,7 @@ export const openOrderDetailsModal = (order) => (dispatch, getState) => {
 
 export const closeOrderDetailsModal = () => (dispatch, getState, {fetch,history}) => {
   dispatch({type: CLOSE_ORDER_DETAILS_MODAL})
-  history.push('/dashboard/orders');
+  //history.push('/dashboard/orders');
 }
 
 export const getOrderDetails = (order) => (dispatch, getState, {fetch}) => {
