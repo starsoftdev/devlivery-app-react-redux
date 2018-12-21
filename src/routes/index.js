@@ -587,6 +587,10 @@ const routes = {
         }
         else return await {redirect: `/login`}
     }
+    if(context.pathname.includes('/.well-known/acme-challenge/'))
+    {
+      return await {redirect: context.pathname}
+    }
     // Execute each child route until one of them return the result
     const route = await context.next()
 
