@@ -85,4 +85,8 @@ export default defineMessages({
     id: 'reports.dateend',
     defaultMessage: 'End date',
   },
+  orderat: {
+    id: 'reports.orderat',
+    defaultMessage: 'OrderedAt',
+  }
 })
