@@ -4538,7 +4538,7 @@
   {
     "id": "reports.noscheduled",
     "defaultMessage": "No Scheduled",
-    "message": "No Scheduled",
+    "message": "Kein Zeitplan",
     "files": [
       "src/routes/reports/messages.js"
     ]
