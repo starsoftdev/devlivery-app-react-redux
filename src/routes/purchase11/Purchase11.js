@@ -323,6 +323,7 @@ class Purchase11 extends React.Component {
     const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
 
     const html = this.tinymce && this.tinymce.editor && this.tinymce.editor.getContent();
+    const partial_birth_warning = order && order.partial_birthday_warning;
     
     let self = this;
     return order ? (
@@ -499,6 +500,10 @@ class Purchase11 extends React.Component {
                 </Row>
               }
               {
+                partial_birth_warning && 
+                <div className={s.warnText}>{'One of the recipients don\'t have a birthday.'}</div>
+              }
+              {
                 this.state.recip_warnmsg && this.state.recip_warnmsg !== '' &&
                 <div className={s.warnText}>{this.state.recip_warnmsg}</div>
               }
@@ -585,7 +590,7 @@ class Purchase11 extends React.Component {
                 }
                 <Col xs={24} sm={8}>
                   {
-                    !(selOccasion && selOccasion.length > 0) &&
+                    (!(selOccasion && selOccasion.length > 0) || partial_birth_warning ) &&
                     <div>
                       <Form.Item>
                         {getFieldDecorator('schedule_date', {
@@ -596,7 +601,7 @@ class Purchase11 extends React.Component {
                             className={s.select}
                             placeholder={intl.formatMessage(messages.deliveryTime)}
                             format={DISPLAYED_DATE_FORMAT}
-                            disabled={selOccasion && selOccasion.length > 0 ? true : false}
+                            //disabled={selOccasion && selOccasion.length > 0 ? true : false}
                             disabledDate={current => {
                               var date = new Date();
                               switch (date.getDay()) {
