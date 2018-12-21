@@ -4514,7 +4514,7 @@
   {
     "id": "orders.shipping_details",
     "defaultMessage": "Shipping details",
-    "message": "Shipping details",
+    "message": "Versanddetails",
     "files": [
       "src/routes/orders/messages.js"
     ]
