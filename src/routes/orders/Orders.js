@@ -124,7 +124,7 @@ class Orders extends React.Component {
           />
         </div>
         <Table
-          locale={{ emptyText: 'No Order' }}
+          locale={{ emptyText: intl.formatMessage(messages.noorder) }}
           loading={loading.orders}
           className={s.orders}
           columns={columns}
