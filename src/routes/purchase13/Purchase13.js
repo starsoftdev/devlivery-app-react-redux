@@ -250,6 +250,7 @@ class Purchase13 extends React.Component {
                   cvc={cvc}
                   focused={focused}
                   callback={this.handleCallback}
+                  placeholders={{ name: intl.formatMessage(messages.cardname) }}
                 />
               </Col>
               <Col xs={24} sm={12}>

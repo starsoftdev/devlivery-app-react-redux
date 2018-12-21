@@ -21,6 +21,10 @@ export default defineMessages({
     id: 'purchase13.name',
     defaultMessage: 'Full Name',
   },
+  cardname: {
+    id: 'purchase13.cardname',
+    defaultMessage: 'YOUR NAME HERE',
+  },
   expiry: {
     id: 'purchase13.expiry',
     defaultMessage: 'Expiry',
