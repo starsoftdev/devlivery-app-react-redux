@@ -235,8 +235,8 @@
   },
   {
     "id": "contactForm.requireRecurring",
-    "defaultMessage": "Should have value for Reminder Date!",
-    "message": "Muss einen gültigen Wert im Feld Erinnerung haben.",
+    "defaultMessage": "Required Frequency Field!",
+    "message": "Häufigkeit ist ein Pflichtfeld!",
     "files": [
       "src/components/ContactForm/messages.js"
     ]

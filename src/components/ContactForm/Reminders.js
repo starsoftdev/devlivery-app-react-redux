@@ -154,8 +154,9 @@ class Reminders extends React.Component {
       recurring === null)
     {
       var errMessage = (occasion_id === null || occasion_id === undefined) ? this.props.intl.formatMessage(messages.requirOccasion) :
-                       (reminder_date === null || reminder_date === undefined) ? this.props.intl.formatMessage(messages.requirOccasion) :
-                       (recurring === null || recurring === undefined) ? this.props.intl.formatMessage(messages.requireRecurring) : this.props.intl.formatMessage(messages.requireNotOnce);
+                       (recurring === null || recurring === undefined) ? this.props.intl.formatMessage(messages.requireRecurring) : 
+                       (reminder_date === null || reminder_date === undefined) ? this.props.intl.formatMessage(messages.requirReminder) :
+                       this.props.intl.formatMessage(messages.requireNotOnce);
       this.setState({InvalidIndex:k, errorMessage:errMessage});
       return false;
     }
