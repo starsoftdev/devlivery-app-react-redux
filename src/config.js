@@ -14,10 +14,10 @@ module.exports = {
   ],
 
   // Node.js app
-  port: process.env.PORT || 80,
+  port: process.env.PORT || 8080,
 
   api: {
-    url: process.env.API_URL || 'http://139.59.175.153:8081/api/v1',//'http://byzumi-dev.colorelephant.com:8081/api/v1'
+    url: process.env.API_URL || 'https://byzumi.com:8081/api/v1',//'http://byzumi-dev.colorelephant.com:8081/api/v1'
   },
 
   stripe: {
