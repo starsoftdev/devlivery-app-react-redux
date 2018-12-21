@@ -220,8 +220,9 @@ class Voucher extends React.Component {
           <Button
             type='primary'
             onClick={(e) => this.handleSubmit(e, true)}
+            className={s.restrictedBtn}
           >
-            {intl.formatMessage(messages.savemoreproducts)}
+            <span className={s.multiline}>{intl.formatMessage(messages.savemoreproducts)}</span>
           </Button>
           <KeyHandler
             keyEventName={KEYPRESS}
@@ -231,8 +232,9 @@ class Voucher extends React.Component {
           <Button
             type='primary'
             onClick={(e) => this.handleSubmit(e)}
+            className={s.restrictedBtn}
           >
-            {intl.formatMessage(messages.submit)}
+            <span className={s.multiline}>{intl.formatMessage(messages.submit)}</span>
           </Button>
         </PurchaseActions>
       </Form>

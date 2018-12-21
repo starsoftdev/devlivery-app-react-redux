@@ -116,3 +116,9 @@
   text-align: center;
   padding-top: 20px;
 }
+.multiline{
+  white-space: pre-line;
+}
+.restrictedBtn{
+  max-width: 200px;
+}

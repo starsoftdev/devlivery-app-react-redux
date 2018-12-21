@@ -163,8 +163,9 @@ class Donation extends React.Component {
             type='primary'
             disabled={!donationOrg}
             onClick={(e) => this.handleSubmit(e, true)}
+            className={s.restrictedBtn}
           >
-            {intl.formatMessage(messages.savemoreproducts)}
+            <span className={s.multiline}>{intl.formatMessage(messages.savemoreproducts)}</span>
           </Button>
           <KeyHandler
             keyEventName={KEYPRESS}
@@ -175,8 +176,9 @@ class Donation extends React.Component {
             type='primary'
             disabled={!donationOrg}
             onClick={(e) => this.handleSubmit(e)}
+            className={s.restrictedBtn}
           >
-            {intl.formatMessage(messages.submit)}
+            <span className={s.multiline}>{intl.formatMessage(messages.submit)}</span>
           </Button>
         </PurchaseActions>
       </React.Fragment>

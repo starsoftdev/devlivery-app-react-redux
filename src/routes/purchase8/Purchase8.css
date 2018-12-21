@@ -113,3 +113,9 @@
     padding-bottom: 67%;  
   }
 }
+.multiline{
+  white-space: pre-line;
+}
+.restrictedBtn{
+  max-width: 200px;
+}
