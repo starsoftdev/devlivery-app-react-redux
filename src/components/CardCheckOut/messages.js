@@ -9,4 +9,8 @@ export default defineMessages({
         id: 'contactGroups.acceptRemoving',
         defaultMessage: 'Yes',
     },
+    nocard: {
+        id: 'contactGroups.nocard',
+        defaultMessage: 'No Card',
+    }
 })

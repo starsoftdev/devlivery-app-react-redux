@@ -4618,5 +4618,13 @@
     "files": [
       "src/routes/orders/messages.js"
     ]
+  },
+  {
+    "id": "contactGroups.nocard",
+    "defaultMessage": "No Card",
+    "message": "",
+    "files": [
+      "src/components/CardCheckOut/messages.js"
+    ]
   }
 ]

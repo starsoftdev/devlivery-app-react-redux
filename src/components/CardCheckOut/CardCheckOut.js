@@ -112,7 +112,7 @@ class CardCheckOut extends React.Component {
       <div className={s.container}>
         <Table
           loading = {loading}
-          locale={{ emptyText: 'No Card' }}
+          locale={{ emptyText: intl.formatMessage(messages.nocard) }}
           showHeader = {false}
           columns={columns}
           dataSource={cards.sort((a,b)=>{
