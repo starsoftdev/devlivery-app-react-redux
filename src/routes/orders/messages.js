@@ -144,5 +144,9 @@ export default defineMessages({
   noorder: {
     id: 'orders.noorder',
     defaultMessage: 'No Order',
+  },
+  btn_pay: {
+    id: 'orders.btn_pay',
+    defaultMessage: 'Pay',
   }
 })
