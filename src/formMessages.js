@@ -25,4 +25,16 @@ export default defineMessages({
     id: 'form.passwordNotMatch',
     defaultMessage: 'Password does not match the confirm password.',
   },
+  donation_amount: {
+    id: 'form.donation_amount',
+    defaultMessage: 'Sorry, you must select a donation amount.',
+  },
+  positive:{
+    id: 'form.positive',
+    defaultMessage: 'This field must be positive.',
+  },
+  amount_bigger:{
+    id: 'form.amount_bigger',
+    defaultMessage: 'Sorry, but donation needs to be bigger than 0',
+  }
 })

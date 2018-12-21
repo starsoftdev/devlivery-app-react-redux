@@ -95,7 +95,7 @@ class FontFamilyPicker extends React.Component {
     return (
       <Select
         style={{ width: '100%', marginBottom: 20, fontFamily: this.state.fontFamily, top: -70 }}
-        placeholder={'Font Family'}
+        placeholder={this.props.intl.formatMessage(messages.fontFamily)}
         onSelect={this.toggleFontFamily}
         value={this.state.fontFamily}
       >
@@ -346,7 +346,7 @@ class Purchase6 extends React.Component {
             <div className={isLargeCard===true ? s.editorActions_land : s.editorActions}>
               <div className={s.toolpanel}>
                 <Template templates={templates} execCommand={this.insertConent} intl={intl} />
-                <ConnectedFontFamilyPicker execCommand={this.execTinyCommand} />
+                <ConnectedFontFamilyPicker execCommand={this.execTinyCommand} intl={intl}/>
                 <FontWeightPicker execCommand={this.execTinyCommand} intl={intl} />
                 <FontSizePicker execCommand={this.execTinyCommand} />
                 <TextAlignmentPicker execCommand={this.execTinyCommand} intl={intl} />

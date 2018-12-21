@@ -133,4 +133,8 @@ export default defineMessages({
     id: 'reports.contactsColumn',
     defaultMessage: 'Contacts',
   },
+  shipping_details: {
+    id: 'orders.shipping_details',
+    defaultMessage: 'Shipping details',
+  },
 })

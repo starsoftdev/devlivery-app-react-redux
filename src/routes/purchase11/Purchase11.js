@@ -256,7 +256,7 @@ class Purchase11 extends React.Component {
 
     const { order, user } = this.props;
     if (order === null || order.recipients_count === null || order.recipients_count <= 0) {
-      message.warn('This order have no any recipient.');
+      message.warn(this.props.intl.formatMessage(messages.msg_norecipient));
       return;
     }
     const owner = user.account_type == null || user.account_type == INDIVIDUAL_ACCOUNT || user.is_team_owner == true;

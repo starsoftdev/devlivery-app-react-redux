@@ -91,7 +91,7 @@ class Purchase10 extends React.Component {
         }
       }
       else {
-        message.error("Please upload contact file.");
+        message.error(this.props.intl.formatMessage(messages.msg_uploadcontact));
       }
       return;
     }

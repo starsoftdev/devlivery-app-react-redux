@@ -4344,5 +4344,101 @@
     "files": [
       "src/routes/reports/messages.js"
     ]
+  },
+  {
+    "id": "form.amount_bigger",
+    "defaultMessage": "Sorry, but donation needs to be bigger than 0",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
+    ]
+  },
+  {
+    "id": "form.donation_amount",
+    "defaultMessage": "Sorry, you must select a donation amount.",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
+    ]
+  },
+  {
+    "id": "form.positive",
+    "defaultMessage": "This field must be positive.",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
+    ]
+  },
+  {
+    "id": "orders.shipping_details",
+    "defaultMessage": "Shipping details",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "purchase10.msg_uploadcontact",
+    "defaultMessage": "Please upload contact file.",
+    "message": "",
+    "files": [
+      "src/routes/purchase10/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.msg_norecipient",
+    "defaultMessage": "This order have no any recipient.",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "reports.noscheduled",
+    "defaultMessage": "No Scheduled",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "user.msg_expiredate",
+    "defaultMessage": "Invalid expire date",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.msg_inputname",
+    "defaultMessage": "please input name.",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.msg_invalidCVC",
+    "defaultMessage": "Invalid CVC number",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.msg_invalidcard",
+    "defaultMessage": "Invalid Card",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.msg_invalidcardnumber",
+    "defaultMessage": "Invalid credit card number",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
   }
 ]

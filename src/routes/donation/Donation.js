@@ -27,8 +27,8 @@ class Donation extends React.Component {
       if (this.state.donationOrg) {
         if (!err) {
           let errmsg = null;
-          if (values['donationAmount'] < 0) { errmsg = 'This field must be positive.'; }
-          if (values['donationAmount'] == 0) { errmsg = 'Sorry, but donation needs to be bigger than 0'; }
+          if (values['donationAmount'] < 0) { errmsg = intl.formatMessage(formMessages.positive); }
+          if (values['donationAmount'] == 0) { errmsg = intl.formatMessage(formMessages.amount_bigger); }
           if (errmsg) {
             this.props.form.setFields({
               donationAmount: {
@@ -142,7 +142,7 @@ class Donation extends React.Component {
               {getFieldDecorator('donationAmount', {
                 initialValue: donationAmount,
                 rules: [
-                  { required: true, message: 'Sorry, you must select a donation amount.' },
+                  { required: true, message: intl.formatMessage(formMessages.donation_amount) },
                 ],
               })(
                 <Input type='number' placeholder={intl.formatMessage(messages.amount)} />

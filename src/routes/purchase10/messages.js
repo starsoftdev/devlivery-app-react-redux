@@ -29,6 +29,10 @@ export default defineMessages({
     id: 'purchase10.selectGroups',
     defaultMessage: 'Select Groups',
   },
+  msg_uploadcontact: {
+    id: 'purchase10.msg_uploadcontact',
+    defaultMessage: 'Please upload contact file.',
+  },
   requireadres: {
     id: 'addContact.requireadres',
     defaultMessage: 'Home address or Company address is required.',
