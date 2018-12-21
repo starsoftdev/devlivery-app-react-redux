@@ -44,5 +44,33 @@ export default defineMessages({
   invalidDate:{
     id: 'form.invalidDate',
     defaultMessage: 'Invalid Date Format.',
-  }
+  },
+  success_subscribed:{
+    id: 'form.success_subscribed',
+    defaultMessage: 'successfully subscribed',
+  },
+  failed_subscribed:{
+    id: 'form.failed_subscribed',
+    defaultMessage: 'failed your subscribe',
+  },
+  success_coupon:{
+    id: 'form.success_coupon',
+    defaultMessage: 'Successfully applied coupon',
+  },
+  error_transactionid:{
+    id: 'form.error_transactionid',
+    defaultMessage: 'transaction id doesn\'t exist',
+  },
+  removed_bundle:{
+    id: 'form.removed_bundle',
+    defaultMessage: 'Bundle is successfully removed.',
+  },
+  msg_atleast: {
+    id: 'importContacts.msg_atleast',
+    defaultMessage: 'You have to select at least one contact.',
+  },
+  updated_contact: {
+    id: 'form.updated_contact',
+    defaultMessage: 'Contact was successfully updated',
+  },
 })

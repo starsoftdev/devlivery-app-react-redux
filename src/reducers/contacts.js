@@ -12,6 +12,7 @@ import { navigateToNextRouteName } from './global';
 import { SET_NEW_RECIPIENT } from './purchase';
 import moment from 'moment'
 import formMessages from '../formMessages'
+import {getIntl} from './intl';
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -243,6 +244,7 @@ export const setChangingStatusAddForm = (changedAddForm) => (dispatch, getState,
   dispatch({type:SET_ADD_EDITFORM,changedAddForm});
 }
 export const editContact = (values, form, redrict,callback) => (dispatch, getState, {fetch, history}) => {
+  const {intl} = dispatch(getIntl());
   dispatch({type: EDIT_CONTACT_REQUEST})
   const {token} = dispatch(getToken())
   const {contact} = getState().contacts
@@ -268,7 +270,7 @@ export const editContact = (values, form, redrict,callback) => (dispatch, getSta
       
       if(callback == null && getState().contacts.changedForm === true)
       {
-        message.success('Contact was successfully updated',redrict)
+        message.success(intl.formatMessage(formMessages.updated_contact),redrict)
       }
 
       const changedForm = false;
