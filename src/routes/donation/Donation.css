@@ -75,3 +75,9 @@
   float: right;
   margin-top: 10px;
 }
+.multiline{
+  white-space: pre-line;
+}
+.restrictedBtn{
+  max-width: 200px;
+}

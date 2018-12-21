@@ -101,8 +101,9 @@ class Purchase8 extends React.Component {
               buyMoreGift();
               submitGift(-2)
             }}
+            className={s.restrictedBtn}
           >
-            {intl.formatMessage(messages.savemoreproducts)}
+            <span className={s.multiline}>{intl.formatMessage(messages.savemoreproducts)}</span>
           </Button>
           <KeyHandler
             keyEventName={KEYPRESS}
@@ -121,8 +122,9 @@ class Purchase8 extends React.Component {
               this.setState({ disableSubmit: true });
               submitGift()
             }}
+            className={s.restrictedBtn}
           >
-            {intl.formatMessage(messages.submit)}
+            <span className={s.multiline}>{intl.formatMessage(messages.submit)}</span>
           </Button>
         </PurchaseActions>
         {
