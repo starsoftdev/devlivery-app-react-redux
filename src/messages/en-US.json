@@ -4586,5 +4586,21 @@
     "files": [
       "src/components/Header/messages.js"
     ]
+  },
+  {
+    "id": "contacts.title_edit",
+    "defaultMessage": "Edit",
+    "message": "",
+    "files": [
+      "src/routes/contacts/messages.js"
+    ]
+  },
+  {
+    "id": "contacts.title_remove",
+    "defaultMessage": "Remove",
+    "message": "",
+    "files": [
+      "src/routes/contacts/messages.js"
+    ]
   }
 ]
