@@ -186,7 +186,7 @@
   {
     "id": "contactForm.saveReminder",
     "defaultMessage": "Save reminder",
-    "message": "Save reminder",
+    "message": "Erinnerung speichern",
     "files": [
       "src/components/ContactForm/messages.js"
     ]
