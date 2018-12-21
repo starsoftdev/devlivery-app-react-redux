@@ -4562,5 +4562,29 @@
     "files": [
       "src/routes/contactUs/messages.js"
     ]
+  },
+  {
+    "id": "header.btn_knowmore",
+    "defaultMessage": "Know More",
+    "message": "",
+    "files": [
+      "src/components/Header/messages.js"
+    ]
+  },
+  {
+    "id": "header.btn_understand",
+    "defaultMessage": "I understand",
+    "message": "",
+    "files": [
+      "src/components/Header/messages.js"
+    ]
+  },
+  {
+    "id": "header.msg_cookie",
+    "defaultMessage": "We use cookies to optimize your site experience. By interacting with our site, you agree to our use of cookies.",
+    "message": "",
+    "files": [
+      "src/components/Header/messages.js"
+    ]
   }
 ]

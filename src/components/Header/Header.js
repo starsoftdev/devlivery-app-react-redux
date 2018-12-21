@@ -53,6 +53,7 @@ class Header extends React.Component {
             cookieValue={true}
             onAccept={() => {this.setState({_cookieconsent: true})}}
             buttonStyle={{background: "#3f8084", color:"white", fontWeight: "bolder", fontSize:'15px', alignSelf:'center'}}
+            buttonText={intl.formatMessage(messages.btn_understand)}
             style={{
                 alignItems: "baseline",
                 background: "#404D5F",
@@ -65,9 +66,9 @@ class Header extends React.Component {
                 width: "100%",
                 zIndex: "999"
             }}>
-            We use cookies to optimize your site experience. By interacting with our site, you agree to our use of cookies.
+            {intl.formatMessage(messages.msg_cookie)}
             <Link to={PRIVACY_ROUTE}>
-              <div type='primary' className={s.morebtn}>{'Know More'}</div>
+              <div type='primary' className={s.morebtn}>{intl.formatMessage(messages.btn_knowmore)}</div>
             </Link>
           </CookieConsent>
         }
