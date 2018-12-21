@@ -253,7 +253,7 @@ class ContactUs extends React.Component {
                         </div>
                         {
                           attach && attach.name && this.state.errors.includes(attach.name) &&
-                          <div className={s.errormsg}>This file must be a file of type: pdf, jpeg, jpg, png.</div>
+                          <div className={s.errormsg}>{intl.formatMessage(messages.msg_filetype)}</div>
                         }
                       </li>)
                     }

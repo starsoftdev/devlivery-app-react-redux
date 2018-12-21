@@ -137,4 +137,8 @@ export default defineMessages({
     id: 'orders.shipping_details',
     defaultMessage: 'Shipping details',
   },
+  events_on: {
+    id: 'orders.events_on',
+    defaultMessage: 'Events on',
+  },
 })

@@ -90,12 +90,12 @@ class ContactForm extends React.Component {
       if (birthday < expected)
         dobValidation = true;
       else {
-        errors = [new Error('please enter a date in the past.')];
+        errors = [new Error(this.props.intl.formatMessage(formMessages.pastdate))];
       }
     }
     else {
       if (dob && dob.length > 0)
-        errors = [new Error('Invalid Date Format.')];
+        errors = [new Error(this.props.intl.formatMessage(formMessages.invalidDate))];
     }
     this.props.form.setFields({
       dob: {

@@ -7,15 +7,16 @@ import {closeCalendarEventsModal} from '../../reducers/orders'
 import moment from 'moment'
 import {CalendarEvent} from '../'
 import {getEvent} from '../../utils'
+import messages from '../../routes/orders/messages'
 
 class CalendarEvents extends React.Component {
   render() {
-    const {closeCalendarEventsModal, events, selectedDate} = this.props
+    const {closeCalendarEventsModal, events, selectedDate,intl} = this.props
     const dayEvents = events.filter(event => getEvent(event, moment(selectedDate)))
     return (
       <Modal
         visible
-        title={`Events on ${moment(selectedDate).format('DD MMM YYYY')}`}
+        title={`${intl.formatMessage(messages.events_on)} ${moment(selectedDate).format('DD MMM YYYY')}`}
         onOk={closeCalendarEventsModal}
         onCancel={closeCalendarEventsModal}
         width={500}

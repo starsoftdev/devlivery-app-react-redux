@@ -248,7 +248,7 @@ class Contacts extends React.Component {
           </Spin>
         ) : (
             <Table
-              locale={{ emptyText: 'No Contact' }}
+              locale={{ emptyText: intl.formatMessage(messages.nocontact) }}
               loading={loading.contacts}
               columns={columns}
               dataSource={contacts}

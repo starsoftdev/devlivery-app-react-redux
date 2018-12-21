@@ -21,6 +21,10 @@ export default defineMessages({
     id: 'donation.hideamount',
     defaultMessage: 'Hide amount',
   },
+  noorganization: {
+    id: 'donation.noorganization',
+    defaultMessage: 'No organizations.',
+  },
   description: {
     id: 'donation.description',
     defaultMessage: 'Description on how donation works. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s,  electronic typesetting, remaining essentially unchanged remaining.',

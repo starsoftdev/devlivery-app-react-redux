@@ -42,7 +42,7 @@ class AvatarEditModal extends React.Component {
     const lessThanMaxSize = file.size / 1024 / 1024 < 2
     if (!lessThanMaxSize) {
       // TODO move to translations
-      message.error('The image may not be greater than 2048 kilobytes.')
+      message.error(this.props.intl.formatMessage(messages.msg_filesize))
     }
     const fr = new FileReader()
     fr.onload = (e) => {
