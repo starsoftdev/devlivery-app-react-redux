@@ -414,14 +414,14 @@ class Reminders extends React.Component {
           !this.state.isEditing &&
           <Row>
             <Col span={12}>
-              <Button type='primary' ghost onClick={this.addItem}>
+              <Button type='primary' ghost onClick={this.addItem} size={!isAdding ? 'default' : 'small'}>
                 <PlusIcon />
                 {intl.formatMessage(!isAdding ? messages.addReminder: messages.saveReminder)}
               </Button>
             </Col>
             {isAdding &&
               <Col span={12} className={s.textAlignRight}>
-                <Button type='primary' ghost onClick={this.cancelEdit}>
+                <Button type='primary' ghost onClick={this.cancelEdit} size={'small'}>
                   {intl.formatMessage(messages.cancelEdit)}
                 </Button>
               </Col>
