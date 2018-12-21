@@ -88,5 +88,9 @@ export default defineMessages({
   orderat: {
     id: 'reports.orderat',
     defaultMessage: 'OrderedAt',
+  },
+  noscheduled: {
+    id: 'reports.noscheduled',
+    defaultMessage: 'No Scheduled',
   }
 })

@@ -59,7 +59,7 @@ class OrderDetails extends React.Component {
       return (
         <React.Fragment>
           <div className={s.shippingDetails}>
-            <h3>Shipping details {currentShipping + 1} / {recipients.length}</h3>
+            <h3>{this.props.intl.formatMessage(messages.shipping_details)} {currentShipping + 1} / {recipients.length}</h3>
             {/*<span>{selRecipient.receiving_address.title}</span><br />*/}
             <span>{shipping_name ? (shipping_name+' (For: '+recipient_name+')'):recipient_name}</span><br />
             {

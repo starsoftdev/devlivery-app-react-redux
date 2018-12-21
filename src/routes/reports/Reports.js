@@ -236,7 +236,7 @@ class Reports extends React.Component {
           </Select>
         </div>
         <Table
-          locale={{ emptyText: 'No Scheduled' }}
+          locale={{ emptyText: intl.formatMessage(messages.noscheduled) }}
           loading = {loading.reports}
           columns={columns}
           dataSource={reports}

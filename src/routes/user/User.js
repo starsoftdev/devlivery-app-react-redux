@@ -104,15 +104,15 @@ class User extends React.Component {
 
     if (this.state.isValid) {
       if (this.state.name.length <= 0) {
-        this.setState({ showMark: true, requirmsg: 'please input name.' });
+        this.setState({ showMark: true, requirmsg: this.props.intl.formatMessage(messages.msg_inputname) });
         return;
       }
       if (this.state.expiry < 4) {
-        this.setState({ showMark: true, requirmsg: 'Invalid expire date' });
+        this.setState({ showMark: true, requirmsg: this.props.intl.formatMessage(messages.msg_expiredate) });
         return;
       }
       if (this.state.cvc < 3) {
-        this.setState({ showMark: true, requirmsg: 'Invalid CVC number' });
+        this.setState({ showMark: true, requirmsg: this.props.intl.formatMessage(messages.msg_invalidCVC) });
         return;
       }
       const expiry_month = this.state.expiry.slice(0, 2);
@@ -120,7 +120,7 @@ class User extends React.Component {
       const expriteDate = expiry_month + ' / ' + expiry_year;
 
       if (!Payment.fns.validateCardExpiry(expriteDate)) {
-        this.setState({ showMark: true, requirmsg: 'Invalid expire date' });
+        this.setState({ showMark: true, requirmsg: this.props.intl.formatMessage(messages.msg_expiredate) });
         return;
       }
       this.setState({ showMark: false, processing: true });
@@ -140,7 +140,7 @@ class User extends React.Component {
               if (success) this.resetCardInf()
             })
           else {
-            this.setState({ showMark: true, requirmsg: data.message ? data.message : 'Invalid Card', processing: false });
+            this.setState({ showMark: true, requirmsg: data.message ? data.message : this.props.intl.formatMessage(messages.msg_invalidcard), processing: false });
             return;
           }
         }
@@ -198,7 +198,7 @@ class User extends React.Component {
 
   handleCallback(type, isValid) {
     if (type && type.issuer == 'unknown' || !isValid) {
-      this.setState({ requirmsg: 'Invalid credit card number', isValid });
+      this.setState({ requirmsg: this.props.intl.formatMessage(messages.msg_invalidcardnumber), isValid });
     } else this.setState({ requirmsg: null, isValid, cardtype: type.issuer });
   }
   onOk() {
