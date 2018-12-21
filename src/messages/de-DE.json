@@ -4464,7 +4464,7 @@
   {
     "id": "purchase11.partialBirthError",
     "defaultMessage": "Some of the recipients has no birthdate set.",
-    "message": "",
+    "message": "Some of the recipients has no birthdate set.",
     "files": [
       "src/routes/purchase11/messages.js"
     ]
@@ -4472,7 +4472,7 @@
   {
     "id": "purchase8.savemoreproducts",
     "defaultMessage": "SAVE AND BUY MORE PRODUCTS",
-    "message": "",
+    "message": "SAVE AND BUY MORE PRODUCTS",
     "files": [
       "src/routes/donation/messages.js",
       "src/routes/purchase8/messages.js",
@@ -4482,7 +4482,7 @@
   {
     "id": "reports.orderat",
     "defaultMessage": "OrderedAt",
-    "message": "",
+    "message": "OrderedAt",
     "files": [
       "src/routes/reports/messages.js"
     ]
@@ -4490,7 +4490,7 @@
   {
     "id": "form.amount_bigger",
     "defaultMessage": "Sorry, but donation needs to be bigger than 0",
-    "message": "",
+    "message": "Sorry, but donation needs to be bigger than 0",
     "files": [
       "src/formMessages.js"
     ]
@@ -4498,7 +4498,7 @@
   {
     "id": "form.donation_amount",
     "defaultMessage": "Sorry, you must select a donation amount.",
-    "message": "",
+    "message": "Sorry, you must select a donation amount.",
     "files": [
       "src/formMessages.js"
     ]
@@ -4506,7 +4506,7 @@
   {
     "id": "form.positive",
     "defaultMessage": "This field must be positive.",
-    "message": "",
+    "message": "This field must be positive.",
     "files": [
       "src/formMessages.js"
     ]
@@ -4514,7 +4514,7 @@
   {
     "id": "orders.shipping_details",
     "defaultMessage": "Shipping details",
-    "message": "",
+    "message": "Shipping details",
     "files": [
       "src/routes/orders/messages.js"
     ]
@@ -4522,7 +4522,7 @@
   {
     "id": "purchase10.msg_uploadcontact",
     "defaultMessage": "Please upload contact file.",
-    "message": "",
+    "message": "Please upload contact file.",
     "files": [
       "src/routes/purchase10/messages.js"
     ]
@@ -4530,7 +4530,7 @@
   {
     "id": "purchase11.msg_norecipient",
     "defaultMessage": "This order have no any recipient.",
-    "message": "",
+    "message": "This order have no any recipient.",
     "files": [
       "src/routes/purchase11/messages.js"
     ]
@@ -4538,7 +4538,7 @@
   {
     "id": "reports.noscheduled",
     "defaultMessage": "No Scheduled",
-    "message": "",
+    "message": "No Scheduled",
     "files": [
       "src/routes/reports/messages.js"
     ]
@@ -4546,7 +4546,7 @@
   {
     "id": "user.msg_expiredate",
     "defaultMessage": "Invalid expire date",
-    "message": "",
+    "message": "Invalid expire date",
     "files": [
       "src/routes/user/messages.js"
     ]
@@ -4554,7 +4554,7 @@
   {
     "id": "user.msg_inputname",
     "defaultMessage": "please input name.",
-    "message": "",
+    "message": "please input name.",
     "files": [
       "src/routes/user/messages.js"
     ]
@@ -4562,7 +4562,7 @@
   {
     "id": "user.msg_invalidCVC",
     "defaultMessage": "Invalid CVC number",
-    "message": "",
+    "message": "Invalid CVC number",
     "files": [
       "src/routes/user/messages.js"
     ]
@@ -4570,7 +4570,7 @@
   {
     "id": "user.msg_invalidcard",
     "defaultMessage": "Invalid Card",
-    "message": "",
+    "message": "Invalid Card",
     "files": [
       "src/routes/user/messages.js"
     ]
@@ -4586,7 +4586,7 @@
   {
     "id": "dashboard.msg_filesize",
     "defaultMessage": "The image may not be greater than 2048 kilobytes.",
-    "message": "",
+    "message": "The image may not be greater than 2048 kilobytes.",
     "files": [
       "src/components/Avatar/messages.js"
     ]
@@ -4594,7 +4594,7 @@
   {
     "id": "dashboard.uploadlogo",
     "defaultMessage": "Upload logo",
-    "message": "",
+    "message": "Upload logo",
     "files": [
       "src/components/Avatar/messages.js"
     ]
@@ -4602,7 +4602,7 @@
   {
     "id": "form.invalidDate",
     "defaultMessage": "Invalid Date Format.",
-    "message": "",
+    "message": "Invalid Date Format.",
     "files": [
       "src/formMessages.js"
     ]
@@ -4610,7 +4610,7 @@
   {
     "id": "form.pastdate",
     "defaultMessage": "please enter a date in the past.",
-    "message": "",
+    "message": "please enter a date in the past.",
     "files": [
       "src/formMessages.js"
     ]
@@ -4618,7 +4618,7 @@
   {
     "id": "contactUs.msg_filetype",
     "defaultMessage": "This file must be a file of type: pdf, jpeg, jpg, png.",
-    "message": "",
+    "message": "This file must be a file of type: pdf, jpeg, jpg, png.",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
@@ -4626,7 +4626,7 @@
   {
     "id": "donation.noorganization",
     "defaultMessage": "No organizations.",
-    "message": "",
+    "message": "No organizations.",
     "files": [
       "src/routes/donation/messages.js"
     ]
@@ -4634,7 +4634,7 @@
   {
     "id": "orders.events_on",
     "defaultMessage": "Events on",
-    "message": "",
+    "message": "Events on",
     "files": [
       "src/routes/orders/messages.js"
     ]
@@ -4642,7 +4642,7 @@
   {
     "id": "user.save_newbudget",
     "defaultMessage": "Save new budget",
-    "message": "",
+    "message": "Save new budget",
     "files": [
       "src/components/TeamExpandedRow/messages.js"
     ]
@@ -4650,7 +4650,7 @@
   {
     "id": "form.error_transactionid",
     "defaultMessage": "transaction id doesn't exist",
-    "message": "",
+    "message": "transaction id doesn't exist",
     "files": [
       "src/formMessages.js"
     ]
@@ -4658,7 +4658,7 @@
   {
     "id": "form.failed_subscribed",
     "defaultMessage": "failed your subscribe",
-    "message": "",
+    "message": "failed your subscribe",
     "files": [
       "src/formMessages.js"
     ]
@@ -4666,7 +4666,7 @@
   {
     "id": "form.removed_bundle",
     "defaultMessage": "Bundle is successfully removed.",
-    "message": "",
+    "message": "Bundle is successfully removed.",
     "files": [
       "src/formMessages.js"
     ]
@@ -4674,7 +4674,7 @@
   {
     "id": "form.success_coupon",
     "defaultMessage": "Successfully applied coupon",
-    "message": "",
+    "message": "Successfully applied coupon",
     "files": [
       "src/formMessages.js"
     ]
@@ -4682,7 +4682,7 @@
   {
     "id": "form.success_subscribed",
     "defaultMessage": "successfully subscribed",
-    "message": "",
+    "message": "successfully subscribed",
     "files": [
       "src/formMessages.js"
     ]
@@ -4690,7 +4690,7 @@
   {
     "id": "form.updated_contact",
     "defaultMessage": "Contact was successfully updated",
-    "message": "",
+    "message": "Contact was successfully updated",
     "files": [
       "src/formMessages.js"
     ]
@@ -4698,7 +4698,7 @@
   {
     "id": "contactUs.sent_msg",
     "defaultMessage": "Successfully sent message.",
-    "message": "",
+    "message": "Successfully sent message.",
     "files": [
       "src/routes/contactUs/messages.js"
     ]
