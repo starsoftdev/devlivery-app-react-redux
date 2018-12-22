@@ -1,6 +1,7 @@
 IFRAME {overflow:hidden;}
 body{
     overflow-y:hidden !important;
+    line-height: 1.3;
     font-size: 16px;
     margin: 0;
 }
@@ -9,7 +10,7 @@ body{
 }
 span {
     word-break: break-all;
-    line-height: 1.2;
+    line-height: 1.3;
     padding:0;
     margin:0;
 }
@@ -17,7 +18,7 @@ p {
     word-break: break-all;
     margin-block-start: 0;
     margin-block-end: 0;
-    line-height: 1.2;
+    line-height: 1.3;
     padding:0;
     margin:0;
 }

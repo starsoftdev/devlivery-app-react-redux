@@ -35,19 +35,20 @@ const GLOBAL_META = `
 const GLOBAL_STYLES = `
 <style type='text/css'>
   body {
+    line-height: 1.3;
     font-size: 16px;
     -webkit-print-color-adjust: exact;
     margin:0;
   }
   p {
     word-break: break-all;
-    line-height: 1.2;
+    line-height: 1.3;
     padding:0;
     margin:0;
   }
   span {
     word-break: break-all;
-    line-height: 1.2;
+    line-height: 1.3;
     padding:0;
     margin:0;
   }
