@@ -73,4 +73,8 @@ export default defineMessages({
     id: 'form.updated_contact',
     defaultMessage: 'Contact was successfully updated',
   },
+  changed_pwd: {
+    id: 'form.changed_pwd',
+    defaultMessage: 'Password changed.',
+  },
 })

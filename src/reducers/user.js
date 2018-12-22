@@ -4,6 +4,8 @@ import { getBirthday } from '../utils'
 import { message } from 'antd'
 import { getFormErrors, showErrorMessage, getOrdering } from '../utils'
 import { navigateToNextRouteName } from './global';
+import {getIntl} from './intl';
+import formMessages from '../formMessages'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -138,6 +140,7 @@ export const updateUser = ({ user, birthday, preference, ...values }, form, msg,
 }
 
 export const updatePassword = (values, form) => (dispatch, getState, { fetch }) => {
+  const {intl} = dispatch(getIntl());
   const { token } = dispatch(getToken())
   dispatch({ type: UPDATE_PASSWORD_REQUEST })
   
@@ -147,7 +150,7 @@ export const updatePassword = (values, form) => (dispatch, getState, { fetch }) 
     body: values,
     success: (res) => {
       dispatch({ type: UPDATE_PASSWORD_SUCCESS })
-      message.success('Password changed.')
+      message.success(intl.formatMessage(formMessages.changed_pwd))
       form.resetFields()
     },
     failure: (error) => {

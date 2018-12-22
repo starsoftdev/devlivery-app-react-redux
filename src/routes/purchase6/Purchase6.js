@@ -331,7 +331,7 @@ class Purchase6 extends React.Component {
                       content_css: [...this.state.fontlink, '/styles/tinymce.css'],
                       setup: function (ed) {
                         ed.on('init', function (e) {
-                          //ed.execCommand("fontName", false, Contants.FONTS[0]);
+                          ed.execCommand("fontName", false, Contants.FONTS[0]);
                         });
                       }
                     }}

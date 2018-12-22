@@ -2713,7 +2713,8 @@
     "defaultMessage": "Company Name",
     "message": "Name der Firma",
     "files": [
-      "src/components/Address/messages.js"
+      "src/components/Address/messages.js",
+      "src/components/ColumnsMappingForm/messages.js"
     ]
   },
   {
@@ -4782,6 +4783,14 @@
     "files": [
       "src/routes/purchase13/messages.js",
       "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "form.changed_pwd",
+    "defaultMessage": "Password changed.",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
     ]
   }
 ]
