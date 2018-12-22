@@ -41,13 +41,13 @@ const GLOBAL_STYLES = `
   }
   p {
     word-break: break-all;
-    line-height: 1;
+    line-height: 1.2;
     padding:0;
     margin:0;
   }
   span {
     word-break: break-all;
-    line-height: 1;
+    line-height: 1.2;
     padding:0;
     margin:0;
   }
