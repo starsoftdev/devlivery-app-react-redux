@@ -531,7 +531,7 @@ class Purchase11 extends React.Component {
                   <div className={s.recipients}>
                     {contact && (
                       <div className={s.recipient}>
-                        <div>{contact && contact.title ? contact.title : ' '}</div>
+                        {/*<div>{contact && contact.title ? contact.title : ' '}</div>*/}
                         <p className={s.recp_ele}>{`${contact && contact.first_name ? contact.first_name : ' '} ${contact && contact.last_name ? contact.last_name : ' '}`}</p>
                         <p className={s.recp_ele}>{contact ? contact.address : " "}</p>
                         <p className={s.recp_ele}>{`${contact && contact.postal_code ? contact.postal_code : " "} ${contact && contact.city ? contact.city : " "}`}</p>
