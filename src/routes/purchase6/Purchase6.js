@@ -342,6 +342,14 @@ class Purchase6 extends React.Component {
                           ed.on('init', function (e) {
                             ed.execCommand("fontName", false, Contants.FONTS[0]);
                           });
+                          ed.on('keydown',function(e) {
+                            if(e.keyCode == 13){
+                              if(e.target.clientHeight * 0.264583 >= (cardHeight-22))
+                              {
+                                e.preventDefault();
+                              }
+                            }
+                        });
                         }
                       }}
                       onEditorChange={this.handleEditorChange}
