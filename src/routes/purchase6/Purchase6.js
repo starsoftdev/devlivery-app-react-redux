@@ -311,8 +311,7 @@ class Purchase6 extends React.Component {
     {
       isLargeCard = false;
     }
-    console.log('width',cardWidth);
-    console.log('height',cardHeight);
+    
     return (
       <div className={s.form}>
         <div className={s.content}>
