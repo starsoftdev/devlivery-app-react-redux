@@ -37,16 +37,13 @@ const GLOBAL_STYLES = `
   body {
     line-height: 1.3;
     font-size: 16px;
-    font-family:'Anonymous Pro';
     -webkit-print-color-adjust: exact;
   }
   p {
     word-break: break-all;
-    font-family:'Anonymous Pro'
   }
   span {
     word-break: break-all;
-    font-family:'Anonymous Pro'
   }
 </style>`
 
