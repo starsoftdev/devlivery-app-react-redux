@@ -375,7 +375,9 @@ class Purchase11 extends React.Component {
             <div className={s.orderDetails}>
 
               <div className={s.warnText} style={{marginBottom:10}}>{this.state.loadingEditor && (html === null || html === '' || html === undefined) && intl.formatMessage(messages.personalizedmsg)}</div>
-              {this.state.mounted && bundle && <Editor
+              {this.state.mounted && bundle && 
+              <div className={s.editorWrapper}>
+              <Editor
                 ref={editor => {
                   this.tinymce = editor
                 }}
@@ -384,8 +386,8 @@ class Purchase11 extends React.Component {
                   toolbar: false,
                   menubar: false,
                   statusbar: false,
-                  width: `${cardWidth}mm`,
-                  height: `${cardHeight}mm`,
+                  width: `${cardWidth-20}mm`,
+                  height: `${cardHeight-20}mm`,
                   content_css: [...this.state.fontlink, '/styles/tinymce.css'],
                   readonly: true,
                   setup: function (ed) {
@@ -396,6 +398,7 @@ class Purchase11 extends React.Component {
                 }}
                 onEditorChange={this.handleEditorChange}
               />
+              </div>
               }
             </div>
             <Row type='flex' align='center' gutter={20} className={s.subtotalSection}>
