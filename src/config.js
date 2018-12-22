@@ -14,7 +14,7 @@ module.exports = {
   ],
 
   // Node.js app
-  port: process.env.PORT || 8080,
+  port: process.env.PORT || 80,//8080,
 
   api: {
     url: process.env.API_URL || 'http://139.59.175.153:8081/api/v1',//'https://byzumi.com:8081/api/v1',//'http://byzumi-dev.colorelephant.com:8081/api/v1'
