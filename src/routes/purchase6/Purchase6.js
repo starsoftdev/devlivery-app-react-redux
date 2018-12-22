@@ -38,6 +38,7 @@ const GLOBAL_STYLES = `
     line-height: 1.3;
     font-size: 16px;
     -webkit-print-color-adjust: exact;
+    margin:0;
   }
   p {
     word-break: break-all;
@@ -317,27 +318,29 @@ class Purchase6 extends React.Component {
               <div className={s.editorIconWrapper}>
                 <EditorIcon />
               </div>
-              <div className={s.editorWrapper}>
-                {mounted && (
-                  <Editor
-                    ref={editor => this.tinymce = editor}
-                    value={this.state.content}
-                    init={{
-                      toolbar: false,
-                      menubar: false,
-                      statusbar: false,
-                      width: `${cardWidth}mm`,
-                      height: `${cardHeight}mm`,
-                      content_css: [...this.state.fontlink, '/styles/tinymce.css'],
-                      setup: function (ed) {
-                        ed.on('init', function (e) {
-                          ed.execCommand("fontName", false, Contants.FONTS[0]);
-                        });
-                      }
-                    }}
-                    onEditorChange={this.handleEditorChange}
-                  />
-                )}
+              <div className={s.editorPanel}>
+                <div className={s.editorWrapper}>
+                  {mounted && (
+                    <Editor
+                      ref={editor => this.tinymce = editor}
+                      value={this.state.content}
+                      init={{
+                        toolbar: false,
+                        menubar: false,
+                        statusbar: false,
+                        width: `${cardWidth-20}mm`,
+                        height: `${cardHeight-20}mm`,
+                        content_css: [...this.state.fontlink, '/styles/tinymce.css'],
+                        setup: function (ed) {
+                          ed.on('init', function (e) {
+                            ed.execCommand("fontName", false, Contants.FONTS[0]);
+                          });
+                        }
+                      }}
+                      onEditorChange={this.handleEditorChange}
+                    />
+                  )}
+                </div>
               </div>
             </div>
             <div className={isLargeCard===true ? s.editorActions_land : s.editorActions}>

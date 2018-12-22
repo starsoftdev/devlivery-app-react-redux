@@ -61,6 +61,13 @@
     font-family: var(--font-family);
     margin-right: 5px;
   }
+  .mce-tinymce.mce-container.mce-panel {
+    border-color: rgba(0,0,0,0) !important;
+    box-shadow: none !important;
+  }
+  .mce-edit-area{
+    border-color: rgba(0,0,0,0) !important;
+  }
 }
 
 .collapseButton {
