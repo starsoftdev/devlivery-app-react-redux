@@ -343,13 +343,13 @@ class Purchase6 extends React.Component {
                             ed.execCommand("fontName", false, Contants.FONTS[0]);
                           });
                           ed.on('keydown',function(e) {
-                            if(e.keyCode == 13){
+                            //if(e.keyCode == 13){
                               if(Math.round(e.target.clientHeight * 0.264583) >= (cardHeight-21))
                               {
                                 e.preventDefault();
                               }
-                            }
-                        });
+                            //}
+                          });
                         }
                       }}
                       onEditorChange={this.handleEditorChange}
