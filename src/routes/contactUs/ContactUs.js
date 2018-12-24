@@ -18,6 +18,7 @@ const { TextArea } = Input;
 const allowFileType = [
   'image/png',
   'image/jpg',
+  'image/jpeg',
   'application/pdf',
 ];
 class ContactUs extends React.Component {

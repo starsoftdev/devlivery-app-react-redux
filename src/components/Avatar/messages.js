@@ -24,5 +24,9 @@ export default defineMessages({
     msg_filesize: {
         id: 'dashboard.msg_filesize',
         defaultMessage: 'The image may not be greater than 2048 kilobytes.',
+    },
+    msg_filetype: {
+        id: 'dashboard.msg_filetype',
+        defaultMessage: 'Valid file types are: jpg, jpeg, png',
     }
 })

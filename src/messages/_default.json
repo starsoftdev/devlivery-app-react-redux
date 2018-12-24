@@ -4652,5 +4652,13 @@
     "files": [
       "src/formMessages.js"
     ]
+  },
+  {
+    "id": "dashboard.msg_filetype",
+    "defaultMessage": "Valid file types are: jpg, jpeg, png",
+    "message": "",
+    "files": [
+      "src/components/Avatar/messages.js"
+    ]
   }
 ]
