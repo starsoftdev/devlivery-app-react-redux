@@ -652,20 +652,22 @@ class Purchase11 extends React.Component {
                         <PlusIcon />
                         {intl.formatMessage(messages.add)}
                       </Button>
-
-                      <Popconfirm
-                        title={intl.formatMessage(messages.confirmRemoving)}
-                        onConfirm={() => {
-                          removeRecipientsOrder(order.recipients[currentRecipient].id)
-                          this.setState({ currentRecipient: 0 });
-                        }}
-                        okText={intl.formatMessage(messages.acceptRemoving)}
-                      >
-                        <Button type='primary' size='small' ghost >
-                          <RemoveIcon />
-                          {intl.formatMessage(messages.remove)}
-                        </Button>
-                      </Popconfirm>
+                      {
+                        order && order.recipients_count > 1 ?
+                        <Popconfirm
+                          title={intl.formatMessage(messages.confirmRemoving)}
+                          onConfirm={() => {
+                            removeRecipientsOrder(order.recipients[currentRecipient].id)
+                            this.setState({ currentRecipient: 0 });
+                          }}
+                          okText={intl.formatMessage(messages.acceptRemoving)}
+                        >
+                          <Button type='primary' size='small' ghost >
+                            <RemoveIcon />
+                            {intl.formatMessage(messages.remove)}
+                          </Button>
+                        </Popconfirm> : null
+                      }
                     </div>
                   }
               {/*
