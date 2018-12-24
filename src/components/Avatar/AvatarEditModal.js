@@ -39,6 +39,11 @@ class AvatarEditModal extends React.Component {
   }
 
   setFile = (file) => {
+    if(file.type !== 'image/png' && file.type !== 'image/jpeg')
+    {
+      message.warn(this.props.intl.formatMessage(messages.msg_filetype));
+      return;
+    }
     const lessThanMaxSize = file.size / 1024 / 1024 < 2
     if (!lessThanMaxSize) {
       // TODO move to translations
