@@ -396,6 +396,7 @@ class Purchase11 extends React.Component {
                     });
                   }
                 }}
+                disabled={true}
                 onEditorChange={this.handleEditorChange}
               />
               </div>
