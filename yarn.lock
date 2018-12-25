@@ -777,9 +777,10 @@
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
 
-"@tinymce/tinymce-react@^2.2.5":
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-react/-/tinymce-react-2.2.5.tgz#1f71e4305f7a771dafd5d44f2a9adae5a35abdbb"
+"@tinymce/tinymce-react@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-react/-/tinymce-react-2.4.0.tgz#e2140bc9d0ccc3aab8b7d702f345d0f1a96422ab"
+  integrity sha512-WrxevgJzDht4purKVzhTzwh43S9/j4OTsbVHpOJ2/VHkQ6pUqa4d2NTIBsUGOhK6a8LDIUjU2u98R66iSgPF4g==
   dependencies:
     prop-types "^15.6.0"
     react "^16.2.0"
