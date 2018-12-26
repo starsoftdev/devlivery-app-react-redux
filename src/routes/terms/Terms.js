@@ -22,7 +22,7 @@ class About extends React.Component {
               <li className={'custom_li_parent'}>Geltungsbereich
                 <ol className={'custom_ol'}>
                   <li className={'custom_li'}>
-                  Die nachstehenden allgemeinen Geschäftsbedingungen gelten für den Geschäftsbereich "byzumi" der Get a Concierge AG für sämtliche Rechtsgeschäfte welche der Vertragspartner, nachfolgend "<b>Kunde</b>" genannt, über die Web Plattform "byZumi" unter [<a>www.byzumi.com</a>] (nachfolgend "<b>Web Plattform</b>" genannt) abschliesst, soweit zwischen den Parteien nicht ausdrücklich schriftlich etwas anderes vereinbart worden ist.
+                  Die nachstehenden allgemeinen Geschäftsbedingungen gelten für den Geschäftsbereich "byzumi" der Get a Concierge AG für sämtliche Rechtsgeschäfte welche der Vertragspartner, nachfolgend "<b>Kunde</b>" genannt, über die Web Plattform "byZumi" unter [<a href="https://byzumi.com/">www.byzumi.com</a>] (nachfolgend "<b>Web Plattform</b>" genannt) abschliesst, soweit zwischen den Parteien nicht ausdrücklich schriftlich etwas anderes vereinbart worden ist.
                   </li>
                   <li className={'custom_li'}>
                   Zusammen mit der in der Bestellung über die Web Plattform enthaltenen individuellen Bedingungen stellen diese Allgemeinen Geschäftsbedingungen die abschliessende Vereinbarung (nachfolgend "<b>Vereinbarung</b>" genannt) zwischen dem Kunden und der Get a Concierge AG dar.
@@ -135,7 +135,7 @@ class About extends React.Component {
 
               <li className={'custom_li_parent'}>Datenschutz<ol className={'custom_ol'}>
                 <li className={'custom_li'}>
-                Über Art, Umfang und Zweck der Erhebung, Verarbeitung und Nutzung der für die Durchführung von Bestellungen erforderlichen personenbezogenen Daten durch die Get a Concierge AG wird der Kunde ausführlich in der Datenschutzerklärung unterrichtet und informiert. Die Datenschutzerklärung unter [<b>www.byzumi.com</b>(Datenschutzerklärung] ist integrierter Bestandteil dieser AGB. Mit dem Akzeptieren dieser AGB stimmt Der auch der Datenschutzerklärung zu.
+                Über Art, Umfang und Zweck der Erhebung, Verarbeitung und Nutzung der für die Durchführung von Bestellungen erforderlichen personenbezogenen Daten durch die Get a Concierge AG wird der Kunde ausführlich in der Datenschutzerklärung unterrichtet und informiert. Die Datenschutzerklärung unter [<b><a href="https://byzumi.com/">www.byzumi.com</a></b>(Datenschutzerklärung] ist integrierter Bestandteil dieser AGB. Mit dem Akzeptieren dieser AGB stimmt Der auch der Datenschutzerklärung zu.
                 </li>
               </ol></li>
 
