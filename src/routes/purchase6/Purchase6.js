@@ -342,14 +342,30 @@ class Purchase6 extends React.Component {
                           ed.on('init', function (e) {
                             ed.execCommand("fontName", false, Contants.FONTS[0]);
                           });
-                          ed.on('keydown',function(e) {
-                            //if(e.keyCode == 13){
+                          /*
+                          ed.on('BeforeSetContent', function (e) {
+                            console.log('BeforeSetContent',e);
+                          });
+                          ed.on('keydown', function(e) {
+                            if(e.target.clientHeight > ed.editorContainer.clientHeight)
+                            {
+                              console.log('this.lastContent',this.lastContent);
+                              //e.preventDefault();
+                              //ed.setContent(this.lastContent);
+                              ///ed.focus();
+                            }
+                            else{
+                              this.lastContent = ed.getContent();
+                            }
+                            
+                            if(e.keyCode == 13){
                               if(Math.round(e.target.clientHeight * 0.264583) >= (cardHeight-21))
                               {
                                 e.preventDefault();
                               }
-                            //}
+                            }
                           });
+                          */
                         }
                       }}
                       onEditorChange={this.handleEditorChange}
