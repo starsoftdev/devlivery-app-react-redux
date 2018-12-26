@@ -349,7 +349,6 @@ class Purchase6 extends React.Component {
                           ed.on('keydown', function(e) {
                             if(e.target.clientHeight > ed.editorContainer.clientHeight)
                             {
-                              console.log('this.lastContent',this.lastContent);
                               //e.preventDefault();
                               //ed.setContent(this.lastContent);
                               ///ed.focus();
@@ -369,6 +368,22 @@ class Purchase6 extends React.Component {
                         }
                       }}
                       onEditorChange={this.handleEditorChange}
+                      /*
+                      onKeyDown={
+                        (e)=>{
+                          this.clientHeight = e.target.clientHeight;
+                        }
+                      }
+                      onPreProcess={(e)=>{
+                        if(this.clientHeight !== null && this.clientHeight > e.target.editorContainer.clientHeight)
+                        {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          e.stopImmediatePropagation();
+                          return false;
+                        }
+                      }}
+                      */
                     />
                   )}
                 </div>
