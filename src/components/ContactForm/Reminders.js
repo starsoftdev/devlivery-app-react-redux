@@ -5,7 +5,7 @@ import s from './Reminders.css'
 import PlusIcon from '../../static/plus.svg'
 import { DATE_FORMAT, DEFAULT_DEBOUNCE_TIME, DISPLAYED_DATE_FORMAT } from '../../constants'
 import { connect } from 'react-redux'
-import { getOccasions, getReminderDate,createReminder } from '../../reducers/contacts'
+import { getOccasions, getReminderDate, createReminder, deleteReminder } from '../../reducers/contacts'
 import debounce from 'lodash/debounce'
 import messages from './messages'
 import moment from 'moment-timezone'
@@ -119,6 +119,11 @@ class Reminders extends React.Component {
     const newKeys = keys.filter(key => key !== k)
     this.props.form.setFieldsValue({ reminderKeys: newKeys })
     this.setState({ visible: false });
+
+    const params = this.props.form.getFieldValue(`reminders[${k}]`);
+    console.log('params',params);  
+    if(params.id)
+      this.props.deleteReminder(params.id);
   }
   saveItem = (k) => {
     if(!this.isValidateReminder(k))
@@ -133,8 +138,8 @@ class Reminders extends React.Component {
       if(!this.isValidateReminder(keys[keys.length-1]))
         return false;
 
-      //const params = this.props.form.getFieldValue(`reminders[${keys[keys.length-1]}]`);
-      //this.props.createReminder(params);
+      const params = this.props.form.getFieldValue(`reminders[${keys[keys.length-1]}]`);
+      this.props.createReminder(params);
       this.setState({isAdding: false, isEditing: false});
       return true;
     }
@@ -451,7 +456,8 @@ const mapState = state => ({
 const mapDispatch = {
   getOccasions,
   getReminderDate,
-  createReminder
+  createReminder,
+  deleteReminder
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Reminders))
