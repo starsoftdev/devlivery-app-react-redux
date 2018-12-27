@@ -5,7 +5,7 @@ import s from './Reminders.css'
 import PlusIcon from '../../static/plus.svg'
 import { DATE_FORMAT, DEFAULT_DEBOUNCE_TIME, DISPLAYED_DATE_FORMAT } from '../../constants'
 import { connect } from 'react-redux'
-import { getOccasions, getReminderDate } from '../../reducers/contacts'
+import { getOccasions, getReminderDate,createReminder } from '../../reducers/contacts'
 import debounce from 'lodash/debounce'
 import messages from './messages'
 import moment from 'moment-timezone'
@@ -132,6 +132,9 @@ class Reminders extends React.Component {
     {
       if(!this.isValidateReminder(keys[keys.length-1]))
         return false;
+
+      //const params = this.props.form.getFieldValue(`reminders[${keys[keys.length-1]}]`);
+      //this.props.createReminder(params);
       this.setState({isAdding: false, isEditing: false});
       return true;
     }
@@ -222,16 +225,22 @@ class Reminders extends React.Component {
     this.getReminderDate(k, moment(getFieldValue(`reminders[${k}].date`), 'DD-MM-YYYY'), value);
   }
   getReminderDate(k, date, recurring) {
-    const { getFieldValue, setFieldsValue } = this.props.form
-    this.props.getReminderDate(
-      date.format('YYYY-MM-DD'),
-      recurring,
-      (res) => {
-        if (res.reminder_date) {
-          setFieldsValue({ [`reminders[${k}].reminder_date`]: res.reminder_date });
+    if(date.isValid())
+    {
+      const { getFieldValue, setFieldsValue } = this.props.form
+      this.props.getReminderDate(
+        date.format('YYYY-MM-DD'),
+        recurring,
+        (res) => {
+          if (res.reminder_date) {
+            setFieldsValue({ [`reminders[${k}].reminder_date`]: res.reminder_date });
+          }
         }
-      }
-    );
+      );
+    }
+    else {
+      this.setState({InvalidIndex:k, errorMessage:this.props.intl.formatMessage(messages.invalidoccasion)});
+    }
   }
   cancelEdit = () => {
     const keys = this.props.form.getFieldValue('reminderKeys')
@@ -341,7 +350,7 @@ class Reminders extends React.Component {
                         <Select.Option key={0} value={initialValues[k].title}>{initialValues[k].title}</Select.Option>
                       )}
                       {occasionsList.map((item, i) =>
-                        <Select.Option key={i + 1} value={`${item.id}`}>{item.title}</Select.Option>
+                        <Select.Option key={i + 1} value={item.id}>{item.title}</Select.Option>
                       )}
                     </Select>
                   )}
@@ -441,7 +450,8 @@ const mapState = state => ({
 
 const mapDispatch = {
   getOccasions,
-  getReminderDate
+  getReminderDate,
+  createReminder
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Reminders))
