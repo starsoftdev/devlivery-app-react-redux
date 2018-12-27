@@ -621,7 +621,26 @@ export const closeUploadedContactsModal = () => ({type: CLOSE_UPLOADED_CONTACTS_
 export const changeSelectedContacts = (selectedContacts) => (dispatch, getState) => {
   dispatch({type: CHANGE_SELECTED_CONTACTS, selectedContacts})
 }
-
+export const createReminder = (params) => (dispatch, getState, {fetch}) => {
+  const {contact} = getState().contacts;
+  if(contact && contact.id)
+  {
+    const {token} = dispatch(getToken())
+    console.log(`/contact/${contact.id}/reminders`,params);
+    return fetch(`/contact/${contact.id}/reminders`, {
+      method: 'POST',
+      contentType: 'application/x-www-form-urlencoded',
+      body: {
+        params
+      },
+      token,
+      success: (res) => {
+        console.log('res',res);
+      },
+      failure: (err) => {console.log('err',err)},
+    })
+  }
+}
 export const saveFields = (fields) => (dispatch, getState) => {
   dispatch({type: SAVE_FIELDS, fields})
 }
