@@ -134,14 +134,22 @@ class Reminders extends React.Component {
   }
   addItem = () => {
     const keys = this.props.form.getFieldValue('reminderKeys')
-    
+    const k = keys[keys.length-1];
     if(this.state.isAdding)
     {
-      if(!this.isValidateReminder(keys[keys.length-1]))
+      if(!this.isValidateReminder(k))
         return false;
-
-      const params = this.props.form.getFieldValue(`reminders[${keys[keys.length-1]}]`);
-      this.props.createReminder(params);
+      let params = this.props.form.getFieldValue(`reminders`);
+      this.props.createReminder(params[k],(data)=>{
+        params[k] = {
+          ...params[k],
+          id: data.id
+        };
+        this.props.form.getFieldDecorator(`reminders[${k}].id`, { initialValue: {} })
+        this.props.form.setFieldsValue({
+          reminders: params,
+        });
+      });
       this.setState({isAdding: false, isEditing: false});
       return true;
     }
