@@ -626,12 +626,38 @@ export const createReminder = (params) => (dispatch, getState, {fetch}) => {
   if(contact && contact.id)
   {
     const {token} = dispatch(getToken())
-    console.log(`/contact/${contact.id}/reminders`,params);
+    console.log(`/contact/${contact.id}/reminders`,{
+      date: params.date,
+      occasion_id: params.occasion_id,
+      recurring: params.recurring
+    });
     return fetch(`/contact/${contact.id}/reminders`, {
       method: 'POST',
       contentType: 'application/x-www-form-urlencoded',
       body: {
-        params
+        date: params.date,
+        occasion_id: params.occasion_id,
+        recurring: params.recurring
+      },
+      token,
+      success: (res) => {
+        console.log('res',res);
+      },
+      failure: (err) => {console.log('err',err)},
+    })
+  }
+}
+export const deleteReminder = (reminder_id) => (dispatch, getState, {fetch}) => {
+  const {contact} = getState().contacts;
+  if(contact && contact.id)
+  {
+    const {token} = dispatch(getToken())
+    console.log(`/contact/${contact.id}/reminders/${reminder_id}`);
+    return fetch(`/contact/${contact.id}/reminders/${reminder_id}`, {
+      method: 'POST',
+      contentType: 'application/x-www-form-urlencoded',
+      body: {
+        _method: 'DELETE'
       },
       token,
       success: (res) => {
