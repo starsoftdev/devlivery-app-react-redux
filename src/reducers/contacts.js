@@ -667,6 +667,29 @@ export const deleteReminder = (reminder_id) => (dispatch, getState, {fetch}) => 
     })
   }
 }
+export const updateReminder = (params) => (dispatch, getState, {fetch}) => {
+  const {contact} = getState().contacts;
+  if(contact && contact.id && params && params.id)
+  {
+    const {token} = dispatch(getToken())
+    console.log(`/contact/${contact.id}/reminders/${params.id}`);
+    return fetch(`/contact/${contact.id}/reminders/${params.id}`, {
+      method: 'POST',
+      contentType: 'application/x-www-form-urlencoded',
+      body: {
+        _method: 'PUT',
+        date: params.date,
+        occasion_id: params.occasion_id,
+        recurring: params.recurring
+      },
+      token,
+      success: (res) => {
+        console.log('res',res);
+      },
+      failure: (err) => {console.log('err',err)},
+    })
+  }
+}
 export const saveFields = (fields) => (dispatch, getState) => {
   dispatch({type: SAVE_FIELDS, fields})
 }
