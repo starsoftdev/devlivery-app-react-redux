@@ -5,7 +5,7 @@ import s from './Reminders.css'
 import PlusIcon from '../../static/plus.svg'
 import { DATE_FORMAT, DEFAULT_DEBOUNCE_TIME, DISPLAYED_DATE_FORMAT } from '../../constants'
 import { connect } from 'react-redux'
-import { getOccasions, getReminderDate, createReminder, deleteReminder } from '../../reducers/contacts'
+import { getOccasions, getReminderDate, createReminder, deleteReminder, updateReminder } from '../../reducers/contacts'
 import debounce from 'lodash/debounce'
 import messages from './messages'
 import moment from 'moment-timezone'
@@ -121,7 +121,6 @@ class Reminders extends React.Component {
     this.setState({ visible: false });
 
     const params = this.props.form.getFieldValue(`reminders[${k}]`);
-    console.log('params',params);  
     if(params.id)
       this.props.deleteReminder(params.id);
   }
@@ -129,6 +128,9 @@ class Reminders extends React.Component {
     if(!this.isValidateReminder(k))
       return;
     this.setState({isEditing: false});
+    const params = this.props.form.getFieldValue(`reminders[${k}]`);
+    if(params.id)
+      this.props.updateReminder(params);
   }
   addItem = () => {
     const keys = this.props.form.getFieldValue('reminderKeys')
@@ -355,7 +357,7 @@ class Reminders extends React.Component {
                         <Select.Option key={0} value={initialValues[k].title}>{initialValues[k].title}</Select.Option>
                       )}
                       {occasionsList.map((item, i) =>
-                        <Select.Option key={i + 1} value={item.id}>{item.title}</Select.Option>
+                        <Select.Option key={i + 1} value={item.id+''}>{item.title}</Select.Option>
                       )}
                     </Select>
                   )}
@@ -457,7 +459,8 @@ const mapDispatch = {
   getOccasions,
   getReminderDate,
   createReminder,
-  deleteReminder
+  deleteReminder,
+  updateReminder
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(Reminders))
