@@ -621,16 +621,11 @@ export const closeUploadedContactsModal = () => ({type: CLOSE_UPLOADED_CONTACTS_
 export const changeSelectedContacts = (selectedContacts) => (dispatch, getState) => {
   dispatch({type: CHANGE_SELECTED_CONTACTS, selectedContacts})
 }
-export const createReminder = (params) => (dispatch, getState, {fetch}) => {
+export const createReminder = (params, callback) => (dispatch, getState, {fetch}) => {
   const {contact} = getState().contacts;
   if(contact && contact.id)
   {
     const {token} = dispatch(getToken())
-    console.log(`/contact/${contact.id}/reminders`,{
-      date: params.date,
-      occasion_id: params.occasion_id,
-      recurring: params.recurring
-    });
     return fetch(`/contact/${contact.id}/reminders`, {
       method: 'POST',
       contentType: 'application/x-www-form-urlencoded',
@@ -641,9 +636,12 @@ export const createReminder = (params) => (dispatch, getState, {fetch}) => {
       },
       token,
       success: (res) => {
-        console.log('res',res);
+        if(callback && res.data)
+        {
+          callback(res.data);
+        }
       },
-      failure: (err) => {console.log('err',err)},
+      failure: (err) => {},
     })
   }
 }
@@ -652,7 +650,6 @@ export const deleteReminder = (reminder_id) => (dispatch, getState, {fetch}) => 
   if(contact && contact.id)
   {
     const {token} = dispatch(getToken())
-    console.log(`/contact/${contact.id}/reminders/${reminder_id}`);
     return fetch(`/contact/${contact.id}/reminders/${reminder_id}`, {
       method: 'POST',
       contentType: 'application/x-www-form-urlencoded',
@@ -661,9 +658,9 @@ export const deleteReminder = (reminder_id) => (dispatch, getState, {fetch}) => 
       },
       token,
       success: (res) => {
-        console.log('res',res);
+    
       },
-      failure: (err) => {console.log('err',err)},
+      failure: (err) => {},
     })
   }
 }
@@ -684,9 +681,9 @@ export const updateReminder = (params) => (dispatch, getState, {fetch}) => {
       },
       token,
       success: (res) => {
-        console.log('res',res);
+       
       },
-      failure: (err) => {console.log('err',err)},
+      failure: (err) => {},
     })
   }
 }
