@@ -718,7 +718,6 @@ export const submitGift = (gotoNext = 0) => async (dispatch, getState) => {
     await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
   }
   */
-  console.log('----------------submitGift');
   await dispatch(addBundle())
   //await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
   if (gotoNext === 0) {
