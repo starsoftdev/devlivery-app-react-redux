@@ -99,12 +99,7 @@ class Voucher extends React.Component {
     loadFont('Abril Fatface')
     loadFont('Alex Brush')
   }
-  componentWillReceiveProps(nextprops){
-    if(nextprops.voucher && nextprops.voucher.to && nextprops.templates && nextprops.voucher !== this.props.voucher)
-    {
-      this.setState({template:nextprops.voucher.to.split(' ')});
-    }
-  }
+  
   componentWillMount() {
     this.loadLocalStorage();
   }
@@ -112,7 +107,12 @@ class Voucher extends React.Component {
     var initState = await localStorage.getItem(VOUCHER_STATE);
     if(initState)
     {
-      this.props.setVoucher(JSON.parse(initState));
+      const obj = JSON.parse(initState);
+      this.props.setVoucher(obj);
+      if(obj.to)
+      {
+        this.setState({template:obj.to.split(' ')});
+      }
     }
   }
   handleSubmit = (e, refresh = false) => {
