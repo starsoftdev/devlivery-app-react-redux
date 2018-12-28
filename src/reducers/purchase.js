@@ -678,9 +678,8 @@ export const register = (values, form) => (dispatch, getState, { fetch }) => {
 
 export const continueWithoutGift = () => async (dispatch, getState) => {
   const { loggedIn } = getState().user
-  const { flow } = getState().purchase
-  const { bundleId } = getState().purchase
-  
+  const { flow, bundleId } = getState().purchase
+ 
   dispatch(setGiftType(null))
   if (loggedIn && flow.key !== EDIT_BUNDLE_FLOW.key) {
     await dispatch({ type: SET_GIFTIDS, giftIds:[] });
@@ -719,8 +718,9 @@ export const submitGift = (gotoNext = 0) => async (dispatch, getState) => {
     await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
   }
   */
+  console.log('----------------submitGift');
   await dispatch(addBundle())
-  await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
+  //await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
   if (gotoNext === 0) {
     dispatch(nextFlowStep())
   }
@@ -1322,7 +1322,7 @@ export const confirmVoucher = (bundleValues, refresh) => async (dispatch, getSta
     token,
     success: async (res) => {
       await dispatch({ type: CONFIRM_VOUCHER_SUCCESS })
-      await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
+      //await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
       if (refresh) {
         dispatch(nextFlowStep(-2))
       }
