@@ -679,15 +679,38 @@ export const register = (values, form) => (dispatch, getState, { fetch }) => {
 export const continueWithoutGift = () => async (dispatch, getState) => {
   const { loggedIn } = getState().user
   const { flow } = getState().purchase
+  const { bundleId } = getState().purchase
+  
   dispatch(setGiftType(null))
   if (loggedIn && flow.key !== EDIT_BUNDLE_FLOW.key) {
     await dispatch({ type: SET_GIFTIDS, giftIds:[] });
-    await dispatch(addBundle())
-    await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
+    if(bundleId)
+      await dispatch(reset_Bundle(bundleId));
+    else await dispatch(addBundle())
+    //await dispatch({ type: MAKE_ORDER_SUCCESS, order: null })
   }
   dispatch(nextFlowStep(1))
 }
-
+export const reset_Bundle = (bundleId) => (dispatch, getState, { fetch }) => {
+  const { token } = dispatch(getToken())
+  if (bundleId) {
+    console.log(`/bundle/${bundleId}/reset`);
+    return fetch(`/bundle/${bundleId}/reset`, {
+      method: 'GET',
+      contentType: 'application/json',
+      token,
+      success: (res) => {
+        dispatch({type:SUBMIT_VOUCHER, voucher:null});
+        localStorage.removeItem(VOUCHER_STATE);
+        dispatch(setDonationOrg(null));
+        localStorage.removeItem(DONATION_STATE);
+      },
+      failure: (err) => {
+        console.log(`/bundle/${bundleId}/reset error:` ,err);
+      },
+    })
+  }
+}
 export const submitGift = (gotoNext = 0) => async (dispatch, getState) => {
   const { flow } = getState().purchase
   /*
