@@ -285,7 +285,8 @@ class Purchase6 extends React.Component {
     this.props.submitCardDetails({ body },stayPage)
   }
   handleEditorChange(content) {
-    this.setState({ content });
+    //console.log('------------------------');
+    //this.setState({ content });
   }
   execTinyCommand(type, flag, value) {
     if (this.tinymce)
@@ -342,29 +343,23 @@ class Purchase6 extends React.Component {
                           ed.on('init', function (e) {
                             ed.execCommand("fontName", false, Contants.FONTS[0]);
                           });
-                          /*
+                          
                           ed.on('BeforeSetContent', function (e) {
-                            console.log('BeforeSetContent',e);
+                            //console.log('BeforeSetContent',e);
                           });
-                          ed.on('keydown', function(e) {
-                            if(e.target.clientHeight > ed.editorContainer.clientHeight)
+                          ed.on('Keydown', function(e) {
+                            this.w = e; 
+                          });
+                          ed.on('PostProcess', function(e) {
+                            if(this.w.target.clientHeight > ed.editorContainer.clientHeight)
                             {
-                              //e.preventDefault();
-                              //ed.setContent(this.lastContent);
-                              ///ed.focus();
+                              ed.setContent(this.lastContent);
+                              ed.focus();
                             }
                             else{
-                              this.lastContent = ed.getContent();
-                            }
-                            
-                            if(e.keyCode == 13){
-                              if(Math.round(e.target.clientHeight * 0.264583) >= (cardHeight-21))
-                              {
-                                e.preventDefault();
-                              }
+                              this.lastContent = e.content;
                             }
                           });
-                          */
                         }
                       }}
                       onEditorChange={this.handleEditorChange}
