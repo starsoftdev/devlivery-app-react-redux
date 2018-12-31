@@ -285,8 +285,7 @@ class Purchase6 extends React.Component {
     this.props.submitCardDetails({ body },stayPage)
   }
   handleEditorChange(content) {
-    //console.log('------------------------');
-    //this.setState({ content });
+    this.setState({ content });
   }
   execTinyCommand(type, flag, value) {
     if (this.tinymce)
@@ -343,7 +342,7 @@ class Purchase6 extends React.Component {
                           ed.on('init', function (e) {
                             ed.execCommand("fontName", false, Contants.FONTS[0]);
                           });
-                          
+                          /*
                           ed.on('BeforeSetContent', function (e) {
                             //console.log('BeforeSetContent',e);
                           });
@@ -360,6 +359,7 @@ class Purchase6 extends React.Component {
                               this.lastContent = e.content;
                             }
                           });
+                          */
                         }
                       }}
                       onEditorChange={this.handleEditorChange}
