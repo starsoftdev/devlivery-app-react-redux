@@ -65,6 +65,10 @@ export default defineMessages({
     id: 'contactForm.addReminder',
     defaultMessage: 'Add new reminder',
   },
+  saveReminder: {
+    id: 'contactForm.saveReminder',
+    defaultMessage: 'Save reminder',
+  },
   repeat: {
     id: 'contactForm.repeat',
     defaultMessage: 'Repeat',
@@ -91,6 +95,59 @@ export default defineMessages({
   },
   dateplaceholder:{
     id: 'contactForm.dateplaceholder',
-    defaultMessage: 'DD/MM/YYYY',
+    defaultMessage: 'DD-MM-YYYY',
+  },
+  save:{
+    id: 'user.save',
+    defaultMessage: 'Save',
+  },
+  reminderFor:{
+    id: 'contactForm.reminderFor',
+    defaultMessage: 'Reminder for :',
+  },
+  occasionDate:{
+    id: 'contactForm.occasionDate',
+    defaultMessage: 'Occasion date :',
+  },
+  reminderDate:{
+    id: 'contactForm.reminderDate',
+    defaultMessage: 'Reminder date :',
+  },
+  frequency:{
+    id: 'contactForm.frequency',
+    defaultMessage: 'Frequency :',
+  },
+  cancelEdit: {
+    id: 'contactForm.cancelEdit',
+    defaultMessage: 'Cancel',
+  },
+  deleteReminderMessage: {
+    id: 'contactForm.deleteReminderMessage',
+    defaultMessage: 'Are you sure you want to delete?',
+  },
+  deleteReminderYes: {
+    id: 'contactForm.deleteReminderYes',
+    defaultMessage: 'Yes',
+  },
+
+  requirOccasion: {
+    id: 'contactForm.requirOccasion',
+    defaultMessage: 'Required Occasion Field!',
+  },
+  requirReminder: {
+    id: 'contactForm.requirReminder',
+    defaultMessage: 'Required Reminder Date Field!',
+  },
+  requireRecurring: {
+    id: 'contactForm.requireRecurring',
+    defaultMessage: 'Required Frequency Field!',
+  },
+  requireNotOnce: {
+    id: 'contactForm.requireNotOnce',
+    defaultMessage: 'Shouldn\'t be Once for Repeat!',
+  },
+  invalidoccasion: {
+    id: 'contactForm.invalidoccasion',
+    defaultMessage: 'Invalid Occasion Date',
   }
 })

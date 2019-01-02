@@ -24,6 +24,50 @@
   .rccs__card--unknown > div {
     background: linear-gradient(25deg, var(--primary-color), var(--primary-color)) !important;
   }
+  .custom_ol { 
+
+    counter-reset: item !important
+  }
+  .custom_li{ 
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block !important;
+    text-indent: -20px;
+    color: var(--text-color);
+    font-weight: 100;
+    font-size: var(--font-size-base);
+    font-family: var(--font-family);
+  }
+  .custom_li:before { 
+    content: counters(item, ".") " "; counter-increment: item !important;
+    color: var(--text-color);
+    font-weight: bold;
+    font-size: var(--font-size-base);
+    font-family: var(--font-family);
+  }
+
+  .custom_li_parent{ 
+    display: block !important;
+    color: var(--heading-color);
+    font-weight: 100;
+    font-size: 32px;
+    font-family: var(--font-family);
+  }
+  .custom_li_parent:before { 
+    content: counters(item, ".") ". "; counter-increment: item !important;
+    color: var(--heading-color);
+    font-weight: bold;
+    font-size: 32px;
+    font-family: var(--font-family);
+    margin-right: 5px;
+  }
+  .mce-tinymce.mce-container.mce-panel {
+    border-color: rgba(0,0,0,0) !important;
+    box-shadow: none !important;
+  }
+  .mce-edit-area{
+    border-color: rgba(0,0,0,0) !important;
+  }
 }
 
 .collapseButton {
@@ -45,14 +89,14 @@ button span {
 ::-webkit-inner-spin-button { margin-top: 12px; margin-left: 5px }
 ::-webkit-calendar-picker-indicator { display: none; }
 
-input[placeholder="DD/MM/YYYY"] {
+input[placeholder="DD-MM-YYYY"] {
   width: 100%;
   background-color: transparent;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   min-height : 50px;
 }
-input[placeholder="TT/MM/JJJJ"] {
+input[placeholder="TT-MM-JJJJ"] {
   width: 100%;
   background-color: transparent;
   border: none;
@@ -62,3 +106,4 @@ input[placeholder="TT/MM/JJJJ"] {
 input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
+

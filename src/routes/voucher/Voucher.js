@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { submitVoucher } from '../../reducers/purchase'
-import { Button, Form, Input } from 'antd'
+import { submitVoucher,VOUCHER_STATE,setVoucher,removeVoucherFromBundle,nextFlowStep } from '../../reducers/purchase'
+import { Button, Form, Input, Select } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Voucher.css'
 import { Actions, PurchaseActions, SectionHeader, FloatingLabel } from '../../components'
@@ -92,29 +92,50 @@ const voucherStyles = {
 
 // TODO add recipient/receiver fields as dropdowns
 class Voucher extends React.Component {
+  state = {
+    template: undefined
+  }
   componentDidMount() {
     loadFont('Abril Fatface')
     loadFont('Alex Brush')
   }
-
+  
+  componentWillMount() {
+    this.loadLocalStorage();
+  }
+  async loadLocalStorage() {
+    var initState = await localStorage.getItem(VOUCHER_STATE);
+    if(initState)
+    {
+      const obj = JSON.parse(initState);
+      this.props.setVoucher(obj);
+      if(obj.to)
+      {
+        this.setState({template:obj.to.split(' ')});
+      }
+    }
+  }
   handleSubmit = (e, refresh = false) => {
     e.preventDefault()
+    const {template} = this.state;
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.props.submitVoucher({
-          html: values.text,
-          title: this.props.intl.formatMessage(messages.voucherHeader),
+          //html: values.text,
+          //title: this.props.intl.formatMessage(messages.voucherHeader),
           ...values,
+          to:(template !== undefined&&template&&template.length > 0)?template.join(' '):''
         }, refresh)
       }
     })
   }
 
   render() {
-    const { intl, flowIndex, loading, voucher } = this.props
+    const { intl, flowIndex, loading, voucher, templates } = this.props
     // TODO fix  The prop `html` is marked as required in `ContentEditable`, but its value is `undefined`
-    const { getFieldDecorator } = this.props.form
-
+    const { getFieldDecorator, getFieldValue } = this.props.form
+    const {template} = this.state;
+    
     return (
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
@@ -134,19 +155,36 @@ class Voucher extends React.Component {
                     { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                   ],
                 })(
-                  <FloatingLabel placeholder={intl.formatMessage(messages.giver)} />
+                  <FloatingLabel placeholder={intl.formatMessage(messages.giver)}/>
                 )}
               </Form.Item>
-              <Form.Item className={cn(s.voucherFormItem)}>
+              <Form.Item className={cn(s.voucherToItem)}>
                 {getFieldDecorator('to', {
-                  initialValue: voucher ? voucher.to : '',
-                  rules: [
-                    { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
-                  ],
+                  initialValue: [],
+                  rules: [],
                 })(
-                  <FloatingLabel placeholder={intl.formatMessage(messages.receiver)} />
+                  <div>
+                    {
+                      (template !== undefined && template && template.length > 0) &&
+                      <p className={s.inputlabel}>{intl.formatMessage(messages.receiver)}</p>
+                    }
+                    <Select
+                      mode="multiple"
+                      placeholder={intl.formatMessage(messages.receiver)}
+                      onChange={(value)=>{
+                        this.setState({template: value});
+                      }}
+                      allowClear
+                      value={template}
+                    >
+                      {templates && templates.map((item) =>
+                        <Select.Option key={item.name} value={item.template}>{item.name}</Select.Option>
+                      )}
+                    </Select>
+                  </div>
                 )}
               </Form.Item>
+              
               <label className={s.messageTitle}>{intl.formatMessage(messages.freeText)}</label>
               <Form.Item className={cn(s.voucherFormItem)}>
                 {getFieldDecorator('text', {
@@ -161,13 +199,30 @@ class Voucher extends React.Component {
               </Form.Item>
             </div>
           </div>
+          {
+            voucher &&
+            <div className={s.cancelBtn}>
+              <Button
+                type='primary'
+                size={'small'}
+                onClick={()=>{
+                  this.setState({template:[]});
+                  this.props.removeVoucherFromBundle()
+                  this.props.nextFlowStep(-2)
+                }}
+              >
+                {intl.formatMessage(messages.cancel)}
+              </Button>
+            </div>
+          }
         </div>
         <PurchaseActions>
           <Button
             type='primary'
             onClick={(e) => this.handleSubmit(e, true)}
+            className={s.restrictedBtn}
           >
-            {'buy more products'}
+            <span className={s.multiline}>{intl.formatMessage(messages.savemoreproducts)}</span>
           </Button>
           <KeyHandler
             keyEventName={KEYPRESS}
@@ -177,8 +232,9 @@ class Voucher extends React.Component {
           <Button
             type='primary'
             onClick={(e) => this.handleSubmit(e)}
+            className={s.restrictedBtn}
           >
-            {intl.formatMessage(messages.submit)}
+            <span className={s.multiline}>{intl.formatMessage(messages.submit)}</span>
           </Button>
         </PurchaseActions>
       </Form>
@@ -252,10 +308,14 @@ const mapState = state => ({
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
   voucher: state.purchase.voucher,
+  templates: state.purchase.templates,
 })
 
 const mapDispatch = {
   submitVoucher,
+  setVoucher,
+  removeVoucherFromBundle,
+  nextFlowStep
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Voucher)))

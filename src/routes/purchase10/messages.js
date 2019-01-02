@@ -29,6 +29,10 @@ export default defineMessages({
     id: 'purchase10.selectGroups',
     defaultMessage: 'Select Groups',
   },
+  msg_uploadcontact: {
+    id: 'purchase10.msg_uploadcontact',
+    defaultMessage: 'Please upload contact file.',
+  },
   requireadres: {
     id: 'addContact.requireadres',
     defaultMessage: 'Home address or Company address is required.',
@@ -36,5 +40,13 @@ export default defineMessages({
   importDescription: {
     id: 'addContact.importDescription',
     defaultMessage: 'Match the labels below with the corresponding options in the dropdown select field.',
-  }
+  },
+  cancelEdit: {
+    id: 'contactForm.cancelEdit',
+    defaultMessage: 'Cancel',
+  },
+  msg_atleast: {
+    id: 'importContacts.msg_atleast',
+    defaultMessage: 'You have to select at least one contact.',
+  },
 })

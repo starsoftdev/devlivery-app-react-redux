@@ -63,6 +63,10 @@
   color: color-mod(var(--dark-color) a(70%));
   font-style: italic;
   margin-bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .contactEmail,
@@ -136,4 +140,7 @@
 
 .removeIcon {
   margin-left: var(--margin-xs);
+}
+.phoneItem {
+  white-space: nowrap ;
 }

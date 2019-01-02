@@ -81,7 +81,14 @@ export default defineMessages({
     id: 'orders.summaryTotal',
     defaultMessage: 'Total',
   },
-
+  deliveryoccasion: {
+    id: 'orders.deliveryoccasion',
+    defaultMessage: 'Delivery Occasion',
+  },
+  deliveryDate: {
+    id: 'orders.deliveryDate',
+    defaultMessage: 'Delivery Date',
+  },
   size: {
     id: 'cardStore.size',
     defaultMessage: 'Size',
@@ -102,8 +109,44 @@ export default defineMessages({
     id: 'reports.datefrom',
     defaultMessage: 'From:',
   },
-  dateto: {
-    id: 'reports.dateto',
-    defaultMessage: 'To:',
+  shippingdate: {
+    id: 'reports.shippingdate',
+    defaultMessage: 'Shipping Date',
   },
+  dateto: {
+    id: 'voucher.receiver',
+    defaultMessage: 'To',
+  },
+  stock: {
+    id: 'giftStore.stock',
+    defaultMessage: 'Stock',
+  },
+  SKU: {
+    id: 'giftStore.SKU',
+    defaultMessage: 'SKU',
+  },
+  unlimited: {
+    id: 'giftStore.unlimited',
+    defaultMessage: 'Unlimited',
+  },
+  contactsColumn: {
+    id: 'reports.contactsColumn',
+    defaultMessage: 'Contacts',
+  },
+  shipping_details: {
+    id: 'orders.shipping_details',
+    defaultMessage: 'Shipping details',
+  },
+  events_on: {
+    id: 'orders.events_on',
+    defaultMessage: 'Events on',
+  },
+  noorder: {
+    id: 'orders.noorder',
+    defaultMessage: 'No Order',
+  },
+  btn_pay: {
+    id: 'orders.btn_pay',
+    defaultMessage: 'Pay',
+  }
 })

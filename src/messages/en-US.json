@@ -16,8 +16,16 @@
     ]
   },
   {
+    "id": "contactForm.saveReminder",
+    "defaultMessage": "Save reminder",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
     "id": "contactForm.dateplaceholder",
-    "defaultMessage": "DD/MM/YYYY",
+    "defaultMessage": "DD-MM-YYYY",
     "message": "",
     "files": [
       "src/components/ContactForm/messages.js",
@@ -27,10 +35,43 @@
     ]
   },
   {
+    "id": "contactForm.reminderFor",
+    "defaultMessage": "Reminder for :",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.occasionDate",
+    "defaultMessage": "Occasion date :",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.reminderDate",
+    "defaultMessage": "Reminder date :",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.frequency",
+    "defaultMessage": "Frequency :",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
     "id": "contactForm.birthday",
     "defaultMessage": "Birthday",
     "message": "",
     "files": [
+      "src/components/ContactDetail/ContactDetail.js",
       "src/components/ContactForm/messages.js",
       "src/routes/user/messages.js"
     ]
@@ -40,6 +81,7 @@
     "defaultMessage": "Company Address",
     "message": "",
     "files": [
+      "src/components/ColumnsMappingForm/messages.js",
       "src/components/ContactForm/messages.js"
     ]
   },
@@ -66,6 +108,7 @@
     "defaultMessage": "Home Address",
     "message": "",
     "files": [
+      "src/components/ColumnsMappingForm/messages.js",
       "src/components/ContactForm/messages.js"
     ]
   },
@@ -122,6 +165,72 @@
   {
     "id": "contactForm.selectGroup",
     "defaultMessage": "Select relevant group",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.cancelEdit",
+    "defaultMessage": "Cancel",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js",
+      "src/routes/importContacts/messages.js",
+      "src/routes/purchase10/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.deleteReminderMessage",
+    "defaultMessage": "Are you sure you want to delete?",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.deleteReminderYes",
+    "defaultMessage": "Yes",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.requirOccasion",
+    "defaultMessage": "Required Occasion Field!",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.requirReminder",
+    "defaultMessage": "Required Reminder Date Field!",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.requireRecurring",
+    "defaultMessage": "Required Frequency Field!",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.requireNotOnce",
+    "defaultMessage": "Shouldn't be Once for Repeat!",
+    "message": "",
+    "files": [
+      "src/components/ContactForm/messages.js"
+    ]
+  },
+  {
+    "id": "contactForm.invalidoccasion",
+    "defaultMessage": "Invalid Occasion Date",
     "message": "",
     "files": [
       "src/components/ContactForm/messages.js"
@@ -273,6 +382,57 @@
     ]
   },
   {
+    "id": "addContact.reminderError",
+    "defaultMessage": "Please Complete Reminder Forms.",
+    "message": "",
+    "files": [
+      "src/routes/addContact/messages.js",
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
+    "id": "addContact.saveConfirm",
+    "defaultMessage": "Do you wish save the information you've edited?",
+    "message": "",
+    "files": [
+      "src/routes/addContact/messages.js",
+      "src/routes/editContact/messages.js",
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "addContact.confirm",
+    "defaultMessage": "Confirm",
+    "message": "",
+    "files": [
+      "src/routes/addContact/messages.js",
+      "src/routes/editContact/messages.js",
+      "src/routes/purchase11/messages.js",
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "addContact.yes",
+    "defaultMessage": "Yes",
+    "message": "",
+    "files": [
+      "src/routes/addContact/messages.js",
+      "src/routes/editContact/messages.js",
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "addContact.no",
+    "defaultMessage": "No",
+    "message": "",
+    "files": [
+      "src/routes/addContact/messages.js",
+      "src/routes/editContact/messages.js",
+      "src/routes/purchase11/messages.js",
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
     "id": "addContact.header",
     "defaultMessage": "Add Contact",
     "message": "",
@@ -293,6 +453,7 @@
     "defaultMessage": "Home address or Company address is required.",
     "message": "",
     "files": [
+      "src/components/ColumnsMappingForm/messages.js",
       "src/routes/addContact/messages.js",
       "src/routes/editContact/messages.js",
       "src/routes/purchase10/messages.js"
@@ -1305,6 +1466,30 @@
     ]
   },
   {
+    "id": "purchase13.msg_addcard",
+    "defaultMessage": "Please add new card.",
+    "message": "",
+    "files": [
+      "src/routes/purchase13/messages.js"
+    ]
+  },
+  {
+    "id": "purchase13.msg_filledin",
+    "defaultMessage": "All fields must be filled in",
+    "message": "",
+    "files": [
+      "src/routes/purchase13/messages.js"
+    ]
+  },
+  {
+    "id": "purchase13.msg_invalidcard",
+    "defaultMessage": "Invalid credit card number",
+    "message": "",
+    "files": [
+      "src/routes/purchase13/messages.js"
+    ]
+  },
+  {
     "id": "purchase13.thankyou",
     "defaultMessage": "Thank You",
     "message": "",
@@ -1322,7 +1507,7 @@
   },
   {
     "id": "purchase13.thankyou_shorttext",
-    "defaultMessage": "Create in 4 simple steps!",
+    "defaultMessage": "Creat your own account in 4 simple steps!",
     "message": "",
     "files": [
       "src/routes/purchaseCompleted/messages.js"
@@ -1483,7 +1668,14 @@
       "src/routes/purchase3/messages.js",
       "src/routes/purchase4/messages.js",
       "src/routes/purchase5/messages.js",
-      "src/routes/purchase7/messages.js",
+      "src/routes/purchase7/messages.js"
+    ]
+  },
+  {
+    "id": "purchase8.submit",
+    "defaultMessage": "SAVE AND NEXT STEP",
+    "message": "",
+    "files": [
       "src/routes/purchase8/messages.js"
     ]
   },
@@ -1834,14 +2026,6 @@
     ]
   },
   {
-    "id": "register2.header",
-    "defaultMessage": "Individual Details",
-    "message": "",
-    "files": [
-      "src/routes/register2/messages.js"
-    ]
-  },
-  {
     "id": "register2.lastName",
     "defaultMessage": "Last Name",
     "message": "",
@@ -1974,6 +2158,7 @@
     "defaultMessage": "Contacts",
     "message": "",
     "files": [
+      "src/routes/orders/messages.js",
       "src/routes/reports/messages.js"
     ]
   },
@@ -1999,7 +2184,6 @@
     "defaultMessage": "To:",
     "message": "",
     "files": [
-      "src/routes/orders/messages.js",
       "src/routes/reports/messages.js"
     ]
   },
@@ -2044,6 +2228,38 @@
     ]
   },
   {
+    "id": "reports.filterType",
+    "defaultMessage": "Filter Type",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.delivery",
+    "defaultMessage": "Delivery",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.shipping",
+    "defaultMessage": "Shipping",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.ordered",
+    "defaultMessage": "Ordered",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
     "id": "reports.occasionColumn",
     "defaultMessage": "Occasion",
     "message": "",
@@ -2061,7 +2277,7 @@
   },
   {
     "id": "reports.sentColumn",
-    "defaultMessage": "Sent",
+    "defaultMessage": "Recipients",
     "message": "",
     "files": [
       "src/routes/reports/messages.js"
@@ -2088,6 +2304,15 @@
     "defaultMessage": "Total Price",
     "message": "",
     "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "reports.shippingdate",
+    "defaultMessage": "Shipping Date",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js",
       "src/routes/reports/messages.js"
     ]
   },
@@ -2210,6 +2435,16 @@
     "files": [
       "src/components/Avatar/messages.js",
       "src/routes/importContacts/messages.js"
+    ]
+  },
+  {
+    "id": "importContacts.msg_atleast",
+    "defaultMessage": "You have to select at least one contact.",
+    "message": "",
+    "files": [
+      "src/formMessages.js",
+      "src/routes/importContacts/messages.js",
+      "src/routes/purchase10/messages.js"
     ]
   },
   {
@@ -2338,7 +2573,8 @@
     "defaultMessage": "Company Name",
     "message": "",
     "files": [
-      "src/components/Address/messages.js"
+      "src/components/Address/messages.js",
+      "src/components/ColumnsMappingForm/messages.js"
     ]
   },
   {
@@ -2580,7 +2816,9 @@
     "defaultMessage": "About Us",
     "message": "",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2588,7 +2826,9 @@
     "defaultMessage": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     "message": "",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2596,7 +2836,9 @@
     "defaultMessage": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     "message": "",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2604,7 +2846,9 @@
     "defaultMessage": "“ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown y of type and scrambled it to make a type specimen book. ”",
     "message": "",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2612,7 +2856,9 @@
     "defaultMessage": "Enter your email address",
     "message": "",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2620,7 +2866,9 @@
     "defaultMessage": "Sign up to get first access, curated notes about new styles, sales and events.",
     "message": "",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2628,7 +2876,9 @@
     "defaultMessage": "Submit",
     "message": "",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2636,7 +2886,9 @@
     "defaultMessage": "ByZumi",
     "message": "",
     "files": [
-      "src/routes/about/messages.js"
+      "src/routes/about/messages.js",
+      "src/routes/privacy/messages.js",
+      "src/routes/terms/messages.js"
     ]
   },
   {
@@ -2906,6 +3158,15 @@
     ]
   },
   {
+    "id": "contactGroups.warningRemoving",
+    "defaultMessage": "This contact can't be deleted because is a recipient in one of your orders.",
+    "message": "",
+    "files": [
+      "src/routes/contacts/messages.js",
+      "src/routes/editContact/messages.js"
+    ]
+  },
+  {
     "id": "contacts.confirmRemoving",
     "defaultMessage": "Are you sure you want to delete?",
     "message": "",
@@ -2915,6 +3176,30 @@
       "src/routes/contacts_mulitple/messages.js",
       "src/routes/editContact/messages.js",
       "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "contacts.msg_onegroup",
+    "defaultMessage": "please choose one group.",
+    "message": "",
+    "files": [
+      "src/routes/contacts_mulitple/messages.js"
+    ]
+  },
+  {
+    "id": "contacts.msg_nocontacts",
+    "defaultMessage": "The group have no contacts.",
+    "message": "",
+    "files": [
+      "src/routes/contacts_mulitple/messages.js"
+    ]
+  },
+  {
+    "id": "contacts.msg_choosecontact",
+    "defaultMessage": "please choose contacts.",
+    "message": "",
+    "files": [
+      "src/routes/contacts_mulitple/messages.js"
     ]
   },
   {
@@ -3048,7 +3333,7 @@
   },
   {
     "id": "donation.submit",
-    "defaultMessage": "Next",
+    "defaultMessage": "SAVE AND NEXT STEP",
     "message": "",
     "files": [
       "src/routes/donation/messages.js"
@@ -3088,6 +3373,33 @@
       "src/routes/cardStore/messages.js",
       "src/routes/giftStore/messages.js",
       "src/routes/newArrivals/messages.js"
+    ]
+  },
+  {
+    "id": "giftStore.stock",
+    "defaultMessage": "Stock",
+    "message": "",
+    "files": [
+      "src/routes/giftStore/messages.js",
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "giftStore.SKU",
+    "defaultMessage": "SKU",
+    "message": "",
+    "files": [
+      "src/routes/giftStore/messages.js",
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "giftStore.unlimited",
+    "defaultMessage": "Unlimited",
+    "message": "",
+    "files": [
+      "src/routes/giftStore/messages.js",
+      "src/routes/orders/messages.js"
     ]
   },
   {
@@ -3379,6 +3691,22 @@
     ]
   },
   {
+    "id": "orders.deliveryoccasion",
+    "defaultMessage": "Delivery Occasion",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "orders.deliveryDate",
+    "defaultMessage": "Delivery Date",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
     "id": "purchase11.deliveryPlace",
     "defaultMessage": "Where to send",
     "message": "",
@@ -3455,12 +3783,53 @@
     "defaultMessage": "Remove",
     "message": "",
     "files": [
+      "src/routes/donation/messages.js",
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.msg_contacts",
+    "defaultMessage": "The contacts you have selected don't have a birthdate. Are you sure you want to proceed?",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.msg_notHome",
+    "defaultMessage": "Home address is not available for all recipients, in this case we will use Company address instead.",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.msg_notOffice",
+    "defaultMessage": "Company address is not available for all recipients, in this case we will use Home address instead.",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.msg_budget",
+    "defaultMessage": "Insufficient budget available",
+    "message": "",
+    "files": [
       "src/routes/purchase11/messages.js"
     ]
   },
   {
     "id": "purchase11.personalizedmsg",
     "defaultMessage": "You are going to send this personalized message empty.",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.availablebudget",
+    "defaultMessage": "AVAILABLE BUDGET:",
     "message": "",
     "files": [
       "src/routes/purchase11/messages.js"
@@ -3711,12 +4080,24 @@
     ]
   },
   {
+    "id": "user.msg_older18",
+    "defaultMessage": "To be able to create an account you must be minimum 18 years old",
+    "message": "",
+    "files": [
+      "src/routes/purchase9/messages.js",
+      "src/routes/register2/messages.js",
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
     "id": "user.save",
     "defaultMessage": "Save",
     "message": "",
     "files": [
-      "src/routes/user/messages.js",
-      "src/components/Avatar/messages.js"
+      "src/components/Avatar/messages.js",
+      "src/components/ContactForm/messages.js",
+      "src/components/TeamExpandedRow/messages.js",
+      "src/routes/user/messages.js"
     ]
   },
   {
@@ -3724,7 +4105,7 @@
     "defaultMessage": "Edit Avatar",
     "message": "",
     "files": [
-     "src/components/Avatar/messages.js"
+      "src/components/Avatar/messages.js"
     ]
   },
   {
@@ -3732,7 +4113,7 @@
     "defaultMessage": "Edit Logo",
     "message": "",
     "files": [
-     "src/components/Avatar/messages.js"
+      "src/components/Avatar/messages.js"
     ]
   },
   {
@@ -3772,7 +4153,8 @@
     "defaultMessage": "Password Confirmation",
     "message": "",
     "files": [
-      "src/components/ChangePasswordForm/messages.js"
+      "src/components/ChangePasswordForm/messages.js",
+      "src/routes/setPassword/messages.js"
     ]
   },
   {
@@ -3859,7 +4241,7 @@
   },
   {
     "id": "voucher.description",
-    "defaultMessage": "Description on how donation works. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,  electronic typesetting, remaining essentially unchanged remaining.",
+    "defaultMessage": "Description on how voucher works. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,  electronic typesetting, remaining essentially unchanged remaining.",
     "message": "",
     "files": [
       "src/routes/voucher/messages.js"
@@ -3868,6 +4250,14 @@
   {
     "id": "voucher.freeText",
     "defaultMessage": "Message",
+    "message": "",
+    "files": [
+      "src/routes/voucher/messages.js"
+    ]
+  },
+  {
+    "id": "voucher.cancel",
+    "defaultMessage": "Cancel",
     "message": "",
     "files": [
       "src/routes/voucher/messages.js"
@@ -3898,12 +4288,13 @@
     "files": [
       "src/components/OrderItems/messages.js",
       "src/routes/voucher/messages.js",
-      "src/routes/bundles/messages.js"
+      "src/routes/bundles/messages.js",
+      "src/routes/orders/messages.js"
     ]
   },
   {
     "id": "voucher.submit",
-    "defaultMessage": "Next",
+    "defaultMessage": "SAVE AND NEXT STEP",
     "message": "",
     "files": [
       "src/routes/voucher/messages.js"
@@ -3923,6 +4314,353 @@
     "message": "",
     "files": [
       "src/routes/voucher/messages.js"
+    ]
+  },
+  {
+    "id": "voucher.recipient",
+    "defaultMessage": "Recipient details",
+    "message": "",
+    "files": [
+      "src/routes/voucher/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.partialBirthError",
+    "defaultMessage": "Some of the recipients has no birthdate set.",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "purchase8.savemoreproducts",
+    "defaultMessage": "SAVE AND BUY MORE PRODUCTS",
+    "message": "",
+    "files": [
+      "src/routes/donation/messages.js",
+      "src/routes/purchase8/messages.js",
+      "src/routes/voucher/messages.js"
+    ]
+  },
+  {
+    "id": "reports.orderat",
+    "defaultMessage": "OrderedAt",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "form.amount_bigger",
+    "defaultMessage": "Sorry, but donation needs to be bigger than 0",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
+    ]
+  },
+  {
+    "id": "form.donation_amount",
+    "defaultMessage": "Sorry, you must select a donation amount.",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
+    ]
+  },
+  {
+    "id": "form.positive",
+    "defaultMessage": "This field must be positive.",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
+    ]
+  },
+  {
+    "id": "orders.shipping_details",
+    "defaultMessage": "Shipping details",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "purchase10.msg_uploadcontact",
+    "defaultMessage": "Please upload contact file.",
+    "message": "",
+    "files": [
+      "src/routes/purchase10/messages.js"
+    ]
+  },
+  {
+    "id": "purchase11.msg_norecipient",
+    "defaultMessage": "This order have no any recipient.",
+    "message": "",
+    "files": [
+      "src/routes/purchase11/messages.js"
+    ]
+  },
+  {
+    "id": "reports.noscheduled",
+    "defaultMessage": "No Scheduled",
+    "message": "",
+    "files": [
+      "src/routes/reports/messages.js"
+    ]
+  },
+  {
+    "id": "user.msg_expiredate",
+    "defaultMessage": "Invalid expire date",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.msg_inputname",
+    "defaultMessage": "please input name.",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.msg_invalidCVC",
+    "defaultMessage": "Invalid CVC number",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.msg_invalidcard",
+    "defaultMessage": "Invalid Card",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "user.msg_invalidcardnumber",
+    "defaultMessage": "Invalid credit card number",
+    "message": "",
+    "files": [
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.msg_filesize",
+    "defaultMessage": "The image may not be greater than 2048 kilobytes.",
+    "message": "",
+    "files": [
+      "src/components/Avatar/messages.js"
+    ]
+  },
+  {
+    "id": "dashboard.uploadlogo",
+    "defaultMessage": "Upload logo",
+    "message": "",
+    "files": [
+      "src/components/Avatar/messages.js"
+    ]
+  },
+  {
+    "id": "form.invalidDate",
+    "defaultMessage": "Invalid Date Format.",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
+    ]
+  },
+  {
+    "id": "form.pastdate",
+    "defaultMessage": "please enter a date in the past.",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
+    ]
+  },
+  {
+    "id": "contactUs.msg_filetype",
+    "defaultMessage": "This file must be a file of type: pdf, jpeg, jpg, png.",
+    "message": "",
+    "files": [
+      "src/routes/contactUs/messages.js"
+    ]
+  },
+  {
+    "id": "donation.noorganization",
+    "defaultMessage": "No organizations.",
+    "message": "",
+    "files": [
+      "src/routes/donation/messages.js"
+    ]
+  },
+  {
+    "id": "orders.events_on",
+    "defaultMessage": "Events on",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "user.save_newbudget",
+    "defaultMessage": "Save new budget",
+    "message": "",
+    "files": [
+      "src/components/TeamExpandedRow/messages.js"
+    ]
+  },
+  {
+    "id": "form.error_transactionid",
+    "defaultMessage": "transaction id doesn't exist",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
+    ]
+  },
+  {
+    "id": "form.failed_subscribed",
+    "defaultMessage": "failed your subscribe",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
+    ]
+  },
+  {
+    "id": "form.removed_bundle",
+    "defaultMessage": "Bundle is successfully removed.",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
+    ]
+  },
+  {
+    "id": "form.success_coupon",
+    "defaultMessage": "Successfully applied coupon",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
+    ]
+  },
+  {
+    "id": "form.success_subscribed",
+    "defaultMessage": "successfully subscribed",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
+    ]
+  },
+  {
+    "id": "form.updated_contact",
+    "defaultMessage": "Contact was successfully updated",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
+    ]
+  },
+  {
+    "id": "contactUs.sent_msg",
+    "defaultMessage": "Successfully sent message.",
+    "message": "",
+    "files": [
+      "src/routes/contactUs/messages.js"
+    ]
+  },
+  {
+    "id": "header.btn_knowmore",
+    "defaultMessage": "Know More",
+    "message": "",
+    "files": [
+      "src/components/Header/messages.js"
+    ]
+  },
+  {
+    "id": "header.btn_understand",
+    "defaultMessage": "I understand",
+    "message": "",
+    "files": [
+      "src/components/Header/messages.js"
+    ]
+  },
+  {
+    "id": "header.msg_cookie",
+    "defaultMessage": "We use cookies to optimize your site experience. By interacting with our site, you agree to our use of cookies.",
+    "message": "",
+    "files": [
+      "src/components/Header/messages.js"
+    ]
+  },
+  {
+    "id": "contacts.title_edit",
+    "defaultMessage": "Edit",
+    "message": "",
+    "files": [
+      "src/routes/contacts/messages.js"
+    ]
+  },
+  {
+    "id": "contacts.title_remove",
+    "defaultMessage": "Remove",
+    "message": "",
+    "files": [
+      "src/routes/contacts/messages.js"
+    ]
+  },
+  {
+    "id": "uploadedContacts.btnOk",
+    "defaultMessage": "Ok",
+    "message": "",
+    "files": [
+      "src/components/UploadedContacts/messages.js"
+    ]
+  },
+  {
+    "id": "orders.noorder",
+    "defaultMessage": "No Order",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "contactGroups.nocard",
+    "defaultMessage": "No Card",
+    "message": "",
+    "files": [
+      "src/components/CardCheckOut/messages.js"
+    ]
+  },
+  {
+    "id": "orders.btn_pay",
+    "defaultMessage": "Pay",
+    "message": "",
+    "files": [
+      "src/routes/orders/messages.js"
+    ]
+  },
+  {
+    "id": "purchase13.cardname",
+    "defaultMessage": "YOUR NAME HERE",
+    "message": "",
+    "files": [
+      "src/routes/purchase13/messages.js",
+      "src/routes/user/messages.js"
+    ]
+  },
+  {
+    "id": "form.changed_pwd",
+    "defaultMessage": "Password changed.",
+    "message": "",
+    "files": [
+      "src/formMessages.js"
+    ]
+  },
+  {
+    "id": "dashboard.msg_filetype",
+    "defaultMessage": "Valid file types are: jpg, jpeg, png",
+    "message": "",
+    "files": [
+      "src/components/Avatar/messages.js"
     ]
   }
 ]

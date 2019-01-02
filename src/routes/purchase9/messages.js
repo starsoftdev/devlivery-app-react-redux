@@ -91,6 +91,10 @@ export default defineMessages({
   },
   dateplaceholder:{
     id: 'contactForm.dateplaceholder',
-    defaultMessage: 'DD/MM/YYYY',
-  }
+    defaultMessage: 'DD-MM-YYYY',
+  },
+  msg_older18:{
+    id: 'user.msg_older18',
+    defaultMessage: 'To be able to create an account you must be minimum 18 years old',
+  },
 })

@@ -34,7 +34,13 @@
     right: 100%;
   }
 }
-
+.editorWrapper {
+  display: inline-block;
+  padding: 10mm;
+  background: var(--white-color);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ddd;
+}
 .section {
 }
 
@@ -64,10 +70,6 @@
   margin-bottom: var(--margin-md);
 }
 .warnText{
-  font-family: var(--font-family-secondary);
-  font-size: 12px;
-  font-weight: 100;
-  letter-spacing: 1.15px;
   color: red;
 }
 .cardPreview {
@@ -148,4 +150,10 @@
 }
 .hide {
   display: none;
+}
+.recp_ele{
+  margin-bottom: 0;
+  min-height: 22px;
+  word-break: break-all;
+  white-space: pre-line;
 }

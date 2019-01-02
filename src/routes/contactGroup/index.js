@@ -17,7 +17,7 @@ function action({store, route, intl, query, params}) {
     breadcrumbs: [
       {name: intl.formatMessage(messages.breadcrumb)},
     ],
-    component: <ContactGroup intl={intl} currentGroup = {{id:params.groupId}}/>,
+    component: <ContactGroup intl={intl} currentGroup = {{id:params.groupId}} groupId={params.groupId}/>,
   }
 }
 

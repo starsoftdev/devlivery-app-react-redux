@@ -59,9 +59,18 @@
 
 .occasion {
   margin-left: auto;
-  width: 300px;
+  width: 180px;
+}
+
+.filterType {
+  margin-left: 0px;
+  margin-right: auto;
+  width: 160px;
 }
 
 .filterWrapper {
   padding-right: 40px;
+}
+.currency {
+  color: var(--muted-color);
 }

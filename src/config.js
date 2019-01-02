@@ -14,14 +14,14 @@ module.exports = {
   ],
 
   // Node.js app
-  port: process.env.PORT || 80,
+  port: process.env.PORT || 80,//8080,
 
   api: {
-    url: process.env.API_URL || 'http://139.59.175.153:8081/api/v1',//'http://byzumi-dev.colorelephant.com:8081/api/v1'
+    url: process.env.API_URL || 'http://139.59.175.153:8081/api/v1',//'https://byzumi.com:8081/api/v1' (live),//'http://byzumi-dev.colorelephant.com:8081/api/v1'
   },
 
   stripe: {
-    apiKey: 'pk_test_RZuClDNHgWzhvxegdoj5TVLt',
+    apiKey: 'pk_test_RZuClDNHgWzhvxegdoj5TVLt', // 'pk_live_QEkY8wy4qeiwxBZY997MYj3Y' (live)
   },
 
   // Web analytics
@@ -30,5 +30,5 @@ module.exports = {
     googleTrackingId: process.env.GOOGLE_TRACKING_ID || '',
   },
 
-  CRISP_WEBSITE_ID : "1a110172-9bbb-4d34-9ce2-7e30d1bbc9a0" //"a923a36b-3c6f-4d91-972c-d37c851ed6d8" (byzumi-dev)
+  CRISP_WEBSITE_ID : "1a110172-9bbb-4d34-9ce2-7e30d1bbc9a0" //"a923a36b-3c6f-4d91-972c-d37c851ed6d8" (byzumi-dev) //"04f29a7b-be7d-426c-a123-98eedbbdeffa"(live)
 }

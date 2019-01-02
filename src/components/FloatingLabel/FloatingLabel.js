@@ -39,7 +39,10 @@ export default class FloatingLabel extends React.Component {
   }
   onKeyDown(event){
     const keycode = event.keyCode;
-    var valid = 
+    
+    if(this.props.type === 'phone')
+    {
+      var valid = 
       (keycode > 47 && keycode < 58)   || // number keys
       //keycode == 32 || keycode == 13   || // spacebar & return key(s) (if you want to allow carriage returns)
       (keycode > 64 && keycode < 91)   || // letter keys
@@ -48,8 +51,6 @@ export default class FloatingLabel extends React.Component {
       keycode == 16 || //shift
       (keycode > 218 && keycode < 223);   // [\]' (in order)
 
-    if(this.props.type === 'phone')
-    {
       //number
       if(valid && (event.keyCode < 48 || event.keyCode > 57) || event.shiftKey)//0~9
       {
@@ -59,8 +60,10 @@ export default class FloatingLabel extends React.Component {
     }
     if(this.props.type === 'name')
     {
+      var valid = (keycode > 47 && keycode < 58) || (keycode > 95 && keycode < 112) 
+
       //alphabet letter
-      if(valid && (keycode < 65 || keycode > 90))//letter
+      if(valid && !event.shiftKey)//letter
       {
         event.preventDefault(); 
         event.stopPropagation();

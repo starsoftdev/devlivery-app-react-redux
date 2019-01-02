@@ -29,6 +29,18 @@ export default defineMessages({
     id: 'giftStore.price',
     defaultMessage: 'Price',
   },
+  stock: {
+    id: 'giftStore.stock',
+    defaultMessage: 'Stock',
+  },
+  SKU: {
+    id: 'giftStore.SKU',
+    defaultMessage: 'SKU',
+  },
+  unlimited: {
+    id: 'giftStore.unlimited',
+    defaultMessage: 'Unlimited',
+  },
   makeOrder: {
     id: 'bundles.makeOrder',
     defaultMessage: 'Make an Order',

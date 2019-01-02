@@ -4,6 +4,8 @@ import {message} from 'antd'
 import {getToken,updateUser,getUserDetails} from './user'
 import {DATE_FORMAT} from '../constants'
 import {getFormErrors,showErrorMessage,getBirthday} from '../utils'
+import formMessages from '../formMessages'
+import {getIntl} from './intl';
 
 // ------------------------------------
 // Constants
@@ -111,7 +113,6 @@ export const register = (values, form) => (dispatch, getState, {fetch, history})
       }
     },
     failure: (res) => {
-      console.log('res',res);
       dispatch({type: REGISTER_FAILURE})
       const {formErrors} = getFormErrors({...res, values})
       if (formErrors)
@@ -213,6 +214,7 @@ export const acceptInvitation = (inviteToken) => (dispatch, getState, {fetch,his
 }
 
 export const registerMailChimp = (param,callback) => (dispatch, getState, {fetch}) => {
+  const {intl} = dispatch(getIntl());
   const {token} = dispatch(getToken())
   return fetch(`/mailchimp/subscribe`, {
     method: 'POST',
@@ -222,12 +224,12 @@ export const registerMailChimp = (param,callback) => (dispatch, getState, {fetch
       email:param.email,
     },
     success: (res) => {
-      message.success('successfully subscribed');
+      message.success(intl.formatMessage(formMessages.success_subscribed));
       if(callback)
         callback();
     },
     failure: (err) => {
-      message.warn(err.errors ? err.errors: 'failed your subscribe');
+      message.warn(err.errors ? err.errors: intl.formatMessage(formMessages.failed_subscribed));
     },
   })
 }

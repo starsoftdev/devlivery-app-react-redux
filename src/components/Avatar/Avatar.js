@@ -42,7 +42,7 @@ class Avatar extends React.Component {
           {
             isLogo && imageURL === null ?
               <div className={s.avatarWrapper}>
-                <h4>Upload logo</h4>
+                <h4>{intl.formatMessage(messages.uploadlogo)}</h4>
               </div>
               :
               <div className={s.avatarWrapper}>

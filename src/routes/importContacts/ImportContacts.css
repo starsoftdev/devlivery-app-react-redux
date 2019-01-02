@@ -75,7 +75,10 @@
   padding-right: var(--margin-md);
   padding-left: var(--margin-md);
 }
-
+.actionsRight {
+  display: inline-block;
+  float: right;
+}
 .columnsMappingForm {
   max-width: 425px;
 }

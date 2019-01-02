@@ -1,0 +1,182 @@
+@import '../../styles/variables.css';
+
+.header {
+  color: var(--white-color);
+  text-align: center;
+
+  @media (--md-up) {
+    font-size: 54px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
+  @media (--sm-down) {
+    font-size: 28px;
+  }
+}
+
+.bannerSectionWrapper {
+  background: var(--white-color);
+}
+
+.bannerSection {
+  max-width: var(--max-content-width);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.aboutUsSectionWrapper {
+  padding-top: var(--margin-xl);
+  background: var(--white-color);
+  padding-bottom: 60px;
+  /*background: url('../../static/testemonials_bg.jpg');*/
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+  @media (--xl-down) {
+    padding-right: var(--margin-md);
+    padding-left: var(--margin-md);
+  }
+}
+
+.aboutUsSection {
+  max-width: var(--max-content-width);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.aboutUsContent {
+  margin-bottom: var(--margin-xl);
+
+  
+}
+
+.aboutUsHeader {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  @media (--md-up) {
+    font-size: 40px;
+  }
+  @media (--md-down) {
+    font-size: 32px;
+  }
+}
+
+.sectionImage {
+  max-width: 100%;
+  height: auto;
+}
+.poseImageContainer {
+  flex:1;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+}
+.poseImage {
+  max-width: 100%;
+  height: auto;
+  max-height: 350px;
+}
+.aboutDescription{
+  /*font-size: 24px;*/
+  margin-bottom: 10px;
+  margin-left: 20px;
+  white-space: pre-line;
+  text-indent: -20px;
+}
+.feedback {
+  /*font-size: 24px;*/
+}
+
+.info {
+  /*font-size: 24px;*/
+}
+
+.signUpSection {
+  background-color: var(--white-color);
+  min-height: 345px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: var(--margin-md);
+  padding-left: var(--margin-md);
+}
+
+.signUpHeader {
+  @media (--md-up) {
+    font-size: 30px;
+  }
+  @media (--md-down) {
+    font-size: 23px;
+  }
+  @media (--sm-down) {
+    font-size: 15px;
+  }
+  text-align: center;
+  max-width: 700px;
+  margin-right: auto;
+  margin-left: auto;
+  line-height: 1;
+  margin-bottom: 40px;
+}
+.signUpInputWrapper {
+  display: flex;
+  max-width: 700px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.signUpInput {
+  border: 1px solid var(--dark-color);
+  border-right-width: 0 !important;
+
+  &:--hover {
+    border-color: var(--dark-color);
+    border-right-width: 0 !important;
+  }
+
+  @media (--md-up) {
+    width: 510px;
+    height: 80px;
+    padding-right: 30px;
+    padding-left: 30px;
+    font-size: 18px;
+  }
+  @media (--md-down) {
+    padding-right: 16px;
+    padding-left: 16px;
+    width: 195px;
+  }
+}
+.errorstyle {
+  border-color: red;
+}
+.signUpBtn {
+  @media (--md-up) {
+    width: 190px;
+    height: 80px;
+  }
+  @media (--md-down) {
+    min-width: 100px;
+  }
+}
+.cardImage {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  flex: 1;
+  width: 100%;
+  height: auto;
+}
+.quoteCotainer{
+  display: flex;
+  align-items: center;
+}
+.quoteImageCotanier{
+  display: flex;
+  justify-content: center;
+}
+
+.footerDate{
+  text-align: center;
+}

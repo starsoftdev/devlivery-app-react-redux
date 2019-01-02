@@ -27,19 +27,23 @@ export const CLEAR = 'Reports.CLEAR'
 export const getReports = (params = {}) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_REPORTS_REQUEST, params})
   const {token} = dispatch(getToken())
-  const {occasion, page, pageSize, from, to} = getState().reports
-  return fetch(`/reports/scheduled-orders?${qs.stringify({
+  const { occasion, page, pageSize, from, to, from_ordered, to_ordered, from_shipping, to_shipping } = getState().reports;
+  const queryParams = {
     occasion,
     page,
     per_page: pageSize,
     from: from ? from.format(DATE_FORMAT) : undefined,
     to: to ? to.format(DATE_FORMAT) : undefined,
-  })}`, {
+    from_shipping: from_shipping ? from_shipping.format(DATE_FORMAT) : undefined,
+    to_shipping: to_shipping ? to_shipping.format(DATE_FORMAT) : undefined,
+    from_ordered: from_ordered ? from_ordered.format(DATE_FORMAT) : undefined,
+    to_ordered: to_ordered ? to_ordered.format(DATE_FORMAT) : undefined,
+  };
+  return fetch(`/reports/scheduled-orders?${qs.stringify(queryParams)}`, {
     method: 'GET',
     token,
     success: (res) => dispatch({type: GET_REPORTS_SUCCESS, res}),
     failure: (err) =>{
-      console.log('err',err);
       dispatch({type: GET_REPORTS_FAILURE})
     }, 
   })
@@ -102,6 +106,10 @@ export default createReducer(initialState, {
     occasion: has(params, 'occasion') ? params.occasion : state.occasion,
     from: has(params, 'from') ? params.from : state.from,
     to: has(params, 'to') ? params.to : state.to,
+    from_shipping: has(params, 'from_shipping') ? params.from_shipping : state.from_shipping,
+    to_shipping: has(params, 'to_shipping') ? params.to_shipping : state.to_shipping,
+    from_ordered: has(params, 'from_ordered') ? params.from_ordered : state.from_ordered,
+    to_ordered: has(params, 'to_ordered') ? params.to_ordered : state.to_ordered,
     loading: {
       ...state.loading,
       reports: true,

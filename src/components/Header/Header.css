@@ -129,3 +129,16 @@
 .dashWrapper {
    margin-bottom: -16px;
 }
+.morebtn{
+  display: inline;
+  float: right;
+  background-color: #3f8084;
+  cursor: pointer;
+  color: white;
+  border: 0px;
+  border-radius: 0px; 
+  box-shadow: none;
+  padding: 5px 10px;
+  font-size: 15px;
+  font-weight: bolder;
+}

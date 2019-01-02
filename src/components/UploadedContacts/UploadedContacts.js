@@ -6,19 +6,19 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import {changeSelectedContacts, closeUploadedContactsModal} from '../../reducers/contacts'
 import messages from './messages'
+import moment from 'moment'
 
 class UploadedContacts extends React.Component {
   render() {
     const {uploadedContacts, closeUploadedContactsModal, intl, selectedContacts, changeSelectedContacts,loading} = this.props
-
     const columnsNames = uploadedContacts[0] ? Object.keys(uploadedContacts[0]) : []
     const columns = columnsNames.map(column => ({
       title: column === 'dob' ? 'date of birth' : column,
       dataIndex: column,
       key: column,
-      render: (item) => JSON.stringify(item)
+      render: (item) => column === 'dob' ? (item && item !== undefined ? moment(item,"YYYY-MM-DD").format("DD-MM-YYYY") :'') : item
     }))
-
+    
     return (
       <Modal
         visible
@@ -26,6 +26,7 @@ class UploadedContacts extends React.Component {
         onOk={closeUploadedContactsModal}
         onCancel={closeUploadedContactsModal}
         width={1200}
+        okText={intl.formatMessage(messages.btnOk)}
       >
         <Table
           loading= {loading.uploadedContacts}

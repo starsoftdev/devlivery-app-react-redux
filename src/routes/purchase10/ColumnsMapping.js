@@ -7,10 +7,15 @@ import { PurchaseActions, ColumnsMappingForm, SectionHeader, UploadedContacts } 
 import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import messages from './messages'
 import { injectIntl } from 'react-intl'
-import { importContacts, openUploadedContactsModal } from '../../reducers/contacts'
+import { importContacts, openUploadedContactsModal,clearMapColums } from '../../reducers/contacts'
 import { nextFlowStep, GROUP_ID_KEY, CONTACT_IDS_KEY, gotoConfirm,setNewRecipients } from '../../reducers/purchase'
+import {contact_map,address_map} from '../../constants';
+import formMessages from '../../formMessages'
 
 class ColumnsMapping extends React.Component {
+  state = {
+    isRequireAddress: false
+  }
   componentDidMount() {
     this.props.onRef(this)
   }
@@ -21,34 +26,66 @@ class ColumnsMapping extends React.Component {
     //e.preventDefault()
     if(this.props.selectedContacts.length <= 0)
     {
-      message.warn("You have to select at least one contact.");
+      message.warn(this.props.formatMessage(messages.msg_atleast));
       return false;
     }
     this.columnsMappingForm.validateFields((err, values) => {
       if (!err) {
-        this.props.importContacts(values, (newrecipient) => {
-          localStorage.removeItem(GROUP_ID_KEY)
-          if (newrecipient) {
-            if (this.props.recipientMode)
-            {
-              this.props.setNewRecipients(newrecipient);
-              this.props.gotoConfirm();
+        this.setState({isRequireAddress: false});
+        if(this.validateAddress(values))
+        {
+          this.props.importContacts(values, this.columnsMappingForm,this.props.intl, (newrecipient) => {
+            /*
+            localStorage.removeItem(GROUP_ID_KEY)
+            if (newrecipient) {
+              if (this.props.recipientMode)
+              {
+                this.props.setNewRecipients(newrecipient);
+                this.props.gotoConfirm();
+              }
+              else {
+                localStorage.removeItem(CONTACT_IDS_KEY)
+                this.props.setNewRecipients(newrecipient);
+                this.props.nextFlowStep()
+              }
             }
-            else {
-              localStorage.removeItem(CONTACT_IDS_KEY)
-              this.props.setNewRecipients(newrecipient);
-              this.props.nextFlowStep()
-            }
-          }
-          else this.props.refreshPage();
-        })
+            else this.props.refreshPage();
+            */
+            this.props.refreshPage();
+          })
+        } else this.setState({isRequireAddress: true});
         return true;
       }
       return false;
     })
     return false;
   }
-
+  validateAddress(values){
+    let result = false;
+    address_map.map(item => {
+      if(values['home_'+item] !== undefined)
+        result = true;
+    });
+    let office = false;
+    address_map.map(item => {
+      if(values['office_'+item] !== undefined)
+      {
+        result = true;
+        office = true;
+      }
+    });
+    if(office && values['company'] === undefined)
+    {
+      this.columnsMappingForm.setFields({
+        company: {
+          value:values['company'],
+          errors: [new Error(this.props.intl.formatMessage(formMessages.required))],
+        }
+      });
+      return false;
+    }
+    return result;
+  }
   render() {
     const { flowIndex, intl, uploadedContactsModalOpened, openUploadedContactsModal } = this.props
 
@@ -68,6 +105,13 @@ class ColumnsMapping extends React.Component {
             >
               {intl.formatMessage(messages.selectContacts)}
             </Button>
+            <Button
+              onClick={()=>this.props.clearMapColums()}
+              type='primary'
+              ghost
+            >
+              {intl.formatMessage(messages.cancelEdit)}
+            </Button>
           </SectionHeader>
           <p>{intl.formatMessage(messages.importDescription)}</p>
 
@@ -75,6 +119,7 @@ class ColumnsMapping extends React.Component {
             className={s.columnsMappingForm}
             ref={ref => this.columnsMappingForm = ref}
             onSubmit={this.handleSubmit}
+            isRequireAddress={this.state.isRequireAddress}
           />
         </div>
         <PurchaseActions>
@@ -109,7 +154,8 @@ const mapDispatch = {
   importContacts,
   nextFlowStep,
   gotoConfirm,
-  setNewRecipients
+  setNewRecipients,
+  clearMapColums
 }
 
 export default injectIntl(connect(mapState, mapDispatch)(withStyles(s)(ColumnsMapping)))

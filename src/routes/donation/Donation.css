@@ -66,8 +66,24 @@
   }
 }
 .footer {
-  text-align: right;
+  text-align: center;
 }
 .dontationImg {
   background-size: contain
+}
+.removeBtn{
+  float: right;
+  margin-top: 10px;
+}
+.multiline{
+  white-space: pre-line;
+  @media (--lg-down) {
+    font-size: var(--margin-xs);
+  }
+}
+.restrictedBtn{
+  max-width: 230px;
+  @media (--lg-down) {
+    max-width: 200px;
+  }
 }

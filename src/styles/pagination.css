@@ -241,7 +241,9 @@
       margin-right: 8px;
       height: var(--pagination-item-size-sm);
     }
-
+    &.mini {
+      padding-left: 0;
+    }
     &.mini &-total-text,
     &.mini &-simple-pager {
       height: var(--pagination-item-size-sm);
@@ -250,14 +252,18 @@
 
     &.mini &-item {
       margin: 0;
+      margin-left: 2px;
+      margin-right: 2px;
       min-width: var(--pagination-item-size-sm);
       height: var(--pagination-item-size-sm);
       line-height: calc(var(--pagination-item-size-sm) - 2px);
     }
 
     &.mini &-item:not(&-item-active) {
-      background: transparent;
-      border-color: transparent;
+      margin-left: 2px;
+      margin-right: 2px;
+      border: 1px solid var(--border-color-base);
+      background-color: var(--component-background);
     }
 
     &.mini &-prev,
@@ -270,8 +276,9 @@
 
     &.mini &-prev &-item-link,
     &.mini &-next &-item-link {
-      border-color: transparent;
-      background: transparent;
+      border: 1px solid var(--border-color-base);
+      background-color: var(--component-background);
+      height: 24px;
       &:after {
         height: var(--pagination-item-size-sm);
         line-height: var(--pagination-item-size-sm);
@@ -287,6 +294,13 @@
 
     &.mini &-options {
       margin-left: 2px;
+    }
+    &.mini &-total-text {
+      font-size: 13px;
+      height: 20px;
+      line-height: calc(var(--pagination-item-size-sm) - 2px);
+      margin-right: 5px;
+      font-family: var(--font-family-secondary);
     }
   }
 

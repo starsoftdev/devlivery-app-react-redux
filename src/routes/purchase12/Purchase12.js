@@ -24,11 +24,13 @@ class Purchase12 extends React.Component {
   }
   componentWillReceiveProps(nextprops) {
     if (nextprops && nextprops.user_permissions) {
+      /*
       if (nextprops.user_permissions.hasOwnProperty('Payments')) {
         const checkpermission = isHavePaymentPermission(nextprops.user_permissions);
         this.setState({ payment_permission: checkpermission, msg: checkpermission ? '':'You have no payment permission.'});
       }
       else this.setState({msg:'You have no payment permission.'});
+      */
     }
   }
   render() {
@@ -51,10 +53,10 @@ class Purchase12 extends React.Component {
               className={s.item}
               title={'PayPal'}
               onClick={() => this.setPaymentMethod(PAYPAL)}
-              active={paymentMethod === PAYPAL && havePermission}
+              active={paymentMethod === PAYPAL }
               keyValue='a'
               svg={PayPalIcon}
-              disabled = {!havePermission}
+              //disabled = {!havePermission}
             />
           </Col>
           <Col className={s.itemWrapper}>
@@ -62,10 +64,10 @@ class Purchase12 extends React.Component {
               className={s.item}
               title={intl.formatMessage(messages.creditcard)}
               onClick={() => this.setPaymentMethod(CREDIT_CARD)}
-              active={paymentMethod === CREDIT_CARD && havePermission}
+              active={paymentMethod === CREDIT_CARD }
               keyValue='b'
               svg={CreditCardIcon}
-              disabled = {!havePermission}
+              //disabled = {!havePermission}
             />
           </Col>
           <Col className={s.itemWrapper}>

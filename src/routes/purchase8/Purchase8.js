@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getGifts, setGift, submitGift, buyMoreGift } from '../../reducers/purchase'
-import { Button, Col, Layout, Row, Select } from 'antd'
+import { Button, Col, Layout, Row, Select, message } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase8.css'
 import { Card, Header, Preview, PurchaseActions, SectionHeader,GiftDetails } from '../../components'
@@ -25,8 +25,8 @@ class Purchase8 extends React.Component {
 
   render() {
     const { previewCollapsed, disableSubmit } = this.state
-    const { gift, giftIds, setGift, buyMoreGift, submitGift, intl, flowIndex, gifts, getGifts, giftType } = this.props
-
+    const { gift, giftIds, setGift, buyMoreGift, submitGift, intl, flowIndex, gifts, getGifts, giftType,newrecipient } = this.props
+    const gift_preview = gift ? gift: (gifts && giftIds && giftIds.length > 0 ? gifts.find(item=>item.id===giftIds[giftIds.length-1]):null)
     return (
       <React.Fragment>
         <div className={s.container}>
@@ -39,7 +39,7 @@ class Purchase8 extends React.Component {
               {intl.formatMessage(messages.preview)}
             </Button>
           )}
-          <Layout.Content className={cn(s.contentWrapper, gift && !previewCollapsed && s.withPreview)}>
+          <Layout.Content className={cn(s.contentWrapper, gift_preview && !previewCollapsed && s.withPreview)}>
             <Header className={s.layoutHeader} />
             <div className={s.content}>
               <SectionHeader
@@ -51,7 +51,7 @@ class Purchase8 extends React.Component {
                 
               </SectionHeader>
               <Row className={s.items} gutter={20} type='flex' align='center'>
-                {gifts.map((item) =>
+                {gifts.filter(item=>!((item.stock > 0 && item.stock < newrecipient.length) || item.stock == 0)).map((item) =>
                   <Col key={item.id} className={s.itemWrapper} xs={8}>
                     <Card
                       item={item}
@@ -61,15 +61,20 @@ class Purchase8 extends React.Component {
                           {item.title}
                           <br />
                           <span className={s.price}>
+                            <span className={s.currency}>{item.currency} </span>
                             {item.price_with_tax}
-                            <span className={s.currency}>{item.currency}</span>
                           </span>
                         </React.Fragment>
                       }
                       bordered={false}
                       description={intl.locale === 'de-DE' ? item.short_description_german : item.short_description}
-                      onClick={() => setGift(item)}
+                      onClick={() => {
+                        if(!giftIds.includes(item.id))
+                          this.onPreviewCollapse(false)
+                        setGift(item)
+                      }}
                       active={giftIds && giftIds.includes(item.id)}
+                      imageStyle={s.cardimage}
                     />
                   </Col>
                 )}
@@ -81,28 +86,30 @@ class Purchase8 extends React.Component {
             onCollapse={this.onPreviewCollapse}
             collapsed={previewCollapsed}
             header={intl.formatMessage(messages.previewHeader)}
-            item={gift}
-            imagesProp={GIFT_GALLERY_PROP}
+            item={gift_preview}
+            imagesProp={gift_preview && gift_preview[GIFT_GALLERY_PROP] && gift_preview[GIFT_GALLERY_PROP].length > 0 ? GIFT_GALLERY_PROP : GIFT_IMAGES_PROP}
             onClickMagnifier={()=>this.setState({showGiftDetails:true})}
           />
         </div>
         <PurchaseActions>
           <Button
             type='primary'
-            disabled={!gift || disableSubmit}
+            //disabled={!gift || disableSubmit}
             onClick={() => {
               this.setState({ disableSubmit: true });
+              localStorage.setItem('gift_ids', JSON.stringify(giftIds))
               buyMoreGift();
               submitGift(-2)
             }}
+            className={s.restrictedBtn}
           >
-            {'buy more products'}
+            <span className={s.multiline}>{intl.formatMessage(messages.savemoreproducts)}</span>
           </Button>
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
             onKeyHandle={() => {
-              if (gift || !disableSubmit) {
+              if (!disableSubmit) {
                 this.setState({ disableSubmit: true });
                 submitGift()
               }
@@ -110,13 +117,14 @@ class Purchase8 extends React.Component {
           />
           <Button
             type='primary'
-            disabled={!gift || disableSubmit}
+            disabled={disableSubmit}
             onClick={() => {
               this.setState({ disableSubmit: true });
               submitGift()
             }}
+            className={s.restrictedBtn}
           >
-            {intl.formatMessage(messages.submit)}
+            <span className={s.multiline}>{intl.formatMessage(messages.submit)}</span>
           </Button>
         </PurchaseActions>
         {
@@ -140,7 +148,8 @@ const mapState = state => ({
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
   giftType: state.purchase.giftType,
-  giftIds: state.purchase.giftIds
+  giftIds: state.purchase.giftIds,
+  newrecipient: state.purchase.newrecipient
 })
 
 const mapDispatch = {

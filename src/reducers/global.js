@@ -25,16 +25,18 @@ export const setCurrentRouteName = (currentRouteName) => ({type: SET_CURRENT_ROU
 
 export const setNextRouteName = (nextPathname) => ({type: SET_NEXT_ROUTE_NAME,nextPathname})
 
-export const isLeaveEditContactPage = (path) => {
+export const isLeaveEditContactPage = (path, path2 = '') => {
   const absoultePath = '/dashboard/contacts/';
   if(path === null || typeof path === 'object')
     return false;
   var splits = path.split(absoultePath);
   if(splits.length !== 2 || splits[0] != "")
     return false;
-  
-  if(!isNaN(splits[1]))
+  const splits2 = path2.split(absoultePath);
+  if(!isNaN(splits[1]) || splits[1] === 'new')
   {
+    //if (path2 === '/dashboard/contacts') return false;
+    if (splits2.length >= 2 && !isNaN(splits2[1])) return false;
     return true;
   }
   return false;

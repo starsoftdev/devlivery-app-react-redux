@@ -112,10 +112,14 @@ class CardCheckOut extends React.Component {
       <div className={s.container}>
         <Table
           loading = {loading}
-          locale={{ emptyText: 'No Card' }}
+          locale={{ emptyText: intl.formatMessage(messages.nocard) }}
           showHeader = {false}
           columns={columns}
-          dataSource={cards}
+          dataSource={cards.sort((a,b)=>{
+            if(a.id < b.id) { return -1; }
+            if(a.id > b.id) { return 1; }
+            return 0;
+          })}
           rowKey={record => record.id}
           //onChange={(pagination, filters, sorter) => getTeam({pagination, filters, sorter})}
           pagination={{

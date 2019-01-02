@@ -11,8 +11,8 @@ import KeyHandler, {KEYPRESS} from 'react-key-handler'
 
 class Purchase4 extends React.Component {
   render() {
-    const {cardSize, setCardSize, nextFlowStep, intl, flowIndex} = this.props
-
+    const {cardSizeKey, setCardSize, nextFlowStep, intl, flowIndex} = this.props
+    const cardSize = cardSizeKey && CARD_SIZES(intl).find(item => item.key === cardSizeKey);
     return (
       <div className={s.content}>
         <SectionHeader
@@ -48,7 +48,7 @@ class Purchase4 extends React.Component {
 }
 
 const mapState = state => ({
-  cardSize: state.purchase.cardSize,
+  cardSizeKey: state.purchase.cardSizeKey,
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
 })

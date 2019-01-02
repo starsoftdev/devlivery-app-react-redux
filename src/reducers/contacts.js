@@ -1,16 +1,18 @@
 import createReducer, {RESET_STORE} from '../createReducer'
 import qs from 'query-string'
 import {getToken} from './user'
-import {DATE_FORMAT} from '../constants'
+import {DATE_FORMAT,BIRTH_GERMAN,BIRTH_EN} from '../constants'
 import {message} from 'antd'
 import {generateUrl} from '../router'
 import {CONTACTS_ROUTE} from '../routes'
 import mapValues from 'lodash/mapValues'
 import has from 'lodash/has'
-import {getBirthday, getFormErrors, getOrdering} from '../utils'
+import {getBirthday, getFormErrors, getOrdering, showErrorMessage} from '../utils'
 import { navigateToNextRouteName } from './global';
 import { SET_NEW_RECIPIENT } from './purchase';
 import moment from 'moment'
+import formMessages from '../formMessages'
+import {getIntl} from './intl';
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -63,6 +65,7 @@ export const CHANGE_SELECTED_CONTACTS = 'Contacts.CHANGE_SELECTED_CONTACTS'
 export const SAVE_FIELDS = 'Contacts.SAVE_FIELDS'
 
 export const SET_CHANGE_EDITFORM = "Contacts.SET_CHANGE_EDITFORM"
+export const SET_ADD_EDITFORM = "Contacts.SET_ADD_EDITFORM"
 export const SET_BIRTHDAY_SETUP = "Contacts.SET_BIRTHDAY_SETUP"
 
 export const CLEAR = 'Contacts.CLEAR'
@@ -104,11 +107,14 @@ export const getContactsByName = (title,callback) => (dispatch, getState, {fetch
     method: 'GET',
     token,
     success: (res) => {
-      dispatch({type: GET_CONTACTS_SUCCESS, res})
+      //dispatch({type: GET_CONTACTS_SUCCESS, res})
       if(callback)
         callback(res.data);
     },
-    failure: () => dispatch({type: GET_CONTACTS_FAILURE}),
+    failure: (err) => {
+      showErrorMessage(err);
+      //dispatch({type: GET_CONTACTS_FAILURE})
+    },
   })
 }
 export const getContact = (contactId) => (dispatch, getState, {fetch}) => {
@@ -135,9 +141,12 @@ export const setContact = (contact) => (dispatch, getState, {fetch}) => {
     dispatch({type: GET_CONTACT_SUCCESS, contact})
 }
 export const getRemindersArray = (reminders) => {
+  if(reminders === null || reminders === undefined)
+    return [];
+   
   return reminders.filter(item => {
     // if one of the property undefined/null - don't send item
-    return (item.custom_title || item.occasion_id) && item.date
+    return (item.custom_title || item.occasion_id) && item.date && (item.occasion_id !== BIRTH_GERMAN) && (item.occasion_id !== BIRTH_EN)
   }).map(item => ({
     ...(item.recurring && item.recurring !== undefined && item.recurring !== '1') ?
     {recurring: item.recurring}:{},
@@ -147,7 +156,7 @@ export const getRemindersArray = (reminders) => {
     } : {
       occasion_id: +item.occasion_id
     },
-    date: item.date.format(DATE_FORMAT)
+    date: moment(item.date, 'DD-MM-YYYY').format(DATE_FORMAT)
   }))
 }
 
@@ -165,7 +174,7 @@ export const getAddressesArray = (addresses) => {
       {
         return {
           ...item,
-          address: `${item.address}\n${address2}`,
+          address: `${address2}`,
           company_name: item.address
         }
       }
@@ -183,7 +192,6 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
   dispatch({type: ADD_CONTACT_REQUEST})
   const {dob, reminders, groups, addresses, ...otherValues} = values
   const {token} = dispatch(getToken())
-  
   return fetch(`/add-contact-manually`, {
     method: 'POST',
     body: {
@@ -191,7 +199,7 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
       contact: {
         ...otherValues.contact,
         ...dob ? {
-          dob: moment(dob,'DD/MM/YYYY').format(DATE_FORMAT)
+          dob: moment(dob,'DD-MM-YYYY').format(DATE_FORMAT)
         } : {},
       },
       addresses: getAddressesArray(addresses),
@@ -203,6 +211,9 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
     },
     token,
     success: (res) => {
+      const changedAddForm = false;
+      dispatch({type:SET_ADD_EDITFORM,changedAddForm});
+
       dispatch({type: ADD_CONTACT_SUCCESS, res})
       if (form) form.resetFields()
       if (callback) callback(res.data)
@@ -218,7 +229,6 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
           form.setFields(formErrors)
         }
         catch(e){
-          console.log('crash 1:',res);
           message.error('Something went wrong. Please try again.')
         }
       }
@@ -230,7 +240,11 @@ export const addContact = (values, form, callback) => (dispatch, getState, {fetc
 export const setChangingStatusEditForm = (changedForm) => (dispatch, getState, {fetch, history}) => {
   dispatch({type:SET_CHANGE_EDITFORM,changedForm});
 }
+export const setChangingStatusAddForm = (changedAddForm) => (dispatch, getState, {fetch, history}) => {
+  dispatch({type:SET_ADD_EDITFORM,changedAddForm});
+}
 export const editContact = (values, form, redrict,callback) => (dispatch, getState, {fetch, history}) => {
+  const {intl} = dispatch(getIntl());
   dispatch({type: EDIT_CONTACT_REQUEST})
   const {token} = dispatch(getToken())
   const {contact} = getState().contacts
@@ -256,7 +270,7 @@ export const editContact = (values, form, redrict,callback) => (dispatch, getSta
       
       if(callback == null && getState().contacts.changedForm === true)
       {
-        message.success('Contact was successfully updated',redrict)
+        message.success(intl.formatMessage(formMessages.updated_contact),redrict)
       }
 
       const changedForm = false;
@@ -285,16 +299,22 @@ export const editContact = (values, form, redrict,callback) => (dispatch, getSta
   })
 }
 
-export const removeContact = (contact) => (dispatch, getState, {fetch}) => {
+export const removeContact = (contact,noRefresh) => (dispatch, getState, {fetch}) => {
   dispatch({type: REMOVE_CONTACT_REQUEST})
   const {token} = dispatch(getToken())
+  const {ordering, search} = getState().contacts;
+
   return fetch(`/contacts/${contact.id}`, {
     method: 'DELETE',
     token,
     success: () => {
       dispatch({type: REMOVE_CONTACT_SUCCESS})
-      dispatch(getContacts())
-      dispatch(navigateToNextRouteName(generateUrl(CONTACTS_ROUTE)));
+      dispatch(getContacts({ordering, search}))
+      if(noRefresh)
+      {
+
+      }
+      else dispatch(navigateToNextRouteName(generateUrl(CONTACTS_ROUTE)));
     },
     failure: () => dispatch({type: REMOVE_CONTACT_FAILURE}),
   })
@@ -305,7 +325,7 @@ export const getOccasions = ({search} = {}) => (dispatch, getState, {fetch}) => 
   const {token} = dispatch(getToken())
  
   const {setupBirthday} = getState().contacts;
-  
+  /*
   var url = `/occasions?${qs.stringify({
     //take: 10,
     ...search ? {
@@ -315,17 +335,18 @@ export const getOccasions = ({search} = {}) => (dispatch, getState, {fetch}) => 
   })}`;
   
   if(setupBirthday)
-    url = `/occasions?filter_key=title&filter_value=Birthday&not_equal`;
+  */
+  var url = `/occasions?filter_key=title&filter_value=Birthday&not_equal`;
  
   return fetch(url, {
     method: 'GET',
     token,
     success: (res) => {
       const occasions = res.data.filter(item =>{
-        const title = item.title.toUpperCase();
+        const title = item.title;//.toUpperCase();
         return title !== 'PERSONAL DESIGN' &&
         title !== 'SEASONAL' &&
-        title !== 'PERSONAL DESIGN' &&
+        title !== 'Persönliches Design' &&
         title !== 'SAISONAL' ;
       }).sort((a,b)=>{return a.id-b.id});
       
@@ -364,7 +385,18 @@ export const uploadContacts = (file, fileType) => (dispatch, getState, {fetch}) 
     },
     token,
     success: ({data}) => {
-      dispatch({type: UPLOAD_CONTACTS_SUCCESS, uploadedContacts: data.contacts})
+      const maps = data.contacts.map(item => {
+        let ret = item;
+        for(var key in item)
+        {
+          if(item[key] && typeof item[key] === 'object' && item[key].hasOwnProperty('date'))
+          {
+            ret[key] = moment(item[key].date).format(DATE_FORMAT);
+          }
+        }
+        return ret;
+      });
+      dispatch({type: UPLOAD_CONTACTS_SUCCESS, uploadedContacts: maps})
       if (data.db_columns) {
         dispatch({type: MAPPING_COLUMNS, mappingColumns: data})
       }
@@ -372,19 +404,159 @@ export const uploadContacts = (file, fileType) => (dispatch, getState, {fetch}) 
     failure: () => dispatch({type: UPLOAD_CONTACTS_FAILURE}),
   })
 }
-
-export const importContacts = (columnsMapping, callback) => (dispatch, getState, {fetch}) => {
+const validateContact = (title,street,city,country,postal_code,form,intl) =>{
+  if(street == null && (city || country || postal_code))
+  {
+    /*
+    form.setFields({
+      ...(title ==='office') ?
+      {office_street: {
+        errors: [new Error(intl.formatMessage(formMessages.required))],
+      }} :
+      {home_street: {
+        errors: [new Error(intl.formatMessage(formMessages.required))],
+      }},
+    });
+    */
+    message.error(title+" street column isn't complete.")
+    return false;
+  }
+  if(street && (street+'').length < 5)
+  {
+    /*
+    form.setFields({
+      ...(title ==='office') ?
+      {office_street: {
+        errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 5 }))],
+      }} :
+      {home_street: {
+        errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 5 }))],
+      }},
+    });
+    */
+    message.error(title+" street column isn't complete. " +intl.formatMessage(formMessages.minLength, { length: 5 }))
+    return false;
+  }
+  if(!city || (city+'').length < 1)
+  {
+    /*
+    form.setFields({
+      ...(title ==='office') ?
+      {office_city: {
+        errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 1 }))],
+      }} :
+      {home_city: {
+        errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 1 }))],
+      }},
+    });
+    */
+    message.error(title+" city column isn't complete. ")
+    return false;
+  }
+  if(!country || (country+'').length < 1)
+  {
+    /*
+    form.setFields({
+      ...(title ==='office') ?
+      {office_country: {
+        errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 1 }))],
+      }} :
+      {home_country: {
+        errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 1 }))],
+      }},
+    });
+    */
+    message.error(title+" city column isn't complete. ")
+    return false;
+  }
+  if(!postal_code ||(postal_code+'').length < 1)
+  {
+    /*
+    form.setFields({
+      ...(title ==='office') ?
+      {office_postal_code: {
+        errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 1 }))],
+      }} :
+      {home_postal_code: {
+        errors: [new Error(intl.formatMessage(formMessages.minLength, { length: 1 }))],
+      }},
+    });
+    */
+    message.error(title+" postal_code column isn't complete. ")
+    return false;
+  }
+  return true;
+}
+export const importContacts = (columnsMapping,form,intl, callback) => (dispatch, getState, {fetch}) => {
   dispatch({type: IMPORT_CONTACTS_REQUEST})
   const {token} = dispatch(getToken())
   const {uploadedContacts, selectedContacts} = getState().contacts
   // TODO modify contacts obj for vcf/xls
+  let err = null;
   const contacts = uploadedContacts
     .filter((contact, i) => selectedContacts.includes(i))
     .map(contact => {
-      const {street, city, country, state, postal_code, ...otherFields} = mapValues(columnsMapping, (value) => contact[value])
-      const addresses = [{address: street, city, country, state, postal_code, title:'home'}]
+      const {company, home_street, home_city, home_country, home_postal_code, office_street, office_city, office_country, office_postal_code, ...otherFields} = mapValues(columnsMapping, (value) => contact[value] !== undefined ? contact[value] : null)
+      let addresses = [];
+      if(otherFields.first_name === null || otherFields.first_name === undefined)
+      {
+        err = 'first name invalid'; 
+        /*
+        form.setFields({
+          first_name: {
+            errors: [new Error(intl.formatMessage(formMessages.required))],
+          } 
+        });
+        */
+       message.error("first name column isn't complete. ")
+      }
+      if(otherFields.last_name === null || otherFields.last_name === undefined)
+      {
+        err = 'last name invalid'; 
+        /*
+        form.setFields({
+          last_name: {
+            errors: [new Error(intl.formatMessage(formMessages.required))],
+          } 
+        });
+        */
+        message.error("last name column isn't complete. ")
+      }
+      if(home_street || home_city || home_country || home_postal_code)
+      {
+        if(!validateContact('home',home_street , home_city , home_country , home_postal_code, form, intl))
+          err = 'Home invalid'; 
+        addresses.push({address:home_street, city:home_city, country:home_country, postal_code:home_postal_code, title:'home'})
+      }
+      if(office_street || office_city || office_country || office_postal_code)
+      {
+        if(company === null)
+          err = 'Company invalid'; 
+        if(!validateContact('office',office_street , office_city , office_country , office_postal_code, form, intl))
+          err = 'Office invalid'; 
+        addresses.push({address:office_street, city:office_city, country:office_country, postal_code:office_postal_code,company_name:company, title:'office'})
+      }
+      else {
+        if(company)
+        {
+          /*
+          form.setFields({
+            office_street: {
+              errors: [new Error(intl.formatMessage(formMessages.required))],
+            }
+          });
+          */
+          message.error("Company Name column isn't complete. ")
+          err = 'Company invalid'; 
+        }
+      }
       return {...otherFields, addresses}
     })
+  
+  if(err)
+  {
+    return ;
+  }
   
   return fetch(`/contact/import-final`, {
     method: 'POST',
@@ -393,6 +565,7 @@ export const importContacts = (columnsMapping, callback) => (dispatch, getState,
     },
     token,
     success: (res) => {
+      console.log('res',res);
       dispatch({type: IMPORT_CONTACTS_SUCCESS})
 
       var newrecipient = res.data
@@ -418,7 +591,29 @@ export const importContacts = (columnsMapping, callback) => (dispatch, getState,
     },
   })
 }
-
+export const getReminderDate = (date,recurring,callback) => (dispatch, getState, { fetch }) => {
+  const { token } = dispatch(getToken())
+  return fetch(`/get-reminder-date?${qs.stringify({
+    date,
+    recurring : recurring!=='1' ? recurring :null
+  })}`, {
+    method: 'GET',
+    token,
+    success: (res) => {
+      if(callback)
+      {
+        callback(res.data);
+      }
+    },
+    failure: (err) => {
+      if(err.errors && err.errors.recurring)
+      {
+        message.error(err.errors.recurring[0])
+      }
+      else showErrorMessage(err.errors);
+    },
+  })
+}
 export const openUploadedContactsModal = () => ({type: OPEN_UPLOADED_CONTACTS_MODAL})
 
 export const closeUploadedContactsModal = () => ({type: CLOSE_UPLOADED_CONTACTS_MODAL})
@@ -426,7 +621,72 @@ export const closeUploadedContactsModal = () => ({type: CLOSE_UPLOADED_CONTACTS_
 export const changeSelectedContacts = (selectedContacts) => (dispatch, getState) => {
   dispatch({type: CHANGE_SELECTED_CONTACTS, selectedContacts})
 }
-
+export const createReminder = (params, callback) => (dispatch, getState, {fetch}) => {
+  const {contact} = getState().contacts;
+  if(contact && contact.id)
+  {
+    const {token} = dispatch(getToken())
+    return fetch(`/contact/${contact.id}/reminders`, {
+      method: 'POST',
+      contentType: 'application/x-www-form-urlencoded',
+      body: {
+        date: params.date,
+        occasion_id: params.occasion_id,
+        recurring: params.recurring
+      },
+      token,
+      success: (res) => {
+        if(callback && res.data)
+        {
+          callback(res.data);
+        }
+      },
+      failure: (err) => {},
+    })
+  }
+}
+export const deleteReminder = (reminder_id) => (dispatch, getState, {fetch}) => {
+  const {contact} = getState().contacts;
+  if(contact && contact.id)
+  {
+    const {token} = dispatch(getToken())
+    return fetch(`/contact/${contact.id}/reminders/${reminder_id}`, {
+      method: 'POST',
+      contentType: 'application/x-www-form-urlencoded',
+      body: {
+        _method: 'DELETE'
+      },
+      token,
+      success: (res) => {
+    
+      },
+      failure: (err) => {},
+    })
+  }
+}
+export const updateReminder = (params) => (dispatch, getState, {fetch}) => {
+  const {contact} = getState().contacts;
+  if(contact && contact.id && params && params.id)
+  {
+    const {token} = dispatch(getToken())
+    console.log(`/contact/${contact.id}/reminders/${params.id}`);
+    return fetch(`/contact/${contact.id}/reminders/${params.id}`, {
+      method: 'POST',
+      contentType: 'application/x-www-form-urlencoded',
+      body: {
+        _method: 'PUT',
+        date: params.date,
+        occasion_id: params.occasion_id,
+        recurring: params.recurring
+      },
+      token,
+      success: (res) => {
+       
+      },
+      failure: (err) => {},
+    })
+  }
+}
 export const saveFields = (fields) => (dispatch, getState) => {
   dispatch({type: SAVE_FIELDS, fields})
 }
@@ -434,6 +694,7 @@ export const setupBirthday = (setupBirthday) => async(dispatch, getState) => {
   await dispatch({type: SET_BIRTHDAY_SETUP, setupBirthday})
   dispatch(getOccasions());
 }
+export const clearMapColums =()=>({type: MAPPING_COLUMNS, mappingColumns: null})
 export const clear = () => ({type: CLEAR})
 
 // ------------------------------------
@@ -478,7 +739,7 @@ export default createReducer(initialState, {
   }),
   [GET_CONTACTS_SUCCESS]: (state, {res: {data, meta: {total}}}) => ({
     contacts: data,
-    contactsCount: total,
+    contactsCount: total ? total:0,
     loading: {
       ...state.loading,
       contacts: false,
@@ -668,6 +929,9 @@ export default createReducer(initialState, {
   }),
   [SET_CHANGE_EDITFORM]: (state, {changedForm}) => ({
     changedForm,
+  }),
+  [SET_ADD_EDITFORM]: (state, {changedAddForm}) => ({
+    changedAddForm,
   }),
   [SET_BIRTHDAY_SETUP]: (state, {setupBirthday}) => ({
     setupBirthday,

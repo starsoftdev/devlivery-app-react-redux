@@ -10,8 +10,7 @@ import { injectIntl } from 'react-intl'
 import Reminders from './Reminders'
 import Groups from './Groups'
 import moment from 'moment'
-import { FloatingLabel } from '../../components';
-import Cleave from 'cleave.js/react';
+import { FloatingLabel,InputDate } from '../../components';
 
 const SALUTATIONS = ['Mr.', 'Ms.', 'Dr.', 'Family']
 
@@ -84,19 +83,19 @@ class ContactForm extends React.Component {
   onBirthdayBlur(e) {
     var dobValidation = false;
     const dob = this.props.form.getFieldValue('dob');
-    var birthday = moment(dob, 'DD/MM/YYYY');
-    var expected = moment().subtract(18, 'years');
+    var birthday = moment(dob, 'DD-MM-YYYY');
+    var expected = moment().subtract(1, 'days');
     var errors = null;
     if (birthday.isValid() && dob.length === 10) {
       if (birthday < expected)
         dobValidation = true;
       else {
-        errors= [new Error('please select date older than 18 years.')];
+        errors = [new Error(this.props.intl.formatMessage(formMessages.pastdate))];
       }
     }
     else {
       if (dob && dob.length > 0)
-        errors = [new Error('Invalid Date Format.')];
+        errors = [new Error(this.props.intl.formatMessage(formMessages.invalidDate))];
     }
     this.props.form.setFields({
       dob: {
@@ -167,10 +166,11 @@ class ContactForm extends React.Component {
         </Row>
         <Form.Item>
           {getFieldDecorator('contact.email', {
-            validateTrigger: 'onSubmit',//'onBlur'
+            validateTrigger: 'onBlur',//'onSubmit'
             initialValue: initialValues && initialValues.email,
             rules: [
               { required: false, message: intl.formatMessage(formMessages.required) },
+              { type: 'email', message: intl.formatMessage(formMessages.emailInvalid) },
             ],
           })(
             <FloatingLabel placeholder={intl.formatMessage(messages.email)} />
@@ -228,14 +228,10 @@ class ContactForm extends React.Component {
         <h1 className={s.header}>{intl.formatMessage(messages.birthday)}</h1>
         <Form.Item>
           {getFieldDecorator('dob', {
-            initialValue: initialValues && initialValues.dob ? moment(initialValues.dob).format("DD/MM/YYYY") : undefined,
+            initialValue: initialValues && initialValues.dob ? moment(initialValues.dob).format("DD-MM-YYYY") : undefined,
           })(
-            <Cleave
+            <InputDate
               placeholder={intl.formatMessage(messages.dateplaceholder)}
-              options={{
-                date: true,
-                datePattern: ['d', 'm', 'Y']
-              }}
               onBlur={this.onBirthdayBlur.bind(this)}
               onFocus={this.onBirthdayFocus.bind(this)}
             />

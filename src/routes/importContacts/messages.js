@@ -33,4 +33,12 @@ export default defineMessages({
     id: 'importContacts.upload',
     defaultMessage: 'Upload',
   },
+  msg_atleast: {
+    id: 'importContacts.msg_atleast',
+    defaultMessage: 'You have to select at least one contact.',
+  },
+  cancelEdit: {
+    id: 'contactForm.cancelEdit',
+    defaultMessage: 'Cancel',
+  },
 })

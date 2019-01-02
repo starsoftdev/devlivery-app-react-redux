@@ -18,6 +18,7 @@ import { setNewRecipients, GROUP_ID_KEY, CONTACT_IDS_KEY, gotoConfirm } from '..
 import CheckIcon from '../../static/card_checkmark.svg'
 import { updateTeamMemberRole } from '../../reducers/team';
 import { SELECT_GROUPS } from '../../reducers/purchase'
+import moment from 'moment'
 
 const GRID_VIEW = 'grid'
 const LIST_VIEW = 'list'
@@ -108,10 +109,10 @@ class Contacts extends React.Component {
   handleSubmit() {
     if (this.state.type === category[0]) {
       if (this.state.selGroupId === null) {
-        message.info("please choose one group.");
+        message.info(this.props.intl.formatMessage(messages.msg_onegroup));
         return false;
       }
-      var filter = this.state.dataEntry.filter(item => item.id === this.state.selGroupId);
+      var filter = this.state.dataEntry.filter(item => item.id+'' === this.state.selGroupId+'');
       if (filter && filter.length > 0) {
         this.props.getContactsByName(filter[0].title,
           (data) => {
@@ -133,7 +134,7 @@ class Contacts extends React.Component {
             }
             else {
               this.setState({ selGroupId: null });
-              message.info("The group have no contacts.");
+              message.info(this.props.intl.formatMessage(messages.msg_nocontacts));
               this.props.setDisableButton(false);
             }
           });
@@ -143,7 +144,7 @@ class Contacts extends React.Component {
     }
     else {
       if (this.state.selContactIds.length <= 0) {
-        message.info("please choose contacts.");
+        message.info(this.props.intl.formatMessage(messages.msg_choosecontact));
         return false;
       }
       localStorage.removeItem(GROUP_ID_KEY);
@@ -227,6 +228,7 @@ class Contacts extends React.Component {
           title: intl.formatMessage(messages.birthdayColumn),
           dataIndex: 'dob',
           key: 'dob',
+          render: (dob) => dob
         },
       ];
     //Group
@@ -250,6 +252,7 @@ class Contacts extends React.Component {
           </a>
         )
       },
+      /*
       {
         title: intl.formatMessage(messages.actionsColumn),
         dataIndex: '',
@@ -273,6 +276,7 @@ class Contacts extends React.Component {
           )
         }
       },
+      */
     ];
 
     const contactSortBy = [
@@ -280,7 +284,7 @@ class Contacts extends React.Component {
       { value: '-first_name', label: 'Z-A' },
       { value: '-updated_at', label: intl.locale === "de-DE" ? 'Datum, letzes Update' : 'Last Update Date' },
       { value: '-created_at', label: intl.locale === "de-DE" ? 'Datum hinzufügen' : 'Creation Date' },
-      { value: '-dob', label: intl.locale === "de-DE" ? 'anstehnde Geburtstage' : 'Upcoming birthdays' },
+      { value: '-dob', label: intl.locale === "de-DE" ? 'anstehende Geburtstage' : 'Upcoming birthdays' },
     ]
 
     return (
@@ -323,7 +327,7 @@ class Contacts extends React.Component {
                       md={6}
                       key={data.id}
                     >
-                      <div className={s.contact} onClick={() => { this.selectCell(data.id) }}>
+                      <div className={s.contact} onClick={() => { this.selectCell(data.id) }} title={data.first_name+'\n'+data.last_name}>
                         {data.checked && <CheckIcon className={s.checkIcon} />}
                         {
                           /*

@@ -12,6 +12,7 @@ import messages from './messages'
 import { DEFAULT_DEBOUNCE_TIME } from '../../constants'
 import OrderDetails from './OrderDetails'
 import { getEvent } from '../../utils'
+import LinesEllipsis from 'react-lines-ellipsis'
 
 class Orders extends React.Component {
   constructor(props) {
@@ -69,6 +70,18 @@ class Orders extends React.Component {
         render: (orderNumber, order) => <a onClick={() => openOrderDetailsModal(order)}>{orderNumber}</a>
       },
       {
+        title: intl.formatMessage(messages.contactsColumn),
+        dataIndex: 'contacts',
+        key: 'contacts',
+        render: (contacts) => <LinesEllipsis
+                                text={contacts}
+                                maxLine='2'
+                                ellipsis='...'
+                                trimRight={false}
+                                basedOn='words'
+                              />
+      },
+      {
         title: intl.formatMessage(messages.dateColumn),
         dataIndex: 'date',
         key: 'date',
@@ -88,7 +101,7 @@ class Orders extends React.Component {
         title: intl.formatMessage(messages.totalColumn),
         dataIndex: 'total',
         key: 'total',
-        render: (total) => <React.Fragment>{total} <span className={s.currency}>{'CHF'}</span></React.Fragment>
+        render: (total) => <React.Fragment><span className={s.currency}>{'CHF'}</span> {total}</React.Fragment>
       },
     ]
     const upcoming_columns = [
@@ -111,7 +124,7 @@ class Orders extends React.Component {
           />
         </div>
         <Table
-          locale={{ emptyText: 'No Order' }}
+          locale={{ emptyText: intl.formatMessage(messages.noorder) }}
           loading={loading.orders}
           className={s.orders}
           columns={columns}
@@ -168,6 +181,7 @@ class Orders extends React.Component {
                     upcomingEvents.length > 0 &&
                     <div className={s.footer}>
                       <Pagination
+                        size="small"
                         current={upcomingpage}
                         total={upcomingCount}
                         showTotal={(total, range) => intl.formatMessage(messages.tableItems, { range0: range[0], range1: range[1], total })}
@@ -185,7 +199,7 @@ class Orders extends React.Component {
               </Spin>
             }
           </section>
-          {calendarEventsModalOpened && <CalendarEvents />}
+          {calendarEventsModalOpened && <CalendarEvents intl={intl}/>}
           {orderDetailsModalOpened && <OrderDetails intl={intl} recipient_id={this.props.recipient_id} />}
         </div>
       </div>
