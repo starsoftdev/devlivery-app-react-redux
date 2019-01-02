@@ -344,7 +344,7 @@ export const setLetteringTechnique = (letteringTechnique) => (dispatch, getState
   {
     dispatch(updateBundle({lettering: letteringTechnique, _method :'PUT'}));
   }
-  ({ type: SET_LETTERING_TECHNIQUE, letteringTechnique })
+  dispatch({ type: SET_LETTERING_TECHNIQUE, letteringTechnique })
 }
 
 export const getCardStyles = () => (dispatch, getState, { fetch }) => {
