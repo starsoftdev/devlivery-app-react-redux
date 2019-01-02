@@ -1,13 +1,15 @@
 import React from 'react'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Address.css'
-import {Col, Form, Input, Row, Button, Icon} from 'antd'
+import {Col, Form, Input, Row, Select, Icon} from 'antd'
 import formMessages from '../../formMessages'
 import {injectIntl} from 'react-intl'
 import messages from './messages'
 import g from '../../styles/global.css';
 import cn from 'classnames'
 import {FloatingLabel} from '../../components';
+import {isEmptyData} from '../../utils';
+import COUNTRY from '../../messages/country';
 
 class Address extends React.Component {
   constructor(props){
@@ -28,10 +30,26 @@ class Address extends React.Component {
       else this.props.onExpand(this.props.index,true);
     })
   }
+  checkingEmptyForm(index){
+    const {getFieldValue} = this.props.form;
+    if(
+      isEmptyData(getFieldValue(`addresses[${index}].address`)) &&
+      isEmptyData(getFieldValue(`addresses[${index}].address2`)) &&
+      isEmptyData(getFieldValue(`addresses[${index}].city`))&&
+      isEmptyData(getFieldValue(`addresses[${index}].postal_code`)) &&
+      isEmptyData (getFieldValue(`addresses[${index}].country`))
+      )
+    {
+      //this.props.onExpand(this.props.index,true);
+      return true;
+    }
+    return false;
+  }
   render() {
     const {getFieldDecorator, index, header, intl, initialValues, required, onAddressChange, title, collapseActiveIndex} = this.props
+    const innerRequire = !this.checkingEmptyForm(index);
     const rules = [
-      {required, message: intl.formatMessage(formMessages.required)}
+      {required : innerRequire, message: intl.formatMessage(formMessages.required)}
     ]
     const expand = collapseActiveIndex === index ? true : false;
     
@@ -55,20 +73,16 @@ class Address extends React.Component {
           )}
           <Form.Item>
             {getFieldDecorator(`addresses[${index}].address`, {
-              initialValue: initialValues && initialValues.address ? (typeof initialValues.address === 'string' ? initialValues.address : initialValues.address[0]) : undefined,
-              rules: [
-                ...rules,
-                {min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})}
-              ],
+              initialValue: initialValues && (index==1 ? initialValues.company_name : (initialValues.address ? (typeof initialValues.address === 'string' ? initialValues.address : initialValues.address[0]) : undefined)),
             })(
               <FloatingLabel placeholder={intl.formatMessage(index==1 ? messages.companyname: messages.address0)+(required?" *":"")} onChange={(e) => onAddressChange(e.target.value)}/>
             )}
           </Form.Item>
           <Form.Item>
             {getFieldDecorator(`addresses[${index}].address2`, {
-              initialValue: initialValues && initialValues.address ? (typeof initialValues.address === 'string' ? initialValues.address : initialValues.address[1]) : undefined,
+              initialValue: initialValues && initialValues.address ? (typeof initialValues.address === 'string' ? initialValues.address : initialValues.address[index==1 ? initialValues.address.length-1:1]) : undefined,
               rules: [
-                {required: index==1 && required, min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})}
+                {required: innerRequire && (index==1), min: 5, message: intl.formatMessage(formMessages.minLength, {length: 5})}
               ],
             })(
               <FloatingLabel placeholder={intl.formatMessage(messages.address)+ (index==1 && required ? " *":'')}/>
@@ -96,10 +110,18 @@ class Address extends React.Component {
             <Col xs={24} sm={12}>
               <Form.Item>
                 {getFieldDecorator(`addresses[${index}].country`, {
-                  initialValue: initialValues && initialValues.country,
+                  initialValue: initialValues && initialValues.country ? initialValues.country : undefined,
                   rules,
                 })(
-                  <FloatingLabel placeholder={intl.formatMessage(messages.country)+ (required?" *":'')} onPressEnter={this.onPressEnter}/>
+                  <Select
+                    allowClear
+                    placeholder={intl.formatMessage(messages.country)+ (required?" *":'')}
+                    className={s.country_select}
+                  >
+                    {COUNTRY[intl.locale].map((item) =>
+                      <Select.Option key={item.split('|')[1]} value={item.split('|')[1]}>{item.split('|')[1]}</Select.Option>
+                    )}
+                  </Select>
                 )}
               </Form.Item>
             </Col>

@@ -14,8 +14,8 @@ export default defineMessages({
     defaultMessage: 'Filter by Type',
   },
   submit: {
-    id: 'purchase5.submit',
-    defaultMessage: 'Next',
+    id: 'purchase8.submit',
+    defaultMessage: 'SAVE AND NEXT STEP',
   },
   preview: {
     id: 'purchase8.preview',
@@ -25,4 +25,8 @@ export default defineMessages({
     id: 'purchase8.previewHeader',
     defaultMessage: 'Gift Preview',
   },
+  savemoreproducts: {
+    id: 'purchase8.savemoreproducts',
+    defaultMessage: 'SAVE AND BUY MORE PRODUCTS',
+  }
 })

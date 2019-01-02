@@ -17,6 +17,7 @@ import PlusIcon from '../../static/plus.svg'
 import formMessages from '../../formMessages'
 import {removeContactGroup} from '../../reducers/contactGroups'
 import {FloatingLabel} from '../../components';
+import moment from 'moment'
 
 class ContactGroup extends React.Component {
   componentWillUnmount() {
@@ -62,6 +63,7 @@ class ContactGroup extends React.Component {
         title: intl.formatMessage(messages.birthdayColumn),
         dataIndex: 'dob',
         key: 'dob',
+        render: (dob) => dob 
       },
     ]
     return (
@@ -114,16 +116,19 @@ class ContactGroup extends React.Component {
               <PlusIcon/>
               {intl.formatMessage(messages.submit)}
             </Button>
-            <Popconfirm
-              title={intl.formatMessage(messages.confirmRemoving)}
-              onConfirm={() => removeContactGroup(currentGroup)}
-              okText={intl.formatMessage(messages.acceptRemoving)}
-            >
-              <Button type='danger' type='primary' ghost style={{float:'right'}}>
-                <RemoveIcon/>
-                {intl.formatMessage(messages.delete)}
-              </Button>
-            </Popconfirm>
+            {
+              this.props.groupId &&
+              <Popconfirm
+                title={intl.formatMessage(messages.confirmRemoving)}
+                onConfirm={() => removeContactGroup(currentGroup)}
+                okText={intl.formatMessage(messages.acceptRemoving)}
+              >
+                <Button type='danger' type='primary' ghost style={{float:'right'}}>
+                  <RemoveIcon/>
+                  {intl.formatMessage(messages.delete)}
+                </Button>
+              </Popconfirm>
+            }
           </div>
         </div>
       </React.Fragment>

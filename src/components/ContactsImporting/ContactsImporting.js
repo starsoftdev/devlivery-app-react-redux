@@ -7,6 +7,7 @@ import PlusIcon from '../../static/plus.svg'
 import {uploadContacts} from '../../reducers/contacts'
 import {injectIntl} from 'react-intl'
 import cn from 'classnames'
+import {exampleXLSX_url_de,exampleXLSX_url_en} from '../../constants';
 
 // TODO add translations
 class ContactsImporting extends React.Component {
@@ -15,20 +16,56 @@ class ContactsImporting extends React.Component {
 
     const exportFromXLSX = intl.locale === 'de-DE' ?
     (
-      <ol className={cn(s.instructions, sectionClassName)}>
-        <li> Click on <b>.xlsx</b> button to import your file</li>
-        <li> <b>Select</b> the file you want to upload</li>
-        <li> <b>Match</b> the column headers</li>
-        <li> Press <b>Save</b> and your contacts will be imported</li>
-      </ol>
+      <div className={s.xlsxCommentConatiner}>
+        <ol className={cn(s.instructions, sectionClassName)}>
+          <li> Click on <b>.xlsx</b> button to import your file</li>
+          <li> <b>Select</b> the file you want to upload</li>
+          <li> <b>Match</b> the column headers</li>
+          <li> Press <b>Save</b> and your contacts will be imported</li>
+        </ol>
+        <h3>Rules for Your File</h3>
+        <p>Your file must observe the following rules or your upload might fail:</p>
+        <ol className={cn(s.instructions)}>
+          <li>Your first line must be <b>headings</b> for each of the columns, this is going to be used for matching with the correct fields in <b>byZumi</b>.</li>
+          <li>Your file must be exported as <b>XLSX</b>.</li>
+          <li>Your file must have <b>one contact</b> per row and each column represents a different field.</li>
+          <li><b>First and Last Name</b> need to be separated.</li>
+          <li><b>Address</b> needs to be broken into parts (address, secondary address, city, zip code, country).</li>
+          <li><b>Address, First Name, Last Name</b> is mandatory for all contacts or import will fail.</li>
+        </ol>
+        <p>Please find attached below an <b>example XLSX</b> to facilitate your import.</p>
+        <a href={exampleXLSX_url_de} download>
+          <Button type='primary' size={'small'} ghost className={s.importBtn}>
+            Example XLSX
+          </Button>
+        </a>
+      </div>
     )
     : (
-      <ol className={cn(s.instructions, sectionClassName)}>
-        <li> Click on <b>.xlsx</b> button to import your file</li>
-        <li> <b>Select</b> the file you want to upload</li>
-        <li> <b>Match</b> the column headers</li>
-        <li> Press <b>Save</b> and your contacts will be imported</li>
-      </ol>
+      <div className={s.xlsxCommentConatiner}>
+        <ol className={cn(s.instructions, sectionClassName)}>
+          <li> Click on <b>.xlsx</b> button to import your file</li>
+          <li> <b>Select</b> the file you want to upload</li>
+          <li> <b>Match</b> the column headers</li>
+          <li> Press <b>Save</b> and your contacts will be imported</li>
+        </ol>
+        <h3>Rules for Your File</h3>
+        <p>Your file must observe the following rules or your upload might fail:</p>
+        <ol className={cn(s.instructions)}>
+          <li>Your first line must be <b>headings</b> for each of the columns, this is going to be used for matching with the correct fields in <b>byZumi</b>.</li>
+          <li>Your file must be exported as <b>XLSX</b>.</li>
+          <li>Your file must have <b>one contact</b> per row and each column represents a different field.</li>
+          <li><b>First and Last Name</b> need to be separated.</li>
+          <li><b>Address</b> needs to be broken into parts (address, secondary address, city, zip code, country).</li>
+          <li><b>Address, First Name, Last Name</b> is mandatory for all contacts or import will fail.</li>
+        </ol>
+        <p>Please find attached below an <b>example XLSX</b> to facilitate your import.</p>
+        <a href={exampleXLSX_url_en} download>
+          <Button type='primary' size={'small'} ghost className={s.importBtn}>
+            Example XLSX
+          </Button>
+        </a>
+      </div>
     )
 
     const exportGoogleContacts = intl.locale === 'de-DE' ?

@@ -29,7 +29,8 @@ import RemoveIcon from '../../static/remove.svg'
 import { FloatingLabel } from '../../components';
 import { INDIVIDUAL_ACCOUNT, TEAM_ACCOUNT } from '../../reducers/register'
 import Loader from 'react-loader';
-import {BIRTH_GERMAN,BIRTH_EN} from '../../constants'
+import {BIRTH_GERMAN,BIRTH_EN,CARD_SIZES} from '../../constants'
+import {getUserDetails} from '../../reducers/user';
 
 import {
   ORDER_BUNDLE_FLOW,
@@ -58,7 +59,7 @@ class Purchase11 extends React.Component {
       fontlink: [],
       order: props.order,
       disableSubmit: false,
-      selectedLocation: 'shipping',
+      selectedLocation: null,
       selOccasion: null,
       selDate: (props.newrecipient && props.newrecipient.dob) || props.deliveryTime,
       contact: null,
@@ -68,7 +69,8 @@ class Purchase11 extends React.Component {
       couple: undefined,
       loadingEditor: false,
       visible: false,
-      warnings: []
+      warnings: [],
+      birthday_warning: false
     }
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.onCheckSaved = this.onCheckSaved.bind(this);
@@ -82,16 +84,14 @@ class Purchase11 extends React.Component {
     var initState = await localStorage.getItem(ORDER_CONFIRM_STATE);
     initState = JSON.parse(initState);
     this.setState({ ...initState });
+    this.props.recalculateTotal(this.state.selectedLocation?this.state.selectedLocation:'shipping');
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps && nextProps.cardDetails) {
       this.setState({ content: nextProps.cardDetails.body ? nextProps.cardDetails.body : '' });
     }
-    if (nextProps && nextProps.order !== this.state.order) {
-
-      if (this.state.contact) {
-        this.state.order = nextProps.order;
-      } else this.setState({ order: nextProps.order });
+    if (nextProps && nextProps.order !== this.props.order) {
+      this.state.order = nextProps.order;
       this.onSelectLocation(this.state.selectedLocation);
     }
     if (nextProps && nextProps.user !== this.props.user) {
@@ -113,33 +113,67 @@ class Purchase11 extends React.Component {
       `//fonts.googleapis.com/css?family=${font}`
     )
     this.setState(newState)
-    console.log('Zurich Time', moment().tz("Europe/Zurich").format());
+  }
+  componentWillUnmount(){
+    var jsonData = {
+      selectedLocation: this.state.selectedLocation,
+      selOccasion: this.state.selOccasion,
+      selDate: this.state.selDate,
+      contact: this.state.contact,
+      checkSave: this.state.checkSave,
+      bundleName: this.props.form.getFieldValue('title')
+    }
+    localStorage.setItem(ORDER_CONFIRM_STATE, JSON.stringify(jsonData));
   }
   onSelectLocation = (value) => {
-    this.props.recalculateTotal(value);
-
-    const { order, currentRecipient, selectedLocation } = this.state;
+    if(value ==='shipping')
+    {
+      this.props.getUserDetails((user)=>{
+        this.props.recalculateTotal(value, (order_data)=>{
+          this.state.order = order_data;
+          this.showCurrentRecipientFromSelectedLocation(value,order_data,user);
+        });
+      });
+    }
+    else {
+      this.props.recalculateTotal(value, (order_data)=>{
+        this.state.order = order_data;
+        this.showCurrentRecipientFromSelectedLocation(value,order_data,this.props.user);
+      });
+    }
+    this.showCurrentRecipientFromSelectedLocation(value,this.state.order,this.props.user);
+  }
+  showCurrentRecipientFromSelectedLocation(value,order,user){
+    const { currentRecipient, selectedLocation } = this.state;
     if (value === 'shipping') {
-      const { user } = this.props;
       const address = user && user.addresses && user.addresses.find(item => item.default !== null)
+      
+      let first_name = user.first_name;
+      let last_name = user.last_name;
+      if(address && (address.first_name || address.last_name))
+      {
+        first_name = address.first_name;
+        last_name = address.last_name;
+      }
       this.setState({ 
         selectedLocation: value, 
         recip_warnmsg: '', 
         contact: { 
           title: ' ',
-          first_name: user.first_name,
-          last_name: user.last_name,
+          first_name: first_name,
+          last_name: last_name,
           ...address ? {
-            address: (address.company ? address.company+' ':'')+ (address.address && address.address.length > 0 ?address.address.join(' '):''),
+            address: (address.company ? address.company+'\n':'')+ (address.address && address.address.length > 0 ?address.address.join('\n'):''),
             postal_code: address.postal_code,
             city: address.city,
-            country: address.city
+            country: address.country,
+            title: ' '
           } : null
         }
       });
       return;
     }
-    else if (order && order.recipients && order.recipients[currentRecipient]) {
+    else if (value && order && order.recipients && order.recipients[currentRecipient]) {
       this.validateRecipientsAddress(value)
 
       var selRecipient = order.recipients[currentRecipient];
@@ -153,14 +187,14 @@ class Purchase11 extends React.Component {
         this.setState({ 
           selectedLocation: value, 
           contact: { 
-            title: selRecipient.contact.title,
+            title: contact.title,
             first_name: selRecipient.contact.first_name,
             last_name: selRecipient.contact.last_name,
             ...contact ? {
-              address: (contact.address && contact.address.length > 0 ? contact.address.join(' '):''),
+              address: (contact.address && contact.address.length > 0 ? contact.address.join('\n'):''),
               postal_code: contact.postal_code,
               city: contact.city,
-              country: contact.city
+              country: contact.country
             } : null
           } 
         });
@@ -168,7 +202,7 @@ class Purchase11 extends React.Component {
       else this.setState({ selectedLocation: value, contact: null });
     }
     else {
-      this.setState({ ...this.state, selectedLocation: value, contact: null })
+      this.setState({ ...this.state, selectedLocation: value, contact: null, recip_warnmsg:'' })
     }
   }
   validateRecipientsAddress(value) {
@@ -180,7 +214,7 @@ class Purchase11 extends React.Component {
       })
       if (filterRecp.length !== order.recipients.length) {
         this.setState({
-          recip_warnmsg: value === 'home' ? 'Home address is not available for all recipients, in this case we will use Company address instead.' : 'Company address is not available for all recipients, in this case we will use Home address instead.'
+          recip_warnmsg: value === 'home' ? this.props.intl.formatMessage(messages.msg_notHome) : this.props.intl.formatMessage(messages.msg_notOffice)
         });
         return;
       }
@@ -222,24 +256,34 @@ class Purchase11 extends React.Component {
 
     const { order, user } = this.props;
     if (order === null || order.recipients_count === null || order.recipients_count <= 0) {
-      message.warn('This order have no any recipient.');
+      message.warn(this.props.intl.formatMessage(messages.msg_norecipient));
       return;
     }
-    const owner = user.account_type == INDIVIDUAL_ACCOUNT || user.is_team_owner == true;
+    const owner = user.account_type == null || user.account_type == INDIVIDUAL_ACCOUNT || user.is_team_owner == true;
 
     if (user && user.budget && user.budget.remaining_budget && parseFloat(order.total) <= parseFloat(user.budget.remaining_budget) || owner) {
-      var warnings = order.recipients.filter(item => item.warning);
-      if(warnings.length > 0 &&
-          this.state.selOccasion && this.state.selOccasion !== undefined &&
-          (this.state.selOccasion.toUpperCase() === BIRTH_EN || this.state.selOccasion.toUpperCase() === BIRTH_GERMAN))
+      if(order.birthday_warning)
       {
-        this.setState({visible: true, warnings});
+        this.setState({birthday_warning: true});
       }
-      else {
-        this.proceedwithcheckout();
+      else{
+        this.checkWarningRecipient();
       }
     } else {
-      message.warn("Insufficient budget available");
+      message.warn(this.props.intl.formatMessage(messages.msg_budget));
+    }
+  }
+  checkWarningRecipient(){
+    const { order, user } = this.props;
+    var warnings = order.recipients.filter(item => item.warning);
+    if(warnings.length > 0 &&
+        this.state.selOccasion && this.state.selOccasion !== undefined &&
+        (this.state.selOccasion.toUpperCase() === BIRTH_EN || this.state.selOccasion.toUpperCase() === BIRTH_GERMAN))
+    {
+      this.setState({visible: true, warnings});
+    }
+    else {
+      this.proceedwithcheckout();
     }
   }
   onOk() {
@@ -254,15 +298,6 @@ class Purchase11 extends React.Component {
     this.setState({ disableSubmit: true })
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        var jsonData = {
-          selectedLocation: this.state.selectedLocation,
-          selOccasion: this.state.selOccasion,
-          selDate: this.state.selDate,
-          contact: this.state.contact,
-          checkSave: this.state.checkSave,
-          bundleName: this.props.form.getFieldValue('title')
-        }
-        localStorage.setItem(ORDER_CONFIRM_STATE, JSON.stringify(jsonData));
         this.props.submitShipping(values, parseFloat(order.total), () => this.setState({ disableSubmit: false }))
       } else {
         this.setState({ disableSubmit: false })
@@ -274,31 +309,32 @@ class Purchase11 extends React.Component {
   }
   render() {
     const { currentRecipient, order, disableSubmit, contact, selOccasion, checkSave, selectedLocation,warnings } = this.state
-    const { flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, cardSize, newrecipient, saved, removeRecipientsOrder, orientation, flow, user, shipping_cost, applycouponTotal } = this.props
+    const { flowIndex, bundle, occasion, intl, deliveryLocations, deliveryLocation, deliveryOccations, deliveryTime, newrecipient, saved, removeRecipientsOrder, orientation, flow, user, shipping_cost, applycouponTotal, cardSizeKey } = this.props
     const { getFieldDecorator } = this.props.form
     const showDescription = order && order.items.gifts[0] && order.items.gifts[0].gift.description && order.donation && order.donation.organization.description ? true : false;
 
-
+    const cardSize = CARD_SIZES(intl).find(item => item.key === cardSizeKey);
     const w = cardSize ? cardSize.width : 100
     const h = cardSize ? cardSize.height : 100
 
-    const cardWidth = orientation && orientation == 'l' ? Math.max(h, w) : Math.min(h, w);
-    const cardHeight = orientation && orientation == 'l' ? Math.min(h, w) : Math.max(h, w);
+    const cardWidth = orientation && orientation == 'l' || cardSizeKey === '9" X 4"' ? Math.max(h, w) : Math.min(h, w);
+    const cardHeight = orientation && orientation == 'l' || cardSizeKey === '9" X 4"' ? Math.min(h, w) : Math.max(h, w);
 
     const specialDate = (newrecipient && newrecipient.dob) || deliveryTime;
 
     const html = this.tinymce && this.tinymce.editor && this.tinymce.editor.getContent();
+    const partial_birth_warning = order && order.partial_birthday_warning;
     
     let self = this;
     return order ? (
       <div>
         <Modal
-          title="Confirm"
+          title={intl.formatMessage(messages.confirm)}
           visible={this.state.visible}
           onOk={this.onOk}
           onCancel={this.onCancel}
-          okText="Confirm"
-          cancelText="No"
+          okText={intl.formatMessage(messages.confirm)}
+          cancelText={intl.formatMessage(messages.no)}
           width ={570}
         >
           {
@@ -310,6 +346,17 @@ class Purchase11 extends React.Component {
             ))
           }
         </Modal>
+      <Modal
+          title={intl.formatMessage(messages.confirm)}
+          visible={this.state.birthday_warning}
+          onOk={()=>{this.setState({birthday_warning: false}); this.checkWarningRecipient()}}
+          onCancel={()=>this.setState({birthday_warning: false})}
+          okText={intl.formatMessage(messages.confirm)}
+          cancelText={intl.formatMessage(messages.no)}
+          width ={570}
+        >
+          <h4>{intl.formatMessage(messages.msg_contacts)}</h4>
+      </Modal>
       <Form onSubmit={this.handleSubmit} className={s.form}>
         <div className={s.content}>
           <SectionHeader
@@ -317,7 +364,7 @@ class Purchase11 extends React.Component {
             number={flowIndex + 1}
             prefixClassName={s.headerPrefix}
           />
-          <Loader loaded={shipping_cost ? true : false}>
+          <Loader loaded={order && order.recipients_count > 0 ? true : false}>
             <OrderItems
               {...this.props}
               {...order}
@@ -327,8 +374,10 @@ class Purchase11 extends React.Component {
             />
             <div className={s.orderDetails}>
 
-              <h3 className={s.warnText}>{this.state.loadingEditor && (html === null || html === '' || html === undefined) && intl.formatMessage(messages.personalizedmsg)}</h3>
-              {this.state.mounted && bundle && <Editor
+              <div className={s.warnText} style={{marginBottom:10}}>{this.state.loadingEditor && (html === null || html === '' || html === undefined) && intl.formatMessage(messages.personalizedmsg)}</div>
+              {this.state.mounted && bundle && 
+              <div className={s.editorWrapper}>
+              <Editor
                 ref={editor => {
                   this.tinymce = editor
                 }}
@@ -337,8 +386,8 @@ class Purchase11 extends React.Component {
                   toolbar: false,
                   menubar: false,
                   statusbar: false,
-                  width: `${cardWidth}mm`,
-                  height: `${cardHeight}mm`,
+                  width: `${cardWidth-20}mm`,
+                  height: `${cardHeight-20}mm`,
                   content_css: [...this.state.fontlink, '/styles/tinymce.css'],
                   readonly: true,
                   setup: function (ed) {
@@ -347,8 +396,10 @@ class Purchase11 extends React.Component {
                     });
                   }
                 }}
+                disabled={true}
                 onEditorChange={this.handleEditorChange}
               />
+              </div>
               }
             </div>
             <Row type='flex' align='center' gutter={20} className={s.subtotalSection}>
@@ -356,8 +407,8 @@ class Purchase11 extends React.Component {
                 <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.subtotal)}</h2>
               </Col>
               <Col xs={12}>
+                <span className={s.subtotalCurrency}>{'CHF '}</span>
                 <span className={s.subtotalValue}>{(order.bundle_total * order.recipients_count).toFixed(2)}</span>
-                <span className={s.subtotalCurrency}>{'CHF'}</span>
               </Col>
             </Row>
             {/*
@@ -366,44 +417,21 @@ class Purchase11 extends React.Component {
                 <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.tax)}</h2>
               </Col>
               <Col xs={12}>
+                <span className={s.subtotalCurrency}>{'CHF '}</span>  
                 <span className={s.subtotalValue}>{order.bundle_tax}</span>
-                <span className={s.subtotalCurrency}>{'CHF'}</span>
               </Col>
             </Row>
             */}
             {
-              shipping_cost &&
               <Row type='flex' align='center' gutter={20} className={s.totalSection}>
                 <Col xs={12}>
                   <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.shippingcost)}</h2>
                 </Col>
                 <Col xs={12}>
-                  <span className={s.subtotalValue}>{shipping_cost.shipping_cost && shipping_cost.shipping_cost.toFixed(2)}</span>
-                  <span className={s.subtotalCurrency}>{'CHF'}</span>
-                </Col>
-              </Row>
-            }
-            {
-              shipping_cost &&
-              <Row type='flex' align='center' gutter={20} className={s.totalSection}>
-                <Col xs={12}>
-                  <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.total)}</h2>
-                </Col>
-                <Col xs={12}>
-                  <span className={s.subtotalValue}>{shipping_cost.total_with_tax.toFixed(2)}</span>
-                  <span className={s.subtotalCurrency}>{'CHF'}</span>
-                </Col>
-              </Row>
-            }
-            {
-              user && user.account_type === TEAM_ACCOUNT && !user.is_team_owner &&
-              <Row type='flex' align='center' gutter={20} className={s.totalSection}>
-                <Col xs={12}>
-                  <h2 className={s.subtotalHeader}>{'AVAILABLE BUDGET:'}</h2>
-                </Col>
-                <Col xs={12}>
-                  <span className={s.subtotalValue}>{user && user.budget && user.budget.remaining_budget ? user.budget.remaining_budget.toFixed(2) : '0.00'}</span>
-                  <span className={s.subtotalCurrency}>{'CHF'}</span>
+                  <span className={s.subtotalCurrency}>{'CHF '}</span>
+                  <span className={s.subtotalValue}>
+                    {shipping_cost ? (shipping_cost.shipping_cost && shipping_cost.shipping_cost.toFixed(2)): (order.recipient_shipping_cost*order.recipients_count).toFixed(2)}
+                  </span>
                 </Col>
               </Row>
             }
@@ -414,8 +442,38 @@ class Purchase11 extends React.Component {
                   <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.coupon)}</h2>
                 </Col>
                 <Col xs={12}>
-                  <span className={s.subtotalValue}>{order.coupon.value && order.coupon.value.toFixed(2)}</span>
-                  <span className={s.subtotalCurrency}>{'CHF'}</span>
+                  {
+                    order.coupon.type==='absolute' &&
+                    <span className={s.subtotalCurrency}>{'CHF '}</span>
+                  }
+                  <span className={s.subtotalValue}>{'-'}{order.coupon.value && order.coupon.value.toFixed(2)}</span>
+                  {
+                     order.coupon.type!=='absolute' &&
+                    <span className={s.subtotalCurrency}>{'%'}</span>
+                  }
+                </Col>
+              </Row>
+            }
+            {
+              <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+                <Col xs={12}>
+                  <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.total)}</h2>
+                </Col>
+                <Col xs={12}>
+                  <span className={s.subtotalCurrency}>{'CHF '}</span>
+                  <span className={s.subtotalValue}>{shipping_cost ? shipping_cost.total_with_tax.toFixed(2):order.total.toFixed(2)}</span>
+                </Col>
+              </Row>
+            }
+            {
+              user && user.account_type === TEAM_ACCOUNT && !user.is_team_owner &&
+              <Row type='flex' align='center' gutter={20} className={s.totalSection}>
+                <Col xs={12}>
+                  <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.availablebudget)}</h2>
+                </Col>
+                <Col xs={12}>
+                  <span className={s.subtotalCurrency}>{'CHF '}</span>
+                  <span className={s.subtotalValue}>{user && user.budget && user.budget.remaining_budget ? user.budget.remaining_budget.toFixed(2) : '0.00'}</span>
                 </Col>
               </Row>
             }
@@ -478,14 +536,18 @@ class Purchase11 extends React.Component {
                 </Row>
               }
               {
+                partial_birth_warning && 
+                <div className={s.warnText}>{intl.formatMessage(messages.partialBirthError)}</div>
+              }
+              {
                 this.state.recip_warnmsg && this.state.recip_warnmsg !== '' &&
-                <h3 className={s.warnText}>{this.state.recip_warnmsg}</h3>
+                <div className={s.warnText}>{this.state.recip_warnmsg}</div>
               }
               <Row gutter={20} type='flex' align='flex-start'>
                 <Col xs={24} sm={8}>
                   <Form.Item>
                     {getFieldDecorator('deliverable', {
-                      initialValue: this.state.selectedLocation,
+                      initialValue: this.state.selectedLocation ? this.state.selectedLocation : undefined,
                       rules: [
                         { required: true, message: intl.formatMessage(formMessages.required) },
                       ],
@@ -494,6 +556,7 @@ class Purchase11 extends React.Component {
                         placeholder={intl.formatMessage(messages.deliveryPlace)}
                         className={s.select}
                         onChange={this.onSelectLocation}
+                        allowClear
                       >
                         {deliveryLocations && deliveryLocations.map((item) =>
                           <Select.Option key={item.value} value={item.value}>{item.title}</Select.Option>
@@ -504,14 +567,14 @@ class Purchase11 extends React.Component {
                   <div className={s.recipients}>
                     {contact && (
                       <div className={s.recipient}>
-                        <div>{contact && contact.title ? contact.title : ' '}</div>
-                        <div>{`${contact && contact.first_name ? contact.first_name : ' '} ${contact && contact.last_name ? contact.last_name : ' '}`}</div>
-                        <div>{contact ? contact.address : " "}</div>
-                        <div>{`${contact && contact.postal_code ? contact.postal_code : " "} ${contact && contact.city ? contact.city : " "}`}</div>
-                        <div>{contact ? contact.country : " "}</div>
+                        {/*<div>{contact && contact.title ? contact.title : ' '}</div>*/}
+                        <p className={s.recp_ele}>{`${contact && contact.first_name ? contact.first_name : ' '} ${contact && contact.last_name ? contact.last_name : ' '}`}</p>
+                        <p className={s.recp_ele}>{contact ? contact.address : " "}</p>
+                        <p className={s.recp_ele}>{`${contact && contact.postal_code ? contact.postal_code : " "} ${contact && contact.city ? contact.city : " "}`}</p>
+                        <p className={s.recp_ele}>{contact ? contact.country : " "}</p>
                       </div>
                     )}
-                    {selectedLocation !== 'shipping' && order.recipients && order.recipients.length > 1 && (
+                    {selectedLocation && selectedLocation !== 'shipping' && order.recipients && order.recipients.length > 1 && (
                       <div style={{ marginTop: 10 }}>
                         <Button
                           type='primary'
@@ -563,7 +626,7 @@ class Purchase11 extends React.Component {
                 }
                 <Col xs={24} sm={8}>
                   {
-                    !(selOccasion && selOccasion.length > 0) &&
+                    (!(selOccasion && selOccasion.length > 0) || partial_birth_warning ) &&
                     <div>
                       <Form.Item>
                         {getFieldDecorator('schedule_date', {
@@ -574,16 +637,33 @@ class Purchase11 extends React.Component {
                             className={s.select}
                             placeholder={intl.formatMessage(messages.deliveryTime)}
                             format={DISPLAYED_DATE_FORMAT}
-                            disabled={selOccasion && selOccasion.length > 0 ? true : false}
+                            //disabled={selOccasion && selOccasion.length > 0 ? true : false}
                             disabledDate={current => {
                               var date = new Date();
-                              let zurichtime = moment().tz("Europe/Zurich").format('HH');
-                              if (parseInt(zurichtime) < 12) {
-                                date.setDate(date.getDate() + 3);
+                              switch (date.getDay()) {
+                                case 0://"Sunday" => "Wednesday"
+                                  date.setDate(date.getDate() + 2);
+                                  break;
+                                case 1://"Monday" => "Thursday" 
+                                  date.setDate(date.getDate() + 2);
+                                  break;
+                                case 2://"Tuesday" => "Friday"
+                                  date.setDate(date.getDate() + 2);
+                                  break;
+                                case 3://"Wednesday" => "Saturday"
+                                  date.setDate(date.getDate() + 2);
+                                  break;
+                                case 4://"Thursday" => "Monday"
+                                  date.setDate(date.getDate() + 3);
+                                  break;
+                                case 5://"Friday" => "Wednesday"
+                                  date.setDate(date.getDate() + 4);
+                                  break;
+                                case 6://"Saturday" => "Wednesday"
+                                  date.setDate(date.getDate() + 3);
                               }
-                              else date.setDate(date.getDate() + 4);
                               var n = current && current.day();
-                              return current && (current.valueOf() < (date) || n === 6 || n === 0)
+                              return current && (current.valueOf() < (date) || n === 0)
                             }}
                             onChange={this.onChangeDatePicker}
                           />
@@ -597,7 +677,7 @@ class Purchase11 extends React.Component {
                 </Col>
               </Row>
               {
-                    selectedLocation !== 'shipping' &&
+                    selectedLocation && selectedLocation !== 'shipping' &&
                     <div style={{ marginTop: 20 }}>
                       <Button type='primary' size='small' style={{ marginRight: 10 }} ghost onClick={() => {
                         this.props.toAddContactFlowStep();
@@ -605,20 +685,22 @@ class Purchase11 extends React.Component {
                         <PlusIcon />
                         {intl.formatMessage(messages.add)}
                       </Button>
-
-                      <Popconfirm
-                        title={intl.formatMessage(messages.confirmRemoving)}
-                        onConfirm={() => {
-                          removeRecipientsOrder(order.recipients[currentRecipient].id)
-                          this.setState({ currentRecipient: 0 });
-                        }}
-                        okText={intl.formatMessage(messages.acceptRemoving)}
-                      >
-                        <Button type='primary' size='small' ghost >
-                          <RemoveIcon />
-                          {intl.formatMessage(messages.remove)}
-                        </Button>
-                      </Popconfirm>
+                      {
+                        order && order.recipients_count > 1 ?
+                        <Popconfirm
+                          title={intl.formatMessage(messages.confirmRemoving)}
+                          onConfirm={() => {
+                            removeRecipientsOrder(order.recipients[currentRecipient].id)
+                            this.setState({ currentRecipient: 0 });
+                          }}
+                          okText={intl.formatMessage(messages.acceptRemoving)}
+                        >
+                          <Button type='primary' size='small' ghost >
+                            <RemoveIcon />
+                            {intl.formatMessage(messages.remove)}
+                          </Button>
+                        </Popconfirm> : null
+                      }
                     </div>
                   }
               {/*
@@ -660,12 +742,12 @@ class Purchase11 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={() => { !disableSubmit && this.handleSubmit && shipping_cost }}
+            onKeyHandle={() => { !disableSubmit && this.handleSubmit }}
           />
           <Button
             type='primary'
             htmlType='submit'
-            disabled={disableSubmit || shipping_cost === null}
+            disabled={disableSubmit}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
@@ -686,13 +768,13 @@ const mapState = state => ({
   deliveryLocations: state.purchase.deliveryLocations,
   deliveryLocation: state.purchase.deliveryLocation,
   deliveryTime: state.purchase.deliveryTime,
-  cardSize: state.purchase.cardSize,
   cardDetails: state.purchase.cardDetails,
   newrecipient: state.purchase.newrecipient,
   deliveryOccations: state.purchase.deliveryOccations,
   user: state.user.user,
   orientation: state.purchase.orientation,
-  shipping_cost: state.purchase.shipping_cost
+  shipping_cost: state.purchase.shipping_cost,
+  cardSizeKey: state.purchase.cardSizeKey
 })
 
 const mapDispatch = {
@@ -703,7 +785,8 @@ const mapDispatch = {
   removeVoucherFromBundle,
   syncGifts_Bundle,
   recalculateTotal,
-  applycouponTotal
+  applycouponTotal,
+  getUserDetails
 }
 
 export default connect(mapState, mapDispatch)(Form.create()(withStyles(s)(Purchase11)))

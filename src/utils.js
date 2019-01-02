@@ -6,7 +6,11 @@ import {message} from 'antd'
 
 export const getSuccessMessage = (res) => res && typeof res.data === 'string' ? res.data : null
 
-export const getErrorMessage = (res) => res && (typeof res.data === 'string' || typeof res.errors === 'string') ? res.data||res.errors : 'Something went wrong. Please try again.'
+export const getErrorMessage = (res) => {
+  if(res && res.message)
+    return res.message;
+  return res && (typeof res.data === 'string' || typeof res.errors === 'string') ? res.data||res.errors : 'Something went wrong. Please try again.';
+}
 
 export const showErrorMessage = (res) => {
   if(res)
@@ -60,7 +64,7 @@ export const getFormErrors = ({values, errors}) => {
   }
 }
 
-export const getBirthday = (birthday) => birthday ? moment(birthday,'DD/MM/YYYY').format(DATE_FORMAT) : null
+export const getBirthday = (birthday) => birthday ? moment(birthday,'DD-MM-YYYY').format(DATE_FORMAT) : null
 
 export const getOrdering = (ordering) => {
   const orderDesc = ordering.substring(0, 1) === '-'
@@ -74,7 +78,7 @@ export const getOrdering = (ordering) => {
 export const createArray = (length) => Array.from(Array(length), (item, i) => i)
 
 export const getEvent = (event, current) => {
-  const eventDate = moment(event.contact_specific_date || event.occasion_date, DATE_FORMAT)
+  const eventDate = moment(event.reminder_date || event.occasion_date, DATE_FORMAT)
   // backend doesn't return recurring events in intuitive way
   if (event.recurring === 'y') {
     return eventDate.month() === current.month() && eventDate.date() === current.date()
@@ -123,4 +127,9 @@ export const triggerResizeEvent =() => {
   var event = document.createEvent('HTMLEvents');
   event.initEvent('resize', true, false);
   el.dispatchEvent(event);
+}
+export const isEmptyData = (data)=>{
+  if(data === null || data === undefined || data === '')
+    return true;
+  return false;
 }

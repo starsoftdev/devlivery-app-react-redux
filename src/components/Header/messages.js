@@ -37,4 +37,16 @@ export default defineMessages({
     id: 'header.dashboard',
     defaultMessage: 'Dashboard',
   },
+  msg_cookie:{
+    id: 'header.msg_cookie',
+    defaultMessage: 'We use cookies to optimize your site experience. By interacting with our site, you agree to our use of cookies.',
+  },
+  btn_understand:{
+    id: 'header.btn_understand',
+    defaultMessage: 'I understand',
+  },
+  btn_knowmore:{
+    id: 'header.btn_knowmore',
+    defaultMessage: 'Know More',
+  }
 })

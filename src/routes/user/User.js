@@ -7,7 +7,7 @@ import formMessages from '../../formMessages'
 import moment from 'moment'
 import PlusIcon from '../../static/plus.svg'
 import { DATE_FORMAT } from '../../constants'
-import { ChangePasswordForm } from '../../components'
+import { ChangePasswordForm,InputDate } from '../../components'
 import { updateUser, getAllCards, addCard, setChangingStatusSetting } from '../../reducers/user'
 import messages from './messages'
 import { FloatingLabel, CardCheckOut, Avatar } from '../../components';
@@ -15,8 +15,8 @@ import ReactCreditCard from 'react-credit-cards'
 import creditCardStyles from 'react-credit-cards/es/styles-compiled.css'
 import { makeStripePayment } from '../../reducers/purchase'
 import { TEAM_ACCOUNT } from '../../reducers/register'
-import Cleave from 'cleave.js/react';
 import { setNextRouteName, navigateToNextRouteName } from '../../reducers/global';
+import COUNTRY from '../../messages/country';
 
 class User extends React.Component {
   state = {
@@ -65,7 +65,7 @@ class User extends React.Component {
       e.preventDefault()
     this.props.form.validateFields((err, values) => {
       var dobValidation = false;
-      var birthday = moment(values.birthday, 'DD/MM/YYYY');
+      var birthday = moment(values.birthday, 'DD-MM-YYYY');
       var expected = moment().subtract(18, 'years');
       if (birthday.isValid() && values.birthday.length === 10) {
         if (birthday < expected)
@@ -74,7 +74,7 @@ class User extends React.Component {
           this.props.form.setFields({
             birthday: {
               value: values.birthday,
-              errors: [new Error('please select date older than 18 years.')],
+              errors: [new Error(this.props.intl.formatMessage(messages.msg_older18))],
             },
           });
         }
@@ -83,7 +83,7 @@ class User extends React.Component {
           this.props.form.setFields({
             birthday: {
               value: values.birthday,
-              errors: [new Error('Invalid Date Format.')],
+              errors: [new Error(this.props.intl.formatMessage(formMessages.invalidDate))],
             },
           });
       }
@@ -104,15 +104,15 @@ class User extends React.Component {
 
     if (this.state.isValid) {
       if (this.state.name.length <= 0) {
-        this.setState({ showMark: true, requirmsg: 'please input name.' });
+        this.setState({ showMark: true, requirmsg: this.props.intl.formatMessage(messages.msg_inputname) });
         return;
       }
       if (this.state.expiry < 4) {
-        this.setState({ showMark: true, requirmsg: 'Invalid expire date' });
+        this.setState({ showMark: true, requirmsg: this.props.intl.formatMessage(messages.msg_expiredate) });
         return;
       }
       if (this.state.cvc < 3) {
-        this.setState({ showMark: true, requirmsg: 'Invalid CVC number' });
+        this.setState({ showMark: true, requirmsg: this.props.intl.formatMessage(messages.msg_invalidCVC) });
         return;
       }
       const expiry_month = this.state.expiry.slice(0, 2);
@@ -120,7 +120,7 @@ class User extends React.Component {
       const expriteDate = expiry_month + ' / ' + expiry_year;
 
       if (!Payment.fns.validateCardExpiry(expriteDate)) {
-        this.setState({ showMark: true, requirmsg: 'Invalid expire date' });
+        this.setState({ showMark: true, requirmsg: this.props.intl.formatMessage(messages.msg_expiredate) });
         return;
       }
       this.setState({ showMark: false, processing: true });
@@ -140,7 +140,7 @@ class User extends React.Component {
               if (success) this.resetCardInf()
             })
           else {
-            this.setState({ showMark: true, requirmsg: data.message ? data.message : 'Invalid Card', processing: false });
+            this.setState({ showMark: true, requirmsg: data.message ? data.message : this.props.intl.formatMessage(messages.msg_invalidcard), processing: false });
             return;
           }
         }
@@ -198,7 +198,7 @@ class User extends React.Component {
 
   handleCallback(type, isValid) {
     if (type && type.issuer == 'unknown' || !isValid) {
-      this.setState({ requirmsg: 'Invalid credit card number', isValid });
+      this.setState({ requirmsg: this.props.intl.formatMessage(messages.msg_invalidcardnumber), isValid });
     } else this.setState({ requirmsg: null, isValid, cardtype: type.issuer });
   }
   onOk() {
@@ -220,8 +220,8 @@ class User extends React.Component {
     const address = user && user.addresses && user.addresses.find(item => item.default !== null)
 
     const reminderTimes = [
-      { value: 0, label: 'Same Day', label_de: 'Same Day' },
-      { value: 1, label: 'Day Before', label_de: '1 Tage vorher' },
+      { value: 0, label: 'Same Day', label_de: 'Gleicher Tag' },
+      { value: 1, label: 'Day Before', label_de: '1 Tag vorher' },
       { value: 2, label: '2 Days Before', label_de: '2 Tage vorher' },
       { value: 3, label: '3 Days Before', label_de: '3 Tage vorher' },
       { value: 4, label: '4 Days Before', label_de: '4 Tage vorher' },
@@ -232,14 +232,14 @@ class User extends React.Component {
     return (
       <div className={s.container}>
         <Modal
-          title="Confirm"
+          title={intl.formatMessage(messages.confirm)}
           visible={this.state.visible}
           onOk={this.onOk}
           onCancel={this.onCancel}
-          okText="Yes"
-          cancelText="No"
+          okText={intl.formatMessage(messages.yes)}
+          cancelText={intl.formatMessage(messages.no)}
         >
-          <h2>Do you wish save the information you've edited?</h2>
+          <h2>{intl.formatMessage(messages.saveConfirm)}</h2>
         </Modal>
         <div className={s.form}>
           <Row type='flex' gutter={20} className={s.leftColumn}>
@@ -306,17 +306,13 @@ class User extends React.Component {
                 <h1 className={s.header}>{intl.formatMessage(messages.birthday)}</h1>
                 <Form.Item>
                   {getFieldDecorator('birthday', {
-                    initialValue: user && user.dob ? moment(user.dob).format("DD/MM/YYYY") : undefined,
+                    initialValue: user && user.dob ? moment(user.dob).format("DD-MM-YYYY") : undefined,
                     rules: [
                       { required: true, message: intl.formatMessage(formMessages.required) },
                     ],
                   })(
-                    <Cleave
+                    <InputDate
                       placeholder={intl.formatMessage(messages.dateplaceholder)}
-                      options={{
-                        date: true,
-                        datePattern: ['d', 'm', 'Y']
-                      }}
                     />
                   )}
                 </Form.Item>
@@ -336,6 +332,7 @@ class User extends React.Component {
                       cvc={cvc}
                       focused={focused}
                       callback={this.handleCallback}
+                      placeholders={{ name: intl.formatMessage(messages.cardname) }}
                     />
                     <br />
                   </Col>
@@ -508,7 +505,15 @@ class User extends React.Component {
                           { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                         ],
                       })(
-                        <FloatingLabel placeholder={intl.formatMessage(messages.country)} />
+                        <Select
+                          allowClear
+                          placeholder={intl.formatMessage(messages.country)}
+                          className={s.country_select}
+                        >
+                          {COUNTRY[intl.locale].map((item) =>
+                            <Select.Option key={item.split('|')[1]} value={item.split('|')[1]}>{item.split('|')[1]}</Select.Option>
+                          )}
+                        </Select>
                       )}
                     </Form.Item>
                   </Col>

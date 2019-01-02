@@ -109,11 +109,11 @@ class Purchase13 extends React.Component {
       if (defaultcard.length > 0) {
         this.setState({ processing: true });
         this.props.makeDefaultStripePayment(defaultcard[0].id, (data) => {
-          this.setState && this.setState({ processing: false });
+          this.setState && this.setState({ processing: false, saveButton:false });
         });
       }
       else {
-        message.info("Please add new card.")
+        message.info(this.props.intl.formatMessage(messages.msg_addcard))
       }
     }
     else {
@@ -131,7 +131,7 @@ class Purchase13 extends React.Component {
                 {
                   this.setState({ processing: true });
                   this.props.makeStripePayment(card, true, (data) => {
-                    this.setState && this.setState({ processing: false });
+                    this.setState && this.setState({ processing: false, saveButton:false });
                   })
                   break
                 }
@@ -141,7 +141,7 @@ class Purchase13 extends React.Component {
             }
           }
         } else {
-          message.info('All fields must be filled in')
+          message.info(this.props.intl.formatMessage(messages.msg_filledin))
         }
       })
     }
@@ -152,7 +152,7 @@ class Purchase13 extends React.Component {
       if (defaultcard.length > 0) {
         this.props.makeDefaultStripePayment(defaultcard[0].id);
       }
-      else message.info('All fields must be filled in')
+      else message.info(this.props.intl.formatMessage(messages.msg_filledin))
     }
   }
   handleInputChange = (e, field) => {
@@ -195,7 +195,7 @@ class Purchase13 extends React.Component {
   }
   handleCallback(type, isValid) {
     if (type && type.issuer == 'unknown' || !isValid) {
-      this.setState({ requirmsg: 'Invalid credit card number', isValid });
+      this.setState({ requirmsg: this.props.intl.formatMessage(messages.msg_invalidcard), isValid });
     } else this.setState({ requirmsg: null, isValid, cardtype: type.issuer });
   }
   render() {
@@ -222,8 +222,8 @@ class Purchase13 extends React.Component {
           <div className={s.checkbox}>
             <label>
               <span className={s.subtotalHeader}>{intl.formatMessage(messages.amount) + ': '}</span>
+              <span className={s.subtotalCurrency}>{'CHF'}</span>
               <span className={s.subtotalValue}>{order && order.total}</span>
-              <span className={s.subtotalCurrency}>{' CHF'}</span>
             </label>
           </div>
           <br />
@@ -250,6 +250,7 @@ class Purchase13 extends React.Component {
                   cvc={cvc}
                   focused={focused}
                   callback={this.handleCallback}
+                  placeholders={{ name: intl.formatMessage(messages.cardname) }}
                 />
               </Col>
               <Col xs={24} sm={12}>

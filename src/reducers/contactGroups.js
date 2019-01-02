@@ -65,7 +65,7 @@ const initialState = {
   contactGroups: [],
   contactGroupsCount: 0,
   page: 1,
-  pageSize: 10,
+  pageSize: 12,
   newContactGroup: '',
 }
 

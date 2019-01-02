@@ -8,6 +8,8 @@ export const GIFT_STORE_ROUTE = 'gift-store'
 export const CARD_STORE_ROUTE = 'card-store'
 export const NEW_ARRIVALS_ROUTE = 'new-arrivals'
 export const ABOUT_ROUTE = 'about'
+export const TERMS_ROUTE = 'terms'
+export const PRIVACY_ROUTE = 'privacy'
 export const CONTACT_US_ROUTE = 'contact-us'
 export const LOGIN_ROUTE = 'login'
 export const REGISTER1_ROUTE = 'register1'
@@ -40,6 +42,8 @@ export const HOME_ROUTES = [
   NEW_ARRIVALS_ROUTE,
   ABOUT_ROUTE,
   CONTACT_US_ROUTE,
+  TERMS_ROUTE,
+  PRIVACY_ROUTE
 ]
 
 export const DASHBOARD_ROUTES = [
@@ -384,6 +388,16 @@ const routes = {
       load: () => import(/* webpackChunkName: 'about' */ './about'),
     },
     {
+      path: '/terms-of-services',
+      name: TERMS_ROUTE,
+      load: () => import(/* webpackChunkName: 'terms' */ './terms'),
+    },
+    {
+      path: '/privacy-policy',
+      name: PRIVACY_ROUTE,
+      load: () => import(/* webpackChunkName: 'terms' */ './privacy'),
+    },
+    {
       path: '/contact-us',
       name: CONTACT_US_ROUTE,
       load: () => import(/* webpackChunkName: 'contactUs' */ './contactUs'),
@@ -547,7 +561,7 @@ const routes = {
     context.store.dispatch(checkToken())
     var prevPathName = context.store.getState().global.prevPathname;
     var curPathName = context.store.getState().global.currentPathname;
-    if(isLeaveEditContactPage(prevPathName) && curPathName !== prevPathName)
+    if(isLeaveEditContactPage(prevPathName, curPathName) && curPathName !== prevPathName)
     {
       await context.store.dispatch(setNextRouteName(curPathName));
       return { redirect: prevPathName }
@@ -558,6 +572,21 @@ const routes = {
       return { redirect: prevPathName }
     }
     await context.store.dispatch(getUser())
+    //authenticate Puchase flow
+    const {loggedIn} = context.store.getState().user
+    if(context.pathname.includes('/purchase/') && !loggedIn)
+    {
+      if(
+        context.pathname === '/purchase/card-style' ||
+        context.pathname === '/purchase/card-size' ||
+        context.pathname === '/purchase/lettering-technique' ||
+        context.pathname === '/purchase/card'||
+        context.pathname === '/purchase/create-account')
+        {
+
+        }
+        else return await {redirect: `/login`}
+    }
     // Execute each child route until one of them return the result
     const route = await context.next()
 

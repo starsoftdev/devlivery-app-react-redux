@@ -41,4 +41,12 @@ export default defineMessages({
     id: 'contactUs.submit',
     defaultMessage: 'submit',
   },
+  sent_msg: {
+    id: 'contactUs.sent_msg',
+    defaultMessage: 'Successfully sent message.',
+  },
+  msg_filetype: {
+    id: 'contactUs.msg_filetype',
+    defaultMessage: 'This file must be a file of type: pdf, jpeg, jpg, png.',
+  },
 })

@@ -5,26 +5,62 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './ImportContacts.css'
 import { ColumnsMappingForm, ContactsImporting, UploadedContacts } from '../../components'
 import messages from './messages'
-import { importContacts, openUploadedContactsModal } from '../../reducers/contacts'
+import { importContacts, openUploadedContactsModal,clearMapColums } from '../../reducers/contacts'
 import PlusIcon from '../../static/plus.svg'
 import history from '../../history'
 import { generateUrl } from '../../router'
 import { CONTACTS_ROUTE } from '../'
+import {contact_map,address_map} from '../../constants';
+import formMessages from '../../formMessages'
+import RemoveIcon from '../../static/remove.svg'
 
 class ImportContacts extends React.Component {
+  state = {
+    isRequireAddress: false
+  }
   handleSubmit = (e) => {
     e.preventDefault()
     if (this.props.selectedContacts.length <= 0) {
-      message.warn("You have to select at least one contact.");
+      message.warn(this.props.intl.formatMessage(messages.msg_atleast));
       return;
     }
     this.columnsMappingForm.validateFields((err, values) => {
       if (!err) {
-        this.props.importContacts(values, () => history.push(generateUrl(CONTACTS_ROUTE)))
+        this.setState({isRequireAddress: false});
+        if(this.validateAddress(values))
+        {
+          this.props.importContacts(values,this.columnsMappingForm,this.props.intl, (callback) => callback && history.push(generateUrl(CONTACTS_ROUTE)))
+        }
+        else this.setState({isRequireAddress: true});
       }
     })
   }
-
+  validateAddress(values){
+    let result = false;
+    address_map.map(item => {
+      if(values['home_'+item] !== undefined)
+        result = true;
+    });
+    let office = false;
+    address_map.map(item => {
+      if(values['office_'+item] !== undefined)
+      {
+        result = true;
+        office = true;
+      }
+    });
+    if(office && values['company'] === undefined)
+    {
+      this.columnsMappingForm.setFields({
+        company: {
+          value:values['company'],
+          errors: [new Error(this.props.intl.formatMessage(formMessages.required))],
+        }
+      });
+      return false;
+    }
+    return result;
+  }
   render() {
     const { mappingColumns, intl, uploadedContactsModalOpened, openUploadedContactsModal } = this.props
     
@@ -48,6 +84,7 @@ class ImportContacts extends React.Component {
                 className={s.columnsMappingForm}
                 ref={ref => this.columnsMappingForm = ref}
                 onSubmit={this.handleSubmit}
+                isRequireAddress={this.state.isRequireAddress}
               />
             </div>
             <div className={s.actionsWrapper}>
@@ -60,6 +97,16 @@ class ImportContacts extends React.Component {
                   <PlusIcon />
                   {intl.formatMessage(messages.submit)}
                 </Button>
+                <div className={s.actionsRight}>
+                <Button
+                  onClick={()=>this.props.clearMapColums()}
+                  type='primary'
+                  ghost
+                >
+                  <RemoveIcon/>
+                  {intl.formatMessage(messages.cancelEdit)}
+                </Button>
+                </div>
               </div>
             </div>
             {uploadedContactsModalOpened && <UploadedContacts />}
@@ -119,6 +166,7 @@ const mapState = state => ({
 const mapDispatch = {
   openUploadedContactsModal,
   importContacts,
+  clearMapColums
 }
 
 export default connect(mapState, mapDispatch)(withStyles(s)(ImportContacts))

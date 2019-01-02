@@ -16,15 +16,26 @@ import {
   ORDERS_ROUTE,
   REGISTER1_ROUTE,
   CONTACT_US_ROUTE,
+  PRIVACY_ROUTE
 } from '../../routes'
 import { LanguageSwitcher, Link } from '../../components'
 import cn from 'classnames'
 import { injectIntl } from 'react-intl'
 import messages from './messages'
+import CookieConsent,{ Cookies } from "react-cookie-consent";
+import { Button } from 'antd'
 
 class Header extends React.Component {
+  state ={
+    _cookieconsent: undefined
+  }
+  componentWillMount(){
+    this.setState({_cookieconsent: Cookies.get('CookieConsent')});
+  }
   render() {
     const { className, currentRouteName, user, intl } = this.props
+    const {_cookieconsent} = this.state;
+    
     return (
       <header
         className={cn(
@@ -34,6 +45,34 @@ class Header extends React.Component {
           ].includes(currentRouteName) && s.light,
         )}
       >
+        <div>
+        {
+          _cookieconsent===undefined &&
+          <CookieConsent location="none" 
+            cookieName='CookieConsent'
+            cookieValue={true}
+            onAccept={() => {this.setState({_cookieconsent: true})}}
+            buttonStyle={{background: "#3f8084", color:"white", fontWeight: "bolder", fontSize:'15px', alignSelf:'center'}}
+            buttonText={intl.formatMessage(messages.btn_understand)}
+            style={{
+                alignItems: "baseline",
+                background: "#404D5F",
+                color: "white",
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "space-between",
+                left: "0",
+                position: "relative",
+                width: "100%",
+                zIndex: "999"
+            }}>
+            {intl.formatMessage(messages.msg_cookie)}
+            <Link to={PRIVACY_ROUTE}>
+              <div type='primary' className={s.morebtn}>{intl.formatMessage(messages.btn_knowmore)}</div>
+            </Link>
+          </CookieConsent>
+        }
+        </div>
         <div className={cn(s.header, className || s.layoutHeader)}>
           <div className={s.leftMenu}>
             <LanguageSwitcher/>

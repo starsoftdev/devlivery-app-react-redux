@@ -3,7 +3,7 @@ import {Carousel, Layout} from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Preview.css'
 import CloseIcon from '../../static/close.svg'
-import Magnifier from 'react-magnifier';
+import Magnifier from '../../react-magnifier/lib/Magnifier.es';
 import { injectGlobal } from 'styled-components';
 import { triggerResizeEvent } from '../../utils';
 
@@ -33,7 +33,7 @@ class Preview extends React.Component {
           images = [...images,...item[name]];
         });
       }
-      else images = item[imagesProp];
+      else images = [...item[imagesProp]];
     }
     //this.triggerResizeEvent();
     return item ? (

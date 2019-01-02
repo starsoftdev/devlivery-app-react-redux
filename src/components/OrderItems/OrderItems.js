@@ -9,6 +9,7 @@ import LeftIcon from '../../static/left-arrow.svg'
 import RightIcon from '../../static/right-arrow.svg'
 import { Popconfirm } from 'antd'
 import messages from './messages'
+import cn from 'classnames';
 
 class OrderItems extends React.Component {
   state = {
@@ -25,6 +26,8 @@ class OrderItems extends React.Component {
     this.setState({giftIndex: giftIndex < (gifts.length-1) ? (giftIndex+1):0});
   }
   wraptext(str){
+    if(str === null || str === undefined)
+      return '';
     var maxlen = 20;
     if(this.props.voucher)
       maxlen -= 6;
@@ -62,7 +65,8 @@ class OrderItems extends React.Component {
     }
     
     return (
-      <div className={s.orderInfo}>
+      <div className={s.container}>
+      <div className={cn(s.orderInfo, !gift && !voucher && !donation && s.singleInfo)}>
         <div className={s.cardWrapper}>
           <div
             style={{ backgroundImage: `url(${getItemImage(card, CARD_IMAGES_PROP)})` }}
@@ -74,8 +78,8 @@ class OrderItems extends React.Component {
           <p className={s.cardInfo}>
             <span className={s.cardType}>{card.title}</span>
             <br />
-            <span className={s.cardPrice}>{card.price_with_tax}</span>
             <span className={s.cardPriceCurrency}>{card.currency}</span>
+            <span className={s.cardPrice}>{card.price_with_tax}</span>
           </p>
         </div>
         {gift && (
@@ -91,7 +95,7 @@ class OrderItems extends React.Component {
             </Popconfirm>
             <div
               style={{ backgroundImage: `url(${getItemImage(gift, GIFT_IMAGES_PROP)})` }}
-              className={s.itemImage}
+              className={s.itemImage_gift}
             />
             <div className={s.giftTitle}>
               <div className={s.giftTitleInner}>
@@ -106,8 +110,8 @@ class OrderItems extends React.Component {
                   <br />
                   <span className={s.cardType}>{"(" +(giftIndex+1)+"/"+gifts.length + ")"}</span>
                   <br />
-                  <span className={s.cardPrice}>{gift.price_with_tax}</span>
                   <span className={s.cardPriceCurrency}>{gift.currency}</span>
+                  <span className={s.cardPrice}>{gift.price_with_tax}</span>
                 </p>
                 {
                   gifts.length > 0 &&
@@ -131,14 +135,17 @@ class OrderItems extends React.Component {
               </a>
             </Popconfirm>
             <div>
-              <span className={s.cardType}>{intl.formatMessage(messages.giver)}: {voucher.from}</span><br />
-              <span className={s.cardType}>{intl.formatMessage(messages.receiver)}: {voucher.to}</span>
+              <span className={s.cardType}>{intl.formatMessage(messages.giver)} :{voucher.from}</span><br />
+              {
+                voucher.to &&
+                <span className={s.cardType}>{intl.formatMessage(messages.receiver)} {voucher.to}</span>
+              }
             </div>
             <p className={s.cardInfo}>
               <span className={s.cardType}>{voucher.title}</span>
               <br />
-              <span className={s.cardPrice}>{voucher.price_with_tax}</span>
               <span className={s.cardPriceCurrency}>{'CHF'}</span>
+              <span className={s.cardPrice}>{voucher.price_with_tax}</span>
             </p>
           </div>
         )}
@@ -161,12 +168,14 @@ class OrderItems extends React.Component {
             <p className={s.cardInfo}>
               <span className={s.cardType}>{donation.organization.name}</span>
               <br />
-              <span className={s.cardPrice}>{donation.amount}</span>
               <span className={s.cardPriceCurrency}>{'CHF'}</span>
+              <span className={s.cardPrice}>{donation.amount}</span>
+              
             </p>
           </div>
         )}
-        {!gift && !voucher && !donation && (
+        {/*
+          !gift && !voucher && !donation && (
           <div className={s.cardWrapper}>
             <div
               className={s.itemImage}
@@ -174,11 +183,13 @@ class OrderItems extends React.Component {
             <p className={s.cardInfo}>
               <span className={s.cardType}></span>
               <br />
-              <span className={s.cardPrice}></span>
               <span className={s.cardPriceCurrency}></span>
+              <span className={s.cardPrice}></span>
             </p>
           </div>
-        )}
+        )*/
+        }
+      </div>
       </div>
     )
   }

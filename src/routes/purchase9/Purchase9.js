@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Button, Col, Form, Input, Row, Select } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Purchase9.css'
-import { PurchaseActions, SectionHeader, Link } from '../../components'
+import { PurchaseActions, SectionHeader, InputDate } from '../../components'
 import KeyHandler, { KEYPRESS } from 'react-key-handler'
 import formMessages from '../../formMessages'
 import { INDIVIDUAL_ACCOUNT, TEAM_ACCOUNT } from '../../reducers/register'
@@ -12,9 +12,9 @@ import messages from './messages'
 import { FloatingLabel } from '../../components';
 import moment from 'moment'
 import { DATE_FORMAT } from '../../constants'
-import Cleave from 'cleave.js/react';
 import {generateUrl} from '../../router'
 import history from '../../history'
+import COUNTRY from '../../messages/country';
 
 class Purchase9 extends React.Component {
   state = {
@@ -25,17 +25,28 @@ class Purchase9 extends React.Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       var dobValidation = false;
-      var birthday = moment(values.birthday, 'DD/MM/YYYY');
+      var birthday = moment(values.birthday, 'DD-MM-YYYY');
       var expected = moment().subtract(18, 'years');
-      if (birthday < expected)
-        dobValidation = true;
+      if (birthday.isValid() && values.birthday.length === 10) {
+        if (birthday < expected)
+          dobValidation = true;
+        else {
+          this.props.form.setFields({
+            birthday: {
+              value: values.birthday,
+              errors: [new Error(this.props.intl.formatMessage(messages.msg_older18))],
+            },
+          });
+        }
+      }
       else {
-        this.props.form.setFields({
-          birthday: {
-            value: values.birthday,
-            errors: [new Error('please select date older than 18 years.')],
-          },
-        });
+        if (values.birthday && values.birthday.length > 0)
+          this.props.form.setFields({
+            birthday: {
+              value: values.birthday,
+              errors: [new Error(this.props.intl.formatMessage(formMessages.invalidDate))],
+            },
+          });
       }
       if (!err && dobValidation) {
         this.props.register({ ...values, dob: birthday.format(DATE_FORMAT) }, this.props.form)
@@ -178,12 +189,8 @@ class Purchase9 extends React.Component {
                   { required: true, message: intl.formatMessage(formMessages.required) },
                 ],
               })(
-                <Cleave
+                <InputDate
                   placeholder={intl.formatMessage(messages.dateplaceholder)}
-                  options={{
-                    date: true,
-                    datePattern: ['d', 'm', 'Y']
-                  }}
                 />
               )}
             </Form.Item>
@@ -193,7 +200,7 @@ class Purchase9 extends React.Component {
             <Form.Item>
               {getFieldDecorator(`company`, {
                 rules: [
-                  { required: this.props.form.getFieldValue('account_type') === TEAM_ACCOUNT ? true : false, min: 5, message: intl.formatMessage(formMessages.minLength, { length: 5 }) },
+                  { required: this.props.form.getFieldValue('account_type') === TEAM_ACCOUNT ? true : false },
                 ],
               })(
                 <FloatingLabel placeholder={intl.formatMessage(messages.company)} />
@@ -240,7 +247,15 @@ class Purchase9 extends React.Component {
                       { required: true, message: intl.formatMessage(formMessages.required), whitespace: true },
                     ],
                   })(
-                    <FloatingLabel placeholder={intl.formatMessage(messages.country)} />
+                    <Select
+                      allowClear
+                      placeholder={intl.formatMessage(messages.country)}
+                      className={s.country_select}
+                    >
+                      {COUNTRY[intl.locale].map((item) =>
+                        <Select.Option key={item.split('|')[1]} value={item.split('|')[1]}>{item.split('|')[1]}</Select.Option>
+                      )}
+                    </Select>
                   )}
                 </Form.Item>
               </Col>

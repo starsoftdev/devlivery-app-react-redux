@@ -94,8 +94,8 @@ class AddBundle extends React.Component {
               <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.subtotal)}</h2>
             </Col>
             <Col xs={12}>
-              <span className={s.subtotalValue}>{bundle.total ? bundle.total : 0}</span>
               <span className={s.subtotalCurrency}>{'CHF'}</span>
+              <span className={s.subtotalValue}>{bundle.total ? bundle.total : 0}</span>
             </Col>
           </Row>
           <Row type='flex' align='center' gutter={20} className={s.totalSection}>
@@ -103,8 +103,8 @@ class AddBundle extends React.Component {
               <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.tax)}</h2>
             </Col>
             <Col xs={12}>
-              <span className={s.subtotalValue}>{(bundle.total_with_tax - bundle.total).toFixed(2)}</span>
               <span className={s.subtotalCurrency}>{'CHF'}</span>
+              <span className={s.subtotalValue}>{(bundle.total_with_tax - bundle.total).toFixed(2)}</span>
             </Col>
           </Row>
           <Row type='flex' align='center' gutter={20} className={s.totalSection}>
@@ -112,8 +112,8 @@ class AddBundle extends React.Component {
               <h2 className={s.subtotalHeader}>{intl.formatMessage(messages.total)}</h2>
             </Col>
             <Col xs={12}>
-              <span className={s.subtotalValue}>{bundle.total_with_tax ? bundle.total_with_tax : 0}</span>
               <span className={s.subtotalCurrency}>{'CHF'}</span>
+              <span className={s.subtotalValue}>{bundle.total_with_tax ? bundle.total_with_tax : 0}</span>
             </Col>
           </Row>
         </div>

@@ -61,6 +61,30 @@ export default defineMessages({
     id: 'user.checkPlaceholder',
     defaultMessage: 'Notification Time for Upcoming Reminders',
   },
+  msg_inputname:{
+    id: 'user.msg_inputname',
+    defaultMessage: 'please input name.',
+  },
+  msg_expiredate:{
+    id: 'user.msg_expiredate',
+    defaultMessage: 'Invalid expire date',
+  },
+  msg_invalidCVC:{
+    id: 'user.msg_invalidCVC',
+    defaultMessage: 'Invalid CVC number',
+  },
+  msg_invalidcard:{
+    id: 'user.msg_invalidcard',
+    defaultMessage: 'Invalid Card',
+  },
+  msg_invalidcardnumber:{
+    id: 'user.msg_invalidcardnumber',
+    defaultMessage: 'Invalid credit card number',
+  },
+  msg_older18:{
+    id: 'user.msg_older18',
+    defaultMessage: 'To be able to create an account you must be minimum 18 years old',
+  },
   birthday: {
     id: 'contactForm.birthday',
     defaultMessage: 'Birthday',
@@ -105,8 +129,28 @@ export default defineMessages({
     id: 'purchase13.cvc',
     defaultMessage: 'CVC',
   },
+  cardname: {
+    id: 'purchase13.cardname',
+    defaultMessage: 'YOUR NAME HERE',
+  },
   dateplaceholder:{
     id: 'contactForm.dateplaceholder',
-    defaultMessage: 'DD/MM/YYYY',
+    defaultMessage: 'DD-MM-YYYY',
+  },
+  saveConfirm: {
+    id: 'addContact.saveConfirm',
+    defaultMessage: 'Do you wish save the information you\'ve edited?',
+  },
+  confirm: {
+    id: 'addContact.confirm',
+    defaultMessage: 'Confirm',
+  },
+  yes: {
+    id: 'addContact.yes',
+    defaultMessage: 'Yes',
+  },
+  no: {
+    id: 'addContact.no',
+    defaultMessage: 'No',
   }
 })

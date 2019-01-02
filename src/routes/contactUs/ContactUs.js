@@ -6,7 +6,6 @@ import s from './ContactUs.css'
 import { Form, Row, Col, Input, Button, message } from 'antd'
 import PlusIcon from '../../static/plus.svg'
 import messages from './messages'
-import { sendEnquiries } from '../../reducers/contactUs'
 import { FloatingLabel } from '../../components';
 import contactusImage from '../../static/POSE_7.png'
 import formMessages from '../../formMessages'
@@ -19,6 +18,7 @@ const { TextArea } = Input;
 const allowFileType = [
   'image/png',
   'image/jpg',
+  'image/jpeg',
   'application/pdf',
 ];
 class ContactUs extends React.Component {
@@ -42,6 +42,7 @@ class ContactUs extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     var self = this;
+    const {intl} = this.props;
     this.props.form.validateFields((err, values) => {
       if (!err) {
         self.setState({errors:[]});
@@ -71,7 +72,7 @@ class ContactUs extends React.Component {
         .then(function (response) {
           if(response.data && response.data.success)
           {
-            message.success("Successfully sent message.");
+            message.success(intl.formatMessage(messages.sent_msg));
             self.setState({ attachments: [] });
             self.props.form.setFieldsValue({
               name: '',
@@ -111,13 +112,10 @@ class ContactUs extends React.Component {
             // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
             // http.ClientRequest in node.js
             message.error('Something went wrong. Please try again.')
-            console.log(error.request);
           } else {
             // Something happened in setting up the request that triggered an Error
             message.error('Something went wrong. Please try again.')
-            console.log('Error', error.message);
           }
-          console.log(error.config);
         });
       }
     })
@@ -256,7 +254,7 @@ class ContactUs extends React.Component {
                         </div>
                         {
                           attach && attach.name && this.state.errors.includes(attach.name) &&
-                          <div className={s.errormsg}>This file must be a file of type: pdf, jpeg, jpg, png.</div>
+                          <div className={s.errormsg}>{intl.formatMessage(messages.msg_filetype)}</div>
                         }
                       </li>)
                     }
@@ -280,7 +278,6 @@ const mapState = state => ({
 })
 
 const mapDispatch = {
-  sendEnquiries,
   clear,
 }
 

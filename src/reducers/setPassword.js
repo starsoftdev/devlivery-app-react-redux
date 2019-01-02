@@ -2,7 +2,7 @@ import createReducer, {RESET_STORE} from '../createReducer'
 import {generateUrl} from '../router'
 import {LOGIN_ROUTE} from '../routes'
 import {message} from 'antd'
-import {getErrorMessage, getSuccessMessage} from '../utils'
+import {getErrorMessage, getSuccessMessage, showErrorMessage} from '../utils'
 
 // ------------------------------------
 // Constants
@@ -22,12 +22,16 @@ export const setPassword = (values) => (dispatch, getState, {fetch, history}) =>
     method: 'POST',
     body: values,
     success: (res) => {
+      
+      if (res.data && res.data.message) message.success(res.data.message)
+
       dispatch({type: SET_PASSWORD_SUCCESS})
       history.push(generateUrl(LOGIN_ROUTE))
-      const successMessage = getSuccessMessage(res)
-      if (successMessage) message.success(successMessage)
+      
     },
-    failure: (res) => dispatch({type: SET_PASSWORD_FAILURE, error: getErrorMessage(res)}),
+    failure: (res) => {
+      dispatch({type: SET_PASSWORD_FAILURE, error: getErrorMessage(res)})
+    },
   })
 }
 

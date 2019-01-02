@@ -21,14 +21,7 @@ export const sendEnquiries = (values,callback) => (dispatch, getState, {fetch}) 
   dispatch({type: SEND_CONTACT_US_REQUEST})
   const {name, phone, email, subject, message, attachments} = values
   const {token} = dispatch(getToken())
-  console.log(`/enquiries`,{
-    name,
-    phone,
-    email,
-    subject,
-    message,
-    attachments:typeof attachments === 'string' && attachments.length <= 0 ? []:attachments,
-  });
+  
   return fetch(`/enquiries`, {
     method: 'POST',
     token,
@@ -41,13 +34,11 @@ export const sendEnquiries = (values,callback) => (dispatch, getState, {fetch}) 
       attachments:typeof attachments === 'string' && attachments.length <= 0 ? []:attachments,
     },
     success: (res) => {
-      console.log('res',res);
       message.success("Successfully sent message.");
       dispatch({type: SEND_CONTACT_US_SUCCESS, res})
       if (callback) callback()
     },
     failure: (res) => {
-      console.log('error',res);
       const { formErrors } = getFormErrors({ ...res, values })
       
       if (formErrors && callback)

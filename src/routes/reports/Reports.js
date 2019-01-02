@@ -9,6 +9,7 @@ import {PaginationItem} from '../../components'
 import debounce from 'lodash/debounce'
 import {DATE_FORMAT, DEFAULT_DEBOUNCE_TIME, DISPLAYED_DATE_FORMAT} from '../../constants'
 import messages from './messages'
+import LinesEllipsis from 'react-lines-ellipsis'
 
 class Reports extends React.Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class Reports extends React.Component {
     startValue: null,
     endValue: null,
     endOpen: false,
+    filterType: 'delivery',
   }
 
   disabledStartDate = (startValue) => {
@@ -40,17 +42,44 @@ class Reports extends React.Component {
     if (!endValue || !startValue) {
       return false
     }
-    return endValue.valueOf() <= startValue.valueOf()
+    let ordered = false;
+    if(this.state.filterType === 'ordered')
+    {
+      var date = new Date();
+      date.setDate(date.getDate());
+      ordered = endValue.valueOf() > (date);
+    }
+    return (endValue.valueOf() <= startValue.valueOf()) || ordered
   }
 
   onStartChange = (value) => {
-    this.setState({startValue: value})
-    this.props.getReports({from: value})
+    const { filterType } = this.state;
+    this.setState({ startValue: value });
+    switch (filterType) {
+      case 'shipping':
+        this.props.getReports({ from_shipping: value, to: undefined, from: undefined, from_ordered: undefined, to_ordered: undefined });
+        break;
+      case 'ordered':
+        this.props.getReports({ from_ordered: value, from_shipping: undefined, to_shipping: undefined, to: undefined, from: undefined });
+        break;
+      default:
+        this.props.getReports({ from: value, from_shipping: undefined, to_shipping: undefined, from_ordered: undefined, to_ordered: undefined });
+    }
   }
 
   onEndChange = (value) => {
-    this.setState({endValue: value})
-    this.props.getReports({to: value})
+    const { filterType } = this.state;
+    this.setState({ endValue: value });
+    switch (filterType) {
+      case 'shipping':
+        this.props.getReports({ to_shipping: value,  to: undefined, from: undefined, from_ordered: undefined, to_ordered: undefined });
+        break;
+      case 'ordered':
+        this.props.getReports({ to_ordered: value, from_shipping: undefined, to_shipping: undefined, to: undefined, from: undefined });
+        break;
+      default:
+        this.props.getReports({ to: value, from_shipping: undefined, to_shipping: undefined, from_ordered: undefined, to_ordered: undefined });
+    }
   }
 
   handleStartOpenChange = (open) => {
@@ -63,20 +92,52 @@ class Reports extends React.Component {
     this.setState({endOpen: open})
   }
 
+  changeFilterType = (type) => {
+    const { startValue, endValue } = this.state;
+    this.setState({ filterType: type });
+    switch (type) {
+      case 'shipping':
+        this.props.getReports({ from_shipping: startValue, to_shipping: endValue,  to: undefined, from: undefined, from_ordered: undefined, to_ordered: undefined });
+        break;
+      case 'ordered':
+        this.props.getReports({ from_ordered: startValue, to_ordered: endValue, from_shipping: undefined, to_shipping: undefined, to: undefined, from: undefined });
+        break;
+      default:
+        this.props.getReports({ from: startValue, to: endValue, from_shipping: undefined, to_shipping: undefined, from_ordered: undefined, to_ordered: undefined });
+    }
+  }
+
   render() {
     // TODO add loading
-    const { startValue, endValue, endOpen } = this.state
+    const { startValue, endValue, endOpen, filterType } = this.state
     const {reports, reportsCount, page, pageSize, loading, getReports, occasions, occasion, intl, exportReport} = this.props
     const columns = [
       {
         title: intl.formatMessage(messages.contactsColumn),
         dataIndex: 'contacts',
         key: 'contacts',
+        render: (contacts) => <LinesEllipsis
+                                text={contacts}
+                                maxLine='2'
+                                ellipsis='...'
+                                trimRight={false}
+                                basedOn='words'
+                              />
       },
       {
         title: intl.formatMessage(messages.scheduledAtColumn),
         dataIndex: 'delivery_date',
         key: 'delivery_date',
+      },
+      {
+        title: intl.formatMessage(messages.shippingdate),
+        dataIndex: 'shipping_date',
+        key: 'shipping_date',
+      },
+      {
+        title: intl.formatMessage(messages.orderat),
+        dataIndex: 'created_at',
+        key: 'created_at',
       },
       {
         title: intl.formatMessage(messages.itemsColumn),
@@ -98,9 +159,10 @@ class Reports extends React.Component {
         title: intl.formatMessage(messages.totalColumn),
         dataIndex: 'total',
         key: 'total',
+        render: (total) => <React.Fragment><span className={s.currency}>{'CHF'}</span> {total}</React.Fragment>
       },
     ]
-
+    
     return (
       <div className={s.container}>
         <div className={s.actions}>
@@ -147,6 +209,17 @@ class Reports extends React.Component {
             </Col>
           </Row>
           <Select
+            className={s.filterType}
+            placeholder={intl.formatMessage(messages.filterType)}
+            filterOption={false}
+            value={filterType}
+            onChange={(type) => this.changeFilterType(type)}
+          >
+            <Select.Option value="delivery">{intl.formatMessage(messages.delivery)}</Select.Option>
+            <Select.Option value="shipping">{intl.formatMessage(messages.shipping)}</Select.Option>
+            <Select.Option value="ordered">{intl.formatMessage(messages.ordered)}</Select.Option>
+          </Select>
+          <Select
             className={s.occasion}
             allowClear
             showSearch
@@ -163,7 +236,7 @@ class Reports extends React.Component {
           </Select>
         </div>
         <Table
-          locale={{ emptyText: 'No Scheduled' }}
+          locale={{ emptyText: intl.formatMessage(messages.noscheduled) }}
           loading = {loading.reports}
           columns={columns}
           dataSource={reports}

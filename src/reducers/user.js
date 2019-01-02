@@ -4,6 +4,8 @@ import { getBirthday } from '../utils'
 import { message } from 'antd'
 import { getFormErrors, showErrorMessage, getOrdering } from '../utils'
 import { navigateToNextRouteName } from './global';
+import {getIntl} from './intl';
+import formMessages from '../formMessages'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -35,8 +37,6 @@ export const SET_CHANGE_SETTIING = "Contacts.SET_CHANGE_SETTIING"
 // ------------------------------------
 export const getToken = () => (dispatch, getState, { cookies }) => {
   const token = cookies.get(TOKEN_COOKIE, { path: '/' })
-  if(token !== null && token !== undefined)
-    cookies.set(TOKEN_COOKIE, token, {maxAge: DAY, path: '/'})
   return { token }
 }
 
@@ -75,33 +75,32 @@ export const getUser = () => (dispatch, getState, { fetch, cookies }) => {
   }
 }
 
-export const getUserDetails = () => (dispatch, getState, { fetch }) => {
+export const getUserDetails = (callback) => (dispatch, getState, { fetch, history }) => {
   const { token } = dispatch(getToken())
   const { user } = getState().user
   dispatch({ type: GET_USER_REQUEST })
-  return fetch(`/users?filter_key=id&filter_value=${user.id}&with=addresses,preference,billing`, {
-    method: 'GET',
-    token,
-    success: (res) => dispatch(getUserSuccess(res.data[0])),
-    failure: () => dispatch({ type: GET_USER_FAILURE })
-  })
+  if(user && user.id || callback)
+  {
+    return fetch(`/users?filter_key=id&filter_value=${user.id}&with=addresses,preference,billing`, {
+      method: 'GET',
+      token,
+      success: (res) => {
+        if(callback)
+         callback(res.data[0])
+        else dispatch(getUserSuccess(res.data[0]))
+      },
+      failure: () => dispatch({ type: GET_USER_FAILURE })
+    })
+  }
+  else {
+    history.push('/login');
+  }
 }
 
 export const updateUser = ({ user, birthday, preference, ...values }, form, msg, redrict) => (dispatch, getState, { fetch }) => {
   const { token } = dispatch(getToken())
   dispatch({ type: UPDATE_USER_REQUEST })
-  console.log(`/edit-settings`,{
-    ...values,
-    user: {
-      ...user,
-      dob: getBirthday(birthday),
-    },
-    preference: {
-      notify_on_reminders: preference.notify_on_reminders ? preference.notify_on_reminders : false,
-      receive_promotional_emails: preference.receive_promotional_emails ? preference.receive_promotional_emails : false,
-      remind: preference.remind || 0,
-    },
-  });
+  
   return fetch(`/edit-settings`, {
     method: 'POST',
     token,
@@ -117,10 +116,9 @@ export const updateUser = ({ user, birthday, preference, ...values }, form, msg,
         remind: preference.remind || 0,
       },
     },
-    success: () => {
+    success: (res) => {
       dispatch({ type: UPDATE_USER_SUCCESS })
-      if(msg)
-        message.success(msg)
+      message.success(res.data)
       dispatch(getUserDetails())
       const changedSetting = false;
       dispatch({type:SET_CHANGE_SETTIING,changedSetting});
@@ -131,7 +129,6 @@ export const updateUser = ({ user, birthday, preference, ...values }, form, msg,
       }
     },
     failure: (res) => {
-      console.log('error',res);
       dispatch({ type: UPDATE_USER_FAILURE })
       const { formErrors } = getFormErrors({ ...res, values })
       if (formErrors)
@@ -143,20 +140,22 @@ export const updateUser = ({ user, birthday, preference, ...values }, form, msg,
 }
 
 export const updatePassword = (values, form) => (dispatch, getState, { fetch }) => {
+  const {intl} = dispatch(getIntl());
   const { token } = dispatch(getToken())
   dispatch({ type: UPDATE_PASSWORD_REQUEST })
+  
   return fetch(`/update-password`, {
     method: 'POST',
     token,
     body: values,
-    success: () => {
+    success: (res) => {
       dispatch({ type: UPDATE_PASSWORD_SUCCESS })
-      message.success('Password changed.')
+      message.success(intl.formatMessage(formMessages.changed_pwd))
       form.resetFields()
     },
     failure: (error) => {
+      showErrorMessage(error);
       dispatch({ type: UPDATE_PASSWORD_FAILURE, error })
-      message.error('Something went wrong. Please try again.')
     }
   })
 }

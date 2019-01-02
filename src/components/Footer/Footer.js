@@ -10,6 +10,8 @@ import {DASHBOARD_ROUTES, HOME_ROUTES} from '../../routes'
 import cn from 'classnames'
 import {injectIntl} from 'react-intl'
 import messages from './messages'
+import {TERMS_ROUTE, PRIVACY_ROUTE} from '../../routes'
+import { Link } from '../../components'
 
 class Footer extends React.Component {
   render() {
@@ -33,10 +35,14 @@ class Footer extends React.Component {
               <a>{intl.formatMessage(messages.faq)}</a>
             </li>
             <li>
-              <a>{intl.formatMessage(messages.terms)}</a>
+              <Link to={TERMS_ROUTE}>
+                {intl.formatMessage(messages.terms)}
+              </Link>
             </li>
             <li>
-              <a>{intl.formatMessage(messages.privacy)}</a>
+              <Link to={PRIVACY_ROUTE}>
+                {intl.formatMessage(messages.privacy)}
+              </Link>
             </li>
             <li>
               <a>{intl.formatMessage(messages.shipping)}</a>
@@ -44,13 +50,13 @@ class Footer extends React.Component {
           </ul>
           <ul className={s.socialMedia}>
             <li>
-              <a><Instagram/></a>
+              {/*<a><Instagram/></a>*/}
             </li>
             <li>
-              <a><Linkedin/></a>
+              {/*<a><Linkedin/></a>*/}
             </li>
             <li>
-              <a><Facebook/></a>
+              {/*<a><Facebook/></a>*/}
             </li>
           </ul>
         </div>

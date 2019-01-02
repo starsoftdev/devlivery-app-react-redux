@@ -5,4 +5,8 @@ export default defineMessages({
     id: 'uploadedContacts.header',
     defaultMessage: 'Select Contacts'
   },
+  btnOk:{
+    id: 'uploadedContacts.btnOk',
+    defaultMessage: 'Ok'
+  }
 })

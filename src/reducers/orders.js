@@ -47,7 +47,9 @@ export const getOrders = (params = {}) => (dispatch, getState, {fetch}) => {
   })}`, {
     method: 'GET',
     token,
-    success: (res) => dispatch({type: GET_ORDERS_SUCCESS, res}),
+    success: (res) => {
+      dispatch({type: GET_ORDERS_SUCCESS, res})
+    },
     failure: () => dispatch({type: GET_ORDERS_FAILURE}),
   })
 }
@@ -83,7 +85,6 @@ export const getUpcomingEvents = (params = {}) => (dispatch, getState, {fetch}) 
       dispatch({type: GET_UPCOMING_EVENTS_SUCCESS, res})
     },
     failure: (err) => {
-      console.log('error',err);
       dispatch({type: GET_UPCOMING_EVENTS_FAILURE})
     },
   })
@@ -100,7 +101,7 @@ export const openOrderDetailsModal = (order) => (dispatch, getState) => {
 
 export const closeOrderDetailsModal = () => (dispatch, getState, {fetch,history}) => {
   dispatch({type: CLOSE_ORDER_DETAILS_MODAL})
-  history.push('/dashboard/orders');
+  //history.push('/dashboard/orders');
 }
 
 export const getOrderDetails = (order) => (dispatch, getState, {fetch}) => {
@@ -108,7 +109,8 @@ export const getOrderDetails = (order) => (dispatch, getState, {fetch}) => {
   dispatch({type: GET_ORDER_DETAILS_REQUEST})
   return fetch(`/order-confirmation?${qs.stringify({
     order_id: order.id,
-  })}`, {
+  })}`
+  , {
     method: 'GET',
     token,
     success: (res) => {
@@ -235,7 +237,7 @@ export default createReducer(initialState, {
       upcomingEvents: true,
     },
   }),
-  [GET_UPCOMING_EVENTS_SUCCESS]: (state, {res: {data, total}}) => ({
+  [GET_UPCOMING_EVENTS_SUCCESS]: (state, {res: {data, meta:{total}}}) => ({
     upcomingEvents:data,
     upcomingCount: total,
     loading: {

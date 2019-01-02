@@ -21,6 +21,10 @@ export default defineMessages({
     id: 'purchase13.name',
     defaultMessage: 'Full Name',
   },
+  cardname: {
+    id: 'purchase13.cardname',
+    defaultMessage: 'YOUR NAME HERE',
+  },
   expiry: {
     id: 'purchase13.expiry',
     defaultMessage: 'Expiry',
@@ -36,5 +40,17 @@ export default defineMessages({
   addcard: {
     id: 'purchase13.addcard',
     defaultMessage: 'ADD',
-  }
+  },
+  msg_addcard: {
+    id: 'purchase13.msg_addcard',
+    defaultMessage: 'Please add new card.',
+  },
+  msg_filledin: {
+    id: 'purchase13.msg_filledin',
+    defaultMessage: 'All fields must be filled in',
+  },
+  msg_invalidcard: {
+    id: 'purchase13.msg_invalidcard',
+    defaultMessage: 'Invalid credit card number',
+  },
 })

@@ -35,11 +35,15 @@ export default defineMessages({
   },
   sentColumn: {
     id: 'reports.sentColumn',
-    defaultMessage: 'Sent',
+    defaultMessage: 'Recipients',
   },
   totalColumn: {
     id: 'reports.totalColumn',
     defaultMessage: 'Total Price',
+  },
+  shippingdate: {
+    id: 'reports.shippingdate',
+    defaultMessage: 'Shipping Date',
   },
   export: {
     id: 'reports.export',
@@ -48,6 +52,22 @@ export default defineMessages({
   occasion: {
     id: 'reports.occasion',
     defaultMessage: 'Occasion',
+  },
+  filterType: {
+    id: 'reports.filterType',
+    defaultMessage: 'Filter Type',
+  },
+  delivery: {
+    id: 'reports.delivery',
+    defaultMessage: 'Delivery',
+  },
+  shipping: {
+    id: 'reports.shipping',
+    defaultMessage: 'Shipping',
+  },
+  ordered: {
+    id: 'reports.ordered',
+    defaultMessage: 'Ordered',
   },
   datefrom: {
     id: 'reports.datefrom',
@@ -65,4 +85,12 @@ export default defineMessages({
     id: 'reports.dateend',
     defaultMessage: 'End date',
   },
+  orderat: {
+    id: 'reports.orderat',
+    defaultMessage: 'OrderedAt',
+  },
+  noscheduled: {
+    id: 'reports.noscheduled',
+    defaultMessage: 'No Scheduled',
+  }
 })

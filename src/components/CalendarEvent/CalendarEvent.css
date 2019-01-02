@@ -4,11 +4,12 @@
   display: flex;
   box-shadow: 0 1px 2px 0 rgba(0,39,36,0.1);
   background-color: var(--white-color);
+  cursor: default;
 }
 
 .event + .event {
   /*to adjust to calendar height*/
-  margin-top: 10px;
+  margin-top: 26px;
 }
 
 .eventDate {
@@ -31,14 +32,17 @@
 .eventMonth {
   color: var(--text-color);
 }
-
+.eventYear {
+  font-size: 15px;
+  color: var(--text-color);
+}
 .eventDetails {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding-left: 24px;
-  padding-right: 60px;
+  padding-right: 30px;
   position: relative;
 }
 
@@ -56,8 +60,22 @@
   color: var(--dark-color);
   text-transform: uppercase;
   letter-spacing: 3.15px;
+  width: 325px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
+.eventOccationDate{
+  font-family: var(--font-family-secondary);
+  font-size: 12px;
+  color: var(--dark-color);
+  text-transform: uppercase;
+  letter-spacing: 3.15px;
+  width: 325px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .eventArrowIcon {
   position: absolute;
   top: 50%;

@@ -44,6 +44,11 @@
   justify-content: center;
   align-items: center;
   word-break: break-all;
+  min-width: 150px;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
 }
 .voucherContain{
   justify-content: flex-start
@@ -67,7 +72,7 @@
 }
 .currency {
   color: var(--muted-color);
-  margin-left: 4px;
+  margin-right: 4px;
 }
 
 .summary {
@@ -96,7 +101,11 @@
   padding: 12px 20px;
   text-align: center;
 }
-
+.summaryInfoContent{
+  padding: 12px 20px;
+  text-align: center;
+  border-bottom: 2px solid rgba(64, 77, 95, 0.1);
+}
 .summaryFooter {
   display: flex;
   justify-content: space-between;
@@ -129,6 +138,7 @@
 .Detail {
   color: var(--dark-color);
   font-family: var(--font-family-secondary);
+  white-space: pre-line;
 }
 
 .DetailTitle {

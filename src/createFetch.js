@@ -114,7 +114,6 @@ function createFetch(fetch, {apiUrl, cookies}) {
         }
       }
     } catch (error) {
-      console.log('error',error);
       return options.failure({error})
     }
   }

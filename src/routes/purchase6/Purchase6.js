@@ -15,6 +15,7 @@ import { Editor } from '@tinymce/tinymce-react';
 // TODO move font sizes/colors/etc to constants
 import { injectGlobal } from 'styled-components';
 
+const retina_width = 1353;
 injectGlobal`
   .mce-notification-warning{
     display: none !important;
@@ -36,15 +37,20 @@ const GLOBAL_STYLES = `
   body {
     line-height: 1.3;
     font-size: 16px;
-    font-family:'Anonymous Pro'
+    -webkit-print-color-adjust: exact;
+    margin:0;
   }
   p {
     word-break: break-all;
-    font-family:'Anonymous Pro'
+    line-height: 1.3;
+    padding:0;
+    margin:0;
   }
   span {
     word-break: break-all;
-    font-family:'Anonymous Pro'
+    line-height: 1.3;
+    padding:0;
+    margin:0;
   }
 </style>`
 
@@ -93,7 +99,7 @@ class FontFamilyPicker extends React.Component {
     return (
       <Select
         style={{ width: '100%', marginBottom: 20, fontFamily: this.state.fontFamily, top: -70 }}
-        placeholder={'Font Family'}
+        placeholder={this.props.intl.formatMessage(messages.fontFamily)}
         onSelect={this.toggleFontFamily}
         value={this.state.fontFamily}
       >
@@ -110,9 +116,19 @@ const ConnectedFontFamilyPicker = connect(null, {
 })(FontFamilyPicker)
 
 class ColorPicker extends React.Component {
+  state = {
+    color: null
+  }
   toggleColor = (color) => {
     //this.props.onChange('color', color)
-    this.props.execCommand('ForeColor', false, color);
+    if(this.state.color !== color)
+    {
+      this.setState({color});
+      this.props.execCommand('ForeColor', true, color);
+    }
+    else {
+      this.props.execCommand('mceFocus',false,'mceu_2');
+    }
   }
 
   render() {
@@ -212,21 +228,31 @@ class Purchase6 extends React.Component {
     super(props)
     this.state = {
       mounted: false,
-      content: props.cardDetails ? props.cardDetails.body:'',
-      fontlink: []
+      content: props.cardDetails ? /<body.*?>([\s\S]*)<\/body>/.exec(props.cardDetails.body)[1]:'',
+      fontlink: [],
+      width: 0, 
+      height: 0
     }
 
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.execTinyCommand = this.execTinyCommand.bind(this);
     this.insertConent = this.insertConent.bind(this);
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+  }
+  
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps && nextProps.cardDetails && nextProps.cardDetails !== this.props.cardDetails) {
-      this.setState({ content: nextProps.cardDetails.body });
+      this.setState({ content: /<body.*?>([\s\S]*)<\/body>/.exec(nextProps.cardDetails.body)[1]});
     }
   }
   componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+
     this.props.getMessageTemplate()
     // load all fonts to show them on Select
     Contants.FONTS.forEach(font => loadFont(font))
@@ -242,17 +268,21 @@ class Purchase6 extends React.Component {
     )
     this.setState(newState)
   }
-
-  handleSubmit = () => {
-    const html = this.tinymce.editor && this.tinymce.editor.getContent();
+  componentWillUnmount(){
+    window.removeEventListener('resize', this.updateWindowDimensions);
+    this.handleSubmit(true);
+  }
+  handleSubmit = (stayPage) => {
+    
+    const html = this.tinymce && this.tinymce.editor && this.tinymce.editor.getContent();
     var fonts = this.props.fontFamilies.map(font =>
       `<link id="${font}" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=${font}" media="all">`
     ).join('')
     if (this.props.fontFamilies.length <= 0)
       fonts = `<link id="${Contants.FONTS[0]}" rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=${Contants.FONTS[0]}" media="all">`
     const body = `<!doctype html><html lang="en"><head>${GLOBAL_META}${fonts}${GLOBAL_STYLES}</head><body><span><span/>${html && html !== undefined? html:''}</body></html>`;
-
-    this.props.submitCardDetails({ body })
+    
+    this.props.submitCardDetails({ body },stayPage)
   }
   handleEditorChange(content) {
     this.setState({ content });
@@ -267,15 +297,20 @@ class Purchase6 extends React.Component {
   }
   render() {
     const { mounted } = this.state
-    const { intl, flowIndex, cardSize, templates, orientation } = this.props
+    const { intl, flowIndex, cardSizeKey, templates, orientation } = this.props
+    const cardSize = Contants.CARD_SIZES(intl).find(item => item.key === cardSizeKey);
 
     const w = cardSize ? cardSize.width : 100
     const h = cardSize ? cardSize.height : 100
 
-    const cardWidth = orientation && orientation == 'l' ? Math.max(h,w): Math.min(h,w);
-    const cardHeight = orientation && orientation == 'l' ? Math.min(h,w): Math.max(h,w);
+    const cardWidth = orientation && orientation == 'l' || cardSizeKey === '9" X 4"'? Math.max(h,w): Math.min(h,w);
+    const cardHeight = orientation && orientation == 'l' || cardSizeKey === '9" X 4"'? Math.min(h,w): Math.max(h,w);
 
-    const isLargeCard = cardWidth > 182 ? true : false;
+    let isLargeCard = cardWidth > 182 || cardSizeKey === '9" X 4"'? true : false;
+    if(this.state.width >= retina_width)
+    {
+      isLargeCard = false;
+    }
     
     return (
       <div className={s.form}>
@@ -290,33 +325,69 @@ class Purchase6 extends React.Component {
               <div className={s.editorIconWrapper}>
                 <EditorIcon />
               </div>
-              <div className={s.editorWrapper}>
-                {mounted && (
-                  <Editor
-                    ref={editor => this.tinymce = editor}
-                    value={this.state.content && this.state.content.replace('<!doctype html>', '')}
-                    init={{
-                      toolbar: false,
-                      menubar: false,
-                      statusbar: false,
-                      width: `${cardWidth}mm`,
-                      height: `${cardHeight}mm`,
-                      content_css: [...this.state.fontlink, '/styles/tinymce.css'],
-                      setup: function (ed) {
-                        ed.on('init', function (e) {
-                          ed.execCommand("fontName", false, Contants.FONTS[0]);
-                        });
+              <div className={s.editorPanel}>
+                <div className={s.editorWrapper}>
+                  {mounted && (
+                    <Editor
+                      ref={editor => this.tinymce = editor}
+                      value={this.state.content}
+                      init={{
+                        toolbar: false,
+                        menubar: false,
+                        statusbar: false,
+                        width: `${cardWidth-20}mm`,
+                        height: `${cardHeight-20}mm`,
+                        content_css: [...this.state.fontlink, '/styles/tinymce.css'],
+                        setup: function (ed) {
+                          ed.on('init', function (e) {
+                            ed.execCommand("fontName", false, Contants.FONTS[0]);
+                          });
+                          /*
+                          ed.on('BeforeSetContent', function (e) {
+                            //console.log('BeforeSetContent',e);
+                          });
+                          ed.on('Keydown', function(e) {
+                            this.w = e; 
+                          });
+                          ed.on('PostProcess', function(e) {
+                            if(this.w.target.clientHeight > ed.editorContainer.clientHeight)
+                            {
+                              ed.setContent(this.lastContent);
+                              ed.focus();
+                            }
+                            else{
+                              this.lastContent = e.content;
+                            }
+                          });
+                          */
+                        }
+                      }}
+                      onEditorChange={this.handleEditorChange}
+                      /*
+                      onKeyDown={
+                        (e)=>{
+                          this.clientHeight = e.target.clientHeight;
+                        }
                       }
-                    }}
-                    onEditorChange={this.handleEditorChange}
-                  />
-                )}
+                      onPreProcess={(e)=>{
+                        if(this.clientHeight !== null && this.clientHeight > e.target.editorContainer.clientHeight)
+                        {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          e.stopImmediatePropagation();
+                          return false;
+                        }
+                      }}
+                      */
+                    />
+                  )}
+                </div>
               </div>
             </div>
             <div className={isLargeCard===true ? s.editorActions_land : s.editorActions}>
               <div className={s.toolpanel}>
                 <Template templates={templates} execCommand={this.insertConent} intl={intl} />
-                <ConnectedFontFamilyPicker execCommand={this.execTinyCommand} />
+                <ConnectedFontFamilyPicker execCommand={this.execTinyCommand} intl={intl}/>
                 <FontWeightPicker execCommand={this.execTinyCommand} intl={intl} />
                 <FontSizePicker execCommand={this.execTinyCommand} />
                 <TextAlignmentPicker execCommand={this.execTinyCommand} intl={intl} />
@@ -331,11 +402,11 @@ class Purchase6 extends React.Component {
           <KeyHandler
             keyEventName={KEYPRESS}
             keyCode={13}
-            onKeyHandle={this.handleSubmit}
+            onKeyHandle={()=>this.handleSubmit(false)}
           />
           <Button
             type='primary'
-            onClick={this.handleSubmit}
+            onClick={()=>this.handleSubmit(false)}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
@@ -347,7 +418,7 @@ class Purchase6 extends React.Component {
 
 const mapState = state => ({
   cardDetails: state.purchase.cardDetails,
-  cardSize: state.purchase.cardSize,
+  cardSizeKey: state.purchase.cardSizeKey,
   loading: state.purchase.loading,
   flowIndex: state.purchase.flowIndex,
   templates: state.purchase.templates,

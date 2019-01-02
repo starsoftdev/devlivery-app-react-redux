@@ -32,5 +32,29 @@ export default defineMessages({
   requireadres: {
     id: 'addContact.requireadres',
     defaultMessage: 'Home address or Company address is required.',
+  },
+  warningRemoving: {
+    id: 'contactGroups.warningRemoving',
+    defaultMessage: 'This contact can\'t be deleted because is a recipient in one of your orders.',
+  },
+  reminderError: {
+    id: 'addContact.reminderError',
+    defaultMessage: 'Please Complete Reminder Forms.',
+  },
+  saveConfirm: {
+    id: 'addContact.saveConfirm',
+    defaultMessage: 'Do you wish save the information you\'ve edited?',
+  },
+  confirm: {
+    id: 'addContact.confirm',
+    defaultMessage: 'Confirm',
+  },
+  yes: {
+    id: 'addContact.yes',
+    defaultMessage: 'Yes',
+  },
+  no: {
+    id: 'addContact.no',
+    defaultMessage: 'No',
   }
 })

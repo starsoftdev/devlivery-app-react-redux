@@ -69,4 +69,16 @@ export default defineMessages({
     id: 'dashboard.contacts',
     defaultMessage: 'Contacts',
   },
+  msg_onegroup: {
+    id: 'contacts.msg_onegroup',
+    defaultMessage: 'please choose one group.',
+  },
+  msg_nocontacts: {
+    id: 'contacts.msg_nocontacts',
+    defaultMessage: 'The group have no contacts.',
+  },
+  msg_choosecontact: {
+    id: 'contacts.msg_choosecontact',
+    defaultMessage: 'please choose contacts.',
+  }
 })

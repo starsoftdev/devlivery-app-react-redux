@@ -11,7 +11,7 @@ import { Link, PaginationItem } from '../../components'
 import messages from './messages'
 import { ADD_CONTACT_GROUP_ROUTE, EDIT_CONTACT_GROUP_ROUTE } from '../'
 import cn from 'classnames'
-
+const pageSizeOptions = ['12', '24', '36', '48']
 class ContactGroups extends React.Component {
   componentWillUnmount() {
     this.props.clear()
@@ -72,6 +72,7 @@ class ContactGroups extends React.Component {
                   onChange={(page, pageSize) => getContactGroups({ page, pageSize })}
                   onShowSizeChange={(page, pageSize) => getContactGroups({ page, pageSize })}
                   itemRender={(current, type, el) => <PaginationItem type={type} el={el} />}
+                  pageSizeOptions={pageSizeOptions}
                 />
               </div>
             }

@@ -24,7 +24,17 @@
   min-height: 200px;
   width: 100%;
 }
-
+.itemImage_gift{
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  min-height: 200px;
+  width: 100%;
+}
+.container{
+  width:'100%';
+  text-align: center;
+}
 .orderInfo {
   display: flex;
   background-color: var(--white-color);
@@ -60,7 +70,7 @@
   font-family: var(--font-family-secondary);
   font-size: 12px;
   color: var(--muted-color);
-  margin-left: 4px;
+  margin-right: 4px;
 }
 .removeIcon {
   cursor: pointer;
@@ -91,4 +101,8 @@
 .rightIcon{
   float: right;
   margin-top: 15px;
+}
+.singleInfo{
+  width: 325px;
+  display: inline-block;
 }

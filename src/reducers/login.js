@@ -25,7 +25,6 @@ export const login = (values, redirectUrl = '/',callback) => (dispatch, getState
       password: values.password,
     },
     success: ({data}) => {
-      console.log("login:",data);
       dispatch(loginSuccess(data, redirectUrl))
       if(callback)
         callback();

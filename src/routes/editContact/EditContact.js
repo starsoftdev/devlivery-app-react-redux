@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Col, Form, Row, Modal, Popconfirm } from 'antd'
+import { Button, Col, Form, Row, Modal, Popconfirm, message } from 'antd'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './EditContact.css'
 import PlusIcon from '../../static/plus.svg'
@@ -10,6 +10,7 @@ import { ContactForm } from '../../components'
 import messages from './messages'
 import { setNextRouteName, navigateToNextRouteName } from '../../reducers/global';
 import moment from 'moment'
+import { isUndefined, isNull } from 'lodash';
 
 class EditContact extends React.Component {
   constructor(props) {
@@ -51,6 +52,33 @@ class EditContact extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.form.validateFields({ force: true }, (err, values) => {
+      let reminderError = false;
+      values.reminders && values.reminders.map(reminder => {
+        if (
+          (isUndefined(reminder.date)||reminder.date === '') &&
+          isUndefined(reminder.occasion_id) &&
+          isUndefined(reminder.recurring) &&
+          (isNull(reminder.reminder_date) ||
+          isUndefined(reminder.reminder_date))
+        ) {
+          
+        }
+        else{
+          if (
+            (isUndefined(reminder.date)||reminder.date === '') ||
+            isUndefined(reminder.occasion_id) ||
+            isUndefined(reminder.recurring) ||
+            isNull(reminder.reminder_date) ||
+            isUndefined(reminder.reminder_date)
+          ) {
+            reminderError = true;
+          }
+        }
+      });
+      if (reminderError) {
+        message.error(this.props.intl.formatMessage(messages.reminderError));
+        return false;
+      }
       if (!err && this.props.form.getFieldsError().dob == null) {
         var addresses = this.props.form.getFieldValue('addresses')
           if (addresses === null) {
@@ -83,14 +111,14 @@ class EditContact extends React.Component {
     return contact ? (
       <div>
         <Modal
-          title="Confirm"
+          title={intl.formatMessage(messages.confirm)}
           visible={this.state.visible}
           onOk={this.onOk}
           onCancel={this.onCancel}
-          okText="Yes"
-          cancelText="No"
+          okText={intl.formatMessage(messages.yes)}
+          cancelText={intl.formatMessage(messages.no)}
         >
-          <h2>Do you wish save the information you've edited?</h2>
+          <h2>{intl.formatMessage(messages.saveConfirm)}</h2>
         </Modal>
         <ContactForm initialValues={contact} form={this.props.form} header={intl.formatMessage(messages.header)} setupBirthday={setupBirthday}>
           {({
@@ -127,7 +155,11 @@ class EditContact extends React.Component {
                     </Button>
                     <Popconfirm
                       title={intl.formatMessage(messages.confirmRemoving)}
-                      onConfirm={() => removeContact(contact)}
+                      onConfirm={() => {
+                        if(contact.is_connected_to_order)
+                          message.warn(intl.formatMessage(messages.warningRemoving));
+                        else removeContact(contact)
+                      }}
                       okText={intl.formatMessage(messages.acceptRemoving)}
                     >
                       <Button type='danger' type='primary' ghost style={{ float: 'right' }}>
