@@ -23,7 +23,7 @@ class BundleDetails extends React.Component {
         <h3 className={s.cardTitle}>{bundleDetails.bundle_card.card.title}</h3>
         <p>
           <span className={s.currency}>CHF </span>
-          <span className={s.price}>{bundleDetails.bundle_card.card.price}</span>
+          <span className={s.price}>{bundleDetails.bundle_card.card.price_with_tax}</span>
           
         </p>
         {bundleDetails.bundle_gifts.map((bundleGift) =>
@@ -32,7 +32,7 @@ class BundleDetails extends React.Component {
             <h3 className={s.giftTitle}>{bundleGift.gift.title}</h3>
             <p>
               <span className={s.currency}>CHF </span>
-              <span className={s.price}>{bundleGift.gift.price}</span>
+              <span className={s.price}>{bundleGift.gift.price_with_tax}</span>
             </p>
           </React.Fragment>
         )}
