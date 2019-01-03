@@ -126,3 +126,9 @@
   margin-left: 5px;
   font-weight: bold;
 }
+.menuitem_span{
+  width: 100%;
+  word-break: break-all;
+  text-align: center;
+  padding: 0 3px;
+}

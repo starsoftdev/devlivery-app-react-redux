@@ -52,7 +52,7 @@ class Dashboard extends React.Component {
           <Menu.Item key={BUNDLES_ROUTE}>
             <Link to={BUNDLES_ROUTE}>
               <BundlesIcon/>
-              {intl.formatMessage(messages.bundles)}
+              <span className={s.menuitem_span}>{intl.formatMessage(messages.bundles)}</span>
             </Link>
           </Menu.Item>
           <Menu.SubMenu
@@ -108,7 +108,7 @@ class Dashboard extends React.Component {
               </Menu.Item>
               <Menu.Item key={GROUP_PERMISSION_ROUTE}>
                 <Link to={GROUP_PERMISSION_ROUTE}>
-                  <div>{intl.formatMessage(messages.permissionGroup)}</div>
+                  <div className={s.menuitem_span}>{intl.formatMessage(messages.permissionGroup)}</div>
                 </Link>
               </Menu.Item>
             </Menu.SubMenu>
