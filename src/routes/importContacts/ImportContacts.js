@@ -140,12 +140,22 @@ class ImportContacts extends React.Component {
                     <Col xs={24} md={12}>
                       <section>
                         {exportFromXLSX}
-                        <h1 className={s.sectionHeader}>{intl.formatMessage(messages.upload)}</h1>
-                        {csvUploadButton}
-                        {xlsUploadButton}
-                        {xlsxUploadButton}
-                        {vcfUploadButton}
                       </section>
+                    </Col>
+                  </Row>
+                  <h1 className={s.sectionHeader}>{intl.formatMessage(messages.upload)}</h1>
+                  <Row type='flex' gutter={20}>
+                    <Col xs={24} md={6}>
+                      {csvUploadButton}
+                    </Col>
+                    <Col xs={24} md={6}>
+                      {xlsUploadButton}
+                    </Col>
+                    <Col xs={24} md={6}>
+                      {xlsxUploadButton}
+                    </Col>
+                    <Col xs={24} md={6}>
+                      {vcfUploadButton}
                     </Col>
                   </Row>
                 </div>

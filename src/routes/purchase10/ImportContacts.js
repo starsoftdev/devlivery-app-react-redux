@@ -25,7 +25,7 @@ class ImportContacts extends React.Component {
     const { mappingColumns, flowIndex, intl } = this.props
 
     return mappingColumns ? (
-        <ColumnsMapping onRef={ref => (this.ref_mapping = ref)} refreshPage={this.props.refreshPage} />
+      <ColumnsMapping onRef={ref => (this.ref_mapping = ref)} refreshPage={this.props.refreshPage} />
     ) : (
         <ContactsImporting >
           {({
@@ -48,19 +48,24 @@ class ImportContacts extends React.Component {
                 <Row gutter={20} type='flex' align='center'>
                   <Col xs={24} sm={12} className={s.section}>
                     {exportGoogleContacts}
+                    {exportOutlookContacts}
+                    {exportCardContacts}
                   </Col>
                   <Col xs={24} sm={12} className={s.section}>
                     {exportFromXLSX}
                   </Col>
-                  <Col xs={24} sm={12} className={s.section}>
-                    {exportOutlookContacts}
-                    <br/>
-                    {exportCardContacts}
-                  </Col>
-                  <Col xs={24} sm={12} className={cn(s.section, s.actionsSection)}>
+                </Row>
+                <Row type='flex' gutter={20}>
+                  <Col xs={24} md={6}>
                     {csvUploadButton}
+                  </Col>
+                  <Col xs={24} md={6}>
                     {xlsUploadButton}
+                  </Col>
+                  <Col xs={24} md={6}>
                     {xlsxUploadButton}
+                  </Col>
+                  <Col xs={24} md={6}>
                     {vcfUploadButton}
                   </Col>
                 </Row>
