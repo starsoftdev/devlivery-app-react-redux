@@ -94,7 +94,7 @@ class BundleItem extends React.Component {
                 <a className={s.cardTitle} onClick={() => openBundleDetailsModal(bundle)}>{bundle.title}</a>
                 <br />
                 <span className={s.cardPriceCurrency}>CHF</span>
-                <span className={s.cardPrice}>{bundle.total}</span>
+                <span className={s.cardPrice}>{bundle.total_with_tax}</span>
               </div>
               <Button type='primary' ghost onClick={() => setBundle(bundle)}>
                 <PlusIcon />
